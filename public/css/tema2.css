@@ -103,7 +103,7 @@ table.grid tr th {
 	background: #777;
     border: 1px solid #666;
 	color: white;
-	font-weight: normal;
+	font-weight: bold;
 }
 table.grid tr td, table tr th {padding: 6px;}
 table.grid tr td {border: 1px solid #DDD;}
