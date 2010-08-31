@@ -1,0 +1,255 @@
+/*
+    Name: SPU - Sistema de Protocolo Único
+    Date: Agosto 2010
+    Description: Layout para o sistema homônimo
+    Version: 0.1
+    Author: Prefeitura Municipal de Fortaleza
+    Autor URI: http://www.fortaleza.ce.gov.br
+*/
+
+/* Imports */
+@import url("reset.css");
+@import url("forms.css");
+
+/* Float Fix */
+#menu ul:after, ul.nav:after, #section:after, dl:after, #footer:after {content:".";clear:both;display:block;overflow:hidden;visibility:hidden;height:0}
+
+/* Básico */
+body {
+	background-color: #F5F4EF;
+	color: #333333;
+    font-family: sans-serif;
+    line-height: 1.429;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+	font-size: 0.75em;
+}
+
+/* Cabeçalhos */
+h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#111;}
+h1 {font-size:3em;line-height:1;margin-bottom:0.5em;}
+h2 {font-size:2em;margin-bottom:0.75em;}
+h3 {font-size:1.5em;line-height:1;margin-bottom:1em;}
+h4 {font-size:1.2em;line-height:1.25;margin-bottom:1.25em;}
+h5 {font-size:1em;font-weight:bold;margin-bottom:1.5em;}
+h6 {font-size:1em;font-weight:bold;}
+    
+/* Links */
+a {outline: 0;}
+a img {border: 0px; text-decoration: none;}
+a:link, a:visited {
+    color: #AA0000;
+    padding: 0 1px;
+    text-decoration: underline;
+}
+a:hover, a:active {
+    background-color: #AA0000;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #333;
+}
+
+/* Forms */
+dl {margin-bottom: 2%;}
+dt {
+	width: 150px;
+	float: left;
+	clear: both;
+	text-align: right;
+	margin-right: 12px;
+	margin-top: 0.5em;
+}
+label {font-weight: normal;}
+input {
+	padding: 3px 6px;
+	font-family: monospace;
+}
+dd {float: left;}
+
+/* Tabelas */
+table {width: 100%;}
+table tr td, table tr th {padding: 6px;}
+table tr td {border-bottom: 1px solid #DDD;}
+table thead th {border-bottom: 2px solid #666;}
+table tr.alt {background: #F5F5F5;}
+    
+/* Páragrafos */
+p {margin-bottom: 1.143em;}
+* p:last-child {margin-bottom: 0;}
+
+strong, b {font-weight: bold;}
+em, i {font-style: italic;}
+
+::-moz-selection {background: #C74350; color: #fff;}
+::selection {background: #C74350; color: #fff;}
+
+/* Estrutura */
+#header, #section, #footer {margin: 1%;}
+
+/* Cabecalho */
+#header {position: relative;}
+#header h1 {
+	position: relative;
+	padding-bottom: 0.36em;
+	text-shadow: 1px 1px 1px #FFF;
+	margin-bottom: 1%;
+	background: url(../img/logoFortaleza.png) no-repeat 0% 50%;
+	padding-left: 52px;
+}
+#header h1 a {
+	text-decoration: none;
+	color: black;
+	font-size: 0.75em;
+	line-height: 36px;
+	font-weight: bold;
+}
+#header h1 a:hover {
+	background: none;
+	color: #940000;
+	text-shadow: 1px 1px 1px #FFF;
+}
+#header h1 span {
+	position: absolute;
+	font-size: 0.36em;
+	font-weight: normal;
+	clear: both;
+	bottom: 0;
+	display: block;
+}
+#usuario {
+	position: absolute;
+	top: 0;
+	right: 0;
+	line-height: 1.75em;
+}
+
+/* Menu */
+#menu ul {
+	background: #AA0000;
+	list-style: none;
+	/*float: left;*/
+    /*margin-bottom:3.5em;*/
+    max-width:100%;
+    position:relative;
+    /*width:50em;*/
+    border-bottom: 1px solid #940000;
+}
+#menu ul li {
+	cursor: pointer;
+	float: left;
+	list-style-type: none;
+	position: relative;
+	padding: 0 12px;
+}
+#menu ul li a {
+	color: #FFF;
+	cursor: default;
+	display: block;
+	float: left;
+	height: 2em;
+	line-height: 2em;
+	padding: 0 0.4em;
+	text-decoration: none;
+    text-shadow: none;
+    text-shadow: 1px 1px 1px #940000;
+    
+}
+#menu ul li a:hover {
+	background: none;
+	color: #fff;
+    text-decoration: none;
+}
+#menu ul li:hover {background: #C74350;}
+
+/* Submenu */
+#menu ul li ul {
+	cursor: default;
+	display: none;
+	height: auto;
+	position: absolute;
+	left: 0;
+	border-top: 1px solid #940000;
+}
+#menu ul li ul li {
+	padding: 0 12px;
+	clear: left;
+	background-color: #AA0000;
+	width: 12em;
+}
+#menu ul li ul li a {
+	color: #FFF;
+	cursor: pointer !important;
+	font-weight: normal;
+	position: relative !important;
+	white-space: nowrap;
+}
+
+#menu ul li ul a:hover, #menu ul li ul a:focus, #menu ul li ul a:active {color:#FFFFFF !important;}
+#menu ul li:hover ul, #menu ul li.msieFix ul {
+	display:block;
+	top:2em !important;
+	z-index:10;
+}
+#menu ul li ul li:hover {bcakground-color: #000305;}
+
+/* Conteúdo */
+#section {
+	background-color: white;
+	padding: 2%;
+	position: relative;
+}
+#section h2 {
+	margin-bottom: 6px;
+	font-weight: bold;
+}
+ul.nav {
+	background: #F5F4EF;
+	border-top: 1px solid #CCC;
+	margin-bottom: 2%;
+}
+ul.nav li {
+	padding: 0.5% 1%;
+    float: left;
+    margin-right: 1%;
+}
+
+/* Sidebar */
+#article {
+	display: block;
+	z-index: 1;
+}
+#aside {
+	width: 21%;
+	position: absolute;
+    right: 0;
+    margin: 0 2%;
+    background: #F5F4EF;
+    padding: 2%;
+}
+#article h3 {
+	background: #F5F4EF;
+	padding: 6px 12px;
+	border-top: 1px solid #CCC;
+	margin-bottom: 2%;
+}
+#section.withSidebar #article {width: 71%;}
+ul.buttons {margin-top: 24px;}
+ul.buttons li {
+	float: left;
+	margin-right: 12px;
+}
+button {padding: 3px 6px;}
+
+/* Footer */
+#footer {font-size: 0.9em;}
+#footer p {
+	float: right;
+	margin-bottom: 0;
+}
+#footer address {
+	float: left;
+	margin-right: 12px;
+}
+#footer ul, #footer ul li {float: left;}
+#footer ul li {margin: 0 12px;}
