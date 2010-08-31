@@ -1,0 +1,33 @@
+<div id="section">
+    <?php 
+    $this->breadcrumbs()->addPage('Lotações', 'lotacoes');
+    $this->breadcrumbs()->addPage((($this->objeto->getTableKeyValue()) ? 'Editar' : 'Inserir') . ' Lotação');
+    echo $this->breadcrumbs()->render(); 
+    ?>
+    
+    <ul class="nav">
+        <li><a href="<?php echo $this->simpleUrl('inserir') ?>">Inserir Lotação</a></li>
+        <li class="imprimir"><a href="#">Imprimir</a></li>
+        <li class="voltar"><a href="<?php echo $this->simpleUrl('index') ?>">Voltar</a></li>
+    </ul>
+
+    <div id="article">
+        <form action="" method="post">
+            <?php echo $this->form()->openFieldList() ?>
+            <?php echo $this->textbox('Sigla', 'sigla', $this->objeto->sigla, array('required' => true)) ?>
+            <?php echo $this->textbox('Descrição', 'descricao', $this->objeto->descricao, array('required' => true)) ?>
+            <?php echo $this->textbox('Responsável', 'responsavel', $this->objeto->responsavel) ?>
+            <?php echo $this->checkbox('Ativa', 'ativa', $this->objeto->ativa) ?>
+            <?php echo $this->checkbox('Orgao', 'orgao', $this->objeto->orgao) ?>
+            <?php 
+            echo $this->select(
+                'Lotação Pai', 'pai', $this->objeto->getAsOptions($this->objeto->getPossiveisPais()), $this->objeto->pai
+            ); 
+            ?>
+            <?php echo $this->form()->closeFieldList() ?>
+            <ul class="buttons">
+                <li><button type="submit">Salvar</button></li>
+            </ul>
+        </form>
+    </div>
+</div>

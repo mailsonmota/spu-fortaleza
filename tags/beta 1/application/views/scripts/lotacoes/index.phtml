@@ -1,0 +1,23 @@
+<div id="section">
+    <?php echo $this->breadcrumbs()->addPage('Lotações')->render() ?>
+    
+    <ul class="nav">
+        <li><a href="<?php echo $this->simpleUrl('inserir') ?>">Inserir Lotação</a></li>
+        <li class="imprimir"><a href="#">Imprimir</a></li>
+    </ul>
+
+    <div id="article">
+        <form action="" method="post">
+            <ul class="buttons grid">
+                <li class="description">Ações em massa:</li>
+                <li><button type="submit">Excluir Selecionados</button></li>
+            </ul>
+            
+            <?php 
+            $columns = array('id', 'sigla', 'descricao');
+            $grid = new DataTable($this->objeto->getDao(), array('columns' => $columns));
+            echo $grid->render() 
+            ?>
+        </form>
+    </div>
+</div>
