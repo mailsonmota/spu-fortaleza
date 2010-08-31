@@ -42,7 +42,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headLink(array('rel' => 'shortcut icon', 'href' => $baseUrl . '/favicon.ico'));
         
         // Carregar o CSS
-        $view->headLink()->appendStylesheet($baseUrl . '/css/tema2.css');
+        $view->headLink()->appendStylesheet($baseUrl . '/css/estilo.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/facebox.css');
         
         // Carregar o JS
