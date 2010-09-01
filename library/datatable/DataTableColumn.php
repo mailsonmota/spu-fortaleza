@@ -306,7 +306,7 @@ class DataTableColumn
                     break;
                 
                 case self::COLUMN_TYPE_ACTION :
-                    $html  = '<td align="center" class="colunaFixa">';
+                    $html  = '<td align=" class="colunaAcoes">';
                     $html .= '<a class="' . $this->class . '"';
                     if ($this->target) {
                         $html .= ' target="' . $this->target . '"';
