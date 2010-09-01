@@ -53,7 +53,7 @@ a:hover, a:active {
 dl {margin-bottom: 2%;}
 dt, dd {
 	float: left;
-	margin: 0.5em 0;
+	margin: 0.1em 0;
 }
 dt {
     width: 12em;
@@ -64,14 +64,13 @@ dt {
 }
 
 label {font-weight: normal;}
-input {
-    padding: 0;
+input, select, textarea {
     font-family: sans-serif;
-	padding: 3px 0;
+	padding: 0.25em 0;
 	text-indent: 3px;
 	font-size: 1em;
-	background-image: url(../img/bgStriped.jpg);
 }
+select {text-indent: 0;}
 dd {float: left;}
 label.required {font-weight: bold;}
 
@@ -85,8 +84,8 @@ ul.buttons {
 ul.buttons li {
     float: left;
     margin-right: 12px;
-    line-height: 24px;
 }
+ul.buttons li.description {padding-top: 0.70em;}
 button {
     font-family: sans-serif;
     padding: 0.5em 2em;
@@ -101,17 +100,28 @@ table.grid {
 }
 table.grid tr th {
 	background: #777;
-    border: 1px solid #666;
+    border-color: #666;
+	border-width: 1px 0;
+	border-style: solid;
 	color: white;
 	font-weight: normal;
 }
-table.grid tr td, table tr th {padding: 6px;}
-table.grid tr td {border: 1px solid #DDD;}
+table.grid tr.tableFilter th {
+	background: #888; 
+	border-color: #777;
+}
+table.grid tr.tableFilter th * {
+    margin: 0; 
+    border: 0;
+}
+table.grid tr td, table tr th {padding: 0.5em;}
+table.grid tr td {border-color: #E1E1E3; border-style: solid; border-width: 1px 0;}
 table.grid tr.odd {background: #F5F5F5;}
 table.grid tbody a {margin-right: 12px;}
-table.grid tr.tableFilter th * {margin: 0; border: 0;}
 table.grid tfoot tr td {border: 0;}
-table.grid tr.marked {background: #E6B800;}
+table.grid tr.marked td {
+	background: #FBEE99;
+}
 table.grid .colunaFixa input {
 	margin: 0 auto;
 	display: block;

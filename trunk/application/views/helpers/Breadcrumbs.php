@@ -9,7 +9,7 @@ class Zend_View_Helper_breadcrumbs extends Zend_View_Helper_Abstract
     protected $_page = array(
        array(
            'nome' => 'Início', 
-           'controller' => 'index', 
+           'controller' => '', 
            'action' => '', 
            'params' => array()
        )

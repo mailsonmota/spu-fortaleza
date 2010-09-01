@@ -19,34 +19,24 @@
             </div>
         </div>
         
-       <div id="menu">
-            <ul>
-                <li>
-                    <a href="#">Cadastros</a>
-                    <ul>
-                        <li><a href="#">Formulários</a></li>
-                        <li><a href="../assuntos/">Assuntos</a></li>
-                        <li><a href="#">Tipos de Processos</a></li>
-                        <li><a href="#">Níveis</a></li>
-                        <li><a href="#">Fluxogramas</a></li>
-                        <li><a href="#">Envolvidos</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Processos</a>
-                    <ul>
-                        <li><a href="#">Tramitação</a></li>
-                        <li><a href="#">Abertura</a></li>
-                        <li><a href="#">Apensamento</a></li>
-                        <li><a href="#">Incorporação</a></li>
-                        <li><a href="#">Consulta</a></li>
-                        <li><a href="#">Correção</a></li>
-                        <li><a href="#">Alteração</a></li>
-                        <li><a href="#">Alteração Movimento</a></li>
-                        <li><a href="#">Exclusão</a></li>
-                    </ul>
-                </li>
-            </ul>
+        <div id="menu">
+            <?php 
+            $menu = $this->mainmenu();
+            $menu->setAutoOrder(TRUE);
+            
+            $menu->addItem('Início', 'Usuário', NULL, 'index');
+            $menu->addItem('Alterar Cadastro', 'Usuário', NULL, 'index');
+            $menu->addItem('Sair', 'Usuário', NULL, 'logout');
+            
+            $menu->addItem('Assuntos', 'Cadastros', NULL, 'assuntos');
+            $menu->addItem('Formulários', 'Cadastros', NULL, 'formularios');
+            $menu->addItem('Lotações', 'Cadastros', NULL, 'lotacoes');
+            $menu->addItem('Envolvidos', 'Cadastros', NULL, 'envolvidos');
+            $menu->addItem('Tipos de Processos', 'Cadastros', NULL, 'tiposprocesso');
+            $menu->addItem('Níveis', 'Cadastros', NULL, 'niveis');
+            
+            echo $menu->render();
+            ?>
         </div>
           
         <?php echo $this->message()->render(); ?>

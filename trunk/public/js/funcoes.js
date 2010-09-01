@@ -1,8 +1,6 @@
 jQuery(document).ready(function() {
 	$('a[rel*=facebox]').facebox()
 	triggerEnterButton();
-	$("form").jqTransform();
-	//adjustCheckboxColumnGrid();
 });
 
 function triggerEnterButton() {
@@ -21,32 +19,6 @@ function triggerEnterButton() {
 }
 
 function checkedAll(id, checked) {
-    var el = document.getElementsByName(id);
-    for (var i = 0; i <el.length; i++) { 
-    	el[i].checked = checked;
-	}
-    
-    if (checked == true ) {
-        if ($('.grid tbody tr.selected').removeClass('selected')) {
-            $('.grid tbody tr').addClass('selected');
-        }
-    } else {
-        $('.grid tbody tr.selected').removeClass('selected');
-    }
-}
-
-/**
- * Increase the clickable area of the checkboxes on the grid to the column they're on.
- * @return void
- */
-function adjustCheckboxColumnGrid()
-{
-	$('.grid td.colunaFixa').click(function() {
-		var element = $(this).children('input[type=checkbox]');
-		if (element.is(':checked')) {
-			element.attr('checked', false);
-		} else {
-			element.attr('checked', true);
-		}
-	});
+    $('input[name=' + id + ']').attr('checked', checked);
+    $('.grid tbody tr').toggleClass('marked');
 }
