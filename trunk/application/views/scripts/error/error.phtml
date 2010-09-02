@@ -1,28 +1,31 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Zend Framework Default Application</title>
-</head>
-<body>
-  <h1>An error occurred</h1>
-  <h2><?php echo $this->message ?></h2>
-
-  <?php if ('development' == APPLICATION_ENV): ?>
-
-  <h3>Exception information:</h3>
-  <p>
-      <b>Message:</b> <?php echo $this->exception->getMessage() ?>
-  </p>
-
-  <h3>Stack trace:</h3>
-  <pre><?php echo $this->exception->getTraceAsString() ?>
-  </pre>
-
-  <h3>Request Parameters:</h3>
-  <pre><?php echo var_export($this->request->getParams(), true) ?>
-  </pre>
-  <?php endif ?>
-
-</body>
-</html>
+<div id="section">
+    <?php 
+    echo $this->breadcrumbs()->addPage('Desculpe, ocorreu um erro! ;/')->render();
+    
+    echo $this->pagenav()->openList(); 
+    echo $this->pagenav()->link($this->simpleUrl('inserir'), 'Inserir Lotação');
+    echo $this->pagenav()->defaultHelperLinks();
+    echo $this->pagenav()->closeList();
+    ?>
+    <div id="article">
+        <? if ('development' == APPLICATION_ENV): ?>
+        <fieldset class="collapsed">
+            <legend>Informação do erro:</legend>
+            
+            <p>
+                <b>Tipo:</b> <?= $this->message ?>
+            </p>
+            
+            <p>
+              <b>Mensagem:</b> <?= $this->exception->getMessage() ?>
+            </p>
+            
+            <h4>Ações:</h4>
+            <pre><?= $this->exception->getTraceAsString() ?></pre>
+            
+            <h4>Parâmetros:</h4>
+            <pre><? var_dump($this->request->getParams()) ?></pre>
+        </fieldset>
+        <? endif ?>
+    </div>
+</div>

@@ -133,7 +133,24 @@ abstract class BaseCrudController extends BaseController implements BaseCrudCont
      */
     public function setVariaveisFormulario()
     {
+        $this->setObjetoView();
+        $this->setIsEditView();
+        $this->setIdView();
+    }
+    
+    public function setObjetoView()
+    {
         $this->view->objeto = $this->objeto;
+    }
+    
+    public function setIsEditView()
+    {
+        $this->view->isEdit = ($this->objeto->getTableKeyValue()) ? true : false;
+    }
+    
+    public function setIdView()
+    {
+        $this->view->id = $this->objeto->getTableKeyValue();
     }
     
     /**

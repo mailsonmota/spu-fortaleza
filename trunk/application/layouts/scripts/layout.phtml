@@ -4,8 +4,8 @@
         <meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8" />
         <?php echo $this->headTitle() ?>
         <?php echo $this->headLink() ?>
-        <?php echo $this->headScript() ?>
     </head>
+    <?php flush(); ?>
     <body>
         <div id="header">
             <h1><a href="#">
@@ -56,5 +56,6 @@
                 <li><a href="#">Manual do Usuário</a></li>
             </ul>
         </div>
+        <?php echo $this->headScript() ?>
     </body>
 </html>

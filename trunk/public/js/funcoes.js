@@ -1,4 +1,5 @@
 jQuery(document).ready(function() {
+	createUncheckedSelector();
 	$('a[rel*=facebox]').facebox()
 	triggerEnterButton();
 });
@@ -19,6 +20,15 @@ function triggerEnterButton() {
 }
 
 function checkedAll(id, checked) {
-    $('input[name=' + id + ']').attr('checked', checked);
-    $('.grid tbody tr').toggleClass('marked');
+	var selector = (checked == true) ? ':unchecked' : ':checked';
+	$('input[name=' + id + ']' + selector).click();
+}
+
+function createUncheckedSelector()
+{
+	jQuery.extend(jQuery.expr[':'], {
+		unchecked: function(element) {
+			return ('checkbox' === element.type || 'radio' === element.type) && !element.checked;
+		}
+	})
 }

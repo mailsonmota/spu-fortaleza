@@ -36,8 +36,14 @@ abstract class BaseCrudEntity extends Zend_Db_Table_Row_Abstract implements Base
             parent::__construct($data);
         } else {
             parent::__construct($config);
-        } 
+        }
+        
+        if (!$this->getTableKeyValue()) {
+            $this->setDefaultValues();
+        }
     }
+    
+    protected function setDefaultValues() {}
     
     public function getData()
     {

@@ -17,6 +17,22 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Loader::loadClass('BaseDao', '../library/base/models');
         
         Zend_Loader::loadClass('DataTable', '../library/datatable');
+        
+        Zend_Loader::loadClass('ErrorPlugin');
+    }
+    
+    protected function _initControllers(array $options = array())
+    {
+        $this->bootstrap('FrontController'); 
+        $this->bootstrap('db');
+        $front = $this->getResource('FrontController');
+        
+        // Timezone
+        date_default_timezone_set('America/Sao_Paulo');
+        setlocale(LC_TIME, 'pt_BR.UTF-8');
+        
+        $front->registerPlugin(new ErrorPlugin());
+        $front->throwExceptions(false);
     }
     
     protected function _initDoctype() 
@@ -42,6 +58,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headLink(array('rel' => 'shortcut icon', 'href' => $baseUrl . '/favicon.ico'));
         
         // Carregar o CSS
+        $view->headLink()->appendStylesheet($baseUrl . '/css/reset.css');
+        $view->headLink()->appendStylesheet($baseUrl . '/css/forms.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/estilo.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/facebox.css');
         
