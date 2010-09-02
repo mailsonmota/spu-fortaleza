@@ -188,7 +188,6 @@ class DataTableColumn
                             return '<th>
                                 <input 
                                     type="text" 
-                                    style="width:99%" 
                                     name="' . $filterName . '" 
                                     id="' . $filterName . '" 
                                     value="' . $valueFilter . '" 

@@ -64,15 +64,24 @@ class Zend_View_Helper_buttonlist extends Zend_View_Helper_Abstract
     
     protected function getConfirmation()
     {
+        $html = '';
         if (isset($this->_buttonOptions['confirmation'])) {
+            $textoConfirmacao = '';
             if ($this->_buttonOptions['confirmation'] === true) {
                 $textoConfirmacao = 'Tem certeza que deseja realizar esta ação?';
             } else {
                 $textoConfirmacao = $this->_buttonOptions['confirmation'];
             }
+            $html = "onClick=\"return confirm('$textoConfirmacao');\"";
         }
         
-        $html = "onClick=\"return confirm('$textoConfirmacao');\"";
+        return $html;
+    }
+    
+    public function resetbutton()
+    {
+        $html  = "";
+        $html .= "<li><button type=\"reset\">Limpar</button></li>";
         
         return $html;
     }

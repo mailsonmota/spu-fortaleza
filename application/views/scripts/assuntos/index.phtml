@@ -1,9 +1,9 @@
 <div id="section">
-    <?php echo $this->breadcrumbs()->addPage('Lotações')->render() ?>
+    <?php echo $this->breadcrumbs()->addPage('Assuntos')->render() ?>
     
     <?php 
     echo $this->pagenav()->openList(); 
-    echo $this->pagenav()->link($this->simpleUrl('inserir'), 'Inserir Lotação');
+    echo $this->pagenav()->link($this->simpleUrl('inserir'), 'Inserir Assunto');
     echo $this->pagenav()->defaultHelperLinks();
     echo $this->pagenav()->closeList();
     ?>
@@ -16,9 +16,9 @@
             echo $this->buttonlist()->button('Excluir Selecionados', null, array('confirmation' => true));
             echo $this->buttonlist()->close(); 
             
-            $columns = array('id', 'sigla', 'descricao');
-            $grid = new DataTable($this->objeto->getDao(), array('columns' => $columns));
-            echo $grid->render() 
+            $columns = array('id', 'nome');
+            $grid = new DataTable($this->objeto, array('method' => 'listar', 'columns' => $columns));
+            echo $grid->render();
             ?>
         </form>
     </div>

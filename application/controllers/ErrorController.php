@@ -1,10 +1,10 @@
 <?php
-
 class ErrorController extends Zend_Controller_Action
 {
-
     public function errorAction()
     {
+        $this->_helper->layout->enableLayout();
+        
         $errors = $this->_getParam('error_handler');
         
         switch ($errors->type) { 
@@ -26,6 +26,14 @@ class ErrorController extends Zend_Controller_Action
         $this->view->request   = $errors->request;
     }
 
+    public function unauthorizedAction()
+    {
+        $this->_helper->layout->enableLayout();
+        $this->renderScript('error/unauthorized.phtml');
+    }
 
+    public function norouteAction()
+    {
+        
+    }
 }
-

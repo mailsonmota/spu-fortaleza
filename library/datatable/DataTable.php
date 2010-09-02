@@ -546,7 +546,7 @@ class DataTable
     
     protected function getModelFetchMethod()
     {
-        return (isset($this->_options['metodo'])) ? $this->_options['metodo'] : 'fetchAll';
+        return (isset($this->_options['method'])) ? $this->_options['method'] : 'fetchAll';
     }
     
     public function addColumnsData($arrayColumnsName)

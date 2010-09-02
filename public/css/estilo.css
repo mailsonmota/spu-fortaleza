@@ -7,12 +7,8 @@
     Autor URI: http://www.fortaleza.ce.gov.br
 */
 
-/* Imports */
-@import url("reset.css");
-@import url("forms.css");
-
 /* Float Fix */
-#menu ul:after, ul.nav:after, #section:after, dl:after, #footer:after, ul.buttons:after, ul.tabs:after {content:".";clear:both;display:block;overflow:hidden;visibility:hidden;height:0}
+#menu ul:after, .nav:after, #section:after, dl:after, #footer:after, .buttons:after, .tabs:after {content:".";clear:both;display:block;overflow:hidden;visibility:hidden;height:0}
 
 /* Básico */
 body {
@@ -38,23 +34,12 @@ h6 {font-size:1em;font-weight:bold;}
 /* Links */
 a {outline: 0;}
 a img {border: 0px; text-decoration: none;}
-a:link, a:visited {
-    color: #AA0000;
-    padding: 0 1px;
-    text-decoration: underline;
-}
-a:hover, a:active {
-    background-color: #AA0000;
-    color: #fff;
-    text-decoration: none;
-}
+a:link, a:visited {color: #AA0000;padding: 0 1px;text-decoration: underline;}
+a:hover, a:active {background-color: #AA0000;color: #fff;text-decoration: none;}
 
 /* Forms */
 dl {margin-bottom: 2%;}
-dt, dd {
-	float: left;
-	margin: 0.1em 0;
-}
+dt, dd {float: left;margin: 0.1em 0;}
 dt {
     width: 12em;
     clear: both;
@@ -62,43 +47,24 @@ dt {
     padding-top: 0.75em;
 	margin-right: 1em;
 }
-
 label {font-weight: normal;}
-input, select, textarea {
-    font-family: sans-serif;
-	padding: 0.25em 0;
-	text-indent: 3px;
-	font-size: 1em;
-}
+input, select, textarea {font-family: sans-serif;padding: 0.25em 0;text-indent: 3px;font-size: 1em;}
+.middleText {width: 30em;}
+.largeText {width: 50em;}
 select {text-indent: 0;}
 dd {float: left;}
-label.required {font-weight: bold;}
+.required {font-weight: bold;}
 
 /* Botões */
-ul.buttons {
-    border-top: 1px solid #DDD;
-    padding: 1%;
-    margin: 1% 0;
-    background: #FAFAFA;
-}
-ul.buttons li {
-    float: left;
-    margin-right: 12px;
-}
-ul.buttons li.description {padding-top: 0.70em;}
-button {
-    font-family: sans-serif;
-    padding: 0.5em 2em;
-    font-size: 1em;
-}
-ul.buttons.grid {margin-bottom: 0;}
+.buttons {border-top: 1px solid #DDD;padding: 1%;margin: 1% 0;background: #FAFAFA;}
+.buttons li {float: left;margin-right: 12px;}
+.buttons .description {padding-top: 0.70em;}
+.buttons.grid {margin-bottom: 0;}
+button {font-family: sans-serif;padding: 0.5em 2em;font-size: 1em;}
+
 /* Tabelas */
-table.grid {
-	width: 100%;
-	margin-top: 1%;
-	border-collapse:collapse;
-}
-table.grid tr th {
+table.grid {width: 100%;margin-top: 1%;border-collapse:collapse;}
+.grid tr th {
 	background: #777;
     border-color: #666;
 	border-width: 1px 0;
@@ -106,29 +72,18 @@ table.grid tr th {
 	color: white;
 	font-weight: normal;
 }
-table.grid tr.tableFilter th {
-	background: #888; 
-	border-color: #777;
-}
-table.grid tr.tableFilter th * {
-    margin: 0; 
-    border: 0;
-}
-table.grid tr td, table tr th {padding: 0.5em;}
-table.grid tr td {border-color: #E1E1E3; border-style: solid; border-width: 1px 0;}
-table.grid tr.odd {background: #F5F5F5;}
-table.grid tbody a {margin-right: 12px;}
-table.grid tfoot tr td {border: 0;}
-table.grid tr.marked td {
-	background: #FBEE99;
-}
-table.grid .colunaFixa input {
-	margin: 0 auto;
-	display: block;
-}
+.grid .tableFilter th {background: #888;border-color: #777;}
+.grid .tableFilter th * {margin: 0;border: 0;}
+.grid tr td, .grid tr th {padding: 0.5em;}
+.grid tr td {border-color: #E1E1E3; border-style: solid; border-width: 1px 0;}
+.grid .odd {background: #F5F5F5;}
+.grid tbody a {margin-right: 12px;}
+.grid tfoot tr td {border: 0;}
+.grid .marked td {background: #FBEE99;}
+.grid .colunaFixa input {margin: 0 auto;display: block;}
 
 /* Botão Pesquisar */
-button.pesquisar {display: none}
+.pesquisar {display: none}
 
 /* Páragrafos */
 p {margin-bottom: 1.143em;}
@@ -167,11 +122,7 @@ em, i {font-style: italic;}
     line-height: 36px;
     font-weight: bold;
 }
-#header h1 a:hover {
-    background: none;
-    text-shadow: 1px 1px 1px #000;
-    text-decoration: underline;
-}
+#header h1 a:hover {background: none;text-shadow: 1px 1px 1px #000;text-decoration: underline;}
 #header h1 span {
     position: absolute;
     font-size: 0.4em;
@@ -194,11 +145,8 @@ em, i {font-style: italic;}
 #menu ul {
     background: url(../img/bg_amarelo.png) repeat 0% 50% #E6B800;
     list-style: none;
-    /*float: left;*/
-    /*margin-bottom:3.5em;*/
     max-width:100%;
     position:relative;
-    /*width:50em;*/
     padding: 0 1%;
     border-bottom: 1px solid #c19900;
     border-top: 1px solid #e6ce74;    
@@ -221,11 +169,7 @@ em, i {font-style: italic;}
     text-decoration: none;
     text-shadow: -1px 1px 0 #FFCD00;    
 }
-#menu ul li a:hover {
-    background: none;
-    text-decoration: none;
-    text-shadow: -1px 1px 0 #ffde57;
-}
+#menu ul li a:hover {background: none;text-decoration: none;text-shadow: -1px 1px 0 #ffde57;}
 #menu ul li:hover {background: #FFCC66;}
 
 /* Submenu */
@@ -252,43 +196,22 @@ em, i {font-style: italic;}
     width: 100%;
     text-shadow: -1px 1px 0 #ffde57;    
 }
-
-#menu ul li ul a:hover, #menu ul li ul a:focus, #menu ul li ul a:active {
-	text-shadow: -1px 1px 0 #ffde57;    
-}
-#menu ul li:hover ul, #menu ul li.msieFix ul {
-    display:block;
-    top:2em !important;
-    z-index:10;
-}
+#menu ul li ul a:hover, #menu ul li ul a:focus, #menu ul li ul a:active {text-shadow: -1px 1px 0 #ffde57;}
+#menu ul li:hover ul, #menu ul li.msieFix ul {display:block;top:2em !important;z-index:10;}
 #menu ul li ul li:hover {background-color: #FFCC66;}
 
 /* Conteúdo */
-#section {
-    background: url(../img/degrade.jpg) repeat-x 0% 0% white;
-    padding: 2%;
-    position: relative;
-}
-#section h2 {
-    margin-bottom: 6px;
-}
-ul.nav {
-    background: #F5F4EF;
-    border-top: 1px solid #AAA;
-    margin-bottom: 2%;
-}
-ul.nav li {
-    padding: 0.5% 1%;
-    float: left;
-    margin-right: 1%;
-}
-ul.nav li.voltar, ul.nav li.imprimir {float: right;}
+#section {background: url(../img/degrade.jpg) repeat-x 0% 0% white;padding: 2%;position: relative;}
+#section h2 {margin-bottom: 6px;}
+.nav {background: #F5F4EF;border-top: 1px solid #AAA;margin-bottom: 2%;}
+.nav li {padding: 1em 1%;float: left;margin-right: 1%;}
+.nav .back, .nav .print, .nav .help {float: right;}
+.nav .print {background: url(../img/icons/printer.png) no-repeat 0% 50%; text-indent: 10px;}
+.nav .help {background: url(../img/icons/help.png) no-repeat 0% 50%; text-indent: 10px;}
 
 /* Abas */
-ul.tabs {
-    list-style-type: none;
-}
-ul.tabs li {
+.tabs {list-style-type: none;}
+.tabs li {
     display: block;
     float: left;
     line-height: 32px;
@@ -304,24 +227,15 @@ ul.tabs li {
     border-radius: 6px 6px 0 0;
     z-index: 0;
 }
-ul.tabs li.active {
-    background: #F5F4EF !important;
-	border-bottom-color: #F5F4FF;
-}
-ul.tabs li.active a {
-    text-decoration: none;
-    color: black;
-}
-ul.tabs li.active a:hover {background: none;}
+.tabs li.active {background: #F5F4EF !important;border-bottom-color: #F5F4FF;}
+.tabs li.active a {text-decoration: none;color: black;}
+.tabs .active a:hover {background: none;}
 
 /* Mensagem */
 div#message {margin: 2% 2% 0}
 
 /* Sidebar */
-#article {
-    display: block;
-    z-index: 1;
-}
+#article {display: block;z-index: 1;}
 #aside {
     width: 23%;
     float: left;
@@ -337,23 +251,11 @@ div#message {margin: 2% 2% 0}
     border-bottom: none;
     margin-bottom: 2%;
 }
-#section.withSidebar #article {
-	width: 71%;
-    float: left;
-}
+#section.withSidebar #article {width: 71%;float: left;}
 
 /* Footer */
-#footer {
-	background: url(../img/bgRodape.gif) repeat-x 0% 0%;
-	font-size: 1em;
-}
-#footer p {
-    float: right;
-    margin-bottom: 0;
-}
-#footer address {
-    float: left;
-    margin-right: 12px;
-}
+#footer {background: url(../img/bgRodape.gif) repeat-x 0% 0%;font-size: 1em;}
+#footer p {float: right;margin-bottom: 0;}
+#footer address {float: left;margin-right: 12px;}
 #footer ul, #footer ul li {float: left;}
 #footer ul li {margin: 0 12px;}

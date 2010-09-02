@@ -4,8 +4,15 @@ class Lotacao extends BaseCrudEntity
 {
     protected $_dao = 'LotacaoDao';
     
+    protected function setDefaultValues()
+    {
+        $this->setField('ativa', true);
+        $this->setField('orgao', false);
+    }
+    
     public function getPai()
     {
+        return new Lotacao(null, $this->getField('pai'));
     }
     
     public function getPossiveisPais()
