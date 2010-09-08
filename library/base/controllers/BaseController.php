@@ -4,7 +4,7 @@
  * @author bruno
  * @package SGC
  */
-Loader::loadEnumeration('Mensagem.php');
+Loader::loadEnumeration('Mensagem');
 abstract class BaseController extends Zend_Controller_Action
 {
     public function getController()
@@ -22,38 +22,51 @@ abstract class BaseController extends Zend_Controller_Action
      * @param $texto
      * @param $tipo
      */
-    public function setMessage($texto, $tipo)
+    public function setMessageForTheView($texto, $tipo = 'info')
     {
         $this->view->message()->setTexto($texto);
         $this->view->message()->setTipo($tipo);
     }
     
+    public function setMessage($texto)
+    {
+        $this->_helper->flashMessenger($texto);
+    }
+    
+    public function setSuccessMessage($texto)
+    {
+        $this->_helper->flashMessenger(array('success' => $texto));
+    }
+    
     public function setErrorMessage($texto) 
     {
-        $this->view->message()->setTextoLiteral($texto);
-        $this->view->message()->setTipo('erro');
-    }
-    
-    public function setInfoMessage($texto)
-    {
-        $this->view->message()->setTextoLiteral($texto);
-        $this->view->message()->setTipo('info');
-    }
-    
-    public function preDispatch()
-    {
-        if (!$this->isAuthorized()) {
-            $request = Zend_Controller_Front::getInstance()->getRequest();
-            $request->setControllerName('error');
-            $request->setActionName('unauthorized');
-            $request->setDispatched(false);
-        }
+        $this->_helper->flashMessenger(array('error' => $texto));
     }
     
     public function init()
     {
         $this->view->controller = $this->getController();
+        $identity = AuthPlugin::getIdentity();
+        $this->view->user = $identity['user'];
         
+        $this->setMessageFromFlashMessenger();
+        $this->setMessageFromUrl();
+        
+        parent::init();
+    }
+    
+    private function setMessageFromFlashMessenger()
+    {
+        if ($this->_helper->flashMessenger->getMessages()) {
+            $messages = $this->_helper->flashMessenger->getMessages();
+            $message = $messages[0];
+            $type = key($message);
+            $this->setMessageForTheView($message[$type], $type);
+        }
+    }
+    
+    private function setMessageFromUrl()
+    {
         if ($this->getRequest()->getParam('method')) {
             // Parametro da URL
             $param = strtoupper($this->getRequest()->getParam('method'));
@@ -62,39 +75,7 @@ abstract class BaseController extends Zend_Controller_Action
             $constante = constant('Mensagem::' . $param);
             $mensagem  = ($constante) ? $constante : $param;
             
-            $this->setMessage($mensagem, 'success');
+            $this->setMessageForTheView($mensagem, 'success');
         }
-        
-        parent::init();
-    }
-    
-    public function isAuthorized()
-    {
-        $authPlugin = Zend_Controller_Front::getInstance()->getPlugin('AuthPlugin');
-        
-        $isAuthorized = TRUE;
-        $operacaoGrupo = NULL;
-        
-        if (isset($this->resources)) {
-            $operador = new Entity_Operador();
-            if (!is_array($this->resources)) {
-                if (!$authPlugin->isAllowed($this->resources)) {
-                    $operacaoid = $this->resources;
-                    $isAuthorized = FALSE;
-                }
-            } else {
-                foreach ($this->resources as $resource) {
-                    if (!$authPlugin->isAllowed($resource)) {
-                        $operacaoid = $resource;
-                        $isAuthorized = FALSE;
-                    }
-                }
-            }
-            if (!$isAuthorized) {
-                return FALSE;
-            }
-        }
-        
-        return TRUE;
     }
 }

@@ -1,11 +1,7 @@
 <?php
-class IndexController extends Zend_Controller_Action
+Loader::loadAlfrescoObject('Usuario');
+class IndexController extends BaseController
 {
-    public function init()
-    {
-        /* Initialize action controller here */
-    }
-
     public function indexAction()
     {
     }

@@ -9,7 +9,7 @@
  */
 class Zend_View_Helper_textbox extends Zend_View_Helper_form
 {
-    public function textbox($label, $name, $value, array $options = array())
+    public function textbox($label, $name, $value = null, array $options = array())
     {
         $this->_name = $name;
         $this->_options = $options;

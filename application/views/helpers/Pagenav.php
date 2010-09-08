@@ -29,6 +29,12 @@ class Zend_View_Helper_pagenav extends Zend_View_Helper_Abstract
         return $html;
     }
     
+    public function addLink($url, $name)
+    {
+        $html = "<li class=\"insert\"><a href=\"$url\">$name</a></li>";
+        return $html;
+    }
+    
     public function printLink()
     {
         $html = '<li class="print"><a href="#" onClick="window.print();">Imprimir</a>';

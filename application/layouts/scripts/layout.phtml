@@ -14,7 +14,9 @@
             </h1>
             
             <div id="usuario">
-                Bem-vindo, <strong>Administrador</strong> | <a href="#">Cadastro</a> | <a href="#">Sair</a><br/>
+                Bem-vindo, <strong><?php echo $this->user->getDisplayName(); ?></strong> | 
+                <a href="<?php echo $this->simpleUrl('cadastro', 'usuario') ?>">Cadastro</a> | 
+                <a href="<?php echo $this->simpleUrl('logout', 'auth') ?>">Sair</a><br/>
                 Secretaria Municipal de Saúde
             </div>
         </div>
@@ -26,7 +28,7 @@
             
             $menu->addItem('Início', 'Usuário', NULL, 'index');
             $menu->addItem('Alterar Cadastro', 'Usuário', NULL, 'index');
-            $menu->addItem('Sair', 'Usuário', NULL, 'logout');
+            $menu->addItem('Sair', 'Usuário', NULL, 'auth/logout');
             
             $menu->addItem('Assuntos', 'Cadastros', NULL, 'assuntos');
             $menu->addItem('Formulários', 'Cadastros', NULL, 'formularios');
