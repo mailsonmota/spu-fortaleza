@@ -982,6 +982,9 @@ class Zend_Soap_Client
      */
     public function _doRequest(Zend_Soap_Client_Common $client, $request, $location, $action, $version, $one_way = null)
     {
+        echo '<pre>';
+        var_dump('Request: ' . $request);
+        echo '</pre>';
         // Perform request as is
         if ($one_way == null) {
             return call_user_func(array($client,'SoapClient::__doRequest'), $request, $location, $action, $version);

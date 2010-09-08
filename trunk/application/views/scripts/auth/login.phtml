@@ -1,0 +1,17 @@
+<div id="section">
+<?php print_r($this->messages) ?>
+    <div id="login">
+        <form action="<?php echo $this->simpleUrl('authorize'); ?>" method="post">
+            <?php 
+            echo $this->form()->openFieldList();
+            echo $this->textbox('Usuário', 'username');
+            echo $this->textbox('Senha', 'password');
+            echo $this->form()->closeFieldList();
+            
+            echo $this->buttonlist()->open();
+            echo $this->buttonlist()->button('Entrar');
+            echo $this->buttonlist()->close(); 
+            ?>
+        </form>
+    </div>
+</div>

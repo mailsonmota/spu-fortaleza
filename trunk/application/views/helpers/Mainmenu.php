@@ -37,9 +37,11 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
     
     public function orderItems()
     {
-        function compareItems($itemA, $itemB)
-        {
-            return strnatcasecmp($itemA['name'], $itemB['name']);
+        if (!function_exists('compareItems')) {
+            function compareItems($itemA, $itemB)
+            {
+                return strnatcasecmp($itemA['name'], $itemB['name']);
+            }
         }
         
         foreach ($this->_items as $key=>$value) {

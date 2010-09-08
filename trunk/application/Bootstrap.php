@@ -19,6 +19,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Loader::loadClass('DataTable', '../library/datatable');
         
         Zend_Loader::loadClass('ErrorPlugin');
+        
+        Zend_Loader::loadClass('AuthPlugin');
+        Zend_Loader::loadClass('SpuAuthAdapter');
     }
     
     protected function _initControllers(array $options = array())
@@ -33,6 +36,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
         $front->registerPlugin(new ErrorPlugin());
         $front->throwExceptions(false);
+        
+        $auth = Zend_Auth::getInstance();
+        $front->setParam('auth', $auth);
+        $front->registerPlugin(new AuthPlugin($auth));
     }
     
     protected function _initDoctype() 
