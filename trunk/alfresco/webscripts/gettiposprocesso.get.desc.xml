@@ -1,0 +1,8 @@
+<webscript>
+<shortname>Get Tipos de Processo</shortname>
+<description>Retorna os Tipos de Processo do SPU</description>
+<url>/getTiposProcesso</url>
+<authentication>user</authentication>
+<transaction>required</transaction>
+</webscript>
+
