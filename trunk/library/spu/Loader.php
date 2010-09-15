@@ -16,7 +16,7 @@ class Loader
     
     public static function loadAlfrescoApiClass($classFileName)
     {
-        Zend_Loader::loadClass($classFileName, self::MAIN_SERVICES_FOLDER . '/Alfresco/API/');
+        Zend_Loader::loadClass($classFileName, self::MAIN_SERVICES_FOLDER . '/API/');
     }
     
     public static function loadAlfrescoObject($classFileName)
