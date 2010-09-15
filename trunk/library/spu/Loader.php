@@ -14,6 +14,11 @@ class Loader
         Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/enumerations/');
     }
     
+    public static function loadAlfrescoApiClass($classFileName)
+    {
+        Zend_Loader::loadClass($classFileName, self::MAIN_SERVICES_FOLDER . '/Alfresco/API/');
+    }
+    
     public static function loadAlfrescoObject($classFileName)
     {
         Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/alfresco/');
