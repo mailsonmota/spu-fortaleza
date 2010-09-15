@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Definition of new Model -->
+<model name="spu:ModelProcesso" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+	<!-- Imports are required to allow references to definitions in other models -->
+	<imports>
+		<!-- Import Alfresco Dictionary Definitions -->
+		<import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />
+		<!-- Import Alfresco Content Domain Model Definitions -->
+		<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+	</imports>
+
+	<!-- Introduction of new namespaces defined by this model -->
+	<namespaces>
+		<namespace uri="extension.spu" prefix="spu" />
+	</namespaces>
+
+	<types>
+		<!-- Tipo de Processo -->
+		<type name="spu:TipoProcesso">
+			<title>Tipo de Processo</title>
+			<parent>cm:folder</parent>
+			<properties>
+				<property name="spu:Simples">
+					<title>Simples?</title>
+				   	<type>d:boolean</type>
+		   		</property>
+				<property name="spu:CategoriaPaiDosAssuntos">
+					<title>Categoria Pai dos Assuntos</title>
+				   	<type>d:text</type>
+					<mandatory>true</mandatory>
+		   		</property>
+			</properties>
+		</type>
+		<!-- Processo -->
+		<type name="spu:Processo">
+			<title>Processo</title>
+			<parent>cm:folder</parent>
+			<properties>
+				<property name="spu:Data">
+				   	<title>Data</title>
+				   	<type>d:datetime</type>
+                    <mandatory>true</mandatory>
+		   		</property>
+		    	<property name="spu:Observacao">
+			 	   	<title>Observacao</title>
+		       		<type>d:text</type>
+			    </property>
+				<property name="spu:NumeroOrigem">
+				   	<title>Numero de Origem</title>
+				   	<type>d:text</type>
+                    <mandatory>true</mandatory>
+		    	</property>
+				<property name="spu:DataPrazo">
+				   	<title>Data de Prazo</title>
+		           	<type>d:date</type>
+		   		</property>				
+				<property name="spu:Manifestante">
+				   	<title>Manifestante</title>
+				   	<type>d:text</type>
+                    <mandatory>true</mandatory>
+		    	</property>
+				<property name="spu:Corpo">
+				   	<title>Corpo</title>
+				   	<type>d:text</type>
+                    <mandatory>true</mandatory>
+		    	</property>
+                <property name="spu:Prioridade">
+					<title>Prioridade</title>
+					<type>d:text</type>
+					<mandatory>true</mandatory>
+					<constraints>
+						<constraint type="LIST">
+							<parameter name="allowedValues">
+								<list>
+									<value>Ordinario (Normal)</value>
+									<value>Prioritario</value>
+									<value>Urgente</value>
+								</list>
+							</parameter>
+							<parameter name="caseSensitive">
+								<value>true</value>
+							</parameter>
+						</constraint>
+					</constraints>
+				</property>
+			</properties>
+			<associations>
+				<association name="spu:Tipo">
+					<target>
+						<class>spu:TipoProcesso</class>
+						<mandatory>false</mandatory>
+						<many>false</many>
+					</target>
+				</association>
+				<association name="spu:Assunto">
+					<target>
+						<class>cm:category</class>
+						<mandatory>false</mandatory>
+						<many>false</many>
+					</target>
+				</association>
+			</associations>
+		</type>
+		<!-- Formulario -->
+		<type name="spu:Formulario">
+			<title>Formulario de Processo</title>
+			<parent>cm:content</parent>
+		</type>
+		<!-- Formulario -->
+		<type name="spu:RespostasFormulario">
+			<title>Respostas de Formulario de Processo</title>
+			<parent>cm:content</parent>
+		</type>
+		<!-- Protocolo - Pasta de Entrada/Saida/Arquivo do SPU -->
+		<type name="spu:Protocolo">
+			<title>Protocolo</title>
+			<parent>cm:folder</parent>
+			<properties>
+				<property name="spu:Orgao">
+				   	<title>Orgao</title>
+				   	<type>d:text</type>
+		            <mandatory>false</mandatory>
+				</property>
+				<property name="spu:Lotacao">
+				   	<title>Lotacao</title>
+				   	<type>d:text</type>
+		            <mandatory>true</mandatory>
+				</property>
+			</properties>
+		</type>
+		<!-- Caixa de Entrada -->
+		<type name="spu:CaixaEntrada">
+			<title>Caixa de Entrada de Processos</title>
+			<parent>cm:folder</parent>
+		</type>
+		<!-- Caixa de Saida -->
+		<type name="spu:CaixaSaida">
+			<title>Caixa de Saida de Processos</title>
+			<parent>cm:folder</parent>
+		</type>
+	</types>
+</model>

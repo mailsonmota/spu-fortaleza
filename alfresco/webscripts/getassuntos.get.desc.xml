@@ -1,0 +1,12 @@
+<webscript>
+
+<shortname>Lista os Assuntos do SPU</shortname>
+<description>Lista todos os assuntos do sistema de protocolo unico</description>
+
+<url>/getAssuntos</url>
+
+<format default="html">extension</format>
+<authentication>guest</authentication>
+<transaction>required</transaction>
+
+</webscript>
