@@ -3,7 +3,6 @@
     
     <?php 
     echo $this->pagenav()->openList(); 
-    echo $this->pagenav()->addLink($this->simpleUrl('inserir'), 'Inserir Assunto');
     echo $this->pagenav()->defaultHelperLinks();
     echo $this->pagenav()->closeList();
     ?>
@@ -11,11 +10,6 @@
     <div id="article">
         <form action="" method="post">
             <?php 
-            echo $this->buttonlist(array('class' => 'grid', 'reset' => false))->open();
-            echo $this->buttonlist()->description('Ações em massa:');
-            echo $this->buttonlist()->button('Excluir Selecionados', null, array('confirmation' => true));
-            echo $this->buttonlist()->close(); 
-            
             $headerColumns = array('Nome', 'Categoria');
             $columns = array('nome', 'categoria');
             
