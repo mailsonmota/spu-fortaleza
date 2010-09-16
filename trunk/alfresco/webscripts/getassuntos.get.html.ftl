@@ -1,10 +1,11 @@
 {
+"assuntos":[{
 <#compress>
 <#list companyhome.childrenByLuceneSearch["PATH:\"/cm:generalclassifiable/cm:Assuntos\""] as child>
 <#list classification.getRootCategories("cm:generalclassifiable") as rootnode>
 <#if rootnode.nodeRef = child.nodeRef>
 <#list rootnode.immediateSubCategories  as all>
-“${all.properties.name}”:[
+"${all.properties.name}":[
 <#list all.subCategories?sort_by("name") as mylist>
 {
 "noderef":"${mylist.nodeRef}",
@@ -16,4 +17,5 @@
 </#list>
 </#list>
 </#compress>
+}]
 }

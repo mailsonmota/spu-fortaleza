@@ -16,8 +16,10 @@
             echo $this->buttonlist()->button('Excluir Selecionados', null, array('confirmation' => true));
             echo $this->buttonlist()->close(); 
             
-            $columns = array('id', 'nome');
-            $grid = new DataTable($this->objeto, array('method' => 'listar', 'columns' => $columns));
+            $headerColumns = array('Nome', 'Categoria');
+            $columns = array('nome', 'categoria');
+            
+            $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
             echo $grid->render();
             ?>
         </form>

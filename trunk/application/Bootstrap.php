@@ -17,6 +17,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Loader::loadClass('BaseDao', '../library/base/models');
         
         Zend_Loader::loadClass('DataTable', '../library/datatable');
+        Zend_Loader::loadClass('SimpleDataTable', '../library/simpledatatable');
         
         Zend_Loader::loadClass('ErrorPlugin');
         
@@ -34,8 +35,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         date_default_timezone_set('America/Sao_Paulo');
         setlocale(LC_TIME, 'pt_BR.UTF-8');
         
-        $front->registerPlugin(new ErrorPlugin());
-        $front->throwExceptions(false);
+        //$front->registerPlugin(new ErrorPlugin());
+        //$front->throwExceptions(false);
         
         $auth = Zend_Auth::getInstance();
         $front->setParam('auth', $auth);
