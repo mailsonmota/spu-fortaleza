@@ -5,6 +5,11 @@ class BaseAlfrescoEntity
     protected $_ticket;
     protected $_repository;
     
+    public function __get($property) {
+        $methodName = 'get' . ucwords($property);
+        return $this->$methodName();
+    }
+    
     public function __construct($ticket)
     {
         $this->_setTicket($ticket);

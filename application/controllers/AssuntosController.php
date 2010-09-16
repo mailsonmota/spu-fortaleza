@@ -1,12 +1,13 @@
 <?php
-Loader::loadEntity('TipoAssunto.php');
-class AssuntosController extends BaseCrudController
+Loader::loadEntity('Assunto');
+class AssuntosController extends BaseController
 {
-    const entity = 'TipoAssunto';
-    
-    public function formulariosAction() 
+    public function indexAction()
     {
-        $this->objeto->__construct(NULL, $this->getRequest()->getParam('assunto', NULL));
-        $this->view->objeto = $this->objeto;
+        $user = AuthPlugin::getIdentity();
+        $ticket = $user['ticket'];
+        
+        $assunto = new Assunto($ticket);
+        $this->view->lista = $assunto->listar();
     }
 }

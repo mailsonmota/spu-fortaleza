@@ -13,14 +13,15 @@ class Assunto extends BaseAlfrescoEntity
         $hashDeAssuntos = $service->getAssuntos();
         
         $assuntos = array();
-        foreach ($hashDeAssuntos as $hash) {
-            echo '<pre>';
-            var_dump($hash);
-            echo '</pre>';
-            exit;
-            $assunto = new Assunto($this->_getTicket());
-            $assunto->loadAssuntoFromHash($hash);
-            $assuntos[] = $assunto;
+        foreach ($hashDeAssuntos as $categorias) {
+            foreach ($categorias as $categoria => $assuntosCategoria) {
+                foreach ($assuntosCategoria as $hashAssunto) {
+                    $assunto = new Assunto($this->_getTicket());
+                    $assunto->loadAssuntoFromHash($hashAssunto);
+                    $assunto->setCategoria($categoria);
+                    $assuntos[] = $assunto;
+                }
+            }
         }
         
         return $assuntos;
@@ -30,7 +31,6 @@ class Assunto extends BaseAlfrescoEntity
     {
         $this->setNodeRef($hash['noderef']);
         $this->setNome($hash['nome']);
-        $this->setCategoria($hash['categoria']);
     }
     
     public function getNome()
