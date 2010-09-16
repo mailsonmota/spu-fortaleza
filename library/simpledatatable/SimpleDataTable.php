@@ -129,9 +129,12 @@ class SimpleDataTable
     protected function _renderFooter()
     {
         if ($this->_hasFooter()) {
+            $colspan = 'colspan="' . $this->_getNumberOfColumns() . '"';
+            $numberOfRecords = $this->_getNumberOfRecords();
             $html = "
                 <tfoot>
-                    <tr>
+                    <tr $colspan>
+                        <td><em>Exibindo $numberOfRecords registros.</em></td>
                     </tr>
                 </tfoot>
             ";
@@ -143,6 +146,16 @@ class SimpleDataTable
     protected function _hasFooter()
     {
         return ($this->_getOption('footer') !== false);
+    }
+    
+    protected function _getNumberOfColumns()
+    {
+        return count($this->_getColumns());
+    }
+    
+    protected function _getNumberOfRecords()
+    {
+        return count($this->_getData());
     }
     
     protected function _renderBody()
