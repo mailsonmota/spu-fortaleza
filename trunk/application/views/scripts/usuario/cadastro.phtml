@@ -13,13 +13,13 @@
     <div id="article">
         <form action="" method="post">
             <?php
-            echo '<pre>';
-            var_dump($this->user->getOrgao());
-            echo '</pre>';
+//            echo '<pre>';
+//            var_dump($this->user->getOrgao());
+//            echo '</pre>';
             echo $this->form()->openFieldList();
-            echo $this->textbox('Nome', 'nome', $this->user->getFirstName(), array('required' => true));
-            echo $this->textbox('Sobrenome', 'sobrenome', $this->user->getLastName(), array('required' => true));
-            echo $this->textbox('Email', 'email', $this->user->getEmail(), array('required' => true));
+            echo $this->textbox('Nome', 'nome', $this->person['firstName'], array('required' => true));
+            echo $this->textbox('Sobrenome', 'sobrenome', $this->person['lastName'], array('required' => true));
+            echo $this->textbox('Email', 'email', $this->person['email'], array('required' => true));
             echo $this->form()->closeFieldList();
             
             echo $this->buttonlist()->open();

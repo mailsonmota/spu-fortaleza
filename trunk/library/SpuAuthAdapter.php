@@ -1,5 +1,5 @@
 <?php
-Loader::loadAlfrescoObject('Usuario');
+Loader::loadEntity('Usuario');
 Zend_Loader::loadClass('ZendAuthAdapterAlfresco');
 class SpuAuthAdapter extends ZendAuthAdapterAlfresco
 {
@@ -7,11 +7,16 @@ class SpuAuthAdapter extends ZendAuthAdapterAlfresco
     {
         $username = $this->getUsernameFromResponse();
         $ticket = $this->getTicketFromResponse();
-        $usuario = new Usuario($ticket);
-        $usuario->loadUser($username);
+        
+        $usuario = new Usuario(
+            'http://localhost:8080/alfresco/service/api',
+            $ticket
+        );
+        
+        $usuarioDetails = $usuario->getPerson($username);
         
         $identity = array();
-        $identity['user'] = $usuario;
+        $identity['user'] = $usuarioDetails;
         $identity['ticket'] = $ticket;
         $identity['sessionid'] = $this->getSessionIdFromResponse();
         

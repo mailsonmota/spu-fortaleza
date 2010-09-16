@@ -1,4 +1,5 @@
 <?php
+/*
 Loader::loadAlfrescoObject('User');
 Loader::loadAlfrescoObject('Orgao');
 class Usuario extends User
@@ -18,3 +19,4 @@ class Usuario extends User
         }
     }
 }
+*/
