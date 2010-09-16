@@ -2,7 +2,7 @@
 
 class CurlClient
 {
-	private function doRequest($url, $options = array()) {
+	private function _doRequest($url, $options = array()) {
 		$ch = curl_init();
 		
         $options[CURLOPT_URL] = $url;
@@ -17,25 +17,25 @@ class CurlClient
 	
 	public function doGetRequest($url, $options = array()) {
 		$options[CURLOPT_CUSTOMREQUEST] = 'GET';
-		$result = $this->doRequest($url, $options);
+		$result = $this->_doRequest($url, $options);
 		return $result;
 	}
 	
     public function doPostRequest($url, $options = array()) {
         $options[CURLOPT_CUSTOMREQUEST] = 'POST';
-        $result = $this->doRequest($url, $options);
+        $result = $this->_doRequest($url, $options);
         return $result;
     }
 	
     public function doDeleteRequest($url, $options = array()) {
         $options[CURLOPT_CUSTOMREQUEST] = 'DELETE';
-        $result = $this->doRequest($url, $options);
+        $result = $this->_doRequest($url, $options);
         return $result;
     }
     
     public function doPutRequest($url, $options = array()) {
         $options[CURLOPT_CUSTOMREQUEST] = 'PUT';
-        $result = $this->doRequest($url, $options);
+        $result = $this->_doRequest($url, $options);
         return $result;
     }
 }
