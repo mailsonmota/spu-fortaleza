@@ -14,4 +14,8 @@ class Usuario extends BaseAlfrescoEntity
     public function getPerson($userName) {
         return $this->_alfUsuarioObject->getPerson($userName);
     }
+    
+    public function getGroups($userName) {
+    	return $this->_alfUsuarioObject->getGroups($userName);
+    }
 }

@@ -12,7 +12,7 @@ class AlfrescoGroups extends AlfrescoBase
 	 */
 	public function listGroups($shortNameFilter = null, $zone = null) {
 		$url =
-            $this->getBaseUrl() . "/" .
+            $this->getBaseUrl() . "/api/" .
             $this->_groupsBaseUrl;
         
         $url = $this->addAlfTicketUrl($url);
@@ -39,7 +39,7 @@ class AlfrescoGroups extends AlfrescoBase
 	 */
 	public function listParents($shortName, $level = 'ALL') {
 	    $url =
-            $this->getBaseUrl() . "/" .
+            $this->getBaseUrl() . "/api/" .
             $this->_groupsBaseUrl . "/" .
             $shortName . "/" .
             "parents";
@@ -62,7 +62,7 @@ class AlfrescoGroups extends AlfrescoBase
 	 */
 	public function listChildren($shortName, $authorityType = null) {
 	    $url =
-            $this->getBaseUrl() . "/" .
+            $this->getBaseUrl() . "/api/" .
             $this->_groupsBaseUrl . "/" .
             $shortName . "/" .
             "children";
@@ -85,7 +85,7 @@ class AlfrescoGroups extends AlfrescoBase
      */
     public function getGroup($shortName) {
         $url =
-            $this->getBaseUrl() . "/" .
+            $this->getBaseUrl() . "/api/" .
             $this->_groupsBaseUrl . "/" .
             $shortName;
        

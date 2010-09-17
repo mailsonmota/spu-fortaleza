@@ -17,7 +17,7 @@ class AlfrescoLogin extends AlfrescoBase
 	public function login($username, $password)
 	{
 		$url =
-		    $this->getBaseUrl() . "/" .
+		    $this->getBaseUrl() . "/api/" .
 		    $this->_loginBaseUrl .
             "?u=" . $username . "&pw=" . $password;
         
@@ -35,7 +35,7 @@ class AlfrescoLogin extends AlfrescoBase
      */
 	public function logout($ticket) {
 	    $url =
-	        $this->getBaseUrl() . "/" .
+	        $this->getBaseUrl() . "/api/" .
 	        $this->_loginBaseUrl . "/" .
             $this->_loginTicketUrl . "/" .
             $ticket;
@@ -63,7 +63,7 @@ class AlfrescoLogin extends AlfrescoBase
      */
 	public function validate() {
 	    $url =
-	        $this->getBaseUrl() . "/" .
+	        $this->getBaseUrl() . "/api/" .
             $this->_loginBaseUrl. "/" .
             $this->_loginTicketUrl . "/" .
             $this->getTicket();
