@@ -5,24 +5,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initAutoload()
     {
         Zend_Loader::loadClass('Loader', '../library/spu');
-        
         Zend_Loader::loadClass('BaseController', '../library/base/controllers');
-        Zend_Loader::loadClass('BaseCrudControllerInterface', '../library/base/controllers');
-        Zend_Loader::loadClass('BaseCrudController', '../library/base/controllers');
-        
-        Zend_Loader::loadClass('BaseEntity', '../library/base/entities');
-        Zend_Loader::loadClass('BaseCrudEntityInterface', '../library/base/entities');
-        Zend_Loader::loadClass('BaseCrudEntity', '../library/base/entities');
-        
-        Zend_Loader::loadClass('BaseDao', '../library/base/models');
-        
-        Zend_Loader::loadClass('DataTable', '../library/datatable');
         Zend_Loader::loadClass('SimpleDataTable', '../library/simpledatatable');
-        
         Zend_Loader::loadClass('ErrorPlugin');
-        
         Zend_Loader::loadClass('AuthPlugin');
-        Zend_Loader::loadClass('SpuAuthAdapter');
+        Zend_Loader::loadClass('SpuAuthAdapter', '../library/spu');
     }
     
     protected function _initControllers(array $options = array())
@@ -34,7 +21,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         date_default_timezone_set('America/Sao_Paulo');
         setlocale(LC_TIME, 'pt_BR.UTF-8');
         
-        //$front->registerPlugin(new ErrorPlugin());
+        $front->registerPlugin(new ErrorPlugin());
         //$front->throwExceptions(false);
         
         $auth = Zend_Auth::getInstance();
@@ -54,23 +41,34 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
         
         $view = new Zend_View();
-        
         $view->doctype('XHTML1_TRANSITIONAL');
-        
-        // Título das Páginas
+        $this->initTitle($view, $baseUrl);
+        $this->initFavicon($view, $baseUrl);
+        $this->initCss($view, $baseUrl);
+        $this->initJs($view, $baseUrl);
+    }
+    
+    protected function initTitle(Zend_View $view, $baseUrl)
+    {
         $view->headTitle('SPU - Sistema de Protocolo Único');
-        
-        // Favicon
+    }
+    
+    protected function initFavicon(Zend_View $view, $baseUrl)
+    {
         $view->headLink(array('rel' => 'icon', 'href' => $baseUrl . '/favicon.ico'));
         $view->headLink(array('rel' => 'shortcut icon', 'href' => $baseUrl . '/favicon.ico'));
-        
-        // Carregar o CSS
+    }
+    
+    protected function initCss(Zend_View $view, $baseUrl)
+    {
         $view->headLink()->appendStylesheet($baseUrl . '/css/reset.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/forms.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/estilo.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/facebox.css');
-        
-        // Carregar o JS
+    }
+   
+    protected function initJs(Zend_View $view, $baseUrl)
+    {
         $jsPath = $baseUrl . '/js/';
         $pluginsPath = $jsPath . 'plugins/';
         
@@ -79,7 +77,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headScript()->appendFile($pluginsPath . 'tableRowCheckboxToggle.js');
         $view->headScript()->appendFile($jsPath . 'funcoes.js');
     }
-   
+    
     protected function _initNavigation()
     {
         $this->bootstrap('layout');
