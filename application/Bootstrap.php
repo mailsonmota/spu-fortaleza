@@ -40,7 +40,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $baseUrl = rtrim(preg_replace('/([^\/]*)$/', '', $_SERVER['PHP_SELF']), '/\\');
         }
         
-        $view = new Zend_View();
         $view->doctype('XHTML1_TRANSITIONAL');
         $this->initTitle($view, $baseUrl);
         $this->initFavicon($view, $baseUrl);
