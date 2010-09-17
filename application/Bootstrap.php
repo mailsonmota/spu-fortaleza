@@ -28,7 +28,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initControllers(array $options = array())
     {
         $this->bootstrap('FrontController'); 
-        $this->bootstrap('db');
         $front = $this->getResource('FrontController');
         
         // Timezone
