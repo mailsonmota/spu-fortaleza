@@ -13,15 +13,17 @@
     <div id="article">
         <form action="" method="post">
             <?php
-//            echo '<pre>';
-//            var_dump($this->user->getOrgao());
-//            echo '</pre>';
             echo $this->form()->openFieldList();
             echo $this->textbox('Nome', 'nome', $this->person['firstName'], array('required' => true));
             echo $this->textbox('Sobrenome', 'sobrenome', $this->person['lastName'], array('required' => true));
             echo $this->textbox('Email', 'email', $this->person['email'], array('required' => true));
             echo $this->form()->closeFieldList();
             
+            print 'Groups: ';
+            foreach($this->person['groups'] as $group) {
+            	print $group['name'] . ', ';
+            }
+
             echo $this->buttonlist()->open();
             echo $this->buttonlist()->button('Salvar');
             echo $this->buttonlist()->resetbutton();

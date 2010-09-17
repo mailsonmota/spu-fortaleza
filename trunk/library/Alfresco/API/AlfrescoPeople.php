@@ -13,7 +13,7 @@ class AlfrescoPeople extends AlfrescoBase
 	 */
 	public function listPeople($filter = null) {
 		$url =
-            $this->getBaseUrl() . "/" .
+            $this->getBaseUrl() . "/api/" .
             $this->_peopleBaseUrl;
         
         $url = $this->addAlfTicketUrl($url);
@@ -38,7 +38,7 @@ class AlfrescoPeople extends AlfrescoBase
 	 */
 	public function getPerson($userName) {
 	    $url =
-            $this->getBaseUrl() . "/" .
+            $this->getBaseUrl() . "/api/" .
             $this->_peopleBaseUrl . "/" .
             $userName;
 	    
@@ -48,5 +48,21 @@ class AlfrescoPeople extends AlfrescoBase
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
         return $result;
+	}
+	
+	/*
+	 * Get the groups of a person
+	 */
+	public function getGroups($userName) {
+		$url =
+            $this->getBaseUrl() . "/" .
+            'getGroups';
+        
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        $resultJson = $curlObj->doGetRequest($url);
+        $result = json_decode($resultJson, true);
+        return $result['groups'];
 	}
 }
