@@ -9,7 +9,7 @@
                         <#list all.subCategories?sort_by("name") as mylist>
                         {
                             "noderef":"${mylist.nodeRef}",
-                            "nome":"${mylist.properties.name}"
+                            "nome":"${mylist.properties.name}",
                             "descricao":"${mylist.properties.description}"
                         }
                         <#if mylist_index+1 &lt; all.subCategories?size>,</#if>
