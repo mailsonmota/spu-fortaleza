@@ -10,7 +10,7 @@
     <div id="article">
         <form action="" method="post">
             <?php 
-            $headerColumns = array('Nome', 'Categoria');
+            $headerColumns = array('Nome', 'Tipo de Processo');
             $columns = array('nome', 'categoria');
             
             $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
