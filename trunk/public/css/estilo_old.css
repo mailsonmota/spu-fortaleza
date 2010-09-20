@@ -8,8 +8,7 @@
 */
 
 /* Float Fix */
-#menu ul:after, .nav:after, #section:after, dl:after, #footer:after, .buttons:after, .tabs:after, #container:after 
-{content:".";clear:both;display:block;overflow:hidden;visibility:hidden;height:0}
+#menu ul:after, .nav:after, #section:after, dl:after, #footer:after, .buttons:after, .tabs:after {content:".";clear:both;display:block;overflow:hidden;visibility:hidden;height:0}
 
 /* Básico */
 body {
@@ -98,7 +97,6 @@ em, i {font-style: italic;}
 
 /* Estrutura */
 #section, #footer {padding: 1%;}
-#container {background: url(../img/degrade.jpg) repeat-x 0% 0% white; padding: 2% 0; overflow: hidden;}
 
 /* Cabecalho */
 #header {
@@ -110,9 +108,9 @@ em, i {font-style: italic;}
 }
 
 #header h1 {
-	font-size: 24px;
+	font-size: 2.5em;
 	position: relative;
-    height: 44px;
+    height: 1.6em;
     background: url(../img/logoFortaleza.png) no-repeat 0 50%;
     padding-left: 52px;
     margin-bottom: 0;
@@ -120,18 +118,19 @@ em, i {font-style: italic;}
 #header h1 a {
     text-decoration: none;
     color: white;
+    font-size: 0.75em;
     line-height: 36px;
     font-weight: bold;
 }
 #header h1 a:hover {background: none;text-shadow: 1px 1px 1px #000;text-decoration: underline;}
 #header h1 span {
     position: absolute;
-    font-size: 12px;
+    font-size: 0.4em;
     font-weight: normal;
     clear: both;
     bottom: 0;
     color: white;
-    line-height: 12px;
+    line-height: 24px;
     display: block;
 }
 #usuario {
@@ -140,56 +139,73 @@ em, i {font-style: italic;}
     right: 12px;
     line-height: 1.75em;
     color: white;
-    text-align: right;
 }
 #usuario a {color: white;}
 
 /* Menu */
-#menu {
-	float: left;
-	width: 18%;
-	padding-left: 2%;
-	display: inline;
-}
-
 #menu ul {
+    background: url(../img/bg_amarelo.png) repeat 0% 50% #E6B800;
     list-style: none;
     max-width:100%;
-    position:relative;    
+    position:relative;
+    padding: 0 1%;
+    border-bottom: 1px solid #c19900;
+    border-top: 1px solid #e6ce74;    
 }
 #menu ul li {
+    cursor: pointer;
+    float: left;
     list-style-type: none;
-    width: 100%;
+    position: relative;
+    padding: 0 12px;
 }
-#menu ul li span {
-	color: black;
+#menu ul li a {
+    color: #6C3600;
+    cursor: default;
     display: block;
+    float: left;
+    height: 2em;
+    line-height: 2em;
+    padding: 0 0.4em;
     text-decoration: none;
-    width: 96%;
-    padding: 2%;
-    border-bottom: 1px dotted #AAA;
-    margin-bottom: 2%;
+    text-shadow: -1px 1px 0 #FFCD00;    
 }
+#menu ul li a:hover {background: none;text-decoration: none;text-shadow: -1px 1px 0 #ffde57;}
+#menu ul li:hover {background: #FFCC66;}
 
 /* Submenu */
 #menu ul li ul {
+    cursor: default;
+    display: none;
     height: auto;
-    margin: 4% 0;
+    position: absolute;
+    left: 0;
+    border-top: 1px solid #c19900;
 }
 #menu ul li ul li {
+    padding: 0 12px;
     clear: left;
-    text-indent: 12px;
+    background-color: #edc417;
+    width: 12em;
+    border-right: 1px solid #c19900;
 }
-
 #menu ul li ul li a {
-	line-height: 1.5em;
+    cursor: pointer !important;
+    position: relative !important;
+    white-space: nowrap;
+    width: 100%;
+    text-shadow: -1px 1px 0 #ffde57;    
 }
+#menu ul li ul a:hover, #menu ul li ul a:focus, #menu ul li ul a:active {text-shadow: -1px 1px 0 #ffde57;}
+#menu ul li:hover ul, #menu ul li.msieFix ul {display:block;top:2em !important;z-index:10;}
+#menu ul li ul li:hover {background-color: #FFCC66;}
 
 /* Conteúdo */
 #section {
-   padding: 0 2%;
-   width: 76%;
-   float: right;
+   background: url(../img/degrade.jpg) repeat-x 0% 0% white;
+   padding: 2%;
+   position: relative; 
+   width: 96%;
 }
 #section h2 {margin-bottom: 6px;}
 .nav {background: #F5F4EF;border-top: 1px solid #AAA;margin-bottom: 2%;}
@@ -222,7 +238,7 @@ em, i {font-style: italic;}
 .tabs .active a:hover {background: none;}
 
 /* Mensagem */
-div#message {margin: 0 0 2% 0}
+div#message {margin: 2% 2% 0}
 
 /* Sidebar */
 #article {display: block;z-index: 1;}
@@ -256,9 +272,9 @@ body.basic {background: url(../img/degrade.jpg) repeat-x 0% 0% white;}
 #wrapper #header {padding: 1em; background: none; border-bottom: 1px solid #CCC;}
 #wrapper #header span {color: black;line-height: 30px;}
 #wrapper #section {background: white;}
-#wrapper #footer {background: none; border-top: 1px solid #CCC; color: #666;}
+#wrapper #footer {background: none; border-top: 1px solid #CCC; color: #666}
 #wrapper #footer p {float: none; margin: 1% 0;}
-#wrapper #section {padding: 3em; width: 27em; margin: 0 auto; float: none}
+#wrapper #section {padding: 3em; width: 27em; margin: 0 auto;}
 #wrapper h1 {text-shadow: 1px 1px 1px #FFF;height: 48px;}
 #wrapper h1 a {color: black; line-height: 30px;}
 #wrapper h1 a:hover {text-shadow: 0 0 0;}

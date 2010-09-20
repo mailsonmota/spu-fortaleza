@@ -1,35 +1,33 @@
-<div id="section">
-    <?php 
-    $this->breadcrumbs()->addPage('Assuntos', 'assuntos');
-    $this->breadcrumbs()->addPage('Editar Assunto', 'assuntos', 'editar', array('id' => $this->objeto->getTableKeyValue()));
-    $this->breadcrumbs()->addPage('Formulários');
-    echo $this->breadcrumbs()->render(); 
-    ?>
-    
-    <ul class="tabs">
-        <li><a href="<?php echo $this->simpleUrl('index') ?>">Assunto</a></li>
-        <li class="active"><a href="<?php echo $this->simpleUrl('formularios', null, array('assunto' => $this->objeto->getTableKeyValue())) ?>">Formulários</a></li>
-    </ul>
-    
-    <?php 
-    echo $this->pagenav()->openList(); 
-    echo $this->pagenav()->link($this->simpleUrl('inserir'), 'Inserir Formulários');
-    echo $this->pagenav()->defaultHelperLinks();
-    echo $this->pagenav()->closeList();
-    ?>
-    
-    <div id="article">
-        <form action="" method="post">
-            <?php 
-            echo $this->buttonlist(array('class' => 'grid', 'reset' => false))->open();
-            echo $this->buttonlist()->description('Ações em massa:');
-            echo $this->buttonlist()->button('Remover Selecionados', null, array('confirmation' => true));
-            echo $this->buttonlist()->close(); 
-            
-            $columns = array('id', 'nome');
-            $grid = new DataTable($this->objeto, array('method' => 'getFormularios', 'columns' => $columns));
-            echo $grid->render();
-            ?>
-        </form>
-    </div>
+<?php 
+$this->breadcrumbs()->addPage('Assuntos', 'assuntos');
+$this->breadcrumbs()->addPage('Editar Assunto', 'assuntos', 'editar', array('id' => $this->objeto->getTableKeyValue()));
+$this->breadcrumbs()->addPage('Formulários');
+echo $this->breadcrumbs()->render(); 
+?>
+
+<ul class="tabs">
+    <li><a href="<?php echo $this->simpleUrl('index') ?>">Assunto</a></li>
+    <li class="active"><a href="<?php echo $this->simpleUrl('formularios', null, array('assunto' => $this->objeto->getTableKeyValue())) ?>">Formulários</a></li>
+</ul>
+
+<?php 
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->link($this->simpleUrl('inserir'), 'Inserir Formulários');
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+    <form action="" method="post">
+        <?php 
+        echo $this->buttonlist(array('class' => 'grid', 'reset' => false))->open();
+        echo $this->buttonlist()->description('Ações em massa:');
+        echo $this->buttonlist()->button('Remover Selecionados', null, array('confirmation' => true));
+        echo $this->buttonlist()->close(); 
+        
+        $columns = array('id', 'nome');
+        $grid = new DataTable($this->objeto, array('method' => 'getFormularios', 'columns' => $columns));
+        echo $grid->render();
+        ?>
+    </form>
 </div>

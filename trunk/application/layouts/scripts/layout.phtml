@@ -17,9 +17,11 @@
                 Bem-vindo, <strong><?php echo $this->user['firstName'] ?></strong> | 
                 <a href="<?php echo $this->simpleUrl('cadastro', 'usuario') ?>">Cadastro</a> | 
                 <a href="<?php echo $this->simpleUrl('logout', 'auth') ?>">Sair</a><br/>
-                Secretaria Municipal de Saúde
+                Seu último acesso foi em 18/09/2010 às 15:20
             </div>
         </div>
+        
+        <div id="container">
         
         <div id="menu">
             <?php 
@@ -57,9 +59,15 @@
             ?>
         </div>
           
-        <?php echo $this->message()->render(); ?>
+        <div id="section">
           
-        <?php echo $this->layout()->content ?>     
+            <?php echo $this->message()->render(); ?>
+              
+            <?php echo $this->layout()->content ?>
+            
+        </div>     
+        
+        </div>
         
         <div id="footer">
             <p>

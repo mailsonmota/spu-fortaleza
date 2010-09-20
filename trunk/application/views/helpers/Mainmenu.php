@@ -67,8 +67,9 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
                 }
                 
                 if ($acesso) {
+                    $spanClass = $this->getSpanClass($key);
                     $html .= '<li>';
-                    $html .= '<a>' . $key . '</a>';
+                    $html .= '<span class="' . $spanClass . '">' . $key . '</span>';
                     $html .= '<ul>';
                 }
             }
@@ -104,13 +105,14 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
                 array('controller' => 'auth', 'action' => 'logout', 'params' => array()), NULL, TRUE
             );
             
-            $html .= '<li style="float: right">
-                          <a href="' . $logoutUrl . '">Sair</a>
-                      </li>';
             $html .= '</ul>';
         }
         
         return $html;
+    }
+    
+    protected function getSpanClass($key) {
+        return strtr(strtolower($key), array('á'=>'a'));
     }
     
     protected function isAllowed($item)
