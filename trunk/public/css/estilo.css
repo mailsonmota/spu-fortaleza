@@ -145,22 +145,9 @@ em, i {font-style: italic;}
 #usuario a {color: white;}
 
 /* Menu */
-#menu {
-	float: left;
-	width: 18%;
-	padding-left: 2%;
-	display: inline;
-}
-
-#menu ul {
-    list-style: none;
-    max-width:100%;
-    position:relative;    
-}
-#menu ul li {
-    list-style-type: none;
-    width: 100%;
-}
+#menu {float: left;width: 18%;padding-left: 2%;display: inline;}
+#menu ul {list-style: none;max-width:100%;position:relative;}
+#menu ul li {list-style-type: none;width: 100%;}
 #menu ul li span {
 	color: black;
     display: block;
@@ -172,25 +159,13 @@ em, i {font-style: italic;}
 }
 
 /* Submenu */
-#menu ul li ul {
-    height: auto;
-    margin: 4% 0;
-}
-#menu ul li ul li {
-    clear: left;
-    text-indent: 12px;
-}
+#menu ul li ul {height: auto;margin: 4% 0;}
+#menu ul li ul li {clear: left;text-indent: 12px;}
 
-#menu ul li ul li a {
-	line-height: 1.5em;
-}
+#menu ul li ul li a {line-height: 1.5em;}
 
 /* Conteúdo */
-#section {
-   padding: 0 2%;
-   width: 76%;
-   float: right;
-}
+#section {padding: 0 2%;width: 76%;float: right;}
 #section h2 {margin-bottom: 6px;}
 .nav {background: #F5F4EF;border-top: 1px solid #AAA;margin-bottom: 2%;}
 .nav li {padding: 1em 1%;float: left;margin-left: 1%;}
