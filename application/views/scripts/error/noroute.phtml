@@ -1,12 +1,10 @@
-<div id="section">
-    <?php echo $this->breadcrumbs()->addPage('Página não encontrada!')->render() ?>
-    
-    <?php 
-    echo $this->pagenav()->openList(); 
-    echo $this->pagenav()->defaultHelperLinks();
-    echo $this->pagenav()->closeList();
-    ?>
-    <div id="article">
-        <p>Desculpe, a página que você procura não existe. Verifique o endereço e tente novamente.</p>
-    </div>
+<?php echo $this->breadcrumbs()->addPage('Página não encontrada!')->render() ?>
+
+<?php 
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+<div id="article">
+    <p>Desculpe, a página que você procura não existe. Verifique o endereço e tente novamente.</p>
 </div>
