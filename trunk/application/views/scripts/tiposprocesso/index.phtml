@@ -1,0 +1,19 @@
+<?php echo $this->breadcrumbs()->addPage('Tipos de Processo')->render() ?>
+
+<?php 
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+    <form action="" method="post">
+        <?php 
+        $headerColumns = array('Nome');
+        $columns = array('nome');
+        
+        $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
+        echo $grid->render();
+        ?>
+    </form>
+</div>

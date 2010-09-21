@@ -1,0 +1,21 @@
+<?php
+
+require_once('AlfrescoBase.php');
+
+class AlfrescoTiposProcesso extends AlfrescoBase
+{
+	private $_tiposProcessoBaseUrl = 'spu/tiposprocesso';
+	private $_tiposProcessoTicketUrl = 'ticket';
+	
+	public function getTiposProcesso()
+	{
+	    $url = $this->getBaseUrl() . "/" . $this->_tiposProcessoBaseUrl . "/listar";
+	    $url = $this->addAlfTicketUrl($url);
+	    
+	    $curlObj = new CurlClient();
+        $resultJson = $curlObj->doGetRequest($url);
+        $result = json_decode($resultJson, true);
+        
+        return $result['Tipos de Processo'];
+	}
+}
