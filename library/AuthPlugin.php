@@ -33,7 +33,7 @@ class AuthPlugin extends Zend_Controller_Plugin_Abstract
         $action     = $request->getActionName();
         
         // Usuário Logado
-        if (!$this->_auth->hasIdentity() AND $controller != 'auth') {
+        if (!$this->_isIdentityValid() AND $controller != 'auth') {
             $module = self::FAIL_AUTH_MODULE;
             $controller = self::FAIL_AUTH_CONTROLLER;
             $action = self::FAIL_AUTH_ACTION;
@@ -42,6 +42,19 @@ class AuthPlugin extends Zend_Controller_Plugin_Abstract
         $request->setModuleName($module);
         $request->setControllerName($controller);
         $request->setActionName($action);
+    }
+    
+    protected function _isIdentityValid()
+    {
+        $isValid = false;
+        if ($this->_auth->hasIdentity()) {
+            $data = $this->getIdentity();
+            if (!is_string($data)) {
+                $isValid = true;
+            }
+        }
+        
+        return $isValid;
     }
     
     /**

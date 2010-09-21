@@ -9,10 +9,11 @@ echo $this->pagenav()->closeList();
 <div id="article">
     <form action="" method="post">
         <?php 
-        $headerColumns = array('Nome');
+        $headerColumns = array('Nome', 'Ações');
         $columns = array('nome');
         
         $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
+        $grid->addActionColumn('Editar', $this->simpleUrl('editar', $this->controller) . '/id/', 'noderef');
         echo $grid->render();
         ?>
     </form>

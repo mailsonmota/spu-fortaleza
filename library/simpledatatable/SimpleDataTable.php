@@ -7,11 +7,13 @@ class SimpleDataTable
     protected $_html = '';
     protected $_options;
     protected $_data;
+    protected $_dataColumns;
     
     public function SimpleDataTable($data, $options)
     {
         $this->_setOptions($options);
         $this->_setData($data);
+        $this->_setDataColumns($this->_getColumns());
     }
     
     protected function _setOptions($options)
@@ -27,6 +29,16 @@ class SimpleDataTable
     protected function _setData($data)
     {
         $this->_data = $data;
+    }
+    
+    protected function _getDataColumns()
+    {
+        return $this->_dataColumns;
+    }
+    
+    protected function _setDataColumns($columns)
+    {
+        $this->_dataColumns = $columns;
     }
     
     public function render()
@@ -99,7 +111,7 @@ class SimpleDataTable
     {
         return ($this->_getOption('headerColumns')) ? 
             $this->_getOption('headerColumns') : 
-            $this->_getColumns();
+            $this->_getDataColumns();
     }
     
     protected function _getColumns()
@@ -171,13 +183,15 @@ class SimpleDataTable
         $html = "";
         $rowNumber = 0;
         foreach ($this->_getData() as $row) {
-            $rowClass = ($rowNumber++ % 2) ? 
-                'class="' . self::DEFAULT_ODDROW_CLASS . '"' : 
-                'class="' . self::DEFAULT_EVENROW_CLASS . '"';
-             
-            $html .= "<tr $rowClass>";
-            foreach ($this->_getColumns() as $column) {
-                $html .= "<td>" . $row->$column . "</td>";
+            $rowClass = ($rowNumber++ % 2) ? self::DEFAULT_ODDROW_CLASS: self::DEFAULT_EVENROW_CLASS;
+            
+            $html .= "<tr class=\"$rowClass\">";
+            foreach ($this->_getDataColumns() as $column) {
+                if (!is_array($column)) {
+                    $html .= "<td>" . $row->$column . "</td>";
+                } else {
+                    $html .= '<td><a href="' . $column['url'] . $row->$column['paramValue'] . '">' . $column['title'] . '</a></td>'; 
+                }
             }
             $html .= "</tr>";
         }
@@ -204,6 +218,16 @@ class SimpleDataTable
     protected function _addHtml($html)
     {
         $this->_html .= $html;
+    }
+    
+    public function addActionColumn($title, $url, $paramValue = null)
+    {
+       $this->_addDataColumn(array('title' => $title, 'url' => $url, 'paramValue' => $paramValue));
+    }
+    
+    protected function _addDataColumn($value)
+    {
+        $this->_dataColumns[] = $value;
     }
 }
 ?>
