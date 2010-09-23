@@ -22,7 +22,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         setlocale(LC_TIME, 'pt_BR.UTF-8');
         
         $front->registerPlugin(new ErrorPlugin());
-        //$front->throwExceptions(false);
+        $front->throwExceptions(false);
         
         $auth = Zend_Auth::getInstance();
         $front->setParam('auth', $auth);

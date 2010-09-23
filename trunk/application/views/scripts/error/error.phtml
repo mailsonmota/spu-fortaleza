@@ -1,29 +1,24 @@
 <?php 
 echo $this->breadcrumbs()->addPage('Desculpe, ocorreu um erro! ;/')->render();
-
-echo $this->pagenav()->openList(); 
-echo $this->pagenav()->link($this->simpleUrl('inserir'), 'Inserir Lotação');
-echo $this->pagenav()->defaultHelperLinks();
-echo $this->pagenav()->closeList();
 ?>
 <div id="article">
-    <? if ('development' == APPLICATION_ENV): ?>
+    <?php if ('development' == APPLICATION_ENV): ?>
     <fieldset class="collapsed">
         <legend>Informação do erro:</legend>
         
         <p>
-            <b>Tipo:</b> <?= $this->message ?>
+            <b>Tipo:</b> <?php echo $this->message ?>
         </p>
         
         <p>
-          <b>Mensagem:</b> <?= $this->exception->getMessage() ?>
+          <b>Mensagem:</b> <?php echo $this->exception->getMessage() ?>
         </p>
         
-        <h4>Ações:</h4>
-        <pre><?= $this->exception->getTraceAsString() ?></pre>
+        <h4>Stack Trace:</h4>
+        <code><?php echo $this->exception->getTraceAsString() ?></code>
         
         <h4>Parâmetros:</h4>
-        <pre><? var_dump($this->request->getParams()) ?></pre>
+        <pre><?php var_dump($this->request->getParams()) ?></pre>
     </fieldset>
-    <? endif ?>
+    <?php endif ?>
 </div>

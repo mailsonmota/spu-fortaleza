@@ -13,7 +13,7 @@ echo $this->pagenav()->closeList();
         $columns = array('nome');
         
         $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
-        $grid->addActionColumn('Editar', $this->simpleUrl('editar', $this->controller) . '/id/', 'noderef');
+        $grid->addActionColumn('Editar', $this->simpleUrl('editar', $this->controller) . '/id/', 'id');
         echo $grid->render();
         ?>
     </form>

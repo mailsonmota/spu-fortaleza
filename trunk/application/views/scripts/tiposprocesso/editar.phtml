@@ -1,0 +1,28 @@
+<?php 
+$this->breadcrumbs()->addPage('Tipos de Processo', 'tiposprocesso');
+$this->breadcrumbs()->addPage('Editar Tipo de Processo');
+echo $this->breadcrumbs()->render(); 
+?>
+
+<?php if ($this->isEdit): ?>
+<ul class="tabs">
+    <li class="active"><a href="<?php echo $this->simpleUrl('index', null, array('id' => $this->id)) ?>">Assunto</a></li>
+    <li><a href="<?php echo $this->simpleUrl('formularios', null, array('assunto' => $this->id)) ?>">Formulários</a></li>
+</ul>
+<?php endif ?>
+
+<?php 
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->link($this->simpleUrl('index'), 'Voltar');
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+    <form action="" method="post">
+        <?php 
+        echo $this->form()->openFieldList();
+        echo $this->form()->closeFieldList();
+        ?>
+    </form>
+</div>
