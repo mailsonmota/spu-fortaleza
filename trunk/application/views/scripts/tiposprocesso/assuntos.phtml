@@ -1,0 +1,30 @@
+<?php 
+$this->breadcrumbs()->addPage('Tipos de Processo', 'tiposprocesso');
+$this->breadcrumbs()->addPage('Editar Tipo de Processo', 'tiposprocesso', 'editar/id/' . $this->id);
+$this->breadcrumbs()->addPage('Assuntos');
+echo $this->breadcrumbs()->render(); 
+?>
+
+<?php if ($this->isEdit): ?>
+<ul class="tabs">
+    <li><a href="<?php echo $this->simpleUrl('editar', null, array('id' => $this->id)) ?>">Dados Gerais</a></li>
+    <li class="active"><a href="<?php echo $this->simpleUrl('assuntos', null, array('id' => $this->id)) ?>">Assuntos</a></li>
+</ul>
+<?php endif ?>
+
+<?php 
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->link($this->simpleUrl('editar', $this->controller, array('id' => $this->id)), 'Voltar');
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+    <?php 
+    $headerColumns = array('Nome');
+    $columns = array('nome');
+    
+    $grid = new SimpleDataTable($this->tipoProcesso->getAssuntos(), array('headerColumns' => $headerColumns, 'columns' => $columns));
+    echo $grid->render();
+    ?>
+</div>

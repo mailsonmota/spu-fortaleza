@@ -62,5 +62,25 @@ class Assunto extends BaseAlfrescoEntity
     {
         $this->_nodeRef = $nodeRef;
     }
+    
+    public function listarPorTipoProcesso($nomeTipoProcesso)
+    {
+        $service = new AlfrescoAssuntos(self::ALFRESCO_URL, $this->_getTicket());
+        $hashDeAssuntos = $service->getAssuntosPorTipoProcesso($nomeTipoProcesso);
+        
+        $assuntos = array();
+        foreach ($hashDeAssuntos as $categorias) {
+            foreach ($categorias as $categoria => $assuntosCategoria) {
+                foreach ($assuntosCategoria as $hashAssunto) {
+                    $assunto = new Assunto($this->_getTicket());
+                    $assunto->loadAssuntoFromHash($hashAssunto);
+                    $assunto->setCategoria($categoria);
+                    $assuntos[] = $assunto;
+                }
+            }
+        }
+        
+        return $assuntos;
+    }
 }
 ?>
