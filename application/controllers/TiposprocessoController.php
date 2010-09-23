@@ -4,10 +4,12 @@ class TiposprocessoController extends BaseController
 {
     public function indexAction()
     {
-        $user = AuthPlugin::getIdentity();
-        $ticket = $user['ticket'];
-        
-        $tipoProcesso = new TipoProcesso($ticket);
+        $tipoProcesso = new TipoProcesso($this->getTicket());
         $this->view->lista = $tipoProcesso->listar();
+    }
+    
+    public function editarAction()
+    {
+        $tipoProcesso = new TipoProcesso();
     }
 }

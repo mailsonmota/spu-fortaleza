@@ -78,4 +78,10 @@ abstract class BaseController extends Zend_Controller_Action
             $this->setMessageForTheView($mensagem, 'success');
         }
     }
+    
+    private function getTicket()
+    {
+        $user = AuthPlugin::getIdentity();
+        return $user['ticket'];
+    }
 }

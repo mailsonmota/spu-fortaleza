@@ -8,25 +8,10 @@ class TipoProcesso extends BaseAlfrescoEntity
     protected $_categoriaMaeDosAssuntos;
     protected $_simples;
     
-    public function listar()
+    public function getId()
     {
-        $service = new AlfrescoTiposProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $hashDeTiposProcesso = $service->getTiposProcesso();
-        
-        $tiposProcesso = array();
-        foreach ($hashDeTiposProcesso as $hashTipoProcesso) {
-            $hashDadosTipoProcesso = array_pop(array_pop($hashTipoProcesso)); 
-            $tipoProcesso = new TipoProcesso($this->_getTicket());
-            $tipoProcesso->loadTipoProcessoFromHash($hashDadosTipoProcesso);
-            $tiposProcesso[] = $tipoProcesso;        }
-        
-        return $tiposProcesso;
-    }
-    
-    public function loadTipoProcessoFromHash($hash)
-    {
-        $this->setNodeRef($hash['noderef']);
-        $this->setNome($hash['nome']);
+        $nodeRef = $this->getNodeRef();
+        return substr($nodeRef, strrpos($nodeRef, '/') + 1);
     }
     
     public function getNome()
@@ -47,6 +32,27 @@ class TipoProcesso extends BaseAlfrescoEntity
     public function setNodeRef($nodeRef)
     {
         $this->_nodeRef = $nodeRef;
+    }
+    
+    public function listar()
+    {
+        $service = new AlfrescoTiposProcesso(self::ALFRESCO_URL, $this->_getTicket());
+        $hashDeTiposProcesso = $service->getTiposProcesso();
+        
+        $tiposProcesso = array();
+        foreach ($hashDeTiposProcesso as $hashTipoProcesso) {
+            $hashDadosTipoProcesso = array_pop(array_pop($hashTipoProcesso)); 
+            $tipoProcesso = new TipoProcesso($this->_getTicket());
+            $tipoProcesso->loadTipoProcessoFromHash($hashDadosTipoProcesso);
+            $tiposProcesso[] = $tipoProcesso;        }
+        
+        return $tiposProcesso;
+    }
+    
+    public function loadTipoProcessoFromHash($hash)
+    {
+        $this->setNodeRef($hash['noderef']);
+        $this->setNome($hash['nome']);
     }
 }
 ?>
