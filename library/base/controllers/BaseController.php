@@ -79,7 +79,7 @@ abstract class BaseController extends Zend_Controller_Action
         }
     }
     
-    private function getTicket()
+    protected function getTicket()
     {
         $user = AuthPlugin::getIdentity();
         return $user['ticket'];
