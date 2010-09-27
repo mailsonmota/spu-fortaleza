@@ -2,16 +2,14 @@
 $this->breadcrumbs()->addPage('Tipos de Processo', 'tiposprocesso');
 $this->breadcrumbs()->addPage('Editar Tipo de Processo');
 echo $this->breadcrumbs()->render(); 
-?>
 
-<?php if ($this->isEdit): ?>
-<ul class="tabs">
-    <li class="active"><a href="<?php echo $this->simpleUrl('editar', null, array('id' => $this->id)) ?>">Dados Gerais</a></li>
-    <li><a href="<?php echo $this->simpleUrl('assuntos', null, array('id' => $this->id)) ?>">Assuntos</a></li>
-</ul>
-<?php endif ?>
+if ($this->isEdit) {
+    echo $this->tabs()->openList();
+    echo $this->tabs()->addTab($this->simpleUrl('editar', null, array('id' => $this->id)), 'Dados Gerais', true);
+    echo $this->tabs()->addTab($this->simpleUrl('assuntos', null, array('id' => $this->id)), 'Assuntos');
+    echo $this->tabs()->closeList();
+}
 
-<?php 
 echo $this->pagenav()->openList(); 
 echo $this->pagenav()->link($this->simpleUrl('index'), 'Voltar');
 echo $this->pagenav()->defaultHelperLinks();
@@ -22,7 +20,7 @@ echo $this->pagenav()->closeList();
     <form action="" method="post">
         <?php 
         echo $this->form()->openFieldList();
-        echo $this->textbox('Nome', 'nome', $this->tipoProcesso->nome);
+        echo $this->textbox('Nome', 'titulo', $this->tipoProcesso->titulo);
         echo $this->checkbox('Simples', 'simples', $this->tipoProcesso->simples);
         echo $this->form()->closeFieldList();
         

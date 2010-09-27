@@ -10,5 +10,7 @@ if (tipoProcesso == undefined)
 
 var categoriaAssuntos = tipoProcesso.properties["spu:CategoriaPaiDosAssuntos"];
 
+categoriaAssuntos = categoriaAssuntos.replace(" ", "_x0020_");
+
 var assuntos = search.luceneSearch("PATH:\"/cm:generalclassifiable/cm:Assuntos/cm:" + categoriaAssuntos + "\"");
 model.luceneSearch = "PATH:\"/cm:generalclassifiable/cm:Assuntos/cm:" + categoriaAssuntos + "\"";

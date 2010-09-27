@@ -1,0 +1,33 @@
+<?php 
+$this->breadcrumbs()->addPage('Tramitação', 'processos');
+echo $this->breadcrumbs()->render(); 
+
+echo $this->tabs()->openList();
+echo $this->tabs()->addTab($this->simpleUrl('index'), 'Entrada', true);
+echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Análise');
+echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Saída');
+echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Enviados');
+echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Cópias');
+echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Arquivados');
+echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Externos');
+echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Excluídos');
+echo $this->tabs()->closeList();
+
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->link($this->simpleUrl('index'), 'Voltar');
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+    <form action="" method="post">
+        <?php 
+        $headerColumns = array('Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Ações');
+        $columns = array('numeroOrigem', 'data', 'envolvido', 'nomeTipoProcesso', 'nomeAssunto');
+        
+        $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
+        $grid->addActionColumn('Editar', $this->simpleUrl('editar', $this->controller) . '/id/', 'id');
+        echo $grid->render();
+        ?>
+    </form>
+</div>

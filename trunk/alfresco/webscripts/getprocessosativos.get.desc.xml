@@ -1,9 +1,9 @@
 <webscript>
 
 <shortname>Lista os Processos Ativos</shortname>
-<description>Lista todos os Processos Ativos do Sistema de Protocolo Unico</description>
+<description>Lista todos os Processos nas Caixas de Entrada do Usuário</description>
 
-<url>/getProcessosAtivos</url>
+<url>/spu/processo/entrada</url>
 
 <format default="html">extension</format>
 <authentication>guest</authentication>
