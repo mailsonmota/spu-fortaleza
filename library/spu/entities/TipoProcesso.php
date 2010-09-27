@@ -6,6 +6,7 @@ class TipoProcesso extends BaseAlfrescoEntity
 {
     protected $_nodeRef;
     protected $_nome;
+    protected $_titulo;
     protected $_categoriaMaeDosAssuntos;
     protected $_simples;
     
@@ -23,6 +24,16 @@ class TipoProcesso extends BaseAlfrescoEntity
     public function setNome($nome)
     {
         $this->_nome = $nome;
+    }
+    
+    public function getTitulo()
+    {
+        return $this->_titulo;
+    }
+    
+    public function setTitulo($titulo)
+    {
+        $this->_titulo = $titulo;
     }
     
     public function getNodeRef()
@@ -67,6 +78,9 @@ class TipoProcesso extends BaseAlfrescoEntity
         $this->setNome($hash['nome']);
         if (isset($hash['simples'])) {
             $this->setSimples(($hash['simples'] == '1') ? true : false);
+        }
+        if (isset($hash['titulo'])) {
+            $this->setTitulo($hash['titulo']);
         }
     }
     

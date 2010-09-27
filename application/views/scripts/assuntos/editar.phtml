@@ -2,9 +2,7 @@
 $this->breadcrumbs()->addPage('Assuntos', 'assuntos');
 $this->breadcrumbs()->addPage((($this->isEdit) ? 'Editar' : 'Inserir') . ' Assunto');
 echo $this->breadcrumbs()->render(); 
-?>
 
-<?php 
 echo $this->pagenav()->openList(); 
 echo $this->pagenav()->link($this->simpleUrl('inserir'), 'Inserir Outro Assunto');
 echo $this->pagenav()->defaultHelperLinks();
