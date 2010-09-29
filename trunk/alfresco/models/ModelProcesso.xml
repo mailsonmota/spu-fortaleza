@@ -31,6 +31,60 @@
 				   	<type>d:text</type>
 					<mandatory>true</mandatory>
 		   		</property>
+				<property name="spu:NomeTipoEnvolvido">
+					<title>Envolvido</title>
+				   	<type>d:text</type>
+					<mandatory>true</mandatory>
+		   		</property>
+				<property name="spu:ObservacaoTipoProcesso">
+					<title>Observação</title>
+				   	<type>d:text</type>
+					<mandatory>true</mandatory>
+		   		</property>
+				<property name="spu:Letra">
+					<title>Letra</title>
+				   	<type>d:text</type>
+				</property>
+				<property name="spu:Tramitacao">
+					<title>Tramitação</title>
+					<type>d:text</type>
+				   	<mandatory>true</mandatory>
+					<constraints>
+						<constraint type="LIST">
+							<parameter name="allowedValues">
+								<list>
+									<value>Serie</value>
+									<value>Paralelo</value>
+								</list>
+							</parameter>
+							<parameter name="caseSensitive">
+								<value>true</value>
+							</parameter>
+						</constraint>
+					</constraints>
+				</property>
+				<property name="spu:Abrangencia">
+					<title>Abrangência</title>
+					<type>d:text</type>
+				   	<mandatory>true</mandatory>
+					<constraints>
+						<constraint type="LIST">
+							<parameter name="allowedValues">
+								<list>
+									<value>Interna</value>
+									<value>Externa</value>
+								</list>
+							</parameter>
+							<parameter name="caseSensitive">
+								<value>true</value>
+							</parameter>
+						</constraint>
+					</constraints>
+				</property>
+				<property name="spu:EnvolvidoSigiloso">
+					<title>Envolvido Sigiloso</title>
+				   	<type>d:boolean</type>
+		   		</property>
 			</properties>
 		</type>
 		<!-- Processo -->
