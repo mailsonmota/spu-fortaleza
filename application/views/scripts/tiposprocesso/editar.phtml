@@ -21,7 +21,12 @@ echo $this->pagenav()->closeList();
         <?php 
         echo $this->form()->openFieldList();
         echo $this->textbox('Nome', 'titulo', $this->tipoProcesso->titulo);
+        echo $this->textbox('Letra', 'letra', $this->tipoProcesso->letra);
+        echo $this->textbox('Tramitação', 'tramitação', $this->tipoProcesso->tramitacao);
+        echo $this->textbox('Abrangência', 'abrangencia', $this->tipoProcesso->abrangencia);
         echo $this->checkbox('Simples', 'simples', $this->tipoProcesso->simples);
+        echo $this->checkbox('Envolvido Sigiloso', 'envolvidoSigiloso', $this->tipoProcesso->envolvidoSigiloso);
+        echo $this->textarea('Observacao', 'observacao', $this->tipoProcesso->observacao);
         echo $this->form()->closeFieldList();
         
         echo $this->buttonlist()->open();
