@@ -17,7 +17,7 @@ class Zend_View_Helper_text extends Zend_View_Helper_form
         
         $html  = "";
         $html .= "<dt><label class=\"$labelClass\">$label:</label></dt>";
-        $html .= "<dd>$value</dd>";
+        $html .= "<dd class=\"campoTexto\">$value</dd>";
         
         return $html;
     }
