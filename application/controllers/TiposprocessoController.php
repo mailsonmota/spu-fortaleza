@@ -10,7 +10,7 @@ class TiposprocessoController extends BaseController
     
     public function editarAction()
     {
-        $id = $this->getIdFromUrl();
+        $id = $this->_getIdFromUrl();
         
         $tipoProcesso = new TipoProcesso($this->getTicket());
         $tipoProcesso->carregarPeloId($id);
@@ -22,7 +22,7 @@ class TiposprocessoController extends BaseController
     
     public function assuntosAction()
     {
-        $id = $this->getIdFromUrl();
+        $id = $this->_getIdFromUrl();
         
         $tipoProcesso = new TipoProcesso($this->getTicket());
         $tipoProcesso->carregarPeloId($id);
@@ -32,7 +32,7 @@ class TiposprocessoController extends BaseController
         $this->view->isEdit = true;
     }
     
-    private function getIdFromUrl()
+    private function _getIdFromUrl()
     {
         $id = $this->getRequest()->getParam('id');
         return $id;
