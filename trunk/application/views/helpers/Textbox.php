@@ -18,10 +18,17 @@ class Zend_View_Helper_textbox extends Zend_View_Helper_form
         $inputClass = $this->getInputClass();
         $length = $this->getHtmlLength();
         $id = $this->getId();
+        $isReadOnly = $this->_isReadOnly();
         
         $html  = "";
         $html .= "<dt><label for=\"$name\" class=\"$labelClass\">$label:</label></dt>";
-        $html .= "<dd><input type=\"text\" name=\"$name\" id=\"$id\" value=\"$value\" $length $inputClass/></dd>";
+        $html .= "<dd>";
+        if (!$isReadOnly) {
+            $html .= "<input type=\"text\" name=\"$name\" id=\"$id\" value=\"$value\" $length $inputClass/>";
+        } else {
+            $html .= $value;
+        }
+        $html .= "</dd>";    
         
         return $html;
     }
@@ -63,5 +70,10 @@ class Zend_View_Helper_textbox extends Zend_View_Helper_form
         }
         
         return $class;
+    }
+    
+    protected function _isReadOnly()
+    {
+        return (isset($this->_options['readonly'])) ? $this->_options['readonly'] : false;
     }
 }

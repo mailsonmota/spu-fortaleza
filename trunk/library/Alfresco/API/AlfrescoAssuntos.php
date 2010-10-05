@@ -37,4 +37,16 @@ class AlfrescoAssuntos extends AlfrescoBase
 	    $nome = str_replace(' ', '%20', $nome);
 	    return $nome;
 	}
+	
+    public function getAssunto($nodeUuid)
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/get/$nodeUuid";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        $resultJson = $curlObj->doGetRequest($url);
+        $result = json_decode($resultJson, true);
+        
+        return $result['Assunto'][0];
+    }
 }

@@ -19,10 +19,11 @@ echo $this->pagenav()->closeList();
 
 <div id="article">
     <?php 
-    $headerColumns = array('Nome');
+    $headerColumns = array('Nome', 'Ações');
     $columns = array('nome');
     
     $grid = new SimpleDataTable($this->tipoProcesso->getAssuntos(), array('headerColumns' => $headerColumns, 'columns' => $columns));
+    $grid->addActionColumn('Editar', $this->simpleUrl('editar', $this->controller) . '/id/', 'id');
     echo $grid->render();
     ?>
 </div>

@@ -6,31 +6,17 @@ class Assunto extends BaseAlfrescoEntity
     protected $_nodeRef;
     protected $_nome;
     protected $_categoria;
+    protected $_corpo;
+    protected $_notificarNaAbertura;
     
-    public function listar()
+    public function getNodeRef()
     {
-        $service = new AlfrescoAssuntos(self::ALFRESCO_URL, $this->_getTicket());
-        $hashDeAssuntos = $service->getAssuntos();
-        
-        $assuntos = array();
-        foreach ($hashDeAssuntos as $categorias) {
-            foreach ($categorias as $categoria => $assuntosCategoria) {
-                foreach ($assuntosCategoria as $hashAssunto) {
-                    $assunto = new Assunto($this->_getTicket());
-                    $assunto->loadAssuntoFromHash($hashAssunto);
-                    $assunto->setCategoria($categoria);
-                    $assuntos[] = $assunto;
-                }
-            }
-        }
-        
-        return $assuntos;
+        return $this->_nodeRef;
     }
     
-    public function loadAssuntoFromHash($hash)
+    public function setNodeRef($nodeRef)
     {
-        $this->setNodeRef($hash['noderef']);
-        $this->setNome($hash['nome']);
+        $this->_nodeRef = $nodeRef;
     }
     
     public function getNome()
@@ -53,14 +39,54 @@ class Assunto extends BaseAlfrescoEntity
         $this->_categoria = $categoria;
     }
     
-    public function getNodeRef()
+    public function getCorpo()
     {
-        return $this->_nodeRef;
+        return $this->_corpo;
+    }
+
+    public function setCorpo($value)
+    {
+        $this->_corpo = $value;
     }
     
-    public function setNodeRef($nodeRef)
+	public function getNotificarNaAbertura()
     {
-        $this->_nodeRef = $nodeRef;
+        return $this->_notificarNaAbertura;
+    }
+
+	public function setNotificarNaAbertura($value)
+    {
+        $this->_notificarNaAbertura = $value;
+    }
+
+    public function getId()
+    {
+        $nodeRef = $this->getNodeRef();
+        return substr($nodeRef, strrpos($nodeRef, '/') + 1);
+    }
+    
+	public function listar()
+    {
+        $service = new AlfrescoAssuntos(self::ALFRESCO_URL, $this->_getTicket());
+        $hashDeAssuntos = $service->getAssuntos();
+        
+        $assuntos = array();
+        foreach ($hashDeAssuntos[0] as $hashAssunto) {
+            $assunto = new Assunto($this->_getTicket());
+            $assunto->_loadAssuntoFromHash($hashAssunto[0]);
+            $assunto->setCategoria($hashAssunto[0]['tipoProcesso']);
+            $assuntos[] = $assunto;
+        }
+        
+        return $assuntos;
+    }
+    
+    protected function _loadAssuntoFromHash($hash)
+    {
+        $this->setNodeRef($this->_getHashValue($hash, 'noderef'));
+        $this->setNome($this->_getHashValue($hash, 'nome'));
+        $this->setCorpo($this->_getHashValue($hash, 'corpo'));
+        $this->setNotificarNaAbertura($this->_getHashValue($hash, 'notificarNaAbertura') ? true : false);
     }
     
     public function listarPorTipoProcesso($nomeTipoProcesso)
@@ -69,18 +95,25 @@ class Assunto extends BaseAlfrescoEntity
         $hashDeAssuntos = $service->getAssuntosPorTipoProcesso($nomeTipoProcesso);
         
         $assuntos = array();
-        foreach ($hashDeAssuntos as $categorias) {
-            foreach ($categorias as $categoria => $assuntosCategoria) {
-                foreach ($assuntosCategoria as $hashAssunto) {
-                    $assunto = new Assunto($this->_getTicket());
-                    $assunto->loadAssuntoFromHash($hashAssunto);
-                    $assunto->setCategoria($categoria);
-                    $assuntos[] = $assunto;
-                }
-            }
+        foreach ($hashDeAssuntos as $hashAssunto) {
+            $assunto = new Assunto($this->_getTicket());
+            $assunto->_loadAssuntoFromHash($hashAssunto);
+            $assuntos[] = $assunto;
         }
         
         return $assuntos;
+    }
+    
+    public function carregarPeloId($id)
+    {
+        $service = new AlfrescoAssuntos(self::ALFRESCO_URL, $this->_getTicket());
+        $hashDeAssuntos = $service->getAssunto($id);
+        
+        foreach ($hashDeAssuntos as $hashAssunto) {
+            $hashDadosAssunto = array_pop($hashAssunto); 
+            $this->_loadAssuntoFromHash($hashDadosAssunto);
+            $this->setCategoria($hashDadosAssunto['tipoProcesso']);
+        }
     }
 }
 ?>

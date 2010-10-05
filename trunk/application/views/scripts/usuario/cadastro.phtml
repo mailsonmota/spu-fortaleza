@@ -11,20 +11,21 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-	<form action="" method="post"><?php
+	<form action="" method="post">
+        <?php
+        $grupos = $this->pessoa->getGrupos($this->pessoa->login);
+        $htmlGrupos = '';
+        for ($i = 0; $i < count($grupos); $i++) {
+            $htmlGrupos .= $grupos[$i]['item'] . '<br>';
+        }
+	   
 		echo $this->form()->openFieldList();
 		echo $this->textbox('Nome', 'nome', $this->pessoa->nome, array('required' => true));
 		echo $this->textbox('Sobrenome', 'sobrenome', $this->pessoa->sobrenome, array('required' => true));
 		echo $this->textbox('Email', 'email', $this->pessoa->email, array('required' => true));
+		echo $this->text('Grupos', $htmlGrupos);
 		echo $this->form()->closeFieldList();
-		
-		echo 'Grupos: <br>';
-		$grupos = $this->pessoa->getGrupos($this->pessoa->login);
-		
-		for ($i = 0; $i < count($grupos); $i++) {
-			echo $grupos[$i]['item'] . '<br>';
-	    }
-		   
+		 
 		echo $this->buttonlist()->open();
 		echo $this->buttonlist()->button('Salvar');
 		echo $this->buttonlist()->resetbutton();

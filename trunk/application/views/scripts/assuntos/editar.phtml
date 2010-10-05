@@ -3,6 +3,13 @@ $this->breadcrumbs()->addPage('Assuntos', 'assuntos');
 $this->breadcrumbs()->addPage((($this->isEdit) ? 'Editar' : 'Inserir') . ' Assunto');
 echo $this->breadcrumbs()->render(); 
 
+if ($this->isEdit) {
+    echo $this->tabs()->openList();
+    echo $this->tabs()->addTab($this->simpleUrl('editar', null, array('id' => $this->id)), 'Dados Gerais', true);
+    echo $this->tabs()->addTab($this->simpleUrl('formularios', null, array('id' => $this->id)), 'Formulários');
+    echo $this->tabs()->closeList();
+}
+
 echo $this->pagenav()->openList(); 
 echo $this->pagenav()->link($this->simpleUrl('inserir'), 'Inserir Outro Assunto');
 echo $this->pagenav()->defaultHelperLinks();
@@ -13,9 +20,9 @@ echo $this->pagenav()->closeList();
     <form action="" method="post">
         <?php 
         echo $this->form()->openFieldList();
-        echo $this->textbox('Nome', 'nome', $this->objeto->nome, array('required' => true));
-        echo $this->textarea('Corpo', 'corpo', $this->objeto->corpo, array('required' => true));
-        echo $this->checkbox('Notificar na abertura', 'notificar', $this->objeto->notificar);
+        echo $this->textbox('Nome', 'nome', $this->assunto->nome, array('required' => true));
+        echo $this->textarea('Corpo', 'corpo', $this->assunto->corpo, array('required' => true));
+        echo $this->checkbox('Notificar na abertura', 'notificarNaAbertura', $this->assunto->notificarNaAbertura);
         echo $this->form()->closeFieldList();
         
         echo $this->buttonlist()->open();
