@@ -46,8 +46,11 @@ abstract class BaseController extends Zend_Controller_Action
     public function init()
     {
         $this->view->controller = $this->getController();
-        $identity = AuthPlugin::getIdentity();
-        $this->view->user = $identity['user'];
+        /*$identity = AuthPlugin::getIdentity();
+        $this->view->user = $identity['user'];*/
+        
+        $authInstance = Zend_Auth::getInstance()->getIdentity();
+        $this->view->pessoa = $authInstance['user'];
         
         $this->setMessageFromFlashMessenger();
         $this->setMessageFromUrl();
