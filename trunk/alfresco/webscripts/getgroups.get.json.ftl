@@ -1,8 +1,8 @@
 {
-	"groups":[<#list groups as group>
+	"groups":[<#list resultado as item>
 		{
-			"name":"${group.properties.authorityName}"
-		}<#if group_index+1 &lt; groups?size>,</#if>
+			"item":"${item}"
+		}<#if item_index+1 &lt; resultado?size>,</#if>
 		</#list>
 	]
 }
