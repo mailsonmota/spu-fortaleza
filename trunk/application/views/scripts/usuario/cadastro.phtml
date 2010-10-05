@@ -13,16 +13,18 @@ echo $this->pagenav()->closeList();
 <div id="article">
 	<form action="" method="post"><?php
 		echo $this->form()->openFieldList();
-		echo $this->textbox('Nome', 'nome', $this->person['firstName'], array('required' => true));
-		echo $this->textbox('Sobrenome', 'sobrenome', $this->person['lastName'], array('required' => true));
-		echo $this->textbox('Email', 'email', $this->person['email'], array('required' => true));
+		echo $this->textbox('Nome', 'nome', $this->pessoa->nome, array('required' => true));
+		echo $this->textbox('Sobrenome', 'sobrenome', $this->pessoa->sobrenome, array('required' => true));
+		echo $this->textbox('Email', 'email', $this->pessoa->email, array('required' => true));
 		echo $this->form()->closeFieldList();
 		
-		print 'Groups: ';
-			foreach($this->person['groups'] as $group) {
-				print $group['name'] . ', ';
-		    }
+		echo 'Grupos: <br>';
+		$grupos = $this->pessoa->getGrupos($this->pessoa->login);
 		
+		for ($i = 0; $i < count($grupos); $i++) {
+			echo $grupos[$i]['item'] . '<br>';
+	    }
+		   
 		echo $this->buttonlist()->open();
 		echo $this->buttonlist()->button('Salvar');
 		echo $this->buttonlist()->resetbutton();

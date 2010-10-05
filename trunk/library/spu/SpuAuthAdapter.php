@@ -8,16 +8,11 @@ class SpuAuthAdapter extends ZendAuthAdapterAlfresco
         $username = $this->getUsernameFromResponse();
         $ticket = $this->getTicketFromResponse();
         
-        $usuario = new Usuario(
-            'http://localhost:8080/alfresco/service',
-            $ticket
-        );
+        $usuario = new Usuario($ticket);
+        $usuario->carregarPeloLogin($username);
         
-        $usuarioDetails = $usuario->getPerson($username);
-        $usuarioGroups = $usuario->getGroups($username);
         $identity = array();
-        $identity['user'] = $usuarioDetails;
-        $identity['user']['groups'] = $usuarioGroups;
+        $identity['user'] = $usuario;
         $identity['ticket'] = $ticket;
         $identity['sessionid'] = $this->getSessionIdFromResponse();
         
