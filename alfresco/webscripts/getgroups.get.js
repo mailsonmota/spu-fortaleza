@@ -95,7 +95,7 @@ for (var i = 0; i < resultado.vetor.length; i++) {
       resultado.vetor_string[i] = resultado.vetor[i][j] + ' > '
     }
     else if (j == resultado.vetor[i].length - 1) {
-      resultado.vetor_string[i] += resultado.vetor[i][j]
+      resultado.vetor_string[i] += resultado.vetor[i][j] + '.'
     }
     else {
       resultado.vetor_string[i] += resultado.vetor[i][j] + ' > '
