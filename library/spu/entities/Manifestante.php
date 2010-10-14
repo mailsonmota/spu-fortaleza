@@ -59,5 +59,15 @@ class Manifestante extends BaseAlfrescoEntity
         $this->setNome($this->_getHashValue($hash, 'nome'));
         $this->setBairro($this->_getHashValue($hash, 'bairro'));
     }
+    
+    public function carregarPeloCpf($cpf)
+    {
+        $service = new AlfrescoManifestantes(self::ALFRESCO_URL, $this->_getTicket());
+        $hashManifestante = $service->getManifestante($cpf);
+        
+        $hashDadosManifestante = array_pop(array_pop(array_pop($hashManifestante)));
+        
+        $this->_loadManifestanteFromHash($hashDadosManifestante);
+    }
 }
 ?>

@@ -18,4 +18,16 @@ class AlfrescoManifestantes extends AlfrescoBase
         
         return $result['Manifestantes'];
 	}
+	
+    public function getManifestante($cpf)
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_manifestantesBaseUrl . "/get/$cpf";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        $resultJson = $curlObj->doGetRequest($url);
+        $result = json_decode($resultJson, true);
+        
+        return $result['Manifestante'];
+    }
 }
