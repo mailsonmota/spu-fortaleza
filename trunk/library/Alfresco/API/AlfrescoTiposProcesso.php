@@ -30,4 +30,28 @@ class AlfrescoTiposProcesso extends AlfrescoBase
         
         return $result['Tipo de Processo'][0];
 	}
+	
+	public function getTramitacoes()
+	{
+	    $url = $this->getBaseUrl() . "/" . $this->_tiposProcessoBaseUrl . "/tramitacoes/listar";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        $resultJson = $curlObj->doGetRequest($url);
+        $result = json_decode($resultJson, true);
+        
+        return $result['Tramitacoes'][0];
+	}
+	
+	public function getAbrangencias()
+	{
+	    $url = $this->getBaseUrl() . "/" . $this->_tiposProcessoBaseUrl . "/abrangencias/listar";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        $resultJson = $curlObj->doGetRequest($url);
+        $result = json_decode($resultJson, true);
+        
+        return $result['Abrangencias'][0];
+	}
 }

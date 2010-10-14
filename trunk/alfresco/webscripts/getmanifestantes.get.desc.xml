@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Retorna os manifestantes do SPU</shortname>
+	<description>Retorna os manifestantes do sistema de protocolo unico</description>
+	<url>/spu/manifestantes/listar</url>
+	<authentication>guest</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>
