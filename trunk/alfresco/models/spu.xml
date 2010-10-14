@@ -36,63 +36,20 @@
 				   	<type>d:text</type>
 				</property>
 				<property name="spu:tipoprocesso.Tramitacao">
-					<title>Tramitação</title>
-					<type>d:text</type>
-				   	<mandatory>true</mandatory>
-					<constraints>
-						<constraint type="LIST">
-							<parameter name="allowedValues">
-								<list>
-									<value>Serie</value>
-									<value>Paralelo</value>
-								</list>
-							</parameter>
-							<parameter name="caseSensitive">
-								<value>true</value>
-							</parameter>
-						</constraint>
-					</constraints>
-				</property>
+				   	<title>Tramitação</title>
+				   	<type>d:category</type>
+                    <mandatory>true</mandatory>
+		    	</property>	
 				<property name="spu:tipoprocesso.Abrangencia">
 					<title>Abrangência</title>
-					<type>d:text</type>
+					<type>d:category</type>
 				   	<mandatory>true</mandatory>
-					<constraints>
-						<constraint type="LIST">
-							<parameter name="allowedValues">
-								<list>
-									<value>Interna</value>
-									<value>Externa</value>
-								</list>
-							</parameter>
-							<parameter name="caseSensitive">
-								<value>true</value>
-							</parameter>
-						</constraint>
-					</constraints>
 				</property>
 				<property name="spu:tipoprocesso.TipoManifestante">
 					<title>Tipos de Manifestante</title>
-					<type>d:text</type>
+					<type>d:category</type>
 				   	<mandatory>true</mandatory>
 					<multiple>true</multiple>
-					<constraints>
-						<constraint type="LIST">
-							<parameter name="allowedValues">
-								<list>
-									<value>Orgao da PMF</value>
-									<value>Outros (Estagiario, Terceirizado)</value>
-									<value>Pessoa Fisica</value>
-									<value>Pessoa Juridica</value>
-									<value>Servidor Comissionado</value>
-									<value>Servidor Efetivo</value>
-								</list>
-							</parameter>
-							<parameter name="caseSensitive">
-								<value>false</value>
-							</parameter>
-						</constraint>
-					</constraints>
 				</property>
 				<property name="spu:tipoprocesso.EnvolvidoSigiloso">
 					<title>Envolvido Sigiloso</title>
@@ -159,22 +116,8 @@
 		    	</property>
                 <property name="spu:processo.Prioridade">
 					<title>Prioridade</title>
-					<type>d:text</type>
+					<type>d:category</type>
 					<mandatory>true</mandatory>
-					<constraints>
-						<constraint type="LIST">
-							<parameter name="allowedValues">
-								<list>
-									<value>Ordinario (Normal)</value>
-									<value>Prioritario</value>
-									<value>Urgente</value>
-								</list>
-							</parameter>
-							<parameter name="caseSensitive">
-								<value>true</value>
-							</parameter>
-						</constraint>
-					</constraints>
 				</property>
 				<!-- Manifestante - Inicio -->
 				<property name="spu:processo.ManifestanteNome">
@@ -189,7 +132,7 @@
 		    	</property>
 				<property name="spu:processo.ManifestanteTipo">
 				   	<title>Tipo do Manifestante</title>
-				   	<type>d:text</type>
+				   	<type>d:category</type>
                     <mandatory>true</mandatory>
 		    	</property>
 				<property name="spu:processo.ManifestanteBairro">
