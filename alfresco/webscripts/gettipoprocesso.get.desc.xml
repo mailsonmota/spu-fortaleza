@@ -1,8 +1,9 @@
 <webscript>
-<shortname>Get Tipo de Processo</shortname>
-<description>Retorna o Tipos de Processo do SPU à partir do uuid</description>
-<url>/spu/tiposprocesso/get/{noderef}</url>
-<authentication>user</authentication>
-<transaction>required</transaction>
+	<shortname>Get Tipo de Processo</shortname>
+	<description>Retorna o Tipos de Processo do SPU à partir do uuid</description>
+	<url>/spu/tiposprocesso/get/{noderef}</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
 </webscript>
 

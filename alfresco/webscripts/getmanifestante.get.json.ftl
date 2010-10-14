@@ -1,0 +1,11 @@
+{
+"Manifestante":[{
+<#compress>
+	"${manifestante['cpf']}":[{
+		"cpf":"${manifestante['cpf']}",
+		"nome":"${manifestante['nome']}", 
+		"bairro":"${manifestante['bairro']}"
+	}]
+</#compress>
+}]
+}
