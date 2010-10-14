@@ -34,9 +34,11 @@ class Zend_View_Helper_select extends Zend_View_Helper_form
         $html .= "<dt><label for=\"$name\" class=\"$labelClass\">$label:</label></dt>";
         $html .= "<dd>";
         $html .= "<select $multiple name=\"$name\" id=\"$id\">";
-        foreach ($selectOptions as $key => $value) {
-            $selected = ($key == $selectedValue) ? 'selected="selected"' : '';
-            $html .= "<option value=\"$key\" $selected>$value</option>";
+        if (is_array($selectOptions)) {
+            foreach ($selectOptions as $key => $value) {
+                $selected = ($key == $selectedValue) ? 'selected="selected"' : '';
+                $html .= "<option value=\"$key\" $selected>$value</option>";
+            }
         }
         $html .= "</select>";
         $html .= "</dd>";

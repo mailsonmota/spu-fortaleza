@@ -55,10 +55,11 @@ input, select, textarea {font-family: Helvetica, Arial, sans-serif;padding: 0.25
 select {text-indent: 0;}
 dd {float: left;}
 .required {font-weight: bold;}
-.campoTexto { padding-top: 0.75em; }
+.campoTexto {padding-top: 0.75em;}
+fieldset {border-width: 1px 0 0 0;}
 
 /* Botões */
-.buttons {border-top: 1px solid #DDD;padding: 1%;margin: 1% 0;background: #FAFAFA;}
+.buttons {border-top: 1px solid #DDD;padding: 1%;margin: 1% 0;background: #FAFAFA;clear: left;}
 .buttons li {float: left;margin-right: 12px;}
 .buttons .description {padding-top: 0.70em;}
 .buttons.grid {margin-bottom: 0;}
