@@ -1,5 +1,6 @@
 <?php
 Loader::loadEntity('TipoProcesso');
+Loader::loadEntity('TipoTramitacao');
 class TiposprocessoController extends BaseController
 {
     public function indexAction()
@@ -12,12 +13,49 @@ class TiposprocessoController extends BaseController
     {
         $id = $this->_getIdFromUrl();
         
-        $tipoProcesso = new TipoProcesso($this->getTicket());
-        $tipoProcesso->carregarPeloId($id);
+        try {
+            $tipoProcesso = new TipoProcesso($this->getTicket());
+            $tipoProcesso->carregarPeloId($id);
+            $listaTiposTramitacao = $this->_getListaTiposTramitacao();
+        } catch (Exception $e) {
+            $this->setErrorMessage($e->getMessage());
+            $this->_redirectListaTiposProcesso();
+        }
         
         $this->view->tipoProcesso = $tipoProcesso;
+        $this->view->listaTiposTramitacao = $listaTiposTramitacao;
         $this->view->id = $tipoProcesso->getId();
         $this->view->isEdit = true;
+    }
+    
+    private function _getIdFromUrl()
+    {
+        $id = $this->getRequest()->getParam('id');
+        return $id;
+    }
+    
+    protected function _getListaTiposTramitacao()
+    {
+        $tipoTramitacao = new TipoTramitacao($this->getTicket());
+        $tiposTramitacao = $tipoTramitacao->listar();
+        $listaTiposTramitacao = array();
+        foreach ($tiposTramitacao as $tipoTramitacao) {
+            $listaTiposTramitacao[$tipoTramitacao->id] = $tipoTramitacao->descricao;
+        }
+        
+        if (count($listaTiposTramitacao) == 0) {
+            throw new Exception(
+                'Não existe nenhum tipo de tramitação cadastrado no sistema. 
+                Por favor, entre em contato com a administração do sistema.'
+            );
+        }
+        
+        return $listaTiposTramitacao;
+    }
+    
+    protected function _redirectListaTiposProcesso()
+    {
+        $this->_helper->redirector('index', $this->getController(), 'default');
     }
     
     public function assuntosAction()
@@ -32,9 +70,5 @@ class TiposprocessoController extends BaseController
         $this->view->isEdit = true;
     }
     
-    private function _getIdFromUrl()
-    {
-        $id = $this->getRequest()->getParam('id');
-        return $id;
-    }
+    
 }
