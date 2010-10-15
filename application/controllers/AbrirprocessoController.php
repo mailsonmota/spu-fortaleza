@@ -81,7 +81,9 @@ class AbrirprocessoController extends BaseController
         }
         
         if (count($listaAssuntos) == 0) {
-            throw new Exception('O tipo de processo selecionado não possui nenhum assunto. Por favor, escolha outro.');
+            throw new Exception(
+                'O tipo de processo selecionado não possui nenhum assunto. Por favor, escolha outro.'
+            );
         }
         
         return $listaAssuntos;
@@ -98,7 +100,8 @@ class AbrirprocessoController extends BaseController
         
         if (count($listaBairros) == 0) {
             throw new Exception(
-                'Não existe nenhum bairro cadastrado no sistema. Por favor, entre em contato com a administração do sistema.'
+                'Não existe nenhum bairro cadastrado no sistema. 
+                Por favor, entre em contato com a administração do sistema.'
             );
         }
         
