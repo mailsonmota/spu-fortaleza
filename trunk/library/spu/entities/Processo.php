@@ -168,5 +168,11 @@ class Processo extends BaseAlfrescoEntity
         
         return $processo;
     }
+    
+    public function abrirProcesso($postData)
+    {
+        $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+        return $service->abrirProcesso($postData);
+    }
 }
 ?>
