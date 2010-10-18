@@ -1,8 +1,0 @@
-<webscript>
-	<shortname>Lista os Assuntos de um Tipo de Processo do SPU</shortname>
-	<description>Lista todos os assuntos de um Tipo de Processo do Sistema de Protocolo Unico</description>
-	<url>/spu/assuntos/listarportipoprocesso/{noderef}</url>
-	<authentication>guest</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>

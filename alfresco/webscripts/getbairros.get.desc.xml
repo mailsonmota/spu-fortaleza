@@ -1,8 +1,0 @@
-<webscript>
-	<shortname>Retorna os Bairros do SPU</shortname>
-	<description>Retorna os bairros do sistema de protocolo unico</description>
-	<url>/spu/bairros/listar</url>
-	<authentication>guest</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>
