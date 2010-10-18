@@ -51,8 +51,6 @@ class AbrirprocessoController extends BaseController
         }
         
         if ($this->getRequest()->isPost()) {
-            // adiciona processo
-            // TODO
             $postData = $this->getRequest()->getParams();
             $processoObj = new Processo($this->getTicket());
             $return = $processoObj->abrirProcesso($postData);
@@ -62,9 +60,6 @@ class AbrirprocessoController extends BaseController
         $this->view->listaTiposProcesso = $listaTiposProcesso;
         $this->view->listaAssuntos = $listaAssuntos;
         $this->view->listaBairros = $listaBairros;
-        
-        $this->view->result = $result;
-        
     }
     
     protected function _getIdTipoProcessoUrl()
