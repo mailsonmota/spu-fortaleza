@@ -2,6 +2,9 @@
 require_once('../library/Alfresco/API/AlfrescoTiposProcesso.php');
 require_once('BaseAlfrescoEntity.php');
 require_once('Assunto.php');
+require_once('TipoTramitacao.php');
+require_once('TipoAbrangencia.php');
+require_once('TipoManifestante.php');
 class TipoProcesso extends BaseAlfrescoEntity
 {
     protected $_nodeRef;
@@ -156,6 +159,7 @@ class TipoProcesso extends BaseAlfrescoEntity
         $this->setTiposManifestante($this->_getHashValue($hash, 'tiposManifestante'));
         $this->_loadTipoTramitacaoFromHash($hash);
         $this->_loadTipoAbrangenciaFromHash($hash);
+        $this->_loadTiposManifestanteFromHash($hash);
     }
     
     protected function _loadTipoTramitacaoFromHash($hash)
@@ -182,6 +186,23 @@ class TipoProcesso extends BaseAlfrescoEntity
             $abrangencia->setDescricao($this->_getHashValue($hashAbrangencia, 'descricao'));            
         }
         $this->setAbrangencia($abrangencia);
+    }
+    
+    protected function _loadTiposManifestanteFromHash($hash)
+    {
+        $hashTiposManifestante = $this->_getHashValue($hash, 'tiposManifestante');
+        $tiposManifestante = array();
+        if ($hashTiposManifestante) {
+            foreach ($hashTiposManifestante as $hashTipoManifestante) {
+                $hashTipoManifestante = array_pop(array_pop($hashTipoManifestante));
+                $tipoManifestante = new TipoManifestante($this->_ticket);
+                $tipoManifestante->setNodeRef($this->_getHashValue($hashTipoManifestante, 'noderef'));
+                $tipoManifestante->setNome($this->_getHashValue($hashTipoManifestante, 'nome'));
+                $tipoManifestante->setDescricao($this->_getHashValue($hashTipoManifestante, 'descricao'));
+                $tiposManifestante[] = $tipoManifestante;
+            }         
+        }
+        $this->setTiposManifestante($tiposManifestante);
     }
     
     public function carregarPeloId($id)

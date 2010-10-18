@@ -57,6 +57,9 @@ dd {float: left;}
 .required {font-weight: bold;}
 .campoTexto {padding-top: 0.75em;}
 fieldset {border-width: 1px 0 0 0;}
+dd ul li {padding: 0.25em 0;}
+dd ul li.even {background: #FAFAFA;}
+dd ul li.odd {background: #F5F5F5;}
 
 /* Botões */
 .buttons {border-top: 1px solid #DDD;padding: 1%;margin: 1% 0;background: #FAFAFA;clear: left;}

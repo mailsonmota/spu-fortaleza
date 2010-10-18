@@ -2,6 +2,7 @@
 Loader::loadEntity('TipoProcesso');
 Loader::loadEntity('TipoTramitacao');
 Loader::loadEntity('TipoAbrangencia');
+Loader::loadEntity('TipoManifestante');
 class TiposprocessoController extends BaseController
 {
     public function indexAction()
@@ -19,6 +20,7 @@ class TiposprocessoController extends BaseController
             $tipoProcesso->carregarPeloId($id);
             $listaTiposTramitacao = $this->_getListaTiposTramitacao();
             $listaTiposAbrangencia = $this->_getListaTiposAbrangencia();
+            $listaTiposManifestante = $this->_getListaTiposManifestante();
         } catch (Exception $e) {
             $this->setErrorMessage($e->getMessage());
             $this->_redirectListaTiposProcesso();
@@ -27,6 +29,8 @@ class TiposprocessoController extends BaseController
         $this->view->tipoProcesso = $tipoProcesso;
         $this->view->listaTiposTramitacao = $listaTiposTramitacao;
         $this->view->listaTiposAbrangencia = $listaTiposAbrangencia;
+        $this->view->listaTiposManifestante = $listaTiposManifestante;
+        $this->view->tiposManifestante = $this->_getTiposManifestanteTipoProcesso($tipoProcesso);
         $this->view->id = $tipoProcesso->getId();
         $this->view->isEdit = true;
     }
@@ -73,6 +77,35 @@ class TiposprocessoController extends BaseController
         }
         
         return $listaTiposAbrangencia;
+    }
+    
+    protected function _getListaTiposManifestante()
+    {
+        $tipoManifestante = new TipoManifestante($this->getTicket());
+        $tiposManifestante = $tipoManifestante->listar();
+        $listaTiposManifestante = array();
+        foreach ($tiposManifestante as $tipoManifestante) {
+            $listaTiposManifestante[$tipoManifestante->id] = $tipoManifestante->descricao;
+        }
+        
+        if (count($listaTiposManifestante) == 0) {
+            throw new Exception(
+                'Não existe nenhum tipo de abrangência cadastrado no sistema. 
+                Por favor, entre em contato com a administração do sistema.'
+            );
+        }
+        
+        return $listaTiposManifestante;
+    }
+    
+    protected function _getTiposManifestanteTipoProcesso($tipoProcesso)
+    {
+        $tiposManifestante = $tipoProcesso->tiposManifestante;
+        $arrayTiposManifestante = array();
+        foreach ($tiposManifestante as $tipoManifestante) {
+            $arrayTiposManifestante[] = $tipoManifestante->id;
+        }
+        return $arrayTiposManifestante;
     }
     
     protected function _redirectListaTiposProcesso()
