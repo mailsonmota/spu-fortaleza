@@ -54,7 +54,6 @@ class AbrirprocessoController extends BaseController
             // adiciona processo
             // TODO
             $postData = $this->getRequest()->getParams();
-            var_dump($postData); exit;
             $processoObj = new Processo($this->getTicket());
             $return = $processoObj->abrirProcesso($postData);
         }
