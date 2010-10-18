@@ -54,4 +54,16 @@ class AlfrescoTiposProcesso extends AlfrescoBase
         
         return $result['Abrangencias'][0];
 	}
+	
+    public function getTiposManifestante()
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_tiposProcessoBaseUrl . "/tiposmanifestante/listar";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        $resultJson = $curlObj->doGetRequest($url);
+        $result = json_decode($resultJson, true);
+        
+        return $result['Tipos de Manifestante'][0];
+    }
 }
