@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Retorna o manifestante solicitado do SPU</shortname>
+	<description>Retorna o manifestante solicitado a partir do CPF do sistema de protocolo unico</description>
+	<url>/spu/manifestantes/get/{cpf}</url>
+	<authentication>guest</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>

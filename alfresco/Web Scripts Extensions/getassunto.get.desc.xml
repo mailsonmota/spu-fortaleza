@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Retorna os assuntos do SPU</shortname>
+	<description>Retorna os assuntos sistema de protocolo unico</description>
+	<url>/spu/assuntos/get/{noderef}</url>
+	<authentication>guest</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>
