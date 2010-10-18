@@ -40,27 +40,29 @@ class AbrirprocessoController extends BaseController
     
     public function formularioAction()
     {
-        try {    
+        try {
             $tipoProcesso = $this->_getTipoProcesso($this->_getIdTipoProcessoUrl());
             $listaTiposProcesso = $this->_getListaTiposProcesso();
-            //$listaAssuntos = $this->_getListaAssuntos($tipoProcesso);
-            //$listaBairros = $this->_getListaBairros();
-            
-            // adiciona processo
-            // TODO
-            $postData = $this->getRequest()->getParams();
-            $processoObj = new Processo($this->getTicket());
-            $return = $processoObj->abrirProcesso($postData);
-            
+            $listaAssuntos = $this->_getListaAssuntos($tipoProcesso);
+            $listaBairros = $this->_getListaBairros();
         } catch (Exception $e) {
             $this->setErrorMessage($e->getMessage());
             $this->_redirectEscolhaTipoProcesso();
         }
         
+        if ($this->getRequest()->isPost()) {
+            // adiciona processo
+            // TODO
+            $postData = $this->getRequest()->getParams();
+            var_dump($postData); exit;
+            $processoObj = new Processo($this->getTicket());
+            $return = $processoObj->abrirProcesso($postData);
+        }
+        
         $this->view->tipoProcesso = $tipoProcesso;
         $this->view->listaTiposProcesso = $listaTiposProcesso;
-        //$this->view->listaAssuntos = $listaAssuntos;
-        //$this->view->listaBairros = $listaBairros;
+        $this->view->listaAssuntos = $listaAssuntos;
+        $this->view->listaBairros = $listaBairros;
         
         $this->view->result = $result;
         
