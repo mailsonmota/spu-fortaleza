@@ -1,0 +1,12 @@
+<webscript>
+
+<shortname>Get groups</shortname>
+<description>Picks up all groups of the logged user</description>
+
+<url>/getGroups</url>
+
+<format default="json">extension</format>
+<authentication>user</authentication>
+<transaction>required</transaction>
+
+</webscript>
