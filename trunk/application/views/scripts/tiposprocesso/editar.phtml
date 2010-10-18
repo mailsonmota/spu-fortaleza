@@ -18,14 +18,13 @@ echo $this->pagenav()->closeList();
 
 <div id="article">
     <form action="" method="post">
-        <?php 
+        <?php
         echo $this->form()->openFieldList();
-        echo $this->textbox('Nome', 'titulo', $this->tipoProcesso->titulo);
+        echo $this->textbox('Nome', 'titulo', $this->tipoProcesso->titulo, array('required' => true));
         echo $this->textbox('Letra', 'letra', $this->tipoProcesso->letra);
-        echo $this->select('Tramitação', 'tramitacao', $this->listaTiposTramitacao, null, array('required' => true));
-        echo $this->textbox('Tramitação', 'tramitacao', $this->tipoProcesso->tramitacao);
-        echo $this->textbox('Abrangência', 'abrangencia', $this->tipoProcesso->abrangencia);
-        echo $this->checkbox('Simples', 'simples', $this->tipoProcesso->simples);
+        echo $this->select('Tramitação', 'tramitacao', $this->listaTiposTramitacao, $this->tipoProcesso->tramitacao->id, array('required' => true));
+        echo $this->select('Abrangência', 'abrangencia', $this->listaTiposAbrangencia, $this->tipoProcesso->abrangencia->id, array('required' => true));
+        echo $this->checkbox('Simples', 'simples', $this->tipoProcesso->simples, array('required' => true));
         echo $this->checkbox('Envolvido Sigiloso', 'envolvidoSigiloso', $this->tipoProcesso->envolvidoSigiloso);
         echo $this->textarea('Observacao', 'observacao', $this->tipoProcesso->observacao);
         echo $this->form()->closeFieldList();
