@@ -7,8 +7,6 @@
 		<property-sheet>
 			<show-property name="spu:assunto.Corpo" />
 			<show-property name="spu:assunto.NotificarNaAbertura" />
-			<show-association name="spu:assunto.TipoProcesso" 
-				show-in-edit-mode="true" show-in-view-mode="true" />
 		</property-sheet>
 	</config>
 
@@ -18,10 +16,11 @@
          	<show-property name="spu:tipoprocesso.Simples" />
 			<show-property name="spu:tipoprocesso.Observacao" />
 			<show-property name="spu:tipoprocesso.Letra" />
+			<show-property name="spu:tipoprocesso.EnvolvidoSigiloso" />
 			<show-property name="spu:tipoprocesso.Tramitacao" />
 			<show-property name="spu:tipoprocesso.Abrangencia" />
-			<show-property name="spu:tipoprocesso.EnvolvidoSigiloso" />
 			<show-property name="spu:tipoprocesso.TipoManifestante" />
+			<show-property name="spu:tipoprocesso.NomeTipoManifestante" />
 		</property-sheet>
 	</config>
 
@@ -38,13 +37,13 @@
 		<property-sheet>
 			<show-property name="spu:processo.Data" />
 			<show-property name="spu:processo.Observacao" />
-			<show-property name="spu:processo.Prioridade" />
 			<show-property name="spu:processo.NumeroOrigem" />
 			<show-property name="spu:processo.DataPrazo" />
+			<show-property name="spu:processo.Prioridade" />			
 			<show-property name="spu:processo.ManifestanteNome" />
 			<show-property name="spu:processo.ManifestanteCpf" />
-			<show-property name="spu:processo.ManifestanteTipo" />			
 			<show-property name="spu:processo.ManifestanteBairro" />
+			<show-property name="spu:processo.ManifestanteTipo" />
 			<show-association name="spu:processo.Assunto" 
 				show-in-edit-mode="true" show-in-view-mode="true" />
 		</property-sheet>

@@ -1,9 +1,0 @@
-<webscript>
-	<shortname>Retorna as opções de Tramitação de Tipos de Processo</shortname>
-	<description>Retorna as opções de Tramitação de Tipos de Processo</description>
-	<url>/spu/tiposprocesso/tramitacoes/listar</url>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>
-

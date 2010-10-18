@@ -44,10 +44,12 @@ class Manifestante extends BaseAlfrescoEntity
         
         $manifestantes = array();
         foreach ($hashManifestantes as $hashManifestante) {
-            $hashDadosManifestante = array_pop(array_pop($hashManifestante));
-            $manifestante = new Manifestante($this->_getTicket());
-            $manifestante->_loadManifestanteFromHash($hashDadosManifestante);
-            $manifestantes[] = $manifestante;
+            if ($hashManifestante) {
+                $hashDadosManifestante = array_pop(array_pop($hashManifestante));
+                $manifestante = new Manifestante($this->_getTicket());
+                $manifestante->_loadManifestanteFromHash($hashDadosManifestante);
+                $manifestantes[] = $manifestante;
+            }
         }
         
         return $manifestantes;
