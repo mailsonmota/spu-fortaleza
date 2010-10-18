@@ -1,6 +1,7 @@
 <?php
 Loader::loadEntity('TipoProcesso');
 Loader::loadEntity('TipoTramitacao');
+Loader::loadEntity('TipoAbrangencia');
 class TiposprocessoController extends BaseController
 {
     public function indexAction()
@@ -17,6 +18,7 @@ class TiposprocessoController extends BaseController
             $tipoProcesso = new TipoProcesso($this->getTicket());
             $tipoProcesso->carregarPeloId($id);
             $listaTiposTramitacao = $this->_getListaTiposTramitacao();
+            $listaTiposAbrangencia = $this->_getListaTiposAbrangencia();
         } catch (Exception $e) {
             $this->setErrorMessage($e->getMessage());
             $this->_redirectListaTiposProcesso();
@@ -24,6 +26,7 @@ class TiposprocessoController extends BaseController
         
         $this->view->tipoProcesso = $tipoProcesso;
         $this->view->listaTiposTramitacao = $listaTiposTramitacao;
+        $this->view->listaTiposAbrangencia = $listaTiposAbrangencia;
         $this->view->id = $tipoProcesso->getId();
         $this->view->isEdit = true;
     }
@@ -51,6 +54,25 @@ class TiposprocessoController extends BaseController
         }
         
         return $listaTiposTramitacao;
+    }
+    
+    protected function _getListaTiposAbrangencia()
+    {
+        $tipoAbrangencia = new TipoAbrangencia($this->getTicket());
+        $tiposAbrangencia = $tipoAbrangencia->listar();
+        $listaTiposAbrangencia = array();
+        foreach ($tiposAbrangencia as $tipoAbrangencia) {
+            $listaTiposAbrangencia[$tipoAbrangencia->id] = $tipoAbrangencia->descricao;
+        }
+        
+        if (count($listaTiposAbrangencia) == 0) {
+            throw new Exception(
+                'Não existe nenhum tipo de abrangência cadastrado no sistema. 
+                Por favor, entre em contato com a administração do sistema.'
+            );
+        }
+        
+        return $listaTiposAbrangencia;
     }
     
     protected function _redirectListaTiposProcesso()

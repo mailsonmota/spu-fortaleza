@@ -151,11 +151,37 @@ class TipoProcesso extends BaseAlfrescoEntity
         $this->setSimples(($this->_getHashValue($hash, 'simples') == '1') ? true : false);
         $this->setTitulo($this->_getHashValue($hash, 'titulo'));
         $this->setLetra($this->_getHashValue($hash, 'letra'));
-        $this->setTramitacao($this->_getHashValue($hash, 'tramitacao'));
-        $this->setAbrangencia($this->_getHashValue($hash, 'abrangencia'));
         $this->setObservacao($this->_getHashValue($hash, 'observacao'));
         $this->setEnvolvidoSigiloso(($this->_getHashValue($hash, 'envolvidoSigiloso') == '1') ? true : false);
         $this->setTiposManifestante($this->_getHashValue($hash, 'tiposManifestante'));
+        $this->_loadTipoTramitacaoFromHash($hash);
+        $this->_loadTipoAbrangenciaFromHash($hash);
+    }
+    
+    protected function _loadTipoTramitacaoFromHash($hash)
+    {
+        $hashTramitacao = $this->_getHashValue($hash, 'tramitacao');
+        $tramitacao = new TipoTramitacao($this->_ticket);
+        if ($hashTramitacao) {
+            $hashTramitacao = array_pop($hashTramitacao);
+            $tramitacao->setNodeRef($this->_getHashValue($hashTramitacao, 'noderef'));
+            $tramitacao->setNome($this->_getHashValue($hashTramitacao, 'nome'));
+            $tramitacao->setDescricao($this->_getHashValue($hashTramitacao, 'descricao'));            
+        }
+        $this->setTramitacao($tramitacao);
+    }
+    
+    protected function _loadTipoAbrangenciaFromHash($hash)
+    {
+        $hashAbrangencia = $this->_getHashValue($hash, 'abrangencia');
+        $abrangencia = new TipoTramitacao($this->_ticket);
+        if ($hashAbrangencia) {
+            $hashAbrangencia = array_pop($hashAbrangencia);
+            $abrangencia->setNodeRef($this->_getHashValue($hashAbrangencia, 'noderef'));
+            $abrangencia->setNome($this->_getHashValue($hashAbrangencia, 'nome'));
+            $abrangencia->setDescricao($this->_getHashValue($hashAbrangencia, 'descricao'));            
+        }
+        $this->setAbrangencia($abrangencia);
     }
     
     public function carregarPeloId($id)
