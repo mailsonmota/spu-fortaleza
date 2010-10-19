@@ -23,8 +23,8 @@ echo $this->pagenav()->closeList();
 		echo $this->text('Usuário', $this->pessoa->login, array('readonly' => true));
 		echo $this->text('Grupos', $htmlGrupos);
 		echo $this->textbox('Nome', 'nome', $this->pessoa->nome, array('required' => true));
-		echo $this->textbox('Sobrenome', 'sobrenome', $this->pessoa->sobrenome, array('required' => true));
-		echo $this->textbox('Email', 'email', $this->pessoa->email, array('required' => true));
+		echo $this->textbox('Sobrenome', 'sobrenome', $this->pessoa->sobrenome, array('required' => true, 'length' => 30));
+		echo $this->textbox('Email', 'email', $this->pessoa->email, array('required' => true, 'length' => 60));
 		echo $this->form()->closeFieldList();
 		 
 		echo $this->buttonlist()->open();
