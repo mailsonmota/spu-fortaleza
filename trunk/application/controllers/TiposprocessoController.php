@@ -123,7 +123,5 @@ class TiposprocessoController extends BaseController
         $this->view->tipoProcesso = $tipoProcesso;
         $this->view->id = $tipoProcesso->getId();
         $this->view->isEdit = true;
-    }
-    
-    
+    }   
 }

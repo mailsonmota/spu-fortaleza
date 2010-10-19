@@ -1,7 +1,7 @@
 <?php
 
 require_once('AlfrescoBase.php');
-
+require_once('Prioridade.php');
 class AlfrescoProcesso extends AlfrescoBase
 {
 	private $_processoBaseUrl = 'spu/processo';
@@ -31,4 +31,16 @@ class AlfrescoProcesso extends AlfrescoBase
         
         return $result;
 	}
+	
+    public function getPrioridades()
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/prioridades/listar";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        $resultJson = $curlObj->doGetRequest($url);
+        $result = json_decode($resultJson, true);
+        
+        return $result['Prioridades'][0];
+    }
 }

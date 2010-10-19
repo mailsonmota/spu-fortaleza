@@ -15,7 +15,7 @@
     <legend>Manifestante</legend>
     <?php 
     echo $this->form()->openFieldList();
-    echo $this->textbox('Tipo', 'manifestantetipo', null, array('required' => true));
+    echo $this->select('Tipo', 'manifestantetipo', $this->listaTiposManifestante, null, array('required' => true));
     echo $this->textbox('CPF/CNPJ', 'manifestantecpfcnpj', null, array('required' => true));
     echo $this->textbox('Nome', 'manifestantenome', null, array('required' => true));
     echo $this->select('Bairro', 'manifestantebairro', $this->listaBairros, null, array('required' => true));
