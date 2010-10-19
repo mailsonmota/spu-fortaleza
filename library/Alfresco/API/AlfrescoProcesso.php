@@ -1,7 +1,6 @@
 <?php
 
 require_once('AlfrescoBase.php');
-require_once('Prioridade.php');
 class AlfrescoProcesso extends AlfrescoBase
 {
 	private $_processoBaseUrl = 'spu/processo';

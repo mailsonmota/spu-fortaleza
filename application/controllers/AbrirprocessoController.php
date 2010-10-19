@@ -1,6 +1,7 @@
 <?php
 Loader::loadEntity('Processo');
 Loader::loadEntity('Bairro');
+Loader::loadEntity('Protocolo');
 class AbrirprocessoController extends BaseController
 {
     public function indexAction()
@@ -47,6 +48,7 @@ class AbrirprocessoController extends BaseController
             $listaBairros = $this->_getListaBairros();
             $listaTiposManifestante = $this->_getListaTiposManifestante($tipoProcesso);
             $listaPrioridades = $this->_getListaPrioridades();
+            $listaProtocolos = $this->_getListaProtocolos();
         } catch (Exception $e) {
             $this->setErrorMessage($e->getMessage());
             $this->_redirectEscolhaTipoProcesso();
@@ -64,6 +66,7 @@ class AbrirprocessoController extends BaseController
         $this->view->listaBairros = $listaBairros;
         $this->view->listaTiposManifestante = $listaTiposManifestante;
         $this->view->listaPrioridades = $listaPrioridades;
+        $this->view->listaProtocolos = $listaProtocolos;
     }
     
     protected function _getIdTipoProcessoUrl()
@@ -154,6 +157,25 @@ class AbrirprocessoController extends BaseController
         }
         
         return $listaPrioridades;
+    }
+    
+    protected function _getListaProtocolos()
+    {
+        $protocolo = new Protocolo($this->getTicket());
+        $protocolos = $protocolo->listar();
+        $listaProtocolos = array();
+        foreach ($protocolos as $protocolo) {
+            $listaProtocolos[$protocolo->id] = $protocolo->descricao;
+        }
+        
+        if (count($listaProtocolos) == 0) {
+            throw new Exception(
+                'Não existe nenhum protocolo cadastrado no sistema. 
+                Por favor, entre em contato com a administração do sistema.'
+            );
+        }
+        
+        return $listaProtocolos;
     }
     
     protected function _redirectEscolhaTipoProcesso()
