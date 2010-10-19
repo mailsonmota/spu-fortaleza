@@ -26,7 +26,7 @@ echo $this->pagenav()->closeList();
         echo $this->buttonlist()->close(); 
         
         $columns = array('id', 'nome');
-        $grid = new DataTable($this->objeto, array('method' => 'getFormularios', 'columns' => $columns));
+        $grid = new SimpleDataTable($this->objeto, array('method' => 'getFormularios', 'columns' => $columns));
         echo $grid->render();
         ?>
     </form>
