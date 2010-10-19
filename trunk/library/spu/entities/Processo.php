@@ -2,6 +2,7 @@
 require_once('../library/Alfresco/API/AlfrescoProcesso.php');
 require_once('BaseAlfrescoEntity.php');
 require_once('TipoProcesso.php');
+require_once('Prioridade.php');
 class Processo extends BaseAlfrescoEntity
 {
     protected $_nodeRef;

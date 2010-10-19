@@ -30,7 +30,7 @@
     echo $this->form()->openFieldList();
     echo $this->textarea('Corpo', 'corpo', null, array('required' => true));
     echo $this->select('Prioridade', 'prioridade', $this->listaPrioridades, null, array('required' => true));
-    echo $this->textbox('Destino', 'destino', null, array('required' => true));
+    echo $this->select('Destino', 'destino', $this->listaProtocolos, null, array('required' => true));
     echo $this->textbox('Data Prazo', 'dataprazo');
     echo $this->form()->closeFieldList();
     ?>
