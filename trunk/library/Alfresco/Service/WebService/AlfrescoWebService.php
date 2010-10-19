@@ -86,8 +86,8 @@ class AlfrescoWebService extends SoapClient
 
          // Construct Timestamp Header
          $timeStamp = $dom->createElementNS($this->wsUtilityNS, "Timestamp");
-         $createdDate = date("Y-m-d\TH:i:s\Z", mktime(date("H")+24, date("i"), date("s"), date("m"), date("d"), date("Y")));
-         $expiresDate = date("Y-m-d\TH:i:s\Z", mktime(date("H")+25, date("i"), date("s"), date("m"), date("d"), date("Y")));
+         $createdDate = date("Y-m-d H:i:s", mktime(date("H")+24, date("i"), date("s"), date("m"), date("d"), date("Y")));
+         $expiresDate = date("Y-m-d H:i:s", mktime(date("H")+25, date("i"), date("s"), date("m"), date("d"), date("Y")));
          $created = new DOMElement("Created", $createdDate, $this->wsUtilityNS);
          $expires = new DOMElement("Expires", $expiresDate, $this->wsUtilityNS);
          $timeStamp->appendChild($created);
