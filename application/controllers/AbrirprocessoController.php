@@ -45,6 +45,8 @@ class AbrirprocessoController extends BaseController
             $listaTiposProcesso = $this->_getListaTiposProcesso();
             $listaAssuntos = $this->_getListaAssuntos($tipoProcesso);
             $listaBairros = $this->_getListaBairros();
+            $listaTiposManifestante = $this->_getListaTiposManifestante();
+            $listaPrioridades = $this->_getListaPrioridades();
         } catch (Exception $e) {
             $this->setErrorMessage($e->getMessage());
             $this->_redirectEscolhaTipoProcesso();
@@ -60,6 +62,8 @@ class AbrirprocessoController extends BaseController
         $this->view->listaTiposProcesso = $listaTiposProcesso;
         $this->view->listaAssuntos = $listaAssuntos;
         $this->view->listaBairros = $listaBairros;
+        $this->view->listaTiposManifestante = $listaTiposManifestante;
+        $this->view->listaPrioridades = $listaPrioridades;
     }
     
     protected function _getIdTipoProcessoUrl()
@@ -95,6 +99,25 @@ class AbrirprocessoController extends BaseController
         return $listaAssuntos;
     }
     
+    protected function _getListaTiposManifestante()
+    {
+        $tipoManifestante = new TipoManifestante($this->getTicket());
+        $tiposManifestante = $tipoManifestante->listar();
+        $listaTiposManifestante = array();
+        foreach ($tiposManifestante as $tipoManifestante) {
+            $listaTiposManifestante[$tipoManifestante->id] = $tipoManifestante->descricao;
+        }
+        
+        if (count($listaTiposManifestante) == 0) {
+            throw new Exception(
+                'Não existe nenhum tipo de abrangência cadastrado no sistema. 
+                Por favor, entre em contato com a administração do sistema.'
+            );
+        }
+        
+        return $listaTiposManifestante;
+    }
+    
     protected function _getListaBairros()
     {
         $bairro = new Bairro($this->getTicket());
@@ -112,6 +135,25 @@ class AbrirprocessoController extends BaseController
         }
         
         return $listaBairros;
+    }
+    
+    protected function _getListaPrioridades()
+    {
+        $prioridade = new Prioridade($this->getTicket());
+        $prioridades = $prioridade->listar();
+        $listaPrioridades = array();
+        foreach ($prioridades as $prioridade) {
+            $listaPrioridades[$prioridade->id] = $prioridade->descricao;
+        }
+        
+        if (count($listaPrioridades) == 0) {
+            throw new Exception(
+                'Não existe nenhuma prioridade de processo cadastrada no sistema. 
+                Por favor, entre em contato com a administração do sistema.'
+            );
+        }
+        
+        return $listaPrioridades;
     }
     
     protected function _redirectEscolhaTipoProcesso()
