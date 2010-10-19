@@ -45,7 +45,7 @@ class AbrirprocessoController extends BaseController
             $listaTiposProcesso = $this->_getListaTiposProcesso();
             $listaAssuntos = $this->_getListaAssuntos($tipoProcesso);
             $listaBairros = $this->_getListaBairros();
-            $listaTiposManifestante = $this->_getListaTiposManifestante();
+            $listaTiposManifestante = $this->_getListaTiposManifestante($tipoProcesso);
             $listaPrioridades = $this->_getListaPrioridades();
         } catch (Exception $e) {
             $this->setErrorMessage($e->getMessage());
@@ -99,10 +99,10 @@ class AbrirprocessoController extends BaseController
         return $listaAssuntos;
     }
     
-    protected function _getListaTiposManifestante()
+    protected function _getListaTiposManifestante($tipoProcesso)
     {
-        $tipoManifestante = new TipoManifestante($this->getTicket());
-        $tiposManifestante = $tipoManifestante->listar();
+        $tiposManifestante = $tipoProcesso->getTiposManifestante();
+        
         $listaTiposManifestante = array();
         foreach ($tiposManifestante as $tipoManifestante) {
             $listaTiposManifestante[$tipoManifestante->id] = $tipoManifestante->descricao;

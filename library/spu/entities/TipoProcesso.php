@@ -10,7 +10,6 @@ class TipoProcesso extends BaseAlfrescoEntity
     protected $_nodeRef;
     protected $_nome;
     protected $_titulo;
-    protected $_categoriaMaeDosAssuntos;
     protected $_simples;
     protected $_letra;
     protected $_tramitacao;
@@ -193,8 +192,9 @@ class TipoProcesso extends BaseAlfrescoEntity
         $hashTiposManifestante = $this->_getHashValue($hash, 'tiposManifestante');
         $tiposManifestante = array();
         if ($hashTiposManifestante) {
+            $hashTiposManifestante = array_pop($hashTiposManifestante);
             foreach ($hashTiposManifestante as $hashTipoManifestante) {
-                $hashTipoManifestante = array_pop(array_pop($hashTipoManifestante));
+                $hashTipoManifestante = array_pop($hashTipoManifestante);
                 $tipoManifestante = new TipoManifestante($this->_ticket);
                 $tipoManifestante->setNodeRef($this->_getHashValue($hashTipoManifestante, 'noderef'));
                 $tipoManifestante->setNome($this->_getHashValue($hashTipoManifestante, 'nome'));
