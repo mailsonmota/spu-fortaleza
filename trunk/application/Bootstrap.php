@@ -72,8 +72,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $pluginsPath = $jsPath . 'plugins/';
         
         $view->headScript()->appendFile($pluginsPath . 'jquery-1.3.2.min.js');
-        $view->headScript()->appendFile($pluginsPath . 'facebox.js');
-        $view->headScript()->appendFile($pluginsPath . 'tableRowCheckboxToggle.js');
+        $view->headScript()->appendFile($pluginsPath . 'jquery.meio.mask-1.1.3.js');
         $view->headScript()->appendFile($jsPath . 'funcoes.js');
     }
     
