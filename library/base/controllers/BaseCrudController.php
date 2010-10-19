@@ -111,23 +111,6 @@ abstract class BaseCrudController extends BaseController implements BaseCrudCont
     }
     
     /**
-     * Pesquisar no Index
-     * @return void
-     */
-    public function pesquisarAction()
-    {
-        $entity = $this->getEntity();
-        $where = TUtils::getCondicaoPesquisa(
-            $entity, 
-            $this->getRequest()->getParam('campo'), 
-            $this->getRequest()->getParam('operador'), 
-            $this->getRequest()->getParam('valor')
-        );
-        $this->carregarGrid($where);
-        $this->renderScript($this->getController() . '/index.phtml');
-    }
-    
-    /**
      * Variáveis utilizadas pela view de formulário
      * @return void
      */
@@ -174,7 +157,7 @@ abstract class BaseCrudController extends BaseController implements BaseCrudCont
                 // Redirecionamento
                 $this->redirectForm('insercao');
             }
-            catch (SgcException $e) {
+            catch (Exception $e) {
                 $this->setErrorMessage($e->getMessage());
             }
         }
@@ -206,7 +189,7 @@ abstract class BaseCrudController extends BaseController implements BaseCrudCont
                 //Redirecionar
                 $this->redirectForm('alteracao');
             }
-            catch (SgcException $e) {
+            catch (Exception $e) {
                 $this->setErrorMessage($e->getMessage());
             }
         }
@@ -250,7 +233,7 @@ abstract class BaseCrudController extends BaseController implements BaseCrudCont
             }
             $this->_helper->redirector('index', $this->getController(), 'default', array('method' => $method));
         }
-        catch (SgcException $e) {
+        catch (Exception $e) {
             $this->setErrorMessage($e->getMessage());
         } 
     }
