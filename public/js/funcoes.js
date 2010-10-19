@@ -1,7 +1,9 @@
 jQuery(document).ready(function() {
 	createUncheckedSelector();
-	$('a[rel*=facebox]').facebox()
 	triggerEnterButton();
+	
+	$('.mascaraData').setMask('date');
+	$('.mascaraHora').setMask('time');
 });
 
 function triggerEnterButton() {

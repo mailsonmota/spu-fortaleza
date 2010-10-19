@@ -37,12 +37,19 @@ class Zend_View_Helper_textbox extends Zend_View_Helper_form
     {
         $class  = '';
         $lengthClass = $this->getClassByLength($this->getLength());
+        $optionalClasses = $this->_getOptionalClasses();
         
-       if ($lengthClass) {
-           $class .= "class=\"$lengthClass\"";
-       } 
+        if ($lengthClass OR $optionalClasses) {
+            $class .= "class=\"$lengthClass $optionalClasses\"";
+        } 
         
         return $class;
+    }
+    
+    protected function _getLengthClass()
+    {
+        $lengthClass = $this->getClassByLength($this->getLength());
+        return $lengthClass;
     }
     
     public function getHtmlLength()
@@ -70,6 +77,11 @@ class Zend_View_Helper_textbox extends Zend_View_Helper_form
         }
         
         return $class;
+    }
+    
+    protected function _getOptionalClasses()
+    {
+        return (isset($this->_options['class'])) ? $this->_options['class'] : '';
     }
     
     protected function _isReadOnly()
