@@ -11,7 +11,7 @@ class TipoManifestante extends BaseAlfrescoClassificationEntity
         $tiposManifestante = array();
         foreach ($hashDeTipoManifestante as $hashTipoManifestante) {
             $tipoManifestante = new TipoManifestante($this->_getTicket());
-            $tipoManifestante->_loadFromHash($hashTipoManifestante[0]);
+            $tipoManifestante->loadFromHash($hashTipoManifestante[0]);
             $tiposManifestante[] = $tipoManifestante;
         }
         

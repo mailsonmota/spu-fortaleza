@@ -42,4 +42,16 @@ class AlfrescoProcesso extends AlfrescoBase
         
         return $result['Prioridades'][0];
     }
+    
+	public function getProcesso($nodeUuid)
+	{
+	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/get/$nodeUuid";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        $resultJson = $curlObj->doGetRequest($url);
+        $result = json_decode($resultJson, true);
+        
+        return $result['Processo'][0];
+	}
 }

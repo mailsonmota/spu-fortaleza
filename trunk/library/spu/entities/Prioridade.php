@@ -11,7 +11,7 @@ class Prioridade extends BaseAlfrescoClassificationEntity
         $prioridades = array();
         foreach ($hashDePrioridade as $hashPrioridade) {
             $prioridade = new Prioridade($this->_getTicket());
-            $prioridade->_loadFromHash($hashPrioridade[0]);
+            $prioridade->loadFromHash($hashPrioridade[0]);
             $prioridades[] = $prioridade;
         }
         

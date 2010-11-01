@@ -12,7 +12,7 @@ function getManifestantes() {
 		cpf = processos[i].properties['spu:processo.ManifestanteCpf'];
 		created = processos[i].properties.created;
 		if (processos[i].properties['spu:processo.ManifestanteBairro'] != null) {
-			bairro = processos[i].properties['spu:processo.ManifestanteBairro'].name;
+			bairro = processos[i].properties['spu:processo.ManifestanteBairro'];
 		} else {
 			bairro = '';
 		}
@@ -20,7 +20,7 @@ function getManifestantes() {
 		if (!manifestantesPorCpf[cpf] || (manifestantesPorCpf[cpf] && created > manifestantesPorCpf[cpf]['created'])) {
 			manifestante = new Array();
 			manifestante['created'] = created;
-			manifestante['cpf'] = cpf;
+			manifestante['cpfCnpj'] = cpf;
 			manifestante['nome'] = nome;
 			manifestante['bairro'] = bairro;
 
@@ -49,7 +49,7 @@ function getManifestante(cpf) {
 		cpf = processos[i].properties['spu:processo.ManifestanteCpf'];
 		created = processos[i].properties.created;
 		if (processos[i].properties['spu:processo.ManifestanteBairro'] != null) {
-			bairro = processos[i].properties['spu:processo.ManifestanteBairro'].name;
+			bairro = processos[i].properties['spu:processo.ManifestanteBairro'];
 		} else {
 			bairro = '';
 		}
@@ -57,7 +57,7 @@ function getManifestante(cpf) {
 		if (!manifestante || (manifestante[cpf] && created > manifestante['created'])) {
 			manifestante = new Array();
 			manifestante['created'] = created;
-			manifestante['cpf'] = cpf;
+			manifestante['cpfCnpj'] = cpf;
 			manifestante['nome'] = nome;
 			manifestante['bairro'] = bairro;
 		}

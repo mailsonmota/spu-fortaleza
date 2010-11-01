@@ -1,0 +1,31 @@
+<fieldset>
+    <legend>Dados Gerais</legend>
+    <?php 
+    echo $this->form()->openFieldList();
+    echo $this->text('Número', $this->processo->numero, array('strong' => true));
+    echo $this->text('Abertura', $this->processo->data);
+    echo $this->text('Tipo', $this->processo->tipoProcesso->nome);
+    echo $this->text('Assunto', $this->processo->assunto->nome);
+    echo $this->text('N&ordm; Origem', $this->processo->numeroOrigem);
+    //echo $this->text('Obs', $this->processo->obs);
+    echo $this->text('Local Atual', $this->processo->protocolo->orgaoLotacao);
+    echo $this->text('Corpo', $this->processo->corpo);
+    echo $this->text('Prioridade', $this->processo->prioridade->descricao);
+    echo $this->text('Data Prazo', $this->processo->dataPrazo);
+    echo $this->text('Status', $this->processo->status, array('strong' => true));
+    echo $this->form()->closeFieldList();
+    ?>
+</fieldset>
+
+<fieldset>
+    <legend>Manifestante</legend>
+    <?php 
+    echo $this->form()->openFieldList();
+    echo $this->text('CPF/CNPJ', $this->processo->manifestante->cpf);
+    echo $this->text('Nome', $this->processo->manifestante->nome);
+    echo $this->text('Bairro', $this->processo->manifestante->bairro->descricao);
+    echo $this->text('Tipo', $this->processo->tipoManifestante->descricao);
+    //echo $this->textbox('Responsável', 'responsavel', null, array('length' => 60));
+    echo $this->form()->closeFieldList();
+    ?>
+</fieldset>

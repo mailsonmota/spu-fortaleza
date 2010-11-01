@@ -6,6 +6,8 @@ class Protocolo extends BaseAlfrescoEntity
     protected $_nodeRef;
     protected $_nome;
     protected $_descricao;
+    protected $_orgao;
+    protected $_lotacao;
     
     public function getNodeRef()
     {
@@ -37,10 +39,43 @@ class Protocolo extends BaseAlfrescoEntity
         $this->_descricao = $data;
     }
     
+    public function getOrgao()
+    {
+        return $this->_orgao;
+    }
+    
+    public function setOrgao($data)
+    {
+        $this->_orgao = $data;
+    }
+    
+    public function getLotacao()
+    {
+        return $this->_lotacao;
+    }
+    
+    public function setLotacao($data)
+    {
+        $this->_lotacao = $data;
+    }
+    
     public function getId()
     {
         $nodeRef = $this->getNodeRef();
         return substr($nodeRef, strrpos($nodeRef, '/') + 1);
+    }
+    
+    public function getOrgaoLotacao()
+    {
+    	if ($this->getLotacao()) {
+    		$orgaoLotacao = $this->getLotacao();
+    		if ($this->getOrgao()) {
+    			$orgaoLotacao = $this->getOrgao() . " - " . $orgaoLotacao;
+    		}
+    	} else {
+    		$orgaoLotacao = $this->getNome();
+    	}
+    	return $orgaoLotacao;
     }
     
     public function listar()
@@ -52,14 +87,14 @@ class Protocolo extends BaseAlfrescoEntity
         foreach ($hashProtocolos as $hashProtocolo) {
             $hashProtocolo = array_pop($hashProtocolo); 
             $protocolo = new Protocolo($this->_getTicket());
-            $protocolo->_loadFromHash($hashProtocolo);
+            $protocolo->loadFromHash($hashProtocolo);
             $protocolos[] = $protocolo;
         }
         
         return $protocolos;
     }
     
-    protected function _loadFromHash($hash)
+    public function loadFromHash($hash)
     {
         $this->setNodeRef($hash['noderef']);
         $this->setNome($hash['nome']);

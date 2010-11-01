@@ -15,10 +15,19 @@ class Zend_View_Helper_text extends Zend_View_Helper_form
         
         $labelClass = $this->getLabelClass();
         
+        if ($this->_isStrong()) {
+        	$value = "<strong>$value</strong>";
+        }
+        
         $html  = "";
         $html .= "<dt><label class=\"$labelClass\">$label:</label></dt>";
         $html .= "<dd class=\"campoTexto\">$value</dd>";
         
         return $html;
+    }
+    
+    protected function _isStrong()
+    {
+    	return (isset($this->_options['strong'])) ? $this->_options['strong'] : false;
     }
 }
