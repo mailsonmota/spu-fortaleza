@@ -5,6 +5,7 @@ require_once('TipoProcesso.php');
 require_once('Prioridade.php');
 require_once('Manifestante.php');
 require_once('Protocolo.php');
+require_once('Movimentacao.php');
 class Processo extends BaseAlfrescoEntity
 {
     protected $_nodeRef;
@@ -19,6 +20,7 @@ class Processo extends BaseAlfrescoEntity
     protected $_protocolo;
     protected $_tipoProcesso;
     protected $_assunto;
+    protected $_movimentacoes;
     
     public function getNodeRef()
     {
@@ -140,6 +142,16 @@ class Processo extends BaseAlfrescoEntity
         $this->_assunto = $value;
     }
     
+	public function getMovimentacoes()
+    {
+        return $this->_movimentacoes;
+    }
+    
+    public function setMovimentacoes($value)
+    {
+        $this->_movimentacoes = $value;
+    }
+    
     public function getId()
     {
         $nodeRef = $this->getNodeRef();
@@ -201,6 +213,7 @@ class Processo extends BaseAlfrescoEntity
         $this->setAssunto($this->_loadAssuntoFromHash($this->_getHashValue($hash, 'assunto')));
         $this->setManifestante($this->_loadManifestanteFromHash($this->_getHashValue($hash, 'manifestante')));
         $this->setTipoManifestante($this->_loadTipoManifestanteFromHash($this->_getHashValue($hash, 'tipoManifestante')));
+    	$this->setMovimentacoes($this->_loadMovimentacoesFromHash($this->_getHashValue($hash, 'movimentacoes')));
     }
     
 	protected function _loadPrioridadeFromHash($hash)
@@ -257,6 +270,22 @@ class Processo extends BaseAlfrescoEntity
         $tipoManifestante->loadFromHash($hash);
         
         return $tipoManifestante;
+    }
+    
+    protected function _loadMovimentacoesFromHash($hash)
+    {
+    	$movimentacoes = array();
+    	if ($hash) {
+	    	foreach($hash[0] as $hashMovimentacao) {
+	    		$hashMovimentacao = array_pop($hashMovimentacao);
+	    		$movimentacao = new Movimentacao();
+	    		$movimentacao->loadFromHash($hashMovimentacao);
+	    		
+	    		$movimentacoes[] = $movimentacao;
+	    	}
+    	}
+    	
+    	return $movimentacoes;
     }
     
     public function carregarPeloId($id)

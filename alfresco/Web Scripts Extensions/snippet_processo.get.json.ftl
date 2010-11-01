@@ -51,16 +51,10 @@
 		<#list movimentacoes as movimentacao>		
 		"${movimentacao['data']?string('dd/MM/yyyy HH:MM:ss')}":[{
 			"data":"${movimentacao['data']?string('dd/MM/yyyy HH:MM:ss')}"
-			<#if movimentacao['de'] != "">
-			,"de":"${movimentacao['de'].name}"
-			<#else>
-			,"de":"${movimentacao['de']}"
-			</#if>
-			<#if movimentacao['para'] != "">
-			,"para":"${movimentacao['para'].name}"
-			<#else>
-			,"para":"${movimentacao['para']}"
-			</#if>
+			<#assign protocolo=movimentacao['de']>
+			,"de":[{<#include "snippet_protocolo.get.json.ftl" />}]
+			<#assign protocolo=movimentacao['para']>
+			,"para":[{<#include "snippet_protocolo.get.json.ftl" />}]
 			,"despacho":"${movimentacao['despacho']}"
 			,"prazo":"${movimentacao['prazo']}"
 			<#assign opcao=movimentacao['prioridade']>
