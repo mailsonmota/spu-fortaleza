@@ -10,7 +10,7 @@ echo $this->pagenav()->closeList();
     <form action="" method="post">
         <?php 
         $headerColumns = array('CPF', 'Nome', 'Bairro', 'Ações');
-        $columns = array('cpf', 'nome', 'bairro');
+        $columns = array('cpf', 'nome', 'nomeBairro');
         
         $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
         $grid->addActionColumn('Editar', $this->simpleUrl('editar', $this->controller) . '/cpf/', 'cpf');

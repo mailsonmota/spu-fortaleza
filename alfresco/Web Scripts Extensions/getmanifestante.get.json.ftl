@@ -1,11 +1,7 @@
 {
 "Manifestante":[{
 <#compress>
-	"${manifestante['cpf']}":[{
-		"cpf":"${manifestante['cpf']}",
-		"nome":"${manifestante['nome']}", 
-		"bairro":"${manifestante['bairro']}"
-	}]
+	<#include "snippet_manifestante.get.json.ftl" />
 </#compress>
 }]
 }

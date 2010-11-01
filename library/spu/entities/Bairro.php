@@ -11,7 +11,7 @@ class Bairro extends BaseAlfrescoClassificationEntity
         $bairros = array();
         foreach ($hashDeBairros[0] as $hashBairro) {
             $bairro = new Bairro($this->_getTicket());
-            $bairro->_loadFromHash($hashBairro[0]);
+            $bairro->loadFromHash($hashBairro[0]);
             $bairros[] = $bairro;
         }
         

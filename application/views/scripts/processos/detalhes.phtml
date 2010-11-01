@@ -1,5 +1,6 @@
 <?php 
 $this->breadcrumbs()->addPage('Tramitação', 'processos');
+$this->breadcrumbs()->addPage('Detalhes do Processo');
 echo $this->breadcrumbs()->render(); 
 
 echo $this->tabs()->openList();
@@ -19,14 +20,9 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <form action="" method="post">
-        <?php 
-        $headerColumns = array('Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Ações');
-        $columns = array('numeroOrigem', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
-        
-        $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
-        $grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', $this->controller) . '/id/', 'id');
-        echo $grid->render();
-        ?>
-    </form>
+	<?php 
+    if ($this->processo->id) {
+        echo $this->render('snippets/detalhesProcesso.phtml');
+    }
+    ?>
 </div>

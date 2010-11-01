@@ -42,7 +42,7 @@ class BaseAlfrescoClassificationEntity extends BaseAlfrescoEntity
         return substr($nodeRef, strrpos($nodeRef, '/') + 1);
     }
     
-	protected function _loadFromHash($hash)
+	public function loadFromHash($hash)
     {
         $this->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $this->setNome($this->_getHashValue($hash, 'nome'));

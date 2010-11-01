@@ -11,7 +11,7 @@ class TipoAbrangencia extends BaseAlfrescoClassificationEntity
         $tiposAbrangencia = array();
         foreach ($hashDeTipoAbrangencia as $hashTipoAbrangencia) {
             $tipoAbrangencia = new TipoAbrangencia($this->_getTicket());
-            $tipoAbrangencia->_loadFromHash($hashTipoAbrangencia[0]);
+            $tipoAbrangencia->loadFromHash($hashTipoAbrangencia[0]);
             $tiposAbrangencia[] = $tipoAbrangencia;
         }
         

@@ -11,7 +11,7 @@ class TipoTramitacao extends BaseAlfrescoClassificationEntity
         $tiposTramitacao = array();
         foreach ($hashDeTipoTramitacao as $hashTipoTramitacao) {
             $tipoTramitacao = new TipoTramitacao($this->_getTicket());
-            $tipoTramitacao->_loadFromHash($hashTipoTramitacao[0]);
+            $tipoTramitacao->loadFromHash($hashTipoTramitacao[0]);
             $tiposTramitacao[] = $tipoTramitacao;
         }
         

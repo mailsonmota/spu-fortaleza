@@ -10,6 +10,17 @@
 
 var pastaRaizTiposProcesso = "Data Dictionary/Tipos de Processo/";
 
+function getTiposProcesso() {
+	var tiposProcesso = new Array()
+	var pastaRaiz = companyhome.childByNamePath(pastaRaizTiposProcesso);
+
+	if (pastaRaiz != undefined && pastaRaiz.isContainer) {
+		tiposProcesso = pastaRaiz.getChildren();
+	}
+
+	return tiposProcesso;
+}
+
 function getTipoProcessoPorNome(nomeTipoProcesso) {
 	var tipoProcesso = companyhome.childByNamePath(pastaRaizTiposProcesso + nomeTipoProcesso);
 	if (tipoProcesso == undefined)	{

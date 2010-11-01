@@ -14,7 +14,7 @@ echo $this->pagenav()->closeList();
         echo $this->form()->openFieldList();
         echo $this->text('Nome', $this->manifestante->nome);
         echo $this->text('CPF', $this->manifestante->cpf);
-        echo $this->text('Bairro', $this->manifestante->bairro);
+        echo $this->text('Bairro', $this->manifestante->bairro->descricao);
         echo $this->form()->closeFieldList();
         ?>
     </form>

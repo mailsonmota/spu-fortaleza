@@ -38,8 +38,8 @@
 				<property name="spu:tipoprocesso.Tramitacao">
 				   	<title>Tramitação</title>
 				   	<type>d:category</type>
-                    <mandatory>true</mandatory>
-		    	</property>	
+                    			<mandatory>true</mandatory>
+		    		</property>	
 				<property name="spu:tipoprocesso.Abrangencia">
 					<title>Abrangência</title>
 					<type>d:category</type>
@@ -60,6 +60,9 @@
 				   	<type>d:boolean</type>
 		   		</property>
 			</properties>
+                        <mandatory-aspects>
+           			<aspect>cm:versionable</aspect>
+        		</mandatory-aspects>
 		</type>
 		<!-- Tipo de Processo -->
 		<type name="spu:assunto">
@@ -75,6 +78,9 @@
 				   	<type>d:boolean</type>
 		   		</property>
 			</properties>
+                        <mandatory-aspects>
+           			<aspect>cm:versionable</aspect>
+        		</mandatory-aspects>
 		</type>
 		<!-- Processo -->
 		<type name="spu:processo">
@@ -84,27 +90,27 @@
 				<property name="spu:processo.Data">
 				   	<title>Data</title>
 				   	<type>d:datetime</type>
-                    <mandatory>true</mandatory>
+                    			<mandatory>true</mandatory>
 		   		</property>
-		    	<property name="spu:processo.Observacao">
+		    		<property name="spu:processo.Observacao">
 			 	   	<title>Observacao</title>
-		       		<type>d:text</type>
-			    </property>
+		       			<type>d:text</type>
+			   	 </property>
 				<property name="spu:processo.NumeroOrigem">
 				   	<title>Numero de Origem</title>
 				   	<type>d:text</type>
-                    <mandatory>true</mandatory>
-		    	</property>
+                    			<mandatory>true</mandatory>
+		    		</property>
 				<property name="spu:processo.DataPrazo">
 				   	<title>Data de Prazo</title>
-		           	<type>d:date</type>
+		           		<type>d:date</type>
 		   		</property>
 				<property name="spu:processo.Corpo">
 				   	<title>Corpo</title>
 				   	<type>d:text</type>
-                    <mandatory>true</mandatory>
-		    	</property>
-                <property name="spu:processo.Prioridade">
+                    			<mandatory>true</mandatory>
+		    		</property>
+                		<property name="spu:processo.Prioridade">
 					<title>Prioridade</title>
 					<type>d:category</type>
 					<mandatory>true</mandatory>
@@ -113,24 +119,35 @@
 				<property name="spu:processo.ManifestanteNome">
 				   	<title>Nome do Manifestante</title>
 				   	<type>d:text</type>
-                    <mandatory>true</mandatory>
-		    	</property>
+                    			<mandatory>true</mandatory>
+		    		</property>
 				<property name="spu:processo.ManifestanteCpf">
 				   	<title>CPF do Manifestante</title>
 				   	<type>d:text</type>
-                    <mandatory>true</mandatory>
-		    	</property>
+                    			<mandatory>true</mandatory>
+		    		</property>
 				<property name="spu:processo.ManifestanteTipo">
 				   	<title>Tipo do Manifestante</title>
 				   	<type>d:category</type>
-                    <mandatory>true</mandatory>
-		    	</property>
+                    			<mandatory>true</mandatory>
+		    		</property>
 				<property name="spu:processo.ManifestanteBairro">
 				   	<title>Bairro do Manifestante</title>
 				   	<type>d:category</type>
-                    <mandatory>true</mandatory>
-		    	</property>			
+                    			<mandatory>true</mandatory>
+		    		</property>			
 				<!-- Manifestante - Fim -->
+                                <!-- Movimentações - Inicio -->
+                                <property name="spu:processo.Destino">
+				   	<title>Local</title>
+				   	<type>d:text</type>
+                    			<mandatory>true</mandatory>
+		    		</property>
+                                <property name="spu:processo.Despacho">
+				   	<title>Despacho</title>
+				   	<type>d:text</type>
+                    			<mandatory>true</mandatory>
+		    		</property>
 			</properties>
 			<associations>
 				<association name="spu:processo.Assunto">
@@ -142,8 +159,11 @@
 					</target>
 				</association>
 			</associations>
+			<mandatory-aspects>
+           			<aspect>cm:versionable</aspect>
+        		</mandatory-aspects>
 		</type>
-        <!-- Formulario -->
+       	 	<!-- Formulario -->
 		<type name="spu:formularioprocesso">
 			<title>Formulario de Processo</title>
 			<parent>cm:content</parent>
@@ -152,6 +172,9 @@
 		<type name="spu:respostasformularioprocesso">
 			<title>Respostas de Formulario de Processo</title>
 			<parent>cm:content</parent>
+			<mandatory-aspects>
+           			<aspect>cm:versionable</aspect>
+        		</mandatory-aspects>
 		</type>
 		<!-- Protocolo - Pasta de Entrada/Saida/Arquivo do SPU -->
 		<type name="spu:protocolo">
@@ -161,12 +184,12 @@
 				<property name="spu:protocolo.Orgao">
 				   	<title>Orgao</title>
 				   	<type>d:text</type>
-                    <mandatory>false</mandatory>
+                    			<mandatory>false</mandatory>
 				</property>
 				<property name="spu:protocolo.Lotacao">
 				   	<title>Lotacao</title>
 				   	<type>d:text</type>
-                    <mandatory>true</mandatory>
+                    			<mandatory>true</mandatory>
 				</property>
 			</properties>
 		</type>
@@ -175,5 +198,11 @@
 			<title>Caixa de Entrada de Processos</title>
 			<parent>cm:folder</parent>
 		</type>
+		<!-- Caixa de Saida -->
+		<type name="spu:caixasaida">
+			<title>Caixa de Saída de Processos</title>
+			<parent>cm:folder</parent>
+		</type>
 	</types>
 </model>
+

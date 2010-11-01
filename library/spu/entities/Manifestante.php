@@ -1,6 +1,7 @@
 <?php
 require_once('../library/Alfresco/API/AlfrescoManifestantes.php');
 require_once('BaseAlfrescoEntity.php');
+require_once('Bairro.php');
 class Manifestante extends BaseAlfrescoEntity
 {
     protected $_cpf;
@@ -37,6 +38,11 @@ class Manifestante extends BaseAlfrescoEntity
         $this->_bairro = $value;
     }
     
+    public function getNomeBairro()
+    {
+    	return $this->getBairro()->descricao;
+    }
+    
     public function listar()
     {
         $service = new AlfrescoManifestantes(self::ALFRESCO_URL, $this->_getTicket());
@@ -47,7 +53,7 @@ class Manifestante extends BaseAlfrescoEntity
             if ($hashManifestante) {
                 $hashDadosManifestante = array_pop(array_pop($hashManifestante));
                 $manifestante = new Manifestante($this->_getTicket());
-                $manifestante->_loadManifestanteFromHash($hashDadosManifestante);
+                $manifestante->loadFromHash($hashDadosManifestante);
                 $manifestantes[] = $manifestante;
             }
         }
@@ -55,11 +61,20 @@ class Manifestante extends BaseAlfrescoEntity
         return $manifestantes;
     }
     
-    protected function _loadManifestanteFromHash($hash)
+    public function loadFromHash($hash)
     {
-        $this->setCpf($this->_getHashValue($hash, 'cpf'));
+        $this->setCpf($this->_getHashValue($hash, 'cpfCnpj'));
         $this->setNome($this->_getHashValue($hash, 'nome'));
-        $this->setBairro($this->_getHashValue($hash, 'bairro'));
+        $this->setBairro($this->_loadBairroFromHash($this->_getHashValue($hash, 'bairro')));
+    }
+    
+	protected function _loadBairroFromHash($hash)
+    {
+    	$hash = array_pop($hash);
+        $bairro = new Bairro($this->_ticket);
+        $bairro->loadFromHash($hash);
+        
+        return $bairro;
     }
     
     public function carregarPeloCpf($cpf)
@@ -69,7 +84,7 @@ class Manifestante extends BaseAlfrescoEntity
         
         $hashDadosManifestante = array_pop(array_pop(array_pop($hashManifestante)));
         
-        $this->_loadManifestanteFromHash($hashDadosManifestante);
+        $this->loadFromHash($hashDadosManifestante);
     }
 }
 ?>
