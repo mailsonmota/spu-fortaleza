@@ -46,10 +46,11 @@
 		"nome":"${processo.assocs['spu:processo.Assunto'][0].parent.name}"
 		</#if>
 	}]
+	<#if movimentacoes?exists>
 	,"movimentacoes":[{
 		<#list movimentacoes as movimentacao>		
 		"${movimentacao['data']?string('dd/MM/yyyy HH:MM:ss')}":[{
-			,"data":"${movimentacao['data']?string('dd/MM/yyyy HH:MM:ss')}"
+			"data":"${movimentacao['data']?string('dd/MM/yyyy HH:MM:ss')}"
 			<#if movimentacao['de'] != "">
 			,"de":"${movimentacao['de'].name}"
 			<#else>
@@ -64,7 +65,8 @@
 			,"prazo":"${movimentacao['prazo']}"
 			<#assign opcao=movimentacao['prioridade']>
 			,"prioridade":[{<#include "snippet_categoria.get.json.ftl" />}]
-		}]
+		}]<#if movimentacao_has_next>,</#if>
 		</#list>
 	}]
+	</#if>
 }]
