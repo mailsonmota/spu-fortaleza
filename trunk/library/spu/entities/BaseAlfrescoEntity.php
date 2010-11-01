@@ -1,12 +1,12 @@
 <?php
 require_once('BaseEntity.php');
-class BaseAlfrescoEntity extends Base
+class BaseAlfrescoEntity extends BaseEntity
 {
     const ALFRESCO_URL = 'http://localhost:8080/alfresco/service';
     protected $_ticket;
     protected $_repository;
     
-    public function __construct($ticket)
+    public function __construct($ticket = null)
     {
         $this->_setTicket($ticket);
     }
