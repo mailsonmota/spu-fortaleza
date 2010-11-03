@@ -120,3 +120,55 @@ function getDataFormatadaAlfresco(dataEmPortugues) {
 
 	return new Date(dataAno, dataMes, dataDia)
 }
+
+function getProcessos() {
+	var processos = search.luceneSearch("workspace://SpacesStore", 'TYPE:"spu:Processo"');
+	return processos;
+}
+
+function getCaixasEntrada() {
+	var caixasEntrada = search.luceneSearch("workspace://SpacesStore", 'TYPE:"spu:CaixaEntrada"');
+	return caixasEntrada;
+}
+
+function getCaixaEntrada() {
+	var caixasEntrada = getCaixasEntrada()
+	var caixaDeEntrada
+	var processosCaixaEntrada
+	var processos = new Array()
+	var path
+	var j
+	for (var i=0; i < caixasDeEntrada.length;i++) {
+		caixaDeEntrada = caixasDeEntrada[i]
+		path = caixaDeEntrada.getQnamePath()
+		processosCaixaEntrada = search.luceneSearch("workspace://SpacesStore", 'PATH:"' + path + '/*" AND TYPE:"spu:Processo"')
+		for (j = 0; j < processosCaixaEntrada.length; j++) {
+			processos.push(processosCaixaEntrada[j])
+		}
+	}
+
+	return processos
+}
+
+function getCaixaSaida() {
+	var caixasEntrada = getCaixasEntrada()
+	var caixaDeEntrada
+	var processosCaixaEntrada
+	var processos = new Array
+	var protocoloId
+	var j
+	var stringOrigens = ''
+	for (var i=0; i < caixasDeEntrada.length;i++) {
+		caixaDeEntrada = caixasDeEntrada[i]
+		protocoloId = caixaDeEntrada.properties.nodeRef
+		if (stringOrigens != '') {
+			stringOrigens += ' AND '		
+		}
+		stringOrigens += '@spu\\:processo.Origem:"' + protocoloId + '"';
+	}
+	if (stringOrigens) {
+		stringOrigens = ' AND (' + stringOrigens + ')';
+	}
+	var processos = search.luceneSearch("workspace://SpacesStore", 'TYPE:"spu:Processo"' + stringOrigens);
+	return processos;
+}
