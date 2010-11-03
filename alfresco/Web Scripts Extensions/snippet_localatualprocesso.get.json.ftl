@@ -2,7 +2,10 @@
 	<#if processo.parent.parent.type = '{extension.spu}protocolo'>
 		<#assign protocolo = processo.parent.parent>
 	</#if>
+<#else>
+	<#assign protocolo = "">
 </#if>
+<#if protocolo != "">
 [{
 	"noderef":"${protocolo.nodeRef}"
 	,"nome":"${protocolo.name}"
@@ -18,3 +21,12 @@
 	,"lotacao":""
 	</#if>
 }]
+<#else>
+[{
+	"noderef":""
+	,"nome":""
+	,"descricao":""
+	,"orgao":""
+	,"lotacao":""
+}]
+</#if>

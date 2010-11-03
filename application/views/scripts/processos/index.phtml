@@ -21,11 +21,12 @@ echo $this->pagenav()->closeList();
 <div id="article">
     <form action="" method="post">
         <?php 
-        $headerColumns = array('Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Ações');
+        $headerColumns = array('Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes', 'Encaminhar');
         $columns = array('numeroOrigem', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
         
         $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
         $grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', $this->controller) . '/id/', 'id');
+        $grid->addActionColumn('Encaminhar', $this->simpleUrl('encaminhar', $this->controller) . '/id/', 'id');
         echo $grid->render();
         ?>
     </form>
