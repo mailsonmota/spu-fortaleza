@@ -39,13 +39,16 @@
 			<show-property name="spu:processo.Observacao" />
 			<show-property name="spu:processo.NumeroOrigem" />
 			<show-property name="spu:processo.DataPrazo" />
-			<show-property name="spu:processo.Prioridade" />			
+			<show-property name="spu:processo.Prioridade" />
+			<show-property name="spu:processo.Status" />			
 			<show-property name="spu:processo.ManifestanteNome" />
 			<show-property name="spu:processo.ManifestanteCpf" />
 			<show-property name="spu:processo.ManifestanteBairro" />
 			<show-property name="spu:processo.ManifestanteTipo" />
 			<show-property name="spu:processo.Destino" />
 			<show-property name="spu:processo.Despacho" />
+			<show-association name="spu:processo.Proprietario" 
+				show-in-edit-mode="true" show-in-view-mode="true" />			
 			<show-association name="spu:processo.Assunto" 
 				show-in-edit-mode="true" show-in-view-mode="true" />
 		</property-sheet>

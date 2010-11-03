@@ -3,16 +3,13 @@
     <?php 
     echo $this->form()->openFieldList();
     echo $this->text('Número', $this->processo->numero, array('strong' => true));
+    echo $this->text('Proprietário', $this->processo->proprietario->orgaoLotacao, array('strong' => true));
+    echo $this->text('Status', $this->processo->status->descricao, array('strong' => true));
     echo $this->text('Abertura', $this->processo->data);
     echo $this->text('Tipo', $this->processo->tipoProcesso->nome);
     echo $this->text('Assunto', $this->processo->assunto->nome);
-    echo $this->text('N&ordm; Origem', $this->processo->numeroOrigem);
-    //echo $this->text('Obs', $this->processo->obs);
     echo $this->text('Local Atual', $this->processo->protocolo->orgaoLotacao);
     echo $this->text('Corpo', $this->processo->corpo);
-    echo $this->text('Prioridade', $this->processo->prioridade->descricao);
-    echo $this->text('Data Prazo', $this->processo->dataPrazo);
-    echo $this->text('Status', $this->processo->status, array('strong' => true));
     echo $this->form()->closeFieldList();
     ?>
 </fieldset>

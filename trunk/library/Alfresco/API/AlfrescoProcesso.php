@@ -54,4 +54,20 @@ class AlfrescoProcesso extends AlfrescoBase
         
         return $result['Processo'][0];
 	}
+	
+	public function tramitar($postData)
+	{
+	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/tramitar";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        
+        $result = $curlObj->doPostRequest($url, $postData);
+        
+        if (!isset($result->Processo)) {
+        	throw new Exception("Não foi possível tramitar o processo.");
+        }
+        
+        return $result;
+	}
 }

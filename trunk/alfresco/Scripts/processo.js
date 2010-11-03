@@ -51,6 +51,10 @@ function getMovimentacoes(nodeId) {
 				isMovimentacao = false
 			}
 		}
+
+		if (versoes[i+1] && versoes[i+1].node.properties['spu:processo.Destino'] == versoes[i].node.properties['spu:processo.Destino']) {
+			isMovimentacao = false
+		}
 	
 		if (isMovimentacao) {
 			if (versoes[i].node.properties['spu:processo.Destino']) {
@@ -64,7 +68,7 @@ function getMovimentacoes(nodeId) {
 				despacho = ""
 			}
 			if (versoes[i].node.properties['spu:processo.DataPrazo']) {
-				prazo = versoes[i].properties['spu:processo.DataPrazo']
+				prazo = versoes[i].node.properties['spu:processo.DataPrazo']
 			} else {
 				prazo = ""
 			}
@@ -86,5 +90,33 @@ function getMovimentacoes(nodeId) {
 			movimentacoes.push(movimentacao)
 		}
 	}
+
 	return movimentacoes
+}
+
+function tramitar(nodeId, protocoloId, prioridadeId, prazo, despacho) {
+	var processo = getNode(nodeId)
+	var protocolo = getNode(protocoloId)
+	var caixasEntrada = search.luceneSearch(
+		"workspace://SpacesStore", 'PATH:"' + protocolo.getQnamePath() + '/*" AND TYPE:"spu:CaixaEntrada"'
+	);
+	var caixaEntrada = caixasEntrada[0]
+
+	processo.properties['spu:processo.DataPrazo'] = getDataFormatadaAlfresco(prazo)
+	processo.properties['spu:processo.Despacho'] = despacho
+	processo.properties['spu:processo.Prioridade'] = 'workspace://SpacesStore/' + prioridadeId
+	processo.properties['spu:processo.Destino'] = protocoloId
+	processo.save()
+	
+	processo = getNode(nodeId)
+	processo.move(caixaEntrada)
+	return processo
+}
+
+function getDataFormatadaAlfresco(dataEmPortugues) {
+	var dataDia = dataEmPortugues.substring(0,2)
+	var dataMes = dataEmPortugues.substring(3,5)
+	var dataAno = dataEmPortugues.substring(6,10)
+
+	return new Date(dataAno, dataMes, dataDia)
 }

@@ -6,6 +6,7 @@ require_once('Prioridade.php');
 require_once('Manifestante.php');
 require_once('Protocolo.php');
 require_once('Movimentacao.php');
+require_once('Status.php');
 class Processo extends BaseAlfrescoEntity
 {
     protected $_nodeRef;
@@ -15,12 +16,15 @@ class Processo extends BaseAlfrescoEntity
     protected $_tipoManifestante;
     protected $_prioridade;
     protected $_numeroOrigem;
+    protected $_observacao;
     protected $_corpo;
     protected $_dataPrazo;
     protected $_protocolo;
+    protected $_proprietario;
     protected $_tipoProcesso;
     protected $_assunto;
     protected $_movimentacoes;
+    protected $_status;
     
     public function getNodeRef()
     {
@@ -92,6 +96,16 @@ class Processo extends BaseAlfrescoEntity
         $this->_numeroOrigem = $value;
     }
     
+	public function getObservacao()
+    {
+        return $this->_observacao;
+    }
+    
+    public function setObservacao($value)
+    {
+        $this->_observacao = $value;
+    }
+    
 	public function getCorpo()
     {
         return $this->_corpo;
@@ -132,6 +146,16 @@ class Processo extends BaseAlfrescoEntity
         $this->_tipoProcesso = $value;
     }
     
+    public function getProprietario()
+    {
+        return $this->_proprietario;
+    }
+    
+    public function setProprietario($value)
+    {
+        $this->_proprietario = $value;
+    }
+    
     public function getAssunto()
     {
         return $this->_assunto;
@@ -150,6 +174,16 @@ class Processo extends BaseAlfrescoEntity
     public function setMovimentacoes($value)
     {
         $this->_movimentacoes = $value;
+    }
+    
+	public function getStatus()
+    {
+        return $this->_status;
+    }
+    
+    public function setStatus($value)
+    {
+        $this->_status = $value;
     }
     
     public function getId()
@@ -179,12 +213,6 @@ class Processo extends BaseAlfrescoEntity
     	return $this->getManifestante()->nome;
     }
     
-    public function getStatus() 
-    {
-    	//FIXME: Implementar Status do Processo
-    	return 'Tramitando';
-    }
-    
     public function listarProcessosCaixaEntrada()
     {
         $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
@@ -207,9 +235,12 @@ class Processo extends BaseAlfrescoEntity
         $this->setNome($this->_getHashValue($hash, 'nome'));
         $this->setData($this->_getHashValue($hash, 'data'));
         $this->setPrioridade($this->_loadPrioridadeFromHash($this->_getHashValue($hash, 'prioridade')));
+        $this->setStatus($this->_loadStatusFromHash($this->_getHashValue($hash, 'status')));
+        $this->setObservacao($this->_getHashValue($hash, 'observacao'));
         $this->setNumeroOrigem($this->_getHashValue($hash, 'numeroOrigem'));
         $this->setProtocolo($this->_loadProtocoloFromHash($this->_getHashValue($hash, 'localAtual')));
         $this->setTipoProcesso($this->_loadTipoProcessoFromHash($this->_getHashValue($hash, 'tipoProcesso')));
+        $this->setProprietario($this->_loadProprietarioFromHash($this->_getHashValue($hash, 'proprietario')));
         $this->setAssunto($this->_loadAssuntoFromHash($this->_getHashValue($hash, 'assunto')));
         $this->setManifestante($this->_loadManifestanteFromHash($this->_getHashValue($hash, 'manifestante')));
         $this->setTipoManifestante($this->_loadTipoManifestanteFromHash($this->_getHashValue($hash, 'tipoManifestante')));
@@ -223,6 +254,15 @@ class Processo extends BaseAlfrescoEntity
         $prioridade->loadFromHash($hash);
         
         return $prioridade;
+    }
+    
+	protected function _loadStatusFromHash($hash)
+    {
+    	$hash = array_pop($hash);
+        $status = new Status($this->_ticket);
+        $status->loadFromHash($hash);
+        
+        return $status;
     }
     
 	protected function _loadProtocoloFromHash($hash)
@@ -242,6 +282,11 @@ class Processo extends BaseAlfrescoEntity
         $tipoProcesso->setNome($hash['nome']);
         
         return $tipoProcesso;
+    }
+    
+    protected function _loadProprietarioFromHash($hash)
+    {
+    	return $this->_loadProtocoloFromHash($hash);
     }
     
     protected function _loadAssuntoFromHash($hash)
@@ -306,6 +351,12 @@ class Processo extends BaseAlfrescoEntity
     {
         $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
         return $service->abrirProcesso($postData);
+    }
+    
+    public function tramitar($postData)
+    {
+    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+        return $service->tramitar($postData);
     }
 }
 ?>

@@ -60,6 +60,14 @@ function criarTodasAsCategories() {
 	getOrCreateSubCategory(prioridade, "Prioritário")
 	getOrCreateSubCategory(prioridade, "Urgente")
 
+	/* Status de Processo */
+	var status = getOrCreateSubCategory(spu, "Status")
+	getOrCreateSubCategory(status, "Tramitando")
+	getOrCreateSubCategory(status, "Excluido")	
+	getOrCreateSubCategory(status, "Arquivado")
+	getOrCreateSubCategory(status, "Incorporado")
+	getOrCreateSubCategory(status, "Externo")
+
 	/* Tipos de Manifestante */
 	var tipoManifestante = getOrCreateSubCategory(spu, "Tipo de Manifestante")
 	getOrCreateSubCategory(tipoManifestante, "Órgão da PMF")

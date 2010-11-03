@@ -115,6 +115,11 @@
 					<type>d:category</type>
 					<mandatory>true</mandatory>
 				</property>
+				<property name="spu:processo.Status">
+					<title>Status</title>
+					<type>d:category</type>
+					<mandatory>true</mandatory>
+				</property>
 				<!-- Manifestante - Inicio -->
 				<property name="spu:processo.ManifestanteNome">
 				   	<title>Nome do Manifestante</title>
@@ -150,8 +155,22 @@
 		    		</property>
 			</properties>
 			<associations>
+				<association name="spu:processo.Proprietario">
+					<title>Proprietário</title>
+					<source>
+						<many>true</many>
+					</source>
+					<target>
+						<class>spu:protocolo</class>
+						<mandatory>false</mandatory>
+						<many>false</many>
+					</target>
+				</association>
 				<association name="spu:processo.Assunto">
 					<title>Assunto</title>
+					<source>
+						<many>true</many>
+					</source>					
 					<target>
 						<class>spu:assunto</class>
 						<mandatory>false</mandatory>
