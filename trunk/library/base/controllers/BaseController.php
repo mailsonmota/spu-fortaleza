@@ -87,4 +87,10 @@ abstract class BaseController extends Zend_Controller_Action
         $user = AuthPlugin::getIdentity();
         return $user['ticket'];
     }
+    
+    protected function getAdminTicket()
+    {
+    	$adminTicket = $this->Session->read('AdminTicket');
+    	return $adminTicket;
+    }
 }
