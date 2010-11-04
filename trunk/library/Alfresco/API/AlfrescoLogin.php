@@ -7,6 +7,10 @@ class AlfrescoLogin extends AlfrescoBase
 	private $_loginBaseUrl = 'login';
 	private $_loginTicketUrl = 'ticket';
 	
+	public function __construct($url) {
+	   $this->setBaseUrl($url);
+	}
+	
 	/*
 	 * Login
 	 * GET /alfresco/service/api/login?u={username}&pw={password?}
