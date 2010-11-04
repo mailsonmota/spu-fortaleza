@@ -100,4 +100,10 @@ class ProcessosController extends BaseController
             array('id' => $idProcesso)
         );
     }
+    
+    public function saidaAction()
+    {
+        $processo = new Processo($this->getTicket());
+        $this->view->lista = $processo->listarProcessosCaixaSaida();
+    }
 }
