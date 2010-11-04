@@ -30,7 +30,7 @@ class AuthController extends BaseController
         $adminTicket = $alfrescoLoginObj->login('admin', 'admin');
         
         $authNamespace = new Zend_Session_Namespace('Zend_Auth');
-        $authNamespace->adminTicket = $adminTicket;
+        $authNamespace->adminTicket = $adminTicket['ticket'];
         
         switch ($result->getCode()) {
      

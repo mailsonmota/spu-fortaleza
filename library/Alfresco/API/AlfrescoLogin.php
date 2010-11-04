@@ -30,7 +30,10 @@ class AlfrescoLogin extends AlfrescoBase
 		$result = trim($curlObj->doGetRequest($url));
 		$this->setTicket($result);
 		
-		return array('ticket' => $result);
+		//FIXME: Resolver Ticket
+		$ticket = substr($result, strpos($result, 'TICKET'));
+		
+		return array('ticket' => $ticket);
 	}
 	
     /*
