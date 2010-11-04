@@ -32,6 +32,7 @@ class ProcessosController extends BaseController
 	        }
 	        
     		if ($this->getRequest()->isPost()) {
+    			$processo = new Processo($this->getAdminTicket());
     			$processo->tramitar($this->getRequest()->getPost());
     			$this->setSuccessMessage('Processo tramitado com sucesso.');
     			$this->_redirectDetalhesProcesso($idProcesso);
