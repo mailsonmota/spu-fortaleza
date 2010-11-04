@@ -57,7 +57,9 @@ class AbrirprocessoController extends BaseController
         
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getParams();
-            $processoObj = new Processo($this->getTicket());
+            //$processoObj = new Processo($this->getTicket());
+            $adminTicket = $this->getAdminTicket();
+            $processoObj = new Processo($adminTicket);
             $return = $processoObj->abrirProcesso($postData);
         }
         
