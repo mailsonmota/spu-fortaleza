@@ -90,7 +90,7 @@ abstract class BaseController extends Zend_Controller_Action
     
     protected function getAdminTicket()
     {
-    	$adminTicket = $this->Session->read('AdminTicket');
-    	return $adminTicket;
+    	$authNamespace = new Zend_Session_Namespace('Zend_Auth');
+    	return $authNamespace->adminTicket;
     }
 }
