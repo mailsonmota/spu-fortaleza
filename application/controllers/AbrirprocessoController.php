@@ -49,6 +49,7 @@ class AbrirprocessoController extends BaseController
             $listaTiposManifestante = $this->_getListaTiposManifestante($tipoProcesso);
             $listaPrioridades = $this->_getListaPrioridades();
             $listaProtocolos = $this->_getListaProtocolos();
+            $listaProprietarios = $this->_getListaProprietarios();
         } catch (Exception $e) {
             $this->setErrorMessage($e->getMessage());
             $this->_redirectEscolhaTipoProcesso();
@@ -67,6 +68,7 @@ class AbrirprocessoController extends BaseController
         $this->view->listaTiposManifestante = $listaTiposManifestante;
         $this->view->listaPrioridades = $listaPrioridades;
         $this->view->listaProtocolos = $listaProtocolos;
+        $this->view->listaProprietarios = $listaProprietarios;
     }
     
     protected function _getIdTipoProcessoUrl()
@@ -176,6 +178,11 @@ class AbrirprocessoController extends BaseController
         }
         
         return $listaProtocolos;
+    }
+    
+    protected function _getListaProprietarios()
+    {
+    	return $this->_getListaProtocolos();
     }
     
     protected function _redirectEscolhaTipoProcesso()
