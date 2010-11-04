@@ -23,15 +23,15 @@ class AlfrescoLogin extends AlfrescoBase
 		$url =
 		    $this->getBaseUrl() . "/api/" .
 		    $this->_loginBaseUrl .
-            "?u=" . $username . "&pw=" . $password;
+            "?u=" . $username . "&pw=" . $password . '&format=json';
         
 		$curlObj = new CurlClient();
 		
 		$result = trim($curlObj->doGetRequest($url));
 		$this->setTicket($result);
 		
-		//FIXME: Resolver Ticket
-		$ticket = substr($result, strpos($result, 'TICKET'));
+		$resultJson = json_decode($result);
+		$ticket = $resultJson->data->ticket;
 		
 		return array('ticket' => $ticket);
 	}
