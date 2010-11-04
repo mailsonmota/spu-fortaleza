@@ -1,11 +1,12 @@
 <?php 
 $this->breadcrumbs()->addPage('Tramitação', 'processos');
+$this->breadcrumbs()->addPage('Caixa de Saída', 'processos/saida');
 echo $this->breadcrumbs()->render(); 
 
 echo $this->tabs()->openList();
-echo $this->tabs()->addTab($this->simpleUrl('index'), 'Entrada', true);
+echo $this->tabs()->addTab($this->simpleUrl('index'), 'Entrada');
 echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Análise');
-echo $this->tabs()->addTab($this->simpleUrl('saida'), 'Saída');
+echo $this->tabs()->addTab($this->simpleUrl('saida'), 'Saída', true);
 echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Enviados');
 echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Cópias');
 echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Arquivados');
