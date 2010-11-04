@@ -113,7 +113,7 @@ class AbrirprocessoController extends BaseController
         
         if (count($listaTiposManifestante) == 0) {
             throw new Exception(
-                'Não existe nenhum tipo de abrangência cadastrado no sistema. 
+                'Não existe nenhum tipo de manifestante cadastrado no sistema. 
                 Por favor, entre em contato com a administração do sistema.'
             );
         }
