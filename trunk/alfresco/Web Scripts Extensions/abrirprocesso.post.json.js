@@ -1,9 +1,14 @@
 <import resource="/Company Home/Data Dictionary/Scripts/SPU/processo.js">
 
-// TODO refatorar. colocar código em Data Dictionary/Scripts/SPU
 var props = new Array()
 
-props["cm:name"] = json.get("numero")
+var numero = json.get("numero")+""
+
+props["cm:title"] = numero
+
+numero = numero.replace("/", "_");
+
+props["cm:name"] = numero
 
 var d = getDataFormatadaAlfresco(json.get("data"))
 props["spu:processo.Data"] = d
@@ -47,4 +52,4 @@ var corpo = json.get("corpo")
 
 var retornoTramitacao = tramitar(nodeId, nodeDestinoTramitacaoId, prioridadeId, dataPrazo, corpo)
 
-model.variavel = node
+model.processo = node
