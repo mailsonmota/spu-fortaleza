@@ -4,6 +4,13 @@ jQuery(document).ready(function() {
 	
 	$('.mascaraData').setMask('date');
 	$('.mascaraHora').setMask('time');
+	
+	$("form").validate();
+
+	$.extend($.validator.messages, {
+        	required: "Este campo é requerido.",
+        	email: "E-mail inválido."
+        });
 });
 
 function triggerEnterButton() {
