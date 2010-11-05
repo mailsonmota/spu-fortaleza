@@ -38,7 +38,7 @@ class Zend_View_Helper_textbox extends Zend_View_Helper_form
         $class  = '';
         $lengthClass = $this->getClassByLength($this->getLength());
         $optionalClasses = $this->_getOptionalClasses();
-	$labelClass = $this->getLabelClass();        
+		$labelClass = $this->getLabelClass();        
 
         if ($lengthClass OR $optionalClasses OR $labelClass) {
             $class .= "class=\"$lengthClass $optionalClasses $labelClass\"";
