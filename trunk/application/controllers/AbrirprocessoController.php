@@ -65,14 +65,17 @@ class AbrirprocessoController extends BaseController
             $return = $processoObj->abrirProcesso($postData);
             
             if (!empty($return->Processo)) {
-            	// processo criado
-            	$processo = $return->Processo[0]->$postData['numero'];
+            	$nomeProcesso = str_replace("/", "_", $postData['numero']);
+            	$processo = $return->Processo[0]->$nomeProcesso;
                 $processo = $processo[0];
                 $defaultNamespaceSession = new Zend_Session_Namespace('default');
                 $defaultNamespaceSession->processoCriado = $processo;
                 $this->_redirectProcessoCriado();
             } else {
             	// FIXME
+            	print '<pre>';
+            	print "erro da inserção do processo<br><br>";
+            	var_dump($postData);
             	print "erro da inserção do processo<br><br>";
             	var_dump($return); exit;
             }
