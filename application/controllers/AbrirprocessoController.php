@@ -57,10 +57,26 @@ class AbrirprocessoController extends BaseController
         
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getParams();
+            
+            // FIXME ticket de adm do alfresco
             //$processoObj = new Processo($this->getTicket());
             $adminTicket = $this->getAdminTicket();
             $processoObj = new Processo($adminTicket);
             $return = $processoObj->abrirProcesso($postData);
+            
+            if (!empty($return->Processo)) {
+            	// processo criado
+            	$processo = $return->Processo[0]->$postData['numero'];
+                $processo = $processo[0];
+                $defaultNamespaceSession = new Zend_Session_Namespace('default');
+                $defaultNamespaceSession->processoCriado = $processo;
+                $this->_redirectProcessoCriado();
+            } else {
+            	// FIXME
+            	print "erro da inserção do processo<br><br>";
+            	var_dump($return); exit;
+            }
+            
         }
         
         $this->view->tipoProcesso = $tipoProcesso;
@@ -190,5 +206,16 @@ class AbrirprocessoController extends BaseController
     protected function _redirectEscolhaTipoProcesso()
     {
         $this->_helper->redirector('index', $this->getController(), 'default');
+    }
+    
+    public function processocriadoAction()
+    {
+    	$defaultNamespaceSession = new Zend_Session_Namespace('default');
+        $this->view->processoCriado = $defaultNamespaceSession->processoCriado;
+    } 
+    
+    protected function _redirectProcessoCriado()
+    {
+        $this->_helper->redirector('processocriado', $this->getController(), 'default');
     }
 }
