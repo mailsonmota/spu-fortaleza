@@ -1,5 +1,7 @@
 <?php
 
+// TODO corrigir decodes entre a API do alfresco e o curl client
+
 require_once('GetAdapters/JsonGetAdapter.php');
 require_once('PostAdapters/JsonPostAdapter.php');
 
