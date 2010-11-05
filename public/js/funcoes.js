@@ -10,7 +10,18 @@ jQuery(document).ready(function() {
 	$.extend($.validator.messages, {
         	required: "Este campo é requerido.",
         	email: "E-mail inválido."
-        });
+        }
+	);
+	
+	$.dpText = {
+			TEXT_PREV_YEAR		:	'Ano anterior',
+			TEXT_PREV_MONTH		:	'Mês anterior',
+			TEXT_NEXT_YEAR		:	'Ano seguinte',
+			TEXT_NEXT_MONTH		:	'Mês seguinte',
+			TEXT_CLOSE			:	'Fechar',
+			TEXT_CHOOSE_DATE	:	'Escolher'
+		}
+	$('.mascaraData').datePicker().val(new Date().asString()).trigger('change');
 });
 
 function triggerEnterButton() {
