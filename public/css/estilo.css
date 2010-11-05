@@ -54,12 +54,14 @@ input, select, textarea {font-family: Helvetica, Arial, sans-serif;padding: 0.25
 .largeText {width: 50em;}
 select {text-indent: 0;}
 dd {float: left;}
-.required {font-weight: bold;}
+label.required {font-weight: bold;}
 .campoTexto {padding-top: 0.75em;}
 fieldset {border-width: 1px 0 0 0;}
 dd ul li {padding: 0.25em 0;}
 dd ul li.even {background: #FAFAFA;}
 dd ul li.odd {background: #F5F5F5;}
+dd label.error {margin: 0 0 0 1em; border: 0; background: none; padding: 0}
+input.error, label.error {margin: 0.5em 0; padding: 0.25em 0;border-color: #8a1f11;background: #FBE3E4}
 
 /* Botões */
 .buttons {border-top: 1px solid #DDD;padding: 1%;margin: 1% 0;background: #FAFAFA;clear: left;}
