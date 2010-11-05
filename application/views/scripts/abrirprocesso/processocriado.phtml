@@ -16,7 +16,7 @@ echo $this->pagenav()->closeList();
             echo $this->text('Tipo de Processo', $this->processoCriado->tipoProcesso[0]->nome);
             echo $this->text('Assunto', $this->processoCriado->assunto[0]->nome);
             echo $this->text('Data', $this->processoCriado->data);
-            echo $this->text('Número', $this->processoCriado->nome);
+            echo $this->text('Número', str_replace("_", "/", $this->processoCriado->nome));
             echo $this->text('Nº Origem', $this->processoCriado->numeroOrigem);
             echo $this->form()->closeFieldList();
         ?>
@@ -41,3 +41,5 @@ echo $this->pagenav()->closeList();
         ?>
     </fieldset>
 </div>
+
+<?php print '<pre>'; var_dump($this->processoCriado); // FIXME deletar tmp?>
