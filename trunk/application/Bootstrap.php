@@ -64,6 +64,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headLink()->appendStylesheet($baseUrl . '/css/forms.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/estilo.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/facebox.css');
+        $view->headLink()->appendStylesheet($baseUrl . '/css/datePicker.css');
     }
    
     protected function initJs(Zend_View $view, $baseUrl)
@@ -74,6 +75,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headScript()->appendFile($pluginsPath . 'jquery-1.3.2.min.js');
         $view->headScript()->appendFile($pluginsPath . 'jquery.meio.mask-1.1.3.js');
         $view->headScript()->appendFile($pluginsPath . 'jquery.validate.min.js');
+        $view->headScript()->appendFile($pluginsPath . 'date.js');
+        $view->headScript()->appendFile($pluginsPath . 'date_pt-br.js');
+        $view->headScript()->appendFile($pluginsPath . 'jquery.datePicker.js');
         $view->headScript()->appendFile($jsPath . 'funcoes.js');
     }
     
