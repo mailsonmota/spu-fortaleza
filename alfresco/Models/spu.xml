@@ -143,6 +143,10 @@
 		    		</property>			
 				<!-- Manifestante - Fim -->
                                 <!-- Movimentações - Inicio -->
+				<property name="spu:processo.Origem">
+				   	<title>Origem</title>
+				   	<type>d:text</type>
+                    		</property>
                                 <property name="spu:processo.Destino">
 				   	<title>Local</title>
 				   	<type>d:text</type>

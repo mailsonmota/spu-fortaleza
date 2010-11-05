@@ -45,6 +45,7 @@
 			<show-property name="spu:processo.ManifestanteCpf" />
 			<show-property name="spu:processo.ManifestanteBairro" />
 			<show-property name="spu:processo.ManifestanteTipo" />
+			<show-property name="spu:processo.Origem" />			
 			<show-property name="spu:processo.Destino" />
 			<show-property name="spu:processo.Despacho" />
 			<show-association name="spu:processo.Proprietario" 
