@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Teste Bruno</shortname>
+	<description>Teste Bruno</description>
+	<url>/spu/testes/bruno</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>

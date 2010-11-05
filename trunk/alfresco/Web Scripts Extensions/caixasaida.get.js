@@ -1,2 +1,2 @@
 <import resource="/Company Home/Data Dictionary/Scripts/SPU/processo.js">
-model.processos = getCaixaEntrada()
+model.processos = getCaixaSaida()
