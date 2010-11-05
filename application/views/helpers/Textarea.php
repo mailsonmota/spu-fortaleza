@@ -15,14 +15,27 @@ class Zend_View_Helper_textarea extends Zend_View_Helper_form
         $this->_options = $options;
         
         $labelClass = $this->getLabelClass();
+        $inputClass = $this->getInputClass();
         $length = $this->getHtmlLength();
         $id = $this->getId();
         
         $html  = "";
         $html .= "<dt><label for=\"$name\" class=\"$labelClass\">$label:</label></dt>";
-        $html .= "<dd><textarea name=\"$name\" id=\"$id\" $length>$value</textarea></dd>";
+        $html .= "<dd><textarea name=\"$name\" id=\"$id\" $length $inputClass>$value</textarea></dd>";
         
         return $html;
+    }
+    
+	public function getInputClass()
+    {
+        $class  = '';
+        $labelClass = $this->getLabelClass();        
+
+        if ($labelClass) {
+            $class .= "class=\"$labelClass\"";
+        } 
+        
+        return $class;
     }
     
     public function getHtmlLength()
