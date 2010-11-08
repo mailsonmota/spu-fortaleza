@@ -96,21 +96,20 @@ function getMovimentacoes(nodeId) {
 	return movimentacoes
 }
 
-function tramitar(nodeId, protocoloId, prioridadeId, prazo, despacho) {
+function tramitar(nodeId, origemId, destinoId, prioridadeId, prazo, despacho) {
 	var processo = getNode(nodeId)
-	var protocolo = getNode(protocoloId)
+	var protocolo = getNode(destinoId)
 	var caixasEntrada = search.luceneSearch(
 		"workspace://SpacesStore", 'PATH:"' + protocolo.getQnamePath() + '/*" AND TYPE:"spu:CaixaEntrada"'
 	);
 	var caixaEntrada = caixasEntrada[0]
-	var origem = processo.parent.parent.properties['sys:node-uuid']
-
+	
 	/* Properties */
-	processo.properties['spu:processo.Origem'] = origem
+	processo.properties['spu:processo.Origem'] = origemId
 	processo.properties['spu:processo.DataPrazo'] = getDataFormatadaAlfresco(prazo)
 	processo.properties['spu:processo.Despacho'] = despacho
 	processo.properties['spu:processo.Prioridade'] = 'workspace://SpacesStore/' + prioridadeId
-	processo.properties['spu:processo.Destino'] = protocoloId
+	processo.properties['spu:processo.Destino'] = destinoId
 	processo.save()
 	
 	/* Permissões - Adiciona as permissoes da Cx. Entrada origem ao processo */

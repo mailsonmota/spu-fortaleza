@@ -50,6 +50,8 @@ var nodeDestinoTramitacaoId = json.get("destino") // json.get("proprietarioId")
 
 var corpo = json.get("corpo")
 
-var retornoTramitacao = tramitar(nodeId, nodeDestinoTramitacaoId, prioridadeId, dataPrazo, corpo)
+var nodeOrigemTramitacaoId = nodeProprietario.properties["sys:node-uuid"]
+
+var retornoTramitacao = tramitar(nodeId, nodeOrigemTramitacaoId, nodeDestinoTramitacaoId, prioridadeId, dataPrazo, corpo)
 
 model.processo = node
