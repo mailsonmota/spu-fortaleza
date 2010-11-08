@@ -7,5 +7,16 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    Bem-vindo!
+    <p>
+    	Bem-vindo, <b><?php echo $this->pessoa->nome ?></b>!
+    </p>
+    <p>
+    	<?php if ($this->totalProcessosCaixaEntrada > 0): ?>
+    	Você tem <b><?php echo $this->totalProcessosCaixaEntrada ?></b> processos na sua 
+    	<a href="<?php echo $this->simpleUrl('entrada', 'processos') ?>">Caixa de Entrada</a>.
+    	<?php else: ?>
+    	Você não tem nenhum processo em sua 
+    	<a href="<?php echo $this->simpleUrl('entrada', 'processos') ?>">Caixa de Entrada</a>.
+    	<?php endif ?>
+    </p>
 </div>

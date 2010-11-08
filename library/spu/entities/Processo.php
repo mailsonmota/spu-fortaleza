@@ -229,6 +229,12 @@ class Processo extends BaseAlfrescoEntity
         return $processos;
     }
     
+    public function getTotalProcessosCaixaEntrada()
+    {
+    	$processosCaixaEntrada = $this->listarProcessosCaixaEntrada();
+    	return count($processosCaixaEntrada);
+    }
+    
 	public function listarProcessosCaixaSaida()
     {
         $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
