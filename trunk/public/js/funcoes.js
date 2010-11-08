@@ -22,6 +22,8 @@ jQuery(document).ready(function() {
 			TEXT_CHOOSE_DATE	:	'Escolher'
 		}
 	$('.mascaraData').datePicker().val(new Date().asString()).trigger('change');
+	
+	$('a[rel*=facebox]').facebox();
 });
 
 function triggerEnterButton() {

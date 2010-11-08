@@ -96,9 +96,7 @@
                 <div class="content"> \
                 </div> \
                 <div class="footer"> \
-                  <a href="#" class="close"> \
-                    <img src="../../img/facebox/closelabel.gif" title="close" class="close_image" /> \
-                  </a> \
+                  <a href="#" class="close">Fechar</a> \
                 </div> \
               </td> \
               <td class="b"/> \

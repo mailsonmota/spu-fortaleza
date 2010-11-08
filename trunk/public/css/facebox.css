@@ -95,9 +95,9 @@
 }
 
 a.close {
-    background:url(../img/facebox/closelabel.gif) no-repeat 100% 50%;
+    /*background:url(../img/facebox/closelabel.gif) no-repeat 100% 50%;
 	width: 66px;
-	height: 22px;
+	height: 22px;*/
 	display: block;
 	float: right;
 }
