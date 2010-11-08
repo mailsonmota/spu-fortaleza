@@ -245,3 +245,8 @@ body.basic {background: url(../img/degrade.jpg) repeat-x 0% 0% white;}
 #section ul.buttons {background: none; border: 0; margin: 0; padding: 0;}
 #username {background-image: url(../img/icons/username.png);}
 #password {background-image: url(../img/icons/password.png);}
+
+/* Ajuda */
+.item-ajuda h3 {border-bottom-width: 1px; border-color: #DDD; margin-bottom: 0.75em}
+.item-ajuda dt {float: none; font-weight: bold; width: auto; text-align: left;}
+.item-ajuda h4 {font-size: 1.25em; font-weight: bold; margin-bottom: auto;}

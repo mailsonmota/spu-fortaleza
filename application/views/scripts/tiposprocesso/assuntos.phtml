@@ -13,7 +13,7 @@ endif;
 
 echo $this->pagenav()->openList(); 
 echo $this->pagenav()->link($this->simpleUrl('editar', $this->controller, array('id' => $this->id)), 'Voltar');
-echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->defaultHelperLinks('assuntos.html');
 echo $this->pagenav()->closeList();
 ?>
 

@@ -7,5 +7,16 @@
 <body>
     <h1>Sistema de Protocolo Único</h1>
     <h2>Ajuda</h2>
+    
+    <h3>Índice</h3>
+    <ol>
+    	<li><a href="#ajuda-tiposprocesso">Tipos de Processo</a></li>
+    	<li><a href="#ajuda-assuntos">Assuntos</a></li>
+    </ol>
+    
+    <?php include_once('tiposprocesso.html'); ?>
+   	
+    <?php include_once('assuntos.html'); ?>
+   	
 </body>
 </html>
