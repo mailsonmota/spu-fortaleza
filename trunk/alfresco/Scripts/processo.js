@@ -185,18 +185,33 @@ function getCaixaSaida() {
 	var processos = new Array
 	var protocoloId
 	var j
-	var stringOrigens = ''
+	var criterioOrigem = ''
+	var criterioDestino = ''
+	var criterio = ''
+
 	for (var i=0; i < caixasEntrada.length;i++) {
 		caixaEntrada = caixasEntrada[i]
 		protocoloId = caixaEntrada.parent.properties['sys:node-uuid']
-		if (stringOrigens != '') {
-			stringOrigens += ' OR '		
+
+		if (criterioOrigem != '') {
+			criterioOrigem += ' OR '		
 		}
-		stringOrigens += '@spu\\:processo.Origem:"' + protocoloId + '"';
+		criterioOrigem += '@spu\\:processo.Origem:"' + protocoloId + '"';
+
+		if (criterioDestino != '') {
+			criterioDestino += ' OR '		
+		}
+		criterioDestino += '@spu\\:processo.Destino:"' + protocoloId + '"';
 	}
-	if (stringOrigens) {
-		stringOrigens = ' AND (' + stringOrigens + ')';
+	if (criterioOrigem) {
+		criterioOrigem = ' AND (' + criterioOrigem + ')';
 	}
-	var processos = search.luceneSearch("workspace://SpacesStore", 'TYPE:"spu:Processo"' + stringOrigens);
+	if (criterioDestino) {
+		criterioDestino = ' AND NOT (' + criterioDestino + ')';
+	}
+	
+	criterio = criterioOrigem + '' + criterioDestino
+	
+	var processos = search.luceneSearch("workspace://SpacesStore", 'TYPE:"spu:Processo"' + criterio);
 	return processos;
 }
