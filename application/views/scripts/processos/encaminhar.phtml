@@ -31,7 +31,7 @@ echo $this->pagenav()->closeList();
         echo $this->form()->openFieldList();
         echo $this->select('Prioridade', 'prioridadeId', $this->listaPrioridades, null, array('required' => true));
     	echo $this->select('Destino', 'destinoId', $this->listaProtocolos, null, array('required' => true));
-        echo $this->textbox('Prazo', 'prazo', null, array('required' => true));
+        echo $this->textbox('Prazo', 'prazo', null, array('required' => true, 'class' => 'mascaraData'));
         echo $this->textarea('Despacho', 'despacho', null, array('required' => true));
         echo $this->form()->closeFieldList();
         
