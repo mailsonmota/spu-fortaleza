@@ -5,6 +5,7 @@
  * @package SGC
  */
 Loader::loadEnumeration('Mensagem');
+Loader::loadEntity('Processo');
 abstract class BaseController extends Zend_Controller_Action
 {
     public function getController()
@@ -51,6 +52,14 @@ abstract class BaseController extends Zend_Controller_Action
         
         $authInstance = Zend_Auth::getInstance()->getIdentity();
         $this->view->pessoa = $authInstance['user'];
+        
+        if ($this->getTicket()) {
+	        $processo = new Processo($this->getTicket());
+	        $totalProcessosCaixaEntrada = $processo->getTotalProcessosCaixaEntrada();
+        } else {
+        	$totalProcessosCaixaEntrada = 0;
+        }
+        $this->view->totalProcessosCaixaEntrada = $totalProcessosCaixaEntrada;
         
         $this->setMessageFromFlashMessenger();
         $this->setMessageFromUrl();
