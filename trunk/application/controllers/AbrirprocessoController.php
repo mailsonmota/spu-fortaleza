@@ -70,6 +70,7 @@ class AbrirprocessoController extends BaseController
                 $processo = $processo[0];
                 $defaultNamespaceSession = new Zend_Session_Namespace('default');
                 $defaultNamespaceSession->processoCriado = $processo;
+                $this->setSuccessMessage("Processo criado com sucesso");
                 $this->_redirectProcessoCriado();
             } else {
             	// FIXME
@@ -220,5 +221,22 @@ class AbrirprocessoController extends BaseController
     protected function _redirectProcessoCriado()
     {
         $this->_helper->redirector('processocriado', $this->getController(), 'default');
+    }
+    
+    public function arquivosAction()
+    {
+    	if ($this->getRequest()->isPost()) {
+    		$postData = $this->getRequest()->getParams();
+    		//print '<pre>'; var_dump($_FILES); exit;
+    		$filesData = array();
+    		for ($i = 0; $i < count($_FILES["files"]["name"]); $i++) {
+    			$filesData[$i]["name"] = $_FILES["files"]["name"][$i];
+    			$filesData[$i]["tmp_name"] = $_FILES["files"]["tmp_name"][$i];
+    			$filesData[$i]["type"] = $_FILES["files"]["type"][$i];
+    			$filesData[$i]["size"] = $_FILES["files"]["size"][$i];
+    		}
+    		
+    		print '<pre>'; var_dump($filesData); exit;
+    	}
     }
 }
