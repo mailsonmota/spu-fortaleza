@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Tramita o processo informado</shortname>
+	<description>Tramita o processo informado</description>
+	<url>/spu/processo/tramitar</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>
+
