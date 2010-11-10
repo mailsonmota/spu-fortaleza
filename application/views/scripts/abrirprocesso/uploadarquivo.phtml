@@ -1,0 +1,36 @@
+<?php 
+$this->breadcrumbs()->addPage('Abrir Processo', 'abrirprocesso');
+$this->breadcrumbs()->addPage('Formulário', 'abrirprocesso', 'formulario');
+$this->breadcrumbs()->addPage('Adição de Arquivos', 'abrirprocesso', 'uploadarquivo');
+echo $this->breadcrumbs()->render(); 
+
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+    <h4>Escolha os Arquivos</h4>
+    <form action="http://localhost:8080/alfresco/service/spu/processo/uploadarquivo" method="post" enctype="multipart/form-data">
+        <?php
+        echo $this->form()->openFieldList();
+
+        echo $this->textbox("destNodeUuid", "destNodeUuid", $this->processoUuid);
+        echo $this->file("Arquivo", "file");
+                
+        echo $this->form()->closeFieldList();
+        
+        echo $this->buttonlist()->open();
+        echo $this->buttonlist()->button('Fazer upload de arquivo');
+        echo $this->buttonlist()->close(true); 
+        ?>
+    </form>
+    
+    <form action="" method="post">
+        <?php
+        echo $this->buttonlist()->open();
+        echo $this->buttonlist()->button('Avançar');
+        echo $this->buttonlist()->close(true); 
+        ?>
+    </form>
+</div>
