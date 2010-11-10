@@ -35,19 +35,13 @@ h6 {font-size:1em;font-weight:bold;}
 /* Links */
 a {outline: 0; font-weight: bold;}
 a img {border: 0px; text-decoration: none;}
-a:link, a:visited {color: #AA0000;padding: 0 1px;text-decoration: underline;}
-a:hover, a:active {background-color: #AA0000;color: #fff;text-decoration: none;}
+a:link, a:visited {color: #000;padding: 0 1px;text-decoration: underline;}
+a:hover, a:active {background-color: #000;color: #fff;text-decoration: none;}
 
 /* Forms */
 dl {margin-bottom: 2%;}
 dt, dd {float: left;margin: 0.1em 0;}
-dt {
-    width: 12em;
-    clear: both;
-    text-align: right;
-    padding-top: 0.75em;
-	margin-right: 1em;
-}
+dt {width: 12em;clear: both;text-align: right;padding-top: 0.75em;margin-right: 1em;}
 label {font-weight: normal;}
 input, select, textarea {font-family: Helvetica, Arial, sans-serif;padding: 0.25em 0;text-indent: 3px;font-size: 1em;}
 .middleText {width: 30em;}
@@ -102,8 +96,8 @@ p {margin-bottom: 1.143em;}
 strong, b {font-weight: bold;}
 em, i {font-style: italic;}
 
-::-moz-selection {background: #C74350; color: #fff;}
-::selection {background: #C74350; color: #fff;}
+::-moz-selection {background: #000; color: #fff;}
+::selection {background: #000; color: #fff;}
 
 /* Estrutura */
 #section, #footer {padding: 1%;}
@@ -112,9 +106,9 @@ em, i {font-style: italic;}
 /* Cabecalho */
 #header {
 	position: relative;
-    background: url(../img/degradeBordo.jpg) repeat-x #cb0101;
+    background: #333;
     padding: 1%;
-    border-bottom: 1px solid #990100;
+    border-bottom: 1px solid #111;
     text-shadow: 1px 1px 1px #000;
 }
 
@@ -126,12 +120,7 @@ em, i {font-style: italic;}
     padding-left: 52px;
     margin-bottom: 0;
 }
-#header h1 a {
-    text-decoration: none;
-    color: white;
-    line-height: 36px;
-    font-weight: bold;
-}
+#header h1 a {text-decoration: none;color: white;line-height: 36px;font-weight: bold;}
 #header h1 a:hover {background: none;text-shadow: 1px 1px 1px #000;text-decoration: underline;}
 #header h1 span {
     position: absolute;
@@ -143,29 +132,14 @@ em, i {font-style: italic;}
     line-height: 12px;
     display: block;
 }
-#usuario {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    line-height: 1.75em;
-    color: white;
-    text-align: right;
-}
+#usuario {position: absolute;top: 12px;right: 12px;line-height: 1.75em;color: white;text-align: right;}
 #usuario a {color: white;}
 
 /* Menu */
 #menu {float: left;width: 18%;padding-left: 2%;display: inline;}
 #menu ul {list-style: none;max-width:100%;position:relative;}
 #menu ul li {list-style-type: none;width: 100%;}
-#menu ul li span {
-	color: black;
-    display: block;
-    text-decoration: none;
-    width: 96%;
-    padding: 2%;
-    border-bottom: 1px dotted #AAA;
-    margin-bottom: 2%;
-}
+#menu ul li span {color: black;display: block;text-decoration: none;width: 96%;padding: 2%;border-bottom: 1px dotted #AAA;margin-bottom: 2%;}
 
 /* Submenu */
 #menu ul li ul {height: auto;margin: 4% 0;}
