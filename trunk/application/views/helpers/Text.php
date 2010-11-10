@@ -15,13 +15,13 @@ class Zend_View_Helper_text extends Zend_View_Helper_form
         
         $labelClass = $this->getLabelClass();
         
-        if ($this->_isStrong()) {
+        if ($this->_isStrong() AND $value) {
         	$value = "<strong>$value</strong>";
         }
         
         $html  = "";
         $html .= "<dt><label class=\"$labelClass\">$label:</label></dt>";
-        $html .= "<dd class=\"campoTexto\">$value</dd>";
+        if ($value) $html .= "<dd class=\"campoTexto\">$value</dd>";
         
         return $html;
     }

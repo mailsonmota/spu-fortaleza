@@ -16,7 +16,7 @@ echo $this->pagenav()->closeList();
         $grupos = $this->pessoa->getGrupos($this->pessoa->login);
         $htmlGrupos = '';
         for ($i = 0; $i < count($grupos); $i++) {
-            $htmlGrupos .= $grupos[$i]['item'] . '<br>';
+            $htmlGrupos .= $grupos[$i]['item'] . '<br/>';
         }
 	   
 		echo $this->form()->openFieldList();
