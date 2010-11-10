@@ -1,0 +1,13 @@
+<webscript>
+
+<shortname>Abre processo do tipo spu:processo</shortname>
+<description>Cria space do tipo spu:processo (processo)</description>
+
+<url>/spu/processo/abrir</url>
+
+<format default="json">any</format>
+<authentication>user</authentication>
+<transaction>required</transaction>
+
+</webscript>
+

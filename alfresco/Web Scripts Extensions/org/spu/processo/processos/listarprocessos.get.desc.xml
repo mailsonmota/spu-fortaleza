@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Listar Processos</shortname>
+	<description>Lista todos os Processos que o usuário tem acesso</description>
+	<url>/spu/processo/listar</url>
+	<authentication>guest</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>
