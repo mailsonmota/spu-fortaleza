@@ -1,10 +1,11 @@
 <?php 
 $this->breadcrumbs()->addPage('Tramitação', 'processos');
+$this->breadcrumbs()->addPage('Caixa de Saída', 'processos/saida');
 echo $this->breadcrumbs()->render(); 
 
 echo $this->tabs()->openList();
-echo $this->tabs()->addTab($this->simpleUrl('index'), 'Entrada', true);
-echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Análise');
+echo $this->tabs()->addTab($this->simpleUrl('index'), 'Entrada');
+echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Análise', true);
 echo $this->tabs()->addTab($this->simpleUrl('saida'), 'Saída');
 echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Enviados');
 echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Cópias');
@@ -19,18 +20,14 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <form action="<?php echo $this->simpleUrl('receber') ?>" method="post">
-    	<?php
-		echo $this->buttonlist()->open();
-        echo $this->buttonlist()->button('Receber Selecionados');
-        echo $this->buttonlist()->close(true); 
-    	
-        $headerColumns = array('', 'Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
+    <form action="" method="post">
+        <?php 
+        $headerColumns = array('Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes', 'Encaminhar');
         $columns = array('numero', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
         
-        $grid = new SimpleDataTable($this->lista, array('check' => true, 'headerColumns' => $headerColumns, 'columns' => $columns));
-        $grid->addCheckboxColumn('processosParaReceber', 'id');
+        $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
         $grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', $this->controller) . '/id/', 'id');
+        $grid->addActionColumn('Encaminhar', $this->simpleUrl('encaminhar', $this->controller) . '/id/', 'id');
         echo $grid->render();
         ?>
     </form>

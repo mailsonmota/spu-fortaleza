@@ -30,6 +30,18 @@ class AlfrescoProcesso extends AlfrescoBase
         return $result['Processos'][0];
 	}
 	
+	public function getCaixaAnalise()
+	{
+	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/analise";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        $resultJson = $curlObj->doGetRequest($url);
+        $result = json_decode($resultJson, true);
+        
+        return $result['Processos'][0];
+	}
+	
 	public function abrirProcesso($postData)
 	{
 	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/abrir";
@@ -78,6 +90,24 @@ class AlfrescoProcesso extends AlfrescoBase
         
         if (!isset($result->Processo)) {
         	throw new Exception("Não foi possível tramitar o processo.");
+        }
+        
+        return $result;
+	}
+	
+	public function receberVarios($postData)
+	{
+		$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/receber";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        
+        $result = $curlObj->doPostRequest($url, $postData);
+        
+        if (!isset($result->Processos)) {
+        	var_dump($result);
+        	exit;
+        	throw new Exception("Não foi possível receber os processos.");
         }
         
         return $result;

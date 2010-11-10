@@ -13,10 +13,10 @@ echo $this->pagenav()->closeList();
     <p>
     	<?php if ($this->totalProcessosCaixaEntrada > 0): ?>
     	Você tem <b><?php echo $this->totalProcessosCaixaEntrada ?></b> processos na sua 
-    	<a href="<?php echo $this->simpleUrl('entrada', 'processos') ?>">Caixa de Entrada</a>.
+    	<a href="<?php echo $this->simpleUrl('index', 'processos') ?>">Caixa de Entrada</a>.
     	<?php else: ?>
     	Você não tem nenhum processo em sua 
-    	<a href="<?php echo $this->simpleUrl('entrada', 'processos') ?>">Caixa de Entrada</a>.
+    	<a href="<?php echo $this->simpleUrl('index', 'processos') ?>">Caixa de Entrada</a>.
     	<?php endif ?>
     </p>
 </div>

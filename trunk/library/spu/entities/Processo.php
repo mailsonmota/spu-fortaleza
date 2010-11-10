@@ -251,6 +251,22 @@ class Processo extends BaseAlfrescoEntity
         return $processos;
     }
     
+    public function listarProcessosCaixaAnalise()
+    {
+    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+        $hashProcessos = $service->getCaixaAnalise();
+        
+        $processos = array();
+        foreach ($hashProcessos as $hashProcesso) {
+            $hashDadosProcesso = array_pop($hashProcesso); 
+            $processo = new Processo($this->_getTicket());
+            $processo->_loadProcessoFromHash($hashDadosProcesso);
+            $processos[] = $processo;
+        }
+        
+        return $processos;
+    }
+    
     protected function _loadProcessoFromHash($hash)
     {
         $this->setNodeRef($this->_getHashValue($hash, 'noderef'));
@@ -379,6 +395,12 @@ class Processo extends BaseAlfrescoEntity
     {
     	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
         return $service->tramitar($postData);
+    }
+    
+    public function receberVarios($postData)
+    {
+    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+    	return $service->receberVarios($postData);
     }
 }
 ?>
