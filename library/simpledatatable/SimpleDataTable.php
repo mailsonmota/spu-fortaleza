@@ -189,14 +189,32 @@ class SimpleDataTable
             foreach ($this->_getDataColumns() as $column) {
                 if (!is_array($column)) {
                     $html .= "<td>" . $row->$column . "</td>";
-                } else {
+                } elseif ($this->_isLinkColumn($column)) {
                     $html .= '<td><a href="' . $column['url'] . $row->$column['paramValue'] . '">' . $column['title'] . '</a></td>'; 
+                } elseif ($this->_isCheckboxColumn($column)) {
+                	$html .= '<td><input type="checkbox" name="' . $column['name'] . '[]" value="' . $row->$column['paramValue'] . '"/></td>';
                 }
             }
             $html .= "</tr>";
         }
         
         return $html;
+    }
+    
+    protected function _isLinkColumn($column)
+    {
+    	return ($this->_getColumnType($column) == 'link');
+    }
+    
+	protected function _isCheckboxColumn($column)
+    {
+    	return ($this->_getColumnType($column) == 'checkbox');
+    }
+    
+    protected function _getColumnType($column)
+    {
+    	$columnType = (isset($column['type'])) ? $column['type'] : null;
+    	return $columnType;
     }
     
     protected function _renderEndOfTheTable()
@@ -222,12 +240,22 @@ class SimpleDataTable
     
     public function addActionColumn($title, $url, $paramValue = null)
     {
-       $this->_addDataColumn(array('title' => $title, 'url' => $url, 'paramValue' => $paramValue));
+       $this->_addDataColumn(array('type' => 'link', 'title' => $title, 'url' => $url, 'paramValue' => $paramValue));
+    }
+    
+    public function addCheckboxColumn($name, $paramValue) 
+    {
+    	$this->_addColumnToTheBeginningOfTheArray(array('type' => 'checkbox', 'name' => $name, 'paramValue' => $paramValue));
     }
     
     protected function _addDataColumn($value)
     {
         $this->_dataColumns[] = $value;
+    }
+    
+    protected function _addColumnToTheBeginningOfTheArray($value)
+    {
+    	array_unshift($this->_dataColumns, $value);
     }
 }
 ?>
