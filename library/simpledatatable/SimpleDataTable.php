@@ -145,8 +145,8 @@ class SimpleDataTable
             $numberOfRecords = $this->_getNumberOfRecords();
             $html = "
                 <tfoot>
-                    <tr $colspan>
-                        <td><em>Exibindo $numberOfRecords registros.</em></td>
+                    <tr>
+                        <td $colspan><em>Exibindo $numberOfRecords registros.</em></td>
                     </tr>
                 </tfoot>
             ";
@@ -173,7 +173,7 @@ class SimpleDataTable
     protected function _renderBody()
     {
         $bodyRows = $this->_renderBodyRows();
-        $html = "<tbody>$bodyRows</tbody>";
+        $html = ($bodyRows) ? "<tbody>$bodyRows</tbody>" : '';
         
         $this->_addHtml($html);
     }
