@@ -1,9 +1,0 @@
-<webscript>
-    <shortname>Upload de arquivo para um nó</shortname>
-    <description>Faz upload de um arquivo para um nó</description>
-    <url>/spu/processo/uploadarquivo</url>
-    <authentication>user</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>
-
