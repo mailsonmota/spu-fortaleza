@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Retorna as opções de Abrangência de Tipos de Processo</shortname>
+	<description>Retorna as opções de Abrangência de Tipos de Processo</description>
+	<url>/spu/tiposprocesso/abrangencias/listar</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>
