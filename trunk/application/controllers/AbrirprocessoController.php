@@ -68,17 +68,18 @@ class AbrirprocessoController extends BaseController
             	$nomeProcesso = str_replace("/", "_", $postData['numero']);
             	$processo = $return->Processo[0]->$nomeProcesso;
                 $processo = $processo[0];
-                $defaultNamespaceSession = new Zend_Session_Namespace('default');
-                $defaultNamespaceSession->processoCriado = $processo;
+                $session = new Zend_Session_Namespace('aberturaProcesso');
+                $session->processoCriado = $processo;
                 $this->setSuccessMessage("Processo criado com sucesso");
-                $this->_redirectProcessoCriado();
+                //$this->_redirectProcessoCriado(); // para apresentação
+                $this->_redirectUploadArquivo();
             } else {
             	// FIXME
-            	print '<pre>';
-            	print "erro da inserção do processo<br><br>";
+            	print "<pre>erro da inserção do processo. \$postData.<br><br>";
             	var_dump($postData);
-            	print "erro da inserção do processo<br><br>";
+            	print "erro da inserção do processo. \$return.<br><br>";
             	var_dump($return); exit;
+            	print "----------------------<br><br>";
             }
             
         }
@@ -214,7 +215,7 @@ class AbrirprocessoController extends BaseController
     
     public function processocriadoAction()
     {
-    	$defaultNamespaceSession = new Zend_Session_Namespace('default');
+    	$defaultNamespaceSession = new Zend_Session_Namespace('aberturaProcesso');
         $this->view->processoCriado = $defaultNamespaceSession->processoCriado;
     } 
     
@@ -223,20 +224,30 @@ class AbrirprocessoController extends BaseController
         $this->_helper->redirector('processocriado', $this->getController(), 'default');
     }
     
-    public function arquivosAction()
+    protected function _redirectUploadArquivo()
     {
+    	$this->_helper->redirector('uploadarquivo', $this->getController(), 'default');
+    }
+    
+    protected function _redirectConfirmacaoCriacao()
+    {
+    	$this->_helper->redirector('confirmacaocriacao', $this->getController(), 'default');
+    }
+    
+    public function uploadarquivoAction()
+    {
+    	$session = new Zend_Session_Namespace('aberturaProcesso');
+    	$processoNoderef = $session->processoCriado->noderef;
+    	$processoUuid = $this->noderefToUuid($processoNoderef);
+    	$this->view->processoUuid = $processoUuid;
+
     	if ($this->getRequest()->isPost()) {
-    		$postData = $this->getRequest()->getParams();
-    		//print '<pre>'; var_dump($_FILES); exit;
-    		$filesData = array();
-    		for ($i = 0; $i < count($_FILES["files"]["name"]); $i++) {
-    			$filesData[$i]["name"] = $_FILES["files"]["name"][$i];
-    			$filesData[$i]["tmp_name"] = $_FILES["files"]["tmp_name"][$i];
-    			$filesData[$i]["type"] = $_FILES["files"]["type"][$i];
-    			$filesData[$i]["size"] = $_FILES["files"]["size"][$i];
-    		}
-    		
-    		print '<pre>'; var_dump($filesData); exit;
+            $this->_redirectConfirmacaoCriacao();
     	}
+    }
+    
+    public function confirmacaocriacaoAction()
+    {
+    	
     }
 }
