@@ -102,4 +102,12 @@ abstract class BaseController extends Zend_Controller_Action
     	$authNamespace = new Zend_Session_Namespace('Zend_Auth');
     	return $authNamespace->adminTicket;
     }
+    
+    /*
+     * Recebe um noderef do Alfresco e retorna o uuid daquele noderef
+     */
+    protected function noderefToUuid($noderef)
+    {
+        return substr($noderef, -36, 36);
+    }
 }
