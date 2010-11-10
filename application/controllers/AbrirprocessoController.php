@@ -71,8 +71,8 @@ class AbrirprocessoController extends BaseController
                 $session = new Zend_Session_Namespace('aberturaProcesso');
                 $session->processoCriado = $processo;
                 $this->setSuccessMessage("Processo criado com sucesso");
-                $this->_redirectProcessoCriado(); // para apresentação
-                //$this->_redirectUploadArquivo();
+                //$this->_redirectProcessoCriado(); // para apresentação
+                $this->_redirectUploadArquivo();
             } else {
             	// FIXME
             	print "<pre>erro da inserção do processo. \$postData.<br><br>";
