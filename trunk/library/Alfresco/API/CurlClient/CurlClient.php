@@ -47,7 +47,7 @@ class CurlClient
         
         $getAdapterObj = $this->getGetAdapter($returnFormat);
         
-        $return = $getAdapterObj->decode($result);
+        $return = $getAdapterObj->decode($result, true);
         
         return $return;
     }
