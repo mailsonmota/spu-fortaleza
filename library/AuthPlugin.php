@@ -33,15 +33,26 @@ class AuthPlugin extends Zend_Controller_Plugin_Abstract
         $action     = $request->getActionName();
         
         // Usuário Logado
-        if (!$this->_isIdentityValid() AND $controller != 'auth') {
+        if (!$this->_isIdentityValid() AND !$this->_isValidTicket() AND $controller != 'auth') {
             $module = self::FAIL_AUTH_MODULE;
             $controller = self::FAIL_AUTH_CONTROLLER;
             $action = self::FAIL_AUTH_ACTION;
         }
         
-        $request->setModuleName($module);
+    	$request->setModuleName($module);
         $request->setControllerName($controller);
         $request->setActionName($action);
+    }
+    
+    protected function _isValidTicket()
+    {
+    	Loader::loadAlfrescoApiClass('AlfrescoLogin');
+    	
+    	$alfrescoLogin = new AlfrescoLogin(BaseAlfrescoEntity::ALFRESCO_URL);
+    	$user = $this->getIdentity();
+    	$alfrescoLogin->setTicket($user['ticket']);
+    	
+    	return ($alfrescoLogin->validate());
     }
     
     protected function _isIdentityValid()

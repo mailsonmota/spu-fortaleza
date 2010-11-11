@@ -80,6 +80,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headScript()->appendFile($pluginsPath . 'date_pt-br.js');
         $view->headScript()->appendFile($pluginsPath . 'jquery.datePicker.js');
         $view->headScript()->appendFile($pluginsPath . 'facebox.js');
+        $view->headScript()->appendFile($pluginsPath . 'tableRowCheckboxToggle.js');
         $view->headScript()->appendFile($jsPath . 'funcoes.js');
     }
     
