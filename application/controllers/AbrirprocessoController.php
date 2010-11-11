@@ -57,11 +57,7 @@ class AbrirprocessoController extends BaseController
         
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getParams();
-            
-            // FIXME ticket de adm do alfresco. $processo = new Processo($this->getTicket());
-            $adminTicket = $this->getAdminTicket();
-            $processo = new Processo($adminTicket);
-            
+            $processo = new Processo($this->getTicket());
             try {
                 $processo->abrirProcesso($postData);
                 $session = new Zend_Session_Namespace('aberturaProcesso');
@@ -91,9 +87,10 @@ class AbrirprocessoController extends BaseController
     public function uploadarquivoAction()
     {
         $session = new Zend_Session_Namespace('aberturaProcesso');
-        $processoNoderef = $session->processo->noderef;
-        $processoUuid = $this->noderefToUuid($processoNoderef);
-        $this->view->processoUuid = $processoUuid;
+        $this->view->processoUuid = $session->processo->id;
+//        $processoNoderef = $session->processo->noderef;
+//        $processoUuid = $this->noderefToUuid($processoNoderef);
+//        $this->view->processoUuid = $processoUuid;
 
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getParams();
@@ -104,13 +101,23 @@ class AbrirprocessoController extends BaseController
     public function confirmacaocriacaoAction()
     {
         if ($this->getRequest()->isPost()) {
-        	$sessao = new Zend_Session_Namespace('aberturaProcesso');
-        	$processo = $sessao->processo;
-        	// $processo->primeiraTramitacao() ??
-        	// setflash
-        	// redirect para a mesma página
-        	// como mostrar ou nao botao para tramitar?
+        	$session = new Zend_Session_Namespace('aberturaProcesso');
+        	$processo = $session->processo;
+        	$processo->changeTicket($this->getAdminTicket());
+        	$postData['processoId'] = $processo->id;
+        	$postData['destinoId'] = $processo->protocolo->id;
+        	$postData['prioridadeId'] = $processo->prioridade->id;
+        	$postData['prazo'] = $processo->data;
+        	$postData['despacho'] = $processo->corpo;
+        	
+        	$processo->tramitar($postData);
+        	$this->_redirectProcessoDetalhes($processo->id);
         }
+    }
+    
+    protected function _redirectProcessoDetalhes($uuid)
+    {
+    	$this->_helper->redirector('detalhes', 'processos', 'default', array('id' => $uuid));
     }
     
     protected function _getIdTipoProcessoUrl()
