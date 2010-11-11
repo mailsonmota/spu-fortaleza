@@ -378,7 +378,7 @@ class Processo extends BaseAlfrescoEntity
         
         $processo = array();
         foreach ($hashProcessos as $hashProcesso) {
-            $hashDadosProcesso = array_pop($hashProcesso); 
+            $hashDadosProcesso = array_pop($hashProcesso);
             $this->_loadProcessoFromHash($hashDadosProcesso);
         }
         
@@ -388,7 +388,15 @@ class Processo extends BaseAlfrescoEntity
     public function abrirProcesso($postData)
     {
         $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        return $service->abrirProcesso($postData);
+        $abrirProcessoRetorno = $service->abrirProcesso($postData);
+        // FIXME se web script retornar erro, não haverá índice 'processo' no $abrirProcessoRetorno. jogar um throw
+        // para o controlador?
+        $hashProcesso = $abrirProcessoRetorno["Processo"][0];
+        foreach ($hashProcesso as $hash) {
+            $this->_loadProcessoFromHash($hash[0]);
+        }
+
+        return $this;
     }
     
     public function tramitar($postData)
