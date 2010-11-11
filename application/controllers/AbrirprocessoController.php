@@ -91,7 +91,7 @@ class AbrirprocessoController extends BaseController
     public function uploadarquivoAction()
     {
         $session = new Zend_Session_Namespace('aberturaProcesso');
-        $processoNoderef = $session->processoCriado->noderef;
+        $processoNoderef = $session->processo->noderef;
         $processoUuid = $this->noderefToUuid($processoNoderef);
         $this->view->processoUuid = $processoUuid;
 
@@ -235,7 +235,7 @@ class AbrirprocessoController extends BaseController
     public function processocriadoAction()
     {
     	$defaultNamespaceSession = new Zend_Session_Namespace('aberturaProcesso');
-        $this->view->processoCriado = $defaultNamespaceSession->processoCriado;
+        $this->view->processo = $defaultNamespaceSession->processo;
     } 
     
     protected function _redirectProcessoCriado()
