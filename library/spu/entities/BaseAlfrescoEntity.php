@@ -20,5 +20,11 @@ class BaseAlfrescoEntity extends BaseEntity
     {
         $this->_ticket = $ticket;
     }
+    
+    // FIXME
+    public function changeTicket($ticket)
+    {
+    	$this->_setTicket($ticket);
+    }
 }
 ?>
