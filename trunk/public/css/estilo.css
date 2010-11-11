@@ -92,6 +92,7 @@ table.grid {width: 100%;margin-top: 1%;border-collapse:collapse;}
 /* Páragrafos */
 p {margin-bottom: 1.143em;}
 * p:last-child {margin-bottom: 0;}
+code {margin-bottom: 1.25em; display: block}
 
 strong, b {font-weight: bold;}
 em, i {font-style: italic;}
