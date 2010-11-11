@@ -58,19 +58,16 @@ class AbrirprocessoController extends BaseController
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getParams();
             
-            // FIXME ticket de adm do alfresco
-            //$processoObj = new Processo($this->getTicket());
+            // FIXME ticket de adm do alfresco. $processo = new Processo($this->getTicket());
             $adminTicket = $this->getAdminTicket();
-            $processoObj = new Processo($adminTicket);
-            $processoObj->abrirProcesso($postData);
+            $processo = new Processo($adminTicket);
+            $processo->abrirProcesso($postData);
             
-            $nodeRef = $processoObj->getNodeRef();
+            $nodeRef = $processo->getNodeRef();
             if (!empty($nodeRef)) {
-            	// TODO nome do processo?
             	$session = new Zend_Session_Namespace('aberturaProcesso');
-                $session->processo = $processoObj;
+                $session->processo = $processo;
                 $this->setSuccessMessage("Processo criado com sucesso");
-                //$this->_redirectConfirmacaoCriacao(); // teste
                 $this->_redirectUploadArquivo();
             } else {
             	// FIXME tratar erro
