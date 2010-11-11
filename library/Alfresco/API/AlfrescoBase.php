@@ -67,4 +67,16 @@ class AlfrescoBase
         
         return $json;
     }
+    
+    public function isAlfrescoError($return) {
+    	if (!empty($return['exception'])) {
+    		return true;
+    	}
+    }
+    
+    public function getAlfrescoErrorMessage($return) {
+    	if ($this->isAlfrescoError($return)) {
+    		return $return['message'];
+    	}
+    }
 }
