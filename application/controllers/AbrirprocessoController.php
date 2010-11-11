@@ -242,7 +242,8 @@ class AbrirprocessoController extends BaseController
     	$this->view->processoUuid = $processoUuid;
 
     	if ($this->getRequest()->isPost()) {
-            $this->_redirectConfirmacaoCriacao();
+    		$postData = $this->getRequest()->getParams();
+    		$this->_redirectConfirmacaoCriacao();
     	}
     }
     
