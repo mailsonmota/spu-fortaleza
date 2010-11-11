@@ -198,3 +198,9 @@ body.basic {background: url(../img/degrade.jpg) repeat-x 0% 0% white;}
 .item-ajuda h3 {border-bottom-width: 1px; border-color: #DDD; margin-bottom: 0.75em}
 .item-ajuda dt {float: none; font-weight: bold; width: auto; text-align: left;}
 .item-ajuda h4 {font-size: 1.25em; font-weight: bold; margin-bottom: auto;}
+
+/* File Upload */
+#fileUpload {margin-bottom: 2%}
+#fileUpload h5 {margin: 1% 0 0 0}
+#fileList {margin: 0 0 1% 1%}
+#fileList li {margin: 0.85em 0;}
