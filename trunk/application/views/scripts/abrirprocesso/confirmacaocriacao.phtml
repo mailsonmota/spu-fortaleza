@@ -20,4 +20,12 @@ echo $this->pagenav()->closeList();
         echo $this->render('snippets/detalhesProcesso.phtml');
     }
     ?>
+    
+    <form action="" method="post">
+    <?php
+    echo $this->buttonlist()->open();
+    echo $this->buttonlist()->button('Confirmar');
+    echo $this->buttonlist()->close(true); 
+    ?>
+    </form>
 </div>
