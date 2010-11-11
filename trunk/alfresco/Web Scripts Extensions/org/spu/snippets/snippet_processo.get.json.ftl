@@ -44,7 +44,14 @@
 	<#else>
 	,"dataPrazo":""
 	</#if>
-	,"localAtual":<#include "snippet_localatualprocesso.get.json.ftl" />
+	,"localAtual":[{
+		<#if processo.properties['spu:processo.Destino']?exists>
+			<#assign protocolo = companyhome.childrenByLuceneSearch["ID:workspace\\:\\/\\/SpacesStore\\/" + processo.properties['spu:processo.Destino']][0]>
+		<#else>
+			<#assign protocolo = "">
+		</#if>
+		<#include "snippet_protocolo.get.json.ftl" />
+	}]	
 	,"proprietario":[{
 		<#if processo.assocs['spu:processo.Proprietario']?exists>
 			<#assign protocolo = processo.assocs['spu:processo.Proprietario'][0]>
