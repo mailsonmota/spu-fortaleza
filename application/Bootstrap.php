@@ -65,7 +65,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headLink()->appendStylesheet($baseUrl . '/css/forms.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/facebox.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/datePicker.css');
-        $view->headLink()->appendStylesheet($baseUrl . '/css/plupload.queue.css');
+        $view->headLink()->appendStylesheet($baseUrl . '/css/plupload.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/estilo.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/tema.css');
     }

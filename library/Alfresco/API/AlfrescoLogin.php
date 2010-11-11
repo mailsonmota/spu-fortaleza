@@ -80,7 +80,6 @@ class AlfrescoLogin extends AlfrescoBase
         
         $result = trim($curlObj->doGetRequest($url));
         
-        //FIXME: Consertar isso!
         return (strpos($result, 'TICKET_') > -1);
     }
 }
