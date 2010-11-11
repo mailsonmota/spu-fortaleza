@@ -64,26 +64,18 @@ class AbrirprocessoController extends BaseController
             
             try {
                 $processo->abrirProcesso($postData);
-            } 
-            catch (AlfrescoApiException $e) {
-            	//
-            }
-            catch (Exception $e) {
-                //
-            }
-            
-            $nodeRef = $processo->getNodeRef();
-            if (!empty($nodeRef)) {
-            	$session = new Zend_Session_Namespace('aberturaProcesso');
+                $session = new Zend_Session_Namespace('aberturaProcesso');
                 $session->processo = $processo;
                 $this->setSuccessMessage("Processo criado com sucesso");
                 $this->_redirectUploadArquivo();
-            } else {
-            	// FIXME tratar erro
-            	print 'erro';
-            	var_dump($postData);
-            	var_dump($return); exit;
+            } 
+            catch (AlfrescoApiException $e) {
+            	throw $e;
             }
+            catch (Exception $e) {
+                throw $e;
+            }
+            
         }
         
         $this->view->tipoProcesso = $tipoProcesso;
