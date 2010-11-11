@@ -76,11 +76,11 @@ class AlfrescoLogin extends AlfrescoBase
             $this->getTicket();
         
         $url = $this->addAlfTicketUrl($url);
-        var_dump($url); exit;
         $curlObj = new CurlClient();
         
-        $result = $curlObj->doRequest($curlOptions);
-        var_dump($result);
-        return $result;
-	}
+        $result = trim($curlObj->doGetRequest($url));
+        
+        //FIXME: Consertar isso!
+        return (strpos($result, 'TICKET_') > -1);
+    }
 }

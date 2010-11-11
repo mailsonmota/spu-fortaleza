@@ -32,7 +32,7 @@ $(document).ready(function() {
 			if($(row).hasClass(tableRowCheckboxToggleClass)) {
 				hasChecked = false;
 
-				$("tr:eq("+i+") td.colunaFixa").click(function() {
+				$("tr:eq("+i+")").click(function() {
 					// toggle the checked state
 					$("tr:eq("+i+") :checkbox").each(function(j,checkbox) {
 						if(applicableCheckbox(checkbox)) {
