@@ -15,9 +15,12 @@ echo $this->pagenav()->closeList();
     <div id="fileUpload">
         <input type="text" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
         <h5>Fila de Envio:</h5>
-        <a id="filePicker" href="#">Adicionar Arquivos</a>
-        <dl id="fileList"></dl>
-        <button id="uploadfiles">Enviar Arquivos Escolhidos</button>
+        <ul id="fileList">
+        	<li><a id="filePicker" href="#">Adicionar Arquivos</a></li>
+        </ul>
+        <ul class="buttons">
+        	<li><button id="uploadfiles">Enviar Arquivos Escolhidos</button></li>
+        </ul>
     </div>
     
     <form action="" method="post">
@@ -33,7 +36,7 @@ echo $this->pagenav()->closeList();
 	//Custom example logic
 	jQuery(document).ready(function() {
 	    var uploader = new plupload.Uploader({
-	        runtimes : 'html5, html4',
+	        runtimes : 'html4',
 	        browse_button : 'filePicker',
 	        container : 'fileUpload',
 	        max_file_size : '10mb',
@@ -56,8 +59,9 @@ echo $this->pagenav()->closeList();
 	    uploader.bind('FilesAdded', function(up, files) {
 	        $.each(files, function(i, file) {
 	            $('#fileList').append(
-	    	        '<dt>' + ($('#fileList dt').size() + 1) + '</dt>' + 
-	                '<dd id="' + file.id + '" class="campoTexto">' + file.name + ' (' + plupload.formatSize(file.size) + ')</dd>' 
+	    	        '<li id="' + file.id + '">' + 
+	    	        	($('#fileList li').size()) + '. <b>' + file.name + '</b> (' + plupload.formatSize(file.size) + ')' + 
+    	        	'</li>' 
 	            );
 	        });
 	
