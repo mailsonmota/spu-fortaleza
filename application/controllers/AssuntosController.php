@@ -4,8 +4,9 @@ class AssuntosController extends BaseController
 {
     public function indexAction()
     {
-        $assunto = new Assunto($this->getTicket());
-        $this->view->lista = $assunto->listar();
+    	$assunto = new Assunto($this->getTicket());
+        $listaAssuntos = $assunto->listar();
+        $this->view->lista = $listaAssuntos;
     }
     
     public function editarAction()
