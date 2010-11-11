@@ -4,6 +4,6 @@
     <url>/spu/processo/uploadarquivo</url>
     <authentication>user</authentication>
 	<transaction>required</transaction>
-	<format default="json">any</format>
+	<!--<format default="json">any</format>-->
 </webscript>
 
