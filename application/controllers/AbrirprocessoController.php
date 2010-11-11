@@ -62,26 +62,22 @@ class AbrirprocessoController extends BaseController
             //$processoObj = new Processo($this->getTicket());
             $adminTicket = $this->getAdminTicket();
             $processoObj = new Processo($adminTicket);
-            $return = $processoObj->abrirProcesso($postData);
+            $processoObj->abrirProcesso($postData);
             
-            if (!empty($return->Processo)) {
-            	$nomeProcesso = str_replace("/", "_", $postData['numero']);
-            	$processo = $return->Processo[0]->$nomeProcesso;
-                $processo = $processo[0];
-                $session = new Zend_Session_Namespace('aberturaProcesso');
-                $session->processoCriado = $processo;
+            $nodeRef = $processoObj->getNodeRef();
+            if (!empty($nodeRef)) {
+            	// TODO nome do processo?
+            	$session = new Zend_Session_Namespace('aberturaProcesso');
+                $session->processo = $processoObj;
                 $this->setSuccessMessage("Processo criado com sucesso");
-                //$this->_redirectProcessoCriado(); // para apresentação
+                //$this->_redirectConfirmacaoCriacao(); // teste
                 $this->_redirectUploadArquivo();
             } else {
-            	// FIXME
-            	print "<pre>erro da inserção do processo. \$postData.<br><br>";
+            	// FIXME tratar erro
+            	print 'erro';
             	var_dump($postData);
-            	print "erro da inserção do processo. \$return.<br><br>";
             	var_dump($return); exit;
-            	print "----------------------<br><br>";
             }
-            
         }
         
         $this->view->tipoProcesso = $tipoProcesso;
