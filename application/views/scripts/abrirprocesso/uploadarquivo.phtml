@@ -12,6 +12,16 @@ echo $this->pagenav()->closeList();
 <div id="article">
     <h4>Escolha os Arquivos</h4>
     
+    <h5>Instruções:</h5>
+    <ol class="orderedList">
+    	<li>
+    		Para adicionar arquivos na fila de envio, clique no link "Adicionar Arquivos à Fila de Envio".
+    		Caso queira adicionar mais arquivos na fila, basta clicar novamente no link "Adicionar Arquivos à Fila de Envio".
+    	</li>
+    	<li>Para anexar os arquivos da fila de envio ao processo, clique em "Enviar arquivos escolhidos".</li>
+    	<li>Para prosseguir com a abertura do processo, clique em "Avançar".</li>
+    </ol>
+    
     <div id="fileUpload">
         <input type="text" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
         <h5>Fila de Envio:</h5>

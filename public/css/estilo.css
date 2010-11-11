@@ -88,6 +88,7 @@ code {margin-bottom: 1.25em; display: block}
 /* Tags de Texto */
 strong, b {font-weight: bold;}
 em, i {font-style: italic;}
+ol.orderedList {list-style-type: decimal; margin-left: 3em; margin-bottom: 1.5em}
 
 /* Seleções */
 ::-moz-selection {background: #000; color: #fff;}
