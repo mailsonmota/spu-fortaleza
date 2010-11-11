@@ -51,8 +51,8 @@ class AlfrescoProcesso extends AlfrescoBase
         
         $result = $curlObj->doPostRequest($url, $postData);
         
-        if ($this->isAlfrescoError($return)) {
-        	throw new Exception($this->getAlfrescoErrorMessage($return));
+        if ($this->isAlfrescoError($result)) {
+        	throw new Exception($this->getAlfrescoErrorMessage($result));
         }
         
         return $result;
