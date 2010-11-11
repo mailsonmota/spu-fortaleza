@@ -47,8 +47,6 @@ abstract class BaseController extends Zend_Controller_Action
     public function init()
     {
         $this->view->controller = $this->getController();
-        /*$identity = AuthPlugin::getIdentity();
-        $this->view->user = $identity['user'];*/
         
         $authInstance = Zend_Auth::getInstance()->getIdentity();
         $this->view->pessoa = $authInstance['user'];
@@ -65,6 +63,22 @@ abstract class BaseController extends Zend_Controller_Action
         $this->setMessageFromUrl();
         
         parent::init();
+    }
+    
+    protected function _validateAuthInstance($authInstance = null)
+    {
+    	if (!isset($authInstance)) {
+    		throw new Exception("Por favor, autentique-se no sistema.");
+    	} elseif (!key_exists('user', $authInstance)) {
+    		throw new Exception("Sua sessão está corrompida. Por favor, autentique-se novamente.");
+    	} else {
+    		Loader::loadAlfrescoApiClass('AlfrescoLogin');
+    		$alfrescoLogin = new AlfrescoLogin(BaseAlfrescoEntity::ALFRESCO_URL);
+    		$alfrescoLogin->setTicket($this->getTicket());
+    		if (!$alfrescoLogin->validate()) {
+    			throw new Exception("Sua sessão expirou. Por favor, autentique-se novamente.");
+    		}
+    	}
     }
     
     private function setMessageFromFlashMessenger()
