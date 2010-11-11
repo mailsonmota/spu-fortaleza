@@ -64,6 +64,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headLink()->appendStylesheet($baseUrl . '/css/forms.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/facebox.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/datePicker.css');
+        $view->headLink()->appendStylesheet($baseUrl . '/css/plupload.queue.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/estilo.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/tema.css');
     }
@@ -81,8 +82,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headScript()->appendFile($pluginsPath . 'jquery.datePicker.js');
         $view->headScript()->appendFile($pluginsPath . 'facebox.js');
         $view->headScript()->appendFile($pluginsPath . 'tableRowCheckboxToggle.js');
-        $view->headScript()->appendFile($jsPath . 'funcoes.js');
         $view->headScript()->appendFile($pluginsPath . 'plupload.full.min.js');
+        $view->headScript()->appendFile($jsPath . 'funcoes.js');
     }
     
     protected function _initNavigation()
