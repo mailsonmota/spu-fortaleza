@@ -12,11 +12,12 @@ echo $this->pagenav()->closeList();
 <div id="article">
     <h4>Escolha os Arquivos</h4>
     
-    <div id="container">
+    <div id="fileUpload">
         <input type="text" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
-        <div id="filelist">No runtime found.</div>
-        <a id="pickfiles" href="#">[Select files]</a>
-        <a id="uploadfiles" href="#">[Upload files]</a>
+        <h5>Fila de Envio:</h5>
+        <a id="filePicker" href="#">Adicionar Arquivos</a>
+        <dl id="fileList"></dl>
+        <button id="uploadfiles">Enviar Arquivos Escolhidos</button>
     </div>
     
     <form action="" method="post">
@@ -33,22 +34,16 @@ echo $this->pagenav()->closeList();
 	jQuery(document).ready(function() {
 	    var uploader = new plupload.Uploader({
 	        runtimes : 'html5, html4',
-	        browse_button : 'pickfiles',
-	        container : 'container',
+	        browse_button : 'filePicker',
+	        container : 'fileUpload',
 	        max_file_size : '10mb',
 	        url : 'http://localhost:8080/alfresco/service/spu/processo/uploadarquivo',
-	        flash_swf_url : '/plupload/js/plupload.flash.swf',
-	        silverlight_xap_url : '/plupload/js/plupload.silverlight.xap',
 	        filters : [
 	            {title : "Image files", extensions : "jpg,gif,png"},
 	            {title : "Zip files", extensions : "zip"},
 	            {title : "Log files", extensions : "log"}
 	        ],
 	        resize : {width : 320, height : 240, quality : 90}
-	    });
-	
-	    uploader.bind('Init', function(up, params) {
-	        $('#filelist').html("<div>Current runtime: " + params.runtime + "</div>");
 	    });
 	
 	    $('#uploadfiles').click(function(e) {
@@ -60,10 +55,10 @@ echo $this->pagenav()->closeList();
 	
 	    uploader.bind('FilesAdded', function(up, files) {
 	        $.each(files, function(i, file) {
-	            $('#filelist').append(
-	                '<div id="' + file.id + '">' +
-	                file.name + ' (' + plupload.formatSize(file.size) + ') <b></b>' +
-	            '</div>');
+	            $('#fileList').append(
+	    	        '<dt>' + ($('#fileList dt').size() + 1) + '</dt>' + 
+	                '<dd id="' + file.id + '" class="campoTexto">' + file.name + ' (' + plupload.formatSize(file.size) + ')</dd>' 
+	            );
 	        });
 	
 	        up.refresh(); // Reposition Flash/Silverlight
@@ -74,7 +69,7 @@ echo $this->pagenav()->closeList();
 	    });
 	
 	    uploader.bind('Error', function(up, err) {
-	        $('#filelist').append("<div>Error: " + err.code +
+	        $('#fileList').append("<div>Error: " + err.code +
 	            ", Message: " + err.message +
 	            (err.file ? ", File: " + err.file.name : "") +
 	            "</div>"
