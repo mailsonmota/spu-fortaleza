@@ -388,9 +388,13 @@ class Processo extends BaseAlfrescoEntity
     public function abrirProcesso($postData)
     {
         $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $abrirProcessoRetorno = $service->abrirProcesso($postData);
-        // FIXME se web script retornar erro, não haverá índice 'processo' no $abrirProcessoRetorno. jogar um throw
-        // para o controlador?
+        
+        try {
+            $abrirProcessoRetorno = $service->abrirProcesso($postData);
+        } catch (Exception $e) {
+        	throw new AlfrescoApiException('Houve um erro na abertura do processo', $e->getMessage());
+        }
+        
         $hashProcesso = $abrirProcessoRetorno["Processo"][0];
         foreach ($hashProcesso as $hash) {
             $this->_loadProcessoFromHash($hash[0]);

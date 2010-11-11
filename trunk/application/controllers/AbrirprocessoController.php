@@ -61,7 +61,16 @@ class AbrirprocessoController extends BaseController
             // FIXME ticket de adm do alfresco. $processo = new Processo($this->getTicket());
             $adminTicket = $this->getAdminTicket();
             $processo = new Processo($adminTicket);
-            $processo->abrirProcesso($postData);
+            
+            try {
+                $processo->abrirProcesso($postData);
+            } 
+            catch (AlfrescoApiException $e) {
+            	//
+            }
+            catch (Exception $e) {
+                //
+            }
             
             $nodeRef = $processo->getNodeRef();
             if (!empty($nodeRef)) {
@@ -85,6 +94,31 @@ class AbrirprocessoController extends BaseController
         $this->view->listaPrioridades = $listaPrioridades;
         $this->view->listaProtocolos = $listaProtocolos;
         $this->view->listaProprietarios = $listaProprietarios;
+    }
+    
+    public function uploadarquivoAction()
+    {
+        $session = new Zend_Session_Namespace('aberturaProcesso');
+        $processoNoderef = $session->processoCriado->noderef;
+        $processoUuid = $this->noderefToUuid($processoNoderef);
+        $this->view->processoUuid = $processoUuid;
+
+        if ($this->getRequest()->isPost()) {
+            $postData = $this->getRequest()->getParams();
+            $this->_redirectConfirmacaoCriacao();
+        }
+    }
+    
+    public function confirmacaocriacaoAction()
+    {
+        if ($this->getRequest()->isPost()) {
+        	$sessao = new Zend_Session_Namespace('aberturaProcesso');
+        	$processo = $sessao->processo;
+        	// $processo->primeiraTramitacao() ??
+        	// setflash
+        	// redirect para a mesma página
+        	// como mostrar ou nao botao para tramitar?
+        }
     }
     
     protected function _getIdTipoProcessoUrl()
@@ -226,22 +260,5 @@ class AbrirprocessoController extends BaseController
     {
     	$this->_helper->redirector('confirmacaocriacao', $this->getController(), 'default');
     }
-    
-    public function uploadarquivoAction()
-    {
-    	$session = new Zend_Session_Namespace('aberturaProcesso');
-    	$processoNoderef = $session->processoCriado->noderef;
-    	$processoUuid = $this->noderefToUuid($processoNoderef);
-    	$this->view->processoUuid = $processoUuid;
 
-    	if ($this->getRequest()->isPost()) {
-    		$postData = $this->getRequest()->getParams();
-    		$this->_redirectConfirmacaoCriacao();
-    	}
-    }
-    
-    public function confirmacaocriacaoAction()
-    {
-    	
-    }
 }
