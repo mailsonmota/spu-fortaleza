@@ -29,10 +29,11 @@
     <legend>Processo</legend>
     <?php 
     echo $this->form()->openFieldList();
-    echo $this->textarea('Corpo', 'corpo', null, array('required' => true));
-    echo $this->select('Prioridade', 'prioridadeId', $this->listaPrioridades, null, array('required' => true));
+    echo $this->select('Origem', 'origem', $this->listaOrigens, null, array('required' => true));
     echo $this->select('Destino', 'destino', $this->listaProtocolos, null, array('required' => true));
+    echo $this->select('Prioridade', 'prioridadeId', $this->listaPrioridades, null, array('required' => true));
     echo $this->textbox('Data Prazo', 'dataPrazo', null, array('class' => 'mascaraData'));
+    echo $this->textarea('Corpo', 'corpo', null, array('required' => true));
     echo $this->form()->closeFieldList();
     ?>
 </fieldset>

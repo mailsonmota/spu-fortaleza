@@ -17,4 +17,16 @@ class AlfrescoProtocolo extends AlfrescoBase
         
         return $result['Protocolos'][0];
 	}
+	
+	public function getTodosProtocolos()
+	{
+		$url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listarTodos";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        $resultJson = $curlObj->doGetRequest($url);
+        $result = json_decode($resultJson, true);
+        
+        return $result['Protocolos'][0];
+	}
 }
