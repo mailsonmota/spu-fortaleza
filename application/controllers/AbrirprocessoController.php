@@ -49,6 +49,7 @@ class AbrirprocessoController extends BaseController
             $listaTiposManifestante = $this->_getListaTiposManifestante($tipoProcesso);
             $listaPrioridades = $this->_getListaPrioridades();
             $listaProtocolos = $this->_getListaProtocolos();
+            $listaOrigens = $this->_getListaOrigens();
             $listaProprietarios = $this->_getListaProprietarios();
         } catch (Exception $e) {
             $this->setErrorMessage($e->getMessage());
@@ -80,6 +81,7 @@ class AbrirprocessoController extends BaseController
         $this->view->listaBairros = $listaBairros;
         $this->view->listaTiposManifestante = $listaTiposManifestante;
         $this->view->listaPrioridades = $listaPrioridades;
+        $this->view->listaOrigens = $listaOrigens;
         $this->view->listaProtocolos = $listaProtocolos;
         $this->view->listaProprietarios = $listaProprietarios;
     }
@@ -209,10 +211,28 @@ class AbrirprocessoController extends BaseController
         return $listaPrioridades;
     }
     
-    protected function _getListaProtocolos()
+	protected function _getListaOrigens()
     {
         $protocolo = new Protocolo($this->getTicket());
         $protocolos = $protocolo->listar();
+        $listaProtocolos = array();
+        foreach ($protocolos as $protocolo) {
+            $listaProtocolos[$protocolo->id] = $protocolo->descricao;
+        }
+        
+        if (count($listaProtocolos) == 0) {
+            throw new Exception(
+                'Você não pode enviar nenhum processo, pois não possui acesso à nenhum protocolo.'
+            );
+        }
+        
+        return $listaProtocolos;
+    }
+    
+    protected function _getListaProtocolos()
+    {
+        $protocolo = new Protocolo($this->getTicket());
+        $protocolos = $protocolo->listarTodos();
         $listaProtocolos = array();
         foreach ($protocolos as $protocolo) {
             $listaProtocolos[$protocolo->id] = $protocolo->descricao;

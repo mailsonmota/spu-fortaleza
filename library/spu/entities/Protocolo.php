@@ -83,7 +83,12 @@ class Protocolo extends BaseAlfrescoEntity
         $service = new AlfrescoProtocolo(self::ALFRESCO_URL, $this->_getTicket());
         $hashProtocolos = $service->getProtocolos();
         
-        $protocolos = array();
+        return $this->loadManyFromHash($hashProtocolos);
+    }
+    
+    public function loadManyFromHash($hashProtocolos)
+    {
+    	$protocolos = array();
         foreach ($hashProtocolos as $hashProtocolo) {
             $hashProtocolo = array_pop($hashProtocolo); 
             $protocolo = new Protocolo($this->_getTicket());
@@ -99,6 +104,14 @@ class Protocolo extends BaseAlfrescoEntity
         $this->setNodeRef($hash['noderef']);
         $this->setNome($hash['nome']);
         $this->setDescricao($hash['descricao']);
+    }
+    
+    public function listarTodos()
+    {
+    	$service = new AlfrescoProtocolo(self::ALFRESCO_URL, $this->_getTicket());
+        $hashProtocolos = $service->getTodosProtocolos();
+        
+        return $this->loadManyFromHash($hashProtocolos);
     }
 }
 ?>
