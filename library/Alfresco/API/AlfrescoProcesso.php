@@ -91,8 +91,8 @@ class AlfrescoProcesso extends AlfrescoBase
         
         $result = $curlObj->doPostRequest($url, $postData);
         
-        if (!isset($result->Processo)) {
-        	throw new Exception("Não foi possível tramitar o processo.");
+        if ($this->isAlfrescoError($result)) {
+        	throw new Exception($this->getAlfrescoErrorMessage($result));
         }
         
         return $result;

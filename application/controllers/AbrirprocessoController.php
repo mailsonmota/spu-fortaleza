@@ -111,7 +111,14 @@ class AbrirprocessoController extends BaseController
         	$postData['prazo'] = $processo->data;
         	$postData['despacho'] = $processo->corpo;
         	
-        	$processo->tramitar($postData);
+        	try {
+        	    $processo->tramitar($postData);
+        	} catch (AlfrescoApiException $e) {
+        		throw $e;
+        	} catch (Exception $e) {
+        		throw $e;
+        	}
+        	
         	$this->_redirectProcessoDetalhes($processo->id);
         }
     }
