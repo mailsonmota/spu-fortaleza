@@ -125,7 +125,7 @@ class AbrirprocessoController extends BaseController
     
     protected function _redirectProcessoDetalhes($uuid)
     {
-    	$this->_helper->redirector('detalhes', 'processos', 'default', array('id' => $uuid));
+    	$this->_helper->redirector('detalhes', 'processo', 'default', array('id' => $uuid));
     }
     
     protected function _getIdTipoProcessoUrl()
