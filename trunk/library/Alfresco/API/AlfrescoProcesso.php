@@ -42,6 +42,22 @@ class AlfrescoProcesso extends AlfrescoBase
         return $result['Processos'][0];
 	}
 	
+	public function getCaixaEnviados()
+	{
+	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/enviados";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        $resultJson = $curlObj->doGetRequest($url);
+        $result = json_decode($resultJson, true);
+        
+		if ($this->isAlfrescoError($result)) {
+        	throw new Exception($this->getAlfrescoErrorMessage($result));
+        }
+        
+        return $result['Processos'][0];
+	}
+	
 	public function abrirProcesso($postData)
 	{
 	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/abrir";

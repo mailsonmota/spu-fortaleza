@@ -50,4 +50,10 @@ class ProcessosController extends BaseController
     	$processo = new Processo($this->getTicket());
         $this->view->lista = $processo->listarProcessosCaixaAnalise();
     }
+    
+    public function enviadosAction()
+    {
+    	$processo = new Processo($this->getTicket());
+        $this->view->lista = $processo->listarProcessosCaixaEnviados();
+    }
 }
