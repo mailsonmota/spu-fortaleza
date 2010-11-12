@@ -23,7 +23,7 @@ echo $this->pagenav()->closeList();
     <form action="" method="post">
         <?php 
         $headerColumns = array('Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes', 'Encaminhar');
-        $columns = array('numeroOrigem', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
+        $columns = array('numero', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
         
         $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
         $grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', $this->controller) . '/id/', 'id');
