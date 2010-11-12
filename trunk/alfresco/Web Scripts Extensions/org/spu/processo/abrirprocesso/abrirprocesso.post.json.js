@@ -32,7 +32,7 @@ props["spu:processo.ManifestanteTipo"] = manifestanteTipoId
 var manifestanteBairroNoderef = getNode(json.get("manifestanteBairroId"))
 props["spu:processo.ManifestanteBairro"] = manifestanteBairroNoderef
 
-props["spu:processo.Origem"] = json.get("proprietarioId")
+props["spu:processo.Origem"] = json.get("origem")
 props["spu:processo.Destino"] = json.get("destino")
 
 props["spu:processo.Corpo"] = json.get("corpo")
