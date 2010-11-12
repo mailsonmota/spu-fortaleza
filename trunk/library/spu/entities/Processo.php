@@ -271,6 +271,7 @@ class Processo extends BaseAlfrescoEntity
     {
         $this->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $this->setNome($this->_getHashValue($hash, 'nome'));
+        $this->setCorpo($this->_getHashValue($hash, 'corpo'));
         $this->setData($this->_getHashValue($hash, 'data'));
         $this->setPrioridade($this->_loadPrioridadeFromHash($this->_getHashValue($hash, 'prioridade')));
         $this->setStatus($this->_loadStatusFromHash($this->_getHashValue($hash, 'status')));
@@ -406,7 +407,13 @@ class Processo extends BaseAlfrescoEntity
     public function tramitar($postData)
     {
     	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        return $service->tramitar($postData);
+        try {
+    	   $return = $service->tramitar($postData);
+        } catch (Exception $e) {
+        	throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
+        }
+        
+        return $return;
     }
     
     public function receberVarios($postData)
