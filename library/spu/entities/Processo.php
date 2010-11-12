@@ -218,15 +218,7 @@ class Processo extends BaseAlfrescoEntity
         $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
         $hashProcessos = $service->getCaixaEntrada();
         
-        $processos = array();
-        foreach ($hashProcessos as $hashProcesso) {
-            $hashDadosProcesso = array_pop($hashProcesso); 
-            $processo = new Processo($this->_getTicket());
-            $processo->_loadProcessoFromHash($hashDadosProcesso);
-            $processos[] = $processo;
-        }
-        
-        return $processos;
+        return $this->_loadManyFromHash($hashProcessos);
     }
     
     public function getTotalProcessosCaixaEntrada()
@@ -240,15 +232,7 @@ class Processo extends BaseAlfrescoEntity
         $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
         $hashProcessos = $service->getCaixaSaida();
         
-        $processos = array();
-        foreach ($hashProcessos as $hashProcesso) {
-            $hashDadosProcesso = array_pop($hashProcesso); 
-            $processo = new Processo($this->_getTicket());
-            $processo->_loadProcessoFromHash($hashDadosProcesso);
-            $processos[] = $processo;
-        }
-        
-        return $processos;
+        return $this->_loadManyFromHash($hashProcessos);
     }
     
     public function listarProcessosCaixaAnalise()
@@ -256,7 +240,20 @@ class Processo extends BaseAlfrescoEntity
     	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
         $hashProcessos = $service->getCaixaAnalise();
         
-        $processos = array();
+        return $this->_loadManyFromHash($hashProcessos);
+    }
+    
+	public function listarProcessosCaixaEnviados()
+    {
+        $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+        $hashProcessos = $service->getCaixaEnviados();
+        
+        return $this->_loadManyFromHash($hashProcessos);
+    }
+    
+    protected function _loadManyFromHash($hashProcessos)
+    {
+    	$processos = array();
         foreach ($hashProcessos as $hashProcesso) {
             $hashDadosProcesso = array_pop($hashProcesso); 
             $processo = new Processo($this->_getTicket());
