@@ -3,16 +3,7 @@ $this->breadcrumbs()->addPage('Tramitação', 'processos');
 $this->breadcrumbs()->addPage('Caixa de Saída', 'processos/saida');
 echo $this->breadcrumbs()->render(); 
 
-echo $this->tabs()->openList();
-echo $this->tabs()->addTab($this->simpleUrl('index'), 'Entrada');
-echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Análise');
-echo $this->tabs()->addTab($this->simpleUrl('saida'), 'Saída', true);
-echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Enviados');
-echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Cópias');
-echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Arquivados');
-echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Externos');
-echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Excluídos');
-echo $this->tabs()->closeList();
+echo $this->render('snippets/abasTramitacao.phtml');
 
 echo $this->pagenav()->openList(); 
 echo $this->pagenav()->defaultHelperLinks();
@@ -22,12 +13,11 @@ echo $this->pagenav()->closeList();
 <div id="article">
     <form action="" method="post">
         <?php 
-        $headerColumns = array('Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes', 'Encaminhar');
+        $headerColumns = array('Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
         $columns = array('numero', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
         
         $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
-        $grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', $this->controller) . '/id/', 'id');
-        $grid->addActionColumn('Encaminhar', $this->simpleUrl('encaminhar', $this->controller) . '/id/', 'id');
+        $grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', 'processo') . '/id/', 'id');
         echo $grid->render();
         ?>
     </form>

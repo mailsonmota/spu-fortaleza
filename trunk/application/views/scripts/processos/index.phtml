@@ -2,16 +2,7 @@
 $this->breadcrumbs()->addPage('Tramitação', 'processos');
 echo $this->breadcrumbs()->render(); 
 
-echo $this->tabs()->openList();
-echo $this->tabs()->addTab($this->simpleUrl('index'), 'Entrada', true);
-echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Análise');
-echo $this->tabs()->addTab($this->simpleUrl('saida'), 'Saída');
-echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Enviados');
-echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Cópias');
-echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Arquivados');
-echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Externos');
-echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Excluídos');
-echo $this->tabs()->closeList();
+echo $this->render('snippets/abasTramitacao.phtml');
 
 echo $this->pagenav()->openList(); 
 echo $this->pagenav()->defaultHelperLinks();
@@ -30,7 +21,7 @@ echo $this->pagenav()->closeList();
         
         $grid = new SimpleDataTable($this->lista, array('check' => true, 'headerColumns' => $headerColumns, 'columns' => $columns));
         $grid->addCheckboxColumn('processosParaReceber', 'id');
-        $grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', $this->controller) . '/id/', 'id');
+        $grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', 'processo') . '/id/', 'id');
         echo $grid->render();
         ?>
     </form>
