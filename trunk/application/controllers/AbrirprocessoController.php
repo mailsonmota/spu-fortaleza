@@ -88,9 +88,7 @@ class AbrirprocessoController extends BaseController
     {
         $session = new Zend_Session_Namespace('aberturaProcesso');
         $this->view->processoUuid = $session->processo->id;
-//        $processoNoderef = $session->processo->noderef;
-//        $processoUuid = $this->noderefToUuid($processoNoderef);
-//        $this->view->processoUuid = $processoUuid;
+        $this->view->ticket = $this->getTicket();
 
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getParams();
@@ -103,6 +101,7 @@ class AbrirprocessoController extends BaseController
         if ($this->getRequest()->isPost()) {
         	$session = new Zend_Session_Namespace('aberturaProcesso');
         	$processo = $session->processo;
+        	
         	$processo->changeTicket($this->getAdminTicket());
         	$postData['processoId'] = $processo->id;
         	$postData['destinoId'] = $processo->protocolo->id;
