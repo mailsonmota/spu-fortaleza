@@ -107,10 +107,8 @@ class AlfrescoProcesso extends AlfrescoBase
         
         $result = $curlObj->doPostRequest($url, $postData);
         
-        if (!isset($result->Processos)) {
-        	var_dump($result);
-        	exit;
-        	throw new Exception("Não foi possível receber os processos.");
+		if ($this->isAlfrescoError($result)) {
+        	throw new Exception($this->getAlfrescoErrorMessage($result));
         }
         
         return $result;
