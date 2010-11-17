@@ -213,6 +213,11 @@ class Processo extends BaseAlfrescoEntity
     	return $this->getManifestante()->nome;
     }
     
+    public function getNomeDescritivo()
+    {
+    	return $this->numero . ' - ' . $this->getProprietario()->nome . ' (' . $this->getTipoProcesso()->nome . ')';
+    }
+    
     public function listarProcessosCaixaEntrada()
     {
         $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
@@ -407,7 +412,21 @@ class Processo extends BaseAlfrescoEntity
         try {
     	   $return = $service->tramitar($postData);
         } catch (Exception $e) {
-        	throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
+        	throw new Exception($e->getMessage());
+        	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
+        }
+        
+        return $return;
+    }
+    
+    public function tramitarVarios($postData)
+    {
+    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+        try {
+    	   $return = $service->tramitarVarios($postData);
+        } catch (Exception $e) {
+        	throw new Exception($e->getMessage());
+        	//throw new AlfrescoApiException('Houve um erro na tramitação dos processos');
         }
         
         return $return;
@@ -417,6 +436,18 @@ class Processo extends BaseAlfrescoEntity
     {
     	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
     	return $service->receberVarios($postData);
+    }
+    
+    public function tramitarExterno($postData)
+    {
+    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+        try {
+    	   $return = $service->tramitarExterno($postData);
+        } catch (Exception $e) {
+        	throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
+        }
+        
+        return $return;
     }
 }
 ?>
