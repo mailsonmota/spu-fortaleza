@@ -1,5 +1,4 @@
 <?php
-Loader::loadEntity('Processo');
 class ProcessosController extends BaseController
 {
 	public function init()
@@ -12,12 +11,6 @@ class ProcessosController extends BaseController
     {
         $processo = new Processo($this->getTicket());
         $this->view->lista = $processo->listarProcessosCaixaEntrada();
-    }
-    
-    public function saidaAction()
-    {
-        $processo = new Processo($this->getTicket());
-        $this->view->lista = $processo->listarProcessosCaixaSaida();
     }
     
     public function receberAction()
@@ -49,17 +42,12 @@ class ProcessosController extends BaseController
     public function analiseAction()
     {
     	if ($this->getRequest()->isPost()) {
+        	$processosSelecionados = $this->getRequest()->getParam('processos');
+        	$processos = $this->_getListaCarregadaProcessos($processosSelecionados);
+        	
         	$isEncaminhar = ($this->getRequest()->getParam('encaminhar', false) !== false) ? true : false;
         	$isArquivar = ($this->getRequest()->getParam('arquivar', false) !== false) ? true : false;
         	$isExterno = ($this->getRequest()->getParam('externo', false) !== false) ? true : false;
-        	
-        	$processosSelecionados = $this->getRequest()->getParam('processos');
-        	$processos = array();
-        	foreach ($processosSelecionados as $processoSelecionado) {
-        		$processo = new Processo($this->getTicket());
-        		$processo->carregarPeloId($processoSelecionado);
-        		$processos[] = $processo;
-        	}
         	
         	if ($isEncaminhar) {
         		$session = new Zend_Session_Namespace('encaminhar');
@@ -112,14 +100,8 @@ class ProcessosController extends BaseController
 	    try {
 	    	$session = new Zend_Session_Namespace('encaminhar');
 	    	$processosSelecionados = $session->processos;
-	    	
-	    	foreach ($processosSelecionados as $processoSelecionado) {
-	        	$processo = new Processo($this->getTicket());
-	        	$processo->carregarPeloId($processoSelecionado);
-	        	$processos[] = $processo;
-	        }
-	        
-	        $listaProtocolos = $this->_getListaProtocolos();
+	    	$processos = $this->_getListaCarregadaProcessos($processosSelecionados);
+	    	$listaProtocolos = $this->_getListaProtocolos();
 	    } catch (Exception $e) {
     		$this->setErrorMessage($e->getMessage());
     		$this->_redirectEmAnalise();
@@ -148,6 +130,18 @@ class ProcessosController extends BaseController
         return $listaProtocolos;
     }
     
+    protected function _getListaCarregadaProcessos($listaComIdsProcessos)
+    {
+    	$processos = array();
+    	foreach ($listaComIdsProcessos as $processoId) {
+        	$processo = new Processo($this->getTicket());
+        	$processo->carregarPeloId($processoId);
+        	$processos[] = $processo;
+        }
+        
+        return $processos;
+    }
+    
     public function encaminharexternosAction()
     {
     	if ($this->getRequest()->isPost()) {
@@ -166,12 +160,7 @@ class ProcessosController extends BaseController
 	    try {
 	    	$session = new Zend_Session_Namespace('encaminharExternos');
 	    	$processosSelecionados = $session->processos;
-	    	
-	    	foreach ($processosSelecionados as $processoSelecionado) {
-	        	$processo = new Processo($this->getTicket());
-	        	$processo->carregarPeloId($processoSelecionado);
-	        	$processos[] = $processo;
-	        }
+	    	$processos = $this->_getListaCarregadaProcessos($processosSelecionados);
 	    } catch (Exception $e) {
     		$this->setErrorMessage($e->getMessage());
     		$this->_redirectEmAnalise();
@@ -180,15 +169,32 @@ class ProcessosController extends BaseController
         $this->view->processos = $processos;
     }
     
+	public function externosAction()
+    {
+    	$processo = new Processo($this->getTicket());
+    	
+    	if ($this->getRequest()->isPost()) {
+    		try {
+    			$processo->retornarExternos($this->getRequest()->getPost());
+	    		$this->setSuccessMessage('Processos retornados com sucesso.');
+	    		$this->_redirectEmAnalise();
+			} catch (Exception $e) {
+	    		$this->setMessageForTheView($e->getMessage(), 'error');
+	    	}
+    	}
+    	
+        $this->view->lista = $processo->listarProcessosCaixaExternos();
+    }
+    
+	public function saidaAction()
+    {
+        $processo = new Processo($this->getTicket());
+        $this->view->lista = $processo->listarProcessosCaixaSaida();
+    }
+    
     public function enviadosAction()
     {
     	$processo = new Processo($this->getTicket());
         $this->view->lista = $processo->listarProcessosCaixaEnviados();
-    }
-    
-	public function externosAction()
-    {
-    	$processo = new Processo($this->getTicket());
-        $this->view->lista = $processo->listarProcessosCaixaExternos();
     }
 }
