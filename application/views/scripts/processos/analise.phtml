@@ -11,12 +11,19 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <form action="" method="post">
+    <form action="<?php echo $this->simpleUrl('analise') ?>" method="post">
         <?php 
-        $headerColumns = array('Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes', 'Encaminhar');
+        echo $this->buttonlist()->open();
+        echo $this->buttonlist()->button('Encaminhar Selecionados', 'encaminhar');
+        echo $this->buttonlist()->button('Arquivar Selecionados', 'arquivar');
+        echo $this->buttonlist()->button('Tramitação Externa', 'externo');
+        echo $this->buttonlist()->close(true); 
+        
+        $headerColumns = array('', 'Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes', 'Encaminhar');
         $columns = array('numero', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
         
         $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
+        $grid->addCheckboxColumn('processos', 'id');
         $grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', 'processo') . '/id/', 'id');
         $grid->addActionColumn('Encaminhar', $this->simpleUrl('encaminhar', 'processo') . '/id/', 'id');
         echo $grid->render();

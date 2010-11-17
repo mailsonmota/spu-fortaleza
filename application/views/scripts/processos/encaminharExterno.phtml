@@ -1,0 +1,36 @@
+<?php 
+$this->breadcrumbs()->addPage('Tramitação', 'analise');
+$this->breadcrumbs()->addPage('Encaminhar Processos Externos');
+echo $this->breadcrumbs()->render(); 
+
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+	<div class="notice">
+		Obs: A 'prioridade' e o 'número de folhas' continuarão os mesmos para cada processo.
+	</div>
+	<form action="" method="post">
+    	<?php 
+        $htmlProcessos = '<ul>';
+        foreach ($this->processos as $processo) {
+        	echo '<input type="hidden" name="processos[]" value="' . $processo->id . '"/>';
+            $htmlProcessos .= '<li>' . $processo->nomeDescritivo . '</li>';
+        }
+        $htmlProcessos .= '</ul>';
+        
+        echo $this->form()->openFieldList();
+        echo $this->text('Processos', $htmlProcessos);
+        echo $this->select('Destino', 'destinoId', $this->listaProtocolos, null, array('required' => true));
+        echo $this->textarea('Despacho', 'despacho', null, array('required' => true));
+        echo $this->form()->closeFieldList();
+        
+        echo $this->buttonlist()->open();
+        echo $this->buttonlist()->button('Salvar');
+        echo $this->buttonlist()->resetbutton();
+        echo $this->buttonlist()->close(true); 
+        ?>
+    </form>
+</div>

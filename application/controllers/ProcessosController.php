@@ -47,8 +47,104 @@ class ProcessosController extends BaseController
     
     public function analiseAction()
     {
+    	if ($this->getRequest()->isPost()) {
+        	$isEncaminhar = ($this->getRequest()->getParam('encaminhar', false) !== false) ? true : false;
+        	$isArquivar = ($this->getRequest()->getParam('arquivar', false) !== false) ? true : false;
+        	$isExterno = ($this->getRequest()->getParam('externo', false) !== false) ? true : false;
+        	
+        	$processosSelecionados = $this->getRequest()->getParam('processos');
+        	$processos = array();
+        	foreach ($processosSelecionados as $processoSelecionado) {
+        		$processo = new Processo($this->getTicket());
+        		$processo->carregarPeloId($processoSelecionado);
+        		$processos[] = $processo;
+        	}
+        	
+        	if ($isEncaminhar) {
+        		$session = new Zend_Session_Namespace('encaminhar');
+        		$session->processos = $processosSelecionados;
+        		$this->_redirectEncaminhar();
+        	} elseif ($isArquivar) {
+        		$this->_redirectArquivar();
+        	} elseif ($isExterno) {
+        		$this->_redirectEncaminharExterno();
+        	}
+        }
+    	
     	$processo = new Processo($this->getTicket());
         $this->view->lista = $processo->listarProcessosCaixaAnalise();
+    }
+    
+    protected function _redirectEncaminhar()
+    {
+    	$this->_helper->redirector('encaminhar', $this->getController(), 'default');
+    }
+    
+	protected function _redirectArquivar()
+    {
+    	$this->_helper->redirector('encaminhar', $this->getController(), 'default');
+    }
+    
+	protected function _redirectEncaminharExterno()
+    {
+    	$this->_helper->redirector('encaminharExterno', $this->getController(), 'default');
+    }
+    
+    public function encaminharAction()
+    {
+    	if ($this->getRequest()->isPost()) {
+    		try {
+    			$processo = new Processo($this->getAdminTicket());
+	    		$processo->tramitarVarios($this->getRequest()->getPost());
+	    		$this->setSuccessMessage('Processos tramitados com sucesso.');
+	    		$this->_redirectEmAnalise();
+			} catch (Exception $e) {
+	    		$this->setMessageForTheView($e->getMessage(), 'error');
+	    	}
+    	}
+    	
+    	$processos = array();
+    	$listaProtocolos = array();
+    	
+	    try {
+	    	
+	    	$session = new Zend_Session_Namespace('encaminhar');
+	    	$processosSelecionados = $session->processos;
+	    	
+	    	foreach ($processosSelecionados as $processoSelecionado) {
+	        	$processo = new Processo($this->getTicket());
+	        	$processo->carregarPeloId($processoSelecionado);
+	        	$processos[] = $processo;
+	        }
+	        
+	        $listaProtocolos = $this->_getListaProtocolos();
+	        
+    	} catch (Exception $e) {
+    		$this->setErrorMessage($e->getMessage());
+    		$this->_redirectEmAnalise();
+    	}
+    	
+        $this->view->processos = $processos;
+        $this->view->listaProtocolos = $listaProtocolos;
+    }
+    
+	protected function _getListaProtocolos()
+    {
+        $protocolo = new Protocolo($this->getTicket());
+        $protocolos = $protocolo->listarTodos();
+        $listaProtocolos = array();
+        foreach ($protocolos as $protocolo) {
+            $listaProtocolos[$protocolo->id] = $protocolo->descricao;
+        }
+        
+        if (count($listaProtocolos) == 0) {
+            throw new Exception(
+                'Não existe nenhum protocolo cadastrado no sistema. 
+                Por favor, entre em contato com a administração do sistema.'
+            );
+        }
+        
+        return $listaProtocolos;
     }
     
     public function enviadosAction()
