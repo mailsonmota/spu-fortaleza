@@ -19,7 +19,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $front = $this->getResource('FrontController');
         
         // Timezone
-        date_default_timezone_set('America/Sao_Paulo');
+        date_default_timezone_set('America/Fortaleza');
         setlocale(LC_TIME, 'pt_BR.UTF-8');
         
         $front->registerPlugin(new ErrorPlugin());
