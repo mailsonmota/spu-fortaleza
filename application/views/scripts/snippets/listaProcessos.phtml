@@ -1,0 +1,13 @@
+<ul>
+    <?php 
+    if ($listaProcessos): foreach ($listaProcessos as $processo):
+    ?>
+    <li>
+    	&nbsp;<?php echo $processo->data ?> - 
+    	<a href="<?php echo $this->simpleUrl('detalhes', 'processo', array('id' => $processo->id)) ?>"><?php echo $processo->numero ?></a><br/>
+    	<?php echo $processo->nomeTipoProcesso . ' - ' . $processo->nomeAssunto ?>
+    </li>
+    <?php 
+    endforeach; endif; 
+    ?>
+</ul>

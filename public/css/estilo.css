@@ -27,7 +27,7 @@ body {
 h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#111;}
 h1 {font-size:3.5em;line-height:1;margin-bottom:0.5em;}
 h2 {font-size:2.5em;margin-bottom:0.75em;}
-h3 {font-size:2em;line-height:1;margin-bottom:1em; border-bottom: 3px solid #666; padding-bottom: 6px;}
+h3 {font-size:2em;line-height:1;margin-bottom:1em;}
 h4 {font-size:1.7em;line-height:1.25;margin-bottom:1.25em;}
 h5 {font-size:1em;font-weight:bold;margin-bottom:1.5em;}
 h6 {font-size:1em;font-weight:bold;}
@@ -150,13 +150,19 @@ ol.orderedList {list-style-type: decimal; margin-left: 3em; margin-bottom: 1.5em
 .tabs li.active a {text-decoration: none;color: black;}
 .tabs .active a:hover {background: none;}
 
+/* Widgets */
+.widgetLeft, .widgetRight {margin-bottom: 2%; width: 49%;float: left}
+.widgetLeft ul li, .widgetRight ul li {margin-bottom: 2%}
+.widgetLeft {margin-right: 1%}
+.widgetRight {margin-left: 1%}
+
 /* Mensagem */
 div#message {margin: 0 0 2% 0}
 
 /* Sidebar */
 #article {display: block;z-index: 1;}
 #aside {width: 23%;float: left;right: 0;margin-right: 2%;background: #F5F4EF;padding: 2%;}
-#article h3 {background: #F5F4EF;padding: 6px 12px;border-top: 1px solid #CCC;border-bottom: none;margin-bottom: 2%;}
+#article h3 {margin-bottom: 2%;}
 #section.withSidebar #article {width: 71%;float: left;}
 
 /* Footer */
