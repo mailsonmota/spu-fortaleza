@@ -15,7 +15,7 @@
             </h1>
             
             <div id="usuario">
-                Bem-vindo, <strong><?php echo $this->pessoa->nome ?></strong> | 
+                Bem-vindo, <strong><?php echo $this->pessoa->nomeCompleto ?></strong> | 
                 <a href="<?php echo $this->simpleUrl('cadastro', 'usuario') ?>">Cadastro</a> | 
                 <a href="<?php echo $this->simpleUrl('logout', 'auth') ?>">Sair</a><br/>
                 Você tem <b><?php echo $this->totalProcessosCaixaEntrada ?></b> processos na sua 

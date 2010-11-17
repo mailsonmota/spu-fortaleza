@@ -1,0 +1,29 @@
+<?php 
+$this->breadcrumbs()->addPage('Tramitação', 'processos');
+$this->breadcrumbs()->addPage('Caixa de Externos', 'processos/externos');
+echo $this->breadcrumbs()->render(); 
+
+echo $this->render('snippets/abasTramitacao.phtml');
+
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+    <form action="" method="post">
+        <?php 
+        echo $this->buttonlist()->open();
+        echo $this->buttonlist()->button('Retornar Selecionados');
+        echo $this->buttonlist()->close(true); 
+        
+        $headerColumns = array('', 'Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
+        $columns = array('numero', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
+        
+        $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
+        $grid->addCheckboxColumn('processos', 'id');
+        $grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', 'processo') . '/id/', 'id');
+        echo $grid->render();
+        ?>
+    </form>
+</div>

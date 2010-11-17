@@ -63,4 +63,8 @@ class Usuario extends BaseAlfrescoEntity
         return $this->_getObjetoServico()->getGroups($userName);
     }
 
+    public function getNomeCompleto()
+    {
+    	return $this->_nome . ' ' . $this->_sobrenome;
+    }
 }

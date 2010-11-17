@@ -9,9 +9,6 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-	<div class="notice">
-		Obs: A 'prioridade' e o 'número de folhas' continuarão os mesmos para cada processo.
-	</div>
 	<form action="" method="post">
     	<?php 
         $htmlProcessos = '<ul>';
@@ -23,7 +20,6 @@ echo $this->pagenav()->closeList();
         
         echo $this->form()->openFieldList();
         echo $this->text('Processos', $htmlProcessos);
-        echo $this->select('Destino', 'destinoId', $this->listaProtocolos, null, array('required' => true));
         echo $this->textarea('Despacho', 'despacho', null, array('required' => true));
         echo $this->form()->closeFieldList();
         
