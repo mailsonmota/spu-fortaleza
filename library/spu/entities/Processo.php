@@ -256,6 +256,14 @@ class Processo extends BaseAlfrescoEntity
         return $this->_loadManyFromHash($hashProcessos);
     }
     
+	public function listarProcessosCaixaExternos()
+    {
+    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+        $hashProcessos = $service->getCaixaExternos();
+        
+        return $this->_loadManyFromHash($hashProcessos);
+    }
+    
     protected function _loadManyFromHash($hashProcessos)
     {
     	$processos = array();
@@ -438,13 +446,14 @@ class Processo extends BaseAlfrescoEntity
     	return $service->receberVarios($postData);
     }
     
-    public function tramitarExterno($postData)
+    public function tramitarExternos($postData)
     {
     	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
         try {
-    	   $return = $service->tramitarExterno($postData);
+    	   $return = $service->tramitarExternos($postData);
         } catch (Exception $e) {
-        	throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
+        	throw new Exception($e->getMessage());
+        	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
         }
         
         return $return;

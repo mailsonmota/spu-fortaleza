@@ -58,6 +58,22 @@ class AlfrescoProcesso extends AlfrescoBase
         return $result['Processos'][0];
 	}
 	
+	public function getCaixaExternos()
+	{
+	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/externos";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        $resultJson = $curlObj->doGetRequest($url);
+        $result = json_decode($resultJson, true);
+        
+		if ($this->isAlfrescoError($result)) {
+        	throw new Exception($this->getAlfrescoErrorMessage($result));
+        }
+        
+        return $result['Processos'][0];
+	}
+	
 	public function abrirProcesso($postData)
 	{
 	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/abrir";
@@ -146,9 +162,9 @@ class AlfrescoProcesso extends AlfrescoBase
         return $result;
 	}
 	
-	public function tramitarExterno($postData)
+	public function tramitarExternos($postData)
 	{
-	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/tramitarExterno";
+	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/tramitarExternos";
         $url = $this->addAlfTicketUrl($url);
         
         $curlObj = new CurlClient();
