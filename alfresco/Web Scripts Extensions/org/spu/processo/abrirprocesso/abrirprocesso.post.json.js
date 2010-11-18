@@ -1,51 +1,26 @@
 <import resource="/Company Home/Data Dictionary/Scripts/SPU/processo.js">
 
-var props = new Array()
+var propriedades = new Array()
 
-var numero = json.get("numero")+""
+var numero = json.get("numero")
 
-props["cm:title"] = numero
-numero = numero.replace("/", "_");
-props["cm:name"] = numero
+propriedades['title'] = numero
+propriedades['name'] = numero.replace("/", "_")
+propriedades['data'] = getDataFormatadaAlfresco(json.get("data"))
+propriedades['observacao'] = json.get("observacao")
+propriedades['prioridadeId'] = json.get("prioridadeId")
+propriedades['numeroOrigem'] = json.get("numeroOrigem")
+propriedades['dataPrazo'] = getDataFormatadaAlfresco(json.get("dataPrazo"))
+propriedades['manifestanteNome'] = json.get("manifestanteNome")
+propriedades['manifestanteCpfCnpj'] = json.get("manifestanteCpfCnpj")
+propriedades['manifestanteTipoId'] = json.get("manifestanteTipoId")
+propriedades['manifestanteBairroId'] = json.get("manifestanteBairroId")
+propriedades['origem'] = json.get("origem")
+propriedades['destino'] = json.get("destino")
+propriedades['corpo'] = json.get("corpo")
+propriedades['assuntoId'] = json.get("assunto")
+propriedades['proprietarioId'] = json.get("proprietarioId")
 
-var d = getDataFormatadaAlfresco(json.get("data"))
-props["spu:processo.Data"] = d
+var processo = abrirProcesso(propriedades)
 
-props["spu:processo.Observacao"] = json.get("observacao")
-
-var prioridadeId = json.get("prioridadeId")
-var prioridadeNoderef = getNode(prioridadeId)
-props["spu:processo.Prioridade"] = prioridadeNoderef
-
-props["spu:processo.NumeroOrigem"] = json.get("numeroOrigem")
-
-var dataPrazo = json.get("dataPrazo")
-var dp = getDataFormatadaAlfresco(json.get("dataPrazo"))
-props["spu:processo.DataPrazo"] = dp
-
-props["spu:processo.ManifestanteNome"] = json.get("manifestanteNome")
-props["spu:processo.ManifestanteCpf"] = json.get("manifestanteCpfCnpj")
-
-var manifestanteTipoId = getNode(json.get("manifestanteTipoId"))
-props["spu:processo.ManifestanteTipo"] = manifestanteTipoId
-
-var manifestanteBairroNoderef = getNode(json.get("manifestanteBairroId"))
-props["spu:processo.ManifestanteBairro"] = manifestanteBairroNoderef
-
-props["spu:processo.Origem"] = json.get("origem")
-props["spu:processo.Destino"] = json.get("destino")
-
-props["spu:processo.Corpo"] = json.get("corpo")
-props["spu:processo.Despacho"] = json.get("corpo")
-
-var node = userhome.createNode(null, "spu:processo", props)
-
-var idAssunto = json.get("assunto")
-var nodeAssunto = getNode(idAssunto)
-node.createAssociation(nodeAssunto, "spu:processo.Assunto")
-
-var idProprietario = json.get("proprietarioId")
-var nodeProprietario = getNode(idProprietario)
-node.createAssociation(nodeProprietario, "spu:processo.Proprietario")
-
-model.processo = node
+model.processo = processo
