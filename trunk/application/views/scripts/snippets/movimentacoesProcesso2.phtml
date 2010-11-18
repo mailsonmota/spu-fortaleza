@@ -1,0 +1,33 @@
+<fieldset>
+    <legend>Movimentações</legend>
+    <dl>
+    	<?php $data = null ?>
+    	<?php if ($this->processo->getMovimentacoes()): foreach ($this->processo->getMovimentacoes() as $movimentacao): ?>
+    	<?php if ($movimentacao->data != $data): ?>
+    	<dt><?php echo $movimentacao->data ?></dt>
+    	<dd class="campoTexto">
+    	<?php endif ?>
+    		<dl>
+    			<dt>De:</dt>
+    			<dd><b><?php echo $movimentacao->de->descricao ?></b></dd>
+    			
+	    		<dt>Remetente:</dt>
+	    		<dd><?php echo $movimentacao->usuario->nomeCompleto ?></dd>
+	    		
+		    	<?php if ($movimentacao->de != $movimentacao->para): ?>
+		    	<dt>Para:</dt>
+		    	<dd><b><?php echo $movimentacao->para->descricao ?></b></dd>
+		    	
+		    	<dt>Prazo:</dt>
+		    	<dd><?php echo $movimentacao->prazo ?></dd>
+		    	<?php endif ?>
+		    	
+		    	<dt>Despacho:</dt>
+		    	<dd><em><?php echo $movimentacao->despacho ?></em></dd>
+	    	</dl>
+	    <?php if ($movimentacao->data != $data): ?>
+    	</dd>
+    	<?php endif ?>
+    	<?php endforeach; endif ?>
+    </dl>
+</fieldset>

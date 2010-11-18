@@ -177,4 +177,20 @@ class AlfrescoProcesso extends AlfrescoBase
         
         return $result;
 	}
+	
+	public function retornarExternos($postData)
+	{
+	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/retornarExternos";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        
+        $result = $curlObj->doPostRequest($url, $postData);
+        
+        if ($this->isAlfrescoError($result)) {
+        	throw new Exception($this->getAlfrescoErrorMessage($result));
+        }
+        
+        return $result;
+	}
 }

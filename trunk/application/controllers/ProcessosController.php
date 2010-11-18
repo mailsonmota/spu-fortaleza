@@ -175,10 +175,11 @@ class ProcessosController extends BaseController
     	
     	if ($this->getRequest()->isPost()) {
     		try {
-    			$processo->retornarExternos($this->getRequest()->getPost());
-	    		$this->setSuccessMessage('Processos retornados com sucesso.');
-	    		$this->_redirectEmAnalise();
-			} catch (Exception $e) {
+    			$processosSelecionados = $this->getRequest()->getParam('processos');
+    			$session = new Zend_Session_Namespace('encaminhar');
+        		$session->processos = $processosSelecionados;
+        		$this->_redirectEncaminhar();
+    		} catch (Exception $e) {
 	    		$this->setMessageForTheView($e->getMessage(), 'error');
 	    	}
     	}
