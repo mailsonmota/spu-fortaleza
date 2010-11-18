@@ -47,7 +47,7 @@ input, select, textarea {font-family: Helvetica, Arial, sans-serif;padding: 0.25
 .middleText {width: 30em;}
 .largeText {width: 50em;}
 select {text-indent: 0;}
-dd {float: left;}
+dd {float: left}
 label.required {font-weight: bold;}
 .campoTexto {padding-top: 0.75em;}
 fieldset {border-width: 1px 0 0 0;}
@@ -57,6 +57,8 @@ dd ul li.odd {background: #F5F5F5;}
 dd label.error {margin: 0; border: 0; background: none; padding: 0; display: block}
 input.error, textarea.error {margin: 0.5em 0; padding: 0.25em 0;border-width: 1px; border-color: #8a1f11;background: #FBE3E4}
 dd a.dp-choose-date {margin-left: 0.5em;}
+dd dl dt, dd dl dd {margin: 0 0 0.2em; padding-top: 0}
+dd dl dt {text-align: left;width: auto;margin-right: 0.25em}
 
 /* Botões */
 .buttons {border-top: 1px solid #DDD;padding: 1%;margin: 1% 0;background: #FAFAFA;clear: left;}
@@ -81,6 +83,8 @@ table.grid {width: 100%;margin-top: 1%;border-collapse:collapse;}
 /* Páragrafos */
 p {margin-bottom: 1.143em;}
 * p:last-child {margin-bottom: 0;}
+.comentario {background: url(../img/commentArrow.png) no-repeat 10px 0px; padding-top: 5px; margin-top: 0.1em;}
+blockquote {background: #DDD; color: #333; padding: 0.5em; margin: 0 0 0.5em;}
 
 /* Code */
 code {margin-bottom: 1.25em; display: block}

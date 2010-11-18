@@ -3,8 +3,10 @@
     <table class="grid" summary="Movimentações do processo.">
     	<thead>
     		<tr>
+    			<th>Tipo</th>
     			<th>Data</th>
     			<th>De</th>
+    			<th>Remetente</th>
     			<th>Para</th>
     			<th>Despacho</th>
     			<th>Prazo</th>
@@ -13,8 +15,10 @@
     	<tbody>
 	    <?php if ($this->processo->getMovimentacoes()): foreach ($this->processo->getMovimentacoes() as $movimentacao): ?>
 	    	<tr>
+	    		<td><?php echo $movimentacao->tipo ?></td>
 	    		<td><?php echo $movimentacao->data ?></td>
 	    		<td><?php echo $movimentacao->de->descricao ?></td>
+	    		<td><?php echo $movimentacao->usuario->nomeCompleto ?></td>
 	    		<td><?php echo $movimentacao->para->descricao ?></td>
 	    		<td><?php echo $movimentacao->despacho ?></td>
 	    		<td><?php echo $movimentacao->prazo ?></td>
