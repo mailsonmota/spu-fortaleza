@@ -159,7 +159,7 @@ class Movimentacao extends BaseEntity
     {
     	$nomeOrigem = $this->_getNomeOrigemParaDescricao();
     	
-    	return "$nomeOrigem criou um novo <em>despacho</em>.";
+    	return "$nomeOrigem criou um novo <em>despacho</em>:";
     }
     
     protected function _getNomeOrigemParaDescricao()
