@@ -23,7 +23,7 @@ echo $this->pagenav()->closeList();
     </ol>
     
     <div id="fileUpload">
-        <input type="text" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
+        <input type="hidden" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
         <h5>Fila de Envio:</h5>
         <ul id="fileList">
         	<li><a id="filePicker" href="#">Adicionar Arquivos</a></li>
@@ -96,5 +96,7 @@ echo $this->pagenav()->closeList();
 	    uploader.bind('FileUploaded', function(up, file) {
 	        $('#' + file.id + " b").html("100%");
 	    });
+
+	    //uploader.bind('BeforeUpload', function(up, file) { alert(file) });
 	});
 </script>
