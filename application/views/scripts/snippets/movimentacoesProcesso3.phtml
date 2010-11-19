@@ -1,9 +1,11 @@
 <fieldset>
     <legend>Movimentações</legend>
-    <dl class="lista">
+    <ol class="historico">
     	<?php if ($this->processo->getMovimentacoes()): foreach ($this->processo->getMovimentacoes() as $movimentacao): ?>
-    	<dt><?php echo $movimentacao->data ?></dt>
-    	<dd class="campoTexto"><?php echo $movimentacao->descricao ?></dd>
+    	<li>
+    		<?php echo $movimentacao->data ?> - 
+    		<?php echo $movimentacao->descricao ?>
+    	</li>
     	<?php endforeach; endif ?>
-    </dl>
+    </ol>
 </fieldset>
