@@ -293,7 +293,6 @@ class Processo extends BaseAlfrescoEntity
         $this->setAssunto($this->_loadAssuntoFromHash($this->_getHashValue($hash, 'assunto')));
         $this->setManifestante($this->_loadManifestanteFromHash($this->_getHashValue($hash, 'manifestante')));
         $this->setTipoManifestante($this->_loadTipoManifestanteFromHash($this->_getHashValue($hash, 'tipoManifestante')));
-    	$this->setMovimentacoes($this->_loadMovimentacoesFromHash($this->_getHashValue($hash, 'movimentacoes')));
     }
     
 	protected function _loadPrioridadeFromHash($hash)
@@ -364,22 +363,6 @@ class Processo extends BaseAlfrescoEntity
         $tipoManifestante->loadFromHash($hash);
         
         return $tipoManifestante;
-    }
-    
-    protected function _loadMovimentacoesFromHash($hash)
-    {
-    	$movimentacoes = array();
-    	if ($hash) {
-	    	foreach($hash[0] as $hashMovimentacao) {
-	    		$hashMovimentacao = array_pop($hashMovimentacao);
-	    		$movimentacao = new Movimentacao();
-	    		$movimentacao->loadFromHash($hashMovimentacao);
-	    		
-	    		$movimentacoes[] = $movimentacao;
-	    	}
-    	}
-    	
-    	return $movimentacoes;
     }
     
     public function carregarPeloId($id)
@@ -470,6 +453,36 @@ class Processo extends BaseAlfrescoEntity
         }
         
         return $return;
+    }
+    
+    public function carregarMovimentacoes()
+    {
+    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+        $hashProcessos = $service->getHistorico($this->id);
+        
+        $processo = array();
+        foreach ($hashProcessos as $hashProcesso) {
+            $hashDadosProcesso = array_pop($hashProcesso);
+            $this->setMovimentacoes($this->_loadMovimentacoesFromHash($this->_getHashValue($hashDadosProcesso, 'movimentacoes')));
+        }
+        
+        return $processo;
+    }
+    
+	protected function _loadMovimentacoesFromHash($hash)
+    {
+    	$movimentacoes = array();
+    	if ($hash) {
+	    	foreach($hash[0] as $hashMovimentacao) {
+	    		$hashMovimentacao = array_pop($hashMovimentacao);
+	    		$movimentacao = new Movimentacao();
+	    		$movimentacao->loadFromHash($hashMovimentacao);
+	    		
+	    		$movimentacoes[] = $movimentacao;
+	    	}
+    	}
+    	
+    	return $movimentacoes;
     }
 }
 ?>

@@ -20,7 +20,7 @@ class Zend_View_Helper_form extends Zend_View_Helper_Abstract
     public function openFieldList()
     {
         $html  = '';
-        $html .= '<dl>';
+        $html .= '<dl class="form">';
         
         return $html;
     }
