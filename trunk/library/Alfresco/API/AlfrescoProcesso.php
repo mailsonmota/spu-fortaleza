@@ -209,4 +209,20 @@ class AlfrescoProcesso extends AlfrescoBase
         
         return $result['Processo'][0];
 	}
+	
+	public function cancelarEnvios($postData)
+	{
+	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/cancelarEnvios";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        
+        $result = $curlObj->doPostRequest($url, $postData);
+        
+        if ($this->isAlfrescoError($result)) {
+        	throw new Exception($this->getAlfrescoErrorMessage($result));
+        }
+        
+        return $result;
+	}
 }
