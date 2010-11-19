@@ -484,5 +484,18 @@ class Processo extends BaseAlfrescoEntity
     	
     	return $movimentacoes;
     }
+    
+	public function cancelarEnvios($postData)
+    {
+    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+        try {
+    	   $return = $service->cancelarEnvios($postData);
+        } catch (Exception $e) {
+        	throw new Exception($e->getMessage());
+        	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
+        }
+        
+        return $return;
+    }
 }
 ?>

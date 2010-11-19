@@ -19,6 +19,7 @@ class Movimentacao extends BaseEntity
     const RECEBIMENTO = 'RECEBIMENTO';
     const ENCAMINHAMENTO = 'ENCAMINHAMENTO';
     const DESPACHO = 'DESPACHO';
+    const CANCELAMENTOENVIO = 'CANCELAMENTOENVIO';
     
     public function getData()
     {
@@ -127,6 +128,9 @@ class Movimentacao extends BaseEntity
     			$descricao = $this->_getDescricaoEncaminhamento();
     			$descricao = $this->_anexarDespachoDescricao($descricao);
     			break;
+    		case self::CANCELAMENTOENVIO:
+    			$descricao = $this->_getDescricaoCancelamentoEnvio();
+    			break;
     		case self::DESPACHO:
     			$descricao = $this->_getDescricaoDespacho();
     			$descricao = $this->_anexarDespachoDescricao($descricao);
@@ -166,6 +170,13 @@ class Movimentacao extends BaseEntity
     	$nomeDestino = $this->_getNomeDestinoParaDescricao();
     	
     	return "$nomeOrigem <em>encaminhou</em> o processo para $nomeDestino.";
+    }
+    
+	protected function _getDescricaoCancelamentoEnvio()
+    {
+    	$nomeDestino = $this->_getNomeDestinoParaDescricao();
+    	
+    	return "$nomeDestino <em>cancelou</em> o envio do processo.";
     }
     
 	protected function _getDescricaoDespacho()
