@@ -6,6 +6,7 @@ require_once('Usuario.php');
 class Movimentacao extends BaseEntity
 {
     protected $_data;
+    protected $_hora;
     protected $_de;
     protected $_para;
     protected $_prazo;
@@ -13,6 +14,7 @@ class Movimentacao extends BaseEntity
     protected $_despacho;
     protected $_usuario;
     protected $_tipo;
+    
     const ABERTURA = 'ABERTURA';
     const RECEBIMENTO = 'RECEBIMENTO';
     const ENCAMINHAMENTO = 'ENCAMINHAMENTO';
@@ -26,6 +28,16 @@ class Movimentacao extends BaseEntity
     public function setData($value)
     {
     	$this->_data = $value;
+    }
+    
+	public function getHora()
+    {
+    	return $this->_hora;
+    }
+    
+    public function setHora($value)
+    {
+    	$this->_hora = $value;
     }
     
     public function getDe()
@@ -127,7 +139,8 @@ class Movimentacao extends BaseEntity
     protected function _anexarDespachoDescricao($descricao)
     {
     	$descricao = ($descricao && $this->getDespacho()) ? 
-    		$descricao . "<div class=\"comentario\"><blockquote>" . $this->getDespacho() . '</blockquote></div>' : 
+    		$descricao . "<div class=\"comentario\">
+    						<blockquote>" . $this->getUsuario()->nomeCompleto . ": <em>" . $this->getDespacho() . "</em></blockquote></div>" : 
     		$descricao;
     	return $descricao;	
     }
@@ -183,6 +196,7 @@ class Movimentacao extends BaseEntity
 	public function loadFromHash($hash)
     {
         $this->setData($this->_getHashValue($hash, 'data'));
+        $this->setHora($this->_getHashValue($hash, 'hora'));
         $this->setDe($this->_loadProtocoloFromHash($this->_getHashValue($hash, 'de')));
         $this->setPara($this->_loadProtocoloFromHash($this->_getHashValue($hash, 'para')));
         $this->setPrazo($this->_getHashValue($hash, 'prazo'));

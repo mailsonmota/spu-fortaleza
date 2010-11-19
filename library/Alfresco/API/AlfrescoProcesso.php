@@ -193,4 +193,20 @@ class AlfrescoProcesso extends AlfrescoBase
         
         return $result;
 	}
+	
+	public function getHistorico($nodeUuid)
+	{
+	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/historico/get/$nodeUuid";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        $resultJson = $curlObj->doGetRequest($url);
+        $result = json_decode($resultJson, true);
+        
+		if ($this->isAlfrescoError($result)) {
+        	throw new Exception($this->getAlfrescoErrorMessage($result));
+        }
+        
+        return $result['Processo'][0];
+	}
 }
