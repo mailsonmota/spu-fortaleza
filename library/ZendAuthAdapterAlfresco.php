@@ -15,7 +15,6 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
 {
     protected $_username;
     protected $_password;
-    protected $_wsdlAddress;
     protected $_response;
     protected $_result;
     protected $_ticket;
@@ -25,11 +24,10 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
      *
      * @return void
      */
-    public function __construct($username, $password, $wsdlAddress)
+    public function __construct($username, $password)
     {
         $this->setUsername($username);
         $this->setPassword($password);
-        $this->setWsdlAddress($wsdlAddress);
         $this->setDefaultResult();
     }
     
@@ -155,12 +153,6 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
         
         $this->setTicket($response['ticket']);
         $this->setResponse($response);
-    }
-    
-    protected function getSoapClient()
-    {
-        $soap_client = new Zend_Soap_Client($this->getWsdlAddress());
-        return $soap_client;
     }
     
     protected function setApplicationUser()
