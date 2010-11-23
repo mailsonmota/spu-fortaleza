@@ -13,11 +13,8 @@ class AuthController extends BaseController
     
     public function authorizeAction()
     {
-        $wsdl = 'http://localhost:8080/alfresco/wsdl/authentication-service.wsdl';
-        //$wsdl = '/home/bruno/Desktop/alfresco.wsdl';
-        
-        $r = $this->getRequest();
-        $authAdapter = new SpuAuthAdapter($r->getParam('username'), $r->getParam('password'), $wsdl);
+        $requestData = $this->getRequest();
+        $authAdapter = new SpuAuthAdapter($requestData->getParam('username'), $requestData->getParam('password'));
         
         $auth = Zend_Auth::getInstance();
         $result = $auth->authenticate($authAdapter);
