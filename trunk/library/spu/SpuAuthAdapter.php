@@ -5,9 +5,12 @@ class SpuAuthAdapter extends ZendAuthAdapterAlfresco
 {
     protected function getIdentityFromResponse()
     {
-        $username = $this->getUsernameFromResponse();
-        $ticket = $this->getTicketFromResponse();
+        //$username = $this->getUsernameFromResponse();
+        //$ticket = $this->getTicketFromResponse();
         
+    	$username = $this->getUsername();
+    	$ticket = $this->getTicket();
+    	
         $usuario = new Usuario($ticket);
         $usuario->carregarPeloLogin($username);
         

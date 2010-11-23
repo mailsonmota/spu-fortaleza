@@ -27,11 +27,16 @@ class AlfrescoLogin extends AlfrescoBase
         
 		$curlObj = new CurlClient();
 		
-		$result = trim($curlObj->doGetRequest($url));
-		$this->setTicket($result);
+		$resultJson = trim($curlObj->doGetRequest($url));
+		$result = json_decode($resultJson, true);
 		
-		$resultJson = json_decode($result);
-		$ticket = $resultJson->data->ticket;
+		if ($this->isAlfrescoError($result)) {
+			throw new Exception($this->getAlfrescoErrorMessage($result));
+		}
+		
+		$this->setTicket($result['data']['ticket']);
+		
+		$ticket = $result['data']['ticket'];
 		
 		return array('ticket' => $ticket);
 	}
