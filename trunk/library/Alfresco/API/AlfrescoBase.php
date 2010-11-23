@@ -53,16 +53,6 @@ class AlfrescoBase
     public function postToJson($postArgs) {
         $json  = "{";
         $json .= "\"name\" : \"" . $postArgs['name'] . "\",";
-//        $json += "\"data\" : \"2030-11-11\",";
-//        $json += "observacao" : "observacao 1",
-//        $json += "prioridade" : "Ordinario (Normal)",
-//        $json += "numero_origem" : "numero origem 12",
-//        $json += "data_prazo" : "2030-11-11",
-//        $json += "manifestante_nome" : "nome do manifestante",
-//        $json += "manifestante_cpf" : "cpf do manifestante",
-//        $json += "manifestante_tipo" : "tipo do manifestante",
-//        $json += "manifestante_bairro" : "bairro do manifestante",
-//        $json += "assunto" : "assunto",
         $json .= "}";
         
         return $json;
