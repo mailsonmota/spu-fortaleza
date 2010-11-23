@@ -18,6 +18,7 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
     protected $_wsdlAddress;
     protected $_response;
     protected $_result;
+    protected $_ticket;
     
     /**
      * Sets username and password for authentication
@@ -107,6 +108,16 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
         $this->_result['identity'] = $identity;
     }
     
+    protected function setTicket($ticket)
+    {
+    	$this->_ticket = $ticket;
+    }
+    
+    protected function getTicket()
+    {
+    	return $this->_ticket;
+    }
+    
     /**
      * Performs an authentication attempt
      *
@@ -119,7 +130,7 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
             $this->authenticateOnAlfresco();
             $this->setApplicationUser();
         } catch (Exception $e) {
-            $this->throwAuthorizationError($e);
+        	$this->throwAuthorizationError($e);
         }
         $code = $this->getResultCode();
         $identity = $this->getResultIdentity();
@@ -129,12 +140,20 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
     
     protected function authenticateOnAlfresco()
     {
+    	Loader::loadAlfrescoApiClass('AlfrescoLogin');
+        
         $username = $this->getUsername();
         $password = $this->getPassword();
-        $soapClient = $this->getSoapClient();
         
-        $response = $soapClient->startSession(array('username' => $username, 'password' => $password));
+        $alfrescoLoginApi = new AlfrescoLogin(BaseAlfrescoEntity::ALFRESCO_URL);
         
+        try {
+            $response = $alfrescoLoginApi->login($username, $password);
+        } catch (Exception $e) {
+        	throw $e;
+        }
+        
+        $this->setTicket($response['ticket']);
         $this->setResponse($response);
     }
     
@@ -186,12 +205,13 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
     
     protected function throwAuthorizationError($exception)
     {
-        $code = $this->getDefaultErrorCode();
+    	$code = $this->getDefaultErrorCode();
         if ($this->isConnectionFailure($exception)) {
             $code = $this->getConnectionFailureErrorCode();
         } elseif ($this->isAlfrescoError($exception)) {
             $code = $this->getAlfrescoErrorCode($exception);
         }
+        
         $this->setResultCode($code);
     }
     
@@ -202,7 +222,8 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
     
     protected function isConnectionFailure($exception)
     {
-        return !isset($exception->detail);
+    	$exceptionMessage = $exception->getMessage();
+        return !isset($exceptionMessage);
     }
     
     protected function getConnectionFailureErrorCode()
@@ -212,20 +233,21 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
     
     protected function isAlfrescoError($exception)
     {
-        return isset($exception->detail);
+        $exceptionMessage = $exception->getMessage();
+        return isset($exceptionMessage);
     }
     
     protected function getAlfrescoErrorCode($exception)
     {
-        $errorCode = $exception->detail->AuthenticationFault->errorCode;
-        switch ($errorCode) {
-           case 100:
-               $code = Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID;
-               break;
-           default:
-               $code = Zend_Auth_Result::FAILURE_UNCATEGORIZED;
-               break;
+        $exceptionMessage = $exception->getMessage();
+        $loginFailedBoolean = strpos($exceptionMessage, "Login failed");
+        
+        if ($loginFailedBoolean) {
+        	$code = Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID;
+        } else {
+        	$code = Zend_Auth_Result::FAILURE_UNCATEGORIZED;
         }
+
         return $code;
     }
 }
