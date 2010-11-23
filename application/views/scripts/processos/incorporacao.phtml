@@ -8,10 +8,10 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <form action="<?php echo $this->simpleUrl('analise') ?>" method="post">
+    <form action="<?php echo $this->simpleUrl('incorporacao') ?>" method="post">
         <?php 
         echo $this->buttonlist()->open();
-        echo $this->buttonlist()->button('Incorporação', 'incorporacao');
+        echo $this->buttonlist()->button('Escolher Processo Principal', 'incorporacao');
         echo $this->buttonlist()->close(true); 
         
         $headerColumns = array('', 'Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
@@ -21,10 +21,6 @@ echo $this->pagenav()->closeList();
         $grid->addCheckboxColumn('processos', 'id');
         $grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', 'processo') . '/id/', 'id');
         echo $grid->render();
-        
-        echo $this->buttonlist()->open();
-        echo $this->buttonlist()->button('Incorporação', 'incorporacao');
-        echo $this->buttonlist()->close(true); 
         ?>
     </form>
 </div>

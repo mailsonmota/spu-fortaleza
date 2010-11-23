@@ -209,4 +209,13 @@ class ProcessosController extends BaseController
     	$processo = new Processo($this->getTicket());
         $this->view->lista = $processo->listarProcessosCaixaEnviados();
     }
+    
+    public function incorporacaoAction()
+    {
+    	if ($this->getRequest()->isPost()) {
+    		$postData = $this->getRequest()->getPost();
+    	}
+    	$processo = new Processo($this->getTicket());
+        $this->view->lista = $processo->listarProcessosCaixaAnalise();
+    }
 }
