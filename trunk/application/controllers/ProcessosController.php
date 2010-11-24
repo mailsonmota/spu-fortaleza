@@ -85,7 +85,7 @@ class ProcessosController extends BaseController
     {
     	if ($this->getRequest()->isPost()) {
     		try {
-    			$processo = new Processo($this->getAdminTicket());
+    			$processo = new Processo($this->getTicket());
 	    		$processo->tramitarVarios($this->getRequest()->getPost());
 	    		$this->setSuccessMessage('Processos tramitados com sucesso.');
 	    		$this->_redirectEmAnalise();
@@ -146,7 +146,7 @@ class ProcessosController extends BaseController
     {
     	if ($this->getRequest()->isPost()) {
     		try {
-    			$processo = new Processo($this->getAdminTicket());
+    			$processo = new Processo($this->getTicket());
 	    		$processo->tramitarExternos($this->getRequest()->getPost());
 	    		$this->setSuccessMessage('Processos tramitados com sucesso.');
 	    		$this->_redirectEmAnalise();
@@ -191,7 +191,7 @@ class ProcessosController extends BaseController
     {
     	if ($this->getRequest()->isPost()) {
     		try {
-    			$processo = new Processo($this->getAdminTicket());
+    			$processo = new Processo($this->getTicket());
 	    		$processo->cancelarEnvios($this->getRequest()->getPost());
 	    		$this->setSuccessMessage('Envios cancelados com sucesso.');
 	    		$this->_redirectEntrada();
