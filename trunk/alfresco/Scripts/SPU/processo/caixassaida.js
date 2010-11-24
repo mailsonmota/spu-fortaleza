@@ -36,7 +36,7 @@ function getCriterioCaixasSaidaEnviados() {
 		criterioDestino = ' AND NOT (' + criterioDestino + ')';
 	}
 	
-	criterio = criterioOrigem + '' + criterioDestino + ' AND NOT (@spu\\:processo.Externo:true)'
+	criterio = criterioOrigem + '' + criterioDestino
 
 	return criterio
 }

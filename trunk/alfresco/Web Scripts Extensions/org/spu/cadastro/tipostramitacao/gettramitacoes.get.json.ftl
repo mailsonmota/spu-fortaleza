@@ -1,7 +1,7 @@
 {
 <#compress>
 	"Tramitacoes":[{
-		<#include "../../snippets/snippet_listacategoria.get.json.ftl" />
+		<#include "../../snippet/snippet_listacategoria.get.json.ftl" />
 	}]
 </#compress>
 }

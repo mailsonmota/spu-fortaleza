@@ -40,14 +40,18 @@
 			<show-property name="spu:processo.NumeroOrigem" />
 			<show-property name="spu:processo.DataPrazo" />
 			<show-property name="spu:processo.Prioridade" />
-			<show-property name="spu:processo.Status" />			
+			<show-property name="spu:processo.Status" />
+			<show-property name="spu:processo.EmAnalise" />		
 			<show-property name="spu:processo.ManifestanteNome" />
 			<show-property name="spu:processo.ManifestanteCpf" />
 			<show-property name="spu:processo.ManifestanteBairro" />
 			<show-property name="spu:processo.ManifestanteTipo" />
-			<show-property name="spu:processo.Origem" />			
-			<show-property name="spu:processo.Destino" />
 			<show-property name="spu:processo.Despacho" />
+			<show-property name="spu:processo.Externo" />
+            <show-association name="spu:processo.Origem" 
+				show-in-edit-mode="true" show-in-view-mode="true" />
+            <show-association name="spu:processo.Destino" 
+				show-in-edit-mode="true" show-in-view-mode="true" />	
 			<show-association name="spu:processo.Proprietario" 
 				show-in-edit-mode="true" show-in-view-mode="true" />			
 			<show-association name="spu:processo.Assunto" 
@@ -84,6 +88,9 @@
 			<type name="spu:caixasaida" 
 				description="Caixa de Saida de Processos do Sistema de Protocolo Unico" 
 				display-label="Caixa de Saida de Processos" />
+			<type name="spu:arquivo" 
+				description="Arquivo de Processos do Sistema de Protocolo Unico" 
+				display-label="Arquivo de Processos" />
 			<!-- Sistema de Protocolo Unico - Fim -->
 		</folder-types>
 	</config>

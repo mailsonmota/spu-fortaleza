@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition xmlns="urn:jbpm.org:jpdl-3.1" name="spu:moveFiles">
+   <swimlane name="initiator"/>
+   <start-state name="start">
+      <task name="bpm:startTask" swimlane="initiator"/>
+      <transition name="" to="end">
+         <action class="org.alfresco.repo.workflow.jbpm.AlfrescoJavaScript">
+            <runas>admin</runas>
+            <script>
+                var processo = bpm_package.children[0];                
+                moverParaDestino(processo);
+
+                function moverParaDestino(processo) {
+                    /* Permissões */
+                    adicionarPermissoesDestino(processo);	
+
+                    var destino = processo.assocs['spu:processo.Destino'][0];
+
+                    var caixaEntrada = getCaixaEntradaDestino(destino);
+	                processo.move(caixaEntrada);
+                }
+
+                function adicionarPermissoesDestino(processo) {
+                    /* Permissões - Adiciona as permissoes da Cx. Entrada origem ao processo */
+	                var protocoloOrigem = processo.assocs['spu:processo.Origem'][0];
+	                var caixasEntradaOrigem = search.luceneSearch("workspace://SpacesStore", 'PATH:"' + protocoloOrigem.getQnamePath() + '/*" AND TYPE:"spu:CaixaEntrada"');
+	                var caixaEntradaOrigem = caixasEntradaOrigem[0];
+	                var permissoesCaixaEntradaOrigem = caixaEntradaOrigem.getPermissions();
+	                for (var i=0; i &lt; permissoesCaixaEntradaOrigem.length; i++) {
+		                permissao = getPermissaoComoHash(permissoesCaixaEntradaOrigem[i]);
+		                role = permissao['role'];
+		                group = permissao['group'];
+		                processo.setPermission(role, group);
+	                }
+
+                    return processo;
+                }
+
+                function getPermissaoComoHash(permissionString) {
+	                var hash = new Array();
+	                var allow = permissionString.substring(0, permissionString.indexOf(';'));
+	                var group = permissionString.substring(permissionString.indexOf(';')+1, permissionString.lastIndexOf(';'));
+	                var role = permissionString.substring(permissionString.lastIndexOf(';')+1);
+	                hash['allow'] = allow;
+	                hash['group'] = group;
+	                hash['role'] = role;
+
+	                return hash;
+                }
+
+                function getCaixaEntradaDestino(destino) {
+                    var caixasEntrada = search.luceneSearch("workspace://SpacesStore", 'PATH:"' + destino.getQnamePath() + '/*" AND TYPE:"spu:CaixaEntrada"');
+	                var caixaEntrada = caixasEntrada[0];
+
+                    return caixaEntrada;
+                }
+            </script>
+         </action>
+      </transition>
+   </start-state>
+   <end-state name="end"/>
+</process-definition>
