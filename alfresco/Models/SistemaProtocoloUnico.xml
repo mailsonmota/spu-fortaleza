@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Definition of new Model -->
+<model name="spu:spu" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+	<!-- Imports are required to allow references to definitions in other models -->
+	<imports>
+		<!-- Import Alfresco Dictionary Definitions -->
+		<import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />
+		<!-- Import Alfresco Content Domain Model Definitions -->
+		<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+	</imports>
+
+	<!-- Introduction of new namespaces defined by this model -->
+	<namespaces>
+		<namespace uri="extension.spu" prefix="spu" />
+	</namespaces>
+
+	<types>
+		<!-- Categoria de Processo -->
+		<type name="spu:tipoprocesso">
+			<title>Tipo de Processo</title>
+			<parent>cm:folder</parent>
+			<properties>
+				<property name="spu:tipoprocesso.Simples">
+					<title>Simples</title>
+				   	<type>d:boolean</type>
+		   		</property>
+				<property name="spu:tipoprocesso.Observacao">
+					<title>Observação</title>
+				   	<type>d:text</type>
+				</property>
+				<property name="spu:tipoprocesso.Letra">
+					<title>Letra</title>
+				   	<type>d:text</type>
+				</property>
+				<property name="spu:tipoprocesso.Tramitacao">
+				   	<title>Tramitação</title>
+				   	<type>d:category</type>
+                    		</property>	
+				<property name="spu:tipoprocesso.Abrangencia">
+					<title>Abrangência</title>
+					<type>d:category</type>
+				</property>
+				<property name="spu:tipoprocesso.TipoManifestante">
+					<title>Tipos de Manifestante</title>
+					<type>d:category</type>
+					<multiple>true</multiple>
+				</property>
+				<property name="spu:tipoprocesso.NomeTipoManifestante">
+					<title>Nome do Tipo de Manifestante</title>
+				   	<type>d:text</type>
+				</property>
+				<property name="spu:tipoprocesso.EnvolvidoSigiloso">
+					<title>Envolvido Sigiloso</title>
+				   	<type>d:boolean</type>
+		   		</property>
+			</properties>
+            <mandatory-aspects>
+           	    <aspect>cm:versionable</aspect>
+        	</mandatory-aspects>
+		</type>
+		<!-- Tipo de Processo -->
+		<type name="spu:assunto">
+			<title>Assunto</title>
+			<parent>cm:folder</parent>
+			<properties>
+				<property name="spu:assunto.Corpo">
+					<title>Corpo</title>
+				   	<type>d:text</type>
+		   		</property>
+				<property name="spu:assunto.NotificarNaAbertura">
+					<title>Notificar na Abertura</title>
+				   	<type>d:boolean</type>
+		   		</property>
+			</properties>
+            <mandatory-aspects>
+           	    <aspect>cm:versionable</aspect>
+        	</mandatory-aspects>
+		</type>
+		<!-- Processo -->
+		<type name="spu:processo">
+			<title>Processo</title>
+			<parent>cm:folder</parent>
+			<properties>
+				<property name="spu:processo.Data">
+				   	<title>Data</title>
+				   	<type>d:datetime</type>
+                </property>
+		    	<property name="spu:processo.Observacao">
+			 	   	<title>Observacao</title>
+		       	    <type>d:text</type>
+			   	</property>
+				<property name="spu:processo.NumeroOrigem">
+				   	<title>Numero de Origem</title>
+				   	<type>d:text</type>
+                </property>
+				<property name="spu:processo.DataPrazo">
+				   	<title>Data de Prazo</title>
+		            <type>d:date</type>
+		   		</property>
+				<property name="spu:processo.Corpo">
+				   	<title>Corpo</title>
+				   	<type>d:text</type>
+                    </property>
+                <property name="spu:processo.Prioridade">
+					<title>Prioridade</title>
+					<type>d:category</type>
+				</property>
+				<property name="spu:processo.Status">
+					<title>Status</title>
+					<type>d:category</type>
+				</property>
+				<property name="spu:processo.EmAnalise">
+					<title>Em Análise</title>
+					<type>d:boolean</type>
+					<default>false</default>
+                </property>
+				<!-- Manifestante - Inicio -->
+				<property name="spu:processo.ManifestanteNome">
+				   	<title>Nome do Manifestante</title>
+				   	<type>d:text</type>
+                </property>
+				<property name="spu:processo.ManifestanteCpf">
+				   	<title>CPF do Manifestante</title>
+				   	<type>d:text</type>
+                </property>
+				<property name="spu:processo.ManifestanteTipo">
+				   	<title>Tipo do Manifestante</title>
+				   	<type>d:category</type>
+                </property>
+				<property name="spu:processo.ManifestanteBairro">
+				   	<title>Bairro do Manifestante</title>
+				   	<type>d:category</type>
+                </property>			
+				<!-- Manifestante - Fim -->
+                <!-- Movimentações - Inicio -->
+				<property name="spu:processo.Despacho">
+				   	<title>Despacho</title>
+				   	<type>d:text</type>
+                </property>
+                <property name="spu:processo.Externo">
+				   	<title>Externo?</title>
+				   	<type>d:boolean</type>
+                </property>
+			</properties>
+			<associations>
+				<association name="spu:processo.Proprietario">
+					<title>Proprietário</title>
+					<source>
+						<many>true</many>
+					</source>
+					<target>
+						<class>spu:protocolo</class>
+						<mandatory>false</mandatory>
+						<many>false</many>
+                    </target>
+                </association>
+                <association name="spu:processo.Origem">
+					<title>Origem</title>
+					<source>
+                        <mandatory>false</mandatory>
+						<many>true</many>
+                    </source>
+					<target>
+						<class>spu:protocolo</class>
+						<mandatory>false</mandatory>
+						<many>false</many>
+                    </target>
+                </association>
+                <association name="spu:processo.Destino">
+					<title>Destino</title>
+					<source>
+                        <mandatory>false</mandatory>
+						<many>true</many>
+                    </source>
+					<target>
+						<class>spu:protocolo</class>
+						<mandatory>false</mandatory>
+						<many>false</many>
+                    </target>
+                </association>
+				<association name="spu:processo.Assunto">
+					<title>Assunto</title>
+					<source>
+						<many>true</many>
+					</source>					
+					<target>
+						<class>spu:assunto</class>
+						<mandatory>false</mandatory>
+						<many>false</many>
+            		</target>
+            	</association>
+			</associations>
+			<mandatory-aspects>
+        		<aspect>cm:versionable</aspect>
+            </mandatory-aspects>
+		</type>
+       	 	<!-- Formulario -->
+		<type name="spu:formularioprocesso">
+			<title>Formulario de Processo</title>
+			<parent>cm:content</parent>
+		</type>
+		<!-- Resposta Formulario -->
+		<type name="spu:respostasformularioprocesso">
+			<title>Respostas de Formulario de Processo</title>
+			<parent>cm:content</parent>
+			<mandatory-aspects>
+           		<aspect>cm:versionable</aspect>
+        	</mandatory-aspects>
+		</type>
+		<!-- Protocolo - Pasta de Entrada/Saida/Arquivo do SPU -->
+		<type name="spu:protocolo">
+			<title>Protocolo</title>
+			<parent>cm:folder</parent>
+			<properties>
+				<property name="spu:protocolo.Orgao">
+				   	<title>Orgao</title>
+				   	<type>d:text</type>
+                    		</property>
+				<property name="spu:protocolo.Lotacao">
+				   	<title>Lotacao</title>
+				   	<type>d:text</type>
+                    		</property>
+			</properties>
+		</type>
+		<!-- Caixa de Entrada -->
+		<type name="spu:caixaentrada">
+			<title>Caixa de Entrada de Processos</title>
+			<parent>cm:folder</parent>
+		</type>
+		<!-- Caixa de Saida -->
+		<type name="spu:caixasaida">
+			<title>Caixa de Saída de Processos</title>
+			<parent>cm:folder</parent>
+		</type>
+                <!-- Arquivo -->
+		<type name="spu:arquivo">
+			<title>Arquivo de Processos</title>
+			<parent>cm:folder</parent>
+		</type>
+	</types>
+</model>
+

@@ -5,7 +5,7 @@
 		"${assunto.properties.name}":[{
 			"noderef":"${assunto.nodeRef}",
 			"nome":"${assunto.properties.name}",
-			"descricao":"${assunto.properties.description}"
+			"descricao":"${assunto.properties.title}"
 			<#if assunto.parent[0]?exists>			
 			,"tipoProcesso":"${assunto.parent.properties.name}"
 			<#else>

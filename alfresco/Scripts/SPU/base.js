@@ -30,3 +30,18 @@ function getCaixasEntrada() {
 	var caixasEntrada = search.luceneSearch("workspace://SpacesStore", 'TYPE:"spu:CaixaEntrada"');
 	return caixasEntrada;
 }
+
+function getOrCreateFolder(parent, folderName, folderTitle) {
+    var props = new Array()
+    props["cm:name"] = folderName
+    props["cm:title"] = (folderTitle) ? folderTitle : folderName
+
+    return getOrCreateNode(parent, 'cm:folder', props)
+}
+
+function getOrCreateNode(parent, type, props) {
+    var nodeName = props['cm:name']
+    var existingNode = parent.childByNamePath(nodeName)
+    var node = (!existingNode) ? parent.createNode(null, type, props) : existingNode;
+    return node
+}

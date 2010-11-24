@@ -55,3 +55,20 @@ function getTiposManifestante() {
 	var tiposManifestante = search.luceneSearch('PATH:\"/cm:generalclassifiable//cm:SPU//cm:Tipo_x0020_de_x0020_Manifestante//*\"');
 	return tiposManifestante;
 }
+
+function getOrCreateTipoProcesso(parent, nome, titulo) {
+    var props = new Array()
+    props['cm:name'] = nome
+    props['cm:title'] = (titulo) ? titulo : nome
+    props['spu:tipoprocesso.TipoManifestante'] = getDefaultTiposManifestante()
+
+    return getOrCreateNode(parent, "spu:tipoprocesso", props)
+}
+
+function getOrCreateAssunto(tipoProcesso, nome, titulo) {
+    var props = new Array()
+    props['cm:name'] = nome
+    props['cm:title'] = (titulo) ? titulo : nome
+    
+    return getOrCreateNode(tipoProcesso, "spu:assunto", props)
+}
