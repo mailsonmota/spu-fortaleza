@@ -65,14 +65,13 @@ class AbrirprocessoController extends BaseController
                 $session->processo = $processo;
                 $this->setSuccessMessage("Processo criado com sucesso");
                 $this->_redirectUploadArquivo();
-            } 
+            }
             catch (AlfrescoApiException $e) {
             	throw $e;
             }
             catch (Exception $e) {
                 throw $e;
             }
-            
         }
         
         $this->view->tipoProcesso = $tipoProcesso;
@@ -104,7 +103,6 @@ class AbrirprocessoController extends BaseController
         	$session = new Zend_Session_Namespace('aberturaProcesso');
         	$processo = $session->processo;
         	
-        	$processo->changeTicket($this->getAdminTicket());
         	$postData['processoId'] = $processo->id;
         	$postData['destinoId'] = $processo->protocolo->id;
         	$postData['prioridadeId'] = $processo->prioridade->id;

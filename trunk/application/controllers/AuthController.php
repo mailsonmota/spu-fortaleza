@@ -19,15 +19,6 @@ class AuthController extends BaseController
         $auth = Zend_Auth::getInstance();
         $result = $auth->authenticate($authAdapter);
         
-        // FIXME substituir
-        Loader::loadAlfrescoApiClass('AlfrescoLogin');
-        Loader::loadEntity('BaseAlfrescoEntity');
-
-        $alfrescoLoginObj = new AlfrescoLogin(BaseAlfrescoEntity::ALFRESCO_URL);
-        $authNamespace = new Zend_Session_Namespace('Zend_Auth');
-        $alfrescoLoginObj->login('admin', 'admin');
-        $authNamespace->adminTicket = $alfrescoLoginObj->getTicket();
-        
         switch ($result->getCode()) {
      
             case Zend_Auth_Result::FAILURE:
