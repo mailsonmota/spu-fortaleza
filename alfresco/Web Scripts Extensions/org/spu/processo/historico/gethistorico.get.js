@@ -8,3 +8,4 @@ if (processo == undefined || processo.length == 0)
 	status.redirect = true;
 }
 model.processo = processo;
+model.movimentacoes = getMovimentacoes(idProcesso);

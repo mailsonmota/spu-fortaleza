@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Lista os Processos Em Análise</shortname>
+	<description>Lista todos os Processos em Análise do Usuário</description>
+	<url>/spu/processo/analise</url>
+	<authentication>guest</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>

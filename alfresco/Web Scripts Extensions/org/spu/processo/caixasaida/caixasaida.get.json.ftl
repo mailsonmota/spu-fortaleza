@@ -2,7 +2,7 @@
 <#compress>
 	"Processos":[{
 		<#list processos as processo>
-			<#include "../../snippets/snippet_processo.get.json.ftl" />
+			<#include "../../snippet/snippet_processo.get.json.ftl" />
 			<#if processo_index+1 < processos?size>,</#if>
 		</#list>
 	}]

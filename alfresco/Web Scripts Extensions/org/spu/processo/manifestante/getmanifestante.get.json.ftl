@@ -1,7 +1,7 @@
 {
 "Manifestante":[{
 <#compress>
-	<#include "../../snippets/snippet_manifestante.get.json.ftl" />
+	<#include "../../snippet/snippet_manifestante.get.json.ftl" />
 </#compress>
 }]
 }
