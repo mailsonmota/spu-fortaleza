@@ -45,8 +45,8 @@
 	,"dataPrazo":""
 	</#if>
 	,"localAtual":[{
-		<#if processo.properties['spu:processo.Destino']?exists>
-			<#assign protocolo = companyhome.childrenByLuceneSearch["ID:workspace\\:\\/\\/SpacesStore\\/" + processo.properties['spu:processo.Destino']][0]>
+		<#if processo.assocs['spu:processo.Destino']?exists>
+			<#assign protocolo = processo.assocs['spu:processo.Destino'][0]>
 		<#else>
 			<#assign protocolo = "">
 		</#if>
@@ -72,26 +72,4 @@
 		"nome":"${processo.assocs['spu:processo.Assunto'][0].parent.name}"
 		</#if>
 	}]
-	<#if movimentacoes?exists>
-	,"movimentacoes":[{
-		<#list movimentacoes as movimentacao>		
-		"${movimentacao['data']?string('dd/MM/yyyy HH:MM:ss')}":[{
-			"data":"${movimentacao['data']?string('dd/MM/yyyy HH:MM:ss')}"
-			<#assign protocolo=movimentacao['de']>
-			,"de":[{<#include "snippet_protocolo.get.json.ftl" />}]
-			<#assign protocolo=movimentacao['para']>
-			,"para":[{<#include "snippet_protocolo.get.json.ftl" />}]
-			,"despacho":"${movimentacao['despacho']}"
-			<#if movimentacao['prazo']?is_date>
-				<#assign prazo = movimentacao['prazo']?string('dd/MM/yyyy')>
-			<#else>
-				<#assign prazo = "">
-			</#if>
-			,"prazo":"${prazo}"
-			<#assign opcao=movimentacao['prioridade']>
-			,"prioridade":[{<#include "snippet_categoria.get.json.ftl" />}]
-		}]<#if movimentacao_has_next>,</#if>
-		</#list>
-	}]
-	</#if>
 }]

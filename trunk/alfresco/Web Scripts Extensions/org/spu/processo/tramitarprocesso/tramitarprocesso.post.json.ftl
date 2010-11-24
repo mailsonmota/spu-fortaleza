@@ -1,7 +1,7 @@
 {
 <#compress>
 	"Processo":[{
-		<#include "../../snippets/snippet_processo.get.json.ftl" />
+		<#include "../../snippet/snippet_processo.get.json.ftl" />
 	}]
 </#compress>
 }
