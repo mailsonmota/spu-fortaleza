@@ -15,15 +15,23 @@
                     /* Permissões */
                     adicionarPermissoesDestino(processo);	
 
-                    var destino = processo.assocs['spu:processo.Destino'][0];
+                    var destino = getNode(processo.properties['spu:processo.Destino']);
 
                     var caixaEntrada = getCaixaEntradaDestino(destino);
 	                processo.move(caixaEntrada);
                 }
 
+                function getNode(nodeId) {
+	                var node = search.luceneSearch('ID:"workspace://SpacesStore/' + nodeId + '"');
+	                if (node != undefined &amp;&amp; node.length &gt; 0) {
+		                node = node[0];
+	                }
+	                return node;
+                }
+
                 function adicionarPermissoesDestino(processo) {
                     /* Permissões - Adiciona as permissoes da Cx. Entrada origem ao processo */
-	                var protocoloOrigem = processo.assocs['spu:processo.Origem'][0];
+	                var protocoloOrigem = getNode(processo.properties['spu:processo.Origem']);
 	                var caixasEntradaOrigem = search.luceneSearch("workspace://SpacesStore", 'PATH:"' + protocoloOrigem.getQnamePath() + '/*" AND TYPE:"spu:CaixaEntrada"');
 	                var caixaEntradaOrigem = caixasEntradaOrigem[0];
 	                var permissoesCaixaEntradaOrigem = caixaEntradaOrigem.getPermissions();

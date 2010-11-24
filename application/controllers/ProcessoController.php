@@ -29,8 +29,7 @@ class ProcessoController extends BaseController
             $listaProtocolos = $this->_getListaProtocolos();
             
     		if ($this->getRequest()->isPost()) {
-    			$processoObjeto = new Processo($this->getAdminTicket());
-    			$processoObjeto->tramitar($this->getRequest()->getPost());
+    			$processo->tramitar($this->getRequest()->getPost());
     			$this->setSuccessMessage('Processo tramitado com sucesso.');
     			$this->_redirectDetalhesProcesso($idProcesso);
 	    	}
