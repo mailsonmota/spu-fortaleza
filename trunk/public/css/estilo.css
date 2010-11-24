@@ -167,7 +167,7 @@ ol.orderedList {list-style-type: decimal; margin-left: 3em; margin-bottom: 1.5em
 .widgetRight {margin-left: 1%}
 
 /* Mensagem */
-div#message {margin: 0 0 2% 0}
+div#message {margin: 0 0 2% 0; border-width: 1px 0}
 
 /* Sidebar */
 #article {display: block;z-index: 1;}
@@ -207,6 +207,7 @@ body.basic {background: url(../img/degrade.jpg) repeat-x 0% 0% white;}
 #section ul.buttons {background: none; border: 0; margin: 0; padding: 0;}
 #username {background-image: url(../img/icons/username.png);}
 #password {background-image: url(../img/icons/password.png);}
+body.basic #message {border-top: 0}
 
 /* Botão Pesquisar */
 .pesquisar {display: none}
