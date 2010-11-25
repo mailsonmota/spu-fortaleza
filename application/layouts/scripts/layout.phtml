@@ -37,25 +37,18 @@
             $menu->addItem('Lista Assuntos', 'Cadastros', NULL, 'assuntos');
             $menu->addItem('Envolvidos', 'Cadastros', NULL, 'envolvidos');
             $menu->addItem('Tipos de Processos', 'Cadastros', NULL, 'tiposprocesso');
+            $menu->addItem('Protocolos', 'Cadastros', NULL, 'protocolos');
             
             $menu->addItem('Abertura', 'Processos', NULL, 'abrirprocesso');
             $menu->addItem('Tramitação', 'Processos', NULL, 'processos');
             $menu->addItem('Consulta', 'Processos', NULL, 'processos', 'consultar');
-            $menu->addItem('Apensamento', 'Processos', NULL, 'processos', 'consultar');
             $menu->addItem('Incorporação', 'Processos', NULL, 'processos', 'incorporacao');
-            $menu->addItem('Correção', 'Processos', NULL, 'processos', 'consultar');
-            $menu->addItem('Alteração', 'Processos', NULL, 'processos', 'consultar');
-            $menu->addItem('Alteração Movimento', 'Processos', NULL, 'processos', 'consultar');
             $menu->addItem('Exclusão', 'Processos', NULL, 'processos', 'consultar');
             
             $menu->addItem('Envio', 'Malotes', NULL, 'relatorios');
             $menu->addItem('Recebimento', 'Malotes', NULL, 'relatorios');
             $menu->addItem('Consulta', 'Malotes', NULL, 'relatorios');
             $menu->addItem('Central', 'Malotes', NULL, 'relatorios');
-            
-            $menu->addItem('Consulta Web', 'Relatórios', NULL, 'relatorios');
-            $menu->addItem('Gerencial', 'Relatórios', NULL, 'relatorios');
-            $menu->addItem('Auditoria', 'Relatórios', NULL, 'relatorios');
             
             echo $menu->render();
             ?>
