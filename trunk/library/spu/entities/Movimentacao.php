@@ -152,9 +152,8 @@ class Movimentacao extends BaseEntity
     protected function _getDescricaoAbertura()
     {
     	$nomeOrigem = $this->_getNomeOrigemParaDescricao();
-    	$nomeDestino = $this->_getNomeDestinoParaDescricao();
     	
-    	return "$nomeOrigem <em>abriu</em> o processo para $nomeDestino.";
+    	return "$nomeOrigem <em>abriu</em> o processo.";
     }
     
 	protected function _getDescricaoRecebimento()
