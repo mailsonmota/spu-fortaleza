@@ -58,11 +58,13 @@ class AbrirprocessoController extends BaseController
         
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getParams();
+            
             $processo = new Processo($this->getTicket());
             try {
                 $processo->abrirProcesso($postData);
                 $session = new Zend_Session_Namespace('aberturaProcesso');
                 $session->processo = $processo;
+                $session->destino = $postData['destino'];
                 $this->setSuccessMessage("Processo criado com sucesso");
                 $this->_redirectUploadArquivo();
             }
@@ -104,7 +106,7 @@ class AbrirprocessoController extends BaseController
         	$processo = $session->processo;
         	
         	$postData['processoId'] = $processo->id;
-        	$postData['destinoId'] = $processo->protocolo->id;
+        	$postData['destinoId'] = $session->destino;
         	$postData['prioridadeId'] = $processo->prioridade->id;
         	$postData['prazo'] = $processo->data;
         	$postData['despacho'] = "";
