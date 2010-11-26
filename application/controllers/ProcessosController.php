@@ -210,7 +210,7 @@ class ProcessosController extends BaseController
         $this->view->lista = $processo->listarProcessosCaixaEnviados();
     }
     
-    // passo 1
+    // início incorporação
     public function incorporacaoprincipalAction()
     {
     	// TODO Verificar possibilidades de quebrar a incorporação indo do passo 2 ao 1 e depois confirmando etc.
@@ -224,7 +224,6 @@ class ProcessosController extends BaseController
         $this->view->lista = $processo->listarProcessosCaixaAnalise();
     }
     
-    // passo 2
     public function incorporacaoincorporadoAction()
     {
     	$session = new Zend_Session_Namespace('incorporacaoSession');
@@ -238,19 +237,29 @@ class ProcessosController extends BaseController
         $this->view->principal = $session->principal;
     }
     
-    // passo 3
     public function incorporacaoconfirmacaoAction()
     {
     	$session = new Zend_Session_Namespace('incorporacaoSession');
         if ($this->getRequest()->isPost()) {
-            $postData = $this->getRequest();
+            $principal = $session->principal;
+            $incorporado = $session->incorporado;
+            $processo = new Processo($this->getTicket());
+            try {
+            	$processo->incorporar($principal, $incorporado);
+            }
+            catch (AlfrescoApiException $e) {
+            	throw $e;
+            }
+            catch (Exception $e) {
+            	throw $e;
+            }
             $this->_redirectIncorporacaoDetalhes();
         }
+        
         $this->view->principal = $session->principal;
         $this->view->incorporado = $session->incorporado;
     }
     
-    // passo 4
     public function incorporacaodetalhesAction()
     {
     	$session = new Zend_Session_Namespace('incorporacaoSession');
