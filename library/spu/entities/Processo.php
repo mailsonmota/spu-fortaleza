@@ -497,5 +497,10 @@ class Processo extends BaseAlfrescoEntity
         
         return $return;
     }
+    
+    public function incorporar($principal, $incorporado)
+    {
+    	//
+    }
 }
 ?>
