@@ -107,7 +107,7 @@ class AbrirprocessoController extends BaseController
         	$postData['destinoId'] = $processo->protocolo->id;
         	$postData['prioridadeId'] = $processo->prioridade->id;
         	$postData['prazo'] = $processo->data;
-        	$postData['despacho'] = $processo->corpo;
+        	$postData['despacho'] = "";
         	
         	try {
         	    $processo->tramitar($postData);
