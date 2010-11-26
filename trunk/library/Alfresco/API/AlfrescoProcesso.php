@@ -216,11 +216,28 @@ class AlfrescoProcesso extends AlfrescoBase
         $url = $this->addAlfTicketUrl($url);
         
         $curlObj = new CurlClient();
-        
         $result = $curlObj->doPostRequest($url, $postData);
         
         if ($this->isAlfrescoError($result)) {
         	throw new Exception($this->getAlfrescoErrorMessage($result));
+        }
+        
+        return $result;
+	}
+	
+	public function incorporar($principal, $incorporado)
+	{
+		$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/incorporar";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $data['principal'] = $principal;
+        $data['incorporado'] = $incorporado;
+        
+        $curlObj = new CurlClient();
+        $result = $curlObj->doPostRequest($url, $data);
+        
+        if ($this->isAlfrescoError($result)) {
+            throw new Exception($this->getAlfrescoErrorMessage($result));
         }
         
         return $result;
