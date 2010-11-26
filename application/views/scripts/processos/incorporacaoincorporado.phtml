@@ -1,5 +1,6 @@
 <?php 
 $this->breadcrumbs()->addPage('Incorporação', 'processos/incorporacaoprincipal');
+$this->breadcrumbs()->addPage('Processo Incorporado', 'processos/incorporacaoincorporado');
 echo $this->breadcrumbs()->render(); 
 
 echo $this->pagenav()->openList(); 
@@ -11,7 +12,7 @@ echo $this->pagenav()->closeList();
     <form action="<?php echo $this->simpleUrl('incorporacao') ?>" method="post">
         <?php 
         echo $this->buttonlist()->open();
-        echo $this->buttonlist()->button('Escolher Processo Principal', 'incorporacao');
+        echo $this->buttonlist()->button('Escolher Processo Incorporado', 'incorporacao');
         echo $this->buttonlist()->close(true); 
         
         $headerColumns = array('', 'Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
