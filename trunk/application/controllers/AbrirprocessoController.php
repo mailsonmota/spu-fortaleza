@@ -78,15 +78,17 @@ class AbrirprocessoController extends BaseController
     	if ($this->getRequest()->isPost()) {
     		$session = new Zend_Session_Namespace('aberturaProcesso');
     		$formDadosGeraisProcesso = $session->formDadosGeraisProcesso;
-    		      print '<pre>';
-    		      print '$formDadosGeraisProcesso'."\n";
+    		      
     		      var_dump($formDadosGeraisProcesso);
     		$postData = $this->getRequest()->getPost();
-    		      print '$postData'."\n";
-    		      var_dump($postData);
+    		
     		$dataMerged = array_merge($formDadosGeraisProcesso, $postData);
-    		      print '$dataMerged'."\n";
-    		      var_dump($dataMerged); print '</pre>';
+	        /*print '<pre>';
+	        print '$formDadosGeraisProcesso'."\n";      
+	        print '$postData'."\n";
+	        var_dump($postData);
+	        print '$dataMerged'."\n";
+	        var_dump($dataMerged); print '</pre>';*/
     		$processo = new Processo($this->getTicket());
     		$processo->abrirProcesso($dataMerged);
     		$session->processo = $processo;
