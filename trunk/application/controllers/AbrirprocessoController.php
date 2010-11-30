@@ -22,23 +22,6 @@ class AbrirprocessoController extends BaseController
         $this->view->listaTiposProcesso = $listaTiposProcesso;
     }
     
-    protected function _getIdTipoProcessoPost()
-    {
-        return ($this->getRequest()->getParam('tipoprocesso')) ? $this->getRequest()->getParam('tipoprocesso') : null;
-    }
-    
-    protected function _getListaTiposProcesso()
-    {
-        $tipoProcesso = new TipoProcesso($this->getTicket());
-        $tiposProcesso = $tipoProcesso->listar();
-        $listaTiposProcesso = array();
-        foreach ($tiposProcesso as $tipoProcesso) {
-            $listaTiposProcesso[$tipoProcesso->id] = $tipoProcesso->nome;
-        }
-        
-        return $listaTiposProcesso;
-    }
-    
     public function formularioAction()
     {
         try {
@@ -58,15 +41,18 @@ class AbrirprocessoController extends BaseController
         
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getParams();
-            
-            $processo = new Processo($this->getTicket());
             try {
+            	$session = new Zend_Session_Namespace('aberturaProcesso');
+            	$session->formDadosGeraisProcesso = $postData;
+            	$this->_redirectFormularioEnvolvido();
+            	/*Fluxo anterior, quando não existia o passo formularioenvolvidoAction()
+            	$processo = new Processo($this->getTicket());
                 $processo->abrirProcesso($postData);
                 $session = new Zend_Session_Namespace('aberturaProcesso');
                 $session->processo = $processo;
-                $session->destino = $postData['destino'];
+                $session->destino = $postData['destino']; // TODO
                 $this->setSuccessMessage("Processo criado com sucesso");
-                $this->_redirectUploadArquivo();
+                $this->_redirectUploadArquivo();*/
             }
             catch (AlfrescoApiException $e) {
             	throw $e;
@@ -85,6 +71,27 @@ class AbrirprocessoController extends BaseController
         $this->view->listaOrigens = $listaOrigens;
         $this->view->listaProtocolos = $listaProtocolos;
         $this->view->listaProprietarios = $listaProprietarios;
+    }
+    
+    public function formularioenvolvidoAction()
+    {
+    	if ($this->getRequest()->isPost()) {
+    		$session = new Zend_Session_Namespace('aberturaProcesso');
+    		$formDadosGeraisProcesso = $session->formDadosGeraisProcesso;
+    		      print '<pre>';
+    		      print '$formDadosGeraisProcesso'."\n";
+    		      var_dump($formDadosGeraisProcesso);
+    		$postData = $this->getRequest()->getPost();
+    		      print '$postData'."\n";
+    		      var_dump($postData);
+    		$dataMerged = array_merge($formDadosGeraisProcesso, $postData);
+    		      print '$dataMerged'."\n";
+    		      var_dump($dataMerged); print '</pre>';
+    		$processo = new Processo($this->getTicket());
+    		$processo->abrirProcesso($dataMerged);
+    		$session->processo = $processo;
+    		$this->_redirectUploadArquivo();
+    	}
     }
     
     public function uploadarquivoAction()
@@ -106,7 +113,7 @@ class AbrirprocessoController extends BaseController
         	$processo = $session->processo;
         	
         	$postData['processoId'] = $processo->id;
-        	$postData['destinoId'] = $session->destino;
+        	$postData['destinoId'] = $processo->destino;
         	$postData['prioridadeId'] = $processo->prioridade->id;
         	$postData['prazo'] = $processo->data;
         	$postData['despacho'] = "";
@@ -121,6 +128,29 @@ class AbrirprocessoController extends BaseController
         	
         	$this->_redirectProcessoDetalhes($processo->id);
         }
+    }
+    
+    public function processocriadoAction()
+    {
+        $defaultNamespaceSession = new Zend_Session_Namespace('aberturaProcesso');
+        $this->view->processo = $defaultNamespaceSession->processo;
+    } 
+    
+    protected function _getIdTipoProcessoPost()
+    {
+        return ($this->getRequest()->getParam('tipoprocesso')) ? $this->getRequest()->getParam('tipoprocesso') : null;
+    }
+    
+    protected function _getListaTiposProcesso()
+    {
+        $tipoProcesso = new TipoProcesso($this->getTicket());
+        $tiposProcesso = $tipoProcesso->listar();
+        $listaTiposProcesso = array();
+        foreach ($tiposProcesso as $tipoProcesso) {
+            $listaTiposProcesso[$tipoProcesso->id] = $tipoProcesso->nome;
+        }
+        
+        return $listaTiposProcesso;
     }
     
     protected function _redirectProcessoDetalhes($uuid)
@@ -265,12 +295,6 @@ class AbrirprocessoController extends BaseController
         $this->_helper->redirector('index', $this->getController(), 'default');
     }
     
-    public function processocriadoAction()
-    {
-    	$defaultNamespaceSession = new Zend_Session_Namespace('aberturaProcesso');
-        $this->view->processo = $defaultNamespaceSession->processo;
-    } 
-    
     protected function _redirectProcessoCriado()
     {
         $this->_helper->redirector('processocriado', $this->getController(), 'default');
@@ -284,6 +308,11 @@ class AbrirprocessoController extends BaseController
     protected function _redirectConfirmacaoCriacao()
     {
     	$this->_helper->redirector('confirmacaocriacao', $this->getController(), 'default');
+    }
+    
+    protected function _redirectFormularioEnvolvido()
+    {
+    	$this->_helper->redirector('formularioenvolvido', $this->getController(), 'default');
     }
 
 }
