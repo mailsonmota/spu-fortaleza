@@ -111,9 +111,8 @@ class AbrirprocessoController extends BaseController
         if ($this->getRequest()->isPost()) {
         	$session = new Zend_Session_Namespace('aberturaProcesso');
         	$processo = $session->processo;
-        	
         	$postData['processoId'] = $processo->id;
-        	$postData['destinoId'] = $processo->destino;
+        	$postData['destinoId'] = $session->formDadosGeraisProcesso['destino'];
         	$postData['prioridadeId'] = $processo->prioridade->id;
         	$postData['prazo'] = $processo->data;
         	$postData['despacho'] = "";
