@@ -39,6 +39,11 @@ class ProcessosController extends BaseController
     	$this->_helper->redirector('index', $this->getController(), 'default');
     }
     
+	protected function _redirectArquivo()
+    {
+    	$this->_helper->redirector('arquivo', $this->getController(), 'default');
+    }
+    
     public function analiseAction()
     {
     	if ($this->getRequest()->isPost()) {
@@ -54,6 +59,8 @@ class ProcessosController extends BaseController
         		$session->processos = $processosSelecionados;
         		$this->_redirectEncaminhar();
         	} elseif ($isArquivar) {
+        		$session = new Zend_Session_Namespace('arquivar');
+        		$session->processos = $processosSelecionados;
         		$this->_redirectArquivar();
         	} elseif ($isExterno) {
         		$session = new Zend_Session_Namespace('encaminharExternos');
@@ -73,7 +80,7 @@ class ProcessosController extends BaseController
     
 	protected function _redirectArquivar()
     {
-    	$this->_helper->redirector('encaminhar', $this->getController(), 'default');
+    	$this->_helper->redirector('arquivar', $this->getController(), 'default');
     }
     
 	protected function _redirectEncaminharExternos()
@@ -282,5 +289,49 @@ class ProcessosController extends BaseController
     protected function _redirectIncorporacaoDetalhes()
     {
         $this->_helper->redirector('incorporacaodetalhes', $this->getController(), 'default');
+    }
+    
+    public function arquivadosAction()
+    {
+    	if ($this->getRequest()->isPost()) {
+    		try {
+    			$processo = new Processo($this->getTicket());
+	    		$processo->cancelarEnvios($this->getRequest()->getPost());
+	    		$this->setSuccessMessage('Processos reabertos com sucesso.');
+	    		$this->_redirectEntrada();
+			} catch (Exception $e) {
+	    		$this->setMessageForTheView($e->getMessage(), 'error');
+	    	}
+    	}
+    	
+        $processo = new Processo($this->getTicket());
+        $this->view->lista = $processo->listarProcessosCaixaSaida();
+    }
+    
+    public function arquivarAction()
+    {
+    	if ($this->getRequest()->isPost()) {
+    		try {
+    			$processo = new Processo($this->getTicket());
+	    		$processo->arquivarVarios($this->getRequest()->getPost());
+	    		$this->setSuccessMessage('Processos arquivados com sucesso.');
+	    		//$this->_redirectArquivo();
+			} catch (Exception $e) {
+	    		$this->setMessageForTheView($e->getMessage(), 'error');
+	    	}
+    	}
+    	
+    	$processos = array();
+    	
+	    try {
+	    	$session = new Zend_Session_Namespace('arquivar');
+	    	$processosSelecionados = $session->processos;
+	    	$processos = $this->_getListaCarregadaProcessos($processosSelecionados);
+	    } catch (Exception $e) {
+    		$this->setErrorMessage($e->getMessage());
+    		$this->_redirectEmAnalise();
+    	}
+    	
+        $this->view->processos = $processos;
     }
 }
