@@ -8,13 +8,13 @@ class IncorporacaoController extends BaseController
             $postData = $this->getRequest()->getPost();
             $session = new Zend_Session_Namespace('incorporacaoSession');
             $session->principal = $postData['processos'][0];
-            $this->_redirectIncorporacaoIncorporado();
+            $this->_redirectEscolherIncorporado();
         }
         $processo = new Processo($this->getTicket());
         $this->view->lista = $processo->listarProcessosCaixaAnalise();
     }
     
-    public function incorporacaoincorporadoAction()
+    public function escolherincorporadoAction()
     {
         $session = new Zend_Session_Namespace('incorporacaoSession');
         if ($this->getRequest()->isPost()) {
@@ -27,7 +27,7 @@ class IncorporacaoController extends BaseController
         $this->view->principal = $session->principal;
     }
     
-    public function incorporacaoconfirmacaoAction()
+    public function confirmacaoAction()
     {
         $session = new Zend_Session_Namespace('incorporacaoSession');
         if ($this->getRequest()->isPost()) {
@@ -50,7 +50,7 @@ class IncorporacaoController extends BaseController
         $this->view->incorporado = $session->incorporado;
     }
     
-    public function incorporacaodetalhesAction()
+    public function detalhesAction()
     {
         $session = new Zend_Session_Namespace('incorporacaoSession');
         if ($this->getRequest()->isPost()) {
@@ -59,18 +59,18 @@ class IncorporacaoController extends BaseController
         $this->view->principal = $session->principal;
     }
     
-    protected function _redirectIncorporacaoIncorporado()
+    protected function _redirectEscolherIncorporado()
     {
-        $this->_helper->redirector('incorporacaoincorporado', $this->getController(), 'default');
+        $this->_helper->redirector('escolherincorporado', $this->getController(), 'default');
     }
     
-    protected function _redirectIncorporacaoConfirmacao()
+    protected function _redirectConfirmacao()
     {
-        $this->_helper->redirector('incorporacaoconfirmacao', $this->getController(), 'default');
+        $this->_helper->redirector('confirmacao', $this->getController(), 'default');
     }
     
-    protected function _redirectIncorporacaoDetalhes()
+    protected function _redirectDetalhes()
     {
-        $this->_helper->redirector('incorporacaodetalhes', $this->getController(), 'default');
+        $this->_helper->redirector('detalhes', $this->getController(), 'default');
     }
 }
