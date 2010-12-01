@@ -12,19 +12,6 @@
 </fieldset>
 
 <fieldset>
-    <legend>Manifestante</legend>
-    <?php 
-    echo $this->form()->openFieldList();
-    echo $this->textbox('CPF/CNPJ', 'manifestanteCpfCnpj', null, array('required' => true, 'length' => 18));
-    echo $this->textbox('Nome', 'manifestanteNome', null, array('required' => true, 'length' => 60));
-    echo $this->select('Bairro', 'manifestanteBairroId', $this->listaBairros, null, array('required' => true, 'length'));
-    echo $this->select('Tipo', 'manifestanteTipoId', $this->listaTiposManifestante, null, array('required' => true));
-    echo $this->textbox('Responsável', 'responsavel', null, array('length' => 60));
-    echo $this->form()->closeFieldList();
-    ?>
-</fieldset>
-
-<fieldset>
     <legend>Processo</legend>
     <?php 
     echo $this->form()->openFieldList();

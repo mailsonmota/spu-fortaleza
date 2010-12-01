@@ -10,10 +10,12 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <h4>Dados do Envolvido (ou do processo)</h4>
+    <h4>3. Preencha o formulário do Envolvido</h4>
     <form action="" method="post">
         <?php 
-        echo $this->form()->openFieldList();
+        if ($this->tipoProcesso->id) {
+            echo $this->render('snippets/formularioEnvolvido.phtml');
+        }
         
         echo $this->buttonlist()->open();
         echo $this->buttonlist()->button('Avançar');
