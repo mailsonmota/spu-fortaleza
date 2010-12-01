@@ -5,7 +5,6 @@
     echo $this->select('Proprietário', 'proprietarioId', $this->listaProprietarios, null, array('required' => true));
     echo $this->textbox('Data', 'data', null, array('required' => true, 'class' => 'mascaraData'));
     echo $this->textbox('Hora', 'hora', date('H:i'), array('required' => true, 'class' => 'mascaraHora'));
-    echo $this->textbox('N&uacute;mero', 'numero', null, array('required' => true));
     echo $this->textbox('N&ordm; Origem', 'numeroOrigem');
     echo $this->textbox('Observa&ccedil;&atilde;o', 'observacao', null, array('length' => 60));
     echo $this->form()->closeFieldList();
