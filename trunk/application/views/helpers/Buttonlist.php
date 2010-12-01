@@ -80,8 +80,7 @@ class Zend_View_Helper_buttonlist extends Zend_View_Helper_Abstract
     
     public function resetbutton()
     {
-        $html  = "";
-        $html .= "<li><button type=\"reset\">Limpar</button></li>";
+        $html = "<li><button type=\"reset\">Limpar</button></li>";
         
         return $html;
     }

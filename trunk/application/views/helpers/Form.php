@@ -19,8 +19,7 @@ class Zend_View_Helper_form extends Zend_View_Helper_Abstract
     
     public function openFieldList()
     {
-        $html  = '';
-        $html .= '<dl class="form">';
+        $html = '<dl class="form">';
         
         return $html;
     }
@@ -47,8 +46,7 @@ class Zend_View_Helper_form extends Zend_View_Helper_Abstract
     
     public function closeFieldList()
     {
-        $html  = '';
-        $html .= '</dl>';
+        $html = '</dl>';
         
         return $html;
     }

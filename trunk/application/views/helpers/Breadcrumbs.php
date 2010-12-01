@@ -6,7 +6,8 @@
  */
 class Zend_View_Helper_breadcrumbs extends Zend_View_Helper_Abstract
 {
-	const SEPARATOR = " &rarr; "; 
+	const SEPARATOR = " &rarr; ";
+	
     protected $_page = array(array('nome' => 'Início', 'controller' => '', 'action' => '', 'params' => array()));
     protected $_html;
     
@@ -32,10 +33,7 @@ class Zend_View_Helper_breadcrumbs extends Zend_View_Helper_Abstract
         $separator = self::SEPARATOR;
         $html = '';
         
-        $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
-        
         $start = ($renderHome) ? 0 : 1; 
-        
         for ($i = $start; $i < count($this->_page); $i++) {
             $titulo = $this->_page[$i]['nome'];
             
@@ -52,8 +50,6 @@ class Zend_View_Helper_breadcrumbs extends Zend_View_Helper_Abstract
                 }
                 
                 $href = $this->view->url($url, NULL, TRUE);
-                $titulo = $this->_page[$i]['nome'];
-                
                 $html .= "<a href='$href' title='$titulo'>$titulo</a>";
             } else {
                 $html .= "<h2>$titulo</h2>";    
