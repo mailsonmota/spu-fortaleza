@@ -17,8 +17,8 @@ echo $this->pagenav()->closeList();
         echo $this->buttonlist()->button('Cancelar Envio dos Selecionados');
         echo $this->buttonlist()->close(true); 
         
-        $headerColumns = array('', 'Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
-        $columns = array('numero', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
+        $headerColumns = array('', 'Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Para', 'Detalhes');
+        $columns = array('numero', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto', 'nomeProtocolo');
         
         $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
         $grid->addCheckboxColumn('processosParaCancelarEnvio', 'id');

@@ -231,7 +231,7 @@ class ProcessosController extends BaseController
     	}
     	
         $processo = new Processo($this->getTicket());
-        $this->view->lista = $processo->listarProcessosCaixaSaida();
+        $this->view->lista = $processo->listarProcessosArquivados();
     }
     
     public function arquivarAction()

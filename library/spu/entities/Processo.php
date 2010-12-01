@@ -218,6 +218,11 @@ class Processo extends BaseAlfrescoEntity
     	return $this->numero . ' - ' . $this->getProprietario()->nome . ' (' . $this->getTipoProcesso()->nome . ')';
     }
     
+    public function getNomeProtocolo()
+    {
+    	return $this->getProtocolo()->getNome();
+    }
+    
     public function listarProcessosCaixaEntrada()
     {
         $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
@@ -260,6 +265,14 @@ class Processo extends BaseAlfrescoEntity
     {
     	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
         $hashProcessos = $service->getCaixaExternos();
+        
+        return $this->_loadManyFromHash($hashProcessos);
+    }
+    
+	public function listarProcessosArquivados()
+    {
+    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+        $hashProcessos = $service->getCaixaArquivo();
         
         return $this->_loadManyFromHash($hashProcessos);
     }
