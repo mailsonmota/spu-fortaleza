@@ -24,44 +24,38 @@
         </div>
         
         <div id="container">
-        
-        <div id="menu">
-            <?php 
-            $menu = $this->mainmenu();
-            $menu->setAutoOrder(TRUE);
-            
-            $menu->addItem('Início', 'Usuário', NULL, 'index');
-            $menu->addItem('Cadastro', 'Usuário', NULL, 'usuario', 'cadastro');
-            $menu->addItem('Sair', 'Usuário', NULL, 'auth', 'logout');
-            
-            $menu->addItem('Lista Assuntos', 'Cadastros', NULL, 'assuntos');
-            $menu->addItem('Envolvidos', 'Cadastros', NULL, 'envolvidos');
-            $menu->addItem('Tipos de Processos', 'Cadastros', NULL, 'tiposprocesso');
-            $menu->addItem('Protocolos', 'Cadastros', NULL, 'protocolos');
-            
-            $menu->addItem('Abertura', 'Processos', NULL, 'abrirprocesso');
-            $menu->addItem('Tramitação', 'Processos', NULL, 'processos');
-            $menu->addItem('Consulta', 'Processos', NULL, 'processos', 'consultar');
-            $menu->addItem('Incorporação', 'Processos', NULL, 'incorporacao', 'index');
-            $menu->addItem('Exclusão', 'Processos', NULL, 'processos', 'consultar');
-            
-            $menu->addItem('Envio', 'Malotes', NULL, 'relatorios');
-            $menu->addItem('Recebimento', 'Malotes', NULL, 'relatorios');
-            $menu->addItem('Consulta', 'Malotes', NULL, 'relatorios');
-            $menu->addItem('Central', 'Malotes', NULL, 'relatorios');
-            
-            echo $menu->render();
-            ?>
-        </div>
-          
-        <div id="section">
-          
-            <?php echo $this->message()->render(); ?>
-              
-            <?php echo $this->layout()->content ?>
-            
-        </div>     
-        
+            <div id="menu">
+	            <?php 
+	            $menu = $this->mainmenu();
+	            $menu->setAutoOrder(TRUE);
+	            
+	            $menu->addItem('Início', $this->simpleUrl('index', 'index'), 'Usuário');
+	            $menu->addItem('Cadastro', $this->simpleUrl('cadastro', 'usuario'), 'Usuário');
+	            $menu->addItem('Sair', $this->simpleUrl('logout', 'auth'), 'Usuário');
+	            
+	            $menu->addItem('Lista Assuntos', $this->simpleUrl('index', 'assuntos'), 'Cadastros');
+	            $menu->addItem('Envolvidos', $this->simpleUrl('index', 'envolvidos'), 'Cadastros');
+	            $menu->addItem('Tipos de Processos', $this->simpleUrl('index', 'tiposprocesso'), 'Cadastros');
+	            $menu->addItem('Protocolos', $this->simpleUrl('index', 'protocolos'), 'Cadastros');
+	            
+	            $menu->addItem('Abertura', $this->simpleUrl('index', 'abrirprocesso'), 'Processos');
+	            $menu->addItem('Tramitação', $this->simpleUrl('index', 'processos'), 'Processos');
+	            $menu->addItem('Consulta', $this->simpleUrl('index', 'consultar'), 'Processos');
+	            $menu->addItem('Incorporação', $this->simpleUrl('index', 'incorporacao'), 'Processos');
+	            
+	            $menu->addItem('Envio', $this->simpleUrl('enviar', 'malotes'), 'Malotes');
+	            $menu->addItem('Recebimento', $this->simpleUrl('receber', 'malotes'), 'Malotes');
+	            $menu->addItem('Consulta', $this->simpleUrl('consultar', 'malotes'), 'Malotes');
+	            $menu->addItem('Central', $this->simpleUrl('index', 'malotes'), 'Malotes');
+	            
+	            echo $menu->render();
+	            ?>
+	        </div>
+	          
+	        <div id="section">
+	            <?php echo $this->message()->render(); ?>
+	            <?php echo $this->layout()->content ?>
+	        </div>     
         </div>
         
         <div id="footer">
@@ -77,6 +71,5 @@
                 <li><a href="#">Manual do Usuário</a></li>
             </ul>
         </div>
-        
     </body>
 </html>
