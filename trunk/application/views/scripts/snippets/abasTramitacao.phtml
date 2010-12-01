@@ -7,6 +7,5 @@ echo $this->tabs()->addTab($this->simpleUrl('saida'), 'Saída', ($this->abaAtiva
 echo $this->tabs()->addTab($this->simpleUrl('enviados'), 'Enviados', ($this->abaAtiva == 'enviados') ? true : false);
 echo $this->tabs()->addTab($this->simpleUrl('copias'), 'Cópias', ($this->abaAtiva == 'copias') ? true : false);
 echo $this->tabs()->addTab($this->simpleUrl('arquivados'), 'Arquivados', ($this->abaAtiva == 'arquivados') ? true : false);
-echo $this->tabs()->addTab($this->simpleUrl('excluidos'), 'Excluídos', ($this->abaAtiva == 'excluidos') ? true : false);
 echo $this->tabs()->closeList();
 ?>

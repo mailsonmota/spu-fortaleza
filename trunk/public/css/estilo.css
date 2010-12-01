@@ -137,14 +137,14 @@ ol.orderedList {list-style-type: decimal; margin-left: 3em; margin-bottom: 1.5em
 .nav .insert {background: url(../img/icons/add.png) no-repeat 0% 50%; text-indent: 10px;}
 
 /* Abas */
-.tabs {list-style-type: none;}
+.tabs {list-style-type: none;margin-left: 1em;}
 .tabs li {
     display: block;
     float: left;
     line-height: 32px;
     background: #E5E4DF;
     padding: 0 1.25em;
-    margin: 0 1em;
+    margin: 0 1em 0 0;
     position: relative;
     bottom: -1px;
     border-color: #BBB;
