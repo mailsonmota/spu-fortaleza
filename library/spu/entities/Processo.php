@@ -511,19 +511,6 @@ class Processo extends BaseAlfrescoEntity
         return $return;
     }
     
-    // TODO Fazer/revisar web service "uploadarquivo"
-    public function uploadArquivo($data)
-    {
-        $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        try {
-            $return = $service->uploadArquivo($data);
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-        
-        return $return;
-    }
-
     public function arquivarVarios($postData)
     {
         $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
@@ -537,6 +524,19 @@ class Processo extends BaseAlfrescoEntity
         return $return;
     }
 
+    // TODO Fazer/revisar web service "uploadarquivo"
+    public function uploadArquivo($data)
+    {
+        $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+        try {
+            $return = $service->uploadArquivo($data);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+        
+        return $return;
+    }
+    
     // TODO Fazer/revisar web service "incorporação"
     public function incorporar($data)
     {
