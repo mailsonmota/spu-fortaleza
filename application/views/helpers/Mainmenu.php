@@ -3,7 +3,6 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
 {
     private $_items = array();
     private $_autoOrder = FALSE;
-    private $_showLogout = TRUE;
     
     public function mainmenu()
     {
@@ -20,17 +19,9 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
         $this->_showLogout = $value;
     }
     
-    public function addItem($name, $group = NULL, $resource = NULL, 
-        $controller = NULL, $action = NULL, $params = array(), 
-        $float = NULL)
+    public function addItem($name, $url, $group = NULL, $resource = NULL, array $options = array())
     {
-        $this->_items[$group][] = array(
-            'name' => $name, 
-            'resource' => $resource, 
-            'controller' => $controller, 
-            'action' => $action, 
-            'params' => $params
-        );
+        $this->_items[$group][] = array('name' => $name, 'url' => $url, 'resource' => $resource);
         
         return $this;
     }
@@ -55,7 +46,7 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
             $this->orderItems();
         }
         
-        $html  = '<ul>';
+        $html = '<ul>';
         foreach ($this->_items as $key=>$value) {
             if ($key) {
                 // Verifica se o usuario tem acesso à pelo menos um item
@@ -68,44 +59,21 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
                 
                 if ($acesso) {
                     $spanClass = $this->getSpanClass($key);
-                    $html .= '<li>';
-                    $html .= '<span class="' . $spanClass . '">' . $key . '</span>';
-                    $html .= '<ul>';
+                    $html .= "<li><span class='$spanClass'>$key</span><ul>";
                 }
             }
             
             foreach ($this->_items[$key] as $item) {
                 if ($this->isAllowed($item)) {
-                    $url = $this->view->url(
-                        array(
-                            'controller' => $item['controller'], 
-                            'action' => $item['action'], 
-                            'params' => $item['params']
-                        ), 
-                        NULL, 
-                        TRUE
-                    );
-                    
-                    $html .= '<li>';
-                    $html .= '<a href="' . $url . '">';
-                    $html .= $item['name'];
-                    $html .= '</a>';
-                    $html .= '</li>';
+                    $url = $item['url'];
+                    $name = $item['name'];
+                    $html .= "<li><a href='$url'>$name</a></li>";
                 }
             }
             
             if ($key AND $acesso) {
-                $html .= '</ul>';
-                $html .= '</li>';
+                $html .= '</li></ul>';
             }
-        }
-        
-        if ($this->_showLogout) {
-            $logoutUrl = $this->view->url(
-                array('controller' => 'auth', 'action' => 'logout', 'params' => array()), NULL, TRUE
-            );
-            
-            $html .= '</ul>';
         }
         
         return $html;
@@ -120,8 +88,7 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
         if (!$item['resource']) {
             return true;
         } else {
-            $authPlugin = Zend_Controller_Front::getInstance()->getPlugin('AuthPlugin');
-            
+            $authPlugin = $this->_getAuthPlugin();
             return $authPlugin->isAllowed($item['resource']);
         }
         
@@ -136,13 +103,12 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
                                    $onlyActive)
     {
         // create iterator
-        $iterator = new RecursiveIteratorIterator($container,
-                            RecursiveIteratorIterator::SELF_FIRST);
+        $iterator = new RecursiveIteratorIterator($container, RecursiveIteratorIterator::SELF_FIRST);
         if (is_int($maxDepth)) {
             $iterator->setMaxDepth($maxDepth);
         }
         
-        $authPlugin = Zend_Controller_Front::getInstance()->getPlugin('AuthPlugin');
+        $authPlugin = $this->_getAuthPlugin();
         
         foreach ($iterator as $page) {
             if (!$authPlugin->isAuthorized($page->getController(), $page->getAction())) {
@@ -151,5 +117,12 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
         }
         
         return parent::_renderMenu($container, $ulClass, $indent, $minDepth, $maxDepth, $onlyActive);
+    }
+    
+    private function _getAuthPlugin()
+    {
+    	$authPlugin = Zend_Controller_Front::getInstance()->getPlugin('AuthPlugin');
+    	
+    	return $authPlugin;
     }
 }
