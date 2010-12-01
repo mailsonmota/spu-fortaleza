@@ -41,7 +41,7 @@ class ProcessosController extends BaseController
     
 	protected function _redirectArquivo()
     {
-    	$this->_helper->redirector('arquivo', $this->getController(), 'default');
+    	$this->_helper->redirector('arquivados', $this->getController(), 'default');
     }
     
     public function analiseAction()
@@ -241,7 +241,7 @@ class ProcessosController extends BaseController
     			$processo = new Processo($this->getTicket());
 	    		$processo->arquivarVarios($this->getRequest()->getPost());
 	    		$this->setSuccessMessage('Processos arquivados com sucesso.');
-	    		//$this->_redirectArquivo();
+	    		$this->_redirectArquivo();
 			} catch (Exception $e) {
 	    		$this->setMessageForTheView($e->getMessage(), 'error');
 	    	}
