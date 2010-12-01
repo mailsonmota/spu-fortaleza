@@ -6,23 +6,16 @@
  */
 class Zend_View_Helper_breadcrumbs extends Zend_View_Helper_Abstract
 {
-    protected $_page = array(
-       array(
-           'nome' => 'Início', 
-           'controller' => '', 
-           'action' => '', 
-           'params' => array()
-       )
-    );
-    
+	const SEPARATOR = " &rarr; "; 
+    protected $_page = array(array('nome' => 'Início', 'controller' => '', 'action' => '', 'params' => array()));
     protected $_html;
     
     function addPage($nome, $controler = NULL, $action = NULL, $params = array())
     {
-        $page['nome']       = $nome;
+        $page['nome'] = $nome;
         $page['controller'] = $controler;
-        $page['action']     = $action;
-        $page['params']     = $params;
+        $page['action'] = $action;
+        $page['params'] = $params;
         
         $this->_page[] = $page;
         
@@ -36,8 +29,7 @@ class Zend_View_Helper_breadcrumbs extends Zend_View_Helper_Abstract
     
     function render($renderHome = TRUE)
     {    
-        $breadcrumbs = "";
-        $separator   = " &rarr; ";       
+        $separator = self::SEPARATOR;
         $html = '';
         
         $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
@@ -51,24 +43,20 @@ class Zend_View_Helper_breadcrumbs extends Zend_View_Helper_Abstract
                 $html .= $separator;
             }
             if ($i+1 < count($this->_page)) {
-                
                 $url = array();
                 $url['controller'] = $this->_page[$i]['controller'];
-                $url['action']     = $this->_page[$i]['action'];
+                $url['action'] = $this->_page[$i]['action'];
                 
                 foreach($this->_page[$i]['params'] as $key => $value) {
-                    $url[$key]     = $value;
+                    $url[$key] = $value;
                 }
                 
-                $href   = $this->view->url($url, NULL, TRUE);
+                $href = $this->view->url($url, NULL, TRUE);
                 $titulo = $this->_page[$i]['nome'];
                 
-                $html .= "
-                    <a href='" . $href . "' title='" . $titulo . "'>
-                      " . $titulo . "
-                    </a>";
+                $html .= "<a href='$href' title='$titulo'>$titulo</a>";
             } else {
-                $html .= "<h2>" . $titulo . "</h2>";    
+                $html .= "<h2>$titulo</h2>";    
             }
         }
         
