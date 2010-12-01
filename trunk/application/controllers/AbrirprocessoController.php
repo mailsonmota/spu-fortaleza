@@ -44,7 +44,7 @@ class AbrirprocessoController extends BaseController
             try {
             	$session = new Zend_Session_Namespace('aberturaProcesso');
             	$session->formDadosGeraisProcesso = $postData;
-            	$this->_redirectFormularioEnvolvido();
+            	$this->_redirectFormularioEnvolvido($this->_getIdTipoProcessoUrl());
             	/*Fluxo anterior, quando não existia o passo formularioenvolvidoAction()
             	$processo = new Processo($this->getTicket());
                 $processo->abrirProcesso($postData);
@@ -75,13 +75,18 @@ class AbrirprocessoController extends BaseController
     
     public function formularioenvolvidoAction()
     {
-    	if ($this->getRequest()->isPost()) {
+    	$tipoProcesso = $this->_getTipoProcesso($this->_getIdTipoProcessoUrl());
+    	$listaBairros = $this->_getListaBairros();
+        $listaTiposManifestante = $this->_getListaTiposManifestante($tipoProcesso);
+    	
+        if ($this->getRequest()->isPost()) {
     		$session = new Zend_Session_Namespace('aberturaProcesso');
     		$formDadosGeraisProcesso = $session->formDadosGeraisProcesso;
     		$postData = $this->getRequest()->getPost();
     		$dataMerged = array_merge($formDadosGeraisProcesso, $postData);
 	        /*print '<pre>';
-	        print '$formDadosGeraisProcesso'."\n";      
+	        print '$formDadosGeraisProcesso'."\n";
+	        var_dump($formDadosGeraisProcesso);
 	        print '$postData'."\n";
 	        var_dump($postData);
 	        print '$dataMerged'."\n";
@@ -91,6 +96,10 @@ class AbrirprocessoController extends BaseController
     		$session->processo = $processo;
     		$this->_redirectUploadArquivo();
     	}
+    	
+    	$this->view->tipoProcesso = $tipoProcesso;
+    	$this->view->listaBairros = $listaBairros;
+        $this->view->listaTiposManifestante = $listaTiposManifestante;
     }
     
     public function uploadarquivoAction()
@@ -329,7 +338,12 @@ class AbrirprocessoController extends BaseController
     
     protected function _redirectFormularioEnvolvido()
     {
-    	$this->_helper->redirector('formularioenvolvido', $this->getController(), 'default');
+    	$this->_helper->redirector(
+    	   'formularioenvolvido',
+    	   $this->getController(),
+    	   'default',
+    	   array('tipoprocesso' => $this->_getIdTipoProcessoUrl())
+    	);
     }
 
 }
