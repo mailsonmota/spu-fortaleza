@@ -114,6 +114,28 @@ class AlfrescoProcesso extends AlfrescoBase
         return $result['Processo'][0];
 	}
 	
+	/*
+	 * Estrutura de $data
+	 *   - $data['processoId']
+	 *   - $data['fileContent']
+	 */
+	public function upload($data)
+	{
+		// TODO Revisar web script "uploadarquivo"
+		$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/uploadarquivo";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        
+        $result = $curlObj->doPostRequest($url, $postData);
+        
+        if ($this->isAlfrescoError($result)) {
+            throw new Exception($this->getAlfrescoErrorMessage($result));
+        }
+        
+        return $result;
+	}
+	
 	public function tramitar($postData)
 	{
 	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/tramitar";
@@ -225,13 +247,16 @@ class AlfrescoProcesso extends AlfrescoBase
         return $result;
 	}
 	
-	public function incorporar($principal, $incorporado)
+	/*
+	 * Estrutura de $data
+	 *   - $data['principal']
+	 *   - $data['incorporado']
+	 */
+	public function incorporar($data)
 	{
+		// TODO Revisar web script "incorporar"
 		$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/incorporar";
         $url = $this->addAlfTicketUrl($url);
-        
-        $data['principal'] = $principal;
-        $data['incorporado'] = $incorporado;
         
         $curlObj = new CurlClient();
         $result = $curlObj->doPostRequest($url, $data);
