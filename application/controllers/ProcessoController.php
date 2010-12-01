@@ -87,11 +87,6 @@ class ProcessoController extends BaseController
     
     protected function _redirectDetalhesProcesso($idProcesso)
     {
-    	$this->_helper->redirector(
-            'detalhes', 
-            $this->getController(), 
-            'default',
-            array('id' => $idProcesso)
-        );
+    	$this->_helper->redirector('detalhes', $this->getController(), 'default', array('id' => $idProcesso));
     }
 }
