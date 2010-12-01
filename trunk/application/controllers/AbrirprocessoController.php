@@ -103,7 +103,26 @@ class AbrirprocessoController extends BaseController
         $this->view->ticket = $this->getTicket();
 
         if ($this->getRequest()->isPost()) {
+            $this->_redirectConfirmacaoCriacao();
+        }
+    }
+    
+    public function uploadarquivo2Action() // Teste para upload de arquivo sem o Plupload
+    {
+        $session = new Zend_Session_Namespace('aberturaProcesso');
+        $this->view->processoUuid = $session->processo->id;
+        $this->view->ticket = $this->getTicket();
+
+        if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getParams();
+            $postData['filename'] = $_FILES['fileToUpload']['name'];
+            $postData['content'] = file_get_contents($_FILES['fileToUpload']['tmp_name']);
+            
+            print '<pre>'; var_dump($postData); exit;
+            
+            $processo = new Processo($this->getTicket());
+            $processo->carregarPeloId($postData['destNodeUuid']);
+            
             $this->_redirectConfirmacaoCriacao();
         }
     }
