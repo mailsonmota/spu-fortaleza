@@ -1,4 +1,4 @@
-<?php 
+<?php
 $this->breadcrumbs()->addPage('Abrir Processo', 'abrirprocesso');
 $this->breadcrumbs()->addPage('Formulário', 'abrirprocesso', 'formulario');
 $this->breadcrumbs()->addPage('Formulário Envolvido', 'abrirprocesso', 'formulario');
@@ -12,6 +12,16 @@ echo $this->pagenav()->closeList();
 
 <div id="article">
     <h4>Escolha os Arquivos</h4>
+    
+    <hr />    
+    
+    <form action="" method="post" enctype="multipart/form-data">
+    <input type="text" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
+    <input type="file" name="fileToUpload"/>
+    <input type="submit" value="Enviar Arquivo" />
+    </form>
+    
+    <hr />
     
     <h5>Instruções:</h5>
     <ol class="orderedList">
@@ -77,7 +87,7 @@ echo $this->pagenav()->closeList();
 	            );
 	        });
 	
-	        up.refresh(); // Reposition Flash/Silverlight
+	        up.refresh();
 	    });
 	
 	    uploader.bind('UploadProgress', function(up, file) {
@@ -97,7 +107,7 @@ echo $this->pagenav()->closeList();
 		            "</div>"
 		        );
 
-	            up.refresh(); // Reposition Flash/Silverlight
+	            up.refresh();
 	        }
 	    });
 	});
