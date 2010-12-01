@@ -10,13 +10,13 @@ class ProcessoController extends BaseController
 	        if ($idProcesso) {
 	            $processo->carregarPeloId($idProcesso);
 	        }
-    	} catch (Exception $e) {
-    		
+	    } catch (Exception $e) {
+    		$this->setMessageForTheView('Não foi possível carregar o processo', 'error');
     	}
     	$this->view->processo = $processo;
     }
 	
-	public function encaminharAction()
+    public function encaminharAction()
     {
     	try {
     		$idProcesso = $this->_getIdProcessoUrl();
@@ -41,7 +41,7 @@ class ProcessoController extends BaseController
         $this->view->listaProtocolos = $listaProtocolos;
     }
     
-	protected function _getIdProcessoUrl()
+    protected function _getIdProcessoUrl()
     {
         $idProcesso = $this->getRequest()->getParam('id');
         return $idProcesso;

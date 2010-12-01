@@ -3,7 +3,7 @@ require_once('../library/Alfresco/API/AlfrescoProcesso.php');
 require_once('BaseAlfrescoClassificationEntity.php');
 class Status extends BaseAlfrescoClassificationEntity
 {
-    public function listar()
+	public function listar()
     {
         $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
         $hashDeStatus = $service->getPrioridades();

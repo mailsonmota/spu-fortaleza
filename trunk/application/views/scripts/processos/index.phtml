@@ -21,7 +21,7 @@ echo $this->pagenav()->closeList();
         
         $grid = new SimpleDataTable($this->lista, array('check' => true, 'headerColumns' => $headerColumns, 'columns' => $columns));
         $grid->addCheckboxColumn('processosParaReceber', 'id');
-        $grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', 'processo') . '/id/', 'id');
+        $grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', 'processo', array('source' => array('entrada'))) . '/id/', 'id');
         echo $grid->render();
         ?>
     </form>
