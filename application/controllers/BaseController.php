@@ -114,12 +114,12 @@ abstract class BaseController extends Zend_Controller_Action
     protected function _getListaUfs()
     {
     	return array(
+    	   'CE' => 'CE',
     	   'AC' => 'AC',
     	   'AL' => 'AL',
     	   'AM' => 'AM',
     	   'AP' => 'AP',
     	   'BA' => 'BA',
-    	   'CE' => 'CE',
     	   'DF' => 'DF',
     	   'ES' => 'ES',
     	   'GO' => 'GO',
