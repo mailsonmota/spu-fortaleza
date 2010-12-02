@@ -5,7 +5,6 @@
     echo $this->form()->openFieldList();
     echo $this->textbox('CPF/CNPJ', 'manifestanteCpfCnpj', null, array('required' => true, 'length' => 38));
     echo $this->textbox('Nome', 'manifestanteNome', null, array('required' => true, 'length' => 60));
-    echo $this->select('Bairro', 'manifestanteBairroId', $this->listaBairros, null, array('required' => true, 'length'));
     echo $this->select(
         'Sexo',
         'manifestanteSexo',
@@ -22,9 +21,10 @@
     echo $this->textbox('Logradouro', 'manifestanteLogradouro', null, array('length' => 60));
     echo $this->textbox('Número', 'manifestanteNumero', null, array('length' => 10));
     echo $this->textbox('Complemento', 'manifestanteComplemento', null, array('length' => 60));
+    echo $this->select('Bairro', 'manifestanteBairroId', $this->listaBairros, null, array('required' => true, 'length'));
     echo $this->textbox('CEP', 'manifestanteCep', null, array('length' => 12));
     echo $this->textbox('Cidade', 'manifestanteCidade', null, array('length' => 60));
-    echo $this->textbox('UF', 'manifestanteUf', null, array('length' => 2));
+    echo $this->select('UF', 'manifestanteUf', $this->listaUfs, null, array('required' => true));
     
     echo $this->textbox('Telefone Residencial', 'manifestanteFoneResidencial', null, array('length' => 30));
     echo $this->textbox('Telefone Comercial', 'manifestanteFoneComercial', null, array('length' => 30));
