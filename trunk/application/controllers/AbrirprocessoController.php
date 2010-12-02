@@ -78,7 +78,7 @@ class AbrirprocessoController extends BaseController
     	$tipoProcesso = $this->_getTipoProcesso($this->_getIdTipoProcessoUrl());
     	$listaBairros = $this->_getListaBairros();
         $listaTiposManifestante = $this->_getListaTiposManifestante($tipoProcesso);
-    	
+    	$listaUfs = $this->_getListaUfs();
         if ($this->getRequest()->isPost()) {
     		$session = new Zend_Session_Namespace('aberturaProcesso');
     		$formDadosGeraisProcesso = $session->formDadosGeraisProcesso;
@@ -100,6 +100,7 @@ class AbrirprocessoController extends BaseController
     	$this->view->tipoProcesso = $tipoProcesso;
     	$this->view->listaBairros = $listaBairros;
         $this->view->listaTiposManifestante = $listaTiposManifestante;
+        $this->view->listaUfs = $listaUfs;
     }
     
     public function uploadarquivoAction()
