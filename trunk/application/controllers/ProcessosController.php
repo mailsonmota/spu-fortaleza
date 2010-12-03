@@ -221,17 +221,22 @@ class ProcessosController extends BaseController
     {
     	if ($this->getRequest()->isPost()) {
     		try {
-    			$processo = new Processo($this->getTicket());
-	    		$processo->cancelarEnvios($this->getRequest()->getPost());
-	    		$this->setSuccessMessage('Processos reabertos com sucesso.');
-	    		$this->_redirectEntrada();
-			} catch (Exception $e) {
+    			$processosSelecionados = $this->getRequest()->getParam('processos');
+        		$session = new Zend_Session_Namespace('reabrir');
+        		$session->processos = $processosSelecionados;
+        		$this->_redirectReabrir();
+    		} catch (Exception $e) {
 	    		$this->setMessageForTheView($e->getMessage(), 'error');
 	    	}
     	}
     	
         $processo = new Processo($this->getTicket());
         $this->view->lista = $processo->listarProcessosArquivados();
+    }
+    
+    protected function _redirectReabrir()
+    {
+    	$this->_helper->redirector('reabrir', $this->getController(), 'default');
     }
     
     public function arquivarAction()
@@ -256,6 +261,33 @@ class ProcessosController extends BaseController
 	    } catch (Exception $e) {
     		$this->setErrorMessage($e->getMessage());
     		$this->_redirectEmAnalise();
+    	}
+    	
+        $this->view->processos = $processos;
+    }
+    
+	public function reabrirAction()
+    {
+    	if ($this->getRequest()->isPost()) {
+    		try {
+    			$processo = new Processo($this->getTicket());
+	    		$processo->reabrirVarios($this->getRequest()->getPost());
+	    		$this->setSuccessMessage('Processos reabertos com sucesso.');
+	    		$this->_redirectEmAnalise();
+			} catch (Exception $e) {
+	    		$this->setMessageForTheView($e->getMessage(), 'error');
+	    	}
+    	}
+    	
+    	$processos = array();
+    	
+	    try {
+	    	$session = new Zend_Session_Namespace('reabrir');
+	    	$processosSelecionados = $session->processos;
+	    	$processos = $this->_getListaCarregadaProcessos($processosSelecionados);
+	    } catch (Exception $e) {
+    		$this->setErrorMessage($e->getMessage());
+    		$this->_redirectArquivo();
     	}
     	
         $this->view->processos = $processos;

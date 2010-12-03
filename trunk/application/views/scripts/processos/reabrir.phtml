@@ -1,0 +1,32 @@
+<?php 
+$this->breadcrumbs()->addPage('Tramitação', 'processos');
+$this->breadcrumbs()->addPage('Reabrir Processos');
+echo $this->breadcrumbs()->render(); 
+
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+	<form action="" method="post">
+    	<?php 
+        $htmlProcessos = '<ul>';
+        foreach ($this->processos as $processo) {
+        	echo '<input type="hidden" name="processos[]" value="' . $processo->id . '"/>';
+            $htmlProcessos .= '<li>' . $processo->nomeDescritivo . '</li>';
+        }
+        $htmlProcessos .= '</ul>';
+        
+        echo $this->form()->openFieldList();
+        echo $this->text('Processos', $htmlProcessos);
+        echo $this->textarea('Despacho', 'despacho', null, array('required' => true));
+        echo $this->form()->closeFieldList();
+        
+        echo $this->buttonlist()->open();
+        echo $this->buttonlist()->button('Salvar');
+        echo $this->buttonlist()->resetbutton();
+        echo $this->buttonlist()->close(true); 
+        ?>
+    </form>
+</div>
