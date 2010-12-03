@@ -524,6 +524,19 @@ class Processo extends BaseAlfrescoEntity
         return $return;
     }
     
+	public function reabrirVarios($postData)
+    {
+    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+        try {
+    	   $return = $service->reabrirVarios($postData);
+        } catch (Exception $e) {
+        	throw new Exception($e->getMessage());
+        	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
+        }
+        
+        return $return;
+    }
+    
     // TODO Fazer/revisar web service "uploadarquivo"
     public function uploadArquivo($data)
     {
