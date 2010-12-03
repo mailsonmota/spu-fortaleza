@@ -22,13 +22,13 @@
     echo $this->textbox('Número', 'manifestanteNumero', null, array('length' => 10));
     echo $this->textbox('Complemento', 'manifestanteComplemento', null, array('length' => 60));
     echo $this->select('Bairro', 'manifestanteBairroId', $this->listaBairros, null, array('required' => true, 'length'));
-    echo $this->textbox('CEP', 'manifestanteCep', null, array('length' => 12));
+    echo $this->textbox('CEP', 'manifestanteCep', null, array('length' => 12, 'class' => 'mascaraCep'));
     echo $this->textbox('Cidade', 'manifestanteCidade', null, array('length' => 60));
     echo $this->select('UF', 'manifestanteUf', $this->listaUfs, null, array('required' => true));
     
-    echo $this->textbox('Telefone Residencial', 'manifestanteFoneResidencial', null, array('length' => 30));
-    echo $this->textbox('Telefone Comercial', 'manifestanteFoneComercial', null, array('length' => 30));
-    echo $this->textbox('Telefone Celular', 'manifestanteFoneCelular', null, array('length' => 30));
+    echo $this->textbox('Telefone Residencial', 'manifestanteFoneResidencial', null, array('length' => 30, 'class' => 'fone'));
+    echo $this->textbox('Telefone Comercial', 'manifestanteFoneComercial', null, array('length' => 30, 'class' => 'fone'));
+    echo $this->textbox('Telefone Celular', 'manifestanteFoneCelular', null, array('length' => 30, 'class' => 'fone'));
     
     echo $this->textbox('Observação', 'manifestanteObs', null, array('length' => 60));
     
