@@ -5,6 +5,7 @@ jQuery(document).ready(function() {
 	$('.mascaraData').setMask('date');
 	$('.mascaraHora').setMask('time');
 	$('.mascaraCep').setMask('cep');
+	$('.fone').setMask('phone');
 	
 	$("form").validate();
 
