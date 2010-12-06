@@ -73,7 +73,7 @@ class Protocolo extends BaseAlfrescoEntity
     			$orgaoLotacao = $this->getOrgao() . " - " . $orgaoLotacao;
     		}
     	} else {
-    		$orgaoLotacao = $this->getNome();
+    		$orgaoLotacao = ($this->getDescricao()) ? $this->getDescricao() : $this->getNome();
     	}
     	return $orgaoLotacao;
     }
