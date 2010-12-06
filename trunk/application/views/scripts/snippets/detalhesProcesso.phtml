@@ -30,16 +30,36 @@
 <fieldset>
     <legend>Manifestante</legend>
     <dl>
+    	<dt>Tipo:</dt>
+		<dd><?php echo $this->processo->tipoManifestante->descricao ?></dd>
+    
     	<dt>CPF/CNPJ:</dt>
 		<dd><?php echo $this->processo->manifestante->cpf ?></dd>
 		
 		<dt>Nome:</dt>
 		<dd><?php echo $this->processo->manifestante->nome ?></dd>
 		
-		<dt>Bairro:</dt>
-		<dd><?php echo $this->processo->manifestante->bairro->descricao ?></dd>
+		<?php if ($this->processo->manifestante->sexo): ?>
+		<dt>Sexo:</dt>
+		<dd><?php echo ($this->processo->manifestante->sexo == 'M') ? 'Masculino' : 'Feminino' ?></dd>
+		<?php endif ?>
 		
-		<dt>Tipo:</dt>
-		<dd><?php echo $this->processo->tipoManifestante->descricao ?></dd>
+		<?php if ($this->processo->manifestante->endereco): ?>
+		<dt>Endereco:</dt>
+		<dd><?php echo $this->processo->manifestante->endereco ?></dd>
+		<?php endif ?>
+		
+		<dt>Bairro:</dt>
+		<dd><?php echo $this->processo->manifestante->nomeBairro ?></dd>
+		
+		<?php if ($this->processo->manifestante->contato): ?>
+		<dt>Contato:</dt>
+		<dd><?php echo $this->processo->manifestante->contato ?></dd>
+		<?php endif ?>
+		
+		<?php if ($this->processo->manifestante->observacao): ?>
+		<dt>Obs:</dt>
+		<dd><?php echo $this->processo->manifestante->observacao ?></dd>
+		<?php endif ?>
     </dl>
 </fieldset>
