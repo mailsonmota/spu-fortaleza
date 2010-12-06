@@ -66,6 +66,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headLink()->appendStylesheet($baseUrl . '/css/facebox.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/datePicker.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/plupload.css');
+        $view->headLink()->appendStylesheet($baseUrl . '/css/dataTables.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/estilo.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/tema.css');
     }
@@ -75,15 +76,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $jsPath = $baseUrl . '/js/';
         $pluginsPath = $jsPath . 'plugins/';
         
-        $view->headScript()->appendFile($pluginsPath . 'jquery-1.3.2.min.js');
+        $view->headScript()->appendFile($pluginsPath . 'jquery-1.4.2.min.js');
         $view->headScript()->appendFile($pluginsPath . 'jquery.meio.mask-1.1.3.js');
         $view->headScript()->appendFile($pluginsPath . 'jquery.validate.min.js');
         $view->headScript()->appendFile($pluginsPath . 'date.js');
         $view->headScript()->appendFile($pluginsPath . 'date_pt-br.js');
         $view->headScript()->appendFile($pluginsPath . 'jquery.datePicker.js');
         $view->headScript()->appendFile($pluginsPath . 'facebox.js');
-        $view->headScript()->appendFile($pluginsPath . 'tableRowCheckboxToggle.js');
+        //$view->headScript()->appendFile($pluginsPath . 'tableRowCheckboxToggle.js');
         $view->headScript()->appendFile($pluginsPath . 'plupload.full.min.js');
+        $view->headScript()->appendFile($pluginsPath . '/dataTables/jquery.dataTables.min.js');
         $view->headScript()->appendFile($jsPath . 'funcoes.js');
     }
     

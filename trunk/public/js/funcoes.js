@@ -26,6 +26,26 @@ jQuery(document).ready(function() {
 	$('.mascaraData').datePicker().val(new Date().asString()).trigger('change');
 	
 	$('a[rel*=facebox]').facebox();
+	
+	$('.grid').dataTable({
+		"oLanguage": {
+			"sLengthMenu": "Exibir _MENU_ registros por página",
+			"sZeroRecords": "Desculpe, nenhum registro encontrado",
+			"sInfo": "Exibindo _START_ à _END_ de _TOTAL_ registros",
+			"sInfoEmpty": "Exibindo 0 à 0 de 0 registros",
+			"sInfoFiltered": "(filtrado de _MAX_ registros)",
+			"sSearch": "Buscar:", 
+			"sFirst": "Primeiro",
+			"sLast": "Último", 
+			"sPrevious": "Anterior", 
+			"sNext": "Próximo"
+		},
+		"aLengthMenu": [20, 50], 
+		iDisplayLength: 20, 
+		sPaginationType: "full_numbers"
+	});
+	$('.grid tfoot').hide();
+	
 });
 
 function triggerEnterButton() {
