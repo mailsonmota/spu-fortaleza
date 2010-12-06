@@ -14,9 +14,10 @@ echo $this->pagenav()->closeList();
     <form action="<?php echo $this->simpleUrl('analise') ?>" method="post">
         <?php 
         echo $this->buttonlist()->open();
-        echo $this->buttonlist()->button('Encaminhar Selecionados', 'encaminhar');
-        echo $this->buttonlist()->button('Arquivar Selecionados', 'arquivar');
+        echo $this->buttonlist()->button('Encaminhar', 'encaminhar');
+        echo $this->buttonlist()->button('Criar Despacho', 'comentar');
         echo $this->buttonlist()->button('Tramitação Externa', 'externo');
+        echo $this->buttonlist()->button('Arquivar', 'arquivar');
         echo $this->buttonlist()->close(true); 
         
         $headerColumns = array('', 'Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes', 'Encaminhar');

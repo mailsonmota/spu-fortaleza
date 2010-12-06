@@ -53,6 +53,7 @@ class ProcessosController extends BaseController
         	$isEncaminhar = ($this->getRequest()->getParam('encaminhar', false) !== false) ? true : false;
         	$isArquivar = ($this->getRequest()->getParam('arquivar', false) !== false) ? true : false;
         	$isExterno = ($this->getRequest()->getParam('externo', false) !== false) ? true : false;
+        	$isComentar = ($this->getRequest()->getParam('comentar', false) !== false) ? true : false;
         	
         	if ($isEncaminhar) {
         		$session = new Zend_Session_Namespace('encaminhar');
@@ -66,6 +67,10 @@ class ProcessosController extends BaseController
         		$session = new Zend_Session_Namespace('encaminharExternos');
         		$session->processos = $processosSelecionados;
         		$this->_redirectEncaminharExternos();
+        	} elseif ($isComentar) {
+        		$session = new Zend_Session_Namespace('comentar');
+        		$session->processos = $processosSelecionados;
+        		$this->_redirectComentar();
         	}
         }
     	
@@ -86,6 +91,11 @@ class ProcessosController extends BaseController
 	protected function _redirectEncaminharExternos()
     {
     	$this->_helper->redirector('encaminharExternos', $this->getController(), 'default');
+    }
+    
+	protected function _redirectComentar()
+    {
+    	$this->_helper->redirector('comentar', $this->getController(), 'default');
     }
     
     public function encaminharAction()
@@ -288,6 +298,33 @@ class ProcessosController extends BaseController
 	    } catch (Exception $e) {
     		$this->setErrorMessage($e->getMessage());
     		$this->_redirectArquivo();
+    	}
+    	
+        $this->view->processos = $processos;
+    }
+    
+	public function comentarAction()
+    {
+    	if ($this->getRequest()->isPost()) {
+    		try {
+    			$processo = new Processo($this->getTicket());
+	    		$processo->comentarVarios($this->getRequest()->getPost());
+	    		$this->setSuccessMessage('Despachos criados com sucesso.');
+	    		$this->_redirectEmAnalise();
+			} catch (Exception $e) {
+	    		$this->setMessageForTheView($e->getMessage(), 'error');
+	    	}
+    	}
+    	
+    	$processos = array();
+    	
+	    try {
+	    	$session = new Zend_Session_Namespace('comentar');
+	    	$processosSelecionados = $session->processos;
+	    	$processos = $this->_getListaCarregadaProcessos($processosSelecionados);
+	    } catch (Exception $e) {
+    		$this->setErrorMessage($e->getMessage());
+    		$this->_redirectEmAnalise();
     	}
     	
         $this->view->processos = $processos;
