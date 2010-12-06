@@ -58,7 +58,7 @@ class SimpleDataTable
                 'class="' . $this->_getTableClass() . '"' : 
                 '';
         
-        $html = "<table $tableClass summary=\"data grid\">";
+        $html = "<table $tableClass summary=\"data grid\" id=\"datagrid\">";
         $this->_addHtml($html);
     }
     
