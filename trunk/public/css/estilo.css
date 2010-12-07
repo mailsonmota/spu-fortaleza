@@ -56,7 +56,7 @@ dd a.dp-choose-date {margin-left: 0.5em;}
 
 /* Botões */
 .buttons {border-top: 1px solid #DDD;padding: 1%;margin: 1% 0;background: #FAFAFA;clear: left;}
-.buttons li {float: left;margin-right: 12px;}
+.buttons li {float: left;margin-right: 0.5em;}
 .buttons .description {padding-top: 0.70em;}
 .buttons.grid {margin-bottom: 0;}
 button {font-family: Helvetica, Arial, sans-serif;padding: 0.5em 2em;font-size: 1em;}
@@ -117,15 +117,15 @@ ol.orderedList {list-style-type: decimal; margin-left: 3em; margin-bottom: 1.5em
 
 /* Menu */
 #menu {float: left;width: 18%;padding-left: 2%;display: inline;}
-#menu ul {list-style: none;max-width:100%;position:relative;}
+#menu ul {list-style-type: none;max-width:100%;position:relative;}
 #menu ul li {list-style-type: none;width: 100%;}
 #menu ul li span, #globalSearch label {color: black;display: block;text-decoration: none;width: 96%;padding: 2%;border-bottom: 1px dotted #AAA;margin-bottom: 2%}
 
 /* Busca */
 #globalSearch {height: auto;margin: 0 0 5%}
+#globalSearch input {display: block; clear: both; margin-left: 12px; margin-top: 1.5em; margin-bottom: 0.5em}
 #globalSearch input, #globalSearch button {margin-left: 12px}
-#globalSearch input {display: block;clear: both; margin-top: 1.5em; margin-bottom: 0.5em}
-#globalSearch button {margin-top: 0;}
+#globalSearch button {margin-bottom: 0;outline: 0}
 
 /* Submenu */
 #menu ul li ul {height: auto;margin: 4% 0;}
