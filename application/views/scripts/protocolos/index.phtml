@@ -1,0 +1,20 @@
+<?php echo $this->breadcrumbs()->addPage('Protocolos')->render() ?>
+
+<?php 
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+    <form action="" method="post">
+        <?php 
+        $headerColumns = array('Nome', 'Orgão', 'Lotação', 'Ações');
+        $columns = array('nome', 'orgao', 'lotacao');
+        
+        $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
+        $grid->addActionColumn('Editar', $this->simpleUrl('editar', $this->controller) . '/id/', 'id');
+        echo $grid->render();
+        ?>
+    </form>
+</div>
