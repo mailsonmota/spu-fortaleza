@@ -26,6 +26,10 @@
  *     ../images/ - relative to this CSS file.
  */
 
+/* Float Fix */
+.dataTables_wrapper:after 
+{content:".";clear:both;display:block;overflow:hidden;visibility:hidden;height:0}
+
 /*
  * jQuery UI specific styling
  */
@@ -96,10 +100,10 @@ table.display thead th div.DataTables_sort_wrapper span {
 
 .dataTables_wrapper {
 	position: relative;
-	min-height: 302px;
-	_height: 302px;
+	/*min-height: 302px;
+	_height: 302px;*/
 	clear: both;
-	margin-top: 1em;
+	/*margin-top: 1em;*/
 }
 
 .dataTables_processing {
@@ -138,18 +142,19 @@ table.display thead th div.DataTables_sort_wrapper span {
 }
 
 .dataTables_info, .dataTables_paginate {
-	margin-top: 0.5em;
+	margin: 0.5em 0.5em 0 0;
+	color: #555;
 }
 
 .dataTables_info {
 	width: 50%;
-	float: left;
+	float: right;
 	font-style: italic;
+	text-align: right;
 }
 
 .dataTables_paginate {
-	float: right;
-	text-align: right;
+	float: left;
 }
 
 /* Pagination nested */
@@ -306,12 +311,9 @@ td.details {
 }
 
 .paging_full_numbers span.paginate_button, .paging_full_numbers span.paginate_active {
-	color: #AA0000;
-    padding: 0 1px;
-    text-decoration: underline;
+	text-decoration: underline;
 	margin: 0.5em;
-	font-weight: bold;
-    outline: 0 none;
+	outline: 0 none;
     cursor: pointer;
 	*cursor: hand;
 }
@@ -320,7 +322,7 @@ td.details {
 .paging_full_numbers span.paginate_active:hover, 
 .paging_full_numbers span.paginate_button:active, 
 .paging_full_numbers span.paginate_active:active {
-	background-color: #AA0000;
+	background-color: #444;
 	color: #fff;
 	text-decoration: none;
 }
