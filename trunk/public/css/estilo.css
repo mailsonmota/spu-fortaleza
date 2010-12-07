@@ -119,7 +119,13 @@ ol.orderedList {list-style-type: decimal; margin-left: 3em; margin-bottom: 1.5em
 #menu {float: left;width: 18%;padding-left: 2%;display: inline;}
 #menu ul {list-style: none;max-width:100%;position:relative;}
 #menu ul li {list-style-type: none;width: 100%;}
-#menu ul li span {color: black;display: block;text-decoration: none;width: 96%;padding: 2%;border-bottom: 1px dotted #AAA;margin-bottom: 2%}
+#menu ul li span, #globalSearch label {color: black;display: block;text-decoration: none;width: 96%;padding: 2%;border-bottom: 1px dotted #AAA;margin-bottom: 2%}
+
+/* Busca */
+#globalSearch {height: auto;margin: 0 0 5%}
+#globalSearch input, #globalSearch button {margin-left: 12px}
+#globalSearch input {display: block;clear: both; margin-top: 1.5em; margin-bottom: 0.5em}
+#globalSearch button {margin-top: 0;}
 
 /* Submenu */
 #menu ul li ul {height: auto;margin: 4% 0;}
