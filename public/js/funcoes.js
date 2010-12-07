@@ -27,22 +27,30 @@ jQuery(document).ready(function() {
 	
 	$('a[rel*=facebox]').facebox();
 	
+	tableRowCheckboxToggle();
+	
 	$('.grid').dataTable({
 		"oLanguage": {
-			"sLengthMenu": "Exibir _MENU_ registros por página",
-			"sZeroRecords": "Desculpe, nenhum registro encontrado",
-			"sInfo": "Exibindo _START_ à _END_ de _TOTAL_ registros",
-			"sInfoEmpty": "Exibindo 0 à 0 de 0 registros",
-			"sInfoFiltered": "(filtrado de _MAX_ registros)",
-			"sSearch": "Buscar:", 
-			"sFirst": "Primeiro",
-			"sLast": "Último", 
-			"sPrevious": "Anterior", 
-			"sNext": "Próximo"
+			"sProcessing":   "Processando...",
+			"sLengthMenu":   "Mostrar _MENU_ registros",
+			"sZeroRecords":  "Não foram encontrados resultados",
+			"sInfo":         "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+			"sInfoEmpty":    "Mostrando de 0 até 0 de 0 registros",
+			"sInfoFiltered": "(filtrado de _MAX_ registros no total)",
+			"sInfoPostFix":  "",
+			"sSearch":       "Busca Rápida:",
+			"sUrl":          "",
+			"oPaginate": {
+				"sFirst":    "Primeiro",
+				"sPrevious": "Anterior",
+				"sNext":     "Seguinte",
+				"sLast":     "Último"
+			}
 		},
-		"aLengthMenu": [20, 50], 
 		iDisplayLength: 20, 
-		sPaginationType: "full_numbers"
+		sPaginationType: "full_numbers", 
+		"bLengthChange": false, 
+		"bSort": false
 	});
 	$('.grid tfoot').hide();
 	
