@@ -25,6 +25,13 @@
         
         <div id="container">
             <div id="menu">
+            	<form action="<?php echo $this->simpleUrl('consultar') ?>" method="post">
+	            	<p id="globalSearch">
+	            		<label for="globalSearch">Busca</label>
+	            		<input type="text" name="globalSearch" id="globalSearch"/>
+	            		<button type="submit" name="doGlobalSearch">Buscar</button>
+	            	</p>
+            	</form>
 	            <?php 
 	            $menu = $this->mainmenu();
 	            $menu->setAutoOrder(TRUE);
