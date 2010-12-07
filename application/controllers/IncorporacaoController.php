@@ -7,7 +7,7 @@ class IncorporacaoController extends BaseController
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
             $session = new Zend_Session_Namespace('incorporacaoSession');
-            $session->principal = $postData['processos'][0];
+            $session->processoPrincipalId = $postData['processos'][0];
             $this->_redirectEscolherIncorporado();
         }
         $processo = new Processo($this->getTicket());
@@ -18,13 +18,27 @@ class IncorporacaoController extends BaseController
     {
         $session = new Zend_Session_Namespace('incorporacaoSession');
         if ($this->getRequest()->isPost()) {
-            $postData = $this->getRequest();
-            $session->incorporado = $postData['processos'][0];
-            $this->_redirectIncorporacaoConfirmacao();
+            $postData = $this->getRequest()->getPost();
+            $session->processoIncorporadoId = $postData['processos'][0];
+            $this->_redirectConfirmacao();
         }
         $processo = new Processo($this->getTicket());
-        $this->view->lista = $processo->listarProcessosCaixaAnalise();
-        $this->view->principal = $session->principal;
+        $processo->carregarPeloId($session->processoPrincipalId);
+        
+        $processoNumero = $processo->numero;
+        $processoNome = str_replace("/", "_", $processoNumero);
+
+        $listaProcessosAnalise = $processo->listarProcessosCaixaAnalise();
+
+        // Remove da lista o processo (principal) escolhido no passo anterior 
+        for ($i = 0; $i < count($listaProcessosAnalise); $i++) {
+        	if ($listaProcessosAnalise[$i]->nome == $processoNome) {
+        		unset($listaProcessosAnalise[$i]);
+        	}
+        }
+        
+        $this->view->processo = $processo;
+        $this->view->lista = $listaProcessosAnalise;
     }
     
     public function confirmacaoAction()
@@ -46,8 +60,14 @@ class IncorporacaoController extends BaseController
             $this->_redirectIncorporacaoDetalhes();
         }
         
-        $this->view->principal = $session->principal;
-        $this->view->incorporado = $session->incorporado;
+        $processoPrincipal = new Processo($this->getTicket());
+        $processoPrincipal->carregarPeloId($session->processoPrincipalId);
+        
+        $processoIncorporado = new Processo($this->getTicket());
+        $processoIncorporado->carregarPeloId($session->processoIncorporadoId);
+        
+        $this->view->principal = $processoPrincipal;
+        $this->view->incorporado = $processoIncorporado;
     }
     
     public function detalhesAction()

@@ -1,0 +1,141 @@
+<form action="" method="post">
+
+<fieldset>
+    <legend>Dados Gerais do Processo Principal</legend>
+	<dl>
+		<dt>Número:</dt>
+		<dd><b><?php echo $this->principal->numero ?></b></dd>
+		
+		<dt>Proprietário:</dt>
+		<dd><b><?php echo $this->principal->proprietario->orgaoLotacao ?></b></dd>
+		
+		<dt>Status:</dt>
+		<dd><b><?php echo $this->principal->status->nome ?></b></dd>
+		
+		<dt>Abertura:</dt>
+		<dd><?php echo $this->principal->data ?></dd>
+		
+		<dt>Tipo:</dt>
+		<dd><?php echo $this->principal->tipoProcesso->nome ?></dd>
+		
+		<dt>Assunto:</dt>
+		<dd><?php echo $this->principal->assunto->nome ?></dd>
+		
+		<dt>Local Atual:</dt>
+		<dd><?php echo $this->principal->protocolo->orgaoLotacao ?></dd>
+		
+		<dt>Corpo:</dt>
+		<dd><?php echo $this->principal->corpo ?></dd>
+	</dl>
+</fieldset>
+
+<fieldset>
+    <legend>Manifestante</legend>
+    <dl>
+    	<dt>Tipo:</dt>
+		<dd><?php echo $this->principal->tipoManifestante->descricao ?></dd>
+    
+    	<dt>CPF/CNPJ:</dt>
+		<dd><?php echo $this->principal->manifestante->cpf ?></dd>
+		
+		<dt>Nome:</dt>
+		<dd><?php echo $this->principal->manifestante->nome ?></dd>
+		
+		<?php if ($this->principal->manifestante->sexo): ?>
+		<dt>Sexo:</dt>
+		<dd><?php echo ($this->principal->manifestante->sexo == 'M') ? 'Masculino' : 'Feminino' ?></dd>
+		<?php endif ?>
+		
+		<?php if ($this->principal->manifestante->endereco): ?>
+		<dt>Endereco:</dt>
+		<dd><?php echo $this->principal->manifestante->endereco ?></dd>
+		<?php endif ?>
+		
+		<dt>Bairro:</dt>
+		<dd><?php echo $this->principal->manifestante->nomeBairro ?></dd>
+		
+		<?php if ($this->principal->manifestante->contato): ?>
+		<dt>Contato:</dt>
+		<dd><?php echo $this->principal->manifestante->contato ?></dd>
+		<?php endif ?>
+		
+		<?php if ($this->principal->manifestante->observacao): ?>
+		<dt>Obs:</dt>
+		<dd><?php echo $this->principal->manifestante->observacao ?></dd>
+		<?php endif ?>
+    </dl>
+</fieldset>
+
+<fieldset>
+    <legend>Dados Gerais do Processo Incorporado</legend>
+    <dl>
+        <dt>Número:</dt>
+        <dd><b><?php echo $this->incorporado->numero ?></b></dd>
+        
+        <dt>Proprietário:</dt>
+        <dd><b><?php echo $this->incorporado->proprietario->orgaoLotacao ?></b></dd>
+        
+        <dt>Status:</dt>
+        <dd><b><?php echo $this->incorporado->status->nome ?></b></dd>
+        
+        <dt>Abertura:</dt>
+        <dd><?php echo $this->incorporado->data ?></dd>
+        
+        <dt>Tipo:</dt>
+        <dd><?php echo $this->incorporado->tipoProcesso->nome ?></dd>
+        
+        <dt>Assunto:</dt>
+        <dd><?php echo $this->incorporado->assunto->nome ?></dd>
+        
+        <dt>Local Atual:</dt>
+        <dd><?php echo $this->incorporado->protocolo->orgaoLotacao ?></dd>
+        
+        <dt>Corpo:</dt>
+        <dd><?php echo $this->incorporado->corpo ?></dd>
+    </dl>
+</fieldset>
+
+<fieldset>
+    <legend>Manifestante</legend>
+    <dl>
+        <dt>Tipo:</dt>
+        <dd><?php echo $this->incorporado->tipoManifestante->descricao ?></dd>
+    
+        <dt>CPF/CNPJ:</dt>
+        <dd><?php echo $this->incorporado->manifestante->cpf ?></dd>
+        
+        <dt>Nome:</dt>
+        <dd><?php echo $this->incorporado->manifestante->nome ?></dd>
+        
+        <?php if ($this->incorporado->manifestante->sexo): ?>
+        <dt>Sexo:</dt>
+        <dd><?php echo ($this->incorporado->manifestante->sexo == 'M') ? 'Masculino' : 'Feminino' ?></dd>
+        <?php endif ?>
+        
+        <?php if ($this->incorporado->manifestante->endereco): ?>
+        <dt>Endereco:</dt>
+        <dd><?php echo $this->incorporado->manifestante->endereco ?></dd>
+        <?php endif ?>
+        
+        <dt>Bairro:</dt>
+        <dd><?php echo $this->incorporado->manifestante->nomeBairro ?></dd>
+        
+        <?php if ($this->incorporado->manifestante->contato): ?>
+        <dt>Contato:</dt>
+        <dd><?php echo $this->incorporado->manifestante->contato ?></dd>
+        <?php endif ?>
+        
+        <?php if ($this->incorporado->manifestante->observacao): ?>
+        <dt>Obs:</dt>
+        <dd><?php echo $this->incorporado->manifestante->observacao ?></dd>
+        <?php endif ?>
+    </dl>
+</fieldset>
+
+<?php
+echo $this->buttonlist()->open();
+echo $this->buttonlist()->button('Confirmar Incorporação', 'incorporacao');
+echo $this->buttonlist()->close(true);
+?>
+
+</form>
