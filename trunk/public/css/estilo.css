@@ -123,13 +123,13 @@ ol.orderedList {list-style-type: decimal; margin-left: 3em; margin-bottom: 1.5em
 
 /* Busca */
 #globalSearch {height: auto;margin: 0 0 5%}
-#globalSearch input {display: block; clear: both; margin-left: 12px; margin-top: 1.5em; margin-bottom: 0.5em}
-#globalSearch input, #globalSearch button {margin-left: 12px}
+#globalSearch input {width: 89%; display: block; clear: both; margin-top: 1.5em; margin-bottom: 0.5em}
+#globalSearch input, #globalSearch button {margin-left: 5%}
 #globalSearch button {margin-bottom: 0;outline: 0}
 
 /* Submenu */
 #menu ul li ul {height: auto;margin: 4% 0;}
-#menu ul li ul li {clear: left;text-indent: 12px;}
+#menu ul li ul li {clear: left;text-indent: 5%;}
 #menu ul li ul li a {line-height: 1.5em;}
 
 /* Conteúdo */
