@@ -575,5 +575,21 @@ class Processo extends BaseAlfrescoEntity
         
         return $return;
     }
+    
+    public function consultar($postData)
+    {
+    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+    	$processos = array();
+    	
+        try {
+    	   $hashProcessos = $service->consultar($postData);
+    	   $processos = $this->_loadManyFromHash($hashProcessos);
+        } catch (Exception $e) {
+        	throw new Exception($e->getMessage());
+        	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
+        }
+        
+        return $processos;
+    }
 }
 ?>
