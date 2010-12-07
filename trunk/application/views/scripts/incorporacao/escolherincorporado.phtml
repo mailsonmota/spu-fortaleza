@@ -1,6 +1,6 @@
 <?php 
-$this->breadcrumbs()->addPage('Incorporação', 'processos/incorporacaoprincipal');
-$this->breadcrumbs()->addPage('Processo Incorporado', 'processos/incorporacaoincorporado');
+$this->breadcrumbs()->addPage('Incorporação', 'incorporacao');
+$this->breadcrumbs()->addPage('Processo Incorporado', 'incorporacao', 'escolherincorporado');
 echo $this->breadcrumbs()->render(); 
 
 echo $this->pagenav()->openList(); 
@@ -9,6 +9,13 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
+    <h4>2. Revise o Processo Principal selecionado e escolha o processo a ser incorporado</h4>
+	<?php
+	if ($this->processo->id) {
+	    echo $this->render('snippets/detalhesProcesso.phtml');
+	}
+	?>
+
     <form action="" method="post">
         <?php 
         echo $this->buttonlist()->open();

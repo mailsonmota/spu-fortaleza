@@ -1,0 +1,19 @@
+<?php 
+$this->breadcrumbs()->addPage('Incorporação', 'incorporacao');
+$this->breadcrumbs()->addPage('Processo Incorporado', 'incorporacao', 'escolherincorporado');
+$this->breadcrumbs()->addPage('Processo Confirmação', 'incorporacao', 'confirmacao');
+echo $this->breadcrumbs()->render(); 
+
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+    <h4>3. Revise os processos selecionados e confirme a incorporação</h4>
+    <?php
+    if ($this->principal->id AND $this->incorporado->id) {
+        echo $this->render('snippets/incorporacaoConfirmacao.phtml');
+    }
+    ?>
+</div>
