@@ -41,10 +41,10 @@ jQuery(document).ready(function() {
 			"sSearch":       "Busca Rápida:",
 			"sUrl":          "",
 			"oPaginate": {
-				"sFirst":    "Primeiro",
-				"sPrevious": "Anterior",
-				"sNext":     "Seguinte",
-				"sLast":     "Último"
+				"sFirst":    "&laquo;&laquo;  Primeiro",
+				"sPrevious": "&laquo; Anterior",
+				"sNext":     "Seguinte &raquo;",
+				"sLast":     "Último &raquo;&raquo;"
 			}
 		},
 		iDisplayLength: 20, 
