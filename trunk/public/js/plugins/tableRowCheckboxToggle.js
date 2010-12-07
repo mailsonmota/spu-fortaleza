@@ -21,8 +21,10 @@ var excludeCheckboxesWithClasses=new Array('testClass');
 /* STOP editing unless you know what you are doing :)
 /**********************************************************************/
 // on page load, this script goes thru all tr elements
-// prepare the form when the DOM is ready 
-$(document).ready(function() {
+// prepare the form when the DOM is ready
+
+//$(document).ready(function() {
+function tableRowCheckboxToggle() {
 	// array used to remember the checkbox state for the checkboxes applicable
 	var tableRowCheckboxes = new Array;
 	// traverse all rows
@@ -73,7 +75,8 @@ $(document).ready(function() {
 			} // end of if the tr has the applicable class
 		});
 	});
-}); // end of DOM ready
+}
+//}); // end of DOM ready
 
 function applicableCheckbox(checkbox) {
 	var applicable = true;

@@ -59,16 +59,11 @@
 	width: auto;
 }
 
-.dataTables_info {
-	padding-top: 3px;
-}
-
 table.display thead th {
 	padding: 3px 0px 3px 10px;
 	cursor: pointer;
 	* cursor: hand;
 }
-
 
 /*
  * Sort arrow icon positioning
@@ -85,9 +80,6 @@ table.display thead th div.DataTables_sort_wrapper span {
 	margin-top: -8px;
 	right: 0;
 }
-
-
-
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
@@ -129,9 +121,20 @@ table.display thead th div.DataTables_sort_wrapper span {
 }
 
 .dataTables_filter {
-	width: 50%;
-	float: right;
 	text-align: right;
+	background: #777;
+	margin-top: 1%;
+	color: white;
+	padding: 0 0.5em 0 0;
+	text-shadow: #444 1px 1px;
+}
+
+.dataTables_filter input {
+	border: 0;
+}
+
+.dataTables_wrapper table.grid {
+	margin-top: 0;
 }
 
 .dataTables_info, .dataTables_paginate {
@@ -210,9 +213,6 @@ table.display tr.even.gradeA {
 	background-color: #eeffee;
 }
 
-
-
-
 table.display tr.odd.gradeA {
 	background-color: #ddffdd;
 }
@@ -245,7 +245,6 @@ table.display tr.even.gradeU {
 	background-color: #eee;
 }
 
-
 tr.odd {
 	background-color: #E2E4FF;
 }
@@ -253,9 +252,6 @@ tr.odd {
 tr.even {
 	background-color: white;
 }
-
-
-
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -309,27 +305,24 @@ td.details {
 	width: 40%;
 }
 
-.paging_full_numbers span.paginate_button,
- 	.paging_full_numbers span.paginate_active {
-	border: 1px solid #aaa;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	padding: 0.5em;
+.paging_full_numbers span.paginate_button, .paging_full_numbers span.paginate_active {
+	color: #AA0000;
+    padding: 0 1px;
+    text-decoration: underline;
 	margin: 0.5em;
-	cursor: pointer;
+	font-weight: bold;
+    outline: 0 none;
+    cursor: pointer;
 	*cursor: hand;
 }
 
-.paging_full_numbers span.paginate_button {
-	background-color: #ddd;
-}
-
-.paging_full_numbers span.paginate_button:hover {
-	background-color: #ccc;
-}
-
-.paging_full_numbers span.paginate_active {
-	background-color: #99B3FF;
+.paging_full_numbers span.paginate_button:hover, 
+.paging_full_numbers span.paginate_active:hover, 
+.paging_full_numbers span.paginate_button:active, 
+.paging_full_numbers span.paginate_active:active {
+	background-color: #AA0000;
+	color: #fff;
+	text-decoration: none;
 }
 
 table.display tr.even.row_selected td {
