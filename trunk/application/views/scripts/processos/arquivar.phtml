@@ -21,6 +21,10 @@ echo $this->pagenav()->closeList();
         echo $this->form()->openFieldList();
         echo $this->text('Processos', $htmlProcessos);
         echo $this->textarea('Despacho', 'despacho', null, array('required' => true));
+        echo $this->select('Status', 'statusArquivamento', $this->listaStatusArquivamento, null, array('required' => true));
+        echo $this->textbox('Motivo', 'motivo', null, array('length' => 60));
+        echo $this->textbox('Local', 'local', null, array('length' => 60));
+        echo $this->textbox('Pasta', 'pasta', null, array('length' => 60));
         echo $this->form()->closeFieldList();
         
         echo $this->buttonlist()->open();

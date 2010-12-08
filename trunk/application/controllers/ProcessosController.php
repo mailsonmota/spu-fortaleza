@@ -268,12 +268,33 @@ class ProcessosController extends BaseController
 	    	$session = new Zend_Session_Namespace('arquivar');
 	    	$processosSelecionados = $session->processos;
 	    	$processos = $this->_getListaCarregadaProcessos($processosSelecionados);
+	    	$listaStatusArquivamento = $this->_getListaStatusArquivamento();
 	    } catch (Exception $e) {
     		$this->setErrorMessage($e->getMessage());
     		$this->_redirectEmAnalise();
     	}
     	
-        $this->view->processos = $processos;
+    	$this->view->processos = $processos;
+    	$this->view->listaStatusArquivamento = $listaStatusArquivamento;
+    }
+    
+    protected function _getListaStatusArquivamento()
+    {
+    	$statusArquivamento = new StatusArquivamento($this->getTicket());
+        $opcoes = $statusArquivamento->listar();
+        $listaStatusArquivamento = array();
+        foreach ($opcoes as $opcao) {
+            $listaStatusArquivamento[$opcao->id] = $opcao->descricao;
+        }
+        
+        if (count($listaStatusArquivamento) == 0) {
+            throw new Exception(
+                'Não existe nenhum status de arquivamento cadastrado no sistema. 
+                Por favor, entre em contato com a administração do sistema.'
+            );
+        }
+        
+        return $listaStatusArquivamento;
     }
     
 	public function reabrirAction()
