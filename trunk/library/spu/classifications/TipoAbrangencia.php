@@ -1,7 +1,7 @@
 <?php
 require_once('../library/Alfresco/API/AlfrescoTiposProcesso.php');
-require_once('BaseAlfrescoClassificationEntity.php');
-class TipoAbrangencia extends BaseAlfrescoClassificationEntity
+require_once('BaseClassification.php');
+class TipoAbrangencia extends BaseClassification
 {
     public function listar()
     {

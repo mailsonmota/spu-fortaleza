@@ -1,6 +1,6 @@
 <?php
-require_once('BaseAlfrescoEntity.php');
-class BaseAlfrescoClassificationEntity extends BaseAlfrescoEntity
+Loader::loadBaseAlfrescoClass();
+class BaseClassification extends BaseAlfrescoClass
 {
     protected $_nodeRef;
     protected $_nome;

@@ -1,8 +1,8 @@
 <?php
 require_once('../library/Alfresco/API/AlfrescoManifestantes.php');
-require_once('BaseAlfrescoEntity.php');
-require_once('Bairro.php');
-class Manifestante extends BaseAlfrescoEntity
+require_once('BaseAspect.php');
+Loader::loadClassification('Bairro');
+class Manifestante extends BaseAspect
 {
     protected $_cpf;
     protected $_nome;

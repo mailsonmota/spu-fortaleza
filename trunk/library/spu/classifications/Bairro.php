@@ -1,7 +1,7 @@
 <?php
 require_once('../library/Alfresco/API/AlfrescoBairros.php');
-require_once('BaseAlfrescoClassificationEntity.php');
-class Bairro extends BaseAlfrescoClassificationEntity
+require_once('BaseClassification.php');
+class Bairro extends BaseClassification
 {
     public function listar()
     {
