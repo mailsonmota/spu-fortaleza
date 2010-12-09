@@ -1,9 +1,9 @@
 <?php
-require_once('BaseEntity.php');
-require_once('Protocolo.php');
-require_once('Usuario.php');
+require_once('BaseAspect.php');
+Loader::loadEntity('Protocolo');
+Loader::loadEntity('Usuario');
 Loader::loadClassification('Prioridade');
-class Movimentacao extends BaseEntity
+class Movimentacao extends BaseAspect
 {
     protected $_data;
     protected $_hora;
