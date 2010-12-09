@@ -3,7 +3,7 @@ require_once('../library/Alfresco/API/AlfrescoProcesso.php');
 require_once('BaseEntity.php');
 require_once('TipoProcesso.php');
 require_once('Protocolo.php');
-require_once('Movimentacao.php');
+Loader::loadAspect('Movimentacao');
 Loader::loadAspect('Manifestante');
 Loader::loadAspect('Arquivamento');
 Loader::loadClassification('Prioridade');
