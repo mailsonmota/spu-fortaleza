@@ -17,9 +17,9 @@
             <div id="usuario">
                 Bem-vindo, <strong><?php echo $this->pessoa->nomeCompleto ?></strong> | 
                 <a href="<?php echo $this->simpleUrl('cadastro', 'usuario') ?>">Cadastro</a> | 
-                <a href="<?php echo $this->simpleUrl('logout', 'auth') ?>">Sair</a><br/>
+                <a href="<?php echo $this->simpleUrl('logout', 'auth') ?>">Sair</a><br />
                 Você tem <b><?php echo $this->totalProcessosCaixaEntrada ?></b> processos na sua 
-                <a href="<?php echo $this->simpleUrl('index', 'processos') ?>">Caixa de Entrada</a>.
+                <a href="<?php echo $this->simpleUrl('index', 'entrada') ?>">Caixa de Entrada</a>.
             </div>
         </div>
         
@@ -27,8 +27,8 @@
             <div id="menu">
             	<form action="<?php echo $this->simpleUrl('executar', 'consultar') ?>" method="post">
 	            	<p id="globalSearch">
-	            		<label for="globalSearch">Busca</label>
-	            		<input type="text" name="globalSearch" id="globalSearch"/>
+	            		<label for="search">Busca</label>
+	            		<input type="text" name="globalSearch" id="search"/>
 	            		<button type="submit" name="doGlobalSearch">Buscar</button>
 	            	</p>
             	</form>
@@ -46,7 +46,7 @@
 	            $menu->addItem('Protocolos', $this->simpleUrl('index', 'protocolos'), 'Cadastros');
 	            
 	            $menu->addItem('Abertura', $this->simpleUrl('index', 'abrirprocesso'), 'Processos');
-	            $menu->addItem('Tramitação', $this->simpleUrl('index', 'processos'), 'Processos');
+	            $menu->addItem('Tramitação', $this->simpleUrl('index', 'entrada'), 'Processos');
 	            $menu->addItem('Consulta', $this->simpleUrl('index', 'consultar'), 'Processos');
 	            $menu->addItem('Incorporação', $this->simpleUrl('index', 'incorporacao'), 'Processos');
 	            
