@@ -22,6 +22,11 @@ class BaseTramitacaoController extends BaseController
     	$this->_helper->redirector('index', 'arquivo', 'default');
     }
     
+	protected function _redirectEncaminhar()
+    {
+    	$this->_helper->redirector('index', 'encaminhar', 'default');
+    }
+    
 	protected function _getListaCarregadaProcessos($listaComIdsProcessos)
     {
     	$processos = array();

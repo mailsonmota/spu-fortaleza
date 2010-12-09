@@ -36,12 +36,7 @@ class AnaliseController extends BaseTramitacaoController
         $this->view->lista = $processo->listarProcessosCaixaAnalise();
     }
     
-    protected function _redirectEncaminhar()
-    {
-    	$this->_helper->redirector('index', 'encaminhar', 'default');
-    }
-    
-	protected function _redirectArquivar()
+    protected function _redirectArquivar()
     {
     	$this->_helper->redirector('arquivar', 'arquivo', 'default');
     }
