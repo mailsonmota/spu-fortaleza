@@ -135,7 +135,7 @@ class AlfrescoProcesso extends AlfrescoBase
 	 *   - $data['processoId']
 	 *   - $data['fileContent']
 	 */
-	public function upload($data)
+	public function uploadArquivo($postData)
 	{
 		// TODO Revisar web script "uploadarquivo"
 		$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/uploadarquivo";
