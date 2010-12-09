@@ -49,7 +49,7 @@ class AuthPlugin extends Zend_Controller_Plugin_Abstract
     {
     	Loader::loadAlfrescoApiClass('AlfrescoLogin');
     	
-    	$alfrescoLogin = new AlfrescoLogin(BaseAlfrescoEntity::ALFRESCO_URL);
+    	$alfrescoLogin = new AlfrescoLogin(BaseEntity::ALFRESCO_URL);
     	$user = $this->getIdentity();
     	$alfrescoLogin->setTicket($user['ticket']);
     	

@@ -1,9 +1,7 @@
 <?php
-
-require_once('BaseAlfrescoEntity.php');
+require_once('BaseEntity.php');
 Loader::loadAlfrescoApiClass('AlfrescoPeople');
-
-class Usuario extends BaseAlfrescoEntity
+class Usuario extends BaseEntity
 {
     protected $_nome;
     protected $_sobrenome;

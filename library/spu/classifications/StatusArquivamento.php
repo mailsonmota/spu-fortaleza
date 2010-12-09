@@ -1,18 +1,16 @@
 <?php
 require_once('../library/Alfresco/API/AlfrescoProcesso.php');
-require_once('BaseAlfrescoClassificationEntity.php');
-class Status extends BaseAlfrescoClassificationEntity
+require_once('BaseClassification.php');
+class StatusArquivamento extends BaseClassification
 {
-	const ARQUIVADO = 'Arquivado';
-	
 	public function listar()
     {
         $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $hashDeStatus = $service->getPrioridades();
+        $hashDeStatus = $service->getStatusArquivamento();
         
         $arrayStatus = array();
         foreach ($hashDeStatus as $hashStatus) {
-            $status = new Status($this->_getTicket());
+            $status = new StatusArquivamento($this->_getTicket());
             $status->loadFromHash($hashStatus[0]);
             $arrayStatus[] = $status;
         }

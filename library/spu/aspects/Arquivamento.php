@@ -1,6 +1,6 @@
 <?php
 require_once('BaseAspect.php');
-Loader::loadEntity('StatusArquivamento');
+Loader::loadClassification('StatusArquivamento');
 class Arquivamento extends BaseAspect
 {
 	protected $_status;

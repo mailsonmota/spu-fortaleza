@@ -4,9 +4,19 @@ class Loader
     const MAIN_SERVICES_FOLDER = '../library/Alfresco';
     const MAIN_FOLDER = '../library/spu';
     
+    public static function loadBaseAlfrescoClass()
+    {
+    	Zend_Loader::loadClass('BaseAlfrescoClass', self::MAIN_FOLDER);
+    }
+    
     public static function loadEntity($classFileName)
     {
         Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/entities/');
+    }
+    
+    public static function loadClassification($classFileName)
+    {
+    	Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/classifications/');
     }
     
 	public static function loadAspect($classFileName)

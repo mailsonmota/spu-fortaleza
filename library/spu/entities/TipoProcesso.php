@@ -1,11 +1,11 @@
 <?php
 require_once('../library/Alfresco/API/AlfrescoTiposProcesso.php');
-require_once('BaseAlfrescoEntity.php');
+require_once('BaseEntity.php');
 require_once('Assunto.php');
-require_once('TipoTramitacao.php');
-require_once('TipoAbrangencia.php');
-require_once('TipoManifestante.php');
-class TipoProcesso extends BaseAlfrescoEntity
+Loader::loadClassification('TipoTramitacao');
+Loader::loadClassification('TipoAbrangencia');
+Loader::loadClassification('TipoManifestante');
+class TipoProcesso extends BaseEntity
 {
     protected $_nodeRef;
     protected $_nome;

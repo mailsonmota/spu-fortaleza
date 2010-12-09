@@ -1,7 +1,7 @@
 <?php
 require_once('../library/Alfresco/API/AlfrescoAssuntos.php');
-require_once('BaseAlfrescoEntity.php');
-class Assunto extends BaseAlfrescoEntity
+require_once('BaseEntity.php');
+class Assunto extends BaseEntity
 {
     protected $_nodeRef;
     protected $_nome;

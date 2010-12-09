@@ -1,7 +1,7 @@
 <?php
 require_once('../library/Alfresco/API/AlfrescoProtocolo.php');
-require_once('BaseAlfrescoEntity.php');
-class Protocolo extends BaseAlfrescoEntity
+require_once('BaseEntity.php');
+class Protocolo extends BaseEntity
 {
     protected $_nodeRef;
     protected $_nome;

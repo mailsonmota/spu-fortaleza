@@ -1,8 +1,8 @@
 <?php
-require_once('BaseAlfrescoEntity.php');
+require_once('BaseEntity.php');
 require_once('Protocolo.php');
-require_once('Prioridade.php');
 require_once('Usuario.php');
+Loader::loadClassification('Prioridade');
 class Movimentacao extends BaseEntity
 {
     protected $_data;

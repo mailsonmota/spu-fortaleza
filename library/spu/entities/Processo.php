@@ -1,14 +1,14 @@
 <?php
 require_once('../library/Alfresco/API/AlfrescoProcesso.php');
-require_once('BaseAlfrescoEntity.php');
+require_once('BaseEntity.php');
 require_once('TipoProcesso.php');
-require_once('Prioridade.php');
-require_once('Manifestante.php');
 require_once('Protocolo.php');
 require_once('Movimentacao.php');
-require_once('Status.php');
+Loader::loadAspect('Manifestante');
 Loader::loadAspect('Arquivamento');
-class Processo extends BaseAlfrescoEntity
+Loader::loadClassification('Prioridade');
+Loader::loadClassification('Status');
+class Processo extends BaseEntity
 {
     protected $_nodeRef;
     protected $_nome;
