@@ -1,11 +1,11 @@
 <?php 
 echo $this->tabs()->openList();
-echo $this->tabs()->addTab($this->simpleUrl('index'), 'Entrada', ($this->abaAtiva == 'index') ? true : false);
-echo $this->tabs()->addTab($this->simpleUrl('analise'), 'Análise', ($this->abaAtiva == 'analise') ? true : false);
-echo $this->tabs()->addTab($this->simpleUrl('externos'), 'Externos', ($this->abaAtiva == 'externos') ? true : false);
-echo $this->tabs()->addTab($this->simpleUrl('saida'), 'Saída', ($this->abaAtiva == 'saida') ? true : false);
-echo $this->tabs()->addTab($this->simpleUrl('enviados'), 'Enviados', ($this->abaAtiva == 'enviados') ? true : false);
-echo $this->tabs()->addTab($this->simpleUrl('copias'), 'Cópias', ($this->abaAtiva == 'copias') ? true : false);
-echo $this->tabs()->addTab($this->simpleUrl('arquivados'), 'Arquivados', ($this->abaAtiva == 'arquivados') ? true : false);
+echo $this->tabs()->addTab($this->simpleUrl('index', 'entrada'), 'Entrada', ($this->abaAtiva == 'entrada') ? true : false);
+echo $this->tabs()->addTab($this->simpleUrl('index', 'analise'), 'Análise', ($this->abaAtiva == 'analise') ? true : false);
+echo $this->tabs()->addTab($this->simpleUrl('index', 'externos'), 'Externos', ($this->abaAtiva == 'externos') ? true : false);
+echo $this->tabs()->addTab($this->simpleUrl('index', 'saida'), 'Saída', ($this->abaAtiva == 'saida') ? true : false);
+echo $this->tabs()->addTab($this->simpleUrl('index', 'enviados'), 'Enviados', ($this->abaAtiva == 'enviados') ? true : false);
+echo $this->tabs()->addTab($this->simpleUrl('index', 'copias'), 'Cópias', ($this->abaAtiva == 'copias') ? true : false);
+echo $this->tabs()->addTab($this->simpleUrl('index', 'arquivo'), 'Arquivados', ($this->abaAtiva == 'arquivo') ? true : false);
 echo $this->tabs()->closeList();
 ?>

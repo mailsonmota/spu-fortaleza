@@ -7,6 +7,7 @@ require_once('Manifestante.php');
 require_once('Protocolo.php');
 require_once('Movimentacao.php');
 require_once('Status.php');
+Loader::loadAspect('Arquivamento');
 class Processo extends BaseAlfrescoEntity
 {
     protected $_nodeRef;
@@ -25,6 +26,7 @@ class Processo extends BaseAlfrescoEntity
     protected $_assunto;
     protected $_movimentacoes;
     protected $_status;
+    protected $_arquivamento;
     
     public function getNodeRef()
     {
@@ -186,6 +188,18 @@ class Processo extends BaseAlfrescoEntity
         $this->_status = $value;
     }
     
+    /**
+     * @return Arquivamento
+     */
+    public function getArquivamento() {
+    	return $this->_arquivamento;
+    }
+    
+    public function setArquivamento($value)
+    {
+    	$this->_arquivamento = $value;
+    }
+    
     public function getId()
     {
         $nodeRef = $this->getNodeRef();
@@ -221,6 +235,11 @@ class Processo extends BaseAlfrescoEntity
     public function getNomeProtocolo()
     {
     	return $this->getProtocolo()->getNome();
+    }
+    
+    public function isArquivado()
+    {
+    	return ($this->getStatus()->nome == Status::ARQUIVADO);
     }
     
     public function listarProcessosCaixaEntrada()
@@ -306,6 +325,7 @@ class Processo extends BaseAlfrescoEntity
         $this->setAssunto($this->_loadAssuntoFromHash($this->_getHashValue($hash, 'assunto')));
         $this->setManifestante($this->_loadManifestanteFromHash($this->_getHashValue($hash, 'manifestante')));
         $this->setTipoManifestante($this->_loadTipoManifestanteFromHash($this->_getHashValue($hash, 'tipoManifestante')));
+        $this->setArquivamento($this->_loadArquivamentoFromHash($this->_getHashValue($hash, 'arquivamento')));
     }
     
 	protected function _loadPrioridadeFromHash($hash)
@@ -376,6 +396,15 @@ class Processo extends BaseAlfrescoEntity
         $tipoManifestante->loadFromHash($hash);
         
         return $tipoManifestante;
+    }
+    
+    protected function _loadArquivamentoFromHash($hash)
+    {
+    	$hash = array_pop($hash);
+        $arquivamento = new Arquivamento();
+        $arquivamento->loadFromHash($hash);
+        
+        return $arquivamento;
     }
     
     public function carregarPeloId($id)

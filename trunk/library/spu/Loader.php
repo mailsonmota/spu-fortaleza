@@ -9,6 +9,11 @@ class Loader
         Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/entities/');
     }
     
+	public static function loadAspect($classFileName)
+    {
+        Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/aspects/');
+    }
+    
     public static function loadEnumeration($classFileName)
     {
         Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/enumerations/');

@@ -27,6 +27,33 @@
 	</dl>
 </fieldset>
 
+<?php if ($this->processo->isArquivado() AND $this->processo->arquivamento): ?>
+<fieldset>
+	<legend>Arquivamento</legend>
+	<dl>
+		<?php if ($this->processo->arquivamento->status): ?>
+		<dt>Status:</dt>
+		<dd><?php echo $this->processo->arquivamento->status->nome ?></dd>
+		<?php endif ?>
+		
+		<?php if ($this->processo->arquivamento->motivo): ?>
+		<dt>Motivo:</dt>
+		<dd><?php echo $this->processo->arquivamento->motivo ?></dd>
+		<?php endif ?>
+		
+		<?php if ($this->processo->arquivamento->local): ?>
+		<dt>Local:</dt>
+		<dd><?php echo $this->processo->arquivamento->local ?></dd>
+		<?php endif ?>
+		
+		<?php if ($this->processo->arquivamento->pasta): ?>
+		<dt>Pasta:</dt>
+		<dd><?php echo $this->processo->arquivamento->pasta ?></dd>
+		<?php endif ?>
+	</dl>
+</fieldset>
+<?php endif ?>
+
 <fieldset>
     <legend>Manifestante</legend>
     <dl>

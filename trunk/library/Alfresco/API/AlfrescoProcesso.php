@@ -130,10 +130,15 @@ class AlfrescoProcesso extends AlfrescoBase
         return $result['Processo'][0];
 	}
 	
-    public function uploadArquivo($postData)
-    {
-        // TODO Revisar web script "uploadarquivo"
-        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/uploadarquivo";
+	/*
+	 * Estrutura de $data
+	 *   - $data['processoId']
+	 *   - $data['fileContent']
+	 */
+	public function upload($data)
+	{
+		// TODO Revisar web script "uploadarquivo"
+		$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/uploadarquivo";
         $url = $this->addAlfTicketUrl($url);
         
         $curlObj = new CurlClient();
@@ -336,5 +341,21 @@ class AlfrescoProcesso extends AlfrescoBase
         }
         
         return $result['Processos'][0];
+	}
+	
+	public function getStatusArquivamento()
+	{
+	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/statusarquivamento/listar";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        $resultJson = $curlObj->doGetRequest($url);
+        $result = json_decode($resultJson, true);
+        
+        if ($this->isAlfrescoError($result)) {
+        	throw new Exception($this->getAlfrescoErrorMessage($result));
+        }
+        
+        return $result['Status'][0];
 	}
 }

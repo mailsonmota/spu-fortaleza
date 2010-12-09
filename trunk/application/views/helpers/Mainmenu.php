@@ -72,9 +72,10 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
             }
             
             if ($key AND $acesso) {
-                $html .= '</li></ul>';
+                $html .= '</ul></li>';
             }
         }
+        $html .= '</ul>';
         
         return $html;
     }
