@@ -11,38 +11,22 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <h4>Escolha os Arquivos</h4>
-    
-    <hr />    
+    <h4>4. Escolha arquivos para adicionar ao processo</h4>
     
     <form action="" method="post" enctype="multipart/form-data">
-    <input type="text" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
-    <input type="file" name="fileToUpload"/>
-    <input type="submit" value="Enviar Arquivo" />
+        <input type="text" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
+        <input type="file" name="fileToUpload" />
+        <?php
+        echo $this->buttonlist()->open();
+        echo $this->buttonlist()->button('Enviar Arquivo');
+        echo $this->buttonlist()->close(true); 
+        ?>
     </form>
     
-    <hr />
-    
-    <h5>Instruções:</h5>
-    <ol class="orderedList">
-    	<li>
-    		Para adicionar arquivos na fila de envio, clique no link "Adicionar Arquivos à Fila de Envio".
-    		Caso queira adicionar mais arquivos na fila, basta clicar novamente no link "Adicionar Arquivos à Fila de Envio".
-    	</li>
-    	<li>Para anexar os arquivos da fila de envio ao processo, clique em "Enviar arquivos escolhidos".</li>
-    	<li>Para prosseguir com a abertura do processo, clique em "Avançar".</li>
-    </ol>
-    
-    <div id="fileUpload">
-        <input type="hidden" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
-        <h5>Fila de Envio:</h5>
-        <ul id="fileList">
-        	<li><a id="filePicker" href="#">Adicionar Arquivos</a></li>
-        </ul>
-        <ul class="buttons">
-        	<li><button id="uploadfiles">Enviar Arquivos Escolhidos</button></li>
-        </ul>
-    </div>
+    <fieldset>
+    <legend>Lista de arquivos</legend>
+    <?php var_dump($this->uploadedFiles); ?>
+    </fieldset>
     
     <form action="" method="post">
         <?php
@@ -52,63 +36,3 @@ echo $this->pagenav()->closeList();
         ?>
     </form>
 </div>
-
-<script type="text/javascript">
-	//Custom example logic
-	jQuery(document).ready(function() {
-		var alf_ticket = "<?php echo $this->ticket; ?>"
-	    var uploader = new plupload.Uploader({
-	        runtimes : 'html4',
-	        browse_button : 'filePicker',
-	        container : 'fileUpload',
-	        max_file_size : '10mb',
-	        url : 'http://172.30.116.21:8080/alfresco/service/spu/processo/uploadarquivo?alf_ticket=' + alf_ticket,
-	        filters : [
-	            {title : "Image files", extensions : "jpg,gif,png"},
-	            {title : "Zip files", extensions : "zip"},
-	            {title : "Log files", extensions : "log,txt"}
-	        ],
-	        resize : {width : 320, height : 240, quality : 90}
-	    });
-	
-	    $('#uploadfiles').click(function(e) {
-	        uploader.start();
-	        e.preventDefault();
-	    });
-	
-	    uploader.init();
-	
-	    uploader.bind('FilesAdded', function(up, files) {
-		    $.each(files, function(i, file) {
-	            $('#fileList').append(
-	    	        '<li id="' + file.id + '">' + 
-	    	        	($('#fileList li').size()) + '. <b>' + file.name + '</b> (' + plupload.formatSize(file.size) + ')' + 
-    	        	'</li>' 
-	            );
-	        });
-	
-	        up.refresh();
-	    });
-	
-	    uploader.bind('UploadProgress', function(up, file) {
-	        $('#' + file.id + " b").html(file.percent + "%");
-	    });
-
-	    uploader.bind('FileUploaded', function(up, file) {
-            alert(file.id);
-            $('#' + file.id + " b").html("100%");
-        });
-
-	    uploader.bind('Error', function(up, err) {
-		    if (err.code != -400) {
-		        $('#fileList').append("<div>Error: " + err.code +
-		            ", Message: " + err.message +
-		            (err.file ? ", File: " + err.file.name : "") +
-		            "</div>"
-		        );
-
-	            up.refresh();
-	        }
-	    });
-	});
-</script>
