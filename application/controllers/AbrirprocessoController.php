@@ -7,7 +7,8 @@ class AbrirprocessoController extends BaseController
     public function indexAction()
     {
         if ($this->getRequest()->isPost()) {
-            $this->_helper->redirector(
+        	$this->_cleanUploadedFilesInfoFromSession();
+        	$this->_helper->redirector(
                 'formulario', 
                 $this->getController(), 
                 'default',
@@ -106,32 +107,33 @@ class AbrirprocessoController extends BaseController
     public function uploadarquivoAction()
     {
         $session = new Zend_Session_Namespace('aberturaProcesso');
+        $processo = $session->processo;
         $this->view->processoUuid = $session->processo->id;
         $this->view->ticket = $this->getTicket();
-
+        
         if ($this->getRequest()->isPost()) {
-            $this->_redirectConfirmacaoCriacao();
+        	$postData = $this->getRequest()->getParams();
+        	
+        	// TODO Ponto de decisão ruim logo abaixo. Pesquisar como interpretar submits' values.
+        	if ($_FILES['fileToUpload']['name']) {
+	            $postData['fileName'] = $_FILES['fileToUpload']['name'];
+	            $postData['fileContent'] = file_get_contents($_FILES['fileToUpload']['tmp_name']);
+	            
+	            try {
+	                $processo->uploadArquivo($postData);
+	                if ($session->uploadedFilesCount == null) {
+	                	$session->uploadedFilesCount = 0;
+	                }
+	                $session->uploadedFiles[$session->uploadedFilesCount++] = $postData['fileName'];
+	            } catch (Exception $e) {
+	            	throw $e;
+	            }
+            } else {
+                $this->_redirectConfirmacaoCriacao();
+        	}
         }
-    }
-    
-    public function uploadarquivo2Action() // Teste para upload de arquivo sem o Plupload
-    {
-        $session = new Zend_Session_Namespace('aberturaProcesso');
-        $this->view->processoUuid = $session->processo->id;
-        $this->view->ticket = $this->getTicket();
-
-        if ($this->getRequest()->isPost()) {
-            $postData = $this->getRequest()->getParams();
-            $postData['filename'] = $_FILES['fileToUpload']['name'];
-            $postData['content'] = file_get_contents($_FILES['fileToUpload']['tmp_name']);
-            
-            print '<pre>'; var_dump($postData); exit;
-            
-            $processo = new Processo($this->getTicket());
-            $processo->carregarPeloId($postData['destNodeUuid']);
-            
-            $this->_redirectConfirmacaoCriacao();
-        }
+        
+        $this->view->uploadedFiles = $session->uploadedFiles;
     }
     
     public function confirmacaocriacaoAction()
@@ -146,7 +148,8 @@ class AbrirprocessoController extends BaseController
         	$postData['despacho'] = "";
         	
         	try {
-        	    $processo->tramitar($postData);
+                $processo->tramitar($postData);
+                $this->_cleanUploadedFilesInfoFromSession();
         	} catch (AlfrescoApiException $e) {
         		throw $e;
         	} catch (Exception $e) {
@@ -346,5 +349,11 @@ class AbrirprocessoController extends BaseController
     	   array('tipoprocesso' => $this->_getIdTipoProcessoUrl())
     	);
     }
-
+    
+    protected function _cleanUploadedFilesInfoFromSession()
+    {
+    	$session = new Zend_Session_Namespace('aberturaProcesso');
+        unset($session->uploadedFiles);
+        unset($session->uploadedFilesCount);    	
+    }
 }
