@@ -130,27 +130,21 @@ class AlfrescoProcesso extends AlfrescoBase
         return $result['Processo'][0];
 	}
 	
-	/*
-	 * Estrutura de $data
-	 *   - $data['processoId']
-	 *   - $data['fileContent']
-	 */
-	public function upload($data)
-	{
-		// TODO Revisar web script "uploadarquivo"
-		$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/uploadarquivo";
+    public function uploadArquivo($postData)
+    {
+        // TODO Revisar web script "uploadarquivo"
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/uploadarquivo";
         $url = $this->addAlfTicketUrl($url);
         
         $curlObj = new CurlClient();
         
         $result = $curlObj->doPostRequest($url, $postData);
-        
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
         
         return $result;
-	}
+    }
 	
 	public function tramitar($postData)
 	{
