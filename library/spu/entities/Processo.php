@@ -566,7 +566,6 @@ class Processo extends BaseEntity
         return $return;
     }
     
-    // TODO Fazer/revisar web service "uploadarquivo"
     public function uploadArquivo($data)
     {
         $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
@@ -579,7 +578,6 @@ class Processo extends BaseEntity
         return $return;
     }
     
-    // TODO Fazer/revisar web service "incorporação"
     public function incorporar($data)
     {
         $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
