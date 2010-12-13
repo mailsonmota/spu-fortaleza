@@ -143,7 +143,7 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
         $username = $this->getUsername();
         $password = $this->getPassword();
         
-        $alfrescoLoginApi = new AlfrescoLogin(BaseAlfrescoEntity::ALFRESCO_URL);
+        $alfrescoLoginApi = new AlfrescoLogin(BaseAlfrescoClass::ALFRESCO_URL);
         
         try {
             $response = $alfrescoLoginApi->login($username, $password);
