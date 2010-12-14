@@ -1,6 +1,8 @@
 <?php
 
-class JsonPostAdapter extends JsonGetAdapter
+require_once("PostAdapterInterface.php");
+
+class JsonPostAdapter extends JsonGetAdapter implements postAdapter
 {
     public function encode($data) {
         $json = json_encode($data);
