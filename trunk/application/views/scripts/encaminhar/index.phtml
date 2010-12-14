@@ -25,6 +25,7 @@ echo $this->pagenav()->closeList();
         echo $this->text('Processos', $htmlProcessos);
         echo $this->select('Destino', 'destinoId', $this->listaProtocolos, null, array('required' => true));
         echo $this->textarea('Despacho', 'despacho', null, array('required' => true));
+        echo $this->selectmultiple('Com Cópia', 'copias[]', $this->listaProtocolos);
         echo $this->form()->closeFieldList();
         
         echo $this->buttonlist()->open();

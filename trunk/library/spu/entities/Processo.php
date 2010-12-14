@@ -302,14 +302,14 @@ class Processo extends BaseEntity
         foreach ($hashProcessos as $hashProcesso) {
             $hashDadosProcesso = array_pop($hashProcesso); 
             $processo = new Processo($this->_getTicket());
-            $processo->_loadProcessoFromHash($hashDadosProcesso);
+            $processo->loadFromHash($hashDadosProcesso);
             $processos[] = $processo;
         }
         
         return $processos;
     }
     
-    protected function _loadProcessoFromHash($hash)
+    public function loadFromHash($hash)
     {
         $this->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $this->setNome($this->_getHashValue($hash, 'nome'));
@@ -415,7 +415,7 @@ class Processo extends BaseEntity
         $processo = array();
         foreach ($hashProcessos as $hashProcesso) {
             $hashDadosProcesso = array_pop($hashProcesso);
-            $this->_loadProcessoFromHash($hashDadosProcesso);
+            $this->loadFromHash($hashDadosProcesso);
         }
         
         return $processo;
@@ -433,7 +433,7 @@ class Processo extends BaseEntity
         
         $hashProcesso = $abrirProcessoRetorno["Processo"][0];
         foreach ($hashProcesso as $hash) {
-            $this->_loadProcessoFromHash($hash[0]);
+            $this->loadFromHash($hash[0]);
         }
 
         return $this;
