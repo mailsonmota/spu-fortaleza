@@ -11,11 +11,7 @@ class AlfrescoProcesso extends AlfrescoBase
 	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/entrada";
         $url = $this->addAlfTicketUrl($url);
         
-        $curlObj = new CurlClient();
-        $resultJson = $curlObj->doGetRequest($url);
-        $result = json_decode($resultJson, true);
-        
-        return $result['Processos'][0];
+        return $this->_getProcessosFromUrl($url);
 	}
 	
 	public function getCaixaSaida()
@@ -23,11 +19,7 @@ class AlfrescoProcesso extends AlfrescoBase
 	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/saida";
         $url = $this->addAlfTicketUrl($url);
         
-        $curlObj = new CurlClient();
-        $resultJson = $curlObj->doGetRequest($url);
-        $result = json_decode($resultJson, true);
-        
-        return $result['Processos'][0];
+        return $this->_getProcessosFromUrl($url);
 	}
 	
 	public function getCaixaAnalise()
@@ -35,11 +27,7 @@ class AlfrescoProcesso extends AlfrescoBase
 	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/analise";
         $url = $this->addAlfTicketUrl($url);
         
-        $curlObj = new CurlClient();
-        $resultJson = $curlObj->doGetRequest($url);
-        $result = json_decode($resultJson, true);
-        
-        return $result['Processos'][0];
+        return $this->_getProcessosFromUrl($url);
 	}
 	
 	public function getCaixaEnviados()
@@ -47,15 +35,7 @@ class AlfrescoProcesso extends AlfrescoBase
 	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/enviados";
         $url = $this->addAlfTicketUrl($url);
         
-        $curlObj = new CurlClient();
-        $resultJson = $curlObj->doGetRequest($url);
-        $result = json_decode($resultJson, true);
-        
-		if ($this->isAlfrescoError($result)) {
-        	throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
-        
-        return $result['Processos'][0];
+        return $this->_getProcessosFromUrl($url);
 	}
 	
 	public function getCaixaExternos()
@@ -63,15 +43,7 @@ class AlfrescoProcesso extends AlfrescoBase
 	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/externos";
         $url = $this->addAlfTicketUrl($url);
         
-        $curlObj = new CurlClient();
-        $resultJson = $curlObj->doGetRequest($url);
-        $result = json_decode($resultJson, true);
-        
-		if ($this->isAlfrescoError($result)) {
-        	throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
-        
-        return $result['Processos'][0];
+        return $this->_getProcessosFromUrl($url);
 	}
 	
 	public function getCaixaArquivo()
@@ -79,15 +51,40 @@ class AlfrescoProcesso extends AlfrescoBase
 	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/arquivo";
         $url = $this->addAlfTicketUrl($url);
         
-        $curlObj = new CurlClient();
+        return $this->_getProcessosFromUrl($url);
+	}
+	
+	protected function _getProcessosFromUrl($url)
+	{
+		$result = $this->_getResultFromUrl($url);
+        return $result['Processos'][0];
+	}
+	
+	protected function _getResultFromUrl($url)
+	{
+		$curlObj = new CurlClient();
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
         
-		if ($this->isAlfrescoError($result)) {
+        if ($this->isAlfrescoError($result)) {
         	throw new Exception($this->getAlfrescoErrorMessage($result));
         }
         
-        return $result['Processos'][0];
+        return $result;
+	}
+	
+	public function getCopias()
+	{
+		$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/copias";
+        $url = $this->addAlfTicketUrl($url);
+        
+        return $this->_getCopiasFromUrl($url);
+	}
+	
+	protected function _getCopiasFromUrl($url)
+	{
+		$result = $this->_getResultFromUrl($url);
+		return $result['Copias'][0];
 	}
 	
 	public function abrirProcesso($postData)
