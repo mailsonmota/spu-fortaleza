@@ -631,18 +631,16 @@ class Processo extends BaseEntity
 
         for ($i = 0; $i < count($listaCaixaAnalise); $i++) {
             if (
-                ($listaCaixaAnalise[$i]->tipoProcesso->nodeRef != $this->tipoProcesso->nodeRef) OR
-                ($listaCaixaAnalise[$i]->assunto->nodeRef != $this->assunto->nodeRef) OR
-                ($listaCaixaAnalise[$i]->manifestante->cpf == $this->manifestante->cpf) OR
-                ($listaCaixaAnalise[$i]->nome == str_replace("/", "_", $this->numero))
+                ($listaCaixaAnalise[$i]->tipoProcesso->nodeRef == $this->tipoProcesso->nodeRef) AND
+                ($listaCaixaAnalise[$i]->assunto->nodeRef == $this->assunto->nodeRef) AND
+                ($listaCaixaAnalise[$i]->manifestante->cpf == $this->manifestante->cpf) AND
+                ($listaCaixaAnalise[$i]->nome != str_replace("/", "_", $this->numero))
                ) {
-                unset($listaCaixaAnalise[$i]);
+                $listaCaixaAnaliseFiltrada[] = $listaCaixaAnalise[$i];
             }
         }
-        
-        $listaCaixaAnalise = array_values($listaCaixaAnalise); // Reindexa o vetor
 
-        return $listaCaixaAnalise;
+        return $listaCaixaAnaliseFiltrada;
     }
 }
 ?>
