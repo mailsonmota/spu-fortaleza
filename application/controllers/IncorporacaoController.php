@@ -25,31 +25,21 @@ class IncorporacaoController extends BaseController
         $processo = new Processo($this->getTicket());
         $processo->carregarPeloId($session->processoPrincipalId);
         
-        $processoNumero = $processo->numero;
-        $processoNome = str_replace("/", "_", $processoNumero);
-
-        $listaProcessosAnalise = $processo->listarProcessosCaixaAnalise();
-
-        // Remove da lista o processo (principal) escolhido no passo anterior 
-        for ($i = 0; $i < count($listaProcessosAnalise); $i++) {
-        	if ($listaProcessosAnalise[$i]->nome == $processoNome) {
-        		unset($listaProcessosAnalise[$i]);
-        	}
-        }
+        $listaCaixaAnaliseFiltrada = $processo->listarProcessosCaixaAnaliseIncorporado();
         
         $this->view->processo = $processo;
-        $this->view->lista = $listaProcessosAnalise;
+        $this->view->lista = $listaCaixaAnaliseFiltrada;
     }
     
     public function confirmacaoAction()
     {
         $session = new Zend_Session_Namespace('incorporacaoSession');
         if ($this->getRequest()->isPost()) {
-            $principal = $session->principal;
-            $incorporado = $session->incorporado;
+            $data['principal'] = $session->processoPrincipalId;
+            $data['incorporado'] =  $session->processoIncorporadoId;
             $processo = new Processo($this->getTicket());
             try {
-                $processo->incorporar($principal, $incorporado);
+                $processo->incorporar($data);
             }
             catch (AlfrescoApiException $e) {
                 throw $e;
