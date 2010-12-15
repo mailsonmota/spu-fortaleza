@@ -16,9 +16,8 @@ class ProtocolosController extends BaseController
         $protocolo = new Protocolo($this->getTicket());
         $protocolo->carregarPeloId($id);
         
-        $this->view->Protocolo = $protocolo;
+        $this->view->protocolo = $protocolo;
         $this->view->id = $protocolo->getId();
-        $this->view->isEdit = true;
     }
     
     private function _getIdFromUrl()
