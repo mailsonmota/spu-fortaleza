@@ -7,7 +7,7 @@
  * @author Bruno Cavalcante
  * @since 08/06/2010
  */
-class Zend_View_Helper_text extends Zend_View_Helper_form
+class Zend_View_Helper_Text extends Zend_View_Helper_Form
 {
     public function text($label, $value = null, array $options = array())
     {

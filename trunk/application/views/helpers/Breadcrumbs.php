@@ -4,7 +4,7 @@
  * @author bruno
  * @package ZendCTI
  */
-class Zend_View_Helper_breadcrumbs extends Zend_View_Helper_Abstract
+class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
 {
 	const SEPARATOR = " &rarr; ";
 	

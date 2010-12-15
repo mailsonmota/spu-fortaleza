@@ -4,7 +4,7 @@
  * @author bruno
  * @package SGC
  */
-class Zend_View_Helper_message extends Zend_View_Helper_Abstract
+class Zend_View_Helper_Message extends Zend_View_Helper_Abstract
 {
     private $_texto = NULL;
     private $_tipo  = NULL;

@@ -7,7 +7,7 @@
  * @author Bruno Cavalcante
  * @since 08/06/2010
  */
-class Zend_View_Helper_pagenav extends Zend_View_Helper_Abstract
+class Zend_View_Helper_Pagenav extends Zend_View_Helper_Abstract
 {
 	const BASE_HELP_URL = '../docs/';
     protected $_options = array();

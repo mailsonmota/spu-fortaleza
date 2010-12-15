@@ -7,7 +7,7 @@
  * @author Bruno Cavalcante
  * @since 08/06/2010
  */
-class Zend_View_Helper_select extends Zend_View_Helper_form
+class Zend_View_Helper_Select extends Zend_View_Helper_Form
 {
     public function objectToOptions(array $arrayOfObjects, $valueField, $textField)
     {

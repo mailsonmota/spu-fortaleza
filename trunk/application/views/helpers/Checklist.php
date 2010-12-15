@@ -7,7 +7,7 @@
  * @author Bruno Cavalcante
  * @since 08/06/2010
  */
-class Zend_View_Helper_checklist extends Zend_View_Helper_form
+class Zend_View_Helper_Checklist extends Zend_View_Helper_form
 {
     public function checklist($label, $name, array $checklistOptions, array $checkedValues = null, array $options = array())
     {

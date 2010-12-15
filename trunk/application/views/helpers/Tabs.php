@@ -7,7 +7,7 @@
  * @author Bruno Cavalcante
  * @since 08/06/2010
  */
-class Zend_View_Helper_tabs extends Zend_View_Helper_Abstract
+class Zend_View_Helper_Tabs extends Zend_View_Helper_Abstract
 {
     const LIST_CLASS = 'tabs';
     protected $_options = array();
