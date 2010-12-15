@@ -623,7 +623,7 @@ class Processo extends BaseEntity
      * Lista os processos possíveis de ser incorporados a um outro ($this).
      * 
      * Critérios: as características tipo de processo, assunto e cpf do manifestante do processo incorporado
-     * devem ser iguais a do principal. Também, o próprio processo principal ($this) é excluído da lista. 
+     * devem ser iguais as do principal. Também, o próprio processo principal ($this) é excluído da lista. 
      */
     public function listarProcessosCaixaAnaliseIncorporado()
     {
