@@ -126,6 +126,8 @@ class Protocolo extends BaseEntity
 		$this->setNodeRef($hash['noderef']);
 		$this->setNome($hash['nome']);
 		$this->setDescricao($hash['descricao']);
+		$this->setRecebePelosSubsetores($hash['recebePelosSubsetores']);
+		$this->setRecebeMalotes($hash['recebeMalotes']);
 	}
 
 	public function listarTodos()
