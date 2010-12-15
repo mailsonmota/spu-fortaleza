@@ -7,7 +7,7 @@
  * @author Bruno Cavalcante
  * @since 08/06/2010
  */
-class Zend_View_Helper_textarea extends Zend_View_Helper_form
+class Zend_View_Helper_Textarea extends Zend_View_Helper_Form
 {
     public function textarea($label, $name, $value = null, array $options = array())
     {

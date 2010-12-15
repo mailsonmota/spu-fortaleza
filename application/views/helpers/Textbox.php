@@ -7,7 +7,7 @@
  * @author Bruno Cavalcante
  * @since 08/06/2010
  */
-class Zend_View_Helper_textbox extends Zend_View_Helper_form
+class Zend_View_Helper_Textbox extends Zend_View_Helper_Form
 {
     public function textbox($label, $name, $value = null, array $options = array())
     {

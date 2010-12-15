@@ -7,7 +7,7 @@
  * @author Bruno Cavalcante
  * @since 08/06/2010
  */
-class Zend_View_Helper_checkbox extends Zend_View_Helper_form
+class Zend_View_Helper_Checkbox extends Zend_View_Helper_form
 {
     public function checkbox($label, $name, $checked = false, array $options = array())
     {

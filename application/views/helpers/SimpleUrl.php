@@ -7,7 +7,7 @@
  * @author Bruno Cavalcante
  * @since 08/06/2010
  */
-class Zend_View_Helper_simpleurl extends Zend_View_Helper_Abstract
+class Zend_View_Helper_Simpleurl extends Zend_View_Helper_Abstract
 {
     protected $_controller;
     protected $_action;

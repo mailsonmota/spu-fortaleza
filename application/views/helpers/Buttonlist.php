@@ -7,7 +7,7 @@
  * @author Bruno Cavalcante
  * @since 08/06/2010
  */
-class Zend_View_Helper_buttonlist extends Zend_View_Helper_Abstract
+class Zend_View_Helper_Buttonlist extends Zend_View_Helper_Abstract
 {
     protected $_options = array();
     protected $_buttonOptions = array();

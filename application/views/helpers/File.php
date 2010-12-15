@@ -8,7 +8,7 @@
  * @since 08/06/2010
  */
 // TODO revisar métodos
-class Zend_View_Helper_file extends Zend_View_Helper_form
+class Zend_View_Helper_File extends Zend_View_Helper_form
 {
     public function file($label, $name, $value = null, array $options = array())
     {

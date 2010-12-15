@@ -24,7 +24,7 @@ class Zend_View_Helper_selectmultiple extends Zend_View_Helper_form
             $selected = (is_array($selectedValues) AND in_array($key, $selectedValues)) ? 'selected="selected"' : null;
             $html .= "<option value=\"$key\">$value</option>";
         }
-        $html .= "</select>";
+        $html .= "</select> $chooseLink";
         $html .= "</dd>";
         
         return $html;

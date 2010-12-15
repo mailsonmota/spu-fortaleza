@@ -7,7 +7,7 @@
  * @author Bruno Cavalcante
  * @since 08/06/2010
  */
-class Zend_View_Helper_password extends Zend_View_Helper_textbox
+class Zend_View_Helper_Password extends Zend_View_Helper_textbox
 {
     public function password($label, $name, array $options = array())
     {
