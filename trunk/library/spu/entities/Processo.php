@@ -628,7 +628,8 @@ class Processo extends BaseEntity
     public function listarProcessosCaixaAnaliseIncorporado()
     {
         $listaCaixaAnalise = $this->listarProcessosCaixaAnalise();
-
+        $listaCaixaAnaliseFiltrada = Array();
+        
         for ($i = 0; $i < count($listaCaixaAnalise); $i++) {
             if (
                 ($listaCaixaAnalise[$i]->tipoProcesso->nodeRef == $this->tipoProcesso->nodeRef) AND
