@@ -132,6 +132,8 @@ class Protocolo extends BaseEntity
 		$this->setNodeRef($hash['noderef']);
 		$this->setNome($hash['nome']);
 		$this->setDescricao($hash['descricao']);
+		$this->setOrgao($this->_getHashValue($hash, 'orgao'));
+		$this->setLotacao($this->_getHashValue($hash, 'lotacao'));
 		$this->setRecebePelosSubsetores(($this->_getHashValue($hash, 'recebePelosSubsetores') == '1') ? true : false);
 		$this->setRecebeMalotes(($this->_getHashValue($hash, 'recebeMalotes') == '1') ? true : false);
 	}
