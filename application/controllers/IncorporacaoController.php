@@ -47,7 +47,7 @@ class IncorporacaoController extends BaseController
             catch (Exception $e) {
                 throw $e;
             }
-            $this->_redirectIncorporacaoDetalhes();
+            $this->_redirectConclusao();
         }
         
         $processoPrincipal = new Processo($this->getTicket());
@@ -60,13 +60,18 @@ class IncorporacaoController extends BaseController
         $this->view->incorporado = $processoIncorporado;
     }
     
-    public function detalhesAction()
+    public function conclusaoAction()
     {
         $session = new Zend_Session_Namespace('incorporacaoSession');
-        if ($this->getRequest()->isPost()) {
-            $postData = $this->getRequest();
-        }
-        $this->view->principal = $session->principal;
+        
+        $processoPrincipal = new Processo($this->getTicket());
+        $processoPrincipal->carregarPeloId($session->processoPrincipalId);
+        
+        $processoIncorporado = new Processo($this->getTicket());
+        $processoIncorporado->carregarPeloId($session->processoIncorporadoId);
+        
+        $this->view->principal = $processoPrincipal;
+        $this->view->incorporado = $processoIncorporado;
     }
     
     protected function _redirectEscolherIncorporado()
@@ -79,8 +84,8 @@ class IncorporacaoController extends BaseController
         $this->_helper->redirector('confirmacao', $this->getController(), 'default');
     }
     
-    protected function _redirectDetalhes()
+    protected function _redirectConclusao()
     {
-        $this->_helper->redirector('detalhes', $this->getController(), 'default');
+        $this->_helper->redirector('conclusao', $this->getController(), 'default');
     }
 }
