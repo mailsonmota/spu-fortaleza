@@ -7,8 +7,10 @@ require_once('PostAdapters/JsonPostAdapter.php');
 
 class CurlClient
 {
-    const DEFAULT_INPUT_FORMAT = 'json';
-    const DEFAULT_RETURN_FORMAT = 'json';
+	const FORMAT_FORMDATA = 'formdata';
+	const FORMAT_JSON = 'json';
+	const DEFAULT_INPUT_FORMAT = self::FORMAT_JSON;
+    const DEFAULT_RETURN_FORMAT = self::FORMAT_JSON;
     
     private function _doRequest($url, $options = array()) {
         $ch = curl_init();
@@ -36,22 +38,26 @@ class CurlClient
         ) {
         $options[CURLOPT_CUSTOMREQUEST] = 'POST';
         
-        $postAdapterObj = $this->getPostAdapter($postDataFormat);
+        // Encoding
+        if ($postDataFormat != self::FORMAT_FORMDATA) {
+	        $postAdapterObj = $this->getPostAdapter($postDataFormat);
+	        $postData = $postAdapterObj->encode($postData);
+	        $options = $postAdapterObj->updateOptions($options);
+        }
         
-        $jsonData = $postAdapterObj->encode($postData);
-        $options = $postAdapterObj->updateOptions($options);
-        // TODO adicionar $jsonData no $options não manualmente (como está feito na próxima linha)
-        $options[CURLOPT_POSTFIELDS] = $jsonData; // FIXME
+        $options[CURLOPT_POSTFIELDS] = $postData;
         
         $result = $this->_doRequest($url, $options);
         
-        $getAdapterObj = $this->getGetAdapter($returnFormat);
-        
-        $return = $getAdapterObj->decode($result, true);
+        // Decoding
+        if ($returnFormat != self::FORMAT_FORMDATA) {
+	        $getAdapterObj = $this->getGetAdapter($returnFormat);
+	        $return = $getAdapterObj->decode($result, true);
+        }
         
         return $return;
     }
-
+    
     public function doDeleteRequest($url, $options = array()) {
         $options[CURLOPT_CUSTOMREQUEST] = 'DELETE';
         $result = $this->_doRequest($url, $options);
