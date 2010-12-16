@@ -14,7 +14,7 @@ echo $this->pagenav()->closeList();
     <form action="" method="post">
 	    <?php
 	    if ($this->principal->id AND $this->incorporado->id) {
-	        echo $this->render('snippets/incorporacaoConfirmacao.phtml');
+	        echo $this->render('snippets/incorporacaoDetalhesProcessos.phtml');
 	    }
 		echo $this->buttonlist()->open();
 		echo $this->buttonlist()->button('Confirmar Incorporação', 'incorporacao');

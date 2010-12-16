@@ -15,7 +15,7 @@ echo $this->pagenav()->closeList();
     <?php
     if ($this->principal->id AND $this->incorporado->id) {
     	// "conclusão" usa o snippet de "confirmação" porque são iguais
-        echo $this->render('snippets/incorporacaoConfirmacao.phtml');
+        echo $this->render('snippets/incorporacaoDetalhesProcessos.phtml');
     }
     ?>
 </div>
