@@ -1,12 +1,12 @@
 <?php
-require_once('../library/Alfresco/API/AlfrescoProcesso.php');
 require_once('BaseClassification.php');
+Loader::loadDao('StatusArquivamentoDao');
 class StatusArquivamento extends BaseClassification
 {
 	public function listar()
     {
-        $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $hashDeStatus = $service->getStatusArquivamento();
+        $dao = $this->_getDao();
+        $hashDeStatus = $dao->getStatusArquivamento();
         
         $arrayStatus = array();
         foreach ($hashDeStatus as $hashStatus) {
@@ -16,6 +16,12 @@ class StatusArquivamento extends BaseClassification
         }
         
         return $arrayStatus;
+    }
+    
+	protected function _getDao()
+    {
+    	$dao = new StatusArquivamentoDao(self::ALFRESCO_URL, $this->_getTicket());
+    	return $dao;
     }
 }
 ?>

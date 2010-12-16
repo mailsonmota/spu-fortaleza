@@ -1,7 +1,6 @@
 <?php
-
-require_once('AlfrescoBase.php');
-class AlfrescoProtocolo extends AlfrescoBase
+require_once('BaseDao.php');
+class ProtocoloDao extends BaseDao
 {
 	private $_protocoloBaseUrl = 'spu/protocolo';
 	private $_protocoloTicketUrl = 'ticket';
@@ -20,14 +19,14 @@ class AlfrescoProtocolo extends AlfrescoBase
 	
 	public function getProtocolos()
 	{
-	    $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl .  "/get/$nodeUuid";
+	    $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl .  "/listar";
         $url = $this->addAlfTicketUrl($url);
         
         $curlObj = new CurlClient();
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
         
-        return $result['Protocolo'][0];
+        return $result['Protocolos'][0];
 	}
 	
 	public function getTodosProtocolos()

@@ -9,6 +9,11 @@ class Loader
     	Zend_Loader::loadClass('BaseAlfrescoClass', self::MAIN_FOLDER);
     }
     
+	public static function loadDao($classFileName)
+    {
+        Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/daos/');
+    }
+    
     public static function loadEntity($classFileName)
     {
         Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/entities/');

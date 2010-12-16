@@ -1,14 +1,20 @@
 <?php
 require_once('LinkProcesso.php');
-require_once('../library/Alfresco/API/AlfrescoProcesso.php');
+Loader::loadDao('CopiaProcessoDao');
 class CopiaProcesso extends LinkProcesso
 {
 	public function listar()
 	{
-		$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $hashCopias = $service->getCopias();
+		$dao = $this->_getDao();
+        $hashCopias = $dao->getCopias();
         
         return $this->_loadManyFromHash($hashCopias);
+    }
+    
+    protected function _getDao()
+    {
+    	$dao = new CopiaProcessoDao(self::ALFRESCO_URL, $this->_getTicket());
+    	return $dao;
     }
     
     protected function _loadManyFromHash($hashCopias)

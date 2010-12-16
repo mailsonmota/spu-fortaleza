@@ -1,6 +1,6 @@
 <?php
-require_once('../library/Alfresco/API/AlfrescoTiposProcesso.php');
 require_once('BaseClassification.php');
+Loader::loadDao('TipoManifestanteDao');
 class TipoManifestante extends BaseClassification
 {
     public function listar()
@@ -16,6 +16,12 @@ class TipoManifestante extends BaseClassification
         }
         
         return $tiposManifestante;
+    }
+    
+    protected function _getDao()
+    {
+    	$dao = new TipoManifestanteDao(self::ALFRESCO_URL, $this->_getTicket());
+    	return $dao;
     }
 }
 ?>

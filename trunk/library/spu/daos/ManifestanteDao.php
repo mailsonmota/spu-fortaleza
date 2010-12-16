@@ -1,8 +1,6 @@
 <?php
-
-require_once('AlfrescoBase.php');
-
-class AlfrescoManifestantes extends AlfrescoBase
+require_once('BaseDao.php');
+class ManifestanteDao extends BaseDao
 {
 	private $_manifestantesBaseUrl = 'spu/manifestantes';
 	private $_manifestantesTicketUrl = 'ticket';

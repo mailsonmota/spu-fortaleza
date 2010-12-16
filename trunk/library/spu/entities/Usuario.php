@@ -1,6 +1,6 @@
 <?php
 require_once('BaseEntity.php');
-Loader::loadAlfrescoApiClass('AlfrescoPeople');
+Loader::loadDao('UsuarioDao');
 class Usuario extends BaseEntity
 {
     protected $_nome;
@@ -8,22 +8,6 @@ class Usuario extends BaseEntity
     protected $_email;
     protected $_login;
     protected $_grupos;
-    
-    protected function _getObjetoServico() {
-        return new AlfrescoPeople(self::ALFRESCO_URL, $this->_getTicket());
-    }
-    
-    public function carregarPeloLogin($userName) {
-        $hashDetalhesLogin = $this->_getObjetoServico()->getPerson($userName);
-        $this->loadUsuarioFromHash($hashDetalhesLogin);
-    }
-    
-    public function loadUsuarioFromHash($hashDetalhesLogin) {
-        $this->setNome($hashDetalhesLogin['firstName']);
-        $this->setSobrenome($hashDetalhesLogin['lastName']);
-        $this->setEmail($hashDetalhesLogin['email']);
-        $this->setLogin($hashDetalhesLogin['userName']);
-    }
     
     public function getNome() {
         return $this->_nome;
@@ -58,11 +42,30 @@ class Usuario extends BaseEntity
     }
     
     public function getGrupos($userName) {
-        return $this->_getObjetoServico()->getGroups($userName);
+    	$dao = $this->_getDao();
+        return $dao->fetchGroups($userName);
     }
 
     public function getNomeCompleto()
     {
     	return $this->_nome . ' ' . $this->_sobrenome;
+    }
+    
+	protected function _getDao() {
+    	$dao = new UsuarioDao(self::ALFRESCO_URL, $this->_getTicket());
+        return $dao;
+    }
+    
+    public function carregarPeloLogin($userName) {
+    	$dao = $this->_getDao();
+        $hashDetalhesLogin = $dao->find($userName);
+        $this->loadUsuarioFromHash($hashDetalhesLogin);
+    }
+    
+    public function loadUsuarioFromHash($hashDetalhesLogin) {
+        $this->setNome($hashDetalhesLogin['firstName']);
+        $this->setSobrenome($hashDetalhesLogin['lastName']);
+        $this->setEmail($hashDetalhesLogin['email']);
+        $this->setLogin($hashDetalhesLogin['userName']);
     }
 }
