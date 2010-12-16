@@ -1,0 +1,37 @@
+<?php 
+$this->breadcrumbs()->addPage('Protocolos', 'protocolos');
+$this->breadcrumbs()->addPage('Editar Protocolo');
+echo $this->breadcrumbs()->render(); 
+/*
+if ($this->isEdit) {
+    echo $this->tabs()->openList();
+    echo $this->tabs()->addTab($this->simpleUrl('editar', null, array('id' => $this->id)), 'Dados Gerais', true);
+    echo $this->tabs()->addTab($this->simpleUrl('assuntos', null, array('id' => $this->id)), 'Assuntos');
+    echo $this->tabs()->closeList();
+}
+*/
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->link($this->simpleUrl('index'), 'Voltar');
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+    <form action="" method="post">
+        <?php
+        echo $this->form()->openFieldList();
+        echo $this->textbox('Nome', 'nome', $this->protocolo->nome, array('required' => true));
+        echo $this->textbox('Descrição', 'descricao', $this->protocolo->descricao, array('length' => 60));
+        echo $this->textbox('Orgão', 'orgao', $this->protocolo->orgao, array('length' => 60));
+        echo $this->textbox('Lotação', 'lotacao', $this->protocolo->lotacao, array('length' => 60));
+        echo $this->checkbox('Recebe pelo Subsetores', 'recebePelosSubsetores', $this->protocolo->recebePelosSubsetores);
+        echo $this->checkbox('Recebe Malote', 'recebeMalotes', $this->protocolo->recebeMalotes);
+        echo $this->form()->closeFieldList();
+        
+        echo $this->buttonlist()->open();
+        echo $this->buttonlist()->button('Salvar');
+        echo $this->buttonlist()->resetbutton();
+        echo $this->buttonlist()->close(true); 
+        ?>
+    </form>
+</div>
