@@ -1,8 +1,6 @@
 <?php
-
-require_once('AlfrescoBase.php');
-
-class AlfrescoBairros extends AlfrescoBase
+require_once('BaseDao.php');
+class BairroDao extends BaseDao
 {
 	private $_bairrosBaseUrl = 'spu/bairros';
 	private $_bairrosTicketUrl = 'ticket';

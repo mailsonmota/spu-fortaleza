@@ -1,5 +1,4 @@
 <?php
-require_once('../library/Alfresco/API/AlfrescoProcesso.php');
 require_once('BaseEntity.php');
 require_once('TipoProcesso.php');
 require_once('Protocolo.php');
@@ -8,6 +7,7 @@ Loader::loadAspect('Manifestante');
 Loader::loadAspect('Arquivamento');
 Loader::loadClassification('Prioridade');
 Loader::loadClassification('Status');
+Loader::loadDao('ProcessoDao');
 class Processo extends BaseEntity
 {
     protected $_nodeRef;
@@ -244,10 +244,16 @@ class Processo extends BaseEntity
     
     public function listarProcessosCaixaEntrada()
     {
-        $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $hashProcessos = $service->getCaixaEntrada();
+        $dao = $this->_getDao();
+        $hashProcessos = $dao->getCaixaEntrada();
         
         return $this->_loadManyFromHash($hashProcessos);
+    }
+    
+    protected function _getDao()
+    {
+    	$dao = new ProcessoDao(self::ALFRESCO_URL, $this->_getTicket());
+    	return $dao;
     }
     
     public function getTotalProcessosCaixaEntrada()
@@ -258,40 +264,40 @@ class Processo extends BaseEntity
     
 	public function listarProcessosCaixaSaida()
     {
-        $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $hashProcessos = $service->getCaixaSaida();
+        $dao = $this->_getDao();
+        $hashProcessos = $dao->getCaixaSaida();
         
         return $this->_loadManyFromHash($hashProcessos);
     }
     
     public function listarProcessosCaixaAnalise()
     {
-    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $hashProcessos = $service->getCaixaAnalise();
+    	$dao = $this->_getDao();
+        $hashProcessos = $dao->getCaixaAnalise();
         
         return $this->_loadManyFromHash($hashProcessos);
     }
     
 	public function listarProcessosCaixaEnviados()
     {
-        $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $hashProcessos = $service->getCaixaEnviados();
+        $dao = $this->_getDao();
+        $hashProcessos = $dao->getCaixaEnviados();
         
         return $this->_loadManyFromHash($hashProcessos);
     }
     
 	public function listarProcessosCaixaExternos()
     {
-    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $hashProcessos = $service->getCaixaExternos();
+    	$dao = $this->_getDao();
+        $hashProcessos = $dao->getCaixaExternos();
         
         return $this->_loadManyFromHash($hashProcessos);
     }
     
 	public function listarProcessosArquivados()
     {
-    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $hashProcessos = $service->getCaixaArquivo();
+    	$dao = $this->_getDao();
+        $hashProcessos = $dao->getCaixaArquivo();
         
         return $this->_loadManyFromHash($hashProcessos);
     }
@@ -409,8 +415,8 @@ class Processo extends BaseEntity
     
     public function carregarPeloId($id)
     {
-        $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $hashProcessos = $service->getProcesso($id);
+        $dao = $this->_getDao();
+        $hashProcessos = $dao->getProcesso($id);
         
         $processo = array();
         foreach ($hashProcessos as $hashProcesso) {
@@ -423,10 +429,10 @@ class Processo extends BaseEntity
     
     public function abrirProcesso($postData)
     {
-        $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+        $dao = $this->_getDao();
         
         try {
-            $abrirProcessoRetorno = $service->abrirProcesso($postData);
+            $abrirProcessoRetorno = $dao->abrirProcesso($postData);
         } catch (Exception $e) {
         	throw new AlfrescoApiException('Houve um erro na abertura do processo', $e->getMessage());
         }
@@ -441,9 +447,9 @@ class Processo extends BaseEntity
     
     public function tramitar($postData)
     {
-    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+    	$dao = $this->_getDao();
         try {
-    	   $return = $service->tramitar($postData);
+    	   $return = $dao->tramitar($postData);
         } catch (Exception $e) {
         	throw new Exception($e->getMessage());
         	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
@@ -454,9 +460,9 @@ class Processo extends BaseEntity
     
     public function tramitarVarios($postData)
     {
-    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+    	$dao = $this->_getDao();
         try {
-    	   $return = $service->tramitarVarios($postData);
+    	   $return = $dao->tramitarVarios($postData);
         } catch (Exception $e) {
         	throw new Exception($e->getMessage());
         	//throw new AlfrescoApiException('Houve um erro na tramitação dos processos');
@@ -467,15 +473,15 @@ class Processo extends BaseEntity
     
     public function receberVarios($postData)
     {
-    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
-    	return $service->receberVarios($postData);
+    	$dao = $this->_getDao();
+    	return $dao->receberVarios($postData);
     }
     
     public function tramitarExternos($postData)
     {
-    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+    	$dao = $this->_getDao();
         try {
-    	   $return = $service->tramitarExternos($postData);
+    	   $return = $dao->tramitarExternos($postData);
         } catch (Exception $e) {
         	throw new Exception($e->getMessage());
         	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
@@ -486,9 +492,9 @@ class Processo extends BaseEntity
     
 	public function retornarExternos($postData)
     {
-    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+    	$dao = $this->_getDao();
         try {
-    	   $return = $service->retornarExternos($postData);
+    	   $return = $dao->retornarExternos($postData);
         } catch (Exception $e) {
         	throw new Exception($e->getMessage());
         	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
@@ -499,8 +505,8 @@ class Processo extends BaseEntity
     
     public function carregarMovimentacoes()
     {
-    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $hashProcessos = $service->getHistorico($this->id);
+    	$dao = $this->_getDao();
+        $hashProcessos = $dao->getHistorico($this->id);
         
         $processo = array();
         foreach ($hashProcessos as $hashProcesso) {
@@ -529,9 +535,9 @@ class Processo extends BaseEntity
     
 	public function cancelarEnvios($postData)
     {
-    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+    	$dao = $this->_getDao();
         try {
-    	   $return = $service->cancelarEnvios($postData);
+    	   $return = $dao->cancelarEnvios($postData);
         } catch (Exception $e) {
         	throw new Exception($e->getMessage());
         	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
@@ -542,9 +548,9 @@ class Processo extends BaseEntity
     
 	public function arquivarVarios($postData)
     {
-    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+    	$dao = $this->_getDao();
         try {
-    	   $return = $service->arquivarVarios($postData);
+    	   $return = $dao->arquivarVarios($postData);
         } catch (Exception $e) {
         	throw new Exception($e->getMessage());
         	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
@@ -555,9 +561,9 @@ class Processo extends BaseEntity
     
 	public function reabrirVarios($postData)
     {
-    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+    	$dao = $this->_getDao();
         try {
-    	   $return = $service->reabrirVarios($postData);
+    	   $return = $dao->reabrirVarios($postData);
         } catch (Exception $e) {
         	throw new Exception($e->getMessage());
         	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
@@ -568,9 +574,9 @@ class Processo extends BaseEntity
     
     public function uploadArquivo($data)
     {
-        $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+        $dao = $this->_getDao();
         try {
-            $return = $service->uploadArquivo($data);
+            $return = $dao->uploadArquivo($data);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -580,9 +586,9 @@ class Processo extends BaseEntity
     
     public function incorporar($data)
     {
-        $service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+        $dao = $this->_getDao();
         try {
-            $return = $service->incorporar($data);
+            $return = $dao->incorporar($data);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -592,9 +598,9 @@ class Processo extends BaseEntity
     
 	public function comentarVarios($postData)
     {
-    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+    	$dao = $this->_getDao();
         try {
-    	   $return = $service->comentarVarios($postData);
+    	   $return = $dao->comentarVarios($postData);
         } catch (Exception $e) {
         	throw new Exception($e->getMessage());
         	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
@@ -605,11 +611,11 @@ class Processo extends BaseEntity
     
     public function consultar($postData)
     {
-    	$service = new AlfrescoProcesso(self::ALFRESCO_URL, $this->_getTicket());
+    	$dao = $this->_getDao();
     	$processos = array();
     	
         try {
-    	   $hashProcessos = $service->consultar($postData);
+    	   $hashProcessos = $dao->consultar($postData);
     	   $processos = $this->_loadManyFromHash($hashProcessos);
         } catch (Exception $e) {
         	throw new Exception($e->getMessage());

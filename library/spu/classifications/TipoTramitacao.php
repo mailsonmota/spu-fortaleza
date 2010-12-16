@@ -1,12 +1,12 @@
 <?php
-require_once('../library/Alfresco/API/AlfrescoTiposProcesso.php');
 require_once('BaseClassification.php');
+Loader::loadDao('TipoTramitacaoDao');
 class TipoTramitacao extends BaseClassification
 {
     public function listar()
     {
-        $service = new AlfrescoTiposProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $hashDeTipoTramitacao = $service->getTramitacoes();
+        $dao = $this->_getDao();
+        $hashDeTipoTramitacao = $dao->getTramitacoes();
         
         $tiposTramitacao = array();
         foreach ($hashDeTipoTramitacao as $hashTipoTramitacao) {
@@ -16,6 +16,12 @@ class TipoTramitacao extends BaseClassification
         }
         
         return $tiposTramitacao;
+    }
+    
+    protected function _getDao()
+    {
+    	$dao = new TipoTramitacaoDao(self::ALFRESCO_URL, $this->_getTicket());
+    	return $dao;
     }
 }
 ?>

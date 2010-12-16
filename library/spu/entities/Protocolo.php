@@ -1,6 +1,6 @@
 <?php
-require_once('../library/Alfresco/API/AlfrescoProtocolo.php');
 require_once('BaseEntity.php');
+Loader::loadDao('ProtocoloDao');
 class Protocolo extends BaseEntity
 {
 	protected $_nodeRef;
@@ -102,12 +102,18 @@ class Protocolo extends BaseEntity
 
 	public function listar()
 	{
-		$service = new AlfrescoProtocolo(self::ALFRESCO_URL, $this->_getTicket());
-		$hashProtocolos = $service->getProtocolos();
+		$dao = $this->_getDao();
+		$hashProtocolos = $dao->getProtocolos();
 
 		return $this->loadManyFromHash($hashProtocolos);
 	}
 
+	protected function _getDao()
+	{
+		$dao = new ProtocoloDao(self::ALFRESCO_URL, $this->_getTicket());
+		return $dao;
+	}
+	
 	public function loadManyFromHash($hashProtocolos)
 	{
 		$protocolos = array();
@@ -132,16 +138,16 @@ class Protocolo extends BaseEntity
 
 	public function listarTodos()
 	{
-		$service = new AlfrescoProtocolo(self::ALFRESCO_URL, $this->_getTicket());
-		$hashProtocolos = $service->getTodosProtocolos();
+		$dao = $this->_getDao();
+		$hashProtocolos = $dao->getTodosProtocolos();
 
 		return $this->loadManyFromHash($hashProtocolos);
 	}
 
 	public function carregarPeloId($id)
 	{
-		$service = new AlfrescoProtocolo(self::ALFRESCO_URL, $this->_getTicket());
-		$hashDeProtocolo = $service->getProtocolo($id);
+		$dao = $this->_getDao();
+		$hashDeProtocolo = $dao->getProtocolo($id);
 
 		foreach ($hashDeProtocolo as $hashProtocolo) {
 			$hashDadosProtocolo = array_pop($hashProtocolo);

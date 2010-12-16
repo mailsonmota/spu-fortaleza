@@ -69,4 +69,17 @@ class AlfrescoBase
     		return $return['message'];
     	}
     }
+    
+	protected function _getResultFromUrl($url)
+	{
+		$curlObj = new CurlClient();
+        $resultJson = $curlObj->doGetRequest($url);
+        $result = json_decode($resultJson, true);
+        
+        if ($this->isAlfrescoError($result)) {
+        	throw new Exception($this->getAlfrescoErrorMessage($result));
+        }
+        
+        return $result;
+	}
 }

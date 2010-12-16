@@ -1,12 +1,12 @@
 <?php
-require_once('../library/Alfresco/API/AlfrescoTiposProcesso.php');
 require_once('BaseClassification.php');
+Loader::loadDao('TipoAbrangenciaDao');
 class TipoAbrangencia extends BaseClassification
 {
     public function listar()
     {
-        $service = new AlfrescoTiposProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $hashDeTipoAbrangencia = $service->getAbrangencias();
+        $dao = $this->_getDao();
+        $hashDeTipoAbrangencia = $dao->getAbrangencias();
         
         $tiposAbrangencia = array();
         foreach ($hashDeTipoAbrangencia as $hashTipoAbrangencia) {
@@ -16,6 +16,12 @@ class TipoAbrangencia extends BaseClassification
         }
         
         return $tiposAbrangencia;
+    }
+    
+    protected function _getDao()
+    {
+    	$dao = new TipoAbrangenciaDao(self::ALFRESCO_URL, $this->_getTicket());
+    	return $dao;
     }
 }
 ?>

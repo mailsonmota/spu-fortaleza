@@ -1,10 +1,10 @@
 <?php
-require_once('../library/Alfresco/API/AlfrescoTiposProcesso.php');
 require_once('BaseEntity.php');
 require_once('Assunto.php');
 Loader::loadClassification('TipoTramitacao');
 Loader::loadClassification('TipoAbrangencia');
 Loader::loadClassification('TipoManifestante');
+Loader::loadDao('TipoProcessoDao');
 class TipoProcesso extends BaseEntity
 {
     protected $_nodeRef;
@@ -132,8 +132,8 @@ class TipoProcesso extends BaseEntity
     
     public function listar()
     {
-        $service = new AlfrescoTiposProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $hashDeTiposProcesso = $service->getTiposProcesso();
+        $dao = $this->_getDao();
+        $hashDeTiposProcesso = $dao->getTiposProcesso();
         
         $tiposProcesso = array();
         foreach ($hashDeTiposProcesso as $hashTipoProcesso) {
@@ -145,6 +145,12 @@ class TipoProcesso extends BaseEntity
         
         return $tiposProcesso;
     }
+    
+	protected function _getDao()
+	{
+		$dao = new TipoProcessoDao(self::ALFRESCO_URL, $this->_getTicket());
+		return $dao;
+	}
     
     protected function _loadTipoProcessoFromHash($hash)
     {
@@ -207,8 +213,8 @@ class TipoProcesso extends BaseEntity
     
     public function carregarPeloId($id)
     {
-        $service = new AlfrescoTiposProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $hashDeTiposProcesso = $service->getTipoProcesso($id);
+        $dao = $this->_getDao();
+        $hashDeTiposProcesso = $dao->getTipoProcesso($id);
         
         foreach ($hashDeTiposProcesso as $hashTipoProcesso) {
             $hashDadosTipoProcesso = array_pop($hashTipoProcesso); 

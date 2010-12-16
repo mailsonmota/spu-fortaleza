@@ -1,12 +1,12 @@
 <?php
-require_once('../library/Alfresco/API/AlfrescoBairros.php');
 require_once('BaseClassification.php');
+Loader::loadDao('BairroDao');
 class Bairro extends BaseClassification
 {
     public function listar()
     {
-        $service = new AlfrescoBairros(self::ALFRESCO_URL, $this->_getTicket());
-        $hashDeBairros = $service->getBairros();
+        $dao = $this->_getDao();
+        $hashDeBairros = $dao->getBairros();
         
         $bairros = array();
         foreach ($hashDeBairros[0] as $hashBairro) {
@@ -16,6 +16,12 @@ class Bairro extends BaseClassification
         }
         
         return $bairros;
+    }
+    
+    protected function _getDao()
+    {
+    	$dao = new BairroDao(self::ALFRESCO_URL, $this->_getTicket());
+    	return $dao;
     }
 }
 ?>

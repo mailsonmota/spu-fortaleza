@@ -1,7 +1,6 @@
 <?php
-
-require_once('AlfrescoBase.php');
-class AlfrescoProcesso extends AlfrescoBase
+require_once('BaseDao.php');
+class ProcessoDao extends BaseDao
 {
 	private $_processoBaseUrl = 'spu/processo';
 	private $_processoTicketUrl = 'ticket';
@@ -73,20 +72,6 @@ class AlfrescoProcesso extends AlfrescoBase
         return $result;
 	}
 	
-	public function getCopias()
-	{
-		$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/copias";
-        $url = $this->addAlfTicketUrl($url);
-        
-        return $this->_getCopiasFromUrl($url);
-	}
-	
-	protected function _getCopiasFromUrl($url)
-	{
-		$result = $this->_getResultFromUrl($url);
-		return $result['Copias'][0];
-	}
-	
 	public function abrirProcesso($postData)
 	{
 	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/abrir";
@@ -102,18 +87,6 @@ class AlfrescoProcesso extends AlfrescoBase
         
         return $result;
 	}
-	
-    public function getPrioridades()
-    {
-        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/prioridades/listar";
-        $url = $this->addAlfTicketUrl($url);
-        
-        $curlObj = new CurlClient();
-        $resultJson = $curlObj->doGetRequest($url);
-        $result = json_decode($resultJson, true);
-        
-        return $result['Prioridades'][0];
-    }
     
 	public function getProcesso($nodeUuid)
 	{
@@ -349,21 +322,5 @@ class AlfrescoProcesso extends AlfrescoBase
         }
         
         return $result['Processos'][0];
-	}
-	
-	public function getStatusArquivamento()
-	{
-	    $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/statusarquivamento/listar";
-        $url = $this->addAlfTicketUrl($url);
-        
-        $curlObj = new CurlClient();
-        $resultJson = $curlObj->doGetRequest($url);
-        $result = json_decode($resultJson, true);
-        
-        if ($this->isAlfrescoError($result)) {
-        	throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
-        
-        return $result['Status'][0];
 	}
 }

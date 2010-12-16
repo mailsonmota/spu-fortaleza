@@ -1,6 +1,6 @@
 <?php
-require_once('../library/Alfresco/API/AlfrescoManifestantes.php');
 require_once('BaseAspect.php');
+Loader::loadDao('ManifestanteDao');
 Loader::loadClassification('Bairro');
 class Manifestante extends BaseAspect
 {
@@ -196,8 +196,8 @@ class Manifestante extends BaseAspect
     
     public function listar()
     {
-        $service = new AlfrescoManifestantes(self::ALFRESCO_URL, $this->_getTicket());
-        $hashManifestantes = $service->getManifestantes();
+        $dao = $this->_getDao();
+        $hashManifestantes = $dao->getManifestantes();
         
         $manifestantes = array();
         foreach ($hashManifestantes[0] as $hashManifestante) {
@@ -211,6 +211,12 @@ class Manifestante extends BaseAspect
         }
         
         return $manifestantes;
+    }
+    
+    protected function _getDao()
+    {
+    	$dao = new ManifestanteDao(self::ALFRESCO_URL, $this->_getTicket());
+    	return $dao;
     }
     
     public function loadFromHash($hash)
@@ -241,8 +247,8 @@ class Manifestante extends BaseAspect
     
     public function carregarPeloCpf($cpf)
     {
-        $service = new AlfrescoManifestantes(self::ALFRESCO_URL, $this->_getTicket());
-        $hashManifestante = $service->getManifestante($cpf);
+        $dao = $this->_getDao();
+        $hashManifestante = $dao->getManifestante($cpf);
         
         $hashDadosManifestante = array_pop(array_pop(array_pop($hashManifestante)));
         
