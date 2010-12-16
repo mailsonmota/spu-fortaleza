@@ -9,10 +9,7 @@ class CopiasController extends BaseTramitacaoController
     	
     	if ($this->getRequest()->isPost()) {
     		try {
-    			$processosSelecionados = $this->getRequest()->getParam('processos');
-    			$session = new Zend_Session_Namespace('encaminhar');
-        		$session->processos = $processosSelecionados;
-        		$this->_redirectEncaminhar();
+    			$copiaProcesso->excluir($this->getRequest()->getPost());
     		} catch (Exception $e) {
 	    		$this->setMessageForTheView($e->getMessage(), 'error');
 	    	}

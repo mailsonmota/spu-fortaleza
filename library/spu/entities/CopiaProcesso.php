@@ -29,4 +29,10 @@ class CopiaProcesso extends LinkProcesso
         
         return $copias;
     }
+    
+    public function excluir($postData)
+    {
+    	$dao = $this->_getDao();
+    	return $dao->deleteAll($postData);
+    }
 }

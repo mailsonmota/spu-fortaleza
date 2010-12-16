@@ -21,7 +21,7 @@ echo $this->pagenav()->closeList();
         $columns = array('numeroProcesso', 'dataProcesso', 'nomeManifestanteProcesso', 'nomeTipoProcesso', 'nomeAssuntoProcesso');
         
         $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
-        $grid->addCheckboxColumn('processos', 'id');
+        $grid->addCheckboxColumn('copias', 'id');
         $grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', 'processo') . '/id/', 'idProcesso');
         echo $grid->render();
         ?>
