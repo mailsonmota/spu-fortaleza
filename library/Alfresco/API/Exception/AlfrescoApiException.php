@@ -4,7 +4,7 @@
  * @author bruno
  * @since 13/05/2010
  */
-class AlfrescoApiException extends Zend_Exception
+class AlfrescoApiException extends Exception
 {
 	const ERROR_CODE = 'AlfrescoApi';
 	protected $code;

@@ -1,5 +1,5 @@
 <?php
-
+require_once('Exception/AlfrescoApiException.php');
 require_once('CurlClient/CurlClient.php');
 
 class AlfrescoBase
