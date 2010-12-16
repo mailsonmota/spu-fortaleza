@@ -8,14 +8,14 @@ class AlfrescoProtocolo extends AlfrescoBase
 	
 	public function getProtocolo($nodeUuid)
 	{
-		$url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listar";
+		$url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/get/$nodeUuid";
         $url = $this->addAlfTicketUrl($url);
         
         $curlObj = new CurlClient();
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
         
-        return $result['Protocolos'][0];		
+        return $result['Protocolo'][0];		
 	}
 	
 	public function getProtocolos()
