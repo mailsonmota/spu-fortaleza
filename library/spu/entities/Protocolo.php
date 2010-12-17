@@ -65,17 +65,17 @@ class Protocolo extends BaseEntity
 	{
 		return $this->_recebePelosSubsetores;
 	}
-	
+
 	public function setRecebePelosSubsetores($value)
 	{
 		$this->_recebePelosSubsetores = $value;
 	}
-	
+
 	public function getRecebeMalotes()
 	{
 		return $this->_recebeMalotes;
 	}
-	
+
 	public function setRecebeMalotes($value)
 	{
 		$this->_recebeMalotes = $value;
@@ -113,7 +113,7 @@ class Protocolo extends BaseEntity
 		$dao = new ProtocoloDao(self::ALFRESCO_URL, $this->_getTicket());
 		return $dao;
 	}
-	
+
 	public function loadManyFromHash($hashProtocolos)
 	{
 		$protocolos = array();
@@ -150,6 +150,17 @@ class Protocolo extends BaseEntity
 	{
 		$dao = $this->_getDao();
 		$hashDeProtocolo = $dao->getProtocolo($id);
+
+		foreach ($hashDeProtocolo as $hashProtocolo) {
+			$hashDadosProtocolo = array_pop($hashProtocolo);
+			$this->loadFromHash($hashDadosProtocolo);
+		}
+	}
+
+	public function alterar($postData)
+	{
+		$dao = $this->_getDao();
+		$hashDeProtocolo = $dao->alterar($this->getId(), $postData);
 
 		foreach ($hashDeProtocolo as $hashProtocolo) {
 			$hashDadosProtocolo = array_pop($hashProtocolo);
