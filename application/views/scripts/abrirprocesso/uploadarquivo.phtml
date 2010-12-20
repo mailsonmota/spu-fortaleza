@@ -13,15 +13,20 @@ echo $this->pagenav()->closeList();
 <div id="article">
     <h4>4. Escolha arquivos para adicionar ao processo</h4>
     
-    <form action="" method="post" enctype="multipart/form-data">
-        <input type="text" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
-        <input type="file" name="fileToUpload" />
-        <?php
-        echo $this->buttonlist()->open();
-        echo $this->buttonlist()->button('Enviar Arquivo');
-        echo $this->buttonlist()->close(true); 
-        ?>
+    <form action="http://172.30.116.21:8080/alfresco/service/spu/processo/uploadarquivo?alf_ticket=TICKET_4513cfbce32106703cdd995cfac8f5ef6bb80b20" method="post" enctype="multipart/form-data">
+        <dl>
+	        <dt>Id do Processo</dt>
+	        <dd><input type="text" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" /></dd>
+	    
+	        <dt>Arquivo</dt>
+	        <dd><input type="file" name="fileToUpload" /></dd>
+	        
+	        <dt></dt><dd><input type="submit" value="Enviar arquivo" /></dd>
+	    </dl>
     </form>
+    
+    <div id="output">
+    </div>
     
     <fieldset>
     <legend>Lista de arquivos</legend>
@@ -36,3 +41,41 @@ echo $this->pagenav()->closeList();
         ?>
     </form>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    alert('início do document ready script');
+    $('#myForm').ajaxForm();
+    var options = {
+            target: '#output',
+            beforeSubmit: antesDoSubmit,
+            success: showResponse,
+            dataType: 'xml',
+            resetForm: true
+    };
+
+    $('#myForm').submit(function() {
+        alert('fazendo submit');
+        
+        // inside event callbacks 'this' is the DOM element so we first 
+        // wrap it in a jQuery object and then invoke ajaxSubmit 
+        $(this).ajaxSubmit(options); 
+ 
+        // !!! Important !!! 
+        // always return false to prevent standard browser submit and page navigation 
+        return false; 
+    });
+    alert('fim do document ready script');
+});
+
+function antesDoSubmit(formData, jqForm, options) {
+    var queryString = $.param(formData);
+    alert('funcao antesDoSubmit. dados: ' + queryString);
+};
+
+function showResponse(responseText, statusText, xhr) {
+    alert('funcao sucesso');
+    alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
+    '\n\nThe output div should have already been updated with the responseText.');
+}
+</script>
