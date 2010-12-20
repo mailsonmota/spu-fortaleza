@@ -87,6 +87,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headScript()->appendFile($pluginsPath . 'plupload.full.min.js');
         $view->headScript()->appendFile($pluginsPath . '/dataTables/jquery.dataTables.min.js');
         $view->headScript()->appendFile($pluginsPath . '/dataTables/textOnlyPagination.js');
+        $view->headScript()->appendFile($pluginsPath . 'jquery.form.js');
         $view->headScript()->appendFile($jsPath . 'funcoes.js');
     }
     
