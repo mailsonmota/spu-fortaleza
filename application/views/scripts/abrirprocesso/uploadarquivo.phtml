@@ -22,13 +22,10 @@ echo $this->pagenav()->closeList();
 	        <dt></dt><dd><input type="submit" value="Enviar Arquivo" /></dd>
 	    </dl>
     </form>
-    
-    <div id="output">
-    </div>
-    
+
     <fieldset>
     <legend>Lista de arquivos</legend>
-    <?php var_dump($this->uploadedFiles); ?>
+    <?php echo '<pre>'; var_dump($this->uploadedFiles); echo '</pre>'; ?>
     </fieldset>
     
     <form action="" method="post">
