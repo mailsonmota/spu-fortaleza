@@ -130,7 +130,7 @@ class AbrirprocessoController extends BaseController
 	                if ($session->uploadedFilesCount == null) {
 	                	$session->uploadedFilesCount = 0;
 	                }
-	                $session->uploadedFiles[$session->uploadedFilesCount++] = $postData['fileName'];
+	                $session->uploadedFiles[$session->uploadedFilesCount++] = $_FILES['fileToUpload']['name'];
 	            } catch (Exception $e) {
 	            	throw $e;
 	            }
