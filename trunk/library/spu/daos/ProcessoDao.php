@@ -113,7 +113,8 @@ class ProcessoDao extends BaseDao
         
         $curlObj = new CurlClient();
         
-        $result = $curlObj->doPostRequest($url, $postData);
+        $result = $curlObj->doPostRequest($url, $postData, 'formdata');
+        
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
