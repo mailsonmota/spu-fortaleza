@@ -116,8 +116,14 @@ class AbrirprocessoController extends BaseController
         	
         	// TODO Ponto de decisão ruim logo abaixo. Pesquisar como interpretar submits' values.
         	if ($_FILES['fileToUpload']['name']) {
-	            $postData['fileName'] = $_FILES['fileToUpload']['name'];
-	            $postData['fileContent'] = file_get_contents($_FILES['fileToUpload']['tmp_name']);
+        		$uploadFolder = dirname($_FILES['fileToUpload']['tmp_name']);
+                
+        		$tmpFilePath = $uploadFolder . "/" . basename($_FILES['fileToUpload']['tmp_name']);
+                $newFilePath = $uploadFolder . "/" . basename($_FILES['fileToUpload']['name']);
+                
+                rename($tmpFilePath, $newFilePath);
+                
+	            $postData['fileToUpload'] = "@" . $newFilePath;
 	            
 	            try {
 	                $processo->uploadArquivo($postData);
