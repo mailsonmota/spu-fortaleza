@@ -114,7 +114,6 @@ class AbrirprocessoController extends BaseController
         if ($this->getRequest()->isPost()) {
         	$postData = $this->getRequest()->getParams();
         	
-        	// TODO Ponto de decisão ruim logo abaixo. Pesquisar como interpretar submits' values.
         	if ($_FILES['fileToUpload']['name']) {
         		$uploadFolder = dirname($_FILES['fileToUpload']['tmp_name']);
                 
@@ -132,7 +131,7 @@ class AbrirprocessoController extends BaseController
 	                }
 	                $session->uploadedFiles[$session->uploadedFilesCount++] = $_FILES['fileToUpload']['name'];
 	            } catch (Exception $e) {
-	            	throw $e;
+	            	throw new Exception('Erro no upload de arquivo. Mensagem: ' . $e->getMessage());
 	            }
             } else {
                 $this->_redirectConfirmacaoCriacao();
