@@ -14,7 +14,7 @@ echo $this->pagenav()->closeList();
     <h4>4. Escolha arquivos para adicionar ao processo</h4>
     
     <form action="" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" hidden /></dd>
+        <input type="hidden" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
         <dl>
             <dt>Arquivo</dt>
 	        <dd><input type="file" name="fileToUpload" /></dd>
