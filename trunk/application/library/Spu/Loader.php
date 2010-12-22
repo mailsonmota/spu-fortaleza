@@ -11,27 +11,22 @@ class Loader
     
 	public static function loadDao($classFileName)
     {
-        Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/daos/');
+        Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/Dao/');
     }
     
     public static function loadEntity($classFileName)
     {
-        Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/entities/');
+        Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/Entity/');
     }
     
     public static function loadClassification($classFileName)
     {
-    	Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/classifications/');
+    	Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/Classification/');
     }
     
 	public static function loadAspect($classFileName)
     {
-        Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/aspects/');
-    }
-    
-    public static function loadEnumeration($classFileName)
-    {
-        Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/enumerations/');
+        Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/Aspect/');
     }
     
     public static function loadAlfrescoApiClass($classFileName)
