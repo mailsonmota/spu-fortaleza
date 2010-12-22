@@ -25,7 +25,7 @@ class ProtocolosController extends BaseController
 				$postData['recebePelosSubsetores'] = 0;
 			}
 			$protocolo->alterar($postData);
-			$this->setSuccessMessage("Protocolo alterado com sucesso");
+			$this->setMessageForTheView("Protocolo alterado com sucesso", 'sucess');
 		}
 
 		$listaProtocolos = array();
