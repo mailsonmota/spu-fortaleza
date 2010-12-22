@@ -18,4 +18,9 @@ class AuthAdapter extends ZendAuthAdapterAlfresco
         
         return $identity;
     }
+    
+	protected function _getAlfrescoBaseUrl()
+    {
+    	return BaseDao::ALFRESCO_URL;
+    }
 }

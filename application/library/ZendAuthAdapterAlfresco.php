@@ -124,7 +124,7 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
      */
     public function authenticate()
     {
-        try {
+    	try {
             $this->authenticateOnAlfresco();
             $this->setApplicationUser();
         } catch (Exception $e) {
@@ -138,15 +138,11 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
     
     protected function authenticateOnAlfresco()
     {
-    	Loader::loadAlfrescoApiClass('AlfrescoLogin');
-        
-        $username = $this->getUsername();
+    	$username = $this->getUsername();
         $password = $this->getPassword();
         
-        $alfrescoLoginApi = new AlfrescoLogin(BaseAlfrescoClass::ALFRESCO_URL);
-        
         try {
-            $response = $alfrescoLoginApi->login($username, $password);
+            $response = $this->_getLoginApi()->login($username, $password);
         } catch (Exception $e) {
         	throw $e;
         }
@@ -241,5 +237,23 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
         }
 
         return $code;
+    }
+    
+    protected function _getLoginApi()
+    {
+    	Loader::loadAlfrescoApiClass('Login');
+        
+        return new Alfresco_Rest_Login($this->_getAlfrescoBaseUrl());
+    }
+    
+    protected function _getAlfrescoBaseUrl()
+    {
+    	return 'localhost:8080/alfresco/service';
+    }
+    
+    public function logout()
+    {
+    	$authNamespace = new Zend_Session_Namespace('Zend_Auth');
+        $this->_getLoginApi()->logout($authNamespace->adminTicket);
     }
 }
