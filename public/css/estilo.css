@@ -3,7 +3,7 @@
     Date: Agosto 2010
     Description: Layout para o sistema homônimo
     Version: 0.1
-    Author: Prefeitura Municipal de Fortaleza
+    Author: Bruno Cavalcante [Prefeitura Municipal de Fortaleza]
     Autor URI: http://www.fortaleza.ce.gov.br
 */
 
@@ -44,12 +44,14 @@ dl.form dt {padding-top: 0.75em;}
 dl.form dt, dl.form dd {margin-bottom: 0.1em}
 label {font-weight: normal;}
 input, select, textarea {font-family: Helvetica, Arial, sans-serif;padding: 0.25em 0;text-indent: 3px;font-size: 1em;}
+select {text-indent: 0;}
+fieldset {border-width: 1px 0 0 0;}
+
+/* Forms - Classes Adicionais */
 .middleText {width: 30em;}
 .largeText {width: 50em;}
-select {text-indent: 0;}
-label.required {font-weight: bold;}
 .campoTexto {padding-top: 0.75em;}
-fieldset {border-width: 1px 0 0 0;}
+label.required {font-weight: bold;}
 dd label.error {margin: 0; border: 0; background: none; padding: 0; display: block}
 input.error, textarea.error {margin: 0.5em 0; padding: 0.25em 0;border-width: 1px; border-color: #8a1f11;background: #FBE3E4}
 dd a.dp-choose-date {margin-left: 0.5em;}
@@ -59,7 +61,7 @@ dd a.dp-choose-date {margin-left: 0.5em;}
 .buttons li {float: left;margin-right: 0.5em;}
 .buttons .description {padding-top: 0.70em;}
 .buttons.grid {margin-bottom: 0;}
-button {font-family: Helvetica, Arial, sans-serif;padding: 0.5em 2em;font-size: 1em;}
+button {font-family: Helvetica, Arial, sans-serif;padding: 0.5em 1.5em;font-size: 1em;}
 
 /* Tabelas */
 table.grid {width: 100%;margin-top: 1%;border-collapse:collapse;}
@@ -77,8 +79,8 @@ table.grid {width: 100%;margin-top: 1%;border-collapse:collapse;}
 /* Páragrafos */
 p {margin-bottom: 1.143em;}
 * p:last-child {margin-bottom: 0;}
-.comentario {background: url(../img/commentArrow.png) no-repeat 10.5em 0px; padding-top: 5px; margin-top: 0.1em;}
 blockquote {background: #DDD; color: #333; padding: 0.5em 0.75em; margin: 0 0 0.5em 10em;float: left}
+.comentario {background: url(../img/commentArrow.png) no-repeat 10.5em 0px; padding-top: 5px; margin-top: 0.1em;}
 
 /* Listas */
 dt, dd {float: left}
@@ -226,3 +228,6 @@ body.basic #message {border-top: 0}
 #fileUpload h5 {margin: 1% 0 0 0}
 #fileList {margin: 0 0 1% 1%}
 #fileList li {margin: 0.85em 0;}
+
+/* Relatórios */
+.comprovante-assinatura {text-align: center}
