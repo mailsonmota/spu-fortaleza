@@ -24,7 +24,7 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
      *
      * @return void
      */
-    public function __construct($username, $password)
+    public function __construct($username = null, $password = null)
     {
         $this->setUsername($username);
         $this->setPassword($password);
