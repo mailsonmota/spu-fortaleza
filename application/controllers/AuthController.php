@@ -14,7 +14,7 @@ class AuthController extends BaseController
     public function authorizeAction()
     {
         $requestData = $this->getRequest();
-        $authAdapter = new SpuAuthAdapter($requestData->getParam('username'), $requestData->getParam('password'));
+        $authAdapter = new AuthAdapter($requestData->getParam('username'), $requestData->getParam('password'));
         
         $auth = Zend_Auth::getInstance();
         $result = $auth->authenticate($authAdapter);

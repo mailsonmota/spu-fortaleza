@@ -4,13 +4,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     protected function _initAutoload()
     {
-        Zend_Loader::loadClass('Loader', '../library/spu');
+    	$libraryPath = '../application/library';
+        Zend_Loader::loadClass('Loader');
         Zend_Loader::loadClass('BaseController', '../application/controllers');
-        Zend_Loader::loadClass('SimpleDataTable', '../library/simpledatatable');
+        Zend_Loader::loadClass('SimpleDataTable', "$libraryPath/SimpleDataTable");
         Zend_Loader::loadClass('ErrorPlugin');
         Zend_Loader::loadClass('AuthPlugin');
-        Zend_Loader::loadClass('SpuAuthAdapter', '../library/spu');
-        Zend_Loader::loadClass('AlfrescoApiException', '../library/spu/exceptions');
+        Zend_Loader::loadClass('AuthAdapter');
+        Zend_Loader::loadClass('AlfrescoApiException', "$libraryPath/spu/exceptions");
     }
     
     protected function _initControllers(array $options = array())
