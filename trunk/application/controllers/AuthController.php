@@ -61,10 +61,9 @@ class AuthController extends BaseController
         $this->setSuccessMessage('Logout realizado com sucesso.');
         
         // FIXME substituir
-        Loader::loadAlfrescoApiClass('AlfrescoLogin');
-        Loader::loadEntity('BaseAlfrescoEntity');
-
-        $alfrescoLoginObj = new AlfrescoLogin(BaseAlfrescoEntity::ALFRESCO_URL);
+        Loader::loadAlfrescoApiClass('Login');
+        
+        $alfrescoLoginObj = new Alfresco_Rest_Login(BaseDao::ALFRESCO_URL);
         $authNamespace = new Zend_Session_Namespace('Zend_Auth');
         $alfrescoLoginObj->logout($authNamespace->adminTicket);
         
