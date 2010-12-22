@@ -1,9 +1,9 @@
 <?php
-require_once('BaseAspect.php');
+require_once('Base.php');
 Loader::loadEntity('Protocolo');
 Loader::loadEntity('Usuario');
 Loader::loadClassification('Prioridade');
-class Movimentacao extends BaseAspect
+class Movimentacao extends Spu_Aspect_Base
 {
     protected $_data;
     protected $_hora;

@@ -1,8 +1,8 @@
 <?php
-require_once('BaseAspect.php');
+require_once('Base.php');
 Loader::loadDao('ManifestanteDao');
 Loader::loadClassification('Bairro');
-class Manifestante extends BaseAspect
+class Manifestante extends Spu_Aspect_Base
 {
     protected $_cpf;
     protected $_nome;
