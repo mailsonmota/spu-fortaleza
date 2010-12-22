@@ -4,7 +4,6 @@
  * @author bruno
  * @package SGC
  */
-Loader::loadEnumeration('Mensagem');
 Loader::loadEntity('Processo');
 abstract class BaseController extends Zend_Controller_Action
 {
