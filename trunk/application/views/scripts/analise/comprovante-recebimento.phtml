@@ -1,0 +1,34 @@
+<?php 
+$this->breadcrumbs()->addPage('Tramitação', 'entrada');
+$this->breadcrumbs()->addPage('Caixa de Análise', 'analise');
+$this->breadcrumbs()->addPage('Comprovante de Recebimento');
+echo $this->breadcrumbs()->render(); 
+
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article" class="relatorio">
+	<form action="" method="post">
+		<p class="comprovante-textoabertura">Recebi os processos listados abaixo:</p>
+    	<?php 
+    	$headerColumns = array('Número', 'Envolvido', 'Tipo', 'Assunto');
+        $columns = array('numero', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
+        
+        $grid = new SimpleDataTable($this->processos, array('headerColumns' => $headerColumns, 'columns' => $columns));
+        echo $grid->render();
+        ?>
+        
+        <br/>
+        <p class="comprovante-data">Fortaleza, <?php echo date('d/m/Y') ?></p>
+        <p class="comprovante-assinatura"><?php echo $this->render('snippets/relatorios/assinatura.phtml');?></p>
+        
+        
+        <?php 
+        echo $this->buttonlist()->open();
+        echo $this->buttonlist()->button('Imprimir');
+        echo $this->buttonlist()->close(true); 
+        ?>
+    </form>
+</div>

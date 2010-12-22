@@ -15,6 +15,7 @@ echo $this->pagenav()->closeList();
         <?php 
         echo $this->buttonlist()->open();
         echo $this->buttonlist()->defaultBlockActionsDescription();
+        echo $this->buttonlist()->button('Comp. de Recepção', 'comprovanteRecebimento');
         echo $this->buttonlist()->button('Encaminhar', 'encaminhar');
         echo $this->buttonlist()->button('Criar Despacho', 'comentar');
         echo $this->buttonlist()->button('Tramitação Externa', 'externo');
