@@ -31,7 +31,7 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
     function render($renderHome = TRUE)
     {    
         $separator = self::SEPARATOR;
-        $html = '';
+        $html = '<div id="breadcrumbs">';
         
         $start = ($renderHome) ? 0 : 1; 
         for ($i = $start; $i < count($this->_page); $i++) {
@@ -52,6 +52,7 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
                 $href = $this->view->url($url, NULL, TRUE);
                 $html .= "<a href='$href' title='$titulo'>$titulo</a>";
             } else {
+            	$html .= "</div>";
                 $html .= "<h2>$titulo</h2>";    
             }
         }
