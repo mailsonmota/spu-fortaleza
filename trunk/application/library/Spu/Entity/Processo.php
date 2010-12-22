@@ -434,7 +434,7 @@ class Processo extends BaseEntity
         try {
             $abrirProcessoRetorno = $dao->abrirProcesso($postData);
         } catch (Exception $e) {
-        	throw new AlfrescoApiException('Houve um erro na abertura do processo', $e->getMessage());
+        	throw new Exception('Houve um erro na abertura do processo', $e->getMessage());
         }
         
         $hashProcesso = $abrirProcessoRetorno["Processo"][0];
