@@ -68,6 +68,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headLink()->appendStylesheet($baseUrl . '/css/plupload.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/dataTables.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/estilo.css');
+        $view->headLink()->appendStylesheet($baseUrl . '/css/print.css', array('media' => 'print'));
         $view->headLink()->appendStylesheet($baseUrl . '/css/tema.css');
     }
    
