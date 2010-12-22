@@ -1,7 +1,7 @@
 <?php
-require_once('BaseAspect.php');
+require_once('Base.php');
 Loader::loadClassification('StatusArquivamento');
-class Arquivamento extends BaseAspect
+class Arquivamento extends Spu_Aspect_Base
 {
 	protected $_status;
     protected $_motivo;
