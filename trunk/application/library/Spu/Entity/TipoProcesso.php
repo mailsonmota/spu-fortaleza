@@ -148,7 +148,7 @@ class TipoProcesso extends BaseEntity
     
 	protected function _getDao()
 	{
-		$dao = new TipoProcessoDao(self::ALFRESCO_URL, $this->_getTicket());
+		$dao = new TipoProcessoDao($this->_getTicket());
 		return $dao;
 	}
     

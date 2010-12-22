@@ -52,7 +52,7 @@ class Usuario extends BaseEntity
     }
     
 	protected function _getDao() {
-    	$dao = new UsuarioDao(self::ALFRESCO_URL, $this->_getTicket());
+    	$dao = new UsuarioDao($this->_getTicket());
         return $dao;
     }
     

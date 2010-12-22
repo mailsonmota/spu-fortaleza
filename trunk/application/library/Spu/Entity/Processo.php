@@ -252,7 +252,7 @@ class Processo extends BaseEntity
     
     protected function _getDao()
     {
-    	$dao = new ProcessoDao(self::ALFRESCO_URL, $this->_getTicket());
+    	$dao = new ProcessoDao($this->_getTicket());
     	return $dao;
     }
     

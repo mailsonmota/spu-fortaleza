@@ -1,8 +1,7 @@
 <?php
 class BaseAlfrescoClass
 {
-	const ALFRESCO_URL = 'http://172.30.116.21:8080/alfresco/service';
-    protected $_ticket;
+	protected $_ticket;
     
 	public function __construct($ticket = null)
     {

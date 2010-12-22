@@ -47,9 +47,9 @@ class AuthPlugin extends Zend_Controller_Plugin_Abstract
     
     protected function _isValidTicket()
     {
-    	Loader::loadAlfrescoApiClass('AlfrescoLogin');
+    	Loader::loadAlfrescoApiClass('Login');
     	
-    	$alfrescoLogin = new AlfrescoLogin(BaseEntity::ALFRESCO_URL);
+    	$alfrescoLogin = new Alfresco_Rest_Login(BaseDao::ALFRESCO_URL);
     	$user = $this->getIdentity();
     	$alfrescoLogin->setTicket($user['ticket']);
     	

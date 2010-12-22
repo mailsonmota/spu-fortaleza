@@ -11,7 +11,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Loader::loadClass('ErrorPlugin');
         Zend_Loader::loadClass('AuthPlugin');
         Zend_Loader::loadClass('AuthAdapter');
-        Zend_Loader::loadClass('AlfrescoApiException', "$libraryPath/spu/exceptions");
     }
     
     protected function _initControllers(array $options = array())

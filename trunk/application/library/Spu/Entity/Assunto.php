@@ -83,7 +83,7 @@ class Assunto extends BaseEntity
     
 	protected function _getDao()
     {
-    	$dao = new AssuntoDao(self::ALFRESCO_URL, $this->_getTicket());
+    	$dao = new AssuntoDao($this->_getTicket());
     	return $dao;
     }
     

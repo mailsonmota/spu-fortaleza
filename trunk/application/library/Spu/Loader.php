@@ -29,9 +29,9 @@ class Loader
         Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/Aspect/');
     }
     
-    public static function loadAlfrescoApiClass($classFileName)
+    public static function loadAlfrescoApiClass($className)
     {
-        Zend_Loader::loadClass($classFileName, self::MAIN_SERVICES_FOLDER . '/Rest/');
+    	require_once(self::MAIN_SERVICES_FOLDER . '/Rest/' . $className . '.php');
     }
     
     public static function loadAlfrescoObject($classFileName)
