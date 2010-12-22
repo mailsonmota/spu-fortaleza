@@ -1,8 +1,8 @@
 <?php
 class Loader
 {
-    const MAIN_SERVICES_FOLDER = '../library/Alfresco';
-    const MAIN_FOLDER = '../library/spu';
+    const MAIN_SERVICES_FOLDER = '../application/library/Alfresco';
+    const MAIN_FOLDER = '../application/library/Spu';
     
     public static function loadBaseAlfrescoClass()
     {
