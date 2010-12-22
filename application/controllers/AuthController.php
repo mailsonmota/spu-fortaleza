@@ -63,7 +63,7 @@ class AuthController extends BaseController
         // FIXME substituir
         Loader::loadAlfrescoApiClass('Login');
         
-        $alfrescoLoginObj = new AlfrescoLogin(BaseDao::ALFRESCO_URL);
+        $alfrescoLoginObj = new Alfresco_Rest_Login(BaseDao::ALFRESCO_URL);
         $authNamespace = new Zend_Session_Namespace('Zend_Auth');
         $alfrescoLoginObj->logout($authNamespace->adminTicket);
         
