@@ -10,6 +10,7 @@ class Protocolo extends BaseEntity
 	protected $_lotacao;
 	protected $_recebePelosSubsetores;
 	protected $_recebeMalotes;
+	protected $_parent;
 
 	public function getNodeRef()
 	{
@@ -81,12 +82,26 @@ class Protocolo extends BaseEntity
 		$this->_recebeMalotes = $value;
 	}
 
+	/**
+	 * getParent
+	 * @return Protocolo
+	 */
+	public function getParent()
+	{
+		return $this->_parent;
+	}
+
+	public function setParent(Protocolo $value)
+	{
+		$this->_parent = $value;
+	}
+
 	public function getId()
 	{
 		$nodeRef = $this->getNodeRef();
 		return substr($nodeRef, strrpos($nodeRef, '/') + 1);
 	}
-
+	
 	public function getOrgaoLotacao()
 	{
 		if ($this->getLotacao()) {
@@ -131,11 +146,19 @@ class Protocolo extends BaseEntity
 	{
 		$this->setNodeRef($hash['noderef']);
 		$this->setNome($hash['nome']);
+		$this->setParent($this->loadParentFromId($this->_getHashValue($hash, 'parentId')));
 		$this->setDescricao($hash['descricao']);
 		$this->setOrgao($this->_getHashValue($hash, 'orgao'));
 		$this->setLotacao($this->_getHashValue($hash, 'lotacao'));
 		$this->setRecebePelosSubsetores(($this->_getHashValue($hash, 'recebePelosSubsetores') == '1') ? true : false);
 		$this->setRecebeMalotes(($this->_getHashValue($hash, 'recebeMalotes') == '1') ? true : false);
+	}
+
+	public function loadParentFromId($id)
+	{
+		$parent = new Protocolo($this->_getTicket());
+		$parent->setNodeRef($id);
+		return $parent;
 	}
 
 	public function listarTodos()
