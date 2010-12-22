@@ -29,7 +29,8 @@ jQuery(document).ready(function() {
 	
 	tableRowCheckboxToggle();
 	
-	$('.grid').dataTable({
+	// Todos as table com classe .grid dentre de #article que não sejam um .relatorio
+	$('#article:not(.relatorio) .grid').dataTable({
 		"oLanguage": {
 			"sProcessing":   "Processando...",
 			"sLengthMenu":   "Mostrar _MENU_ registros",
