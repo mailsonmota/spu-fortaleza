@@ -110,7 +110,7 @@ class Protocolo extends BaseEntity
 
 	protected function _getDao()
 	{
-		$dao = new ProtocoloDao(self::ALFRESCO_URL, $this->_getTicket());
+		$dao = new ProtocoloDao($this->_getTicket());
 		return $dao;
 	}
 

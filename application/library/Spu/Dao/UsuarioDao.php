@@ -1,6 +1,6 @@
 <?php
 require_once('BaseDao.php');
-Loader::loadAlfrescoApiClass('AlfrescoPeople');
+Loader::loadAlfrescoApiClass('People');
 class UsuarioDao extends BaseDao
 {
 	public function fetchAll($filter = null)
@@ -23,7 +23,7 @@ class UsuarioDao extends BaseDao
 	
 	protected function _getApi()
 	{
-		$api = new AlfrescoPeople(self::ALFRESCO_URL, $this->getTicket());
+		$api = new Alfresco_Rest_People(self::ALFRESCO_URL, $this->getTicket());
 		return $api;
 	}
 }

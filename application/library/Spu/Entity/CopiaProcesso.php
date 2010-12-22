@@ -13,7 +13,7 @@ class CopiaProcesso extends LinkProcesso
     
     protected function _getDao()
     {
-    	$dao = new CopiaProcessoDao(self::ALFRESCO_URL, $this->_getTicket());
+    	$dao = new CopiaProcessoDao($this->_getTicket());
     	return $dao;
     }
     
