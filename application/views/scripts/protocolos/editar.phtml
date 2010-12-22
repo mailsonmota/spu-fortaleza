@@ -14,7 +14,7 @@ echo $this->pagenav()->closeList();
         <?php
         echo $this->form()->openFieldList();
         echo $this->textbox('Nome', 'nome', $this->protocolo->nome, array('required' => true));
-        echo $this->select('Protocolo Pai', 'parentId', $this->listaProtocolos, null, array('required' => true));
+        echo $this->select('Protocolo Pai', 'parentId', $this->listaProtocolos, $this->protocolo->parent->id, array('required' => true));
         echo $this->textbox('Descrição', 'descricao', $this->protocolo->descricao, array('length' => 60));
         echo $this->textbox('Orgão', 'orgao', $this->protocolo->orgao, array('length' => 60));
         echo $this->textbox('Lotação', 'lotacao', $this->protocolo->lotacao, array('length' => 60));
