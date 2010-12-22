@@ -114,7 +114,7 @@ class AbrirprocessoController extends BaseController
         if ($this->getRequest()->isPost()) {
         	$postData = $this->getRequest()->getParams();
         	
-        	if ($_FILES['fileToUpload']['name']) {
+        	if (!empty($_FILES)) {
         		$uploadFolder = dirname($_FILES['fileToUpload']['tmp_name']);
                 
         		$tmpFilePath = $uploadFolder . "/" . basename($_FILES['fileToUpload']['tmp_name']);
