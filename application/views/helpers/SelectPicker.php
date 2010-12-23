@@ -21,9 +21,9 @@ class Zend_View_Helper_SelectPicker extends Zend_View_Helper_Selectmultiple
         $chooseLink = $this->_getChooseLink();
 
         $html  = "";
-        $html .= "<dt><label for=\"$name\" class=\"$labelClass\">$label:</label></dt>";
+        $html .= "<dt><label for=\"" . $this->_getCleanedUpName() . "\" class=\"$labelClass\">$label:</label></dt>";
         $html .= "<dd>";
-        $html .= "<select name=\"$name\" id=\"$name\" multiple=\"true\">";
+        $html .= "<select name=\"$name\" id=\"" . $this->_getCleanedUpName() . "\" multiple=\"true\">";
         $i = 0;
         foreach ($selectOptions as $key => $value) {
             $selected = (is_array($selectedValues) AND in_array($key, $selectedValues)) ? 'selected="selected"' : null;
@@ -39,12 +39,17 @@ class Zend_View_Helper_SelectPicker extends Zend_View_Helper_Selectmultiple
     {
         $chooseLink = '';
         if ($this->_hasChooseLink()) {
-            $chooseLink = '<a rel="facebox" href="#facebox_' . $this->_name . '">' . self::CHOOSELINK_TEXT . '</a>';
+            $chooseLink = '<a rel="modal" href="#modal_' . $this->_getCleanedUpName() . '" class=\"jqModal\">' . self::CHOOSELINK_TEXT . '</a>';
         }
 
         return $chooseLink;
     }
 
+    protected function _getCleanedUpName()
+    {
+    	return preg_replace("'[[]]'", '', $this->_name);
+    }
+    
     protected function _hasChooseLink()
     {
         return (isset($this->_options['chooseLink'])) ? true : false;

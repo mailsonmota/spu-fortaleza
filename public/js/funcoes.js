@@ -25,12 +25,14 @@ jQuery(document).ready(function() {
 		}
 	$('.mascaraData').datePicker().val(new Date().asString()).trigger('change');
 	
-	$('a[rel*=facebox]').facebox();
+	//$('a[rel*=facebox]').facebox();
 	
 	tableRowCheckboxToggle();
 	
+	$.modal();
+	
 	// Todos as table com classe .grid dentre de #article que não sejam um .relatorio
-	$('#article:not(.relatorio) .grid').dataTable({
+	$('table.grid').dataTable({
 		"oLanguage": {
 			"sProcessing":   "Processando...",
 			"sLengthMenu":   "Mostrar _MENU_ registros",
@@ -77,11 +79,21 @@ function checkedAll(id, checked) {
 	$('input[name=' + id + ']' + selector).click();
 }
 
-function createUncheckedSelector()
-{
+function createUncheckedSelector() {
 	jQuery.extend(jQuery.expr[':'], {
 		unchecked: function(element) {
 			return ('checkbox' === element.type || 'radio' === element.type) && !element.checked;
 		}
 	})
+}
+
+function escolherModal(modalId, selectId) {
+	var allVals = [];
+	$('#' + modalId + ' input[type=checkbox]:checked').each(function() {
+	    allVals.push($(this).val());
+    });
+	
+	$('#' + selectId).val(allVals);
+	
+	$.modal.close('#' + modalId);
 }
