@@ -1,9 +1,7 @@
 @CHARSET "UTF-8";
 
-h1 {font-size: 1.5em}
-h2 {font-size: 1.25em}
+@import "relatorios.css";
 
-#usuario, #menu, #breadcrumbs, .nav, .buttons, #footer {display: none}
+.nav {display: none}
 
-#header a {text-decoration: none; color: black}
-#header span {display: block; font-size: 1em}
+.comprovante-assinatura {text-align: center; margin-top: 3em}

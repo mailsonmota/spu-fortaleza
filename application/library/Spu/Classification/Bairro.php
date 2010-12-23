@@ -20,7 +20,7 @@ class Bairro extends BaseClassification
     
     protected function _getDao()
     {
-    	$dao = new BairroDao(self::ALFRESCO_URL, $this->_getTicket());
+    	$dao = new BairroDao($this->_getTicket());
     	return $dao;
     }
 }

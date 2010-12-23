@@ -81,6 +81,7 @@ class AnaliseController extends BaseTramitacaoController
     
     public function comprovanteRecebimentoAction()
     {
+    	$this->_helper->layout()->setLayout('relatorio');
     	$session = new Zend_Session_Namespace('comprovanteRecebimento');
     	$processosSelecionados = $session->processos;
     	$processos = $this->_getListaCarregadaProcessos($processosSelecionados);

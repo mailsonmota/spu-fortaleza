@@ -20,7 +20,7 @@ class Prioridade extends BaseClassification
     
     protected function _getDao()
     {
-    	$dao = new PrioridadeDao(self::ALFRESCO_URL, $this->_getTicket());
+    	$dao = new PrioridadeDao($this->_getTicket());
     	return $dao;
     }
 }
