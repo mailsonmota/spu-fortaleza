@@ -41,7 +41,6 @@
 	            $menu->addItem('Sair', $this->simpleUrl('logout', 'auth'), 'Usuário');
 	            
 	            $menu->addItem('Lista Assuntos', $this->simpleUrl('index', 'assuntos'), 'Cadastros');
-	            $menu->addItem('Envolvidos', $this->simpleUrl('index', 'envolvidos'), 'Cadastros');
 	            $menu->addItem('Tipos de Processos', $this->simpleUrl('index', 'tiposprocesso'), 'Cadastros');
 	            $menu->addItem('Protocolos', $this->simpleUrl('index', 'protocolos'), 'Cadastros');
 	            
@@ -49,6 +48,7 @@
 	            $menu->addItem('Tramitação', $this->simpleUrl('index', 'entrada'), 'Processos');
 	            $menu->addItem('Consulta', $this->simpleUrl('index', 'consultar'), 'Processos');
 	            $menu->addItem('Incorporação', $this->simpleUrl('index', 'incorporacao'), 'Processos');
+	            $menu->addItem('Envolvidos', $this->simpleUrl('index', 'envolvidos'), 'Processos');
 	            
 	            $menu->addItem('Envio', $this->simpleUrl('enviar', 'malotes'), 'Malotes');
 	            $menu->addItem('Recebimento', $this->simpleUrl('receber', 'malotes'), 'Malotes');

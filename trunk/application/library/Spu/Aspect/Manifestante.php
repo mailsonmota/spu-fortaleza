@@ -215,7 +215,7 @@ class Manifestante extends Spu_Aspect_Base
     
     protected function _getDao()
     {
-    	$dao = new ManifestanteDao(self::ALFRESCO_URL, $this->_getTicket());
+    	$dao = new ManifestanteDao($this->_getTicket());
     	return $dao;
     }
     
