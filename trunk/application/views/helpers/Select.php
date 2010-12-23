@@ -9,6 +9,8 @@
  */
 class Zend_View_Helper_Select extends Zend_View_Helper_Form
 {
+	const CHOOSELINK_TEXT = 'Escolher';
+	
     public function objectToOptions(array $arrayOfObjects, $valueField, $textField)
     {
         $options = array();
@@ -30,6 +32,8 @@ class Zend_View_Helper_Select extends Zend_View_Helper_Form
         
         $multiple = (isset($this->_options['multiple'])) ? 'MULTIPLE' : '';
         
+        $chooseLink = $this->_getChooseLink();
+        
         $html  = "";
         $html .= "<dt><label for=\"$name\" class=\"$labelClass\">$label:</label></dt>";
         $html .= "<dd>";
@@ -40,9 +44,24 @@ class Zend_View_Helper_Select extends Zend_View_Helper_Form
                 $html .= "<option value=\"$key\" $selected>$value</option>";
             }
         }
-        $html .= "</select>";
+        $html .= "</select> $chooseLink";
         $html .= "</dd>";
         
         return $html;
+    }
+    
+	protected function _getChooseLink()
+    {
+        $chooseLink = '';
+        if ($this->_hasChooseLink()) {
+            $chooseLink = '<a rel="modal" href="#modal_' . $this->_name . '">' . self::CHOOSELINK_TEXT . '</a>';
+        }
+
+        return $chooseLink;
+    }
+
+    protected function _hasChooseLink()
+    {
+        return (isset($this->_options['chooseLink'])) ? true : false;
     }
 }

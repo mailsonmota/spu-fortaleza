@@ -1,0 +1,30 @@
+	<dl>
+    	<dt>CPF/CNPJ:</dt>
+		<dd><?php echo $this->manifestante->cpf ?></dd>
+		
+		<dt>Nome:</dt>
+		<dd><?php echo $this->manifestante->nome ?></dd>
+		
+		<?php if ($this->manifestante->sexo): ?>
+		<dt>Sexo:</dt>
+		<dd><?php echo ($this->manifestante->sexo == 'M') ? 'Masculino' : 'Feminino' ?></dd>
+		<?php endif ?>
+		
+		<?php if ($this->manifestante->endereco): ?>
+		<dt>Endereço:</dt>
+		<dd><?php echo $this->manifestante->endereco ?></dd>
+		<?php endif ?>
+		
+		<dt>Bairro:</dt>
+		<dd><?php echo $this->manifestante->nomeBairro ?></dd>
+		
+		<?php if ($this->manifestante->contato): ?>
+		<dt>Contato:</dt>
+		<dd><?php echo $this->manifestante->contato ?></dd>
+		<?php endif ?>
+		
+		<?php if ($this->manifestante->observacao): ?>
+		<dt>Obs:</dt>
+		<dd><?php echo $this->manifestante->observacao ?></dd>
+		<?php endif ?>
+    </dl>

@@ -136,7 +136,7 @@
       if (klass) $('#facebox .content').addClass(klass)
       $('#facebox .content').append(data)
       $('#facebox .loading').remove()
-      $('#facebox .body').children().fadeIn('normal')
+      $('#facebox .body').children().show()
       $('#facebox').css('left', $(window).width() / 2 - ($('#facebox table').width() / 2))
       $(document).trigger('reveal.facebox').trigger('afterReveal.facebox')
     },
@@ -197,7 +197,7 @@
     })
 
     $('#facebox .close').click($.facebox.close)
-    $('#facebox .close_image').attr('src', $.facebox.settings.closeImage)
+    $('#facebox .close_image').attr('src', $.facebox.settings.closeImage) 
   }
   
   // getPageScroll() by quirksmode.com
@@ -285,18 +285,17 @@
     $('#facebox_overlay').hide().addClass("facebox_overlayBG")
       .css('opacity', $.facebox.settings.opacity)
       .click(function() { $(document).trigger('close.facebox') })
-      .fadeIn(200)
+      .show()
     return false
   }
 
   function hideOverlay() {
     if (skipOverlay()) return
 
-    $('#facebox_overlay').fadeOut(200, function(){
-      $("#facebox_overlay").removeClass("facebox_overlayBG")
-      $("#facebox_overlay").addClass("facebox_hide") 
-      $("#facebox_overlay").remove()
-    })
+    $('#facebox_overlay').hide();
+    $("#facebox_overlay").removeClass("facebox_overlayBG")
+    $("#facebox_overlay").addClass("facebox_hide") 
+    $("#facebox_overlay").remove()
     
     return false
   }
@@ -307,11 +306,10 @@
 
   $(document).bind('close.facebox', function() {
     $(document).unbind('keydown.facebox')
-    $('#facebox').fadeOut(function() {
-      $('#facebox .content').removeClass().addClass('content')
-      hideOverlay()
-      $('#facebox .loading').remove()
-    })
+    $('#facebox').hide()
+    $('#facebox .content').removeClass().addClass('content')
+    hideOverlay()
+    $('#facebox .loading').remove()
   })
 
 })(jQuery);

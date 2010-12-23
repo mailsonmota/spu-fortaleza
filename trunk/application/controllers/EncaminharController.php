@@ -23,6 +23,9 @@ class EncaminharController extends BaseTramitacaoController
 	    	$processosSelecionados = $session->processos;
 	    	$processos = $this->_getListaCarregadaProcessos($processosSelecionados);
 	    	$listaProtocolos = $this->_getListaProtocolos();
+	    	$protocolo = new Protocolo($this->getTicket());
+	    	$protocolos = $protocolo->listarTodos();
+	    	
 	    } catch (Exception $e) {
     		$this->setErrorMessage($e->getMessage());
     		$this->_redirectEmAnalise();
@@ -30,6 +33,7 @@ class EncaminharController extends BaseTramitacaoController
     	
         $this->view->processos = $processos;
         $this->view->listaProtocolos = $listaProtocolos;
+        $this->view->protocolos = $protocolos;
     }
     
 	protected function _getListaProtocolos()

@@ -248,11 +248,16 @@ class Manifestante extends Spu_Aspect_Base
     public function carregarPeloCpf($cpf)
     {
         $dao = $this->_getDao();
-        $hashManifestante = $dao->getManifestante($cpf);
+        $hashManifestante = $dao->getManifestante($this->_desmascararCpf($cpf));
         
         $hashDadosManifestante = array_pop(array_pop(array_pop($hashManifestante)));
         
         $this->loadFromHash($hashDadosManifestante);
+    }
+    
+    protected function _desmascararCpf($cpf)
+    {
+    	return preg_replace("'[.,-]'", '', $cpf);
     }
 }
 ?>

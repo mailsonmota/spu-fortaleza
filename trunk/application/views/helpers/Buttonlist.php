@@ -55,7 +55,9 @@ class Zend_View_Helper_Buttonlist extends Zend_View_Helper_Abstract
         $htmlName = ($name) ? "name=\"$name\"" : '';
         $htmlConfirmation = $this->getConfirmation();
         
-        $html = "<li><button type=\"$type\" $htmlName $htmlConfirmation>$text</button></li>";
+        $onClick = (isset($buttonOptions['onClick'])) ? 'onClick="' . $buttonOptions['onClick']  . '"' : null;
+        
+        $html = "<li><button type=\"$type\" $htmlName $htmlConfirmation $onClick>$text</button></li>";
         
         return $html;
     }

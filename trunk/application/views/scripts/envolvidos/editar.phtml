@@ -1,21 +1,13 @@
 <?php 
 $this->breadcrumbs()->addPage('Envolvidos', 'envolvidos');
-$this->breadcrumbs()->addPage('Editar Envolvido');
+$this->breadcrumbs()->addPage('Detalhes do Envolvido');
 echo $this->breadcrumbs()->render(); 
 
-echo $this->pagenav()->openList(); 
+echo $this->pagenav()->openList();
 echo $this->pagenav()->defaultHelperLinks();
 echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <form action="" method="post">
-        <?php 
-        echo $this->form()->openFieldList();
-        echo $this->text('Nome', $this->manifestante->nome);
-        echo $this->text('CPF', $this->manifestante->cpf);
-        echo $this->text('Bairro', $this->manifestante->bairro->descricao);
-        echo $this->form()->closeFieldList();
-        ?>
-    </form>
+	<?php echo $this->render('snippets/detalhesManifestante.phtml') ?>
 </div>
