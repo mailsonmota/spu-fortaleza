@@ -2,6 +2,7 @@
 require_once('BaseEntity.php');
 require_once('TipoProcesso.php');
 require_once('Protocolo.php');
+require_once('Arquivo.php');
 Loader::loadAspect('Movimentacao');
 Loader::loadAspect('Manifestante');
 Loader::loadAspect('Arquivamento');
@@ -27,6 +28,7 @@ class Processo extends BaseEntity
     protected $_movimentacoes;
     protected $_status;
     protected $_arquivamento;
+    protected $_arquivos;
     
     public function getNodeRef()
     {
@@ -186,6 +188,16 @@ class Processo extends BaseEntity
     public function setStatus($value)
     {
         $this->_status = $value;
+    }
+    
+    public function getArquivos()
+    {
+        return $this->_arquivos;
+    }
+    
+    public function setArquivos($value)
+    {
+        $this->_arquivos = $value;
     }
     
     /**
@@ -424,6 +436,9 @@ class Processo extends BaseEntity
             $this->loadFromHash($hashDadosProcesso);
         }
         
+        // TODO Colocar funcionalidade para dentro dos serviços
+        $this->carregarArquivos();
+        
         return $processo;
     }
     
@@ -648,6 +663,30 @@ class Processo extends BaseEntity
         }
 
         return $listaCaixaAnaliseFiltrada;
+    }
+    
+    public function carregarArquivos()
+    {
+    	$dao = $this->_getDao();
+        $arquivos = $dao->getArquivos($this->id);
+        
+    	$arquivos_return = Array();
+    	foreach ($arquivos as $arquivo) {
+    		 $arquivo_tmp = new Arquivo();
+    		 $arquivo_tmp->setNome($arquivo['nome']);
+             $arquivo_tmp->setDownloadUrl($dao::ALFRESCO_BASE_URL . $arquivo['download']);
+    		 $arquivos_return[] = $arquivo_tmp;
+    	}
+    	$this->setArquivos($arquivos_return);
+    	
+    	return $arquivos_return;
+    }
+    
+    public function hasArquivos()
+    {
+    	if (count($this->getArquivos())) {
+    		return true;
+    	}
     }
 }
 ?>
