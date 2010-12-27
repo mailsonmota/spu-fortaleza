@@ -14,6 +14,7 @@ echo $this->pagenav()->closeList();
     <form action="" method="post">
         <?php 
         echo $this->buttonlist()->open();
+        echo $this->buttonlist()->button('Comp. de Encaminhamento', 'comprovanteEncaminhamento');
         echo $this->buttonlist()->button('Cancelar Envio dos Selecionados');
         echo $this->buttonlist()->close(true); 
         
@@ -21,7 +22,7 @@ echo $this->pagenav()->closeList();
         $columns = array('numero', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto', 'nomeProtocolo');
         
         $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
-        $grid->addCheckboxColumn('processosParaCancelarEnvio', 'id');
+        $grid->addCheckboxColumn('processos', 'id');
         $grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', 'processo') . '/id/', 'id');
         echo $grid->render();
         ?>
