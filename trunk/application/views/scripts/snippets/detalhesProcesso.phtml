@@ -90,3 +90,22 @@
 		<?php endif ?>
     </dl>
 </fieldset>
+
+<?php if ($this->processo->hasArquivos()): ?>
+<fieldset>
+    <legend>Arquivos Anexados</legend>
+    <?php foreach ($this->processo->arquivos as $arquivo): ?>
+    <dl>
+        <?php if ($arquivo->nome): ?>
+        <dt>Nome:</dt>
+        <dd><?php echo $arquivo->nome; ?></dd>
+        <?php endif ?>
+        
+        <?php if ($arquivo->downloadUrl): ?>
+        <dt>Download:</dt>
+        <dd><a href="<?php echo $arquivo->downloadUrl; ?>">Baixar o arquivo</a></dd>
+        <?php endif ?>
+    </dl>
+    <?php endforeach; ?>
+</fieldset>
+<?php endif ?>
