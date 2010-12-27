@@ -24,6 +24,7 @@ echo $this->breadcrumbs()->render();
 
 <?php 
 echo $this->pagenav()->openList(); 
+echo $this->pagenav()->addLink($this->simpleUrl('index'), 'Voltar');
 echo $this->pagenav()->defaultHelperLinks();
 echo $this->pagenav()->closeList();
 ?>

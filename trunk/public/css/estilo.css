@@ -231,3 +231,6 @@ body.basic #message {border-top: 0}
 
 /* Relatórios */
 .comprovante-assinatura {text-align: center}
+
+/* DataTables */
+.dataTables_wrapper {margin-bottom: 1em}

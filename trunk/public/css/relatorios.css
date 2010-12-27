@@ -25,3 +25,5 @@ table tfoot td {display: none}
 .comprovante-assinatura {text-align: center; margin-top: 3em}
 
 ul.buttons {list-style-type: none}
+
+.nav li {padding: 1em 0;float: left;margin-right: 2em}
