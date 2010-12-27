@@ -13,7 +13,7 @@ $columns = array('numero', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto'
 $grid = new SimpleDataTable($this->processos, array('headerColumns' => $headerColumns, 'columns' => $columns));
 echo $grid->render();
 ?>
-        
+
 <br/>
 <p class="comprovante-data">Fortaleza, <?php echo date('d/m/Y') ?></p>
 <p class="comprovante-assinatura"><?php echo $this->render('snippets/relatorios/assinatura.phtml');?></p>
