@@ -39,15 +39,13 @@ echo $this->pagenav()->closeList();
 <div id="modal-wrap" class="hidden">
 	<div id="modal-overlay" class="overlay">
 		<div id="modal_destinoId" class="modal">
-			<?php 
-		    $headerColumns = array('', 'Nome');
-		    $columns = array('nome');
-		        
-		    $grid = new SimpleDataTable($this->protocolos, array('headerColumns' => $headerColumns, 'columns' => $columns));
-		    $grid->addRadioColumn('processos', 'id');
-		    echo $grid->render();
-		    
-		    echo $this->buttonlist()->open();
+		    <?php 
+		    $options = array('inputColumn' => array('type' => 'radio', 
+                                                    'method' => 'id', 
+                                                    'name' => 'protocoloDestino'));
+            echo $this->gridProtocolos($this->protocolos, $options)->render();
+            
+            echo $this->buttonlist()->open();
 		    echo $this->buttonlist()->button('Escolher', null, array('onClick' => "escolherModal('modal_destinoId', 'destinoId', false)"));
 		    echo $this->buttonlist()->resetbutton();
 		    echo $this->buttonlist()->close(true);
@@ -56,13 +54,11 @@ echo $this->pagenav()->closeList();
 		
 		<div id="modal_copias" class="modal">
 			<?php 
-		    $headerColumns = array('', 'Nome');
-		    $columns = array('nome');
-		        
-		    $grid = new SimpleDataTable($this->protocolos, array('headerColumns' => $headerColumns, 'columns' => $columns));
-		    $grid->addCheckboxColumn('processos', 'id');
-		    echo $grid->render();
-		    
+			$options = array('inputColumn' => array('type' => 'checkbox', 
+                                                    'method' => 'id', 
+                                                    'name' => 'protocoloCopias[]'));
+            echo $this->gridProtocolos($this->protocolos, $options)->render();
+			
 		    echo $this->buttonlist()->open();
 		    echo $this->buttonlist()->button('Escolher', null, array('onClick' => "escolherModal('modal_copias', 'copias')"));
 		    echo $this->buttonlist()->resetbutton();
