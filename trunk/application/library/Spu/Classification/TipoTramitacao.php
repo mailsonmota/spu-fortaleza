@@ -20,8 +20,7 @@ class TipoTramitacao extends BaseClassification
     
     protected function _getDao()
     {
-    	$dao = new TipoTramitacaoDao(self::ALFRESCO_URL, $this->_getTicket());
-    	return $dao;
+        $dao = new TipoTramitacaoDao(self::ALFRESCO_URL, $this->_getTicket());
+        return $dao;
     }
 }
-?>

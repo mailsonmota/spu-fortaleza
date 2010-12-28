@@ -42,22 +42,22 @@ class Usuario extends BaseEntity
     }
     
     public function getGrupos($userName) {
-    	$dao = $this->_getDao();
+        $dao = $this->_getDao();
         return $dao->fetchGroups($userName);
     }
 
     public function getNomeCompleto()
     {
-    	return $this->_nome . ' ' . $this->_sobrenome;
+        return $this->_nome . ' ' . $this->_sobrenome;
     }
     
-	protected function _getDao() {
-    	$dao = new UsuarioDao($this->_getTicket());
+    protected function _getDao() {
+        $dao = new UsuarioDao($this->_getTicket());
         return $dao;
     }
     
     public function carregarPeloLogin($userName) {
-    	$dao = $this->_getDao();
+        $dao = $this->_getDao();
         $hashDetalhesLogin = $dao->find($userName);
         $this->loadUsuarioFromHash($hashDetalhesLogin);
     }

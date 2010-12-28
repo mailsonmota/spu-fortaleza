@@ -48,7 +48,7 @@ class Manifestante extends Spu_Aspect_Base
         $this->_sexo = $value;
     }
     
-	public function getLogradouro()
+    public function getLogradouro()
     {
         return $this->_logradouro;
     }
@@ -58,7 +58,7 @@ class Manifestante extends Spu_Aspect_Base
         $this->_logradouro = $value;
     }
     
-	public function getNumero()
+    public function getNumero()
     {
         return $this->_numero;
     }
@@ -68,7 +68,7 @@ class Manifestante extends Spu_Aspect_Base
         $this->_numero = $value;
     }
     
-	public function getCep()
+    public function getCep()
     {
         return $this->_cep;
     }
@@ -78,7 +78,7 @@ class Manifestante extends Spu_Aspect_Base
         $this->_cep = $value;
     }
     
-	public function getBairro()
+    public function getBairro()
     {
         return $this->_bairro;
     }
@@ -88,7 +88,7 @@ class Manifestante extends Spu_Aspect_Base
         $this->_bairro = $value;
     }
     
-	public function getCidade()
+    public function getCidade()
     {
         return $this->_cidade;
     }
@@ -98,7 +98,7 @@ class Manifestante extends Spu_Aspect_Base
         $this->_cidade = $value;
     }
     
-	public function getUf()
+    public function getUf()
     {
         return $this->_uf;
     }
@@ -108,7 +108,7 @@ class Manifestante extends Spu_Aspect_Base
         $this->_uf = $value;
     }
     
-	public function getTelefone()
+    public function getTelefone()
     {
         return $this->_telefone;
     }
@@ -118,7 +118,7 @@ class Manifestante extends Spu_Aspect_Base
         $this->_telefone = $value;
     }
     
-	public function getTelefoneComercial()
+    public function getTelefoneComercial()
     {
         return $this->_telefoneComercial;
     }
@@ -128,7 +128,7 @@ class Manifestante extends Spu_Aspect_Base
         $this->_telefoneComercial = $value;
     }
     
-	public function getCelular()
+    public function getCelular()
     {
         return $this->_celular;
     }
@@ -138,7 +138,7 @@ class Manifestante extends Spu_Aspect_Base
         $this->_celular = $value;
     }
     
-	public function getObservacao()
+    public function getObservacao()
     {
         return $this->_observacao;
     }
@@ -150,48 +150,48 @@ class Manifestante extends Spu_Aspect_Base
     
     public function getNomeBairro()
     {
-    	return $this->getBairro()->descricao;
+        return $this->getBairro()->descricao;
     }
     
     public function getEndereco()
     {
-    	$logradouro = $this->getLogradouro();
-    	$cidade = $this->getCidade();
-    	
-    	if ($logradouro OR $cidade) {
-    		$numero = $this->getNumero();
-    		$uf = $this->getUf();
-    		$endereco = "$logradouro $numero, $cidade - $uf";
-    	} else {
-    		$endereco = '';
-    	}
-    	
-    	return $endereco; 
+        $logradouro = $this->getLogradouro();
+        $cidade = $this->getCidade();
+        
+        if ($logradouro OR $cidade) {
+            $numero = $this->getNumero();
+            $uf = $this->getUf();
+            $endereco = "$logradouro $numero, $cidade - $uf";
+        } else {
+            $endereco = '';
+        }
+        
+        return $endereco; 
     }
     
-	public function getContato()
+    public function getContato()
     {
-    	$telefone = $this->getTelefone();
-    	$telefoneComercial = $this->getTelefoneComercial();
-    	$celular = $this->getCelular();
-    	$contato = '';
-    	if ($telefone) {
-    		$contato .= "$telefone";
-    	}
-    	if ($telefoneComercial) {
-    		if ($contato != '') {
-    			$contato .= ', ';
-    		}
-    		$contato .= "$telefoneComercial (Comercial)";
-    	}
-    	if ($celular) {
-    		if ($contato != '') {
-    			$contato .= ', ';
-    		}
-    		$contato .= "$celular (Celular)";
-    	}
-    	
-    	return $contato; 
+        $telefone = $this->getTelefone();
+        $telefoneComercial = $this->getTelefoneComercial();
+        $celular = $this->getCelular();
+        $contato = '';
+        if ($telefone) {
+            $contato .= "$telefone";
+        }
+        if ($telefoneComercial) {
+            if ($contato != '') {
+                $contato .= ', ';
+            }
+            $contato .= "$telefoneComercial (Comercial)";
+        }
+        if ($celular) {
+            if ($contato != '') {
+                $contato .= ', ';
+            }
+            $contato .= "$celular (Celular)";
+        }
+        
+        return $contato; 
     }
     
     public function listar()
@@ -201,8 +201,8 @@ class Manifestante extends Spu_Aspect_Base
         
         $manifestantes = array();
         foreach ($hashManifestantes[0] as $hashManifestante) {
-        	
-        	if ($hashManifestante) {
+            
+            if ($hashManifestante) {
                 $hashDadosManifestante = array_pop($hashManifestante);
                 $manifestante = new Manifestante($this->_getTicket());
                 $manifestante->loadFromHash($hashDadosManifestante);
@@ -215,8 +215,8 @@ class Manifestante extends Spu_Aspect_Base
     
     protected function _getDao()
     {
-    	$dao = new ManifestanteDao($this->_getTicket());
-    	return $dao;
+        $dao = new ManifestanteDao($this->_getTicket());
+        return $dao;
     }
     
     public function loadFromHash($hash)
@@ -236,9 +236,9 @@ class Manifestante extends Spu_Aspect_Base
         $this->setObservacao($this->_getHashValue($hash, 'observacao'));
     }
     
-	protected function _loadBairroFromHash($hash)
+    protected function _loadBairroFromHash($hash)
     {
-    	$hash = array_pop($hash);
+        $hash = array_pop($hash);
         $bairro = new Bairro($this->_ticket);
         $bairro->loadFromHash($hash);
         
@@ -257,7 +257,6 @@ class Manifestante extends Spu_Aspect_Base
     
     protected function _desmascararCpf($cpf)
     {
-    	return preg_replace("'[.,-]'", '', $cpf);
+        return preg_replace("'[.,-]'", '', $cpf);
     }
 }
-?>

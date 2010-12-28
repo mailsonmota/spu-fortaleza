@@ -20,8 +20,7 @@ class TipoManifestante extends BaseClassification
     
     protected function _getDao()
     {
-    	$dao = new TipoManifestanteDao(self::ALFRESCO_URL, $this->_getTicket());
-    	return $dao;
+        $dao = new TipoManifestanteDao(self::ALFRESCO_URL, $this->_getTicket());
+        return $dao;
     }
 }
-?>

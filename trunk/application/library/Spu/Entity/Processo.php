@@ -70,7 +70,7 @@ class Processo extends BaseEntity
         $this->_manifestante = $value;
     }
     
-	public function getTipoManifestante()
+    public function getTipoManifestante()
     {
         return $this->_tipoManifestante;
     }
@@ -100,7 +100,7 @@ class Processo extends BaseEntity
         $this->_numeroOrigem = $value;
     }
     
-	public function getObservacao()
+    public function getObservacao()
     {
         return $this->_observacao;
     }
@@ -110,7 +110,7 @@ class Processo extends BaseEntity
         $this->_observacao = $value;
     }
     
-	public function getCorpo()
+    public function getCorpo()
     {
         return $this->_corpo;
     }
@@ -120,7 +120,7 @@ class Processo extends BaseEntity
         $this->_corpo = $value;
     }
     
-	public function getDataPrazo()
+    public function getDataPrazo()
     {
         return $this->_dataPrazo;
     }
@@ -130,7 +130,7 @@ class Processo extends BaseEntity
         $this->_dataPrazo = $value;
     }
     
-	public function getProtocolo()
+    public function getProtocolo()
     {
         return $this->_protocolo;
     }
@@ -170,7 +170,7 @@ class Processo extends BaseEntity
         $this->_assunto = $value;
     }
     
-	public function getMovimentacoes()
+    public function getMovimentacoes()
     {
         return $this->_movimentacoes;
     }
@@ -180,7 +180,7 @@ class Processo extends BaseEntity
         $this->_movimentacoes = $value;
     }
     
-	public function getStatus()
+    public function getStatus()
     {
         return $this->_status;
     }
@@ -204,12 +204,12 @@ class Processo extends BaseEntity
      * @return Arquivamento
      */
     public function getArquivamento() {
-    	return $this->_arquivamento;
+        return $this->_arquivamento;
     }
     
     public function setArquivamento($value)
     {
-    	$this->_arquivamento = $value;
+        $this->_arquivamento = $value;
     }
     
     public function getId()
@@ -220,8 +220,8 @@ class Processo extends BaseEntity
     
     public function getNumero()
     {
-    	$nome = $this->getNome();
-    	return str_ireplace('_', '/', $nome);
+        $nome = $this->getNome();
+        return str_ireplace('_', '/', $nome);
     }
     
     public function getNomeTipoProcesso()
@@ -236,22 +236,22 @@ class Processo extends BaseEntity
     
     public function getNomeManifestante()
     {
-    	return $this->getManifestante()->nome;
+        return $this->getManifestante()->nome;
     }
     
     public function getNomeDescritivo()
     {
-    	return $this->numero . ' - ' . $this->getProprietario()->nome . ' (' . $this->getTipoProcesso()->nome . ')';
+        return $this->numero . ' - ' . $this->getProprietario()->nome . ' (' . $this->getTipoProcesso()->nome . ')';
     }
     
     public function getNomeProtocolo()
     {
-    	return $this->getProtocolo()->getNome();
+        return $this->getProtocolo()->getNome();
     }
     
     public function isArquivado()
     {
-    	return ($this->getStatus()->nome == Status::ARQUIVADO);
+        return ($this->getStatus()->nome == Status::ARQUIVADO);
     }
     
     public function listarProcessosCaixaEntrada()
@@ -264,17 +264,17 @@ class Processo extends BaseEntity
     
     protected function _getDao()
     {
-    	$dao = new ProcessoDao($this->_getTicket());
-    	return $dao;
+        $dao = new ProcessoDao($this->_getTicket());
+        return $dao;
     }
     
     public function getTotalProcessosCaixaEntrada()
     {
-    	$processosCaixaEntrada = $this->listarProcessosCaixaEntrada();
-    	return count($processosCaixaEntrada);
+        $processosCaixaEntrada = $this->listarProcessosCaixaEntrada();
+        return count($processosCaixaEntrada);
     }
     
-	public function listarProcessosCaixaSaida()
+    public function listarProcessosCaixaSaida()
     {
         $dao = $this->_getDao();
         $hashProcessos = $dao->getCaixaSaida();
@@ -284,13 +284,13 @@ class Processo extends BaseEntity
     
     public function listarProcessosCaixaAnalise()
     {
-    	$dao = $this->_getDao();
+        $dao = $this->_getDao();
         $hashProcessos = $dao->getCaixaAnalise();
         
         return $this->_loadManyFromHash($hashProcessos);
     }
     
-	public function listarProcessosCaixaEnviados()
+    public function listarProcessosCaixaEnviados()
     {
         $dao = $this->_getDao();
         $hashProcessos = $dao->getCaixaEnviados();
@@ -298,17 +298,17 @@ class Processo extends BaseEntity
         return $this->_loadManyFromHash($hashProcessos);
     }
     
-	public function listarProcessosCaixaExternos()
+    public function listarProcessosCaixaExternos()
     {
-    	$dao = $this->_getDao();
+        $dao = $this->_getDao();
         $hashProcessos = $dao->getCaixaExternos();
         
         return $this->_loadManyFromHash($hashProcessos);
     }
     
-	public function listarProcessosArquivados()
+    public function listarProcessosArquivados()
     {
-    	$dao = $this->_getDao();
+        $dao = $this->_getDao();
         $hashProcessos = $dao->getCaixaArquivo();
         
         return $this->_loadManyFromHash($hashProcessos);
@@ -316,7 +316,7 @@ class Processo extends BaseEntity
     
     protected function _loadManyFromHash($hashProcessos)
     {
-    	$processos = array();
+        $processos = array();
         foreach ($hashProcessos as $hashProcesso) {
             $hashDadosProcesso = array_pop($hashProcesso); 
             $processo = new Processo($this->_getTicket());
@@ -346,27 +346,27 @@ class Processo extends BaseEntity
         $this->setArquivamento($this->_loadArquivamentoFromHash($this->_getHashValue($hash, 'arquivamento')));
     }
     
-	protected function _loadPrioridadeFromHash($hash)
+    protected function _loadPrioridadeFromHash($hash)
     {
-    	$hash = array_pop($hash);
+        $hash = array_pop($hash);
         $prioridade = new Prioridade($this->_ticket);
         $prioridade->loadFromHash($hash);
         
         return $prioridade;
     }
     
-	protected function _loadStatusFromHash($hash)
+    protected function _loadStatusFromHash($hash)
     {
-    	$hash = array_pop($hash);
+        $hash = array_pop($hash);
         $status = new Status($this->_ticket);
         $status->loadFromHash($hash);
         
         return $status;
     }
     
-	protected function _loadProtocoloFromHash($hash)
+    protected function _loadProtocoloFromHash($hash)
     {
-    	$hash = array_pop($hash);
+        $hash = array_pop($hash);
         $protocolo = new Protocolo($this->_ticket);
         $protocolo->loadFromHash($hash);
         
@@ -375,7 +375,7 @@ class Processo extends BaseEntity
     
     protected function _loadTipoProcessoFromHash($hash)
     {
-    	$hash = array_pop($hash);
+        $hash = array_pop($hash);
         $tipoProcesso = new TipoProcesso($this->_ticket);
         $tipoProcesso->setNodeRef($hash['noderef']);
         $tipoProcesso->setNome($hash['nome']);
@@ -385,12 +385,12 @@ class Processo extends BaseEntity
     
     protected function _loadProprietarioFromHash($hash)
     {
-    	return $this->_loadProtocoloFromHash($hash);
+        return $this->_loadProtocoloFromHash($hash);
     }
     
     protected function _loadAssuntoFromHash($hash)
     {
-    	$hash = array_pop($hash);
+        $hash = array_pop($hash);
         $assunto = new Assunto($this->_ticket);
         $assunto->setNodeRef($hash['noderef']);
         $assunto->setNome($hash['nome']);
@@ -400,16 +400,16 @@ class Processo extends BaseEntity
     
     protected function _loadManifestanteFromHash($hash)
     {
-    	$hash = array_pop($hash);
+        $hash = array_pop($hash);
         $manifestante = new Manifestante($this->_ticket);
         $manifestante->loadFromHash($hash);
         
         return $manifestante;
     }
     
-	protected function _loadTipoManifestanteFromHash($hash)
+    protected function _loadTipoManifestanteFromHash($hash)
     {
-    	$hash = array_pop($hash);
+        $hash = array_pop($hash);
         $tipoManifestante = new TipoManifestante($this->_ticket);
         $tipoManifestante->loadFromHash($hash);
         
@@ -418,7 +418,7 @@ class Processo extends BaseEntity
     
     protected function _loadArquivamentoFromHash($hash)
     {
-    	$hash = array_pop($hash);
+        $hash = array_pop($hash);
         $arquivamento = new Arquivamento();
         $arquivamento->loadFromHash($hash);
         
@@ -449,7 +449,7 @@ class Processo extends BaseEntity
         try {
             $abrirProcessoRetorno = $dao->abrirProcesso($postData);
         } catch (Exception $e) {
-        	throw new Exception('Houve um erro na abertura do processo', $e->getMessage());
+            throw new Exception('Houve um erro na abertura do processo', $e->getMessage());
         }
         
         $hashProcesso = $abrirProcessoRetorno["Processo"][0];
@@ -462,12 +462,12 @@ class Processo extends BaseEntity
     
     public function tramitar($postData)
     {
-    	$dao = $this->_getDao();
+        $dao = $this->_getDao();
         try {
-    	   $return = $dao->tramitar($postData);
+           $return = $dao->tramitar($postData);
         } catch (Exception $e) {
-        	throw new Exception($e->getMessage());
-        	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
+            throw new Exception($e->getMessage());
+            //throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
         }
         
         return $return;
@@ -475,12 +475,12 @@ class Processo extends BaseEntity
     
     public function tramitarVarios($postData)
     {
-    	$dao = $this->_getDao();
+        $dao = $this->_getDao();
         try {
-    	   $return = $dao->tramitarVarios($postData);
+           $return = $dao->tramitarVarios($postData);
         } catch (Exception $e) {
-        	throw new Exception($e->getMessage());
-        	//throw new AlfrescoApiException('Houve um erro na tramitação dos processos');
+            throw new Exception($e->getMessage());
+            //throw new AlfrescoApiException('Houve um erro na tramitação dos processos');
         }
         
         return $return;
@@ -488,31 +488,31 @@ class Processo extends BaseEntity
     
     public function receberVarios($postData)
     {
-    	$dao = $this->_getDao();
-    	return $dao->receberVarios($postData);
+        $dao = $this->_getDao();
+        return $dao->receberVarios($postData);
     }
     
     public function tramitarExternos($postData)
     {
-    	$dao = $this->_getDao();
+        $dao = $this->_getDao();
         try {
-    	   $return = $dao->tramitarExternos($postData);
+           $return = $dao->tramitarExternos($postData);
         } catch (Exception $e) {
-        	throw new Exception($e->getMessage());
-        	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
+            throw new Exception($e->getMessage());
+            //throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
         }
         
         return $return;
     }
     
-	public function retornarExternos($postData)
+    public function retornarExternos($postData)
     {
-    	$dao = $this->_getDao();
+        $dao = $this->_getDao();
         try {
-    	   $return = $dao->retornarExternos($postData);
+           $return = $dao->retornarExternos($postData);
         } catch (Exception $e) {
-        	throw new Exception($e->getMessage());
-        	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
+            throw new Exception($e->getMessage());
+            //throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
         }
         
         return $return;
@@ -520,68 +520,69 @@ class Processo extends BaseEntity
     
     public function carregarMovimentacoes()
     {
-    	$dao = $this->_getDao();
+        $dao = $this->_getDao();
         $hashProcessos = $dao->getHistorico($this->id);
         
         $processo = array();
         foreach ($hashProcessos as $hashProcesso) {
             $hashDadosProcesso = array_pop($hashProcesso);
-            $this->setMovimentacoes($this->_loadMovimentacoesFromHash($this->_getHashValue($hashDadosProcesso, 'movimentacoes')));
+            $hashMovimentacao = $this->_getHashValue($hashDadosProcesso, 'movimentacoes');
+            $this->setMovimentacoes($this->_loadMovimentacoesFromHash($hashMovimentacao));
         }
         
         return $processo;
     }
     
-	protected function _loadMovimentacoesFromHash($hash)
+    protected function _loadMovimentacoesFromHash($hash)
     {
-    	$movimentacoes = array();
-    	if ($hash) {
-	    	foreach($hash[0] as $hashMovimentacao) {
-	    		$hashMovimentacao = array_pop($hashMovimentacao);
-	    		$movimentacao = new Movimentacao();
-	    		$movimentacao->loadFromHash($hashMovimentacao);
-	    		
-	    		$movimentacoes[] = $movimentacao;
-	    	}
-    	}
-    	
-    	return $movimentacoes;
+        $movimentacoes = array();
+        if ($hash) {
+            foreach($hash[0] as $hashMovimentacao) {
+                $hashMovimentacao = array_pop($hashMovimentacao);
+                $movimentacao = new Movimentacao();
+                $movimentacao->loadFromHash($hashMovimentacao);
+                
+                $movimentacoes[] = $movimentacao;
+            }
+        }
+        
+        return $movimentacoes;
     }
     
-	public function cancelarEnvios($postData)
+    public function cancelarEnvios($postData)
     {
-    	$dao = $this->_getDao();
+        $dao = $this->_getDao();
         try {
-    	   $return = $dao->cancelarEnvios($postData);
+           $return = $dao->cancelarEnvios($postData);
         } catch (Exception $e) {
-        	throw new Exception($e->getMessage());
-        	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
+            throw new Exception($e->getMessage());
+            //throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
         }
         
         return $return;
     }
     
-	public function arquivarVarios($postData)
+    public function arquivarVarios($postData)
     {
-    	$dao = $this->_getDao();
+        $dao = $this->_getDao();
         try {
-    	   $return = $dao->arquivarVarios($postData);
+           $return = $dao->arquivarVarios($postData);
         } catch (Exception $e) {
-        	throw new Exception($e->getMessage());
-        	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
+            throw new Exception($e->getMessage());
+            //throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
         }
         
         return $return;
     }
     
-	public function reabrirVarios($postData)
+    public function reabrirVarios($postData)
     {
-    	$dao = $this->_getDao();
+        $dao = $this->_getDao();
         try {
-    	   $return = $dao->reabrirVarios($postData);
+           $return = $dao->reabrirVarios($postData);
         } catch (Exception $e) {
-        	throw new Exception($e->getMessage());
-        	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
+            throw new Exception($e->getMessage());
+            //throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
         }
         
         return $return;
@@ -611,14 +612,14 @@ class Processo extends BaseEntity
         return $return;
     }
     
-	public function comentarVarios($postData)
+    public function comentarVarios($postData)
     {
-    	$dao = $this->_getDao();
+        $dao = $this->_getDao();
         try {
-    	   $return = $dao->comentarVarios($postData);
+           $return = $dao->comentarVarios($postData);
         } catch (Exception $e) {
-        	throw new Exception($e->getMessage());
-        	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
+            throw new Exception($e->getMessage());
+            //throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
         }
         
         return $return;
@@ -626,15 +627,15 @@ class Processo extends BaseEntity
     
     public function consultar($postData)
     {
-    	$dao = $this->_getDao();
-    	$processos = array();
-    	
+        $dao = $this->_getDao();
+        $processos = array();
+        
         try {
-    	   $hashProcessos = $dao->consultar($postData);
-    	   $processos = $this->_loadManyFromHash($hashProcessos);
+           $hashProcessos = $dao->consultar($postData);
+           $processos = $this->_loadManyFromHash($hashProcessos);
         } catch (Exception $e) {
-        	throw new Exception($e->getMessage());
-        	//throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
+            throw new Exception($e->getMessage());
+            //throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
         }
         
         return $processos;
@@ -667,26 +668,25 @@ class Processo extends BaseEntity
     
     public function carregarArquivos()
     {
-    	$dao = $this->_getDao();
+        $dao = $this->_getDao();
         $arquivos = $dao->getArquivos($this->id);
         
-    	$arquivos_return = Array();
-    	foreach ($arquivos as $arquivo) {
-    		 $arquivo_tmp = new Arquivo();
-    		 $arquivo_tmp->setNome($arquivo['nome']);
+        $arquivos_return = Array();
+        foreach ($arquivos as $arquivo) {
+             $arquivo_tmp = new Arquivo();
+             $arquivo_tmp->setNome($arquivo['nome']);
              $arquivo_tmp->setDownloadUrl($dao::ALFRESCO_BASE_URL . $arquivo['download']);
-    		 $arquivos_return[] = $arquivo_tmp;
-    	}
-    	$this->setArquivos($arquivos_return);
-    	
-    	return $arquivos_return;
+             $arquivos_return[] = $arquivo_tmp;
+        }
+        $this->setArquivos($arquivos_return);
+        
+        return $arquivos_return;
     }
     
     public function hasArquivos()
     {
-    	if (count($this->getArquivos())) {
-    		return true;
-    	}
+        if (count($this->getArquivos())) {
+            return true;
+        }
     }
 }
-?>

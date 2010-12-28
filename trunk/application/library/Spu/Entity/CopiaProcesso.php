@@ -3,9 +3,9 @@ require_once('LinkProcesso.php');
 Loader::loadDao('CopiaProcessoDao');
 class CopiaProcesso extends LinkProcesso
 {
-	public function listar()
-	{
-		$dao = $this->_getDao();
+    public function listar()
+    {
+        $dao = $this->_getDao();
         $hashCopias = $dao->getCopias();
         
         return $this->_loadManyFromHash($hashCopias);
@@ -13,15 +13,15 @@ class CopiaProcesso extends LinkProcesso
     
     protected function _getDao()
     {
-    	$dao = new CopiaProcessoDao($this->_getTicket());
-    	return $dao;
+        $dao = new CopiaProcessoDao($this->_getTicket());
+        return $dao;
     }
     
     protected function _loadManyFromHash($hashCopias)
     {
-    	$copias = array();
+        $copias = array();
         foreach ($hashCopias as $hashCopia) {
-        	$hashDadosCopia = array_pop($hashCopia); 
+            $hashDadosCopia = array_pop($hashCopia); 
             $copia = new CopiaProcesso($this->_getTicket());
             $copia->loadFromHash($hashDadosCopia);
             $copias[] = $copia;
@@ -32,7 +32,7 @@ class CopiaProcesso extends LinkProcesso
     
     public function excluir($postData)
     {
-    	$dao = $this->_getDao();
-    	return $dao->deleteAll($postData);
+        $dao = $this->_getDao();
+        return $dao->deleteAll($postData);
     }
 }

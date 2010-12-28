@@ -49,12 +49,12 @@ class Assunto extends BaseEntity
         $this->_corpo = $value;
     }
     
-	public function getNotificarNaAbertura()
+    public function getNotificarNaAbertura()
     {
         return $this->_notificarNaAbertura;
     }
 
-	public function setNotificarNaAbertura($value)
+    public function setNotificarNaAbertura($value)
     {
         $this->_notificarNaAbertura = $value;
     }
@@ -67,8 +67,8 @@ class Assunto extends BaseEntity
     
     public function listar()
     {
-    	$dao = $this->_getDao();
-    	$hashDeAssuntos = $dao->getAssuntos();
+        $dao = $this->_getDao();
+        $hashDeAssuntos = $dao->getAssuntos();
         
         $assuntos = array();
         foreach ($hashDeAssuntos[0] as $hashAssunto) {
@@ -81,10 +81,10 @@ class Assunto extends BaseEntity
         return $assuntos;
     }
     
-	protected function _getDao()
+    protected function _getDao()
     {
-    	$dao = new AssuntoDao($this->_getTicket());
-    	return $dao;
+        $dao = new AssuntoDao($this->_getTicket());
+        return $dao;
     }
     
     protected function _loadAssuntoFromHash($hash)
@@ -122,4 +122,3 @@ class Assunto extends BaseEntity
         }
     }
 }
-?>

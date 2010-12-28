@@ -25,209 +25,214 @@ class Movimentacao extends Spu_Aspect_Base
     
     public function getData()
     {
-    	return $this->_data;
+        return $this->_data;
     }
     
     public function setData($value)
     {
-    	$this->_data = $value;
+        $this->_data = $value;
     }
     
-	public function getHora()
+    public function getHora()
     {
-    	return $this->_hora;
+        return $this->_hora;
     }
     
     public function setHora($value)
     {
-    	$this->_hora = $value;
+        $this->_hora = $value;
     }
     
     public function getDe()
     {
-    	return $this->_de;
+        return $this->_de;
     }
     
     public function setDe($value)
     {
-    	$this->_de = $value;
+        $this->_de = $value;
     }
     
     public function getPara()
     {
-    	return $this->_para;
+        return $this->_para;
     }
     
     public function setPara($value)
     {
-    	$this->_para = $value;
+        $this->_para = $value;
     }
     
     public function getPrazo()
     {
-    	return $this->_prazo;
+        return $this->_prazo;
     }
     
     public function setPrazo($value)
     {
-    	$this->_prazo = $value;
+        $this->_prazo = $value;
     }
     
     public function getPrioridade()
     {
-    	return $this->_prioridade;
+        return $this->_prioridade;
     }
     
     public function setPrioridade($value)
     {
-    	$this->_prioridade = $value;
+        $this->_prioridade = $value;
     }
     
     public function getDespacho()
     {
-    	return $this->_despacho;
+        return $this->_despacho;
     }
     
     public function setDespacho($value)
     {
-    	$this->_despacho = $value;
+        $this->_despacho = $value;
     }
     
-	public function getUsuario()
+    public function getUsuario()
     {
-    	return $this->_usuario;
+        return $this->_usuario;
     }
     
     public function setUsuario($value)
     {
-    	$this->_usuario = $value;
+        $this->_usuario = $value;
     }
     
-	public function getTipo()
+    public function getTipo()
     {
-    	return $this->_tipo;
+        return $this->_tipo;
     }
     
     public function setTipo($value)
     {
-    	$this->_tipo = $value;
+        $this->_tipo = $value;
     }
     
     public function getDescricao()
     {
-    	$tipo = $this->getTipo();
-    	$descricao = '';
-    	
-    	switch ($tipo) {
-    		case self::ABERTURA:
-    			$descricao = $this->_getDescricaoAbertura();
-    			$descricao = $this->_anexarDespachoDescricao($descricao);
-    			break;
-    		case self::RECEBIMENTO:
-    			$descricao = $this->_getDescricaoRecebimento();
-    			break;
-    		case self::ENCAMINHAMENTO:
-    			$descricao = $this->_getDescricaoEncaminhamento();
-    			$descricao = $this->_anexarDespachoDescricao($descricao);
-    			break;
-    		case self::CANCELAMENTOENVIO:
-    			$descricao = $this->_getDescricaoCancelamentoEnvio();
-    			break;
-    		case self::ARQUIVAMENTO:
-    			$descricao = $this->_getDescricaoArquivamento();
-    			$descricao = $this->_anexarDespachoDescricao($descricao);
-    			break;
-    		case self::REABERTURA:
-    			$descricao = $this->_getDescricaoReabertura();
-    			$descricao = $this->_anexarDespachoDescricao($descricao);
-    			break;
-    		case self::DESPACHO:
-    			$descricao = $this->_getDescricaoDespacho();
-    			$descricao = $this->_anexarDespachoDescricao($descricao);
-    			break;
-    	}
-    	
-    	return $descricao;
+        $tipo = $this->getTipo();
+        $descricao = '';
+        
+        switch ($tipo) {
+            case self::ABERTURA:
+                $descricao = $this->_getDescricaoAbertura();
+                $descricao = $this->_anexarDespachoDescricao($descricao);
+                break;
+            case self::RECEBIMENTO:
+                $descricao = $this->_getDescricaoRecebimento();
+                break;
+            case self::ENCAMINHAMENTO:
+                $descricao = $this->_getDescricaoEncaminhamento();
+                $descricao = $this->_anexarDespachoDescricao($descricao);
+                break;
+            case self::CANCELAMENTOENVIO:
+                $descricao = $this->_getDescricaoCancelamentoEnvio();
+                break;
+            case self::ARQUIVAMENTO:
+                $descricao = $this->_getDescricaoArquivamento();
+                $descricao = $this->_anexarDespachoDescricao($descricao);
+                break;
+            case self::REABERTURA:
+                $descricao = $this->_getDescricaoReabertura();
+                $descricao = $this->_anexarDespachoDescricao($descricao);
+                break;
+            case self::DESPACHO:
+                $descricao = $this->_getDescricaoDespacho();
+                $descricao = $this->_anexarDespachoDescricao($descricao);
+                break;
+        }
+        
+        return $descricao;
     }
     
     protected function _anexarDespachoDescricao($descricao)
     {
-    	$descricao = ($descricao && $this->getDespacho()) ? 
-    		$descricao . "<div class=\"comentario\">
-    						<blockquote>" . $this->getUsuario()->nomeCompleto . ": <em>" . $this->getDespacho() . "</em></blockquote></div>" : 
-    		$descricao;
-    	return $descricao;	
+        $descricao = ($descricao && $this->getDespacho()) ? 
+            $descricao . "<div class=\"comentario\">
+                            <blockquote>" . 
+                                $this->getUsuario()->nomeCompleto . ": <em>" . 
+                                    $this->getDespacho() . 
+                                "</em>
+                            </blockquote>
+                         </div>" : 
+            $descricao;
+        return $descricao;    
     }
     
     protected function _getDescricaoAbertura()
     {
-    	$nomeOrigem = $this->_getNomeOrigemParaDescricao();
-    	
-    	return "$nomeOrigem <em>abriu</em> o processo.";
+        $nomeOrigem = $this->_getNomeOrigemParaDescricao();
+        
+        return "$nomeOrigem <em>abriu</em> o processo.";
     }
     
-	protected function _getDescricaoRecebimento()
+    protected function _getDescricaoRecebimento()
     {
-    	$nomeDestino = $this->_getNomeDestinoParaDescricao();
-    	
-    	return "$nomeDestino <em>recebeu</em> o processo.";
+        $nomeDestino = $this->_getNomeDestinoParaDescricao();
+        
+        return "$nomeDestino <em>recebeu</em> o processo.";
     }
     
-	protected function _getDescricaoEncaminhamento()
+    protected function _getDescricaoEncaminhamento()
     {
-    	$nomeOrigem = $this->_getNomeOrigemParaDescricao();
-    	$nomeDestino = $this->_getNomeDestinoParaDescricao();
-    	
-    	return "$nomeOrigem <em>encaminhou</em> o processo para $nomeDestino.";
+        $nomeOrigem = $this->_getNomeOrigemParaDescricao();
+        $nomeDestino = $this->_getNomeDestinoParaDescricao();
+        
+        return "$nomeOrigem <em>encaminhou</em> o processo para $nomeDestino.";
     }
     
-	protected function _getDescricaoCancelamentoEnvio()
+    protected function _getDescricaoCancelamentoEnvio()
     {
-    	$nomeDestino = $this->_getNomeDestinoParaDescricao();
-    	
-    	return "$nomeDestino <em>cancelou</em> o envio do processo.";
+        $nomeDestino = $this->_getNomeDestinoParaDescricao();
+        
+        return "$nomeDestino <em>cancelou</em> o envio do processo.";
     }
     
-	protected function _getDescricaoArquivamento()
+    protected function _getDescricaoArquivamento()
     {
-    	$nomeDestino = $this->_getNomeDestinoParaDescricao();
-    	
-    	return "$nomeDestino <em>arquivou</em> o processo.";
+        $nomeDestino = $this->_getNomeDestinoParaDescricao();
+        
+        return "$nomeDestino <em>arquivou</em> o processo.";
     }
     
-	protected function _getDescricaoReabertura()
+    protected function _getDescricaoReabertura()
     {
-    	$nomeDestino = $this->_getNomeDestinoParaDescricao();
-    	
-    	return "$nomeDestino <em>reabriu</em> o processo.";
+        $nomeDestino = $this->_getNomeDestinoParaDescricao();
+        
+        return "$nomeDestino <em>reabriu</em> o processo.";
     }
     
-	protected function _getDescricaoDespacho()
+    protected function _getDescricaoDespacho()
     {
-    	$nomeOrigem = $this->_getNomeOrigemParaDescricao();
-    	
-    	return "$nomeOrigem criou um novo <em>despacho</em>:";
+        $nomeOrigem = $this->_getNomeOrigemParaDescricao();
+        
+        return "$nomeOrigem criou um novo <em>despacho</em>:";
     }
     
     protected function _getNomeOrigemParaDescricao()
     {
-    	$origem = $this->de;
-    	return $this->_getNomeProtocoloParaDescricao($origem);
+        $origem = $this->de;
+        return $this->_getNomeProtocoloParaDescricao($origem);
     }
     
-	protected function _getNomeDestinoParaDescricao()
+    protected function _getNomeDestinoParaDescricao()
     {
-    	$destino = $this->para;
-    	return $this->_getNomeProtocoloParaDescricao($destino);
+        $destino = $this->para;
+        return $this->_getNomeProtocoloParaDescricao($destino);
     }
     
     protected function _getNomeProtocoloParaDescricao(Protocolo $protocolo)
     {
-    	$nome = '<b>' . $protocolo->getNome() . '</b>';
-    	return $nome;
+        $nome = '<b>' . $protocolo->getNome() . '</b>';
+        return $nome;
     }
     
-	public function loadFromHash($hash)
+    public function loadFromHash($hash)
     {
         $this->setData($this->_getHashValue($hash, 'data'));
         $this->setHora($this->_getHashValue($hash, 'hora'));
@@ -240,18 +245,18 @@ class Movimentacao extends Spu_Aspect_Base
         $this->setTipo($this->_getHashValue($hash, 'tipo'));
     }
     
-	protected function _loadProtocoloFromHash($hash)
+    protected function _loadProtocoloFromHash($hash)
     {
-    	$hash = array_pop($hash);
+        $hash = array_pop($hash);
         $protocolo = new Protocolo();
         $protocolo->loadFromHash($hash);
         
         return $protocolo;
     }
     
-	protected function _loadPrioridadeFromHash($hash)
+    protected function _loadPrioridadeFromHash($hash)
     {
-    	$hash = array_pop($hash);
+        $hash = array_pop($hash);
         $prioridade = new Prioridade();
         $prioridade->loadFromHash($hash);
         
@@ -260,7 +265,7 @@ class Movimentacao extends Spu_Aspect_Base
     
     protected function _loadUsuarioFromHash($hash)
     {
-    	$hash = array_pop($hash);
+        $hash = array_pop($hash);
         $usuario = new Usuario();
         $usuario->setNome($this->_getHashValue($hash, 'nome'));
         $usuario->setSobrenome($this->_getHashValue($hash, 'sobrenome'));
@@ -270,4 +275,3 @@ class Movimentacao extends Spu_Aspect_Base
         return $usuario;
     }
 }
-?>
