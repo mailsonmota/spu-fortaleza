@@ -1,9 +1,8 @@
 <?php
 /**
-
- * AuthPlugin - Plugin de Autorização
+ * AuthPlugin - Plugin de Autorização do SPU para o Zend Framework
  * @author bruno
- * @package SGC
+ * @package SPU
  */
 class AuthPlugin extends Zend_Controller_Plugin_Abstract
 {
@@ -34,26 +33,26 @@ class AuthPlugin extends Zend_Controller_Plugin_Abstract
         
         // Usuário Logado
         if ((!$this->_isIdentityValid() OR !$this->_isValidTicket()) AND $controller != 'auth') {
-        	Zend_Auth::getInstance()->clearIdentity();
+            Zend_Auth::getInstance()->clearIdentity();
             $module = self::FAIL_AUTH_MODULE;
             $controller = self::FAIL_AUTH_CONTROLLER;
             $action = self::FAIL_AUTH_ACTION;
         }
         
-    	$request->setModuleName($module);
+        $request->setModuleName($module);
         $request->setControllerName($controller);
         $request->setActionName($action);
     }
     
     protected function _isValidTicket()
     {
-    	Loader::loadAlfrescoApiClass('Login');
-    	
-    	$alfrescoLogin = new Alfresco_Rest_Login(BaseDao::ALFRESCO_URL);
-    	$user = $this->getIdentity();
-    	$alfrescoLogin->setTicket($user['ticket']);
-    	
-    	return $alfrescoLogin->validate();
+        Loader::loadAlfrescoApiClass('Login');
+        
+        $alfrescoLogin = new Alfresco_Rest_Login(BaseDao::ALFRESCO_URL);
+        $user = $this->getIdentity();
+        $alfrescoLogin->setTicket($user['ticket']);
+        
+        return $alfrescoLogin->validate();
     }
     
     protected function _isIdentityValid()

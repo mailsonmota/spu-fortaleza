@@ -6,8 +6,8 @@ class AuthAdapter extends ZendAuthAdapterAlfresco
     protected function getIdentityFromResponse()
     {
         $username = $this->getUsername();
-    	$ticket = $this->getTicket();
-    	
+        $ticket = $this->getTicket();
+        
         $usuario = new Usuario($ticket);
         $usuario->carregarPeloLogin($username);
         
@@ -19,8 +19,8 @@ class AuthAdapter extends ZendAuthAdapterAlfresco
         return $identity;
     }
     
-	protected function _getAlfrescoBaseUrl()
+    protected function _getAlfrescoBaseUrl()
     {
-    	return BaseDao::ALFRESCO_URL;
+        return BaseDao::ALFRESCO_URL;
     }
 }
