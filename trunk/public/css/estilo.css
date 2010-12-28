@@ -234,3 +234,6 @@ body.basic #message {border-top: 0}
 
 /* DataTables */
 .dataTables_wrapper {margin-bottom: 1em}
+
+/* Identação */
+.indentedName {padding-left: 16px; background: url(../img/icons/child.png) no-repeat 0% 50%;}
