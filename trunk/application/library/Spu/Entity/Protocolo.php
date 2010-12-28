@@ -11,6 +11,9 @@ class Protocolo extends BaseEntity
     protected $_recebePelosSubsetores;
     protected $_recebeMalotes;
     protected $_parent;
+    protected $_nivel;
+    protected $_path;
+    
 
     public function getNodeRef()
     {
@@ -80,6 +83,26 @@ class Protocolo extends BaseEntity
     public function setRecebeMalotes($value)
     {
         $this->_recebeMalotes = $value;
+    } 
+    
+    public function getNivel()
+    {
+        return $this->_nivel;
+    }
+
+    public function setNivel($value)
+    {
+        $this->_nivel = $value;
+    }
+    
+    public function getPath()
+    {
+        return $this->_path;
+    }
+
+    public function setPath($value)
+    {
+        $this->_path = $value;
     }
 
     /**
@@ -152,6 +175,8 @@ class Protocolo extends BaseEntity
         $this->setLotacao($this->_getHashValue($hash, 'lotacao'));
         $this->setRecebePelosSubsetores(($this->_getHashValue($hash, 'recebePelosSubsetores') == '1') ? true : false);
         $this->setRecebeMalotes(($this->_getHashValue($hash, 'recebeMalotes') == '1') ? true : false);
+        $this->setNivel($this->_getHashValue($hash, 'nivel'));
+        $this->setPath($this->_getHashValue($hash, 'path'));
     }
 
     public function loadParentFromId($id)
