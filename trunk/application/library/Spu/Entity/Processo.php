@@ -342,7 +342,8 @@ class Processo extends BaseEntity
         $this->setProprietario($this->_loadProprietarioFromHash($this->_getHashValue($hash, 'proprietario')));
         $this->setAssunto($this->_loadAssuntoFromHash($this->_getHashValue($hash, 'assunto')));
         $this->setManifestante($this->_loadManifestanteFromHash($this->_getHashValue($hash, 'manifestante')));
-        $this->setTipoManifestante($this->_loadTipoManifestanteFromHash($this->_getHashValue($hash, 'tipoManifestante')));
+        $this->setTipoManifestante($this->_loadTipoManifestanteFromHash($this->_getHashValue($hash,
+                                                                                             'tipoManifestante')));
         $this->setArquivamento($this->_loadArquivamentoFromHash($this->_getHashValue($hash, 'arquivamento')));
     }
     
@@ -537,7 +538,7 @@ class Processo extends BaseEntity
     {
         $movimentacoes = array();
         if ($hash) {
-            foreach($hash[0] as $hashMovimentacao) {
+            foreach ($hash[0] as $hashMovimentacao) {
                 $hashMovimentacao = array_pop($hashMovimentacao);
                 $movimentacao = new Movimentacao();
                 $movimentacao->loadFromHash($hashMovimentacao);
