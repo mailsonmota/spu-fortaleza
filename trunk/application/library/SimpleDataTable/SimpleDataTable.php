@@ -4,16 +4,30 @@ class SimpleDataTable
     const DEFAULT_GRID_CLASS = 'grid';
     const DEFAULT_EVENROW_CLASS = 'even';
     const DEFAULT_ODDROW_CLASS = 'odd';
+    const COLUMN_LINK = 'link';
+    const COLUMN_CHECKBOX = 'checkbox';
+    const COLUMN_RADIO = 'radio';
+    
     protected $_html = '';
     protected $_options;
     protected $_data;
     protected $_dataColumns;
     
-    public function SimpleDataTable($data, $options)
+    public function __construct($data, $options)
     {
         $this->_setOptions($options);
         $this->_setData($data);
         $this->_setDataColumns($this->_getColumns());
+    }
+    
+    protected function _getHtml()
+    {
+        return $this->_html;
+    }
+    
+    protected function _setHtml($html)
+    {
+        $this->_html = $html;
     }
     
     protected function _setOptions($options)
@@ -187,13 +201,7 @@ class SimpleDataTable
             
             $html .= "<tr class=\"$rowClass\">";
             foreach ($this->_getDataColumns() as $column) {
-                if (!is_array($column)) {
-                    $html .= "<td>" . $row->$column . "</td>";
-                } elseif ($this->_isLinkColumn($column)) {
-                    $html .= '<td><a href="' . $column['url'] . $row->$column['paramValue'] . '">' . $column['title'] . '</a></td>'; 
-                } elseif ($this->_isCheckboxColumn($column)) {
-                    $html .= '<td><input type="checkbox" name="' . $column['name'] . '[]" value="' . $row->$column['paramValue'] . '"/></td>';
-                }
+                $html .= $this->_renderColumn($row, $column);
             }
             $html .= "</tr>";
         }
@@ -201,14 +209,56 @@ class SimpleDataTable
         return $html;
     }
     
+    protected function _renderColumn($row, $column)
+    {
+        $html = '<td>';
+        if ($this->_isTextColumn($column)) {
+            $html .= $row->$column;
+        } elseif ($this->_isLinkColumn($column)) {
+            $html .= $this->_createLinkMarkup($column['url'] . $row->$column['paramValue'], $column['title']);
+        } elseif ($this->_isCheckboxColumn($column)) {
+            $html .= $this->_createCheckboxMarkup($column['name'] . '[]', $row->$column['paramValue']);
+        } elseif ($this->_isRadioColumn($column)) {
+            $html .= $this->_createRadioMarkup($column['name'] . '[]', $row->$column['paramValue']);
+        }
+        $html .= '</td>';
+        
+        return $html;
+    }
+    
+    protected function _isTextColumn($column)
+    {
+        return !is_array($column);
+    }
+    
     protected function _isLinkColumn($column)
     {
-        return ($this->_getColumnType($column) == 'link');
+        return ($this->_getColumnType($column) == self::COLUMN_LINK);
+    }
+    
+    protected function _createLinkMarkup($href, $title)
+    {
+        return "<a href=\"$href\">$title</a>";
     }
     
     protected function _isCheckboxColumn($column)
     {
-        return ($this->_getColumnType($column) == 'checkbox');
+        return ($this->_getColumnType($column) == self::COLUMN_CHECKBOX);
+    }
+    
+    protected function _createCheckboxMarkup($name, $value)
+    {
+        return "<input type=\"checkbox\" name=\"$name\" value=\"$value\"/>";
+    }
+    
+    protected function _isRadioColumn($column)
+    {
+        return ($this->_getColumnType($column) == self::COLUMN_RADIO);
+    }
+    
+    protected function _createRadioMarkup($name, $value)
+    {
+        return "<input type=\"radio\" name=\"$name\" value=\"$value\"/>";
     }
     
     protected function _getColumnType($column)
@@ -223,16 +273,6 @@ class SimpleDataTable
         $this->_addHtml($html);
     }
     
-    protected function _getHtml()
-    {
-        return $this->_html;
-    }
-    
-    protected function _setHtml($html)
-    {
-        $this->_html = $html;
-    }
-    
     protected function _addHtml($html)
     {
         $this->_html .= $html;
@@ -240,12 +280,24 @@ class SimpleDataTable
     
     public function addActionColumn($title, $url, $paramValue = null)
     {
-       $this->_addDataColumn(array('type' => 'link', 'title' => $title, 'url' => $url, 'paramValue' => $paramValue));
+       $this->_addDataColumn(array('type' => self::COLUMN_LINK, 
+                                   'title' => $title, 
+                                   'url' => $url, 
+                                   'paramValue' => $paramValue));
     }
     
     public function addCheckboxColumn($name, $paramValue) 
     {
-        $this->_addColumnToTheBeginningOfTheArray(array('type' => 'checkbox', 'name' => $name, 'paramValue' => $paramValue));
+        $this->_addColumnToTheBeginningOfTheArray(array('type' => self::COLUMN_CHECKBOX, 
+                                                        'name' => $name, 
+                                                        'paramValue' => $paramValue));
+    }
+    
+    public function addRadioColumn($name, $paramValue) 
+    {
+        $this->_addColumnToTheBeginningOfTheArray(array('type' => self::COLUMN_RADIO, 
+                                                        'name' => $name, 
+                                                        'paramValue' => $paramValue));
     }
     
     protected function _addDataColumn($value)
@@ -258,4 +310,3 @@ class SimpleDataTable
         array_unshift($this->_dataColumns, $value);
     }
 }
-?>
