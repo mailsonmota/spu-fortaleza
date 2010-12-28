@@ -20,8 +20,7 @@ class TipoAbrangencia extends BaseClassification
     
     protected function _getDao()
     {
-    	$dao = new TipoAbrangenciaDao(self::ALFRESCO_URL, $this->_getTicket());
-    	return $dao;
+        $dao = new TipoAbrangenciaDao(self::ALFRESCO_URL, $this->_getTicket());
+        return $dao;
     }
 }
-?>

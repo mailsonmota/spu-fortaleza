@@ -20,8 +20,7 @@ class Bairro extends BaseClassification
     
     protected function _getDao()
     {
-    	$dao = new BairroDao($this->_getTicket());
-    	return $dao;
+        $dao = new BairroDao($this->_getTicket());
+        return $dao;
     }
 }
-?>

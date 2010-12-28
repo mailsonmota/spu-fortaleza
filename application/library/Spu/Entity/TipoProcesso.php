@@ -18,7 +18,7 @@ class TipoProcesso extends BaseEntity
     protected $_envolvidoSigiloso;
     protected $_tiposManifestante;
 
-	public function getNodeRef()
+    public function getNodeRef()
     {
         return $this->_nodeRef;
     }
@@ -68,7 +68,7 @@ class TipoProcesso extends BaseEntity
         $this->_letra = $value;
     }
 
-	public function getTramitacao()
+    public function getTramitacao()
     {
         return $this->_tramitacao;
     }
@@ -78,7 +78,7 @@ class TipoProcesso extends BaseEntity
         $this->_tramitacao = $value;
     }
 
-	public function getAbrangencia()
+    public function getAbrangencia()
     {
         return $this->_abrangencia;
     }
@@ -88,7 +88,7 @@ class TipoProcesso extends BaseEntity
         $this->_abrangencia = $value;
     }
 
-	public function getObservacao()
+    public function getObservacao()
     {
         return $this->_observacao;
     }
@@ -98,7 +98,7 @@ class TipoProcesso extends BaseEntity
         $this->_observacao = $value;
     }
 
-	public function getEnvolvidoSigiloso()
+    public function getEnvolvidoSigiloso()
     {
         return $this->_envolvidoSigiloso;
     }
@@ -118,7 +118,7 @@ class TipoProcesso extends BaseEntity
         $this->_tiposManifestante = $value;
     }
 
-	public function getId()
+    public function getId()
     {
         $nodeRef = $this->getNodeRef();
         return substr($nodeRef, strrpos($nodeRef, '/') + 1);
@@ -146,11 +146,11 @@ class TipoProcesso extends BaseEntity
         return $tiposProcesso;
     }
     
-	protected function _getDao()
-	{
-		$dao = new TipoProcessoDao($this->_getTicket());
-		return $dao;
-	}
+    protected function _getDao()
+    {
+        $dao = new TipoProcessoDao($this->_getTicket());
+        return $dao;
+    }
     
     protected function _loadTipoProcessoFromHash($hash)
     {
@@ -222,4 +222,3 @@ class TipoProcesso extends BaseEntity
         }
     }
 }
-?>

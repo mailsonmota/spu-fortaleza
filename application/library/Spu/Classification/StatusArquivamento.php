@@ -3,7 +3,7 @@ require_once('BaseClassification.php');
 Loader::loadDao('StatusArquivamentoDao');
 class StatusArquivamento extends BaseClassification
 {
-	public function listar()
+    public function listar()
     {
         $dao = $this->_getDao();
         $hashDeStatus = $dao->getStatusArquivamento();
@@ -18,10 +18,9 @@ class StatusArquivamento extends BaseClassification
         return $arrayStatus;
     }
     
-	protected function _getDao()
+    protected function _getDao()
     {
-    	$dao = new StatusArquivamentoDao(self::ALFRESCO_URL, $this->_getTicket());
-    	return $dao;
+        $dao = new StatusArquivamentoDao(self::ALFRESCO_URL, $this->_getTicket());
+        return $dao;
     }
 }
-?>

@@ -20,8 +20,7 @@ class Prioridade extends BaseClassification
     
     protected function _getDao()
     {
-    	$dao = new PrioridadeDao($this->_getTicket());
-    	return $dao;
+        $dao = new PrioridadeDao($this->_getTicket());
+        return $dao;
     }
 }
-?>

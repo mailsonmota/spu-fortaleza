@@ -37,4 +37,3 @@ class Arquivo extends BaseEntity
         $this->_downloadUrl = $value;
     }
 }
-?>
