@@ -28,6 +28,7 @@ jQuery(document).ready(function() {
 	//$('a[rel*=facebox]').facebox();
 	
 	tableRowCheckboxToggle();
+	tableRowRadioToggle();
 	
 	$.modal();
 	
@@ -89,7 +90,7 @@ function createUncheckedSelector() {
 
 function escolherModal(modalId, selectId) {
 	var allVals = [];
-	$('#' + modalId + ' input[type=checkbox]:checked').each(function() {
+	$('#' + modalId + ' input[type=checkbox]:checked, #' + modalId + ' input[type=radio]:checked').each(function() {
 	    allVals.push($(this).val());
     });
 	
