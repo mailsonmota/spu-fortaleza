@@ -1,9 +1,9 @@
 <?php
 class BaseAlfrescoClass
 {
-	protected $_ticket;
+    protected $_ticket;
     
-	public function __construct($ticket = null)
+    public function __construct($ticket = null)
     {
         $this->_setTicket($ticket);
     }
@@ -21,15 +21,15 @@ class BaseAlfrescoClass
     // FIXME
     public function changeTicket($ticket)
     {
-    	$this->_setTicket($ticket);
+        $this->_setTicket($ticket);
     }
     
-	public function __get($property) {
+    public function __get($property) {
         $methodName = 'get' . ucwords($property);
         return $this->$methodName();
     }
-	
-	protected function _getHashValue($hash, $hashField)
+    
+    protected function _getHashValue($hash, $hashField)
     {
         if (!isset($hash[$hashField])) {
             return null;
@@ -46,5 +46,5 @@ class BaseAlfrescoClass
         return $value;
     }
     
-	
+    
 }
