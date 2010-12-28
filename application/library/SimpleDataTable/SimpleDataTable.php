@@ -192,7 +192,7 @@ class SimpleDataTable
                 } elseif ($this->_isLinkColumn($column)) {
                     $html .= '<td><a href="' . $column['url'] . $row->$column['paramValue'] . '">' . $column['title'] . '</a></td>'; 
                 } elseif ($this->_isCheckboxColumn($column)) {
-                	$html .= '<td><input type="checkbox" name="' . $column['name'] . '[]" value="' . $row->$column['paramValue'] . '"/></td>';
+                    $html .= '<td><input type="checkbox" name="' . $column['name'] . '[]" value="' . $row->$column['paramValue'] . '"/></td>';
                 }
             }
             $html .= "</tr>";
@@ -203,18 +203,18 @@ class SimpleDataTable
     
     protected function _isLinkColumn($column)
     {
-    	return ($this->_getColumnType($column) == 'link');
+        return ($this->_getColumnType($column) == 'link');
     }
     
-	protected function _isCheckboxColumn($column)
+    protected function _isCheckboxColumn($column)
     {
-    	return ($this->_getColumnType($column) == 'checkbox');
+        return ($this->_getColumnType($column) == 'checkbox');
     }
     
     protected function _getColumnType($column)
     {
-    	$columnType = (isset($column['type'])) ? $column['type'] : null;
-    	return $columnType;
+        $columnType = (isset($column['type'])) ? $column['type'] : null;
+        return $columnType;
     }
     
     protected function _renderEndOfTheTable()
@@ -245,7 +245,7 @@ class SimpleDataTable
     
     public function addCheckboxColumn($name, $paramValue) 
     {
-    	$this->_addColumnToTheBeginningOfTheArray(array('type' => 'checkbox', 'name' => $name, 'paramValue' => $paramValue));
+        $this->_addColumnToTheBeginningOfTheArray(array('type' => 'checkbox', 'name' => $name, 'paramValue' => $paramValue));
     }
     
     protected function _addDataColumn($value)
@@ -255,7 +255,7 @@ class SimpleDataTable
     
     protected function _addColumnToTheBeginningOfTheArray($value)
     {
-    	array_unshift($this->_dataColumns, $value);
+        array_unshift($this->_dataColumns, $value);
     }
 }
 ?>
