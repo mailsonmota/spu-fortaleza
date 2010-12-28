@@ -54,10 +54,12 @@ jQuery(document).ready(function() {
 		iDisplayLength: 20, 
 		sPaginationType: "full_numbers", 
 		"bLengthChange": false, 
-		"bSort": false
+		"bSort": false, 
+		"fnDrawCallback": function() {
+			updateTable($(this));
+		}
 	});
 	$('.grid tfoot').hide();
-	
 });
 
 function triggerEnterButton() {
