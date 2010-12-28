@@ -8,12 +8,10 @@ class AbrirprocessoController extends BaseController
     {
         if ($this->getRequest()->isPost()) {
                 $this->_cleanUploadedFilesInfoFromSession();
-                $this->_helper->redirector(
-                'formulario',
-                $this->getController(),
-                'default',
-                array('tipoprocesso' => $this->_getIdTipoProcessoPost())
-            );
+                $this->_helper->redirector('formulario',
+                                           $this->getController(),
+                                           'default',
+                                           array('tipoprocesso' => $this->_getIdTipoProcessoPost()));
         }
 
         $tipoProcesso = new TipoProcesso($this->getTicket());
@@ -112,30 +110,30 @@ class AbrirprocessoController extends BaseController
         $this->view->ticket = $this->getTicket();
 
         if ($this->getRequest()->isPost()) {
-                $postData = $this->getRequest()->getParams();
+            $postData = $this->getRequest()->getParams();
 
-                if (!empty($_FILES)) {
-                        $uploadFolder = dirname($_FILES['fileToUpload']['tmp_name']);
+            if (!empty($_FILES)) {
+                $uploadFolder = dirname($_FILES['fileToUpload']['tmp_name']);
 
-                        $tmpFilePath = $uploadFolder . "/" . basename($_FILES['fileToUpload']['tmp_name']);
+                $tmpFilePath = $uploadFolder . "/" . basename($_FILES['fileToUpload']['tmp_name']);
                 $newFilePath = $uploadFolder . "/" . basename($_FILES['fileToUpload']['name']);
 
                 rename($tmpFilePath, $newFilePath);
 
-                    $postData['fileToUpload'] = "@" . $newFilePath;
+                $postData['fileToUpload'] = "@" . $newFilePath;
 
-                    try {
-                        $processo->uploadArquivo($postData);
-                        if ($session->uploadedFilesCount == null) {
-                                $session->uploadedFilesCount = 0;
-                        }
-                        $session->uploadedFiles[$session->uploadedFilesCount++] = $_FILES['fileToUpload']['name'];
-                    } catch (Exception $e) {
-                        throw new Exception('Erro no upload de arquivo. Mensagem: ' . $e->getMessage());
+                try {
+                    $processo->uploadArquivo($postData);
+                    if ($session->uploadedFilesCount == null) {
+                        $session->uploadedFilesCount = 0;
                     }
+                    $session->uploadedFiles[$session->uploadedFilesCount++] = $_FILES['fileToUpload']['name'];
+                } catch (Exception $e) {
+                    throw new Exception('Erro no upload de arquivo. Mensagem: ' . $e->getMessage());
+                }
             } else {
                 $this->_redirectConfirmacaoCriacao();
-                }
+            }
         }
 
         $this->view->uploadedFiles = $session->uploadedFiles;
@@ -283,7 +281,7 @@ class AbrirprocessoController extends BaseController
         return $listaPrioridades;
     }
 
-        protected function _getListaOrigens()
+    protected function _getListaOrigens()
     {
         $protocolo = new Protocolo($this->getTicket());
         $protocolos = $protocolo->listar();
@@ -347,12 +345,10 @@ class AbrirprocessoController extends BaseController
 
     protected function _redirectFormularioEnvolvido()
     {
-        $this->_helper->redirector(
-           'formularioenvolvido',
-           $this->getController(),
-           'default',
-           array('tipoprocesso' => $this->_getIdTipoProcessoUrl())
-        );
+        $this->_helper->redirector('formularioenvolvido',
+                                   $this->getController(),
+                                   'default',
+                                   array('tipoprocesso' => $this->_getIdTipoProcessoUrl()));
     }
 
     protected function _cleanUploadedFilesInfoFromSession()
