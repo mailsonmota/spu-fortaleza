@@ -671,16 +671,16 @@ class Processo extends BaseEntity
         $dao = $this->_getDao();
         $arquivos = $dao->getArquivos($this->id);
         
-        $arquivos_return = Array();
+        $arquivosReturn = Array();
         foreach ($arquivos as $arquivo) {
-             $arquivo_tmp = new Arquivo();
-             $arquivo_tmp->setNome($arquivo['nome']);
-             $arquivo_tmp->setDownloadUrl($dao::ALFRESCO_BASE_URL . $arquivo['download']);
-             $arquivos_return[] = $arquivo_tmp;
+             $arquivoTmp = new Arquivo();
+             $arquivoTmp->setNome($arquivo['nome']);
+             $arquivoTmp->setDownloadUrl($dao::ALFRESCO_BASE_URL . $arquivo['download']);
+             $arquivosReturn[] = $arquivoTmp;
         }
-        $this->setArquivos($arquivos_return);
+        $this->setArquivos($arquivosReturn);
         
-        return $arquivos_return;
+        return $arquivosReturn;
     }
     
     public function hasArquivos()
