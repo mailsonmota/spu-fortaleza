@@ -4,7 +4,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     protected function _initAutoload()
     {
-    	$libraryPath = '../application/library';
+        $libraryPath = '../application/library';
         Zend_Loader::loadClass('Loader', "$libraryPath/Spu");
         Zend_Loader::loadClass('BaseController', '../application/controllers');
         Zend_Loader::loadClass('SimpleDataTable', "$libraryPath/SimpleDataTable");
