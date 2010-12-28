@@ -36,7 +36,7 @@ function tableRowCheckboxToggle() {
 
 				$("tr:eq("+i+")").click(function() {
 					// toggle the checked state
-					$("tr:eq("+i+") :checkbox").each(function(j,checkbox) {
+					$(this).find(":checkbox").each(function(j,checkbox) {
 						if(applicableCheckbox(checkbox)) {
 							uniqueId = '' + i + j;
 							// toggle checkbox states
