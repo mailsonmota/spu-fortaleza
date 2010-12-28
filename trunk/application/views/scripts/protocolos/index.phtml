@@ -1,20 +1,58 @@
 <?php echo $this->breadcrumbs()->addPage('Protocolos')->render() ?>
 
-<?php 
-echo $this->pagenav()->openList(); 
+<?php
+echo $this->pagenav()->openList();
 echo $this->pagenav()->defaultHelperLinks();
 echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <form action="" method="post">
-        <?php 
-        $headerColumns = array('Nome', 'Orgão', 'Lotação', 'Ações');
-        $columns = array('nome', 'orgao', 'lotacao');
-        
-        $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
-        $grid->addActionColumn('Editar', $this->simpleUrl('editar', $this->controller) . '/id/', 'id');
-        echo $grid->render();
-        ?>
+<form action="" method="post">
+<?php
+$numRegistros = count($this->lista);
+$i = 0;
+?>
+<table class="grid" summary="data grid" id="datagrid">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <td colspan="2">
+                <em>Exibindo <?php echo $numRegistros ?> registros.</em>
+            </td>
+        </tr>
+    </tfoot>
+    <tbody>
+<?php 
+foreach ($this->lista as $protocoloObj):
+	$nome = $protocoloObj->path;	
+	$classe = ++$i%2 ? 'even' : 'odd';
+	$offset = (((int)($protocoloObj->nivel) - 1) * 4);
+	$acao = $this->simpleUrl('editar', $this->controller, array('id' => $protocoloObj->id));
+	$link = "<a href=\"$acao\">Editar</a>";
+	
+	if ($offset) {
+		$nomeIndentado = (str_repeat("&nbsp;", $offset)) . "<span class =\"indentedName\">" . str_replace("/", " / ", $nome) . "</span>";
+	} else {
+		$nomeIndentado = (str_repeat("&nbsp;", $offset)) . str_replace("/", " / ", $nome);
+	}
+?>	
+        <tr class="<?php echo $classe?>">            
+            <td>
+                <?php echo $nomeIndentado ?>
+            </td>
+            <td>
+                <?php echo $link ?>
+            </td>                
+        </tr>
+<?php 
+endforeach;
+?>
+            </tbody>
+        </table>
     </form>
 </div>
