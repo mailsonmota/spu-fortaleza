@@ -3,42 +3,42 @@ Loader::loadEntity('Processo');
 Loader::loadEntity('Arquivo');
 class ProcessoController extends BaseController
 {
-	public function detalhesAction()
+    public function detalhesAction()
     {
-    	try {
-    		$idProcesso = $this->_getIdProcessoUrl();
-	    	$processo = new Processo($this->getTicket());
-	    	if ($idProcesso) {
-	            $processo->carregarPeloId($idProcesso);
-	        }
-	    } catch (Exception $e) {
-    		$this->setMessageForTheView('Não foi possível carregar o processo', 'error');
-    	}
-    	$this->view->processo = $processo;
+        try {
+            $idProcesso = $this->_getIdProcessoUrl();
+            $processo = new Processo($this->getTicket());
+            if ($idProcesso) {
+                $processo->carregarPeloId($idProcesso);
+            }
+        } catch (Exception $e) {
+                $this->setMessageForTheView('Não foi possível carregar o processo', 'error');
+        }
+        $this->view->processo = $processo;
     }
-	
+        
     public function encaminharAction()
     {
-    	try {
-    		$idProcesso = $this->_getIdProcessoUrl();
-    		$processo = new Processo($this->getTicket());
-    		if ($idProcesso) {
-	            $processo->carregarPeloId($idProcesso);
-	        }
-	        
-    		$listaPrioridades = $this->_getListaPrioridades();
+        try {
+                $idProcesso = $this->_getIdProcessoUrl();
+                $processo = new Processo($this->getTicket());
+                if ($idProcesso) {
+                    $processo->carregarPeloId($idProcesso);
+                }
+                
+                $listaPrioridades = $this->_getListaPrioridades();
             $listaProtocolos = $this->_getListaProtocolos();
             
-    		if ($this->getRequest()->isPost()) {
-    			$processo->tramitar($this->getRequest()->getPost());
-    			$this->setSuccessMessage('Processo tramitado com sucesso.');
-    			$this->_redirectDetalhesProcesso($idProcesso);
-	    	}
-    	} catch (Exception $e) {
-    		$this->setMessageForTheView($e->getMessage(), 'error');
-    	}
-    	$this->view->processo = $processo;
-    	$this->view->listaPrioridades = $listaPrioridades;
+                if ($this->getRequest()->isPost()) {
+                        $processo->tramitar($this->getRequest()->getPost());
+                        $this->setSuccessMessage('Processo tramitado com sucesso.');
+                        $this->_redirectDetalhesProcesso($idProcesso);
+                }
+        } catch (Exception $e) {
+                $this->setMessageForTheView($e->getMessage(), 'error');
+        }
+        $this->view->processo = $processo;
+        $this->view->listaPrioridades = $listaPrioridades;
         $this->view->listaProtocolos = $listaProtocolos;
     }
     
@@ -101,6 +101,6 @@ class ProcessoController extends BaseController
     
     protected function _redirectDetalhesProcesso($idProcesso)
     {
-    	$this->_helper->redirector('detalhes', $this->getController(), 'default', array('id' => $idProcesso));
+        $this->_helper->redirector('detalhes', $this->getController(), 'default', array('id' => $idProcesso));
     }
 }
