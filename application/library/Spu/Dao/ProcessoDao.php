@@ -122,23 +122,6 @@ class ProcessoDao extends BaseDao
         return $result;
     }
     
-    /*  public function uploadArquivo($postData)
-    {
-        // $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/uploadarquivo";
-        $url = $this->getBaseUrl() . "/api/upload";
-        // $url = $this->getBaseUrl() . "/spu/processo/uploadarquivo";
-        $url = $this->addAlfTicketUrl($url);
-        
-        $curlObj = new CurlClient();
-        
-        $result = $curlObj->doPostRequest($url, $postData, 'formdata');
-        if ($this->isAlfrescoError($result)) {
-            throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
-        
-        return $result;
-    }*/
-    
     public function tramitar($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/tramitar";
