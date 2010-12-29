@@ -101,9 +101,12 @@
         <dd><?php echo $arquivo->nome; ?></dd>
         <?php endif ?>
         
-        <?php if ($arquivo->downloadUrl): ?>
+        <?php if ($arquivo->id): ?>
         <dt>Download:</dt>
-        <dd><a href="<?php echo $arquivo->downloadUrl; ?>">Baixar o arquivo</a></dd>
+        <dd><a href="<?php echo $this->simpleUrl('arquivo',
+                                                 'processo',
+                                                 array('id' => $arquivo->id, 'nome' => $arquivo->nome)) ?>">
+                                                   Baixar o arquivo</a></dd>
         <?php endif ?>
     </dl>
     <?php endforeach; ?>
