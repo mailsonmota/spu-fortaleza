@@ -6,7 +6,7 @@ class TipoAbrangencia extends BaseClassification
     public function listar()
     {
         $dao = $this->_getDao();
-        $hashDeTipoAbrangencia = $dao->getAbrangencias();
+        $hashDeTipoAbrangencia = $dao->fetchAll();
         
         $tiposAbrangencia = array();
         foreach ($hashDeTipoAbrangencia as $hashTipoAbrangencia) {
@@ -20,7 +20,7 @@ class TipoAbrangencia extends BaseClassification
     
     protected function _getDao()
     {
-        $dao = new TipoAbrangenciaDao(self::ALFRESCO_URL, $this->_getTicket());
+        $dao = new TipoAbrangenciaDao($this->_getTicket());
         return $dao;
     }
 }
