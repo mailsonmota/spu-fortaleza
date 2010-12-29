@@ -6,7 +6,7 @@ class TipoTramitacao extends BaseClassification
     public function listar()
     {
         $dao = $this->_getDao();
-        $hashDeTipoTramitacao = $dao->getTramitacoes();
+        $hashDeTipoTramitacao = $dao->fetchAll();
         
         $tiposTramitacao = array();
         foreach ($hashDeTipoTramitacao as $hashTipoTramitacao) {
@@ -20,7 +20,7 @@ class TipoTramitacao extends BaseClassification
     
     protected function _getDao()
     {
-        $dao = new TipoTramitacaoDao(self::ALFRESCO_URL, $this->_getTicket());
+        $dao = new TipoTramitacaoDao($this->_getTicket());
         return $dao;
     }
 }

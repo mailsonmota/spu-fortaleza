@@ -10,7 +10,7 @@ echo $this->pagenav()->closeList();
 	<?php 
     if ($this->processo->id) {
         echo $this->partial('snippets/detalhesProcesso.phtml', array('processo' => $this->processo));
-        echo $this->partial('snippets/movimentacoesProcesso3.phtml', array('processo' => $this->processo));
+        echo $this->partial('snippets/movimentacoes.phtml', array('processo' => $this->processo));
     }
     ?>
 </div>

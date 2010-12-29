@@ -5,8 +5,8 @@ class TipoManifestante extends BaseClassification
 {
     public function listar()
     {
-        $service = new AlfrescoTiposProcesso(self::ALFRESCO_URL, $this->_getTicket());
-        $hashDeTipoManifestante = $service->getTiposManifestante();
+        $dao = $this->_getDao();
+        $hashDeTipoManifestante = $dao->fetchAll();
         
         $tiposManifestante = array();
         foreach ($hashDeTipoManifestante as $hashTipoManifestante) {
@@ -20,7 +20,7 @@ class TipoManifestante extends BaseClassification
     
     protected function _getDao()
     {
-        $dao = new TipoManifestanteDao(self::ALFRESCO_URL, $this->_getTicket());
+        $dao = new TipoManifestanteDao($this->_getTicket());
         return $dao;
     }
 }
