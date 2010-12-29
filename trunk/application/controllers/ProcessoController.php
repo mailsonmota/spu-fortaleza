@@ -42,23 +42,14 @@ class ProcessoController extends BaseController
         $this->view->listaProtocolos = $listaProtocolos;
     }
     
-    public function arquivo()
+    public function arquivoAction()
     {
         try {
-            $idArquivo = $this->getRequest()->getParam('id');
-            $arquivoObj = new Arquivo($this->getTicket());
-            
-        } catch (Exception $e) {
-            $this->setMessageForTheView($e->getMessage(), 'error');
-        }
-    }
-    
-    public function arquivosimples()
-    {
-        try {
-            $idArquivo = $this->getRequest()->getParam('id');
-            $this->_helper->redirector->setGotoUrl("http://172.30.116.21:8080/alfresco/service/api/node/workspace/SpacesStore/" . $idArquivo . "/content")
-                                      ->gotoUrl();
+            $arquivoHash['id'] = $this->getRequest()->getParam('id');
+            $arquivoHash['nome'] = $this->getRequest()->getParam('nome');
+            $arquivo = new Arquivo($this->getTicket());
+            $url = $arquivo->getArquivoDownloadUrl($arquivoHash);
+            $this->getResponse()->setRedirect($url);
         } catch (Exception $e) {
             $this->setMessageForTheView($e->getMessage(), 'error');
         }
