@@ -7,12 +7,7 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-
 <?php 
-$options = array('actionColumn' => array('baseUrl' => $this->simpleUrl('editar', $this->controller), 
-                                         'method' => 'id', 
-                                         'header' => 'Ações', 
-                                         'title' => 'Editar'));
-echo $this->gridProtocolos($this->lista, $options)->render();
+echo $this->protocolo()->lista($this->lista)->render();
 ?>
 </div>

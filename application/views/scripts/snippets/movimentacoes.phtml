@@ -1,8 +1,7 @@
 <fieldset>
     <legend>Movimentações</legend>
     <ol class="historico">
-    	<?php $this->processo->carregarMovimentacoes() ?>
-    	<?php if ($this->processo->getMovimentacoes()): foreach ($this->processo->getMovimentacoes() as $movimentacao): ?>
+    	<?php if ($this->movimentacoes): foreach ($this->movimentacoes as $movimentacao): ?>
     	<li>
     		<?php echo $movimentacao->data ?> às <?php echo $movimentacao->hora ?> - 
     		<?php echo $movimentacao->descricao ?>
