@@ -21,9 +21,9 @@ class ArquivoDao extends BaseDao
     }
 
     /**
-     * Estrutura de $postData
-     * $data['processoId']
-     * $data['fileContent']
+     * Estrutura do $postData
+     *   $postData['processoId']
+     *   $postData['fileContent']
      */
     public function uploadArquivo($postData)
     {
@@ -44,7 +44,8 @@ class ArquivoDao extends BaseDao
 
     public function getArquivoDownloadUrl($arquivoHash)
     {
-        $url = $this->getBaseUrl() . "/api/node/workspace/SpacesStore/" . $arquivoHash['id'] . "/content/" . $arquivoHash['nome'];
+        $url = $this->getBaseUrl() . "/api/node/workspace/SpacesStore/"
+             . $arquivoHash['id'] . "/content/" . $arquivoHash['nome'];
         $url = $this->addAlfTicketUrl($url);
         return $url;
     }
