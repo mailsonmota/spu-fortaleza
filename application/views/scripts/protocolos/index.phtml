@@ -8,6 +8,7 @@ echo $this->pagenav()->closeList();
 
 <div id="article">
 <?php 
-echo $this->protocolo()->lista($this->lista)->render();
+echo $this->protocolo()->listaComAction($this->lista, array('baseUrl' => $this->simpleUrl('editar'), 
+                                                            'title' => 'Detalhes'))->render();
 ?>
 </div>
