@@ -3,9 +3,20 @@ require_once('BaseEntity.php');
 Loader::loadDao('ArquivoDao');
 class Arquivo extends BaseEntity
 {
+    protected $_id;
     protected $_nome;
     protected $_mimetype;
     protected $_downloadUrl;
+    
+    public function getId()
+    {
+        return $this->_id;
+    }
+    
+    public function setId($value)
+    {
+        $this->_id = $value;
+    }
     
     public function getNome()
     {
@@ -27,16 +38,6 @@ class Arquivo extends BaseEntity
         $this->_mimetype = $value;
     }
     
-    public function getDownloadUrl()
-    {
-        return $this->_downloadUrl;
-    }
-    
-    public function setDownloadUrl($value)
-    {
-        $this->_downloadUrl = $value;
-    }
-    
     protected function _getDao()
     {
         return new ArquivoDao($this->_getTicket());
@@ -49,13 +50,18 @@ class Arquivo extends BaseEntity
         
         $arquivosReturn = Array();
         foreach ($arquivos as $arquivo) {
-             $arquivoTmp = new Arquivo();
-             $arquivoTmp->setNome($arquivo['nome']);
-             //$arquivoTmp->setDownloadUrl($dao->getBaseUrl() . $arquivo['download']);
-             $arquivoTmp->setDownloadUrl("http://172.30.116.21:8080/alfresco/service/api/node/workspace/SpacesStore/" . $arquivo['id'] . "/content/" . $arquivo['nome'] . "?alf_ticket=" . $this->_getTicket());
-             $arquivosReturn[] = $arquivoTmp;
+             $arquivoAux = new Arquivo();
+             $arquivoAux->setId($arquivo['id']);
+             $arquivoAux->setNome($arquivo['nome']);
+             $arquivosReturn[] = $arquivoAux;
         }
         
         return $arquivosReturn;
+    }
+    
+    public function getArquivoDownloadUrl($arquivoHash)
+    {
+        $dao = $this->_getDao();
+        return $dao->getArquivoDownloadUrl($arquivoHash);
     }
 }

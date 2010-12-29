@@ -1,6 +1,5 @@
 <?php
 require_once('BaseDao.php');
-
 class ArquivoDao extends BaseDao
 {
     private $_processoBaseUrl = 'spu/processo';
@@ -41,5 +40,12 @@ class ArquivoDao extends BaseDao
         }
         
         return $result;
+    }
+
+    public function getArquivoDownloadUrl($arquivoHash)
+    {
+        $url = $this->getBaseUrl() . "/api/node/workspace/SpacesStore/" . $arquivoHash['id'] . "/content/" . $arquivoHash['nome'];
+        $url = $this->addAlfTicketUrl($url);
+        return $url;
     }
 }
