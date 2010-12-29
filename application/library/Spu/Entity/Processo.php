@@ -436,9 +436,9 @@ class Processo extends BaseEntity
             $hashDadosProcesso = array_pop($hashProcesso);
             $this->loadFromHash($hashDadosProcesso);
         }
-        
-        // TODO Colocar funcionalidade para dentro dos serviços
-        $this->carregarArquivos();
+
+        $arquivo = new Arquivo($this->_getTicket());
+        $this->setArquivos($arquivo->getArquivos($this->id));
         
         return $processo;
     }
@@ -665,23 +665,6 @@ class Processo extends BaseEntity
         }
 
         return $listaCaixaAnaliseFiltrada;
-    }
-    
-    public function carregarArquivos()
-    {
-        $dao = $this->_getDao();
-        $arquivos = $dao->getArquivos($this->id);
-        
-        $arquivosReturn = Array();
-        foreach ($arquivos as $arquivo) {
-             $arquivoTmp = new Arquivo();
-             $arquivoTmp->setNome($arquivo['nome']);
-             $arquivoTmp->setDownloadUrl($dao->getBaseUrl() . $arquivo['download']);
-             $arquivosReturn[] = $arquivoTmp;
-        }
-        $this->setArquivos($arquivosReturn);
-        
-        return $arquivosReturn;
     }
     
     public function hasArquivos()

@@ -1,5 +1,6 @@
 <?php
 Loader::loadEntity('Processo');
+Loader::loadEntity('Arquivo');
 class ProcessoController extends BaseController
 {
 	public function detalhesAction()
@@ -7,7 +8,7 @@ class ProcessoController extends BaseController
     	try {
     		$idProcesso = $this->_getIdProcessoUrl();
 	    	$processo = new Processo($this->getTicket());
-	        if ($idProcesso) {
+	    	if ($idProcesso) {
 	            $processo->carregarPeloId($idProcesso);
 	        }
 	    } catch (Exception $e) {
@@ -39,6 +40,28 @@ class ProcessoController extends BaseController
     	$this->view->processo = $processo;
     	$this->view->listaPrioridades = $listaPrioridades;
         $this->view->listaProtocolos = $listaProtocolos;
+    }
+    
+    public function arquivo()
+    {
+        try {
+            $idArquivo = $this->getRequest()->getParam('id');
+            $arquivoObj = new Arquivo($this->getTicket());
+            
+        } catch (Exception $e) {
+            $this->setMessageForTheView($e->getMessage(), 'error');
+        }
+    }
+    
+    public function arquivosimples()
+    {
+        try {
+            $idArquivo = $this->getRequest()->getParam('id');
+            $this->_helper->redirector->setGotoUrl("http://172.30.116.21:8080/alfresco/service/api/node/workspace/SpacesStore/" . $idArquivo . "/content")
+                                      ->gotoUrl();
+        } catch (Exception $e) {
+            $this->setMessageForTheView($e->getMessage(), 'error');
+        }
     }
     
     protected function _getIdProcessoUrl()
