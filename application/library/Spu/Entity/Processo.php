@@ -676,7 +676,7 @@ class Processo extends BaseEntity
         foreach ($arquivos as $arquivo) {
              $arquivoTmp = new Arquivo();
              $arquivoTmp->setNome($arquivo['nome']);
-             $arquivoTmp->setDownloadUrl($dao::ALFRESCO_BASE_URL . $arquivo['download']);
+             $arquivoTmp->setDownloadUrl($dao->getBaseUrl() . $arquivo['download']);
              $arquivosReturn[] = $arquivoTmp;
         }
         $this->setArquivos($arquivosReturn);
