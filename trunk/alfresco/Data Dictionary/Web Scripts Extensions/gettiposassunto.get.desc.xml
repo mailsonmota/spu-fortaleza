@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Get Tipos de Assunto</shortname>
+	<description>Retorna os Tipos de Assuntos do SPU</description>
+	<url>/spu/claudemirton</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>

@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Retorna o histórico de um Processo do SPU</shortname>
+	<description>Retorna o histórico de um Processo do sistema de protocolo único à partir do id</description>
+	<url>/spu/processo/historico/get/{noderef}</url>
+	<authentication>guest</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>

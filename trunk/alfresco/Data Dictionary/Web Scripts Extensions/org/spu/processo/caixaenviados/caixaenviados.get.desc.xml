@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Lista os Processos da Caixa de Saida</shortname>
+	<description>Lista todos os Processos nas Caixas de Saida do Usuário</description>
+	<url>/spu/processo/enviados</url>
+	<authentication>guest</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>
