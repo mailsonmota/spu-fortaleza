@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Criar Malote</shortname>
+	<description>Cria Malote na Home Folder do Usuário</description>
+	<url>/spu/malote/criar</url>
+	<authentication>guest</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>

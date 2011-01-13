@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Retorna um Processo do SPU</shortname>
+	<description>Retorna um Processo do sistema de protocolo único à partir do id</description>
+	<url>/spu/processo/get/{noderef}</url>
+	<authentication>guest</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>
