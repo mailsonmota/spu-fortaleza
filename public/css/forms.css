@@ -21,12 +21,15 @@ input[type=text],
 input.text, input.title, 
 textarea, select { 
   background-color:#fff; 
-  border:1px solid #bbb; 
-}
+  border:1px solid #bbb; }
 input[type=text]:focus, 
 input.text:focus, input.title:focus, 
 textarea:focus, select:focus { 
   border-color:#666; 
+}
+
+#informacoesRecadastro select {
+  width: 30em;
 }
 
 input[type=text], 
