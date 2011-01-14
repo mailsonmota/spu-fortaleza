@@ -189,14 +189,16 @@ div#message {margin: 0 0 2% 0; border-width: 1px 0}
 #footer ul li {margin: 0 12px;}
 
 /* Login */
+
+/* div {border: 2px coral solid;padding: 4px;margin: 4px;} DEBUG */
 body.basic {background: url(../img/degrade.jpg) repeat-x 0% 0% white;}
-#wrapper {width: 40em; margin: 5em auto;}
+#wrapper {width: 70em; margin: 5em auto;}
 #wrapper #header {padding: 1em; background: none; border-bottom: 1px solid #CCC;}
 #wrapper #header span {color: black;line-height: 30px;}
 #wrapper #section {background: white;}
 #wrapper #footer {background: none; border-top: 1px solid #CCC; color: #666;}
 #wrapper #footer p {float: none; margin: 1% 0;}
-#wrapper #section {padding: 3em; width: 27em; margin: 0 auto; float: none}
+#wrapper #section {padding: 3em; width: 47em; margin: 0 auto; float: none}
 #wrapper h1 {text-shadow: 1px 1px 1px #FFF;height: 48px;}
 #wrapper h1 a {color: black; line-height: 30px;}
 #wrapper h1 a:hover {text-shadow: 0 0 0;}
