@@ -7,8 +7,52 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+	        $('#grid-protocolos').dataTable({
+	        	"oLanguage": {
+		            "sProcessing":   "Processando...",
+		            "sLengthMenu":   "Mostrar _MENU_ registros",
+		            "sZeroRecords":  "Não foram encontrados resultados",
+		            "sInfo":         "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+		            "sInfoEmpty":    "Mostrando de 0 até 0 de 0 registros",
+		            "sInfoFiltered": "(filtrado de _MAX_ registros no total)",
+		            "sInfoPostFix":  "",
+		            "sSearch":       "Busca Rápida:",
+		            "sUrl":          "",
+		            "oPaginate": {
+		                "sFirst":    "&laquo;&laquo;  Primeiro",
+		                "sPrevious": "&laquo; Anterior",
+		                "sNext":     "Seguinte &raquo;",
+		                "sLast":     "Último &raquo;&raquo;"
+		            }
+		        },
+		        iDisplayLength: 20, 
+		        sPaginationType: "full_numbers", 
+		        "bLengthChange": false, 
+		        "bSort": false, 
+		        "fnDrawCallback": function() {
+		            updateTable($(this));
+		        },
+		        "bProcessing": true,
+		        "bServerSide": true,
+		        "sAjaxSource": '<?php echo $this->simpleUrl('listar-todos', 'protocolos-ajax') ?>'
+		    }).fnSetFilteringDelay();
+        });
+    </script>
+    
+    <table class="grid no-datatable" id="grid-protocolos">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tfoot></tfoot>
+        <tbody></tbody>
+    </table>
 <?php 
-echo $this->protocolo()->listaComAction($this->lista, array('baseUrl' => $this->simpleUrl('editar'), 
-                                                            'title' => 'Detalhes'))->render();
+//echo $this->protocolo()->listaComAction($this->lista, array('baseUrl' => $this->simpleUrl('editar'), 
+                                                            //'title' => 'Detalhes'))->render();
 ?>
 </div>
