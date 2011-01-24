@@ -591,7 +591,8 @@ class Processo extends BaseEntity
     
     public function uploadArquivo($data)
     {
-        $dao = $this->_getDao();
+        $arquivoEntity = new Arquivo();
+        $dao = $arquivoEntity->getDao();
         try {
             $return = $dao->uploadArquivo($data);
         } catch (Exception $e) {
