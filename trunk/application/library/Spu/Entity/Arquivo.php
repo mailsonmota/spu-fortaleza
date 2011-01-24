@@ -43,6 +43,11 @@ class Arquivo extends BaseEntity
         return new ArquivoDao($this->_getTicket());
     }
     
+    public function getDao()
+    {
+        return $this->_getDao();
+    }
+    
     public function getArquivos($Uuid)
     {
         $dao = $this->_getDao();
