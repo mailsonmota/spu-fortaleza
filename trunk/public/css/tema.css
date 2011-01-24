@@ -1,0 +1,19 @@
+/*
+    Name: SPU - Sistema de Protocolo Único (Vermelho)
+    Date: Novembro 2010
+    Description: Colorização para o layout do sistema homônimo
+    Version: 0.1
+    Author: Prefeitura Municipal de Fortaleza
+    Autor URI: http://www.fortaleza.ce.gov.br
+*/
+
+/* Links */
+a:link, a:visited {color: #AA0000;padding: 0 1px;text-decoration: underline;}
+a:hover, a:active {background-color: #AA0000;color: #fff;text-decoration: none;}
+
+/* Seleção */
+::-moz-selection {background: #C74350; color: #fff;}
+::selection {background: #C74350; color: #fff;}
+
+/* Cabecalho */
+#header {background: url(../img/degradeBordo.jpg) repeat-x #cb0101;border-bottom: 1px solid #990100;}
