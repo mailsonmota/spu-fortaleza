@@ -215,4 +215,12 @@ class Protocolo extends BaseEntity
             $this->loadFromHash($hashDadosProtocolo);
         }
     }
+    
+    public function listarTodosPaginado($offset, $pageSize, $filter)
+    {
+    	$dao = $this->_getDao();
+        $hashProtocolos = $dao->getTodosProtocolosPaginado($offset, $pageSize, $filter);
+
+        return $this->loadManyFromHash($hashProtocolos);
+    }
 }

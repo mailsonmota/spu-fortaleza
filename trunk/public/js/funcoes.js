@@ -33,7 +33,7 @@ jQuery(document).ready(function() {
 	$.modal();
 	
 	// Todos as table com classe .grid dentre de #article que não sejam um .relatorio
-	$('table.grid').dataTable({
+	$('table:not(.no-datatable).grid').dataTable({
 		"oLanguage": {
 			"sProcessing":   "Processando...",
 			"sLengthMenu":   "Mostrar _MENU_ registros",
