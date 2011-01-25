@@ -16,4 +16,5 @@ a:hover, a:active {background-color: #AA0000;color: #fff;text-decoration: none;}
 ::selection {background: #C74350; color: #fff;}
 
 /* Cabecalho */
-#header {background: url(../img/degradeBordo.jpg) repeat-x #cb0101;border-bottom: 1px solid #990100;}
+/*#header {background: url(../img/degradeBordo.jpg) repeat-x #cb0101;border-bottom: 1px solid #990100;}*/
+#header {background: url(../img/bg_topo_vermelho.png) no-repeat #9B0606 center; border-bottom: 1px solid #990100}
