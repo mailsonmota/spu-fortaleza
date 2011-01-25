@@ -16,20 +16,41 @@ class ProtocolosAjaxController extends BaseDataTablesController
     	$protocolo = new Protocolo($this->getTicket());
     	$protocolos = $protocolo->listarTodosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
     	
-    	return $this->_convertProtocolosToDataTablesRow($protocolos);
+    	return $this->_convertProtocolosToDataTablesRow($protocolos, true);
     }
     
-    protected function _convertProtocolosToDataTablesRow($protocolos)
+    protected function _convertProtocolosToDataTablesRow($protocolos, $detalhes = false)
     {
     	$rows = array();
     	foreach ($protocolos as $protocolo) {
     		$row = array();
-    		$row['nome'] = $protocolo->nome;
-    		$row['detalhes'] = "<a href='" . $this->_helper->url('editar', 'protocolos', null, array('id' => $protocolo->id)) . "'>Detalhes</a>";
+    		$row['nome'] = $protocolo->path;
+    		
+    		if ($detalhes) {
+                $url = $this->_helper->url('editar', 'protocolos', null, array('id' => $protocolo->id));
+                $row['detalhes'] = "<a href='$url'>Detalhes</a>";
+    		}
     		
     		$rows[] = $row;
     	}
     	
     	return $rows;
+    }
+    
+    public function listarDestinosAction()
+    {
+    	$this->_rows = $this->_getProtocolosDestino();
+        $this->_total = 1000;
+        
+        $this->_helper->layout()->disableLayout();
+        $this->view->output = $this->_getOutput();
+    }
+    
+    protected function _getProtocolosDestino()
+    {
+        $protocolo = new Protocolo($this->getTicket());
+        $protocolos = $protocolo->listarTodosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+        
+        return $this->_convertProtocolosToDataTablesRow($protocolos);
     }
 }

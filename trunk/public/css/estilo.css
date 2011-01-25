@@ -235,6 +235,17 @@ body.basic #message {border-top: 0}
 
 /* DataTables */
 .dataTables_wrapper {margin-bottom: 1em}
+.dataTables_processing {
+	background: url(../img/icons/ajax-loader2.gif) no-repeat 0% 50%; 
+	padding: 0.5em 1em 0.5em 24px; 
+	border-width: 0; top: 2px; 
+	text-align: left; 
+	font-size: 1em; 
+	color: white;
+	left: 135px;
+	width: 250px;
+	text-shadow: 1px 1px #444
+}
 
 /* Identação */
 .indentedName {padding-left: 16px; background: url(../img/icons/child.png) no-repeat 0% 50%;}

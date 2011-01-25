@@ -47,13 +47,11 @@
 			$modal.show();
 			
 			// Make modal fit
-			$overlay.height('');
+			$overlay.height($(document).height());
 			if( $modal.height() > $overlay.height() ){
 				$overlay.height($modal.outerHeight() + 200);
 			}
 			
-				
-				
 			$document.bind( 'keypress.modal' , function( event ){
 				if( event.keyCode === 27 ){
 					$.modal.close();

@@ -16,10 +16,26 @@
     <?php 
     echo $this->form()->openFieldList();
     echo $this->select('Origem', 'origem', $this->listaOrigens, null, array('required' => true));
-    echo $this->select('Destino', 'destino', $this->listaProtocolos, null, array('required' => true));
+    echo $this->select('Destino', 'destino', $this->listaProtocolos, null, array('required' => true, 'chooseLink' => true));
     echo $this->select('Prioridade', 'prioridadeId', $this->listaPrioridades, null, array('required' => true));
     echo $this->textbox('Data Prazo', 'dataPrazo', null, array('class' => 'mascaraData'));
     echo $this->textarea('Corpo', 'corpo', null, array('required' => true));
     echo $this->form()->closeFieldList();
     ?>
 </fieldset>
+
+<div id="modal-wrap" class="hidden">
+    <div id="modal-overlay" class="overlay">
+        <div id="modal_destino" class="modal">
+            <?php 
+            
+            echo $this->protocolo()->lista($this->simpleUrl('listar-destinos', 'protocolos-ajax'), array('name' => 'protocoloDestino'))->render();
+            
+            echo $this->buttonlist()->open();
+            echo $this->buttonlist()->button('Escolher', null, array('onClick' => "escolherModal('modal_destino', 'destino', false)"));
+            echo $this->buttonlist()->resetbutton();
+            echo $this->buttonlist()->close(true);
+            ?>
+        </div>
+    </div>
+</div>
