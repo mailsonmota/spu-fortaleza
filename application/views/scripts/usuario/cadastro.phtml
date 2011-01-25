@@ -13,12 +13,13 @@ echo $this->pagenav()->closeList();
 <div id="article">
 	<form action="" method="post">
         <?php
-        $grupos = $this->pessoa->getGrupos($this->pessoa->login);
         $htmlGrupos = '';
-        for ($i = 0; $i < count($grupos); $i++) {
-            $htmlGrupos .= $grupos[$i]['item'] . '<br/>';
+        if ($this->pessoa->grupos) {
+        	foreach ($this->pessoa->grupos as $grupo) {
+        		$htmlGrupos .= $grupo->nome . '<br/>';
+        	}
         }
-	   
+        
 		echo $this->form()->openFieldList();
 		echo $this->text('Usuário', $this->pessoa->login, array('readonly' => true));
 		echo $this->text('Grupos', $htmlGrupos);

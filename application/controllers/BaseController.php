@@ -50,6 +50,9 @@ abstract class BaseController extends BaseAuthenticatedController
         
         $authInstance = Zend_Auth::getInstance()->getIdentity();
         $this->view->pessoa = $authInstance['user'];
+        if ($authInstance['user']) {
+            $this->view->pessoa->loadGrupos();
+        }
         
         $this->_setVersaoSistema();
         

@@ -1,5 +1,6 @@
 <?php
 require_once('BaseEntity.php');
+require_once('Grupo.php');
 Loader::loadDao('UsuarioDao');
 class Usuario extends BaseEntity
 {
@@ -41,11 +42,14 @@ class Usuario extends BaseEntity
         $this->_login = $login;
     }
     
-    public function getGrupos($userName) {
-        $dao = $this->_getDao();
-        return $dao->fetchGroups($userName);
+    public function getGrupos() {
+        return $this->_grupos;
     }
-
+    
+    public function setGrupos($grupos) {
+        $this->_grupos = $grupos;
+    }
+    
     public function getNomeCompleto()
     {
         return $this->_nome . ' ' . $this->_sobrenome;
@@ -67,5 +71,43 @@ class Usuario extends BaseEntity
         $this->setSobrenome($hashDetalhesLogin['lastName']);
         $this->setEmail($hashDetalhesLogin['email']);
         $this->setLogin($hashDetalhesLogin['userName']);
+    }
+    
+    public function loadGrupos() {
+    	$dao = $this->_getDao();
+        $hashGrupos = $dao->fetchGroups($this->_login);
+        
+        $grupos = array();
+        if (count($hashGrupos) > 0) {
+            foreach ($hashGrupos as $hashGrupo) {
+                $grupo = new Grupo();
+                $grupo->setNome($hashGrupo['item']);
+                $grupos[] = $grupo;
+            }
+        }
+        
+        $this->setGrupos($grupos);
+    }
+    
+    public function isAdministrador() {
+    	if (!$this->_grupos) {
+    		$this->loadGrupos();
+    	}
+    	
+    	foreach ($this->_grupos as $grupo) {
+    		if ($grupo->isAdministrador()) {
+    			return true;
+    		}
+    	}
+    	
+    	return false;
+    }
+    
+    public function isGuest() {
+        if (!$this->_grupos) {
+            $this->loadGrupos();
+        }
+        
+    	return (count($this->_grupos) == 0);
     }
 }
