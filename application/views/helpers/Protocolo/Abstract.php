@@ -1,21 +1,22 @@
 <?php
 abstract class Zend_View_Helper_Protocolo_Abstract extends Zend_View_Helper_Abstract
 {
-    const TABLE_CLASS = 'grid';
+    const TABLE_CLASS = 'grid no-datatable';
     const TABLE_ROW_EVEN_CLASS = 'even';
     const TABLE_ROW_ODD_CLASS = 'odd';
     const INDENT_MARKUP = '&nbsp;&nbsp;&nbsp;&nbsp;';
     const LEVEL_SEPARATOR = ' / ';
     
+    protected $_ajaxUrl;
     protected $_options;
-    protected $_protocolos;
+    protected $_pageSize = 10;
     protected $_html;
     
-    public function __construct(array $protocolos = array(), array $options = array())
+    public function __construct($ajaxUrl = '', array $options = array())
     {
         $this->_html = '';
+        $this->_ajaxUrl = $ajaxUrl;
         $this->_options = $options;
-        $this->_protocolos = $protocolos;
         
         $this->_prepare();
         
@@ -29,14 +30,62 @@ abstract class Zend_View_Helper_Protocolo_Abstract extends Zend_View_Helper_Abst
     
     protected function _prepare()
     {
+    	$this->_prepareJavascript();
         $this->_prepareHeader();
         $this->_prepareFooter();
         $this->_prepareBody();
     }
     
+    protected function _prepareJavascript()
+    {
+    	$html  = '';
+    	$html .= '<script type="text/javascript">
+			    	jQuery(document).ready(function() {
+			            $("#' . $this->_getId() . '").dataTable({
+			                "oLanguage": {
+			                    "sProcessing":   "Processando...",
+			                    "sLengthMenu":   "Mostrar _MENU_ registros",
+			                    "sZeroRecords":  "Não foram encontrados resultados",
+			                    "sInfo":         "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+			                    "sInfoEmpty":    "Mostrando de 0 até 0 de 0 registros",
+			                    "sInfoFiltered": "(filtrado de _MAX_ registros no total)",
+			                    "sInfoPostFix":  "",
+			                    "sSearch":       "Busca Rápida:",
+			                    "sUrl":          "",
+			                    "oPaginate": {
+			                        "sFirst":    "&laquo;&laquo;  Primeiro",
+			                        "sPrevious": "&laquo; Anterior",
+			                        "sNext":     "Seguinte &raquo;",
+			                        "sLast":     "Último &raquo;&raquo;"
+			                    }
+			                },
+			                iDisplayLength: ' . $this->_pageSize . ', 
+			                sPaginationType: "full_numbers", 
+			                "bLengthChange": false, 
+			                "bSort": false, 
+			                "fnDrawCallback": function() {
+			                    updateTable($(this));
+			                },
+			                "bProcessing": true,
+			                "bServerSide": true,
+			                "sAjaxSource": "' . $this->_ajaxUrl . '"
+			            }).fnSetFilteringDelay();
+			        });
+			    </script>';
+    	
+    	$this->_html .= $html;
+    }
+    
+    protected function _getId()
+    {
+        return (isset($this->_options['id'])) ? $this->_options['id'] : 'grid-protocolos';
+    }
+    
     protected function _prepareHeader()
     {
-        $html  = '<table class="' . self::TABLE_CLASS . '" summary="Lista de Protocolos">';
+    	$tableClass = self::TABLE_CLASS;
+    	$tableId = $this->_getId();
+        $html  = "<table class=\"$tableClass\" summary=\"Lista de Protocolos\" id=\"$tableId\" >";
         $html .= '<thead>';
         $html .= '<tr>';
         $html .= $this->_getBeforeHeaderColumns();
@@ -61,13 +110,7 @@ abstract class Zend_View_Helper_Protocolo_Abstract extends Zend_View_Helper_Abst
     protected function _prepareFooter()
     {
         $html  = '';
-        $html .= '<tfoot>';
-        $html .= '<tr>';
-        $html .= '<td colspan="' . $this->_getNumberOfColumns() . '">';
-        $html .= 'Exibindo ' . $this->_getTotalOfRecords() . ' registros.';
-        $html .= '</td>';
-        $html .= '</tr>';
-        $html .= '</tfoot>';
+        $html .= '<tfoot></tfoot>';
         
         $this->_html .= $html;
     }
@@ -77,41 +120,12 @@ abstract class Zend_View_Helper_Protocolo_Abstract extends Zend_View_Helper_Abst
         return 1;
     }
     
-    protected function _getTotalOfRecords()
-    {
-        return count($this->_protocolos);
-    }
-    
     protected function _prepareBody()
     {
         $html  = '';
-        $html .= '<tbody>';
-        $i = 0;
-        foreach ($this->_protocolos as $protocolo) {
-            $rowClass = (++$i%2) ? 'even' : 'odd';
-            $path = str_replace("/", self::LEVEL_SEPARATOR, $protocolo->path);
-            $indentation = str_repeat(self::INDENT_MARKUP, $protocolo->nivel - 1);
-            $name = ($protocolo->nivel > 1) ? $indentation . '<span class="indentedName">' . $path . '</span>' : $path;
-            
-            $html .= '<tr class="' . $rowClass . '">';
-            $html .= $this->_getBeforeBodyColumns($protocolo);
-            $html .= '<td>' . $name . '</td>';
-            $html .= $this->_getAfterBodyColumns($protocolo);
-            $html .= '</tr>';
-        }
-        $html .= '</tbody>';
+        $html .= '<tbody></tbody>';
         $html .= '</table>';
         
         $this->_html .= $html;
-    }
-    
-    protected function _getBeforeBodyColumns($protocolo)
-    {
-        return '';
-    }
-    
-    protected function _getAfterBodyColumns($protocolo)
-    {
-        return '';
     }
 }

@@ -7,7 +7,8 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <script type="text/javascript">
+    <?php echo $this->protocolo()->listaComAction($this->simpleUrl('listar-todos', 'protocolos-ajax'))->render() ?>
+    <!-- script type="text/javascript">
         jQuery(document).ready(function() {
 	        $('#grid-protocolos').dataTable({
 	        	"oLanguage": {
@@ -36,7 +37,7 @@ echo $this->pagenav()->closeList();
 		        },
 		        "bProcessing": true,
 		        "bServerSide": true,
-		        "sAjaxSource": '<?php echo $this->simpleUrl('listar-todos', 'protocolos-ajax') ?>'
+		        "sAjaxSource": '<?php //echo $this->simpleUrl('listar-todos', 'protocolos-ajax') ?>'
 		    }).fnSetFilteringDelay();
         });
     </script>
@@ -50,7 +51,7 @@ echo $this->pagenav()->closeList();
         </thead>
         <tfoot></tfoot>
         <tbody></tbody>
-    </table>
+    </table-->
 <?php 
 //echo $this->protocolo()->listaComAction($this->lista, array('baseUrl' => $this->simpleUrl('editar'), 
                                                             //'title' => 'Detalhes'))->render();

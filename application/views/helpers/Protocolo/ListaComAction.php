@@ -2,9 +2,9 @@
 require_once 'Abstract.php';
 class Zend_View_Helper_Protocolo_ListaComAction extends Zend_View_Helper_Protocolo_Abstract
 {
-    public function listaComAction($protocolos = array(), $options = array())
+    public function listaComAction($ajaxUrl, $options = array())
     {
-    	return parent::__construct($protocolos, $options);
+    	return parent::__construct($ajaxUrl, $options);
     }
     
     public function render() {
@@ -13,46 +13,7 @@ class Zend_View_Helper_Protocolo_ListaComAction extends Zend_View_Helper_Protoco
     
     protected function _getAfterHeaderColumns()
     {
-        return '<th></th>';
-    }
-    
-    protected function _getAfterBodyColumns($protocolo)
-    {
-       return '<td>' . $this->_renderActionColumn($protocolo) . '</td>';
-    }
-    
-    protected function _renderActionColumn($protocolo)
-    {
-        $href = $this->_getHref($protocolo);
-        $title = $this->_getTitle();
-        $html = "<a href=\"$href\">$title</a>";
-        
-        return $html;
-    }
-    
-    protected function _getHref($protocolo)
-    {
-    	return $this->_getBaseUrl() . '/id/' . $protocolo->id;
-    }
-    
-    protected function _getBaseUrl()
-    {
-        $baseUrl = '';
-        if (isset($this->_options['baseUrl'])) {
-            $baseUrl = $this->_options['baseUrl'];
-        }
-        
-        return $baseUrl;
-    }
-    
-    protected function _getTitle()
-    {
-        $title = '';
-        if (isset($this->_options['title'])) {
-            $title = $this->_options['title'];
-        }
-        
-        return $title;
+        return '<th>Ações</th>';
     }
     
     protected function _getNumberOfColumns()
