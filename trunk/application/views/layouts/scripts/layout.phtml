@@ -19,8 +19,7 @@
                 Bem-vindo, <strong><?php echo $this->pessoa->nomeCompleto ?></strong> | 
                 <a href="<?php echo $this->simpleUrl('cadastro', 'usuario') ?>">Cadastro</a> | 
                 <a href="<?php echo $this->simpleUrl('logout', 'auth') ?>">Sair</a><br />
-                Você tem <b><?php echo $this->totalProcessosCaixaEntrada ?></b> processos na sua 
-                <a href="<?php echo $this->simpleUrl('index', 'entrada') ?>">Caixa de Entrada</a>.
+                Data: <strong id="current-date"><?php echo date('d/m/Y h:i') ?></strong> | Versão: <strong><?php echo $this->versao ?></strong>
             </div>
         </div>
         

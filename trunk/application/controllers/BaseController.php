@@ -50,18 +50,21 @@ abstract class BaseController extends Zend_Controller_Action
         $authInstance = Zend_Auth::getInstance()->getIdentity();
         $this->view->pessoa = $authInstance['user'];
         
-        if ($this->getTicket()) {
-	        $processo = new Processo($this->getTicket());
-	        $totalProcessosCaixaEntrada = $processo->getTotalProcessosCaixaEntrada();
-        } else {
-        	$totalProcessosCaixaEntrada = 0;
-        }
-        $this->view->totalProcessosCaixaEntrada = $totalProcessosCaixaEntrada;
+        $this->_setVersaoSistema();
         
         $this->setMessageFromFlashMessenger();
         $this->setMessageFromUrl();
         
         parent::init();
+    }
+    
+    protected function _setVersaoSistema()
+    {
+    	$bootstrap = $this->getInvokeArg('bootstrap');
+        $aConfig = $bootstrap->getOptions();
+        
+        $versao = (isset($aConfig['spu']) AND isset($aConfig['spu']['versao'])) ? $aConfig['spu']['versao'] : '0.3';
+        $this->view->versao = $versao;
     }
     
     protected function _validateAuthInstance($authInstance = null)

@@ -14,9 +14,6 @@ echo $this->breadcrumbs()->addPage('Desculpe, ocorreu um erro! ;/')->render();
           <b>Mensagem:</b> <?php echo $this->exception->getMessage() ?>
         </p>
         
-        <h4>Descrição:</h4>
-        <code><?php echo $this->exception->getDescription() ?></code>
-        
         <h4>Stack Trace:</h4>
         <code><?php echo $this->exception->getTraceAsString() ?></code>
         
