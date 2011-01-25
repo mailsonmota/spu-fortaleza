@@ -5,7 +5,8 @@
  * @package SGC
  */
 Loader::loadEntity('Processo');
-abstract class BaseController extends Zend_Controller_Action
+require_once 'BaseAuthenticatedController.php';
+abstract class BaseController extends BaseAuthenticatedController
 {
     public function getController()
     {
@@ -67,22 +68,6 @@ abstract class BaseController extends Zend_Controller_Action
         $this->view->versao = $versao;
     }
     
-    protected function _validateAuthInstance($authInstance = null)
-    {
-    	if (!isset($authInstance)) {
-    		throw new Exception("Por favor, autentique-se no sistema.");
-    	} elseif (!key_exists('user', $authInstance)) {
-    		throw new Exception("Sua sessão está corrompida. Por favor, autentique-se novamente.");
-    	} else {
-    		Loader::loadAlfrescoApiClass('AlfrescoLogin');
-    		$alfrescoLogin = new AlfrescoLogin(BaseAlfrescoEntity::ALFRESCO_URL);
-    		$alfrescoLogin->setTicket($this->getTicket());
-    		if (!$alfrescoLogin->validate()) {
-    			throw new Exception("Sua sessão expirou. Por favor, autentique-se novamente.");
-    		}
-    	}
-    }
-    
     private function setMessageFromFlashMessenger()
     {
         if ($this->_helper->flashMessenger->getMessages()) {
@@ -105,12 +90,6 @@ abstract class BaseController extends Zend_Controller_Action
             
             $this->setMessageForTheView($mensagem, 'success');
         }
-    }
-    
-    protected function getTicket()
-    {
-        $user = AuthPlugin::getIdentity();
-        return $user['ticket'];
     }
     
     protected function _getListaUfs()
