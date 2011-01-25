@@ -25,7 +25,8 @@ class BaseDataTablesController extends BaseAuthenticatedController
     protected function _getSearch()
     {
         $search = '';
-        if ($this->getRequest()->getParam('sSearch', null) AND $this->getRequest()->getParam('sSearch') != '') {
+        if ($this->getRequest()->getParam('sSearch', null) AND 
+            $this->getRequest()->getParam('sSearch') != '') {
             $search = $this->getRequest()->getParam('sSearch');
         }
         
@@ -53,7 +54,8 @@ class BaseDataTablesController extends BaseAuthenticatedController
             $output .= "[";
             
             foreach ($row as $key=>$value) {
-            	$output .= '"'.str_replace(array('"',"\n","\r"), array( '\\"', "\\n", "\\n"), $value).'",';
+            	$value = str_replace(array('"', "\n", "\r"), array('\\"', "\\n", "\\n"), $value);
+            	$output .= '"' . $value . '",';
             }
             
             /*
