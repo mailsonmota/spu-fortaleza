@@ -1,5 +1,5 @@
 <?php
-class BaseDataTablesController extends BaseController
+class BaseDataTablesController extends BaseAuthenticatedController
 {
 	const DEFAULT_PAGE_SIZE = 20;
 	
