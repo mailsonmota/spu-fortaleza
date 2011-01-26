@@ -136,11 +136,13 @@ class TipoProcesso extends BaseEntity
         $hashDeTiposProcesso = $dao->getTiposProcesso();
         
         $tiposProcesso = array();
-        foreach ($hashDeTiposProcesso as $hashTipoProcesso) {
-            $hashDadosTipoProcesso = array_pop($hashTipoProcesso); 
-            $tipoProcesso = new TipoProcesso($this->_getTicket());
-            $tipoProcesso->_loadTipoProcessoFromHash($hashDadosTipoProcesso);
-            $tiposProcesso[] = $tipoProcesso;
+        if ($hashDeTiposProcesso) {
+	        foreach ($hashDeTiposProcesso as $hashTipoProcesso) {
+	            $hashDadosTipoProcesso = array_pop($hashTipoProcesso); 
+	            $tipoProcesso = new TipoProcesso($this->_getTicket());
+	            $tipoProcesso->_loadTipoProcessoFromHash($hashDadosTipoProcesso);
+	            $tiposProcesso[] = $tipoProcesso;
+	        }
         }
         
         return $tiposProcesso;

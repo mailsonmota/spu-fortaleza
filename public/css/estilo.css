@@ -43,7 +43,7 @@ dl {margin-bottom: 1em}
 dl.form dt {padding-top: 0.75em;}
 dl.form dt, dl.form dd {margin-bottom: 0.1em}
 label {font-weight: normal;}
-input, select, textarea {font-family: Helvetica, Arial, sans-serif;padding: 0.25em 0;text-indent: 3px;font-size: 1em;}
+input, select, textarea {font-family: sans-serif;padding: 0.25em 0;text-indent: 3px;font-size: 1em;}
 select {text-indent: 0;}
 fieldset {border-width: 1px 0 0 0;}
 
@@ -61,7 +61,7 @@ dd a.dp-choose-date {margin-left: 0.5em;}
 .buttons li {float: left;margin-right: 0.5em;}
 .buttons .description {padding-top: 0.70em;}
 .buttons.grid {margin-bottom: 0;}
-button {font-family: Helvetica, Arial, sans-serif;padding: 0.5em 1.5em;font-size: 1em;}
+button {font-family: sans-serif;padding: 0.5em 1.5em;font-size: 1em;}
 
 /* Tabelas */
 table.grid {width: 100%;margin-top: 1%;border-collapse:collapse;}

@@ -20,7 +20,7 @@ echo $this->pagenav()->closeList();
     <form action="" method="post">
         <?php 
         echo $this->form()->openFieldList();
-        echo $this->textbox('Nome', 'nome', $this->assunto->nome, array('required' => true));
+        echo $this->textbox('Nome', 'nome', $this->assunto->nome, array('required' => true, 'length' => 90));
         echo $this->textarea('Corpo', 'corpo', $this->assunto->corpo, array('required' => true));
         echo $this->checkbox('Notificar na abertura', 'notificarNaAbertura', $this->assunto->notificarNaAbertura);
         echo $this->form()->closeFieldList();
