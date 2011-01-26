@@ -10,6 +10,7 @@ class AuthAdapter extends ZendAuthAdapterAlfresco
         
         $usuario = new Usuario($ticket);
         $usuario->carregarPeloLogin($username);
+        $usuario->loadGrupos();
         
         $identity = array();
         $identity['user'] = $usuario;
