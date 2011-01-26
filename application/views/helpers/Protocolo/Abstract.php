@@ -46,21 +46,21 @@ abstract class Zend_View_Helper_Protocolo_Abstract extends Zend_View_Helper_Abst
 			                    "sProcessing":   "Processando...",
 			                    "sLengthMenu":   "Mostrar _MENU_ registros",
 			                    "sZeroRecords":  "Não foram encontrados resultados",
-			                    "sInfo":         "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-			                    "sInfoEmpty":    "Mostrando de 0 até 0 de 0 registros",
+			                    "sInfo":         "Exibindo de _START_ a _END_ de _TOTAL_ registros",
+			                    "sInfoEmpty":    "Exibindo de 0 a 0 de 0 registros",
 			                    "sInfoFiltered": "(filtrado de _MAX_ registros no total)",
 			                    "sInfoPostFix":  "",
 			                    "sSearch":       "Busca Rápida:",
 			                    "sUrl":          "",
 			                    "oPaginate": {
-			                        "sFirst":    "&laquo;&laquo;  Primeiro",
-			                        "sPrevious": "&laquo; Anterior",
-			                        "sNext":     "Seguinte &raquo;",
-			                        "sLast":     "Último &raquo;&raquo;"
+			                        "sFirst":    "«« Primeiro",
+			                        "sPrevious": "« Anterior",
+			                        "sNext":     "Seguinte »",
+			                        "sLast":     "Último »»"
 			                    }
 			                },
 			                iDisplayLength: ' . $this->_pageSize . ', 
-			                sPaginationType: "full_numbers", 
+			                sPaginationType: "text_only", 
 			                "bLengthChange": false, 
 			                "bSort": false, 
 			                "fnDrawCallback": function() {

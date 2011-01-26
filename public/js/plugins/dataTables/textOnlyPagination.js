@@ -62,8 +62,8 @@ $.fn.dataTableExt.oPagination.text_only = {
 			}
 			else
 			{
-				buttons[0].className = "paginate_disabled_previous";
-				buttons[1].className = "paginate_disabled_next";
+				buttons[0].className = "paginate_button previous disabled";
+				buttons[1].className = "paginate_button next disabled";
 			}
 		}
 	}

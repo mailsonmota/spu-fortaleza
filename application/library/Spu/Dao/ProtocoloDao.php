@@ -68,4 +68,16 @@ class ProtocoloDao extends BaseDao
 
         return $result['Protocolos'][0];
     }
+    
+    public function getProprietariosPaginado($tipoProcessoId, $offset, $pageSize, $filter)
+    {
+    	$url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listarTodosPaginado/$offset/$pageSize/$filter";
+        $url = $this->addAlfTicketUrl($url);
+
+        $curlObj = new CurlClient();
+        $resultJson = $curlObj->doGetRequest($url);
+        $result = json_decode($resultJson, true);
+
+        return $result['Protocolos'][0];
+    }
 }
