@@ -286,7 +286,7 @@ class AbrirprocessoController extends BaseController
         $protocolos = $protocolo->listar();
         $listaProtocolos = array();
         foreach ($protocolos as $protocolo) {
-            $listaProtocolos[$protocolo->id] = $protocolo->descricao;
+            $listaProtocolos[$protocolo->id] = $protocolo->path;
         }
 
         if (count($listaProtocolos) == 0) {
