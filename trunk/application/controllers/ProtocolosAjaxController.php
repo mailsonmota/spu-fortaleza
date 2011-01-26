@@ -51,6 +51,51 @@ class ProtocolosAjaxController extends BaseDataTablesController
         $protocolo = new Protocolo($this->getTicket());
         $protocolos = $protocolo->listarTodosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
         
-        return $this->_convertProtocolosToDataTablesRow($protocolos);
+        return $this->_convertProtocolosDestinoToDataTablesRow($protocolos);
+    }
+    
+    protected function _convertProtocolosDestinoToDataTablesRow($protocolos)
+    {
+    	$rows = array();
+        foreach ($protocolos as $protocolo) {
+        	$row = array();
+            $row['input'] = "<input type='radio' name='protocoloDestino' value='" . $protocolo->id . "' />";
+        	$row['nome'] = $protocolo->path;
+            
+            $rows[] = $row;
+        }
+        
+        return $rows;
+    }
+    
+    public function listarProprietariosAction()
+    {
+    	$this->_rows = $this->_getProprietarios($this->getRequest()->getParam('tipoprocesso', null));
+        $this->_total = 1000;
+        
+        $this->_helper->layout()->disableLayout();
+        $this->view->output = $this->_getOutput();
+    }
+    
+    protected function _getProprietarios($tipoProcessoId)
+    {
+        $protocolo = new Protocolo($this->getTicket());
+        $protocolos = $protocolo->listarProprietariosPaginado($tipoProcessoId, $this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+        
+        return $this->_convertProprietariosToDataTablesRow($protocolos);
+    }
+    
+    protected function _convertProprietariosToDataTablesRow($protocolos)
+    {
+        $rows = array();
+        foreach ($protocolos as $protocolo) {
+            $row = array();
+            $row['input'] = "<input type='radio' name='protocoloProprietario' value='" . $protocolo->id . "' />";
+            $row['nome'] = $protocolo->path;
+            
+            $rows[] = $row;
+        }
+        
+        return $rows;
     }
 }

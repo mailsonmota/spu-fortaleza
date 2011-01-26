@@ -223,4 +223,12 @@ class Protocolo extends BaseEntity
 
         return $this->loadManyFromHash($hashProtocolos);
     }
+    
+    public function listarProprietariosPaginado($tipoProcessoId, $offset, $pageSize, $filter)
+    {
+        $dao = $this->_getDao();
+        $hashProtocolos = $dao->getProprietariosPaginado($tipoProcessoId, $offset, $pageSize, $filter);
+
+        return $this->loadManyFromHash($hashProtocolos);
+    }
 }

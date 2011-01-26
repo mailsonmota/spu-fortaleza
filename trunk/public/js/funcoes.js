@@ -16,13 +16,13 @@ jQuery(document).ready(function() {
 	);
 	
 	$.dpText = {
-			TEXT_PREV_YEAR		:	'Ano anterior',
-			TEXT_PREV_MONTH		:	'Mês anterior',
-			TEXT_NEXT_YEAR		:	'Ano seguinte',
-			TEXT_NEXT_MONTH		:	'Mês seguinte',
-			TEXT_CLOSE			:	'Fechar',
-			TEXT_CHOOSE_DATE	:	'Escolher'
-		}
+		TEXT_PREV_YEAR		:	'Ano anterior',
+		TEXT_PREV_MONTH		:	'Mês anterior',
+		TEXT_NEXT_YEAR		:	'Ano seguinte',
+		TEXT_NEXT_MONTH		:	'Mês seguinte',
+		TEXT_CLOSE			:	'Fechar',
+		TEXT_CHOOSE_DATE	:	'Escolher'
+	};
 	$('.mascaraData').datePicker().val(new Date().asString()).trigger('change');
 	
 	//$('a[rel*=facebox]').facebox();
@@ -36,10 +36,10 @@ jQuery(document).ready(function() {
 	$('table:not(.no-datatable).grid').dataTable({
 		"oLanguage": {
 			"sProcessing":   "Processando...",
-			"sLengthMenu":   "Mostrar _MENU_ registros",
+			"sLengthMenu":   "Exibir _MENU_ registros",
 			"sZeroRecords":  "Não foram encontrados resultados",
-			"sInfo":         "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-			"sInfoEmpty":    "Mostrando de 0 até 0 de 0 registros",
+			"sInfo":         "Exibindo de _START_ a _END_ de _TOTAL_ registros",
+			"sInfoEmpty":    "Exibindo de 0 a 0 de 0 registros",
 			"sInfoFiltered": "(filtrado de _MAX_ registros no total)",
 			"sInfoPostFix":  "",
 			"sSearch":       "Busca Rápida:",
@@ -87,14 +87,24 @@ function createUncheckedSelector() {
 		unchecked: function(element) {
 			return ('checkbox' === element.type || 'radio' === element.type) && !element.checked;
 		}
-	})
+	});
 }
 
 function escolherModal(modalId, selectId) {
 	var allVals = [];
 	$('#' + modalId + ' input[type=checkbox]:checked, #' + modalId + ' input[type=radio]:checked').each(function() {
-	    allVals.push($(this).val());
+		option = new Array();
+		option['id'] = $(this).val();
+		option['title'] = $(this).parent().next().text();
+		
+		allVals.push(option);
     });
+	
+	$('#' + selectId + ' option').remove();
+	
+	for (var i in allVals) {
+		$('#' + selectId).append('<option value="' + allVals[i]['id'] + '">' + allVals[i]['title'] + '</option>');
+	}
 	
 	$('#' + selectId).val(allVals);
 	
