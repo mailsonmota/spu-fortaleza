@@ -378,8 +378,8 @@ class Processo extends BaseEntity
     {
         $hash = array_pop($hash);
         $tipoProcesso = new TipoProcesso($this->_ticket);
-        $tipoProcesso->setNodeRef($hash['noderef']);
-        $tipoProcesso->setNome($hash['nome']);
+        $tipoProcesso->setNodeRef($this->_getHashValue($hash, 'noderef'));
+        $tipoProcesso->setNome($this->_getHashValue($hash, 'nome'));
         
         return $tipoProcesso;
     }
