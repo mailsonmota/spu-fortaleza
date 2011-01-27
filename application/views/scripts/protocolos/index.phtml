@@ -7,7 +7,7 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <?php echo $this->protocolo()->listaComAction("http://172.30.116.21:8080/alfresco/service/spu/composite/listarProtocolos?alf_ticket=" . $this->ticket)->render() ?>
+    <?php echo $this->protocolo()->listaComAction($this->simpleUrl('listar-todos', 'protocolos-ajax'))->render() ?>
     <!-- script type="text/javascript">
         jQuery(document).ready(function() {
 	        $('#grid-protocolos').dataTable({
