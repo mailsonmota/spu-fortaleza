@@ -2,11 +2,9 @@
 Loader::loadEntity('Protocolo');
 class ProtocolosController extends BaseController
 {
-	public function indexAction()
+	public function indexAction() 
 	{
-		$protocolo = new Protocolo($this->getTicket());
-		$listaProtocolos = $protocolo->listarTodos();
-		$this->view->lista = $listaProtocolos;
+		$this->view->ticket = $this->getTicket();
 	}
 
 	public function editarAction()
