@@ -43,7 +43,7 @@ abstract class Zend_View_Helper_Protocolo_Abstract extends Zend_View_Helper_Abst
 			    	jQuery(document).ready(function() {
 			            $("#' . $this->_getId() . '").dataTable({
 			                "oLanguage": {
-			                    "sProcessing":   "Processando...",
+			                    "sProcessing":   "<span>Processando...</span>",
 			                    "sLengthMenu":   "Mostrar _MENU_ registros",
 			                    "sZeroRecords":  "Não foram encontrados resultados",
 			                    "sInfo":         "Exibindo de _START_ a _END_ de _TOTAL_ registros",
@@ -93,6 +93,7 @@ abstract class Zend_View_Helper_Protocolo_Abstract extends Zend_View_Helper_Abst
         $html .= $this->_getAfterHeaderColumns();
         $html .= '</tr>';
         $html .= '</thead>';
+        $html .= '<tfoot><tr></tr></tfoot>';
         
         $this->_html .= $html;
     }

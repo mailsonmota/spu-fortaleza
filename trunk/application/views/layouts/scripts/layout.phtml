@@ -1,7 +1,7 @@
 <?php echo $this->doctype() ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
     <head>
-        <meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8" />
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
         <?php echo $this->headTitle() ?>
         <?php echo $this->headLink() ?>
         <?php echo $this->headScript() ?>
@@ -42,7 +42,7 @@
 	            
 	            if (!$this->pessoa->isGuest()) {
 		            if ($this->pessoa->isAdministrador()) {
-			            $menu->addItem('Lista Assuntos', $this->simpleUrl('index', 'assuntos'), 'Cadastros');
+			            //$menu->addItem('Lista Assuntos', $this->simpleUrl('index', 'assuntos'), 'Cadastros');
 			            $menu->addItem('Tipos de Processos', $this->simpleUrl('index', 'tiposprocesso'), 'Cadastros');
 			            $menu->addItem('Protocolos', $this->simpleUrl('index', 'protocolos'), 'Cadastros');
 		            }
