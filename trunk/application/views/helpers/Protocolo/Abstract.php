@@ -68,7 +68,8 @@ abstract class Zend_View_Helper_Protocolo_Abstract extends Zend_View_Helper_Abst
 			                },
 			                "bProcessing": true,
 			                "bServerSide": true,
-			                "sAjaxSource": "' . $this->_ajaxUrl . '"
+			                "sAjaxSource": "' . $this->_ajaxUrl . '", 
+			                "fnServerData": fnDataTablesPipeline
 			            }).fnSetFilteringDelay();
 			        });
 			    </script>';
