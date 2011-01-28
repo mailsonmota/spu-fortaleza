@@ -19,7 +19,7 @@ jQuery.fn.dataTableExt.oApi.fnSetFilteringDelay = function ( oSettings, iDelay )
 	 */
 	var
 		_that = this,
-		iDelay = (typeof iDelay == 'undefined') ? 250 : iDelay;
+		iDelay = (typeof iDelay == 'undefined') ? 400 : iDelay;
 	
 	this.each( function ( i ) {
 		$.fn.dataTableExt.iApiIndex = i;
