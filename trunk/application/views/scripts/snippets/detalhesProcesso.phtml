@@ -8,7 +8,13 @@
 		<dd><b><?php echo $this->processo->proprietario->orgaoLotacao ?></b></dd>
 		
 		<dt>Status:</dt>
-		<dd><b><?php echo $this->processo->status->nome ?></b></dd>
+		<dd>
+		  <?php if (empty($this->processo->status->nome)): ?>
+		  <b>Abrindo</b>
+		  <?php else: ?>
+		  <b><?php echo $this->processo->status->nome ?></b>
+		  <?php endif; ?>
+		</dd>
 		
 		<dt>Abertura:</dt>
 		<dd><?php echo $this->processo->data ?></dd>
@@ -20,7 +26,13 @@
 		<dd><?php echo $this->processo->assunto->nome ?></dd>
 		
 		<dt>Local Atual:</dt>
-		<dd><?php echo $this->processo->protocolo->orgaoLotacao ?></dd>
+        <dd>
+          <?php if (empty($this->processo->protocolo->orgaoLotacao)): ?>
+          <b><?php echo $this->origemNome ?></b>
+          <?php else: ?>
+          <b><?php echo $this->processo->protocolo->orgaoLotacao ?></b>
+          <?php endif; ?>
+        </dd>
 		
 		<dt>Corpo:</dt>
 		<dd><?php echo $this->processo->corpo ?></dd>
