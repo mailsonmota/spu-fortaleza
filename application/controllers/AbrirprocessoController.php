@@ -43,14 +43,6 @@ class AbrirprocessoController extends BaseController
                 $session = new Zend_Session_Namespace('aberturaProcesso');
                 $session->formDadosGeraisProcesso = $postData;
                 $this->_redirectFormularioEnvolvido($this->_getIdTipoProcessoUrl());
-                /*Fluxo anterior, quando não existia o passo formularioenvolvidoAction()
-                $processo = new Processo($this->getTicket());
-                $processo->abrirProcesso($postData);
-                $session = new Zend_Session_Namespace('aberturaProcesso');
-                $session->processo = $processo;
-                $session->destino = $postData['destino']; // TODO
-                $this->setSuccessMessage("Processo criado com sucesso");
-                $this->_redirectUploadArquivo();*/
             }
             catch (AlfrescoApiException $e) {
                 throw $e;
@@ -82,13 +74,6 @@ class AbrirprocessoController extends BaseController
                 $formDadosGeraisProcesso = $session->formDadosGeraisProcesso;
                 $postData = $this->getRequest()->getPost();
                 $dataMerged = array_merge($formDadosGeraisProcesso, $postData);
-                /*print '<pre>';
-                print '$formDadosGeraisProcesso'."\n";
-                var_dump($formDadosGeraisProcesso);
-                print '$postData'."\n";
-                var_dump($postData);
-                print '$dataMerged'."\n";
-                var_dump($dataMerged); print '</pre>'; exit;*/
                 $processo = new Processo($this->getTicket());
                 $processo->abrirProcesso($dataMerged);
                 $session->processo = $processo;
@@ -140,6 +125,12 @@ class AbrirprocessoController extends BaseController
 
     public function confirmacaocriacaoAction()
     {
+        $session = new Zend_Session_Namespace('aberturaProcesso');
+        
+        $protocoloEntity = new Protocolo($this->getTicket());
+        $protocoloEntity->carregarPeloId($session->formDadosGeraisProcesso['origem']);
+        $this->view->origemNome = $protocoloEntity->nome;
+        
         if ($this->getRequest()->isPost()) {
                 $session = new Zend_Session_Namespace('aberturaProcesso');
                 $processo = $session->processo;
