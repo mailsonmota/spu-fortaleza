@@ -21,7 +21,6 @@ function fnGetKey(aoData, sKey) {
 
 function oCallbackError(XMLHttpRequest, textStatus, errorThrown) {
 	$('.dataTables_processing').css('visibility', 'hidden');
-	alert(errorThrown);
 }
 
 function fnDataTablesPipeline (sSource, aoData, fnCallback) {
@@ -103,8 +102,12 @@ function fnDataTablesPipeline (sSource, aoData, fnCallback) {
 	else {
 		json = jQuery.extend(true, {}, oCache.lastJson);
 		json.sEcho = sEcho; /* Update the echo for each response */
-		json.aaData.splice(0, iRequestStart-oCache.iCacheLower);
-		json.aaData.splice(iRequestLength, json.aaData.length);
+		if (json.aaData) {
+			json.aaData.splice(0, iRequestStart-oCache.iCacheLower);
+			json.aaData.splice(iRequestLength, json.aaData.length);
+		} else {
+			oCallbackError();
+		}
 		fnCallback(json);
 		return;
 	}
