@@ -48,10 +48,6 @@ class ProtocolosAjaxController extends BaseDataTablesController
     
     protected function _getProtocolosDestino()
     {
-        if (!$this->_getSearch()) {
-            return false;
-        }
-    	
         $protocolo = new Protocolo($this->getTicket());
         $protocolos = $protocolo->listarTodosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
         
@@ -83,10 +79,6 @@ class ProtocolosAjaxController extends BaseDataTablesController
     
     protected function _getProprietarios($tipoProcessoId)
     {
-        if (!$this->_getSearch()) {
-            return array('', '');
-        }
-    	
         $protocolo = new Protocolo($this->getTicket());
         $protocolos = $protocolo->listarProprietariosPaginado($tipoProcessoId, $this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
         
