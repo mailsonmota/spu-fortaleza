@@ -6,5 +6,5 @@
         <H1>The Output</H1>
         <textarea name="processed_xml" rows="20" cols="100"></textarea>
     </form>
-    <?php echo $this->xsdForms($this->id, "processed_xml", "target")->render() ?>
+    <?php $this->xsdForms($this->id, "processed_xml", "target") ?>
 </div>
