@@ -11,6 +11,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Loader::loadClass('ErrorPlugin');
         Zend_Loader::loadClass('AuthPlugin');
         Zend_Loader::loadClass('AuthAdapter');
+        
+        $autoloader = new Zend_Application_Module_Autoloader(
+            array(
+                'namespace' => '',
+                'basePath'  => dirname(__FILE__),
+                'resourceTypes' => array(
+                    'alfresco' => array('path' => 'library/Alfresco/', 'namespace' => 'Alfresco')
+                )
+            )
+        );         
+        return $autoloader;
     }
     
     protected function _initControllers(array $options = array())
