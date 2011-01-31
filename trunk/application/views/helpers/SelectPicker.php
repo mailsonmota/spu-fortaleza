@@ -10,7 +10,7 @@ class Zend_View_Helper_SelectPicker extends Zend_View_Helper_Selectmultiple
 {
     const CHOOSELINK_TEXT = 'Escolher';
 
-    public function selectPicker($label, $name, array $selectOptions, array $selectedValues = null, array $options = array())
+    public function selectPicker($label, $name, array $selectOptions = array(), array $selectedValues = null, array $options = array())
     {
         $this->_name = $name;
         $this->_options = $options;

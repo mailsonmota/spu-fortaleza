@@ -16,15 +16,11 @@ class EncaminharController extends BaseTramitacaoController
     	}
     	
     	$processos = array();
-    	$listaProtocolos = array();
     	
 	    try {
 	    	$session = new Zend_Session_Namespace('encaminhar');
 	    	$processosSelecionados = $session->processos;
 	    	$processos = $this->_getListaCarregadaProcessos($processosSelecionados);
-	    	$listaProtocolos = $this->_getListaProtocolos();
-	    	$protocolo = new Protocolo($this->getTicket());
-	    	$protocolos = $protocolo->listarTodos();
 	    	
 	    } catch (Exception $e) {
     		$this->setErrorMessage($e->getMessage());
@@ -32,27 +28,6 @@ class EncaminharController extends BaseTramitacaoController
     	}
     	
         $this->view->processos = $processos;
-        $this->view->listaProtocolos = $listaProtocolos;
-        $this->view->protocolos = $protocolos;
-    }
-    
-	protected function _getListaProtocolos()
-    {
-        $protocolo = new Protocolo($this->getTicket());
-        $protocolos = $protocolo->listarTodos();
-        $listaProtocolos = array();
-        foreach ($protocolos as $protocolo) {
-            $listaProtocolos[$protocolo->id] = $protocolo->descricao;
-        }
-        
-        if (count($listaProtocolos) == 0) {
-            throw new Exception(
-                'Não existe nenhum protocolo cadastrado no sistema. 
-                Por favor, entre em contato com a administração do sistema.'
-            );
-        }
-        
-        return $listaProtocolos;
     }
     
     protected function _getListaCarregadaProcessos($listaComIdsProcessos)
