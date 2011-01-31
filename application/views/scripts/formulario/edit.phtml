@@ -1,0 +1,20 @@
+<div id="article">
+    <form id="target">
+        <H1>The Form</H1>
+        <div id="xsdform_container" ></div>
+        <input type="submit" />
+        <H1>The Output</H1>
+        <textarea name="processed_xml" rows="20" cols="100"></textarea>
+    </form>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            var xsdUrl = "<?php echo Zend_Controller_Front::getInstance()->getBaseUrl() . '/formulario/content/id/' . $this->id;?>"
+            generateForm(xsdUrl,'xsdform_container');
+            jQuery('#target').submit(function() {
+                generateXml(xsdUrl, this.processed_xml); 
+                return false;
+            });
+            generateXsdFormUI();
+        });
+    </script>
+</div>
