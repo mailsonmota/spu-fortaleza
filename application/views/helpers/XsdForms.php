@@ -12,30 +12,22 @@ class Zend_View_Helper_XsdForms extends Zend_View_Helper_Abstract
 		$this->_valorDestino = $valorDestino;
 		$this->_idContainer = $idContainer;
 		
-		return $this;
+		$this->_render();
 	}
 	
-	public function render()
+	private function _render()
 	{
-		$this->_prepare();
-		return $this->_html;
-	}
-	
-	private function _prepare()
-	{
-		$html = "<script type=\"text/javascript\">
-                    jQuery(document).ready(function() {
+		$script = "jQuery(document).ready(function() {
                         var xsdUrl = \"" . $this->_getUrl() . "\"
                         generateForm(xsdUrl,'xsdform_container');
                         jQuery('#" . $this->_idContainer . "').submit(function() {
                             generateXml(xsdUrl, this." . $this->_valorDestino . "); 
                             return false;
                         });
-                    generateXsdFormUI();
-                    });
-                </script>";
+                        generateXsdFormUI();
+                    });";
 		
-		$this->_html = $html;
+		$this->view->headScript()->appendScript($script, 'text/javascript');
 	}
 	
 	private function _getUrl()
@@ -45,6 +37,6 @@ class Zend_View_Helper_XsdForms extends Zend_View_Helper_Abstract
 	
 	private function _getBaseUrl()
 	{
-		return Zend_Controller_Front::getInstance()->getBaseUrl();
+		return $this->view->baseUrl();
 	}
 }
