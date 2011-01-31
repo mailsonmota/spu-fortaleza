@@ -106,7 +106,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headScript()->appendFile($pluginsPath . '/dataTables/textOnlyPagination.js');
         $view->headScript()->appendFile($pluginsPath . '/dataTables/jquery.dataTables.pipeline.js');
         $view->headScript()->appendFile($pluginsPath . '/dataTables/jquery.dataTables.setFilteringDelay.js');
+        $view->headScript()->appendFile($jsPath . 'input.deflate.plugin.js');
+        $view->headScript()->appendFile($jsPath . 'jquery.meio.mask.js');
+        $view->headScript()->appendFile($jsPath . 'xsdForm.js');
+        $view->headScript()->appendFile($jsPath . 'xsdForm-ui.js');
         $view->headScript()->appendFile($jsPath . 'funcoes.js');
+        $view->headScript()->appendFile($jsPath . 'jquery-simulate.js');
+        $view->headScript()->appendFile($jsPath . 'regex-mask-plugin.js');
     }
     
     protected function _initNavigation()
