@@ -17,10 +17,9 @@ class AssuntoDao extends BaseDao
         return $result['assuntos'];
     }
     
-    public function getAssuntosPorTipoProcesso($nomeTipoProcesso)
+    public function getAssuntosPorTipoProcesso($idTipoProcesso)
     {
-        $nomeTipoProcesso = $this->_getNomeAjustadoNomeParaUrl($nomeTipoProcesso);
-        $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listarportipoprocesso/$nomeTipoProcesso";
+        $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listarportipoprocesso/$idTipoProcesso";
         $url = $this->addAlfTicketUrl($url);
         
         $curlObj = new CurlClient();

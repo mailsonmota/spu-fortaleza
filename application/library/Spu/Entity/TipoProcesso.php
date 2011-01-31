@@ -127,7 +127,7 @@ class TipoProcesso extends BaseEntity
     public function getAssuntos()
     {
         $assunto = new Assunto($this->_getTicket());
-        return $assunto->listarPorTipoProcesso($this->getNome());
+        return $assunto->listarPorTipoProcesso($this->getId());
     }
     
     public function listar()
