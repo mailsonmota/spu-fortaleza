@@ -49,4 +49,21 @@ class ArquivoDao extends BaseDao
         $url = $this->addAlfTicketUrl($url);
         return $url;
     }
+
+    /**
+     *   Estrutura do $getData
+     *   $getData['id']
+     *   $getData['nome']
+     */
+    public function getContentFromUrl($getData)
+    {
+        $url = $this->getArquivoDownloadUrl($getData);
+        $curlObj = new CurlClient();
+        $result = $curlObj->doGetRequest($url);
+        /*if ($this->isAlfrescoError($result)) {
+            throw new Exception($this->getAlfrescoErrorMessage($result));
+        }*/
+        
+        return $result;
+    }
 }
