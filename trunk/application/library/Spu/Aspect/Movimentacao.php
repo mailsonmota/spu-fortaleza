@@ -228,7 +228,7 @@ class Movimentacao extends Spu_Aspect_Base
     
     protected function _getNomeProtocoloParaDescricao(Protocolo $protocolo)
     {
-        $nome = '<b>' . $protocolo->getNome() . '</b>';
+        $nome = '<b>' . $protocolo->getPath() . '</b>';
         return $nome;
     }
     

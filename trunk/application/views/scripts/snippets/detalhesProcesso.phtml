@@ -9,7 +9,7 @@
 		
 		<dt>Status:</dt>
 		<dd>
-		  <?php if (empty($this->processo->status->nome)): ?>
+		  <?php if (!$this->processo->status->nome): ?>
 		  <b>Abrindo</b>
 		  <?php else: ?>
 		  <b><?php echo $this->processo->status->nome ?></b>

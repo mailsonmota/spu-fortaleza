@@ -39,9 +39,7 @@ a:link, a:visited {color: #000;padding: 0 1px;text-decoration: underline;}
 a:hover, a:active {background-color: #000;color: #fff;text-decoration: none;}
 
 /* Forms */
-dl {margin-bottom: 1em}
-dl.form dt {padding-top: 0.75em;}
-dl.form dt, dl.form dd {margin-bottom: 0.1em}
+dl dd input[type=text], dl dd input, dl dd select, dl dd textarea {margin-top: 0; margin-bottom: 0}
 label {font-weight: normal;}
 input, select, textarea {font-family: sans-serif;padding: 0.25em 0;text-indent: 3px;font-size: 1em;}
 select {text-indent: 0;}
@@ -50,7 +48,7 @@ fieldset {border-width: 1px 0 0 0;}
 /* Forms - Classes Adicionais */
 .middleText {width: 30em;}
 .largeText {width: 50em;}
-.campoTexto {padding-top: 0.75em;}
+.campoTexto {padding-top: 0.25em;}
 label.required {font-weight: bold;}
 dd label.error {margin: 0; border: 0; background: none; padding: 0; display: block}
 input.error, textarea.error {margin: 0.5em 0; padding: 0.25em 0;border-width: 1px; border-color: #8a1f11;background: #FBE3E4}
@@ -83,9 +81,12 @@ blockquote {background: #DDD; color: #333; padding: 0.5em 0.75em; margin: 0 0 0.
 .comentario {background: url(../img/commentArrow.png) no-repeat 10.5em 0px; padding-top: 5px; margin-top: 0.1em;}
 
 /* Listas */
+dl {margin-bottom: 1em}
+dl dt label {display: block; padding-top: 0.25em}
+dl dt, dl dd {margin-bottom: 0.75em}
 dt, dd {float: left}
 dt {width: 12em;clear: both;text-align: right;margin-right: 1em}
-dl dt, dl dd, ol.historico li {margin-bottom:1em}
+ol.historico li {margin-bottom:1em}
 dd ul li {padding: 0.25em 0;}
 dd ul li.even {background: #FAFAFA;}
 dd ul li.odd {background: #F5F5F5;}
