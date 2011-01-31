@@ -17,7 +17,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 'namespace' => '',
                 'basePath'  => dirname(__FILE__),
                 'resourceTypes' => array(
-                    'alfresco' => array('path' => 'library/Alfresco/', 'namespace' => 'Alfresco')
+                    'alfresco' => array('path' => 'library/Alfresco/', 'namespace' => 'Alfresco'),
+                    'curlclient' => array('path' => 'library/Alfresco/Rest/CurlClient/', 'namespace' => 'CurlClient')
                 )
             )
         );         
