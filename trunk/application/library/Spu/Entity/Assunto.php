@@ -95,10 +95,10 @@ class Assunto extends BaseEntity
         $this->setNotificarNaAbertura($this->_getHashValue($hash, 'notificarNaAbertura') ? true : false);
     }
     
-    public function listarPorTipoProcesso($nomeTipoProcesso)
+    public function listarPorTipoProcesso($idTipoProcesso)
     {
         $dao = $this->_getDao();
-        $hashDeAssuntos = $dao->getAssuntosPorTipoProcesso($nomeTipoProcesso);
+        $hashDeAssuntos = $dao->getAssuntosPorTipoProcesso($idTipoProcesso);
         
         $assuntos = array();
         foreach ($hashDeAssuntos as $hashAssunto) {
