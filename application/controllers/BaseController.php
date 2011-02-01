@@ -47,7 +47,7 @@ abstract class BaseController extends BaseAuthenticatedController
     public function init()
     {
         $this->view->controller = $this->getController();
-        
+        $this->view->action = $this->getAction();
         $authInstance = Zend_Auth::getInstance()->getIdentity();
         $this->view->pessoa = $authInstance['user'];
         
