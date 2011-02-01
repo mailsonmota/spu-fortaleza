@@ -2,11 +2,7 @@
 require_once('BaseTramitacaoController.php');
 class EntradaController extends BaseTramitacaoController
 {
-	public function indexAction()
-    {
-        $processo = new Processo($this->getTicket());
-        $this->view->lista = $processo->listarProcessosCaixaEntrada();
-    }
+	public function indexAction() {}
     
     public function receberAction()
     {

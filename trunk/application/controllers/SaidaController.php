@@ -20,9 +20,6 @@ class SaidaController extends BaseTramitacaoController
 	    		$this->setMessageForTheView($e->getMessage(), 'error');
 	    	}
     	}
-    	
-        $processo = new Processo($this->getTicket());
-        $this->view->lista = $processo->listarProcessosCaixaSaida();
     }
     
 	protected function _isPostComprovanteEncaminhamento()

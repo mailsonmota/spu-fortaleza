@@ -29,9 +29,6 @@ class AnaliseController extends BaseTramitacaoController
         		$this->_redirectComentar();
         	}
         }
-    	
-    	$processo = new Processo($this->getTicket());
-        $this->view->lista = $processo->listarProcessosCaixaAnalise();
     }
     
     protected function _isPostComprovanteRecebimento()

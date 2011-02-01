@@ -63,4 +63,39 @@ class TramitacaoAjaxController extends BaseDataTablesController
         
         return $this->_convertProcessosToDataTablesRow($processos);
     }
+    
+    public function saidaAction()
+    {
+        $this->_rows = $this->_getCaixaSaida();
+        $this->_total = 1000;
+        
+        $this->_helper->layout()->disableLayout();
+        $this->view->output = $this->_getOutput();
+    }
+    
+    protected function _getCaixaSaida()
+    {
+        $processo = new Processo($this->getTicket());
+        $processos = $processo->listarProcessosCaixaSaida($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+        
+        return $this->_convertProcessosEnviadosToDataTablesRow($processos);
+    }
+    
+    protected function _convertProcessosEnviadosToDataTablesRow($processos)
+    {
+        $rows = array();
+        foreach ($processos as $processo) {
+            $row = array();
+            $row['input'] = "<input type='checkbox' name='processos[]' value='" . $processo->id . "' />";
+            $row = array_merge($row, $this->_getColunasPadraoProcesso($row, $processo));
+            $row['destino'] = $processo->nomeProtocolo;
+            
+            $url = $this->_helper->url('detalhes', 'processo', null, array('id' => $processo->id));
+            $row['detalhes'] = "<a href='$url'>Detalhes</a>";
+            
+            $rows[] = $row;
+        }
+        
+        return $rows;
+    }
 }

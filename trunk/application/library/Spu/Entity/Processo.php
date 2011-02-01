@@ -246,12 +246,18 @@ class Processo extends BaseEntity
     
     public function getNomeProtocolo()
     {
-        return $this->getProtocolo()->getNome();
+        return $this->getProtocolo()->getPath();
     }
     
     public function isArquivado()
     {
         return ($this->getStatus()->nome == Status::ARQUIVADO);
+    }
+    
+    protected function _getDao()
+    {
+        $dao = new ProcessoDao($this->_getTicket());
+        return $dao;
     }
     
     public function listarProcessosCaixaEntrada($offset = 0, $pageSize = 20, $filter = null)
@@ -262,22 +268,10 @@ class Processo extends BaseEntity
         return $this->_loadManyFromHash($hashProcessos);
     }
     
-    protected function _getDao()
-    {
-        $dao = new ProcessoDao($this->_getTicket());
-        return $dao;
-    }
-    
-    public function getTotalProcessosCaixaEntrada()
-    {
-        $processosCaixaEntrada = $this->listarProcessosCaixaEntrada();
-        return count($processosCaixaEntrada);
-    }
-    
-    public function listarProcessosCaixaSaida()
+    public function listarProcessosCaixaSaida($offset = 0, $pageSize = 20, $filter = null)
     {
         $dao = $this->_getDao();
-        $hashProcessos = $dao->getCaixaSaida();
+        $hashProcessos = $dao->getCaixaSaida($offset, $pageSize, $filter);
         
         return $this->_loadManyFromHash($hashProcessos);
     }
