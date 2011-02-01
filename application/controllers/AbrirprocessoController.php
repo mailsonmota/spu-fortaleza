@@ -31,7 +31,6 @@ class AbrirprocessoController extends BaseController
             $listaTiposManifestante = $this->_getListaTiposManifestante($tipoProcesso);
             $listaPrioridades = $this->_getListaPrioridades();
             $listaOrigens = $this->_getListaOrigens();
-            //$listaProprietarios = $this->_getListaProprietarios();
         } catch (Exception $e) {
             $this->setErrorMessage($e->getMessage());
             $this->_redirectEscolhaTipoProcesso();
@@ -41,6 +40,7 @@ class AbrirprocessoController extends BaseController
             $postData = $this->getRequest()->getParams();
             try {
                 $session = new Zend_Session_Namespace('aberturaProcesso');
+                $postData['proprietarioId'] = $postData['origem'];
                 $session->formDadosGeraisProcesso = $postData;
                 $this->_redirectFormularioEnvolvido($this->_getIdTipoProcessoUrl());
             }
@@ -59,8 +59,6 @@ class AbrirprocessoController extends BaseController
         $this->view->listaTiposManifestante = $listaTiposManifestante;
         $this->view->listaPrioridades = $listaPrioridades;
         $this->view->listaOrigens = $listaOrigens;
-        //$this->view->listaProtocolos = $listaProtocolos;
-        //$this->view->listaProprietarios = $listaProprietarios;
     }
 
     public function formularioenvolvidoAction()
@@ -287,30 +285,6 @@ class AbrirprocessoController extends BaseController
         }
 
         return $listaProtocolos;
-    }
-
-    protected function _getListaProtocolos()
-    {
-        $protocolo = new Protocolo($this->getTicket());
-        $protocolos = $protocolo->listarTodos();
-        $listaProtocolos = array();
-        foreach ($protocolos as $protocolo) {
-            $listaProtocolos[$protocolo->id] = $protocolo->descricao;
-        }
-
-        if (count($listaProtocolos) == 0) {
-            throw new Exception(
-                'Não existe nenhum protocolo cadastrado no sistema.
-                Por favor, entre em contato com a administração do sistema.'
-            );
-        }
-
-        return $listaProtocolos;
-    }
-
-    protected function _getListaProprietarios()
-    {
-        return $this->_getListaProtocolos();
     }
 
     protected function _redirectEscolhaTipoProcesso()

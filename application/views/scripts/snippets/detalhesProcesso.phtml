@@ -27,10 +27,10 @@
 		
 		<dt>Local Atual:</dt>
         <dd>
-          <?php if (empty($this->processo->protocolo->orgaoLotacao)): ?>
+          <?php if (!$this->processo->protocolo->path): ?>
           <b><?php echo $this->origemNome ?></b>
           <?php else: ?>
-          <b><?php echo $this->processo->protocolo->orgaoLotacao ?></b>
+          <b><?php echo $this->processo->protocolo->path ?></b>
           <?php endif; ?>
         </dd>
 		
