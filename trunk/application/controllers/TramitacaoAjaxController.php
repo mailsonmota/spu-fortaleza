@@ -46,4 +46,21 @@ class TramitacaoAjaxController extends BaseDataTablesController
         
         return $row;
     }
+    
+    public function analiseAction()
+    {
+        $this->_rows = $this->_getCaixaAnalise();
+        $this->_total = 1000;
+        
+        $this->_helper->layout()->disableLayout();
+        $this->view->output = $this->_getOutput();
+    }
+    
+    protected function _getCaixaAnalise()
+    {
+        $processo = new Processo($this->getTicket());
+        $processos = $processo->listarProcessosCaixaAnalise($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+        
+        return $this->_convertProcessosToDataTablesRow($processos);
+    }
 }
