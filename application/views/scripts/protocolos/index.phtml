@@ -7,5 +7,5 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <?php echo $this->ajaxDataTable()->listaComAction($this->simpleUrl('listar-todos', 'protocolos-ajax'))->render() ?>
+    <?php echo $this->ajaxDataTable($this->simpleUrl('listar-todos', 'protocolos-ajax'), array('Nome', 'Ações'))->render() ?>
 </div>

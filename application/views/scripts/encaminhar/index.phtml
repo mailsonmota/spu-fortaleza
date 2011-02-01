@@ -41,7 +41,7 @@ echo $this->pagenav()->closeList();
 		<div id="modal_destinoId" class="modal">
 		    <?php 
 		    
-		    echo $this->ajaxDataTable()->lista($this->simpleUrl('listar-destinos', 'protocolos-ajax'), array('', 'Nome'), array('name' => 'protocoloDestino', 'id' => 'grid-destinos'))->render();
+		    echo $this->ajaxDataTable($this->simpleUrl('listar-destinos', 'protocolos-ajax'), array('', 'Nome'), array('name' => 'protocoloDestino', 'id' => 'grid-destinos'))->render();
 		    
 		    echo $this->buttonlist()->open();
 		    echo $this->buttonlist()->button('Escolher', null, array('onClick' => "escolherModal('modal_destinoId', 'destinoId', false)"));
@@ -52,7 +52,7 @@ echo $this->pagenav()->closeList();
 		
 		<div id="modal_copias" class="modal">
 			<?php 
-			echo $this->ajaxDataTable()->lista($this->simpleUrl('listar-destinos', 'protocolos-ajax'), array('', 'Nome'), array('name' => 'protocoloCopias[]', 'id' => 'grid-copias'))->render();
+			echo $this->ajaxDataTable($this->simpleUrl('listar-destinos', 'protocolos-ajax'), array('', 'Nome'), array('name' => 'protocoloCopias[]', 'id' => 'grid-copias'))->render();
 			
 			echo $this->buttonlist()->open();
 		    echo $this->buttonlist()->button('Escolher', null, array('onClick' => "escolherModal('modal_copias', 'copias')"));

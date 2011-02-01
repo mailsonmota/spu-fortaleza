@@ -25,7 +25,7 @@ class TramitacaoAjaxController extends BaseDataTablesController
         foreach ($processos as $processo) {
             $row = array();
             $row['input'] = "<input type='checkbox' name='processos[]' value='" . $processo->id . "' />";
-            $this->_adicionarColunasPadrao($row, $processo);
+            $row = array_merge($row, $this->_getColunasPadraoProcesso($row, $processo));
             
             $url = $this->_helper->url('detalhes', 'processo', null, array('id' => $processo->id));
             $row['detalhes'] = "<a href='$url'>Detalhes</a>";
@@ -36,7 +36,7 @@ class TramitacaoAjaxController extends BaseDataTablesController
         return $rows;
     }
     
-    protected function _adicionarColunasPadrao($linhaDoArray, $processo)
+    protected function _getColunasPadraoProcesso(&$linhaDoArray, $processo)
     {
     	$row['numero'] = $processo->numero;
         $row['data'] = $processo->data;

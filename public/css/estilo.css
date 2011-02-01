@@ -176,7 +176,7 @@ ol.orderedList {list-style-type: decimal; margin-left: 3em; margin-bottom: 1.5em
 .widgetRight {margin-left: 1%}
 
 /* Mensagem */
-div#message {margin: 0 0 2% 0; border-width: 1px 0}
+div.message {margin: 0 0 2% 0; border-width: 1px 0}
 
 /* Sidebar */
 #article {display: block;z-index: 1;}

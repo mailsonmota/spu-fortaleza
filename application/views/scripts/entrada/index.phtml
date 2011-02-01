@@ -17,15 +17,7 @@ echo $this->pagenav()->closeList();
         echo $this->buttonlist()->close(true); 
     	
         $headerColumns = array('', 'Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
-        echo $this->ajaxDataTable()->lista($this->simpleUrl('entrada', 'tramitacao-ajax'), $headerColumns)->render();
-        
-        /*$headerColumns = array('', 'Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
-        $columns = array('numero', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
-        
-        $grid = new SimpleDataTable($this->lista, array('check' => true, 'headerColumns' => $headerColumns, 'columns' => $columns));
-        $grid->addCheckboxColumn('processosParaReceber', 'id');
-        $grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', 'processo', array('source' => array('entrada'))) . '/id/', 'id');
-        echo $grid->render();*/
+        echo $this->ajaxDataTable($this->simpleUrl('entrada', 'tramitacao-ajax'), $headerColumns)->render();
         ?>
     </form>
 </div>
