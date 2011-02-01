@@ -1,5 +1,7 @@
 <?php 
-$this->breadcrumbs()->addPage('Assuntos', 'assuntos');
+$this->breadcrumbs()->addPage('Tipos de Processo', 'tiposprocesso');
+$this->breadcrumbs()->addPage('Editar Tipo de Processo', 'tiposprocesso', 'editar', array('id' => $this->id));
+$this->breadcrumbs()->addPage('Assuntos', 'tiposprocesso', 'assuntos', array('id' => $this->id));
 $this->breadcrumbs()->addPage((($this->isEdit) ? 'Editar' : 'Inserir') . ' Assunto');
 echo $this->breadcrumbs()->render(); 
 
