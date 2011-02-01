@@ -13,9 +13,9 @@ class ProcessoDao extends BaseDao
         return $this->_getProcessosFromUrl($url);
     }
     
-    public function getCaixaSaida()
+    public function getCaixaSaida($offset, $pageSize, $filter)
     {
-        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/saida";
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/saida/$offset/$pageSize/$filter";
         $url = $this->addAlfTicketUrl($url);
         
         return $this->_getProcessosFromUrl($url);
