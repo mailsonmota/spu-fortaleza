@@ -31,6 +31,7 @@ jQuery(document).ready(function() {
 	tableRowRadioToggle();
 	
 	$.modal();
+	$('textarea').elastic();
 	
 	// Todos as table com classe .grid dentre de #article que não sejam um .relatorio
 	$('table:not(.no-datatable).grid').dataTable({

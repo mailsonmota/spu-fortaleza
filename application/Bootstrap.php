@@ -100,6 +100,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         //$view->headScript()->appendFile($pluginsPath . 'facebox.js');
         //$view->headScript()->appendFile($pluginsPath . 'jqModal.js');
         $view->headScript()->appendFile($pluginsPath . 'jquery.modal.js');
+        $view->headScript()->appendFile($pluginsPath . 'jquery.elastic.js');
         $view->headScript()->appendFile($pluginsPath . 'tableRowCheckboxToggle.js');
         $view->headScript()->appendFile($pluginsPath . 'tableRowRadioToggle.js');
         $view->headScript()->appendFile($pluginsPath . '/dataTables/jquery.dataTables.min.js');
