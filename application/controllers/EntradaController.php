@@ -11,7 +11,7 @@ class EntradaController extends BaseTramitacaoController
     public function receberAction()
     {
     	try {
-    		if (!$this->getRequest()->isPost() OR !$this->getRequest()->getParam('processosParaReceber')) {
+    		if (!$this->getRequest()->isPost() OR !$this->getRequest()->getParam('processos')) {
     			throw new Exception("Por favor, selecione pelo menos um processo para receber.");
     		}
     		$processo = new Processo($this->getTicket());

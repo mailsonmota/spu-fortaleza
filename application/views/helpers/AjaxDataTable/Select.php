@@ -1,6 +1,6 @@
 <?php
 require_once 'Abstract.php';
-class Zend_View_Helper_Protocolo_Select extends Zend_View_Helper_Protocolo_Abstract
+class Zend_View_Helper_AjaxDataTable_Select extends Zend_View_Helper_AjaxDataTable_Abstract
 {
     public function select($ajaxUrl, $options = array())
     {

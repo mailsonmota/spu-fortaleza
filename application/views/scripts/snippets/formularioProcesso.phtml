@@ -28,7 +28,11 @@
     <div id="modal-overlay" class="overlay">
         <div id="modal_destino" class="modal">
             <?php 
-            echo $this->protocolo()->select($this->simpleUrl('listar-destinos', 'protocolos-ajax'), array('name' => 'protocoloDestino', 'id' => 'grid-proprietarios'))->render();
+            echo $this->ajaxDataTable()->lista(
+                $this->simpleUrl('listar-destinos', 'protocolos-ajax'), 
+                array('', 'Nome'), 
+                array('name' => 'protocoloDestino', 'id' => 'grid-destino')
+            )->render();
             
             echo $this->buttonlist()->open();
             echo $this->buttonlist()->button('Escolher', null, array('onClick' => "escolherModal('modal_destino', 'destino', false)", 'type' => 'button'));
@@ -38,7 +42,11 @@
         </div>
         <div id="modal_proprietarioId" class="modal">
             <?php 
-            echo $this->protocolo()->select($this->simpleUrl('listar-proprietarios', 'protocolos-ajax', array('tipoprocesso' => $this->tipoProcesso->id), array('name' => 'protocoloDestino')))->render();
+            echo $this->ajaxDataTable()->lista(
+                $this->simpleUrl('listar-proprietarios', 'protocolos-ajax', array('tipoprocesso' => $this->tipoProcesso->id)), 
+                array('', 'Nome'), 
+                array('name' => 'protocoloProprietario', 'id' => 'grid-proprietarios')
+            )->render();
             
             echo $this->buttonlist()->open();
             echo $this->buttonlist()->button('Escolher', null, array('onClick' => "escolherModal('modal_proprietarioId', 'proprietarioId', false)", 'type' => 'button'));
