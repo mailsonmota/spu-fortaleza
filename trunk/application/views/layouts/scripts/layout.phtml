@@ -47,12 +47,14 @@
 			            $menu->addItem('Protocolos', $this->simpleUrl('index', 'protocolos'), 'Cadastros');
 		            }
 		            
-		            $menu->addItem('Abertura', $this->simpleUrl('index', 'abrirprocesso'), 'Processos');
-		            $menu->addItem('Tramitação', $this->simpleUrl('index', 'entrada'), 'Processos');
+		            if (!$this->pessoa->isAdministrador()) {
+			            $menu->addItem('Abertura', $this->simpleUrl('index', 'abrirprocesso'), 'Processos');
+			            $menu->addItem('Tramitação', $this->simpleUrl('index', 'entrada'), 'Processos');
+			            $menu->addItem('Incorporação', $this->simpleUrl('index', 'incorporacao'), 'Processos');
+			            $menu->addItem('Envolvidos', $this->simpleUrl('index', 'envolvidos'), 'Processos');
+		            }
 		            $menu->addItem('Consulta', $this->simpleUrl('index', 'consultar'), 'Processos');
-		            $menu->addItem('Incorporação', $this->simpleUrl('index', 'incorporacao'), 'Processos');
-		            $menu->addItem('Envolvidos', $this->simpleUrl('index', 'envolvidos'), 'Processos');
-		            
+                    
 		            $menu->addItem('Envio', $this->simpleUrl('enviar', 'malotes'), 'Malotes');
 		            $menu->addItem('Recebimento', $this->simpleUrl('receber', 'malotes'), 'Malotes');
 		            $menu->addItem('Consulta', $this->simpleUrl('consultar', 'malotes'), 'Malotes');

@@ -28,7 +28,7 @@
     <div id="modal-overlay" class="overlay">
         <div id="modal_destino" class="modal">
             <?php 
-            echo $this->ajaxDataTable()->lista(
+            echo $this->ajaxDataTable(
                 $this->simpleUrl('listar-destinos', 'protocolos-ajax'), 
                 array('', 'Nome'), 
                 array('name' => 'protocoloDestino', 'id' => 'grid-destino')
@@ -42,7 +42,7 @@
         </div>
         <div id="modal_proprietarioId" class="modal">
             <?php 
-            echo $this->ajaxDataTable()->lista(
+            echo $this->ajaxDataTable(
                 $this->simpleUrl('listar-proprietarios', 'protocolos-ajax', array('tipoprocesso' => $this->tipoProcesso->id)), 
                 array('', 'Nome'), 
                 array('name' => 'protocoloProprietario', 'id' => 'grid-proprietarios')

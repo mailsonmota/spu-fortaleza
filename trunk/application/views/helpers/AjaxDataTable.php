@@ -3,10 +3,6 @@ require_once('Proxy.php');
 class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
 {
 	const TABLE_CLASS = 'grid no-datatable';
-    const TABLE_ROW_EVEN_CLASS = 'even';
-    const TABLE_ROW_ODD_CLASS = 'odd';
-    const INDENT_MARKUP = '&nbsp;&nbsp;&nbsp;&nbsp;';
-    const LEVEL_SEPARATOR = ' / ';
     
     protected $_ajaxUrl;
     protected $_columns;
