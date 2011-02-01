@@ -1,5 +1,5 @@
 <?php
-abstract class Zend_View_Helper_Protocolo_Abstract extends Zend_View_Helper_Abstract
+abstract class Zend_View_Helper_AjaxDataTable_Abstract extends Zend_View_Helper_Abstract
 {
     const TABLE_CLASS = 'grid no-datatable';
     const TABLE_ROW_EVEN_CLASS = 'even';
@@ -8,14 +8,16 @@ abstract class Zend_View_Helper_Protocolo_Abstract extends Zend_View_Helper_Abst
     const LEVEL_SEPARATOR = ' / ';
     
     protected $_ajaxUrl;
+    protected $_columns;
     protected $_options;
     protected $_pageSize = 10;
     protected $_html;
     
-    public function __construct($ajaxUrl = '', array $options = array())
+    public function __construct($ajaxUrl = '', array $columns = array(), array $options = array())
     {
         $this->_html = '';
         $this->_ajaxUrl = $ajaxUrl;
+        $this->_columns = $columns;
         $this->_options = $options;
         
         $this->_prepare();
@@ -78,18 +80,20 @@ abstract class Zend_View_Helper_Protocolo_Abstract extends Zend_View_Helper_Abst
     
     protected function _getId()
     {
-        return (isset($this->_options['id'])) ? $this->_options['id'] : 'grid-protocolos';
+        return (isset($this->_options['id'])) ? $this->_options['id'] : 'grid-ajax';
     }
     
     protected function _prepareHeader()
     {
     	$tableClass = self::TABLE_CLASS;
     	$tableId = $this->_getId();
-        $html  = "<table class=\"$tableClass\" summary=\"Lista de Protocolos\" id=\"$tableId\" >";
+        $html  = "<table class=\"$tableClass\" id=\"$tableId\" >";
         $html .= '<thead>';
         $html .= '<tr>';
         $html .= $this->_getBeforeHeaderColumns();
-        $html .= '<th>Nome</th>';
+        foreach ($this->_columns as $column) {
+        	$html .= '<th>' . $column . '</th>';
+        }
         $html .= $this->_getAfterHeaderColumns();
         $html .= '</tr>';
         $html .= '</thead>';

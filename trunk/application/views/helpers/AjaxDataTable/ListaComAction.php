@@ -1,6 +1,6 @@
 <?php
 require_once 'Abstract.php';
-class Zend_View_Helper_Protocolo_ListaComAction extends Zend_View_Helper_Protocolo_Abstract
+class Zend_View_Helper_AjaxDataTable_ListaComAction extends Zend_View_Helper_AjaxDataTable_Abstract
 {
     public function listaComAction($ajaxUrl, $options = array())
     {

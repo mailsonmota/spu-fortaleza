@@ -5,9 +5,9 @@ class ProcessoDao extends BaseDao
     private $_processoBaseUrl = 'spu/processo';
     private $_processoTicketUrl = 'ticket';
     
-    public function getCaixaEntrada()
+    public function getCaixaEntrada($offset, $pageSize, $filter)
     {
-        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/entrada";
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/entrada/$offset/$pageSize/$filter";
         $url = $this->addAlfTicketUrl($url);
         
         return $this->_getProcessosFromUrl($url);

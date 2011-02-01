@@ -1,5 +1,5 @@
 <?php
-class Zend_View_Helper_Protocolo_Multiple extends Zend_View_Helper_Protocolo_Abstract
+class Zend_View_Helper_AjaxDataTable_Multiple extends Zend_View_Helper_AjaxDataTable_Abstract
 {
     public function multiple($protocolos = array(), $options = array())
     {

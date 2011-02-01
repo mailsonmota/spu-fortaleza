@@ -241,7 +241,7 @@ class Processo extends BaseEntity
     
     public function getNomeDescritivo()
     {
-        return $this->numero . ' - ' . $this->getProprietario()->nome . ' (' . $this->getTipoProcesso()->nome . ')';
+        return $this->numero . ' - ' . $this->getProprietario()->path . ' (' . $this->getTipoProcesso()->nome . ')';
     }
     
     public function getNomeProtocolo()
@@ -254,10 +254,10 @@ class Processo extends BaseEntity
         return ($this->getStatus()->nome == Status::ARQUIVADO);
     }
     
-    public function listarProcessosCaixaEntrada()
+    public function listarProcessosCaixaEntrada($offset = 0, $pageSize = 20, $filter = null)
     {
         $dao = $this->_getDao();
-        $hashProcessos = $dao->getCaixaEntrada();
+        $hashProcessos = $dao->getCaixaEntrada($offset, $pageSize, $filter);
         
         return $this->_loadManyFromHash($hashProcessos);
     }
