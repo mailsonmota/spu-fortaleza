@@ -1,0 +1,43 @@
+<?php 
+$this->breadcrumbs()->addPage('Abrir Processo', 'abrirprocesso');
+$this->breadcrumbs()->addPage('Resumo do Processo', 'abrirprocesso', 'processocriado');
+echo $this->breadcrumbs()->render(); 
+
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+    <fieldset>
+        <legend>Dados Gerais</legend>
+        <?php
+            echo $this->form()->openFieldList();
+            echo $this->text('Tipo de Processo', $this->processoCriado->tipoProcesso[0]->nome);
+            echo $this->text('Assunto', $this->processoCriado->assunto[0]->nome);
+            echo $this->text('Data', $this->processoCriado->data);
+            echo $this->text('Número', str_replace("_", "/", $this->processoCriado->nome));
+            echo $this->text('Nº Origem', $this->processoCriado->numeroOrigem);
+            echo $this->form()->closeFieldList();
+        ?>
+    </fieldset>
+    <fieldset>
+        <legend>Manifestante</legend>
+        <?php
+            echo $this->text('CPF/CNPJ', $this->processoCriado->manifestante[0]->cpfCnpj);
+            echo $this->text('Nome', $this->processoCriado->manifestante[0]->nome);
+            echo $this->text('Bairro', $this->processoCriado->manifestante[0]->bairro[0]->nome);
+            echo $this->text('Tipo', $this->processoCriado->tipoManifestante[0]->nome);
+            echo $this->text('Responsável', '');
+        ?>
+    </fieldset>
+    <fieldset>
+        <legend>Processo</legend>
+        <?php
+            echo $this->text('Corpo', $this->processoCriado->corpo);
+            echo $this->text('Prioridade', $this->processoCriado->prioridade[0]->nome);
+            echo $this->text('Local Atual', $this->processoCriado->localAtual[0]->nome);
+            echo $this->text('Data Prazo', $this->processoCriado->dataPrazo);
+        ?>
+    </fieldset>
+</div>
