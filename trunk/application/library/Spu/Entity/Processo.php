@@ -284,10 +284,10 @@ class Processo extends BaseEntity
         return $this->_loadManyFromHash($hashProcessos);
     }
     
-    public function listarProcessosCaixaEnviados()
+    public function listarProcessosCaixaEnviados($offset = 0, $pageSize = 20, $filter = null)
     {
         $dao = $this->_getDao();
-        $hashProcessos = $dao->getCaixaEnviados();
+        $hashProcessos = $dao->getCaixaEnviados($offset, $pageSize, $filter);
         
         return $this->_loadManyFromHash($hashProcessos);
     }

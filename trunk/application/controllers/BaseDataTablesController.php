@@ -74,4 +74,10 @@ class BaseDataTablesController extends BaseAuthenticatedController
     
         return $output;
     }
+    
+    protected function _getJsonErrorRow($e)
+    {
+    	//echo $e->getMessage();
+    	return array();
+    }
 }

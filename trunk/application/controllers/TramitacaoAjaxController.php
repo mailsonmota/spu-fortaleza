@@ -13,10 +13,14 @@ class TramitacaoAjaxController extends BaseDataTablesController
     
     protected function _getCaixaEntrada()
     {
-        $processo = new Processo($this->getTicket());
-        $processos = $processo->listarProcessosCaixaEntrada($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
-        
-        return $this->_convertProcessosToDataTablesRow($processos);
+    	try {
+	        $processo = new Processo($this->getTicket());
+	        $processos = $processo->listarProcessosCaixaEntrada($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+	        
+	        return $this->_convertProcessosToDataTablesRow($processos);
+        } catch (Exception $e) {
+            return $this->_getJsonErrorRow($e);
+        }
     }
     
     protected function _convertProcessosToDataTablesRow($processos)
@@ -58,15 +62,20 @@ class TramitacaoAjaxController extends BaseDataTablesController
     
     protected function _getCaixaAnalise()
     {
-        $processo = new Processo($this->getTicket());
-        $processos = $processo->listarProcessosCaixaAnalise($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
-        
-        return $this->_convertProcessosToDataTablesRow($processos);
+    	try {
+	        $processo = new Processo($this->getTicket());
+	        $processos = $processo->listarProcessosCaixaAnalise($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+	        
+	        return $this->_convertProcessosToDataTablesRow($processos);
+        } catch (Exception $e) {
+            return $this->_getJsonErrorRow($e);
+        }
     }
     
     public function saidaAction()
     {
         $this->_rows = $this->_getCaixaSaida();
+        
         $this->_total = 1000;
         
         $this->_helper->layout()->disableLayout();
@@ -75,18 +84,24 @@ class TramitacaoAjaxController extends BaseDataTablesController
     
     protected function _getCaixaSaida()
     {
-        $processo = new Processo($this->getTicket());
-        $processos = $processo->listarProcessosCaixaSaida($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
-        
-        return $this->_convertProcessosEnviadosToDataTablesRow($processos);
+    	try {
+	        $processo = new Processo($this->getTicket());
+	        $processos = $processo->listarProcessosCaixaSaida($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+	        
+	        return $this->_convertProcessosEnviadosToDataTablesRow($processos);
+    	} catch (Exception $e) {
+    		return $this->_getJsonErrorRow($e);
+    	}
     }
     
-    protected function _convertProcessosEnviadosToDataTablesRow($processos)
+    protected function _convertProcessosEnviadosToDataTablesRow($processos, $checkboxColumn = true)
     {
         $rows = array();
         foreach ($processos as $processo) {
             $row = array();
-            $row['input'] = "<input type='checkbox' name='processos[]' value='" . $processo->id . "' />";
+            if ($checkboxColumn) {
+                $row['input'] = "<input type='checkbox' name='processos[]' value='" . $processo->id . "' />";
+            }
             $row = array_merge($row, $this->_getColunasPadraoProcesso($row, $processo));
             $row['destino'] = $processo->nomeProtocolo;
             
@@ -97,5 +112,26 @@ class TramitacaoAjaxController extends BaseDataTablesController
         }
         
         return $rows;
+    }
+    
+    public function enviadosAction()
+    {
+        $this->_rows = $this->_getCaixaEnviados();
+        $this->_total = 1000;
+        
+        $this->_helper->layout()->disableLayout();
+        $this->view->output = $this->_getOutput();
+    }
+    
+    protected function _getCaixaEnviados()
+    {
+    	try {
+	        $processo = new Processo($this->getTicket());
+	        $processos = $processo->listarProcessosCaixaEnviados($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+	        
+	        return $this->_convertProcessosEnviadosToDataTablesRow($processos, false);
+        } catch (Exception $e) {
+            return $this->_getJsonErrorRow($e);
+        }
     }
 }
