@@ -10,6 +10,7 @@ class CopiasController extends BaseTramitacaoController
     	if ($this->getRequest()->isPost()) {
     		try {
     			$copiaProcesso->excluir($this->getRequest()->getPost());
+    			$this->setMessageForTheView('Cópias excluídas com sucesso.', 'success');
     		} catch (Exception $e) {
 	    		$this->setMessageForTheView($e->getMessage(), 'error');
 	    	}
