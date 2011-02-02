@@ -9,9 +9,20 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <h4>3. Formulário</h4>
+    <h4>2. Preencha o formulário do Tipo de Processo</h4>
     <form action="" method="post">
-        <?php
+        <?php 
+        echo $this->form()->openFieldList();
+        echo $this->text('Tipo de Processo', $this->tipoProcesso->nome);
+        if ($this->tipoProcesso->id) {
+            echo $this->select('Assunto', 'assunto', $this->listaAssuntos, null, array('required' => true));
+        }
+        echo $this->form()->closeFieldList();
+        
+        if ($this->tipoProcesso->id) {
+            echo $this->render('snippets/formularioProcesso.phtml');
+        }
+        
         echo $this->buttonlist()->open();
         echo $this->buttonlist()->button('Avançar');
         echo $this->buttonlist()->close(true); 
