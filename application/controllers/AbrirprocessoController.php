@@ -8,7 +8,7 @@ class AbrirprocessoController extends BaseController
     {
         if ($this->getRequest()->isPost()) {
                 $this->_cleanUploadedFilesInfoFromSession();
-                $this->_helper->redirector('formulariogeral',
+                $this->_helper->redirector('formulario',
                                            $this->getController(),
                                            'default',
                                            array('tipoprocesso' => $this->_getIdTipoProcessoPost()));
@@ -21,7 +21,7 @@ class AbrirprocessoController extends BaseController
         $this->view->listaTiposProcesso = $listaTiposProcesso;
     }
 
-    public function formulariogeralAction()
+    public function formularioAction()
     {
         try {
             $tipoProcesso = $this->_getTipoProcesso($this->_getIdTipoProcessoUrl());
@@ -75,20 +75,13 @@ class AbrirprocessoController extends BaseController
                 $processo = new Processo($this->getTicket());
                 $processo->abrirProcesso($dataMerged);
                 $session->processo = $processo;
-                $this->_redirectFormulario();
+                $this->_redirectUploadArquivo();
         }
 
         $this->view->tipoProcesso = $tipoProcesso;
         $this->view->listaBairros = $listaBairros;
         $this->view->listaTiposManifestante = $listaTiposManifestante;
         $this->view->listaUfs = $listaUfs;
-    }
-
-    public function formularioAction()
-    {
-        if ($this->getRequest()->isPost()) {
-            $this->_redirectUploadArquivo();
-        }
     }
 
     public function uploadarquivoAction()
@@ -320,13 +313,6 @@ class AbrirprocessoController extends BaseController
                                    $this->getController(),
                                    'default',
                                    array('tipoprocesso' => $this->_getIdTipoProcessoUrl()));
-    }
-
-    protected function _redirectFormulario()
-    {
-        $this->_helper->redirector('formulario',
-                                   $this->getController(),
-                                   'default');
     }
 
     protected function _cleanUploadedFilesInfoFromSession()
