@@ -6,7 +6,7 @@ class StatusArquivamento extends BaseClassification
     public function listar()
     {
         $dao = $this->_getDao();
-        $hashDeStatus = $dao->getStatusArquivamento();
+        $hashDeStatus = $dao->fetchAll();
         
         $arrayStatus = array();
         foreach ($hashDeStatus as $hashStatus) {
@@ -20,7 +20,7 @@ class StatusArquivamento extends BaseClassification
     
     protected function _getDao()
     {
-        $dao = new StatusArquivamentoDao(self::ALFRESCO_URL, $this->_getTicket());
+        $dao = new StatusArquivamentoDao($this->_getTicket());
         return $dao;
     }
 }
