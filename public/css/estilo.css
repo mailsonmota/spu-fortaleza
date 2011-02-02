@@ -15,7 +15,7 @@
 body {
     background-color: #EEE;
     color: #333333;
-    font-family: sans-serif;
+    font-family: Georgia, sans-serif;
     line-height: 1.429;
     margin: 0;
     padding: 0;
@@ -78,8 +78,8 @@ table.grid {width: 100%;margin-top: 1%;border-collapse:collapse;}
 /* Páragrafos */
 p {margin-bottom: 1.143em;}
 * p:last-child {margin-bottom: 0;}
-blockquote {background: #DDD; color: #333; padding: 0.5em 0.75em; margin: 0 0 0.5em 11em;float: left}
-.comentario {background: url(../img/commentArrow.png) no-repeat 11.5em 0px; padding-top: 5px; margin-top: 0.1em;}
+blockquote {background: #DDD; color: #333; padding: 0.5em 0.75em; margin: 0 0 0.5em 0;float: left}
+.comentario {background: url(../img/commentArrow.png) no-repeat 0.5em 0px; padding-top: 5px; margin-top: 0.1em;}
 
 /* Listas */
 dl {margin-bottom: 1em}
@@ -88,6 +88,8 @@ dl dt, dl dd {margin-bottom: 0.75em}
 dt, dd {float: left}
 dt {width: 12em;clear: both;text-align: right;margin-right: 1em}
 ol.historico li {margin-bottom:1em}
+.dataMovimentacao, .descricaoMovimentacao {float: left}
+.dataMovimentacao {margin-right: 1em}
 dd ul li {padding: 0.25em 0;}
 dd ul li.even {background: #FAFAFA;}
 dd ul li.odd {background: #F5F5F5;}

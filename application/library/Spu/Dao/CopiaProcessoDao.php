@@ -5,9 +5,9 @@ class CopiaProcessoDao extends BaseDao
     private $_processoBaseUrl = 'spu/processo';
     private $_processoTicketUrl = 'ticket';
     
-    public function getCopias()
+    public function getCopias($offset, $pageSize, $filter)
     {
-        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/copias";
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/copias/$offset/$pageSize/$filter";
         $url = $this->addAlfTicketUrl($url);
         
         return $this->_getCopiasFromUrl($url);
