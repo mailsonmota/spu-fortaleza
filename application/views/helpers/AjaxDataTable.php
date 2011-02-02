@@ -50,6 +50,7 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
                                     "sLast":     "Último »»"
                                 }
                             },
+                            "bAutoWidth": false, 
                             iDisplayLength: ' . $this->_pageSize . ', 
                             sPaginationType: "text_only", 
                             "bLengthChange": false, 
