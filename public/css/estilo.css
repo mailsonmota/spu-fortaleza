@@ -78,8 +78,8 @@ table.grid {width: 100%;margin-top: 1%;border-collapse:collapse;}
 /* Páragrafos */
 p {margin-bottom: 1.143em;}
 * p:last-child {margin-bottom: 0;}
-blockquote {background: #DDD; color: #333; padding: 0.5em 0.75em; margin: 0 0 0.5em 10em;float: left}
-.comentario {background: url(../img/commentArrow.png) no-repeat 10.5em 0px; padding-top: 5px; margin-top: 0.1em;}
+blockquote {background: #DDD; color: #333; padding: 0.5em 0.75em; margin: 0 0 0.5em 11em;float: left}
+.comentario {background: url(../img/commentArrow.png) no-repeat 11.5em 0px; padding-top: 5px; margin-top: 0.1em;}
 
 /* Listas */
 dl {margin-bottom: 1em}

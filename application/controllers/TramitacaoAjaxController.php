@@ -72,6 +72,27 @@ class TramitacaoAjaxController extends BaseDataTablesController
         }
     }
     
+    public function arquivoAction()
+    {
+        $this->_rows = $this->_getCaixaArquivo();
+        $this->_total = 1000;
+        
+        $this->_helper->layout()->disableLayout();
+        $this->view->output = $this->_getOutput();
+    }
+    
+    protected function _getCaixaArquivo()
+    {
+        try {
+            $processo = new Processo($this->getTicket());
+            $processos = $processo->listarProcessosArquivados($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+            
+            return $this->_convertProcessosToDataTablesRow($processos);
+        } catch (Exception $e) {
+            return $this->_getJsonErrorRow($e);
+        }
+    }
+    
     public function saidaAction()
     {
         $this->_rows = $this->_getCaixaSaida();
