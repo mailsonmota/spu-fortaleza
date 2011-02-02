@@ -1,20 +1,19 @@
-<?php 
-Loader::loadDao('Arquivo');
+<?php
+Loader::loadEntity("Assunto");
 class FormularioController extends BaseController
 {
-    public function contentAction()
-    {
-        $id = $this->getRequest()->getParam('id');
-        $this->_helper->layout()->disableLayout();
-        $dao = new ArquivoDao($this->getTicket());
-        $params = array("id" => $id, "nome" => "coiso.xsd");
-        $result = $dao->getContentFromUrl($params);
-        $this->view->result = $result;
-    }
+	public function contentAction()
+	{
+		$this->_helper->layout()->disableLayout();
+		$id = $this->getRequest()->getParam('id');
+		$assunto = new Assunto($this->getTicket());
+		$assunto->carregarPeloId($id);
+		$this->view->result = $assunto->getFormularioXsd();;
+	}
 
-    public function editAction()
-    {
-        $id = $this->getRequest()->getParam('id');
-        $this->view->id = $id;
-    }
+	public function editAction()
+	{
+		$id = $this->getRequest()->getParam('id');
+		$this->view->id = $id;
+	}
 }

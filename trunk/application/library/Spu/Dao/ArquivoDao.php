@@ -62,7 +62,7 @@ class ArquivoDao extends BaseDao
 		$result = $curlObj->doGetRequest($url);
 		/*if ($this->isAlfrescoError($result)) {
 		 throw new Exception($this->getAlfrescoErrorMessage($result));
-		 }*/
+		}*/
 
 		return $result;
 	}
