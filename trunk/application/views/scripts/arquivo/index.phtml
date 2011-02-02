@@ -14,7 +14,8 @@ echo $this->pagenav()->closeList();
     <form action="" method="post">
         <?php 
         echo $this->buttonlist()->open();
-        echo $this->buttonlist()->button('Reabrir Selecionados');
+        echo $this->buttonlist()->defaultBlockActionsDescription();
+        echo $this->buttonlist()->button('Reabrir');
         echo $this->buttonlist()->close(true); 
         
         $headerColumns = array('', 'Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');

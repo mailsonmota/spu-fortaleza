@@ -13,7 +13,8 @@ echo $this->pagenav()->closeList();
     <form action="<?php echo $this->simpleUrl('receber') ?>" method="post">
         <?php
 		echo $this->buttonlist()->open();
-        echo $this->buttonlist()->button('Receber Selecionados');
+		echo $this->buttonlist()->defaultBlockActionsDescription();
+        echo $this->buttonlist()->button('Receber');
         echo $this->buttonlist()->close(true); 
     	
         $headerColumns = array('', 'Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
