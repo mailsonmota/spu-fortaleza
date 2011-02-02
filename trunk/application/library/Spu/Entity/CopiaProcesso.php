@@ -3,10 +3,10 @@ require_once('LinkProcesso.php');
 Loader::loadDao('CopiaProcessoDao');
 class CopiaProcesso extends LinkProcesso
 {
-    public function listar()
+    public function listar($offset = 0, $pageSize = 20, $filter = null)
     {
         $dao = $this->_getDao();
-        $hashCopias = $dao->getCopias();
+        $hashCopias = $dao->getCopias($offset, $pageSize, $filter);
         
         return $this->_loadManyFromHash($hashCopias);
     }

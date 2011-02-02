@@ -1,5 +1,6 @@
 <?php
 require_once 'BaseDataTablesController.php';
+Loader::loadEntity('CopiaProcesso');
 class TramitacaoAjaxController extends BaseDataTablesController
 {
     public function entradaAction()
@@ -70,6 +71,48 @@ class TramitacaoAjaxController extends BaseDataTablesController
         } catch (Exception $e) {
             return $this->_getJsonErrorRow($e);
         }
+    }
+    
+    public function copiasAction()
+    {
+        $this->_rows = $this->_getCopias();
+        $this->_total = 1000;
+        
+        $this->_helper->layout()->disableLayout();
+        $this->view->output = $this->_getOutput();
+    }
+    
+    protected function _getCopias()
+    {
+        try {
+            $copia = new CopiaProcesso($this->getTicket());
+            $copias = $copia->listar($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+            
+            return $this->_convertCopiasToDataTablesRow($copias);
+        } catch (Exception $e) {
+            return $this->_getJsonErrorRow($e);
+        }
+    }
+    
+    protected function _convertCopiasToDataTablesRow($copias)
+    {
+        $rows = array();
+        foreach ($copias as $copia) {
+            $row = array();
+            $row['input'] = "<input type='checkbox' name='copias[]' value='" . $copia->id . "' />";
+            $row['numero'] = $copia->numeroProcesso;
+	        $row['data'] = $copia->dataProcesso;
+	        $row['nomeManifestante'] = $copia->nomeManifestanteProcesso;
+	        $row['nomeTipoProcesso'] = $copia->nomeTipoProcesso;
+	        $row['nomeAssunto'] = $copia->nomeAssuntoProcesso;
+            
+            $url = $this->_helper->url('detalhes', 'processo', null, array('id' => $copia->idProcesso));
+            $row['detalhes'] = "<a href='$url'>Detalhes</a>";
+            
+            $rows[] = $row;
+        }
+        
+        return $rows;
     }
     
     public function arquivoAction()
