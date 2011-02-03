@@ -2,6 +2,9 @@
 $this->breadcrumbs()->addPage('Abrir Processo', 'abrirprocesso');
 $this->breadcrumbs()->addPage('Formulário', 'abrirprocesso', 'formulario');
 $this->breadcrumbs()->addPage('Formulário Envolvido', 'abrirprocesso', 'formulario');
+if ($this->hasFormulario) {
+    $this->breadcrumbs()->addPage('Formulário do Assunto', 'abrirprocesso', 'formulario-assunto');	
+}
 $this->breadcrumbs()->addPage('Adição de Arquivos', 'abrirprocesso', 'uploadarquivo');
 echo $this->breadcrumbs()->render(); 
 
@@ -11,7 +14,7 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <h4>4. Escolha arquivos para adicionar ao processo</h4>
+    <h4><?php echo ($this->hasFormulario) ? '5' : '4' ?>. Escolha arquivos para adicionar ao processo</h4>
     
     <form action="" method="post" enctype="multipart/form-data">
         <input type="hidden" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />

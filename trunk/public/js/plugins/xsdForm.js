@@ -697,9 +697,9 @@ function generateXml(xsdFile, input_to_set) {
 
     } catch (myError) {
         if (myError.name != null) {
-            alert( myError.name + ': ' + myError.message + "\n" + myError);
+            throw  myError.name + ': ' + myError.message + "\n" + myError;
         } else {
-            alert(myError);
+            throw myError;
         }
 	return false;
     }
