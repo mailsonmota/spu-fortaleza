@@ -114,6 +114,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$view->headScript()->appendFile($jsPath . 'funcoes.js');
 		$view->headScript()->appendFile($pluginsPath . 'jquery-simulate.js');
 		$view->headScript()->appendFile($pluginsPath . 'regex-mask-plugin.js');
+		$view->headScript()->appendFile($jsPath . 'xsdFormSpu.js');
 	}
 
 	protected function _initNavigation()
