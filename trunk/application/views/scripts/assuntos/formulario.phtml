@@ -2,7 +2,7 @@
 $this->breadcrumbs()->addPage('Tipos de Processo', 'tiposprocesso');
 $this->breadcrumbs()->addPage('Editar Tipo de Processo', 'tiposprocesso', 'editar', array('id' => $this->id));
 $this->breadcrumbs()->addPage('Assuntos', 'tiposprocesso', 'assuntos', array('id' => $this->id));
-$this->breadcrumbs()->addPage('Fórmulario', 'assuntos', 'formulario', array('id' => $this->id));
+$this->breadcrumbs()->addPage('Editar Assunto', 'assuntos', 'editar', array('id' => $this->id));
 $this->breadcrumbs()->addPage((($this->isEdit) ? 'Editar' : 'Inserir') . ' Formulário');
 echo $this->breadcrumbs()->render();
 
