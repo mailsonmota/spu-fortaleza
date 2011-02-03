@@ -1,36 +1,34 @@
-<?php 
+<?php
 $this->breadcrumbs()->addPage('Tipos de Processo', 'tiposprocesso');
 $this->breadcrumbs()->addPage('Editar Tipo de Processo', 'tiposprocesso', 'editar', array('id' => $this->id));
 $this->breadcrumbs()->addPage('Assuntos', 'tiposprocesso', 'assuntos', array('id' => $this->id));
 $this->breadcrumbs()->addPage((($this->isEdit) ? 'Editar' : 'Inserir') . ' Assunto');
-echo $this->breadcrumbs()->render(); 
+echo $this->breadcrumbs()->render();
 
 if ($this->isEdit) {
-    echo $this->tabs()->openList();
-    echo $this->tabs()->addTab($this->simpleUrl('editar', null, array('id' => $this->id)), 'Dados Gerais', true);
-    echo $this->tabs()->addTab($this->simpleUrl('formularios', null, array('id' => $this->id)), 'Formulários');
-    echo $this->tabs()->closeList();
+	echo $this->tabs()->openList();
+	echo $this->tabs()->addTab($this->simpleUrl('editar', null, array('id' => $this->id)), 'Dados Gerais', true);
+	echo $this->tabs()->addTab($this->simpleUrl('formulario', null, array('id' => $this->id)), 'Formulários');
+	echo $this->tabs()->closeList();
 }
 
-echo $this->pagenav()->openList(); 
+echo $this->pagenav()->openList();
 echo $this->pagenav()->link($this->simpleUrl('inserir'), 'Inserir Outro Assunto');
 echo $this->pagenav()->defaultHelperLinks('assuntos.html');
 echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <form action="" method="post">
-        <?php 
-        echo $this->form()->openFieldList();
-        echo $this->textbox('Nome', 'nome', $this->assunto->nome, array('required' => true, 'length' => 90));
-        echo $this->textarea('Corpo', 'corpo', $this->assunto->corpo, array('required' => true));
-        echo $this->checkbox('Notificar na abertura', 'notificarNaAbertura', $this->assunto->notificarNaAbertura);
-        echo $this->form()->closeFieldList();
-        
-        echo $this->buttonlist()->open();
-        echo $this->buttonlist()->button('Salvar');
-        echo $this->buttonlist()->resetbutton();
-        echo $this->buttonlist()->close(true); 
-        ?>
-    </form>
+<form action="" method="post"><?php 
+echo $this->form()->openFieldList();
+echo $this->textbox('Nome', 'nome', $this->assunto->nome, array('required' => true, 'length' => 90));
+echo $this->textarea('Corpo', 'corpo', $this->assunto->corpo, array('required' => true));
+echo $this->checkbox('Notificar na abertura', 'notificarNaAbertura', $this->assunto->notificarNaAbertura);
+echo $this->form()->closeFieldList();
+
+echo $this->buttonlist()->open();
+echo $this->buttonlist()->button('Salvar');
+echo $this->buttonlist()->resetbutton();
+echo $this->buttonlist()->close(true);
+?></form>
 </div>
