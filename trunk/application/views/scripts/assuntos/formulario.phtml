@@ -1,0 +1,28 @@
+<?php
+$this->breadcrumbs()->addPage('Tipos de Processo', 'tiposprocesso');
+$this->breadcrumbs()->addPage('Editar Tipo de Processo', 'tiposprocesso', 'editar', array('id' => $this->id));
+$this->breadcrumbs()->addPage('Assuntos', 'tiposprocesso', 'assuntos', array('id' => $this->id));
+$this->breadcrumbs()->addPage('Fórmulario', 'assuntos', 'formulario', array('id' => $this->id));
+$this->breadcrumbs()->addPage((($this->isEdit) ? 'Editar' : 'Inserir') . ' Formulário');
+echo $this->breadcrumbs()->render();
+
+if ($this->isEdit) {
+	echo $this->tabs()->openList();
+	echo $this->tabs()->addTab($this->simpleUrl('editar', null, array('id' => $this->id)), 'Dados Gerais');
+	echo $this->tabs()->addTab($this->simpleUrl('formulario', null, array('id' => $this->id)), 'Formulários', true);
+	echo $this->tabs()->closeList();
+}
+
+echo $this->pagenav()->openList();
+echo $this->pagenav()->defaultHelperLinks('formulario.html');
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+	<form id="target" action="post">
+		<div id="xsdform_container"></div>
+		<input type="submit" />
+		<input name="processed_xml" type="hidden"/>
+	</form>
+<?php $this->xsdForms($this->id, "processed_xml", "target") ?>
+</div>
