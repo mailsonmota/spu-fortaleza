@@ -103,6 +103,19 @@
     </dl>
 </fieldset>
 
+<?php $this->processo->loadRespostasFormulario() ?>
+<?php if ($this->processo->hasRespostasFormulario()): ?>
+<fieldset>
+    <legend>Formulário do Assunto</legend>
+    <dl>
+    <?php foreach ($this->processo->respostasFormulario->getData() as $campo => $valor): ?>
+        <dt><?php echo $campo ?></dt>
+        <dd><?php echo $valor ?></dd>
+    <?php endforeach ?>
+    </dl>
+</fieldset>
+<?php endif ?>
+
 <?php if ($this->processo->hasArquivos()): ?>
 <fieldset>
     <legend>Arquivos Anexados</legend>

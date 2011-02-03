@@ -3,6 +3,7 @@ require_once('BaseEntity.php');
 require_once('TipoProcesso.php');
 require_once('Protocolo.php');
 require_once('Arquivo.php');
+require_once('RespostasFormulario.php');
 Loader::loadAspect('Movimentacao');
 Loader::loadAspect('Manifestante');
 Loader::loadAspect('Arquivamento');
@@ -29,6 +30,7 @@ class Processo extends BaseEntity
     protected $_status;
     protected $_arquivamento;
     protected $_arquivos;
+    protected $_respostasFormulario;
     
     public function getNodeRef()
     {
@@ -680,5 +682,32 @@ class Processo extends BaseEntity
         }
         
         return $return;
+    }
+    
+    public function loadRespostasFormulario()
+    {
+    	$arquivoEntity = new Arquivo($this->_getTicket());
+        $dao = $arquivoEntity->getDao();
+        try {
+            $return = $dao->getRespostasFormulario($this->getId());
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+        
+        $this->_respostasFormulario = new RespostasFormulario();
+        
+        if ($return) {
+            $this->_respostasFormulario->loadFromXML($return);
+        }
+    }
+    
+    public function hasRespostasFormulario()
+    {
+    	return $this->_respostasFormulario->hasData();
+    }
+    
+    public function getRespostasFormulario()
+    {
+        return $this->_respostasFormulario;
     }
 }
