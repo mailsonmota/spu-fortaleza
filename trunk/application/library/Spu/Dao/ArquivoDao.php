@@ -83,4 +83,15 @@ class ArquivoDao extends BaseDao
 
 		return $result;
 	}
+	
+	public function getRespostasFormulario($processoId)
+	{
+		$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/formulario/get/$processoId";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        $result = $curlObj->doGetRequest($url);
+        
+        return $result;
+	}
 }
