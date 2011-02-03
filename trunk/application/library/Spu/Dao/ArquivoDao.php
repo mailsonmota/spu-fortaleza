@@ -42,6 +42,23 @@ class ArquivoDao extends BaseDao
 		return $result;
 	}
 
+	public function salvarFormulario($postData)
+	{
+		$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/formulario/salvar";
+        $url = $this->addAlfTicketUrl($url);
+
+        $curlObj = new CurlClient();
+
+        $result = $curlObj->doPostRequest($url, $postData);
+        
+        if ($this->isAlfrescoError($result)) {
+        	echo '<pre>'; var_dump($result); echo '</pre>'; exit;
+            throw new Exception($this->getAlfrescoErrorMessage($result));
+        }
+
+        return $result;
+	}
+	
 	public function getArquivoDownloadUrl($arquivoHash)
 	{
 		$url = $this->getBaseUrl() . "/spu/formulario/get/assunto/"

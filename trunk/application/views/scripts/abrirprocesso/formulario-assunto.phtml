@@ -1,0 +1,22 @@
+<?php
+$this->breadcrumbs()->addPage('Abrir Processo', 'abrirprocesso');
+$this->breadcrumbs()->addPage('Formulário', 'abrirprocesso', 'formulario');
+$this->breadcrumbs()->addPage('Formulário Envolvido', 'abrirprocesso', 'formulario');
+$this->breadcrumbs()->addPage('Formulário do Assunto', 'abrirprocesso', 'formulario-assunto');
+echo $this->breadcrumbs()->render(); 
+
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+    <h4>4. Preencha o formulário adicional do processo</h4>
+    <form id="target" method="post" action="">
+        <div id="xsdform_container"></div>
+        <input type="submit" />
+        <input name="processedXml" type="hidden"/>
+        <input name="nodeId" value="<?php echo $this->processoId ?>" type="hidden"/>
+    </form>
+    <?php $this->xsdForms($this->assuntoId, "processedXml", "target") ?>
+</div>
