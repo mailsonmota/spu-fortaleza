@@ -75,7 +75,12 @@ class AbrirprocessoController extends BaseController
                 $processo = new Processo($this->getTicket());
                 $processo->abrirProcesso($dataMerged);
                 $session->processo = $processo;
-                $this->_redirectUploadArquivo();
+                
+                if ($processo->assunto->hasFormulario()) {
+                	$this->_redirectFormularioAssunto();
+                } else {
+                    $this->_redirectUploadArquivo();
+                }
         }
 
         $this->view->tipoProcesso = $tipoProcesso;
@@ -84,6 +89,32 @@ class AbrirprocessoController extends BaseController
         $this->view->listaUfs = $listaUfs;
     }
 
+    
+    
+    public function formularioAssuntoAction()
+    {
+    	$session = new Zend_Session_Namespace('aberturaProcesso');
+        $processo = $session->processo;
+        
+        if ($this->getRequest()->isPost()) {
+            $postData = $this->getRequest()->getPost();
+            try {
+                $processo = new Processo($this->getTicket());
+                $processo->salvarRespostasFormulario($postData);
+                $this->_redirectUploadArquivo();
+            }
+            catch (AlfrescoApiException $e) {
+                throw $e;
+            }
+            catch (Exception $e) {
+                throw $e;
+            }
+        }
+        
+        $this->view->processoId = $processo->id;
+        $this->view->assuntoId = $processo->assunto->id;
+    }
+    
     public function uploadarquivoAction()
     {
         $session = new Zend_Session_Namespace('aberturaProcesso');
@@ -297,6 +328,11 @@ class AbrirprocessoController extends BaseController
         $this->_helper->redirector('processocriado', $this->getController(), 'default');
     }
 
+    protected function _redirectFormularioAssunto()
+    {
+    	$this->_helper->redirector('formulario-assunto', $this->getController(), 'default');
+    }
+    
     protected function _redirectUploadArquivo()
     {
         $this->_helper->redirector('uploadarquivo', $this->getController(), 'default');

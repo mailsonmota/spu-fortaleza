@@ -668,4 +668,17 @@ class Processo extends BaseEntity
             return true;
         }
     }
+    
+    public function salvarRespostasFormulario($postData)
+    {
+    	$arquivoEntity = new Arquivo($this->_getTicket());
+        $dao = $arquivoEntity->getDao();
+        try {
+            $return = $dao->salvarFormulario($postData);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+        
+        return $return;
+    }
 }

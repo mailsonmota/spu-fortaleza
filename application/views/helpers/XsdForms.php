@@ -19,10 +19,10 @@ class Zend_View_Helper_XsdForms extends Zend_View_Helper_Abstract
 	{
 		$script = "jQuery(document).ready(function() {
                         var xsdUrl = \"" . $this->_getUrl() . "\"
-                        generateForm(xsdUrl,'xsdform_container');
+                        generateFormSpu(xsdUrl,'xsdform_container');
                         jQuery('#" . $this->_idContainer . "').submit(function() {
                             generateXml(xsdUrl, this." . $this->_valorDestino . "); 
-                            return false;
+                            return true;
                         });
                         generateXsdFormUI();
                     });";
