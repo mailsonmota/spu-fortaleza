@@ -12,16 +12,8 @@
 {content:".";clear:both;display:block;overflow:hidden;visibility:hidden;height:0}
 
 /* Básico */
-body {
-    background-color: #EEE;
-    color: #333333;
-    font-family: sans-serif;
-    line-height: 1.429;
-    margin: 0;
-    padding: 0;
-    text-align: left;
-    font-size: 13px;
-}
+body {background-color: #EEE; color: #333333; line-height: 1.429; margin: 0; padding: 0; text-align: left; font-size: 13px}
+body, input, button {font-family: sans-serif}
 
 /* Cabeçalhos */
 h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#111;}
@@ -41,7 +33,7 @@ a:hover, a:active {background-color: #000;color: #fff;text-decoration: none;}
 /* Forms */
 dl dd input[type=text], dl dd input, dl dd select, dl dd textarea {margin-top: 0; margin-bottom: 0}
 label {font-weight: normal;}
-input, select, textarea {font-family: sans-serif;padding: 0.25em 0;text-indent: 3px;font-size: 1em;}
+input, select, textarea {padding: 0.25em 0;text-indent: 3px;font-size: 1em;}
 select {text-indent: 0;}
 fieldset {border-width: 1px 0 0 0;}
 
@@ -60,7 +52,7 @@ textarea {height: 5.5em}
 .buttons li {float: left;margin-right: 0.5em;}
 .buttons .description {padding-top: 0.70em;}
 .buttons.grid {margin-bottom: 0;}
-button {font-family: sans-serif;padding: 0.5em 1.5em;font-size: 1em;}
+button {padding: 0.5em 1.5em;font-size: 1em;}
 
 /* Tabelas */
 table.grid {width: 100%;margin-top: 1%;border-collapse:collapse;}
@@ -78,8 +70,6 @@ table.grid {width: 100%;margin-top: 1%;border-collapse:collapse;}
 /* Páragrafos */
 p {margin-bottom: 1.143em;}
 * p:last-child {margin-bottom: 0;}
-blockquote {background: #DDD; color: #333; padding: 0.5em 0.75em; margin: 0 0 0.5em 0;float: left}
-.comentario {background: url(../img/commentArrow.png) no-repeat 0.5em 0px; padding-top: 5px; margin-top: 0.1em;}
 
 /* Listas */
 dl {margin-bottom: 1em}
@@ -87,9 +77,6 @@ dl dt label {display: block; padding-top: 0.25em}
 dl dt, dl dd {margin-bottom: 0.75em}
 dt, dd {float: left}
 dt {width: 12em;clear: both;text-align: right;margin-right: 1em}
-ol.historico li {margin-bottom:1em}
-.dataMovimentacao, .descricaoMovimentacao {float: left}
-.dataMovimentacao {margin-right: 1em}
 dd ul li {padding: 0.25em 0;}
 dd ul li.even {background: #FAFAFA;}
 dd ul li.odd {background: #F5F5F5;}
@@ -187,7 +174,7 @@ div.message {margin: 0 0 2% 0; border-width: 1px 0}
 #section.withSidebar #article {width: 71%;float: left;}
 
 /* Footer */
-#footer {background: url(../img/bgRodape.gif) repeat-x 0% 0%;font-size: 1em;}
+#footer {background: url(../img/bgRodape.gif) repeat-x 0% 0%;font-size: 1em; color: #333}
 #footer p {float: right;margin-bottom: 0;}
 #footer address {float: left;margin-right: 12px;}
 #footer ul, #footer ul li {float: left;}
@@ -227,6 +214,13 @@ body.basic #message {border-top: 0}
 .item-ajuda h3 {border-bottom-width: 1px; border-color: #DDD; margin-bottom: 0.75em}
 .item-ajuda dt {float: none; font-weight: bold; width: auto; text-align: left;}
 .item-ajuda h4 {font-size: 1.25em; font-weight: bold; margin-bottom: auto;}
+
+/* Historico */
+blockquote {background: #DDD; color: #333; padding: 0.5em 0.75em; margin: 0 0 0.5em 0;float: left}
+.comentario {background: url(../img/commentArrow.png) no-repeat 0.5em 0px; padding-top: 5px; margin-top: 0.1em;}
+ol.historico li {margin-bottom:1em}
+.dataMovimentacao, .descricaoMovimentacao {float: left}
+.dataMovimentacao {margin-right: 1em}
 
 /* File Upload */
 #fileUpload {margin-bottom: 2%}
@@ -268,12 +262,7 @@ body.basic #message {border-top: 0}
     text-shadow: 1px 1px white;
 }
 
-.dataTables_info {
-    width: auto;
-    float: right;
-    font-style: italic;
-    text-align: right;
-}
+.dataTables_info {width: auto; float: right; font-style: italic; text-align: right}
 
 /* Identação */
 .indentedName {padding-left: 16px; background: url(../img/icons/child.png) no-repeat 0% 50%;}
