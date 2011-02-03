@@ -149,6 +149,7 @@ class AbrirprocessoController extends BaseController
             }
         }
 
+        $this->view->hasFormulario = $processo->assunto->hasFormulario();
         $this->view->uploadedFiles = $session->uploadedFiles;
     }
 
