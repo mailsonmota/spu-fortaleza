@@ -36,7 +36,7 @@ echo $this->pagenav()->closeList();
 		    	echo '<li>Nenhum arquivo enviado.</li>';
 		    } else {
 		    	foreach ($this->uploadedFiles as $item) {
-		    		print '<li>' . $item . '</li>';
+		    		print '<li>' . $item->nome . ' (Remover)</li>';
 		    	}
 		    }
 		    ?>

@@ -59,7 +59,15 @@ class ArquivoDao extends BaseDao
         return $result;
 	}
 	
-	public function getArquivoDownloadUrl($arquivoHash)
+    public function getArquivoDownloadUrl($arquivoHash)
+    {
+        $url = $this->getBaseUrl() . "/api/node/workspace/SpacesStore/"
+             . $arquivoHash['id'] . "/content/" . $arquivoHash['nome'];
+        $url = $this->addAlfTicketUrl($url);
+        return $url;
+    }
+    
+	public function getArquivoFormularioDownloadUrl($arquivoHash)
 	{
 		$url = $this->getBaseUrl() . "/spu/formulario/get/assunto/"
 		. $arquivoHash['id'];
@@ -74,7 +82,7 @@ class ArquivoDao extends BaseDao
 	 */
 	public function getContentFromUrl($getData)
 	{
-		$url = $this->getArquivoDownloadUrl($getData);
+		$url = $this->getArquivoFormularioDownloadUrl($getData);
 		$curlObj = new CurlClient();
 		$result = $curlObj->doGetRequest($url);
 		/*if ($this->isAlfrescoError($result)) {
