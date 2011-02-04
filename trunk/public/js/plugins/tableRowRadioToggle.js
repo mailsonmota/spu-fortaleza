@@ -23,14 +23,21 @@ function tableRowRadioToggle() {
 		row = $(radio).parent().parent();
 		
 		$(row).click(function() {
+			
 			// toggle the checked state
 			currentRow = $(this);
 			$(currentRow).find(":radio").each(function(j,currentRadio) {
 				checked = false;
 				
-				if(applicableRadio(currentRadio)) {
-					// toggle radio states
+				if (applicableRadio(currentRadio)) {
+					/*// toggle radio states
 					if (currentRadio.checked) {
+						checked = false;
+					} else {
+						checked = true;
+						$(currentRow).addClass(tableRowRadioCheckedClass);
+					}*/
+					if (currentRow.hasClass(tableRowRadioCheckedClass)) {
 						checked = false;
 					} else {
 						checked = true;
