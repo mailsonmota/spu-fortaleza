@@ -154,6 +154,11 @@ class TipoProcesso extends BaseEntity
         return $dao;
     }
     
+    public function loadFromHash($hash)
+    {
+    	$this->_loadTipoProcessoFromHash($hash);
+    }
+    
     protected function _loadTipoProcessoFromHash($hash)
     {
         $this->setNodeRef($this->_getHashValue($hash, 'noderef'));
