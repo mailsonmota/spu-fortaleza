@@ -122,6 +122,11 @@ function escolherModal(modalId, selectId) {
 	$.modal.close('#' + modalId);
 }
 
+function removeListAndInputItem(listItem, selectId, itemValue) {
+	$(listItem).parent().remove();
+    $("#" + selectId).val('');
+}
+
 function removeListAndSelectItem(listItem, selectId, itemValue) {
     $(listItem).parent().remove();
     $("#" + selectId + " option[value='" + itemValue + "']").remove();

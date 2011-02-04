@@ -35,30 +35,3 @@ echo $this->pagenav()->closeList();
         ?>
     </form>
 </div>
-
-<div id="modal-wrap" class="hidden">
-	<div id="modal-overlay" class="overlay">
-		<div id="modal_destinoId" class="modal">
-		    <?php 
-		    
-		    echo $this->ajaxDataTable($this->simpleUrl('listar-destinos', 'protocolos-ajax'), array('', 'Nome'), array('name' => 'protocoloDestino', 'id' => 'grid-destinos'))->render();
-		    
-		    echo $this->buttonlist()->open();
-		    echo $this->buttonlist()->button('Escolher', null, array('onClick' => "escolherModal('modal_destinoId', 'destinoId', false)"));
-		    echo $this->buttonlist()->resetbutton();
-		    echo $this->buttonlist()->close(true);
-		    ?>
-		</div>
-		
-		<div id="modal_copias" class="modal">
-			<?php 
-			echo $this->ajaxDataTable($this->simpleUrl('listar-destinos', 'protocolos-ajax'), array('', 'Nome'), array('name' => 'protocoloCopias[]', 'id' => 'grid-copias'))->render();
-			
-			echo $this->buttonlist()->open();
-		    echo $this->buttonlist()->button('Escolher', null, array('onClick' => "escolherModal('modal_copias', 'copias')"));
-		    echo $this->buttonlist()->resetbutton();
-		    echo $this->buttonlist()->close(true);
-		    ?>
-		</div>
-	</div>
-</div>
