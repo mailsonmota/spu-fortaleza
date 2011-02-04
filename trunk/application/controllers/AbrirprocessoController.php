@@ -7,7 +7,6 @@ class AbrirprocessoController extends BaseController
     public function indexAction()
     {
         if ($this->getRequest()->isPost()) {
-                $this->_cleanUploadedFilesInfoFromSession();
                 $this->_helper->redirector('formulario',
                                            $this->getController(),
                                            'default',
@@ -137,10 +136,6 @@ class AbrirprocessoController extends BaseController
 
                 try {
                     $processo->uploadArquivo($postData);
-                    if ($session->uploadedFilesCount == null) {
-                        $session->uploadedFilesCount = 0;
-                    }
-                    $session->uploadedFiles[$session->uploadedFilesCount++] = $_FILES['fileToUpload']['name'];
                 } catch (Exception $e) {
                     throw new Exception('Erro no upload de arquivo. Mensagem: ' . $e->getMessage());
                 }
@@ -149,8 +144,11 @@ class AbrirprocessoController extends BaseController
             }
         }
 
+        // Recarregando o processo para pegar os arquivos recém-anexados
+        $processo->carregarPeloId($processo->id);
+        
         $this->view->hasFormulario = $processo->assunto->hasFormulario();
-        $this->view->uploadedFiles = $session->uploadedFiles;
+        $this->view->uploadedFiles = $processo->getArquivos();
     }
 
     public function confirmacaocriacaoAction()
@@ -172,7 +170,6 @@ class AbrirprocessoController extends BaseController
 
                 try {
                 $processo->tramitar($postData);
-                $this->_cleanUploadedFilesInfoFromSession();
                 } catch (AlfrescoApiException $e) {
                         throw $e;
                 } catch (Exception $e) {
@@ -350,12 +347,5 @@ class AbrirprocessoController extends BaseController
                                    $this->getController(),
                                    'default',
                                    array('tipoprocesso' => $this->_getIdTipoProcessoUrl()));
-    }
-
-    protected function _cleanUploadedFilesInfoFromSession()
-    {
-        $session = new Zend_Session_Namespace('aberturaProcesso');
-        unset($session->uploadedFiles);
-        unset($session->uploadedFilesCount);
     }
 }

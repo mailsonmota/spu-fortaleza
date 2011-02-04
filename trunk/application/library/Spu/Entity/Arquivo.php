@@ -69,4 +69,10 @@ class Arquivo extends BaseEntity
         $dao = $this->_getDao();
         return $dao->getArquivoDownloadUrl($arquivoHash);
     }
+    
+    public function getArquivoProcessoDownloadUrl($arquivoHash)
+    {
+        $dao = $this->_getDao();
+        return $dao->getArquivoProcessoDownloadUrl($arquivoHash);
+    }
 }
