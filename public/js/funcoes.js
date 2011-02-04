@@ -121,3 +121,8 @@ function escolherModal(modalId, selectId) {
 	
 	$.modal.close('#' + modalId);
 }
+
+function removeListAndSelectItem(listItem, selectId, itemValue) {
+    $(listItem).parent().remove();
+    $("#" + selectId + " option[value='" + itemValue + "']").remove();
+}

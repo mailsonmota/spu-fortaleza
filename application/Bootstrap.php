@@ -81,6 +81,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$view->headLink()->appendStylesheet($baseUrl . '/css/datePicker.css');
 		$view->headLink()->appendStylesheet($baseUrl . '/css/plupload.css');
 		$view->headLink()->appendStylesheet($baseUrl . '/css/dataTables.css');
+        $view->headLink()->appendStylesheet($baseUrl . '/css/jquery-ui-1.8.9.custom.css');
 		$view->headLink()->appendStylesheet($baseUrl . '/css/estilo.css');
 		$view->headLink()->appendStylesheet($baseUrl . '/css/print.css', array('media' => 'print'));
 		$view->headLink()->appendStylesheet($baseUrl . '/css/tema.css');
@@ -111,6 +112,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$view->headScript()->appendFile($pluginsPath . 'jquery.meio.mask.js');
 		$view->headScript()->appendFile($pluginsPath . 'xsdForm.js');
 		$view->headScript()->appendFile($pluginsPath . 'xsdForm-ui.js');
+        $view->headScript()->appendFile($pluginsPath . 'jquery-ui-1.8.9.custom.min.js');
 		$view->headScript()->appendFile($jsPath . 'funcoes.js');
 		$view->headScript()->appendFile($pluginsPath . 'jquery-simulate.js');
 		$view->headScript()->appendFile($pluginsPath . 'regex-mask-plugin.js');
