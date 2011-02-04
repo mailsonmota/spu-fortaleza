@@ -99,7 +99,7 @@ class Zend_View_Helper_AjaxSelectMultiple extends Zend_View_Helper_Abstract
 
                            if ($(\"#$id option[value='\" + itemId + \"']\").size() == 0) {
                                $('#$listId').append('<li>' + itemName + ' (<a href=\"#\" onClick=\"removeListAndSelectItem(this, \'$id\', \'' + itemId + '\')\">Remover</a>)</li>');
-		                       $('#$id').append('<option value=\"' + itemId + '\">' + itemName + '</option>');
+		                       $('#$id').append('<option value=\"' + itemId + '\" selected=\"selected\">' + itemName + '</option>');
                            }
 
                            $('#$autoCompleteId').val('');
