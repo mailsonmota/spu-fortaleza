@@ -46,4 +46,36 @@ class AssuntoDao extends BaseDao
         
         return $result['Assunto'][0];
     }
+    
+    public function inserir($postData)
+    {    	
+    	$url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/inserir";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        
+        $result = $curlObj->doPostRequest($url, $postData);
+        
+        if ($this->isAlfrescoError($result)) {
+            throw new Exception($this->getAlfrescoErrorMessage($result));
+        }
+        
+        return $result['Assunto'][0];
+    }
+    
+    public function editar($id, $postData)
+    {       
+        $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/editar/$id";
+        $url = $this->addAlfTicketUrl($url);
+        
+        $curlObj = new CurlClient();
+        
+        $result = $curlObj->doPostRequest($url, $postData);
+        
+        if ($this->isAlfrescoError($result)) {
+            throw new Exception($this->getAlfrescoErrorMessage($result));
+        }
+        
+        return $result['Assunto'][0];
+    }
 }
