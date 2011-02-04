@@ -129,6 +129,35 @@ class Assunto extends BaseEntity
 		}
 	}
 	
+	public function inserir($postData)
+    {
+    	$dao = $this->_getDao();
+    	$hashDeAssuntos = $dao->inserir($postData);
+
+        foreach ($hashDeAssuntos as $hashAssunto) {
+            $hashDadosAssunto = array_pop($hashAssunto); 
+            $this->_loadAssuntoFromHash($hashDadosAssunto);
+            $this->setCategoria($hashDadosAssunto['tipoProcesso']);
+        }
+    }
+    
+    public function editar($postData)
+    {
+    	$dao = $this->_getDao();
+        $hashDeAssuntos = $dao->editar($this->getId(), $postData);
+
+        echo '<pre>';
+        var_dump($hashDeAssuntos);
+        echo '</pre>';
+        exit;
+        
+        foreach ($hashDeAssuntos as $hashAssunto) {
+            $hashDadosAssunto = array_pop($hashAssunto); 
+            $this->_loadAssuntoFromHash($hashDadosAssunto);
+            $this->setCategoria($hashDadosAssunto['tipoProcesso']);
+        }
+    }
+	
 	//FIXME: Implementar Assunto::hasFormulario
 	public function hasFormulario()
 	{
