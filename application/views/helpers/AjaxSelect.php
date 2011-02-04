@@ -35,10 +35,12 @@ class Zend_View_Helper_AjaxSelect extends Zend_View_Helper_Abstract
         $name = $this->_name;
         $id = $this->_getId();
         $autoCompleteId = $this->_getAutoCompleteId();
+        $listId = $this->_getListId();
         
         $html  = "";
         $html .= "<dt><label for=\"$id\" class=\"$labelClass\">$label:</label></dt>";
         $html .= "<dd>
+                      <ul id=\"$listId\"></ul>
                       <input type=\"text\" id=\"$autoCompleteId\" />
                       <input type=\"hidden\" name=\"$name\" id=\"$id\" />
                   </dd>";
@@ -72,10 +74,17 @@ class Zend_View_Helper_AjaxSelect extends Zend_View_Helper_Abstract
         return $id . '_autocomplete';
     }
     
+    protected function _getListId()
+    {
+        $id = $this->_getId();
+        return $id . '_list';
+    }
+    
     protected function _prepareScript()
     {
         $id = $this->_getId();
         $autoCompleteId = $this->_getAutoCompleteId();
+        $listId = $this->_getListId();
         $ajaxUrl = $this->_ajaxUrl;
         
         $js = "jQuery(document).ready(function() {
@@ -85,7 +94,13 @@ class Zend_View_Helper_AjaxSelect extends Zend_View_Helper_Abstract
                        source: '$ajaxUrl',
                        minLength: 3,
                        select: function(event, ui) {
+                           $('#$listId li').remove();
+                           $('#$listId').append('<li>' + ui.item.label + ' (<a href=\"#\" onClick=\"removeListAndInputItem(this, \'$id\', \'' + ui.item.id + '\')\">Remover</a>)</li>');
                            $('#$id').val(ui.item.id);
+                           
+                           $('#$autoCompleteId').val('');
+
+                           return false;
                        }
                    });
                });";
