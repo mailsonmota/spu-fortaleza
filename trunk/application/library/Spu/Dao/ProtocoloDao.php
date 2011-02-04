@@ -59,7 +59,8 @@ class ProtocoloDao extends BaseDao
     
     public function getTodosProtocolosPaginado($offset = 0, $pageSize = 20, $filter = null)
     {
-    	$url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listarTodosPaginado/$offset/$pageSize/$filter";
+    	$filter = urlencode($filter);
+    	$url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listarTodosPaginado/$offset/$pageSize/?s=$filter";
         $url = $this->addAlfTicketUrl($url);
 
         $curlObj = new CurlClient();

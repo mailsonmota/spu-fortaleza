@@ -10,4 +10,7 @@ echo $this->pagenav()->closeList();
     <p>
     	Bem-vindo, <b><?php echo $this->pessoa->nome ?></b>!
     </p>
+    <dl>
+        <?php echo $this->ajaxSelectMultiple('Destino', 'destino', $this->simpleUrl('listar-destinos', 'protocolos-ajax')) ?>
+    </dl>
 </div>
