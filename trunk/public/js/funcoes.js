@@ -63,6 +63,16 @@ jQuery(document).ready(function() {
 	$('.grid tfoot').hide();
 });
 
+function updateTable(table) {
+	$(table).find("tr").each(function(i,row) {
+		hasRadio = ($(row).find(':radio').size() > 0) ? true : false;
+		hasCheckedRadio = ($(row).find('input[type=radio]:checked').size() > 0) ? true : false;
+		if($(row).hasClass(tableRowRadioCheckedClass) && hasRadio && !hasCheckedRadio) {
+			$(row).removeClass(tableRowRadioCheckedClass);
+		}
+	});
+}
+
 function triggerEnterButton() {
 	// Botão Default - Enter
     $('form input, form select').live('keypress', function (e) {
