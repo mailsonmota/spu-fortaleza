@@ -20,7 +20,7 @@ jQuery(document).ready(function() {
 	//$('a[rel*=facebox]').facebox();
 	
 	tableRowCheckboxToggle();
-	tableRowRadioToggle();
+	//tableRowRadioToggle();
 	
 	$.modal();
 	$('textarea').elastic();
@@ -47,10 +47,10 @@ jQuery(document).ready(function() {
 		iDisplayLength: 20, 
 		sPaginationType: "full_numbers", 
 		"bLengthChange": false, 
-		"bSort": false, 
+		"bSort": false/*, 
 		"fnDrawCallback": function() {
 			updateTable($(this));
-		}
+		}*/
 	});
 	$('.grid tfoot').hide();
 	
@@ -62,7 +62,7 @@ jQuery(document).ready(function() {
 	);
 });
 
-function updateTable(table) {
+/*function updateTable(table) {
 	$(table).find("tr").each(function(i,row) {
 		hasRadio = ($(row).find(':radio').size() > 0) ? true : false;
 		hasCheckedRadio = ($(row).find('input[type=radio]:checked').size() > 0) ? true : false;
@@ -70,7 +70,7 @@ function updateTable(table) {
 			$(row).removeClass(tableRowRadioCheckedClass);
 		}
 	});
-}
+}*/
 
 function triggerEnterButton() {
 	// Botão Default - Enter
