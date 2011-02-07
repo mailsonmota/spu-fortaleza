@@ -7,8 +7,6 @@ class IndexController extends BaseController
     		$this->setMessageForTheView('Você não tem acesso à nenhum setor de protocolo, portanto
     		                              não poderá abrir ou tramitar processos.');
     	}
-    	
-    	echo $this->getTicket();
     }
 }
 
