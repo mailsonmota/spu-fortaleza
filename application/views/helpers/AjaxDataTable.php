@@ -55,9 +55,6 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
                             sPaginationType: "text_only", 
                             "bLengthChange": false, 
                             "bSort": false, 
-                            "fnDrawCallback": function() {
-                                updateTable($(this));
-                            },
                             "bProcessing": true,
                             "bServerSide": true,
                             "sAjaxSource": "' . $this->_ajaxUrl . '", 

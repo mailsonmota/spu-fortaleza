@@ -14,7 +14,7 @@ function fnDataTablesPipeline (sSource, aoData, fnCallback) {
 		}, 
 		complete: function(jqXHR, textStatus) {
 			tableRowCheckboxToggle();
-			tableRowRadioToggle();
+			//tableRowRadioToggle();
 		}
 	});
 }
