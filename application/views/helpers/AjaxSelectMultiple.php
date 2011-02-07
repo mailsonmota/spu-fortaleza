@@ -41,7 +41,7 @@ class Zend_View_Helper_AjaxSelectMultiple extends Zend_View_Helper_Abstract
         $html .= "<dt><label for=\"$id\" class=\"$labelClass\">$label:</label></dt>";
         $html .= "<dd>
                       <ul id=\"$listId\"></ul>
-                      <input type=\"text\" id=\"$autoCompleteId\" />
+                      <input type=\"text\" id=\"$autoCompleteId\" class=\"autocomplete\"/>
                       <select name=\"$name\" id=\"$id\" multiple=\"multiple\"></select>
                   </dd>";
         
