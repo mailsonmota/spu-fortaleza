@@ -7,14 +7,6 @@ jQuery(document).ready(function() {
 	$('.mascaraCep').setMask('cep');
 	$('.fone').setMask('phone');
 	
-	$("form").validate();
-
-	$.extend($.validator.messages, {
-        	required: "Este campo é requerido.",
-        	email: "E-mail inválido."
-        }
-	);
-	
 	$.dpText = {
 		TEXT_PREV_YEAR		:	'Ano anterior',
 		TEXT_PREV_MONTH		:	'Mês anterior',
@@ -61,6 +53,13 @@ jQuery(document).ready(function() {
 		}
 	});
 	$('.grid tfoot').hide();
+	
+	$('#article form').validate();
+	$.extend($.validator.messages, {
+        	required: "Este campo é requerido.",
+        	email: "E-mail inválido."
+        }
+	);
 });
 
 function updateTable(table) {

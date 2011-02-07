@@ -41,8 +41,8 @@ class Zend_View_Helper_AjaxSelect extends Zend_View_Helper_Abstract
         $html .= "<dt><label for=\"$id\" class=\"$labelClass\">$label:</label></dt>";
         $html .= "<dd>
                       <ul id=\"$listId\"></ul>
-                      <input type=\"text\" id=\"$autoCompleteId\" />
-                      <input type=\"hidden\" name=\"$name\" id=\"$id\" />
+                      <input type=\"text\" id=\"$autoCompleteId\" class=\"autocomplete\"/>
+                      <input type=\"hidden\" name=\"$name\" id=\"$id\" class=\"$labelClass\" />
                   </dd>";
         
         $this->_html = $html;
