@@ -3,6 +3,8 @@ require_once('BaseClassification.php');
 Loader::loadDao('TipoTramitacaoDao');
 class TipoTramitacao extends BaseClassification
 {
+	const PARALELA = 'Paralelo';
+	
     public function listar()
     {
         $dao = $this->_getDao();
@@ -22,5 +24,10 @@ class TipoTramitacao extends BaseClassification
     {
         $dao = new TipoTramitacaoDao($this->_getTicket());
         return $dao;
+    }
+    
+    public function isParalela()
+    {
+    	return ($this->_nome == self::PARALELA);
     }
 }

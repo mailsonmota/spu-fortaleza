@@ -85,6 +85,11 @@ class ArquivoDao extends BaseDao
 		$url = $this->getArquivoFormularioDownloadUrl($getData);
 		$curlObj = new CurlClient();
 		$result = $curlObj->doGetRequest($url);
+		
+		if (strpos($result, 'Internal Error') > -1) {
+			throw new Exception('Erro ao capturar o formulario');
+		}
+		
 		/*if ($this->isAlfrescoError($result)) {
 		 throw new Exception($this->getAlfrescoErrorMessage($result));
 		}*/

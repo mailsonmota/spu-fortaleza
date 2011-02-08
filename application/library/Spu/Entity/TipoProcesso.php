@@ -218,8 +218,10 @@ class TipoProcesso extends BaseEntity
         $this->setTiposManifestante($tiposManifestante);
     }
     
-    public function carregarPeloId($id)
+    public function carregarPeloId($id = null)
     {
+    	$id = (!$id) ? $this->getId() : $id;
+    	
         $dao = $this->_getDao();
         $hashDeTiposProcesso = $dao->getTipoProcesso($id);
         

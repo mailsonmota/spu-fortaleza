@@ -286,4 +286,12 @@ class ProcessoDao extends BaseDao
         
         return $result['Processos'][0];
     }
+    
+    public function getProcessosParalelos($processoId)
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/paralelos/$processoId";
+        $url = $this->addAlfTicketUrl($url);
+        
+        return $this->_getProcessosFromUrl($url);
+    }
 }
