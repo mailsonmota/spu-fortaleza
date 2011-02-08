@@ -177,12 +177,15 @@ class Assunto extends BaseEntity
 	//FIXME: Implementar Assunto::hasFormulario
 	public function hasFormulario()
 	{
+		$hasFormulario = false;
 		try {
 		    $formularioXsd = $this->getFormularioXsd();
-		    return true;
+		    $hasFormulario = true;
 		} catch (Exception $e) {
-			return false;
+			$hasFormulario = false;
 		}
+		
+		return $hasFormulario;
 	}
 	
 	public function getFormularioXsd()

@@ -32,7 +32,7 @@ class Zend_View_Helper_AjaxSelectMultiple extends Zend_View_Helper_Abstract
 	{
 		$label = $this->_label;
 		$labelClass = $this->_getLabelClass();
-        $name = $this->_name;
+        $name = $this->_name . '[]';
         $id = $this->_getId();
         $autoCompleteId = $this->_getAutoCompleteId();
         $listId = $this->_getListId();

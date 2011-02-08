@@ -710,4 +710,12 @@ class Processo extends BaseEntity
     {
         return $this->_respostasFormulario;
     }
+    
+    public function getProcessosParalelos()
+    {
+    	$dao = $this->_getDao();
+    	$hashProcessos = $dao->getProcessosParalelos($this->getId());
+    	
+    	return $this->_loadManyFromHash($hashProcessos);
+    }
 }

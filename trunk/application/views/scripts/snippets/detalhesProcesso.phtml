@@ -137,3 +137,22 @@
     <?php endforeach; ?>
 </fieldset>
 <?php endif ?>
+
+<?php $this->processo->tipoProcesso->carregarPeloId() ?>
+<?php if ($this->processo->tipoProcesso->tramitacao->isParalela()): ?>
+<fieldset>
+    <legend>Processos Paralelos</legend>
+    <table summary="Processos Paralelos">
+        <thead>
+            <tr>Local</tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->processo->getProcessosParalelos() as $processoParalelo): ?>
+            <tr>
+                <td><?php echo $processoParalelo->protocolo->path ?></td>
+            </tr>
+        <?php endforeach ?>
+        </tbody>
+    </table>
+</fieldset>
+<?php endif ?>
