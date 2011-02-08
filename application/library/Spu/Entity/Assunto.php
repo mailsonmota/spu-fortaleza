@@ -9,6 +9,17 @@ class Assunto extends BaseEntity
 	protected $_categoria;
 	protected $_corpo;
 	protected $_notificarNaAbertura;
+	protected $_tipoProcesso;
+	
+	public function getTipoProcesso()
+	{
+	    return $this->_tipoProcesso;
+	}
+	
+	public function setTipoProcesso($value)
+	{
+	    $this->_tipoProcesso = $value;
+	}
 
 	public function getNodeRef()
 	{
@@ -100,6 +111,16 @@ class Assunto extends BaseEntity
 		$this->setNome($this->_getHashValue($hash, 'nome'));
 		$this->setCorpo($this->_getHashValue($hash, 'corpo'));
 		$this->setNotificarNaAbertura($this->_getHashValue($hash, 'notificarNaAbertura') ? true : false);
+		$this->setTipoProcesso($this->_loadTipoProcessoFromHash($this->_getHashValue($hash, 'tipoProcesso')));
+	}
+	
+	protected function _loadTipoProcessoFromHash($hash){
+		$tipoProcesso = new TipoProcesso($this->_ticket);
+		if ($hash) {
+			$hash = array_pop($hash);
+			$tipoProcesso->setNodeRef($this->_getHashValue($hash, 'noderef'));
+		}		
+        return $tipoProcesso;
 	}
 
 	public function listarPorTipoProcesso($idTipoProcesso)
@@ -146,11 +167,6 @@ class Assunto extends BaseEntity
     	$dao = $this->_getDao();
         $hashDeAssuntos = $dao->editar($this->getId(), $postData);
 
-        echo '<pre>';
-        var_dump($hashDeAssuntos);
-        echo '</pre>';
-        exit;
-        
         foreach ($hashDeAssuntos as $hashAssunto) {
             $hashDadosAssunto = array_pop($hashAssunto); 
             $this->_loadAssuntoFromHash($hashDadosAssunto);
