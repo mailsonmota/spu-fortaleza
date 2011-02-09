@@ -27,9 +27,9 @@
     	                                 $this->simpleUrl('listar-destinos', 'protocolos-ajax'), 
     	                                 array('required' => true));
     }
-    
     echo $this->select('Prioridade', 'prioridadeId', $this->listaPrioridades, null, array('required' => true));
     echo $this->textbox('Data Prazo', 'dataPrazo', null, array('class' => 'mascaraData'));
+    echo $this->ajaxSelectMultiple('Com Cópia', 'copias', $this->simpleUrl('listar-destinos', 'protocolos-ajax'), array('id' => 'copias'));
     echo $this->textarea('Corpo', 'corpo', null, array('required' => true));
     echo $this->form()->closeFieldList();
     ?>
