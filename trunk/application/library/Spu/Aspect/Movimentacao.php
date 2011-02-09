@@ -247,30 +247,37 @@ class Movimentacao extends Spu_Aspect_Base
     
     protected function _loadProtocoloFromHash($hash)
     {
-        $hash = array_pop($hash);
-        $protocolo = new Protocolo();
-        $protocolo->loadFromHash($hash);
+    	$protocolo = new Protocolo();
+    	if ($hash) {
+	        $hash = array_pop($hash);
+	        $protocolo->loadFromHash($hash);
+    	}
         
         return $protocolo;
     }
     
     protected function _loadPrioridadeFromHash($hash)
     {
-        $hash = array_pop($hash);
-        $prioridade = new Prioridade();
-        $prioridade->loadFromHash($hash);
+    	$prioridade = new Prioridade();
+    	
+    	if ($hash) {
+	        $hash = array_pop($hash);
+	        $prioridade->loadFromHash($hash);
+    	}
         
         return $prioridade;
     }
     
     protected function _loadUsuarioFromHash($hash)
     {
-        $hash = array_pop($hash);
-        $usuario = new Usuario();
-        $usuario->setNome($this->_getHashValue($hash, 'nome'));
-        $usuario->setSobrenome($this->_getHashValue($hash, 'sobrenome'));
-        $usuario->setEmail($this->_getHashValue($hash, 'email'));
-        $usuario->setLogin($this->_getHashValue($hash, 'usuario'));
+    	$usuario = new Usuario();
+    	if ($hash) {
+	        $hash = array_pop($hash);
+	        $usuario->setNome($this->_getHashValue($hash, 'nome'));
+	        $usuario->setSobrenome($this->_getHashValue($hash, 'sobrenome'));
+	        $usuario->setEmail($this->_getHashValue($hash, 'email'));
+	        $usuario->setLogin($this->_getHashValue($hash, 'usuario'));
+    	}
         
         return $usuario;
     }
