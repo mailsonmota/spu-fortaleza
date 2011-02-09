@@ -60,6 +60,10 @@ jQuery(document).ready(function() {
         	email: "E-mail inválido."
         }
 	);
+	
+	$('.autocomplete').val('Digite para buscar...').addClass('autocomplete-wait');
+	$('.autocomplete').focus(function() {$(this).val('').removeClass('autocomplete-wait');});
+	$('.autocomplete').blur(function() {if ($(this).val() == '') $(this).val('Digite para buscar...').addClass('autocomplete-wait');});
 });
 
 /*function updateTable(table) {
