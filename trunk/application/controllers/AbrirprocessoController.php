@@ -36,7 +36,9 @@ class AbrirprocessoController extends BaseController
         }
 
         if ($this->getRequest()->isPost()) {
+            
             $postData = $this->getRequest()->getParams();
+
             try {
                 $session = new Zend_Session_Namespace('aberturaProcesso');
                 $postData['proprietarioId'] = $postData['origem'];
@@ -167,6 +169,7 @@ class AbrirprocessoController extends BaseController
                 $postData['prioridadeId'] = $processo->prioridade->id;
                 $postData['prazo'] = $processo->data;
                 $postData['despacho'] = "";
+                $postData['copias'] = $session->formDadosGeraisProcesso['copias'];
 
                 try {
                 $processo->tramitar($postData);
