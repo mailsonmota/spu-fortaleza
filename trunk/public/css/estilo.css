@@ -37,6 +37,9 @@ input, select, textarea {padding: 0.25em 0;text-indent: 3px;font-size: 1em;}
 select {text-indent: 0;}
 fieldset {border-width: 1px 0 0 0;}
 
+/* Tabelas */
+table tr td, table tr th {padding: 0.5em}
+
 /* Forms - Classes Adicionais */
 .middleText {width: 30em;}
 .largeText {width: 50em;}
@@ -59,7 +62,6 @@ table.grid {width: 100%;margin-top: 1%;border-collapse:collapse;}
 .grid tr th {background: #777;border-color: #666;border-width: 1px 0;border-style: solid;color: white;font-weight: normal;text-shadow: 1px 1px #444;}
 .grid .tableFilter th {background: #888;border-color: #777;}
 .grid .tableFilter th * {margin: 0;border: 0;}
-.grid tr td, .grid tr th {padding: 0.5em;}
 .grid tr td {border-color: #E1E1E3; border-style: solid; border-width: 1px 0;}
 .grid .odd {background: #F5F5F5;}
 .grid tbody a {margin-right: 12px;}
