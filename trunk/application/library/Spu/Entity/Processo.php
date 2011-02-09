@@ -339,8 +339,10 @@ class Processo extends BaseEntity
         $this->setAssunto($this->_loadAssuntoFromHash($this->_getHashValue($hash, 'assunto')));
         $this->setManifestante($this->_loadManifestanteFromHash($this->_getHashValue($hash, 'manifestante')));
         $this->setTipoManifestante($this->_loadTipoManifestanteFromHash($this->_getHashValue($hash,
-                                                                                             'tipoManifestante')));
+                                                                                               'tipoManifestante')));
         $this->setArquivamento($this->_loadArquivamentoFromHash($this->_getHashValue($hash, 'arquivamento')));
+        $this->setMovimentacoes($this->_loadMovimentacoesFromHash($this->_getHashValue($hash, 
+                                                                                         'ultimaMovimentacao')));
     }
     
     protected function _loadPrioridadeFromHash($hash)
