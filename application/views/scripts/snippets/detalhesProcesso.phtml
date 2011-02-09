@@ -139,7 +139,8 @@
 <?php endif ?>
 
 <?php $this->processo->tipoProcesso->carregarPeloId() ?>
-<?php if ($this->processo->tipoProcesso->tramitacao->isParalela()): ?>
+<?php $processosParalelos = $this->processo->getProcessosParalelos() ?>
+<?php if ($this->processo->tipoProcesso->tramitacao->isParalela() AND $processosParalelos): ?>
 <fieldset>
     <legend>Processos Paralelos</legend>
     <table summary="Processos Paralelos">
@@ -152,7 +153,7 @@
             </tr>
         </thead>
         <tbody>
-        <?php foreach ($this->processo->getProcessosParalelos() as $processoParalelo): ?>
+        <?php foreach ($processosParalelos as $processoParalelo): ?>
             <tr>
                 <td><?php echo $processoParalelo->protocolo->path ?></td>
                 <td><?php echo $processoParalelo->movimentacoes[0]->data ?></td>
