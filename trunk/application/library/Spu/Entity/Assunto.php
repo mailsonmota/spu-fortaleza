@@ -119,8 +119,9 @@ class Assunto extends BaseEntity
 		if ($hash) {
 			$hash = array_pop($hash);
 			$tipoProcesso->setNodeRef($this->_getHashValue($hash, 'noderef'));
-		}		
-        return $tipoProcesso;
+			$tipoProcesso->setNome($this->_getHashValue($hash, 'nome'));
+		}
+       return $tipoProcesso;
 	}
 
 	public function listarPorTipoProcesso($idTipoProcesso)
