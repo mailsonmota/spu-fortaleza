@@ -14,9 +14,6 @@ class ArquivoController extends BaseTramitacaoController
 	    		$this->setMessageForTheView($e->getMessage(), 'error');
 	    	}
     	}
-    	
-        $processo = new Processo($this->getTicket());
-        $this->view->lista = $processo->listarProcessosArquivados();
     }
     
     protected function _redirectReabrir()

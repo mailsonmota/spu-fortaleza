@@ -67,21 +67,4 @@ abstract class LinkProcesso extends BaseEntity
     public function getIdProcesso() {
         return $this->getProcesso()->getId();
     }
-    
-    public function loadFromHash($hash)
-    {
-        $this->setNodeRef($this->_getHashValue($hash, 'noderef'));
-        $this->setNome($this->_getHashValue($hash, 'nome'));
-        $this->setProcesso($this->_loadProcessoFromHash($this->_getHashValue($hash, 'Processo')));
-    }
-    
-    public function _loadProcessoFromHash($hash)
-    {
-        $hashProcesso = array_pop($hash);
-        $hashProcesso = array_pop($hashProcesso);
-        $hashDadosProcesso = array_pop($hashProcesso);
-        $processo = new Processo();
-        $processo->loadFromHash($hashDadosProcesso);
-        return $processo;
-    }
 }
