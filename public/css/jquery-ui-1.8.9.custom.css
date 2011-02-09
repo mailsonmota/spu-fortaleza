@@ -345,3 +345,5 @@
 	font-weight: normal;
 	margin: -1px;
 }
+
+input[type=text].ui-autocomplete-loading { background: white url('../img/icons/ajax-loader3.gif') 5px center no-repeat; }
