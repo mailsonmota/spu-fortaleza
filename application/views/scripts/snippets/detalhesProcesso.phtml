@@ -144,12 +144,20 @@
     <legend>Processos Paralelos</legend>
     <table summary="Processos Paralelos">
         <thead>
-            <tr>Local</tr>
+            <tr>
+                <th>Local</th>
+                <th>Data</th>
+                <th>Status</th>
+                <th>Despacho</th>
+            </tr>
         </thead>
         <tbody>
         <?php foreach ($this->processo->getProcessosParalelos() as $processoParalelo): ?>
             <tr>
                 <td><?php echo $processoParalelo->protocolo->path ?></td>
+                <td><?php echo $processoParalelo->movimentacoes[0]->data ?></td>
+                <td><?php echo $processoParalelo->status->nome ?></td>
+                <td><?php echo $processoParalelo->movimentacoes[0]->despacho ?></td>
             </tr>
         <?php endforeach ?>
         </tbody>
