@@ -103,7 +103,6 @@
     </dl>
 </fieldset>
 
-<?php $this->processo->loadRespostasFormulario() ?>
 <?php if ($this->processo->hasRespostasFormulario()): ?>
 <fieldset>
     <legend>Formulário do Assunto</legend>
@@ -138,9 +137,7 @@
 </fieldset>
 <?php endif ?>
 
-<?php $this->processo->tipoProcesso->carregarPeloId() ?>
-<?php $processosParalelos = $this->processo->getProcessosParalelos() ?>
-<?php if ($this->processo->tipoProcesso->tramitacao->isParalela() AND $processosParalelos): ?>
+<?php if ($this->processo->tipoProcesso->tramitacao->isParalela() AND $this->processosParalelos): ?>
 <fieldset>
     <legend>Processos Paralelos</legend>
     <table summary="Processos Paralelos">

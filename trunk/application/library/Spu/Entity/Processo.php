@@ -214,6 +214,16 @@ class Processo extends BaseEntity
         $this->_arquivamento = $value;
     }
     
+    public function getRespostasFormulario()
+    {
+        return $this->_respostasFormulario;
+    }
+    
+    public function setRespostasFormulario($value)
+    {
+        $this->_respostasFormulario = $value;
+    }
+    
     public function getId()
     {
         $nodeRef = $this->getNodeRef();
@@ -262,50 +272,10 @@ class Processo extends BaseEntity
         return $dao;
     }
     
-    public function listarProcessosCaixaEntrada($offset = 0, $pageSize = 20, $filter = null)
-    {
-        $dao = $this->_getDao();
-        $hashProcessos = $dao->getCaixaEntrada($offset, $pageSize, $filter);
-        
-        return $this->_loadManyFromHash($hashProcessos);
-    }
-    
-    public function listarProcessosCaixaSaida($offset = 0, $pageSize = 20, $filter = null)
-    {
-        $dao = $this->_getDao();
-        $hashProcessos = $dao->getCaixaSaida($offset, $pageSize, $filter);
-        
-        return $this->_loadManyFromHash($hashProcessos);
-    }
-    
-    public function listarProcessosCaixaAnalise($offset = 0, $pageSize = 20, $filter = null)
-    {
-        $dao = $this->_getDao();
-        $hashProcessos = $dao->getCaixaAnalise($offset, $pageSize, $filter);
-        
-        return $this->_loadManyFromHash($hashProcessos);
-    }
-    
-    public function listarProcessosCaixaEnviados($offset = 0, $pageSize = 20, $filter = null)
-    {
-        $dao = $this->_getDao();
-        $hashProcessos = $dao->getCaixaEnviados($offset, $pageSize, $filter);
-        
-        return $this->_loadManyFromHash($hashProcessos);
-    }
-    
     public function listarProcessosCaixaExternos()
     {
         $dao = $this->_getDao();
         $hashProcessos = $dao->getCaixaExternos();
-        
-        return $this->_loadManyFromHash($hashProcessos);
-    }
-    
-    public function listarProcessosArquivados($offset = 0, $pageSize = 20, $filter = null)
-    {
-        $dao = $this->_getDao();
-        $hashProcessos = $dao->getCaixaArquivo($offset, $pageSize, $filter);
         
         return $this->_loadManyFromHash($hashProcessos);
     }
@@ -686,38 +656,8 @@ class Processo extends BaseEntity
         return $return;
     }
     
-    public function loadRespostasFormulario()
-    {
-    	$arquivoEntity = new Arquivo($this->_getTicket());
-        $dao = $arquivoEntity->getDao();
-        try {
-            $return = $dao->getRespostasFormulario($this->getId());
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-        
-        $this->_respostasFormulario = new RespostasFormulario();
-        
-        if ($return) {
-            $this->_respostasFormulario->loadFromXML($return);
-        }
-    }
-    
     public function hasRespostasFormulario()
     {
     	return $this->_respostasFormulario->hasData();
-    }
-    
-    public function getRespostasFormulario()
-    {
-        return $this->_respostasFormulario;
-    }
-    
-    public function getProcessosParalelos()
-    {
-    	$dao = $this->_getDao();
-    	$hashProcessos = $dao->getProcessosParalelos($this->getId());
-    	
-    	return $this->_loadManyFromHash($hashProcessos);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 require_once('BaseDao.php');
+Loader::loadEntity('RespostasFormulario');
 class ArquivoDao extends BaseDao
 {
 	private $_processoBaseUrl = 'spu/processo';
@@ -103,8 +104,22 @@ class ArquivoDao extends BaseDao
         $url = $this->addAlfTicketUrl($url);
         
         $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url);
+        try {
+            $result = $curlObj->doGetRequest($url);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
         
-        return $result;
+        $respostasFormulario = new RespostasFormulario();
+        if ($this->_isValidRespostasXML($result)) {
+            $respostasFormulario->loadFromXML($result);
+        }
+        
+        return $respostasFormulario;
+	}
+	
+	protected function _isValidRespostasXML($xml)
+	{
+		return (is_string($xml) AND strpos($xml, '<title>Apache') == -1) ? true : false;
 	}
 }

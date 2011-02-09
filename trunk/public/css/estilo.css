@@ -276,3 +276,4 @@ ol.historico li {margin-bottom:1em}
 
 /* Autocomplete */
 .autocomplete {background: url(../img/icons/search.png) no-repeat 6px 50%; padding-left: 24px}
+.autocomplete-wait {color: #AAA; font-style: italic}

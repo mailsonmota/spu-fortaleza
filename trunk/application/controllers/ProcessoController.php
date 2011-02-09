@@ -1,20 +1,23 @@
 <?php
 Loader::loadEntity('Processo');
+Loader::loadDao('ProcessoDao');
+Loader::loadDao('ArquivoDao');
 Loader::loadEntity('Arquivo');
 class ProcessoController extends BaseController
 {
     public function detalhesAction()
     {
-        try {
+    	try {
             $idProcesso = $this->_getIdProcessoUrl();
-            $processo = new Processo($this->getTicket());
-            if ($idProcesso) {
-                $processo->carregarPeloId($idProcesso);
-            }
+            $processoDao = new ProcessoDao($this->getTicket());
+            $processo = $processoDao->getProcesso($idProcesso);
+            $processosParalelos = $processoDao->getProcessosParalelos($processo->id);
         } catch (Exception $e) {
                 $this->setMessageForTheView('Não foi possível carregar o processo', 'error');
         }
+        
         $this->view->processo = $processo;
+        $this->view->processosParalelos = $processosParalelos;
     }
         
     public function encaminharAction()
@@ -27,7 +30,7 @@ class ProcessoController extends BaseController
                 }
                 
                 $listaPrioridades = $this->_getListaPrioridades();
-            $listaProtocolos = $this->_getListaProtocolos();
+                $listaProtocolos = $this->_getListaProtocolos();
             
                 if ($this->getRequest()->isPost()) {
                         $processo->tramitar($this->getRequest()->getPost());

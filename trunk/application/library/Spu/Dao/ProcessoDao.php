@@ -10,7 +10,7 @@ class ProcessoDao extends BaseDao
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/entrada/$offset/$pageSize/$filter";
         $url = $this->addAlfTicketUrl($url);
         
-        return $this->_getProcessosFromUrl($url);
+        return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
     
     public function getCaixaSaida($offset, $pageSize, $filter)
@@ -18,7 +18,7 @@ class ProcessoDao extends BaseDao
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/saida/$offset/$pageSize/$filter";
         $url = $this->addAlfTicketUrl($url);
         
-        return $this->_getProcessosFromUrl($url);
+        return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
     
     public function getCaixaAnalise($offset, $pageSize, $filter)
@@ -26,7 +26,7 @@ class ProcessoDao extends BaseDao
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/analise/$offset/$pageSize/$filter";
         $url = $this->addAlfTicketUrl($url);
         
-        return $this->_getProcessosFromUrl($url);
+        return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
     
     public function getCaixaEnviados($offset, $pageSize, $filter)
@@ -34,7 +34,7 @@ class ProcessoDao extends BaseDao
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/enviados/$offset/$pageSize/$filter";
         $url = $this->addAlfTicketUrl($url);
         
-        return $this->_getProcessosFromUrl($url);
+        return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
     
     public function getCaixaExternos()
@@ -42,7 +42,7 @@ class ProcessoDao extends BaseDao
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/externos";
         $url = $this->addAlfTicketUrl($url);
         
-        return $this->_getProcessosFromUrl($url);
+        return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
     
     public function getCaixaArquivo($offset, $pageSize, $filter)
@@ -50,7 +50,7 @@ class ProcessoDao extends BaseDao
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/arquivo/$offset/$pageSize/$filter";
         $url = $this->addAlfTicketUrl($url);
         
-        return $this->_getProcessosFromUrl($url);
+        return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
     
     protected function _getProcessosFromUrl($url)
@@ -98,7 +98,19 @@ class ProcessoDao extends BaseDao
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
         
-        return $result['Processo'][0];
+        $processoHash = array_pop(array_pop($result['Processo'][0])); 
+        
+        $processo = $this->_loadFromHash($processoHash);
+        
+        $arquivoDao = new ArquivoDao($this->getTicket());
+        $processo->setRespostasFormulario($arquivoDao->getRespostasFormulario($processo->id));
+            
+        $tipoProcessoDao = new TipoProcessoDao($this->getTicket());
+        $processo->setTipoProcesso($tipoProcessoDao->getTipoProcesso($processo->tipoProcesso->id));
+        
+        $processo->setMovimentacoes($this->getHistorico($processo->id));
+        
+        return $processo;
     }
     
     public function tramitar($postData)
@@ -194,7 +206,11 @@ class ProcessoDao extends BaseDao
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
         
-        return $result['Processo'][0];
+        $hashProcesso = array_pop(array_pop($result['Processo'][0]));
+        
+        $hashMovimentacao = $this->_getHashValue($hashProcesso, 'movimentacoes');
+        
+        return $this->_loadMovimentacoesFromHash($hashMovimentacao);
     }
     
     public function cancelarEnvios($postData)
@@ -293,5 +309,138 @@ class ProcessoDao extends BaseDao
         $url = $this->addAlfTicketUrl($url);
         
         return $this->_getProcessosFromUrl($url);
+    }
+    
+    protected function _loadFromHash($hash)
+    {
+    	$processo = new Processo();
+    	$processo->setNodeRef($this->_getHashValue($hash, 'noderef'));
+        $processo->setNome($this->_getHashValue($hash, 'nome'));
+        $processo->setCorpo($this->_getHashValue($hash, 'corpo'));
+        $processo->setData($this->_getHashValue($hash, 'data'));
+        $processo->setPrioridade($this->_loadPrioridadeFromHash($this->_getHashValue($hash, 'prioridade')));
+        $processo->setStatus($this->_loadStatusFromHash($this->_getHashValue($hash, 'status')));
+        $processo->setObservacao($this->_getHashValue($hash, 'observacao'));
+        $processo->setNumeroOrigem($this->_getHashValue($hash, 'numeroOrigem'));
+        $processo->setProtocolo($this->_loadProtocoloFromHash($this->_getHashValue($hash, 'localAtual')));
+        $processo->setTipoProcesso($this->_loadTipoProcessoFromHash($this->_getHashValue($hash, 'tipoProcesso')));
+        $processo->setProprietario($this->_loadProprietarioFromHash($this->_getHashValue($hash, 'proprietario')));
+        $processo->setAssunto($this->_loadAssuntoFromHash($this->_getHashValue($hash, 'assunto')));
+        $processo->setManifestante($this->_loadManifestanteFromHash($this->_getHashValue($hash, 'manifestante')));
+        $processo->setTipoManifestante($this->_loadTipoManifestanteFromHash($this->_getHashValue($hash,
+                                                                                               'tipoManifestante')));
+        $processo->setArquivamento($this->_loadArquivamentoFromHash($this->_getHashValue($hash, 'arquivamento')));
+        $processo->setMovimentacoes($this->_loadMovimentacoesFromHash($this->_getHashValue($hash, 
+                                                                                         'ultimaMovimentacao')));
+        
+        return $processo;
+    }
+    
+    protected function _loadPrioridadeFromHash($hash)
+    {
+        $hash = array_pop($hash);
+        $prioridade = new Prioridade($this->getTicket());
+        $prioridade->loadFromHash($hash);
+        
+        return $prioridade;
+    }
+    
+    protected function _loadStatusFromHash($hash)
+    {
+        $hash = array_pop($hash);
+        $status = new Status($this->getTicket());
+        $status->loadFromHash($hash);
+        
+        return $status;
+    }
+    
+    protected function _loadProtocoloFromHash($hash)
+    {
+        $hash = array_pop($hash);
+        $protocolo = new Protocolo($this->getTicket());
+        $protocolo->loadFromHash($hash);
+        
+        return $protocolo;
+    }
+    
+    protected function _loadTipoProcessoFromHash($hash)
+    {
+        $hash = array_pop($hash);
+        $tipoProcesso = new TipoProcesso($this->getTicket());
+        $tipoProcesso->setNodeRef($this->_getHashValue($hash, 'noderef'));
+        $tipoProcesso->setNome($this->_getHashValue($hash, 'nome'));
+        
+        return $tipoProcesso;
+    }
+    
+    protected function _loadProprietarioFromHash($hash)
+    {
+        return $this->_loadProtocoloFromHash($hash);
+    }
+    
+    protected function _loadAssuntoFromHash($hash)
+    {
+        $hash = array_pop($hash);
+        $assunto = new Assunto($this->getTicket());
+        $assunto->setNodeRef($hash['noderef']);
+        $assunto->setNome($hash['nome']);
+        
+        return $assunto;
+    }
+    
+    protected function _loadManifestanteFromHash($hash)
+    {
+        $hash = array_pop($hash);
+        $manifestante = new Manifestante($this->getTicket());
+        $manifestante->loadFromHash($hash);
+        
+        return $manifestante;
+    }
+    
+    protected function _loadTipoManifestanteFromHash($hash)
+    {
+        $hash = array_pop($hash);
+        $tipoManifestante = new TipoManifestante($this->getTicket());
+        $tipoManifestante->loadFromHash($hash);
+        
+        return $tipoManifestante;
+    }
+    
+    protected function _loadArquivamentoFromHash($hash)
+    {
+        $hash = array_pop($hash);
+        $arquivamento = new Arquivamento();
+        $arquivamento->loadFromHash($hash);
+        
+        return $arquivamento;
+    }
+    
+    protected function _loadMovimentacoesFromHash($hash)
+    {
+        $movimentacoes = array();
+        if ($hash) {
+            foreach ($hash[0] as $hashMovimentacao) {
+                $hashMovimentacao = array_pop($hashMovimentacao);
+                $movimentacao = new Movimentacao();
+                $movimentacao->loadFromHash($hashMovimentacao);
+                
+                $movimentacoes[] = $movimentacao;
+            }
+        }
+        
+        return $movimentacoes;
+    }
+    
+    protected function _loadManyFromHash($hashProcessos)
+    {
+        $processos = array();
+        foreach ($hashProcessos as $hashProcesso) {
+            $hashDadosProcesso = array_pop($hashProcesso); 
+            $processo = new Processo($this->getTicket());
+            $processo->loadFromHash($hashDadosProcesso);
+            $processos[] = $processo;
+        }
+        
+        return $processos;
     }
 }

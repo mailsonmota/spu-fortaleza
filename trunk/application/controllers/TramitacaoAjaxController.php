@@ -1,6 +1,7 @@
 <?php
 require_once 'BaseDataTablesController.php';
-Loader::loadEntity('CopiaProcesso');
+Loader::loadDao('ProcessoDao');
+Loader::loadDao('CopiaProcessoDao');
 class TramitacaoAjaxController extends BaseDataTablesController
 {
     public function entradaAction()
@@ -15,8 +16,8 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaEntrada()
     {
     	try {
-	        $processo = new Processo($this->getTicket());
-	        $processos = $processo->listarProcessosCaixaEntrada($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+	        $processoDao = new ProcessoDao($this->getTicket());
+	        $processos = $processoDao->getCaixaEntrada($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
 	        
 	        return $this->_convertProcessosToDataTablesRow($processos);
         } catch (Exception $e) {
@@ -64,8 +65,8 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaAnalise()
     {
     	try {
-	        $processo = new Processo($this->getTicket());
-	        $processos = $processo->listarProcessosCaixaAnalise($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+	        $processoDao = new ProcessoDao($this->getTicket());
+	        $processos = $processoDao->getCaixaAnalise($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
 	        
 	        return $this->_convertProcessosToDataTablesRow($processos);
         } catch (Exception $e) {
@@ -85,8 +86,8 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCopias()
     {
         try {
-            $copia = new CopiaProcesso($this->getTicket());
-            $copias = $copia->listar($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+            $copiaDao = new CopiaProcessoDao($this->getTicket());
+            $copias = $copiaDao->getCopias($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
             
             return $this->_convertCopiasToDataTablesRow($copias);
         } catch (Exception $e) {
@@ -127,8 +128,8 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaArquivo()
     {
         try {
-            $processo = new Processo($this->getTicket());
-            $processos = $processo->listarProcessosArquivados($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+            $processoDao = new ProcessoDao($this->getTicket());
+            $processos = $processoDao->getCaixaArquivo($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
             
             return $this->_convertProcessosToDataTablesRow($processos);
         } catch (Exception $e) {
@@ -149,8 +150,8 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaSaida()
     {
     	try {
-	        $processo = new Processo($this->getTicket());
-	        $processos = $processo->listarProcessosCaixaSaida($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+	        $processoDao = new ProcessoDao($this->getTicket());
+	        $processos = $processoDao->getCaixaSaida($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
 	        
 	        return $this->_convertProcessosEnviadosToDataTablesRow($processos);
     	} catch (Exception $e) {
@@ -190,8 +191,8 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaEnviados()
     {
     	try {
-	        $processo = new Processo($this->getTicket());
-	        $processos = $processo->listarProcessosCaixaEnviados($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+	        $processoDao = new ProcessoDao($this->getTicket());
+	        $processos = $processoDao->getCaixaEnviados($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
 	        
 	        return $this->_convertProcessosEnviadosToDataTablesRow($processos, false);
         } catch (Exception $e) {
