@@ -7,7 +7,7 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
     protected $_ajaxUrl;
     protected $_columns;
     protected $_options;
-    protected $_pageSize = 10;
+    protected $_pageSize = 20;
     protected $_html;
     
 	public function ajaxDataTable($ajaxUrl = '', array $columns = array(), array $options = array())
@@ -37,7 +37,7 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
                                 "sProcessing":   "<span>Processando...</span>",
                                 "sLengthMenu":   "Mostrar _MENU_ registros",
                                 "sZeroRecords":  "Não foram encontrados resultados",
-                                "sInfo":         "Exibindo de _START_ a _END_ de _TOTAL_ registros",
+                                "sInfo":         "Exibindo registros de _START_ a _END_",
                                 "sInfoEmpty":    "Exibindo de 0 a 0 de 0 registros",
                                 "sInfoFiltered": "(filtrado de _MAX_ registros no total)",
                                 "sInfoPostFix":  "",
