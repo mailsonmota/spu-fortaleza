@@ -59,13 +59,14 @@ class AssuntosController extends BaseController
 	{
 		$id = $this->_getIdFromUrl();
 
-		$assunto = new Assunto($this->getTicket());
-		$assunto->carregarPeloId($id);
+		$assuntoDao = new AssuntoDao($this->getTicket());
+		$assunto = $assuntoDao->getAssunto($id);
 
+		$arquivoDao = new ArquivoDao($this->getTicket());
+		
 		$this->view->assunto = $assunto;
 		$this->view->id = $assunto->getId();
 		$this->view->isEdit = true;
-		$this->view->result = $assunto->getFormularioXsd();
 	}
     
     private function _getTipoProcessoFromUrl()

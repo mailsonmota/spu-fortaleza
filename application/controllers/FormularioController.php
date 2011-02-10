@@ -6,9 +6,8 @@ class FormularioController extends BaseController
 	{
 		$this->_helper->layout()->disableLayout();
 		$id = $this->getRequest()->getParam('id');
-		$assunto = new Assunto($this->getTicket());
-		$assunto->carregarPeloId($id);
-		$this->view->result = $assunto->getFormularioXsd();;
+		$arquivoDao = new ArquivoDao($this->getTicket());
+		$this->view->result = $arquivoDao->getContentFromUrl(array('id' => $id));
 	}
 
 	public function editAction()
