@@ -29,10 +29,10 @@ class TipoProcessoDao extends BaseDao
         
         $hashTipoProcesso = $result['Tipo de Processo'][0];
         
-        return $this->_loadFromHash(array_pop(array_pop($hashTipoProcesso)));
+        return $this->loadFromHash(array_pop(array_pop($hashTipoProcesso)));
     }
     
-    protected function _loadFromHash($hash)
+    public function loadFromHash($hash)
     {
     	$tipoProcesso = new TipoProcesso($this->getTicket());
     	
@@ -100,7 +100,7 @@ class TipoProcessoDao extends BaseDao
         $tiposProcesso = array();
         foreach ($hash as $hashTipoProcesso) {
             $hashTipoProcesso = array_pop($hashTipoProcesso);
-            $tiposProcesso[] = $this->_loadFromHash($hashTipoProcesso);
+            $tiposProcesso[] = $this->loadFromHash($hashTipoProcesso);
         }
 
         return $tiposProcesso;

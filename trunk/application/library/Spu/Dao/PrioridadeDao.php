@@ -18,7 +18,7 @@ class PrioridadeDao extends BaseDao
         return $this->_loadManyFromHash($result['Prioridades'][0]);
     }
     
-    protected function _loadFromHash($hash)
+    public function loadFromHash($hash)
     {
         $prioridade = new Prioridade();
         
@@ -33,7 +33,7 @@ class PrioridadeDao extends BaseDao
     {
         $prioridades = array();
         foreach ($hash as $hashPrioridade) {
-            $prioridades[] = $this->_loadFromHash($hashPrioridade[0]);
+            $prioridades[] = $this->loadFromHash($hashPrioridade[0]);
         }
         
         return $prioridades;

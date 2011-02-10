@@ -36,7 +36,7 @@ class CopiaProcessoDao extends BaseDao
         return $result;
     }
     
-    protected function _loadFromHash($hash)
+    public function loadFromHash($hash)
     {
     	$copia = new CopiaProcesso($this->getTicket());
     	
@@ -62,7 +62,7 @@ class CopiaProcessoDao extends BaseDao
         $copias = array();
         foreach ($hashCopias as $hashCopia) {
         	$hashCopia = array_pop($hashCopia);
-            $copias[] = $this->_loadFromHash($hashCopia);
+            $copias[] = $this->loadFromHash($hashCopia);
         }
         
         return $copias;

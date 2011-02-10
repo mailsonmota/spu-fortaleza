@@ -219,32 +219,6 @@ class Manifestante extends Spu_Aspect_Base
         return $dao;
     }
     
-    public function loadFromHash($hash)
-    {
-        $this->setCpf($this->_getHashValue($hash, 'cpfCnpj'));
-        $this->setNome($this->_getHashValue($hash, 'nome'));
-        $this->setSexo($this->_getHashValue($hash, 'sexo'));
-        $this->setLogradouro($this->_getHashValue($hash, 'logradouro'));
-        $this->setNumero($this->_getHashValue($hash, 'numero'));
-        $this->setCep($this->_getHashValue($hash, 'cep'));
-        $this->setBairro($this->_loadBairroFromHash($this->_getHashValue($hash, 'bairro')));
-        $this->setCidade($this->_getHashValue($hash, 'cidade'));
-        $this->setUf($this->_getHashValue($hash, 'uf'));
-        $this->setTelefone($this->_getHashValue($hash, 'telefone'));
-        $this->setTelefoneComercial($this->_getHashValue($hash, 'telefoneComercial'));
-        $this->setCelular($this->_getHashValue($hash, 'celular'));
-        $this->setObservacao($this->_getHashValue($hash, 'observacao'));
-    }
-    
-    protected function _loadBairroFromHash($hash)
-    {
-        $hash = array_pop($hash);
-        $bairro = new Bairro($this->_ticket);
-        $bairro->loadFromHash($hash);
-        
-        return $bairro;
-    }
-    
     public function carregarPeloCpf($cpf)
     {
         $dao = $this->_getDao();

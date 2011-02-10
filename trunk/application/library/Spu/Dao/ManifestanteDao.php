@@ -1,5 +1,6 @@
 <?php
 require_once('BaseDao.php');
+Loader::loadDao('BairroDao');
 class ManifestanteDao extends BaseDao
 {
     private $_manifestantesBaseUrl = 'spu/manifestantes';
@@ -27,5 +28,35 @@ class ManifestanteDao extends BaseDao
         $result = json_decode($resultJson, true);
         
         return $result['Manifestante'];
+    }
+    
+    public function loadFromHash($hash)
+    {
+    	$manifestante = new Manifestante();
+    	
+        $manifestante->setCpf($this->_getHashValue($hash, 'cpfCnpj'));
+        $manifestante->setNome($this->_getHashValue($hash, 'nome'));
+        $manifestante->setSexo($this->_getHashValue($hash, 'sexo'));
+        $manifestante->setLogradouro($this->_getHashValue($hash, 'logradouro'));
+        $manifestante->setNumero($this->_getHashValue($hash, 'numero'));
+        $manifestante->setCep($this->_getHashValue($hash, 'cep'));
+        $manifestante->setBairro($this->_loadBairroFromHash($this->_getHashValue($hash, 'bairro')));
+        $manifestante->setCidade($this->_getHashValue($hash, 'cidade'));
+        $manifestante->setUf($this->_getHashValue($hash, 'uf'));
+        $manifestante->setTelefone($this->_getHashValue($hash, 'telefone'));
+        $manifestante->setTelefoneComercial($this->_getHashValue($hash, 'telefoneComercial'));
+        $manifestante->setCelular($this->_getHashValue($hash, 'celular'));
+        $manifestante->setObservacao($this->_getHashValue($hash, 'observacao'));
+        
+        return $manifestante;
+    }
+    
+    protected function _loadBairroFromHash($hash)
+    {
+        $hash = array_pop($hash);
+        $bairroDao = new BairroDao($this->getTicket());
+        $bairro = $bairroDao->loadFromHash($hash);
+        
+        return $bairro;
     }
 }

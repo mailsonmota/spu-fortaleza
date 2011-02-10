@@ -18,7 +18,7 @@ class TipoTramitacaoDao extends BaseDao
         return $this->_loadManyFromHash($result['Tramitacoes'][0]);
     }
     
-    protected function _loadFromHash($hash)
+    public function loadFromHash($hash)
     {
         $tipoTramitacao = new TipoTramitacao();
         
@@ -33,7 +33,7 @@ class TipoTramitacaoDao extends BaseDao
     {
     	$tiposTramitacao = array();
         foreach ($hash as $hashTipoTramitacao) {
-        	$tiposTramitacao[] = $this->_loadFromHash($hashTipoTramitacao[0]);
+        	$tiposTramitacao[] = $this->loadFromHash($hashTipoTramitacao[0]);
         }
         
         return $tiposTramitacao;

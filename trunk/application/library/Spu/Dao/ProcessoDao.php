@@ -1,5 +1,11 @@
 <?php
 require_once('BaseDao.php');
+Loader::loadDao('PrioridadeDao');
+Loader::loadDao('StatusDao');
+Loader::loadDao('ProtocoloDao');
+Loader::loadDao('TipoManifestanteDao');
+Loader::loadDao('ArquivamentoDao');
+Loader::loadDao('MovimentacaoDao');
 class ProcessoDao extends BaseDao
 {
     private $_processoBaseUrl = 'spu/processo';
@@ -86,7 +92,7 @@ class ProcessoDao extends BaseDao
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
         
-        return $result;
+        return $this->loadFromHash(array_pop(array_pop($result['Processo'][0])));
     }
     
     public function getProcesso($nodeUuid)
@@ -100,13 +106,15 @@ class ProcessoDao extends BaseDao
         
         $processoHash = array_pop(array_pop($result['Processo'][0])); 
         
-        $processo = $this->_loadFromHash($processoHash);
+        $processo = $this->loadFromHash($processoHash);
         
         $arquivoDao = new ArquivoDao($this->getTicket());
         $processo->setRespostasFormulario($arquivoDao->getRespostasFormulario($processo->id));
             
         $tipoProcessoDao = new TipoProcessoDao($this->getTicket());
         $processo->setTipoProcesso($tipoProcessoDao->getTipoProcesso($processo->tipoProcesso->id));
+        
+        $processo->setArquivos($arquivoDao->getArquivos($processo->id));
         
         $processo->setMovimentacoes($this->getHistorico($processo->id));
         
@@ -311,7 +319,7 @@ class ProcessoDao extends BaseDao
         return $this->_getProcessosFromUrl($url);
     }
     
-    protected function _loadFromHash($hash)
+    public function loadFromHash($hash)
     {
     	$processo = new Processo();
     	$processo->setNodeRef($this->_getHashValue($hash, 'noderef'));
@@ -339,8 +347,8 @@ class ProcessoDao extends BaseDao
     protected function _loadPrioridadeFromHash($hash)
     {
         $hash = array_pop($hash);
-        $prioridade = new Prioridade($this->getTicket());
-        $prioridade->loadFromHash($hash);
+        $prioridadeDao = new PrioridadeDao($this->getTicket());
+        $prioridade = $prioridadeDao->loadFromHash($hash);
         
         return $prioridade;
     }
@@ -348,8 +356,8 @@ class ProcessoDao extends BaseDao
     protected function _loadStatusFromHash($hash)
     {
         $hash = array_pop($hash);
-        $status = new Status($this->getTicket());
-        $status->loadFromHash($hash);
+        $statusDao = new StatusDao($this->getTicket());
+        $status = $statusDao->loadFromHash($hash);
         
         return $status;
     }
@@ -357,8 +365,8 @@ class ProcessoDao extends BaseDao
     protected function _loadProtocoloFromHash($hash)
     {
         $hash = array_pop($hash);
-        $protocolo = new Protocolo($this->getTicket());
-        $protocolo->loadFromHash($hash);
+        $protocoloDao = new ProtocoloDao($this->getTicket());
+        $protocolo = $protocoloDao->loadFromHash($hash);
         
         return $protocolo;
     }
@@ -391,8 +399,8 @@ class ProcessoDao extends BaseDao
     protected function _loadManifestanteFromHash($hash)
     {
         $hash = array_pop($hash);
-        $manifestante = new Manifestante($this->getTicket());
-        $manifestante->loadFromHash($hash);
+        $manifestanteDao = new ManifestanteDao($this->getTicket());
+        $manifestante = $manifestanteDao->loadFromHash($hash);
         
         return $manifestante;
     }
@@ -400,8 +408,8 @@ class ProcessoDao extends BaseDao
     protected function _loadTipoManifestanteFromHash($hash)
     {
         $hash = array_pop($hash);
-        $tipoManifestante = new TipoManifestante($this->getTicket());
-        $tipoManifestante->loadFromHash($hash);
+        $tipoManifestanteDao = new TipoManifestanteDao($this->getTicket());
+        $tipoManifestante = $tipoManifestanteDao->loadFromHash($hash);
         
         return $tipoManifestante;
     }
@@ -409,26 +417,16 @@ class ProcessoDao extends BaseDao
     protected function _loadArquivamentoFromHash($hash)
     {
         $hash = array_pop($hash);
-        $arquivamento = new Arquivamento();
-        $arquivamento->loadFromHash($hash);
+        $arquivamentoDao = new ArquivamentoDao();
+        $arquivamento = $arquivamentoDao->loadFromHash($hash);
         
         return $arquivamento;
     }
     
     protected function _loadMovimentacoesFromHash($hash)
     {
-        $movimentacoes = array();
-        if ($hash) {
-            foreach ($hash[0] as $hashMovimentacao) {
-                $hashMovimentacao = array_pop($hashMovimentacao);
-                $movimentacao = new Movimentacao();
-                $movimentacao->loadFromHash($hashMovimentacao);
-                
-                $movimentacoes[] = $movimentacao;
-            }
-        }
-        
-        return $movimentacoes;
+    	$movimentacaoDao = new MovimentacaoDao();
+    	return $movimentacaoDao->loadManyFromHash($hash);
     }
     
     protected function _loadManyFromHash($hashProcessos)
@@ -436,9 +434,7 @@ class ProcessoDao extends BaseDao
         $processos = array();
         foreach ($hashProcessos as $hashProcesso) {
             $hashDadosProcesso = array_pop($hashProcesso); 
-            $processo = new Processo($this->getTicket());
-            $processo->loadFromHash($hashDadosProcesso);
-            $processos[] = $processo;
+            $processos[] = $this->loadFromHash($hashDadosProcesso);
         }
         
         return $processos;

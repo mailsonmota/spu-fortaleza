@@ -12,7 +12,7 @@ class UsuarioDao extends BaseDao
     public function find($username)
     {
         $api = $this->_getApi();
-        return $this->_loadFromHash($api->getPerson($username));
+        return $this->loadFromHash($api->getPerson($username));
     }
     
     public function fetchGroups($username)
@@ -27,7 +27,7 @@ class UsuarioDao extends BaseDao
         return $api;
     }
     
-    protected function _loadFromHash($hash) {
+    public function loadFromHash($hash) {
         $usuario = new Usuario();
         
     	$usuario->setNome($this->_getHashValue($hash, 'firstName'));

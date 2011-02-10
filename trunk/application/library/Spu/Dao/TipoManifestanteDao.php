@@ -17,7 +17,7 @@ class TipoManifestanteDao extends BaseDao
         return $this->_loadManyFromHash($result['Tipos de Manifestante'][0]);
     }
     
-    protected function _loadFromHash($hash)
+    public function loadFromHash($hash)
     {
         $tipoManifestante = new TipoManifestante();
         
@@ -32,7 +32,7 @@ class TipoManifestanteDao extends BaseDao
     {
         $tiposManifestante = array();
         foreach ($hash as $hashTipoManifestante) {
-            $tiposManifestante[] = $this->_loadFromHash($hashTipoManifestante[0]);
+            $tiposManifestante[] = $this->loadFromHash($hashTipoManifestante[0]);
         }
         
         return $tiposManifestante;
