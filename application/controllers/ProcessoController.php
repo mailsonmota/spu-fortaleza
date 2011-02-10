@@ -24,9 +24,9 @@ class ProcessoController extends BaseController
     {
         try {
                 $idProcesso = $this->_getIdProcessoUrl();
-                $processo = new Processo($this->getTicket());
+                $processoDao = new ProcessoDao($this->getTicket());
                 if ($idProcesso) {
-                    $processo->carregarPeloId($idProcesso);
+                    $processo = $processoDao->getProcesso($idProcesso);
                 }
                 
                 $listaPrioridades = $this->_getListaPrioridades();
@@ -50,8 +50,8 @@ class ProcessoController extends BaseController
         try {
             $arquivoHash['id'] = $this->getRequest()->getParam('id');
             $arquivoHash['nome'] = $this->getRequest()->getParam('nome');
-            $arquivo = new Arquivo($this->getTicket());
-            $url = $arquivo->getArquivoDownloadUrl($arquivoHash);
+            $arquivoDao = new ArquivoDao($this->getTicket());
+            $url = $arquivoDao->getArquivoDownloadUrl($arquivoHash);
             $this->getResponse()->setRedirect($url);
         } catch (Exception $e) {
             $this->setMessageForTheView($e->getMessage(), 'error');
@@ -66,8 +66,8 @@ class ProcessoController extends BaseController
     
     protected function _getListaPrioridades()
     {
-        $prioridade = new Prioridade($this->getTicket());
-        $prioridades = $prioridade->listar();
+        $prioridadeDao = new PrioridadeDao($this->getTicket());
+        $prioridades = $prioridadeDao->fetchAll();
         $listaPrioridades = array();
         foreach ($prioridades as $prioridade) {
             $listaPrioridades[$prioridade->id] = $prioridade->descricao;
@@ -85,8 +85,8 @@ class ProcessoController extends BaseController
     
     protected function _getListaProtocolos()
     {
-        $protocolo = new Protocolo($this->getTicket());
-        $protocolos = $protocolo->listarTodos();
+        $protocoloDao = new ProtocoloDao($this->getTicket());
+        $protocolos = $protocoloDao->getTodosProtocolos();
         $listaProtocolos = array();
         foreach ($protocolos as $protocolo) {
             $listaProtocolos[$protocolo->id] = $protocolo->descricao;

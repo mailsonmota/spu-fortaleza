@@ -6,8 +6,8 @@ class DespacharController extends BaseTramitacaoController
     {
     	if ($this->getRequest()->isPost()) {
     		try {
-    			$processo = new Processo($this->getTicket());
-	    		$processo->comentarVarios($this->getRequest()->getPost());
+    			$processoDao = new ProcessoDao($this->getTicket());
+	    		$processoDao->comentarVarios($this->getRequest()->getPost());
 	    		$this->setSuccessMessage('Despachos criados com sucesso.');
 	    		$this->_redirectEmAnalise();
 			} catch (Exception $e) {
