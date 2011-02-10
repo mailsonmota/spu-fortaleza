@@ -52,8 +52,8 @@ class CopiaProcessoService extends BaseService
         $hashProcesso = array_pop($hash);
         $hashProcesso = array_pop($hashProcesso);
         $hashDadosProcesso = array_pop($hashProcesso);
-        $processo = new Processo();
-        $processo->loadFromHash($hashDadosProcesso);
+        $processoService = new ProcessoService();
+        $processo = $processoService->loadFromHash($hashDadosProcesso);
         return $processo;
     }
     
