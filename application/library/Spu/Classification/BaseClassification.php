@@ -41,11 +41,4 @@ class BaseClassification extends BaseAlfrescoClass
         $nodeRef = $this->getNodeRef();
         return substr($nodeRef, strrpos($nodeRef, '/') + 1);
     }
-    
-    public function loadFromHash($hash)
-    {
-        $this->setNodeRef($this->_getHashValue($hash, 'noderef'));
-        $this->setNome($this->_getHashValue($hash, 'nome'));
-        $this->setDescricao($this->_getHashValue($hash, 'descricao'));
-    }
 }

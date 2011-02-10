@@ -1,5 +1,5 @@
 <?php
-Loader::loadEntity('Usuario');
+Loader::loadDao('UsuarioDao');
 Zend_Loader::loadClass('ZendAuthAdapterAlfresco');
 class AuthAdapter extends ZendAuthAdapterAlfresco
 {
@@ -8,9 +8,8 @@ class AuthAdapter extends ZendAuthAdapterAlfresco
         $username = $this->getUsername();
         $ticket = $this->getTicket();
         
-        $usuario = new Usuario($ticket);
-        $usuario->carregarPeloLogin($username);
-        $usuario->loadGrupos();
+        $usuarioDao = new UsuarioDao($ticket);
+        $usuario = $usuarioDao->find($username);
         
         $identity = array();
         $identity['user'] = $usuario;
