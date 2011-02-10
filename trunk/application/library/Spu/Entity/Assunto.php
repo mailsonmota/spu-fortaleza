@@ -1,5 +1,6 @@
 <?php
 require_once('BaseEntity.php');
+Loader::loadEntity('TipoProcesso');
 Loader::loadEntity('Formulario');
 class Assunto extends BaseEntity
 {

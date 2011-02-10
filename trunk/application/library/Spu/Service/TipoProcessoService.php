@@ -34,7 +34,7 @@ class TipoProcessoService extends BaseService
     
     public function loadFromHash($hash)
     {
-    	$tipoProcesso = new TipoProcesso($this->getTicket());
+    	$tipoProcesso = new TipoProcesso();
     	
         $tipoProcesso->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $tipoProcesso->setNome($this->_getHashValue($hash, 'nome'));
