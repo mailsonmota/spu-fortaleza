@@ -19,7 +19,7 @@ class StatusArquivamentoDao extends BaseDao
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
         
-        return $result['Status'][0];
+        return $this->_loadManyFromHash($result['Status'][0]);
     }
     
     public function loadFromHash($hash)
@@ -36,7 +36,7 @@ class StatusArquivamentoDao extends BaseDao
     protected function _loadManyFromHash($hash)
     {
         $statusArquivamento = array();
-        foreach ($hash[0] as $hashStatusArquivamento) {
+        foreach ($hash as $hashStatusArquivamento) {
             $statusArquivamento[] = $this->loadFromHash($hashStatusArquivamento[0]);
         }
         

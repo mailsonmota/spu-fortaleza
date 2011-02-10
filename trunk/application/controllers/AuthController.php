@@ -1,10 +1,7 @@
 <?php
 class AuthController extends BaseController
 {
-    public function indexAction()
-    {
-        
-    }
+    public function indexAction() {}
     
     public function loginAction()
     {
