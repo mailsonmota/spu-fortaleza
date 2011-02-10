@@ -43,21 +43,4 @@ class Arquivamento extends Spu_Aspect_Base
     {
         $this->_pasta = $value;
     }
-    
-    public function loadFromHash($hash)
-    {
-        $this->setStatus($this->_loadStatusFromHash($this->_getHashValue($hash, 'status')));
-        $this->setMotivo($this->_getHashValue($hash, 'motivo'));
-        $this->setLocal($this->_getHashValue($hash, 'local'));
-        $this->setPasta($this->_getHashValue($hash, 'pasta'));
-    }
-    
-    public function _loadStatusFromHash($hash)
-    {
-        $hash = array_pop($hash);
-        $status = new StatusArquivamento();
-        $status->loadFromHash($hash);
-        
-        return $status;
-    }
 }

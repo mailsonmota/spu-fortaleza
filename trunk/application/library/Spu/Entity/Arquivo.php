@@ -48,22 +48,6 @@ class Arquivo extends BaseEntity
         return $this->_getDao();
     }
     
-    public function getArquivos($Uuid)
-    {
-        $dao = $this->_getDao();
-        $arquivos = $dao->getArquivos($Uuid);
-        
-        $arquivosReturn = Array();
-        foreach ($arquivos as $arquivo) {
-             $arquivoAux = new Arquivo();
-             $arquivoAux->setId($arquivo['id']);
-             $arquivoAux->setNome($arquivo['nome']);
-             $arquivosReturn[] = $arquivoAux;
-        }
-        
-        return $arquivosReturn;
-    }
-    
     public function getArquivoDownloadUrl($arquivoHash)
     {
         $dao = $this->_getDao();

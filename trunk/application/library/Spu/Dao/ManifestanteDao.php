@@ -15,7 +15,7 @@ class ManifestanteDao extends BaseDao
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
         
-        return $result['Manifestantes'];
+        return $this->loadManyFromHash($result['Manifestantes']);
     }
     
     public function getManifestante($cpf)
@@ -27,7 +27,7 @@ class ManifestanteDao extends BaseDao
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
         
-        return $result['Manifestante'];
+        return $this->loadFromHash(array_pop(array_pop(array_pop($result['Manifestante']))));
     }
     
     public function loadFromHash($hash)
@@ -58,5 +58,19 @@ class ManifestanteDao extends BaseDao
         $bairro = $bairroDao->loadFromHash($hash);
         
         return $bairro;
+    }
+    
+    public function loadManyFromHash($hash)
+    {
+    	$manifestantes = array();
+        foreach ($hash[0] as $hashManifestante) {
+            
+            if ($hashManifestante) {
+                $hashDadosManifestante = array_pop($hashManifestante);
+                $manifestantes[] = $this->loadFromHash($hashDadosManifestante);
+            }
+        }
+        
+        return $manifestantes;
     }
 }

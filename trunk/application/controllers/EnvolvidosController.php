@@ -1,19 +1,19 @@
 <?php
-Loader::loadEntity('Manifestante');
+Loader::loadDao('ManifestanteDao');
 class EnvolvidosController extends BaseController
 {
     public function indexAction()
     {
-        $manifestante = new Manifestante($this->getTicket());
-        $this->view->lista = $manifestante->listar();
+        $manifestanteDao = new ManifestanteDao($this->getTicket());
+        $this->view->lista = $manifestanteDao->getManifestantes();
     }
     
     public function editarAction()
     {
         $cpf = $this->_getCpfFromUrl();
         
-        $manifestante = new Manifestante($this->getTicket());
-        $manifestante->carregarPeloCpf($cpf);
+        $manifestanteDao = new ManifestanteDao($this->getTicket());
+        $manifestante = $manifestanteDao->getManifestante($cpf);
         
         $this->view->manifestante = $manifestante;
         $this->view->id = $manifestante->getCpf();

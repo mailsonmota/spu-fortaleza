@@ -194,41 +194,6 @@ class Manifestante extends Spu_Aspect_Base
         return $contato; 
     }
     
-    public function listar()
-    {
-        $dao = $this->_getDao();
-        $hashManifestantes = $dao->getManifestantes();
-        
-        $manifestantes = array();
-        foreach ($hashManifestantes[0] as $hashManifestante) {
-            
-            if ($hashManifestante) {
-                $hashDadosManifestante = array_pop($hashManifestante);
-                $manifestante = new Manifestante($this->_getTicket());
-                $manifestante->loadFromHash($hashDadosManifestante);
-                $manifestantes[] = $manifestante;
-            }
-        }
-        
-        return $manifestantes;
-    }
-    
-    protected function _getDao()
-    {
-        $dao = new ManifestanteDao($this->_getTicket());
-        return $dao;
-    }
-    
-    public function carregarPeloCpf($cpf)
-    {
-        $dao = $this->_getDao();
-        $hashManifestante = $dao->getManifestante($this->_desmascararCpf($cpf));
-        
-        $hashDadosManifestante = array_pop(array_pop(array_pop($hashManifestante)));
-        
-        $this->loadFromHash($hashDadosManifestante);
-    }
-    
     protected function _desmascararCpf($cpf)
     {
         return preg_replace("'[.,-]'", '', $cpf);

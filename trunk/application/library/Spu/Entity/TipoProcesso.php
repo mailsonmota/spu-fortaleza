@@ -123,10 +123,4 @@ class TipoProcesso extends BaseEntity
         $nodeRef = $this->getNodeRef();
         return substr($nodeRef, strrpos($nodeRef, '/') + 1);
     }
-    
-    public function getAssuntos()
-    {
-        $assunto = new Assunto($this->_getTicket());
-        return $assunto->listarPorTipoProcesso($this->getId());
-    }
 }
