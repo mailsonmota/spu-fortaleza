@@ -23,13 +23,12 @@ class ArquivoService extends BaseService
 	}
 
 	/**
-	 * Estrutura do $postData
-	 *   $postData['processoId']
-	 *   $postData['fileContent']
+	 * $postData
+	 *   $postData['destNodeUuid'] - an alfresco node id
+	 *   $postData['fileToUpload'] - file address on local filesystem. ex.: @/tmp/filename.txt
 	 */
 	public function uploadArquivo($postData)
 	{
-		// TODO Revisar web script "uploadarquivo"
 		$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/uploadarquivo";
 		$url = $this->addAlfTicketUrl($url);
 
