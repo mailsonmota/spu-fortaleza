@@ -11,7 +11,7 @@ class Loader
     
     public static function loadDao($classFileName)
     {
-        Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/Dao/');
+        Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/Service/');
     }
     
     public static function loadEntity($classFileName)
