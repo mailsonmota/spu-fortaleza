@@ -1,7 +1,7 @@
 <?php
 Loader::loadEntity('Processo');
-Loader::loadDao('ProcessoDao');
-Loader::loadDao('ArquivoDao');
+Loader::loadService('ProcessoService');
+Loader::loadService('ArquivoService');
 Loader::loadEntity('Arquivo');
 class ProcessoController extends BaseController
 {
@@ -9,9 +9,9 @@ class ProcessoController extends BaseController
     {
     	try {
             $idProcesso = $this->_getIdProcessoUrl();
-            $processoDao = new ProcessoDao($this->getTicket());
-            $processo = $processoDao->getProcesso($idProcesso);
-            $processosParalelos = $processoDao->getProcessosParalelos($processo->id);
+            $processoService = new ProcessoService($this->getTicket());
+            $processo = $processoService->getProcesso($idProcesso);
+            $processosParalelos = $processoService->getProcessosParalelos($processo->id);
         } catch (Exception $e) {
                 $this->setMessageForTheView('Não foi possível carregar o processo', 'error');
         }
@@ -24,9 +24,9 @@ class ProcessoController extends BaseController
     {
         try {
                 $idProcesso = $this->_getIdProcessoUrl();
-                $processoDao = new ProcessoDao($this->getTicket());
+                $processoService = new ProcessoService($this->getTicket());
                 if ($idProcesso) {
-                    $processo = $processoDao->getProcesso($idProcesso);
+                    $processo = $processoService->getProcesso($idProcesso);
                 }
                 
                 $listaPrioridades = $this->_getListaPrioridades();
@@ -50,8 +50,8 @@ class ProcessoController extends BaseController
         try {
             $arquivoHash['id'] = $this->getRequest()->getParam('id');
             $arquivoHash['nome'] = $this->getRequest()->getParam('nome');
-            $arquivoDao = new ArquivoDao($this->getTicket());
-            $url = $arquivoDao->getArquivoDownloadUrl($arquivoHash);
+            $arquivoService = new ArquivoService($this->getTicket());
+            $url = $arquivoService->getArquivoDownloadUrl($arquivoHash);
             $this->getResponse()->setRedirect($url);
         } catch (Exception $e) {
             $this->setMessageForTheView($e->getMessage(), 'error');
@@ -66,8 +66,8 @@ class ProcessoController extends BaseController
     
     protected function _getListaPrioridades()
     {
-        $prioridadeDao = new PrioridadeDao($this->getTicket());
-        $prioridades = $prioridadeDao->fetchAll();
+        $prioridadeService = new PrioridadeService($this->getTicket());
+        $prioridades = $prioridadeService->fetchAll();
         $listaPrioridades = array();
         foreach ($prioridades as $prioridade) {
             $listaPrioridades[$prioridade->id] = $prioridade->descricao;
@@ -85,8 +85,8 @@ class ProcessoController extends BaseController
     
     protected function _getListaProtocolos()
     {
-        $protocoloDao = new ProtocoloDao($this->getTicket());
-        $protocolos = $protocoloDao->getTodosProtocolos();
+        $protocoloService = new ProtocoloService($this->getTicket());
+        $protocolos = $protocoloService->getTodosProtocolos();
         $listaProtocolos = array();
         foreach ($protocolos as $protocolo) {
             $listaProtocolos[$protocolo->id] = $protocolo->descricao;

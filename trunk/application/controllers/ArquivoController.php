@@ -1,6 +1,6 @@
 <?php
 require_once('BaseTramitacaoController.php');
-Loader::loadDao('StatusArquivamentoDao');
+Loader::loadService('StatusArquivamentoService');
 class ArquivoController extends BaseTramitacaoController
 {
 	public function indexAction()
@@ -26,8 +26,8 @@ class ArquivoController extends BaseTramitacaoController
     {
     	if ($this->getRequest()->isPost()) {
     		try {
-    			$processoDao = new ProcessoDao($this->getTicket());
-	    		$processoDao->arquivarVarios($this->getRequest()->getPost());
+    			$processoService = new ProcessoService($this->getTicket());
+	    		$processoService->arquivarVarios($this->getRequest()->getPost());
 	    		$this->setSuccessMessage('Processos arquivados com sucesso.');
 	    		$this->_redirectArquivo();
 			} catch (Exception $e) {
@@ -53,8 +53,8 @@ class ArquivoController extends BaseTramitacaoController
     
     protected function _getListaStatusArquivamento()
     {
-    	$statusArquivamentoDao = new StatusArquivamentoDao($this->getTicket());
-        $opcoes = $statusArquivamentoDao->fetchAll();
+    	$statusArquivamentoService = new StatusArquivamentoService($this->getTicket());
+        $opcoes = $statusArquivamentoService->fetchAll();
         $listaStatusArquivamento = array();
         foreach ($opcoes as $opcao) {
             $listaStatusArquivamento[$opcao->id] = $opcao->descricao;
@@ -74,8 +74,8 @@ class ArquivoController extends BaseTramitacaoController
     {
     	if ($this->getRequest()->isPost()) {
     		try {
-    			$processoDao = new ProcessoDao($this->getTicket());
-	    		$processoDao->reabrirVarios($this->getRequest()->getPost());
+    			$processoService = new ProcessoService($this->getTicket());
+	    		$processoService->reabrirVarios($this->getRequest()->getPost());
 	    		$this->setSuccessMessage('Processos reabertos com sucesso.');
 	    		$this->_redirectEmAnalise();
 			} catch (Exception $e) {

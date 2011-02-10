@@ -1,6 +1,6 @@
 <?php
 require_once 'BaseDataTablesController.php';
-Loader::loadDao('ProtocoloDao');
+Loader::loadService('ProtocoloService');
 class ProtocolosAjaxController extends BaseDataTablesController
 {
     public function listarTodosAction()
@@ -14,8 +14,8 @@ class ProtocolosAjaxController extends BaseDataTablesController
     
     protected function _getTodosProtocolos()
     {
-    	$protocoloDao = new ProtocoloDao($this->getTicket());
-    	$protocolos = $protocoloDao->getTodosProtocolosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+    	$protocoloService = new ProtocoloService($this->getTicket());
+    	$protocolos = $protocoloService->getTodosProtocolosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
     	
     	return $this->_convertProtocolosToDataTablesRow($protocolos, true);
     }
@@ -64,8 +64,8 @@ class ProtocolosAjaxController extends BaseDataTablesController
     
     protected function _getListaProtocolosDestino()
     {
-    	$protocoloDao = new ProtocoloDao($this->getTicket());
-        $protocolos = $protocoloDao->getTodosProtocolosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearchTerm());
+    	$protocoloService = new ProtocoloService($this->getTicket());
+        $protocolos = $protocoloService->getTodosProtocolosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearchTerm());
         
         return $protocolos;
     }
@@ -77,7 +77,7 @@ class ProtocolosAjaxController extends BaseDataTablesController
 
     protected function _getProtocolosDestino()
     {
-        $protocoloDao = new ProtocoloDao($this->getTicket());
+        $protocoloService = new ProtocoloService($this->getTicket());
         $protocolos = $protocolo->getTodosProtocolosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
         
         return $this->_convertProtocolosDestinoToDataTablesRow($protocolos);

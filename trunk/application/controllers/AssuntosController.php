@@ -1,12 +1,12 @@
 <?php
-Loader::loadDao('AssuntoDao');
+Loader::loadService('AssuntoService');
 class AssuntosController extends BaseController
 {
 
 	public function indexAction()
 	{
-		$assuntoDao = new AssuntoDao($this->getTicket());
-		$listaAssuntos = $assuntoDao->getAssuntos();
+		$assuntoService = new AssuntoService($this->getTicket());
+		$listaAssuntos = $assuntoService->getAssuntos();
 		$this->view->lista = $listaAssuntos;
 	}
 
@@ -14,11 +14,11 @@ class AssuntosController extends BaseController
     {
         $id = $this->_getIdFromUrl();
         
-        $assuntoDao = new AssuntoDao($this->getTicket());
-        $assunto = $assuntoDao->getAssunto($id);
+        $assuntoService = new AssuntoService($this->getTicket());
+        $assunto = $assuntoService->getAssunto($id);
         if ($this->getRequest()->isPost()) {
             try {
-            	$assunto = $assuntoDao->editar($id, $this->getRequest()->getPost());
+            	$assunto = $assuntoService->editar($id, $this->getRequest()->getPost());
                 $this->setMessageForTheView('Assunto salvo com sucesso.', 'success');
             } catch (Exception $e) {
                 $this->setMessageForTheView($e->getMessage(), 'error');
@@ -37,8 +37,8 @@ class AssuntosController extends BaseController
         $assunto = new Assunto();
         if ($this->getRequest()->isPost()) {
         	try {
-        		$assuntoDao = new AssuntoDao($this->getTicket());
-        		$assunto = $assuntoDao->inserir($this->getRequest()->getPost());
+        		$assuntoService = new AssuntoService($this->getTicket());
+        		$assunto = $assuntoService->inserir($this->getRequest()->getPost());
                 $this->setMessageForTheView('Assunto salvo com sucesso.', 'success');
             } catch (Exception $e) {
                 $this->setMessageForTheView($e->getMessage(), 'error');
@@ -61,8 +61,8 @@ class AssuntosController extends BaseController
 	{
 		$id = $this->_getIdFromUrl();
 
-		$assuntoDao = new AssuntoDao($this->getTicket());
-		$assunto = $assuntoDao->getAssunto($id);
+		$assuntoService = new AssuntoService($this->getTicket());
+		$assunto = $assuntoService->getAssunto($id);
 
 		$this->view->assunto = $assunto;
 		$this->view->id = $assunto->getId();

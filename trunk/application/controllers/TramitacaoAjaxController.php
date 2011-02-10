@@ -1,7 +1,7 @@
 <?php
 require_once 'BaseDataTablesController.php';
-Loader::loadDao('ProcessoDao');
-Loader::loadDao('CopiaProcessoDao');
+Loader::loadService('ProcessoService');
+Loader::loadService('CopiaProcessoService');
 class TramitacaoAjaxController extends BaseDataTablesController
 {
     public function entradaAction()
@@ -16,8 +16,8 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaEntrada()
     {
     	try {
-	        $processoDao = new ProcessoDao($this->getTicket());
-	        $processos = $processoDao->getCaixaEntrada($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+	        $processoService = new ProcessoService($this->getTicket());
+	        $processos = $processoService->getCaixaEntrada($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
 	        
 	        return $this->_convertProcessosToDataTablesRow($processos);
         } catch (Exception $e) {
@@ -65,8 +65,8 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaAnalise()
     {
     	try {
-	        $processoDao = new ProcessoDao($this->getTicket());
-	        $processos = $processoDao->getCaixaAnalise($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+	        $processoService = new ProcessoService($this->getTicket());
+	        $processos = $processoService->getCaixaAnalise($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
 	        
 	        return $this->_convertProcessosToDataTablesRow($processos);
         } catch (Exception $e) {
@@ -86,8 +86,8 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCopias()
     {
         try {
-            $copiaDao = new CopiaProcessoDao($this->getTicket());
-            $copias = $copiaDao->getCopias($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+            $copiaService = new CopiaProcessoService($this->getTicket());
+            $copias = $copiaService->getCopias($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
             
             return $this->_convertCopiasToDataTablesRow($copias);
         } catch (Exception $e) {
@@ -128,8 +128,8 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaArquivo()
     {
         try {
-            $processoDao = new ProcessoDao($this->getTicket());
-            $processos = $processoDao->getCaixaArquivo($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+            $processoService = new ProcessoService($this->getTicket());
+            $processos = $processoService->getCaixaArquivo($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
             
             return $this->_convertProcessosToDataTablesRow($processos);
         } catch (Exception $e) {
@@ -150,8 +150,8 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaSaida()
     {
     	try {
-	        $processoDao = new ProcessoDao($this->getTicket());
-	        $processos = $processoDao->getCaixaSaida($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+	        $processoService = new ProcessoService($this->getTicket());
+	        $processos = $processoService->getCaixaSaida($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
 	        
 	        return $this->_convertProcessosEnviadosToDataTablesRow($processos);
     	} catch (Exception $e) {
@@ -191,8 +191,8 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaEnviados()
     {
     	try {
-	        $processoDao = new ProcessoDao($this->getTicket());
-	        $processos = $processoDao->getCaixaEnviados($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+	        $processoService = new ProcessoService($this->getTicket());
+	        $processos = $processoService->getCaixaEnviados($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
 	        
 	        return $this->_convertProcessosEnviadosToDataTablesRow($processos, false);
         } catch (Exception $e) {

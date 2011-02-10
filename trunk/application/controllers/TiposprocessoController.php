@@ -1,15 +1,15 @@
 <?php
-Loader::loadDao('TipoProcessoDao');
-Loader::loadDao('TipoTramitacaoDao');
-Loader::loadDao('TipoAbrangenciaDao');
-Loader::loadDao('TipoManifestanteDao');
-Loader::loadDao('AssuntoDao');
+Loader::loadService('TipoProcessoService');
+Loader::loadService('TipoTramitacaoService');
+Loader::loadService('TipoAbrangenciaService');
+Loader::loadService('TipoManifestanteService');
+Loader::loadService('AssuntoService');
 class TiposprocessoController extends BaseController
 {
     public function indexAction()
     {
-        $tipoProcessoDao = new TipoProcessoDao($this->getTicket());
-        $this->view->lista = $tipoProcessoDao->getTiposProcesso();
+        $tipoProcessoService = new TipoProcessoService($this->getTicket());
+        $this->view->lista = $tipoProcessoService->getTiposProcesso();
     }
     
     public function editarAction()
@@ -17,8 +17,8 @@ class TiposprocessoController extends BaseController
         $id = $this->_getIdFromUrl();
         
         try {
-            $tipoProcessoDao = new TipoProcessoDao($this->getTicket());
-            $tipoProcesso = $tipoProcessoDao->getTipoProcesso($id);
+            $tipoProcessoService = new TipoProcessoService($this->getTicket());
+            $tipoProcesso = $tipoProcessoService->getTipoProcesso($id);
             $listaTiposTramitacao = $this->_getListaTiposTramitacao();
             $listaTiposAbrangencia = $this->_getListaTiposAbrangencia();
             $listaTiposManifestante = $this->_getListaTiposManifestante();
@@ -44,8 +44,8 @@ class TiposprocessoController extends BaseController
     
     protected function _getListaTiposTramitacao()
     {
-        $tipoTramitacaoDao = new TipoTramitacaoDao($this->getTicket());
-        $tiposTramitacao = $tipoTramitacaoDao->fetchAll();
+        $tipoTramitacaoService = new TipoTramitacaoService($this->getTicket());
+        $tiposTramitacao = $tipoTramitacaoService->fetchAll();
         $listaTiposTramitacao = array();
         foreach ($tiposTramitacao as $tipoTramitacao) {
             $listaTiposTramitacao[$tipoTramitacao->id] = $tipoTramitacao->descricao;
@@ -63,8 +63,8 @@ class TiposprocessoController extends BaseController
     
     protected function _getListaTiposAbrangencia()
     {
-        $tipoAbrangenciaDao = new TipoAbrangenciaDao($this->getTicket());
-        $tiposAbrangencia = $tipoAbrangenciaDao->fetchAll();
+        $tipoAbrangenciaService = new TipoAbrangenciaService($this->getTicket());
+        $tiposAbrangencia = $tipoAbrangenciaService->fetchAll();
         $listaTiposAbrangencia = array();
         foreach ($tiposAbrangencia as $tipoAbrangencia) {
             $listaTiposAbrangencia[$tipoAbrangencia->id] = $tipoAbrangencia->descricao;
@@ -82,8 +82,8 @@ class TiposprocessoController extends BaseController
     
     protected function _getListaTiposManifestante()
     {
-        $tipoManifestanteDao = new TipoManifestanteDao($this->getTicket());
-        $tiposManifestante = $tipoManifestanteDao->fetchAll();
+        $tipoManifestanteService = new TipoManifestanteService($this->getTicket());
+        $tiposManifestante = $tipoManifestanteService->fetchAll();
         $listaTiposManifestante = array();
         foreach ($tiposManifestante as $tipoManifestante) {
             $listaTiposManifestante[$tipoManifestante->id] = $tipoManifestante->descricao;
@@ -118,10 +118,10 @@ class TiposprocessoController extends BaseController
     {
         $id = $this->_getIdFromUrl();
         
-        $tipoProcessoDao = new TipoProcessoDao($this->getTicket());
-        $tipoProcesso = $tipoProcessoDao->getTipoProcesso($id);
-        $assuntoDao = new AssuntoDao($this->getTicket());
-        $assuntos = $assuntoDao->getAssuntosPorTipoProcesso($id);
+        $tipoProcessoService = new TipoProcessoService($this->getTicket());
+        $tipoProcesso = $tipoProcessoService->getTipoProcesso($id);
+        $assuntoService = new AssuntoService($this->getTicket());
+        $assuntos = $assuntoService->getAssuntosPorTipoProcesso($id);
         
         $this->view->tipoProcesso = $tipoProcesso;
         $this->view->assuntos = $assuntos;

@@ -4,7 +4,7 @@ class ExternosController extends BaseTramitacaoController
 {
 	public function indexAction()
     {
-    	$processoDao = new ProcessoDao($this->getTicket());
+    	$processoService = new ProcessoService($this->getTicket());
     	
     	if ($this->getRequest()->isPost()) {
     		try {
@@ -17,6 +17,6 @@ class ExternosController extends BaseTramitacaoController
 	    	}
     	}
     	
-        $this->view->lista = $processoDao->getCaixaExternos();
+        $this->view->lista = $processoService->getCaixaExternos();
     }
 }

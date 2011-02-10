@@ -1,10 +1,10 @@
 <?php
-Loader::loadDao('ProcessoDao');
-Loader::loadDao('BairroDao');
-Loader::loadDao('ProtocoloDao');
-Loader::loadDao('TipoProcessoDao');
-Loader::loadDao('AssuntoDao');
-Loader::loadDao('PrioridadeDao');
+Loader::loadService('ProcessoService');
+Loader::loadService('BairroService');
+Loader::loadService('ProtocoloService');
+Loader::loadService('TipoProcessoService');
+Loader::loadService('AssuntoService');
+Loader::loadService('PrioridadeService');
 class AbrirprocessoController extends BaseController
 {
     public function indexAction()
@@ -74,8 +74,8 @@ class AbrirprocessoController extends BaseController
                 $formDadosGeraisProcesso = $session->formDadosGeraisProcesso;
                 $postData = $this->getRequest()->getPost();
                 $dataMerged = array_merge($formDadosGeraisProcesso, $postData);
-                $processoDao = new ProcessoDao($this->getTicket());
-                $processo = $processoDao->abrirProcesso($dataMerged);
+                $processoService = new ProcessoService($this->getTicket());
+                $processo = $processoService->abrirProcesso($dataMerged);
                 $session->processo = $processo;
                 
                 if ($processo->assunto->hasFormulario()) {
@@ -101,8 +101,8 @@ class AbrirprocessoController extends BaseController
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
             try {
-                $arquivoDao = new ArquivoDao($this->getTicket());
-                $arquivoDao->salvarFormulario($postData);
+                $arquivoService = new ArquivoService($this->getTicket());
+                $arquivoService->salvarFormulario($postData);
                 $this->_redirectUploadArquivo();
             }
             catch (AlfrescoApiException $e) {
@@ -113,8 +113,8 @@ class AbrirprocessoController extends BaseController
             }
         }
         
-        $processoDao = new ProcessoDao($this->getTicket());
-        $session->processo = $processoDao->getProcesso($processo->id);
+        $processoService = new ProcessoService($this->getTicket());
+        $session->processo = $processoService->getProcesso($processo->id);
         
         $this->view->processoId = $processo->id;
         $this->view->assuntoId = $processo->assunto->id;
@@ -141,8 +141,8 @@ class AbrirprocessoController extends BaseController
                 $postData['fileToUpload'] = "@" . $newFilePath;
 
                 try {
-                	$arquivoDao = new ArquivoDao($this->getTicket());
-                	$arquivoDao->uploadArquivo($postData);
+                	$arquivoService = new ArquivoService($this->getTicket());
+                	$arquivoService->uploadArquivo($postData);
                 } catch (Exception $e) {
                     throw new Exception('Erro no upload de arquivo. Mensagem: ' . $e->getMessage());
                 }
@@ -152,8 +152,8 @@ class AbrirprocessoController extends BaseController
         }
 
         // Recarregando o processo para pegar os arquivos recém-anexados
-        $processoDao = new ProcessoDao($this->getTicket());
-        $processo = $processoDao->getProcesso($processo->id);
+        $processoService = new ProcessoService($this->getTicket());
+        $processo = $processoService->getProcesso($processo->id);
         
         $this->view->hasFormulario = $processo->assunto->hasFormulario();
         $this->view->uploadedFiles = $processo->getArquivos();
@@ -163,8 +163,8 @@ class AbrirprocessoController extends BaseController
     {
         $session = new Zend_Session_Namespace('aberturaProcesso');
         
-        $protocoloDao = new ProtocoloDao($this->getTicket());
-        $protocoloOrigem = $protocoloDao->getProtocolo($session->formDadosGeraisProcesso['origem']);
+        $protocoloService = new ProtocoloService($this->getTicket());
+        $protocoloOrigem = $protocoloService->getProtocolo($session->formDadosGeraisProcesso['origem']);
         $this->view->origemNome = $protocoloOrigem->nome;
         
         if ($this->getRequest()->isPost()) {
@@ -178,8 +178,8 @@ class AbrirprocessoController extends BaseController
             $postData['copias'] = $session->formDadosGeraisProcesso['copias'];
 
             try {
-                $processoDao = new ProcessoDao($this->getTicket());
-                $processoDao->tramitar($postData);
+                $processoService = new ProcessoService($this->getTicket());
+                $processoService->tramitar($postData);
             } catch (AlfrescoApiException $e) {
                     throw $e;
             } catch (Exception $e) {
@@ -203,8 +203,8 @@ class AbrirprocessoController extends BaseController
 
     protected function _getListaTiposProcesso()
     {
-        $tipoProcessoDao = new TipoProcessoDao($this->getTicket());
-        $tiposProcesso = $tipoProcessoDao->getTiposProcesso();
+        $tipoProcessoService = new TipoProcessoService($this->getTicket());
+        $tiposProcesso = $tipoProcessoService->getTiposProcesso();
         $listaTiposProcesso = array();
         foreach ($tiposProcesso as $tipoProcesso) {
             $listaTiposProcesso[$tipoProcesso->id] = $tipoProcesso->nome;
@@ -226,9 +226,9 @@ class AbrirprocessoController extends BaseController
 
     protected function _getTipoProcesso($idTipoProcesso = null)
     {
-        $tipoProcessoDao = new TipoProcessoDao($this->getTicket());
+        $tipoProcessoService = new TipoProcessoService($this->getTicket());
         if ($idTipoProcesso) {
-            $tipoProcesso = $tipoProcessoDao->getTipoProcesso($idTipoProcesso);
+            $tipoProcesso = $tipoProcessoService->getTipoProcesso($idTipoProcesso);
         }
 
         return $tipoProcesso;
@@ -236,8 +236,8 @@ class AbrirprocessoController extends BaseController
 
     protected function _getListaAssuntos(TipoProcesso $tipoProcesso)
     {
-    	$assuntoDao = new AssuntoDao($this->getTicket());
-        $assuntos = $assuntoDao->getAssuntosPorTipoProcesso($tipoProcesso->getId());
+    	$assuntoService = new AssuntoService($this->getTicket());
+        $assuntos = $assuntoService->getAssuntosPorTipoProcesso($tipoProcesso->getId());
         $listaAssuntos = array();
         foreach ($assuntos as $assunto) {
             $listaAssuntos[$assunto->id] = $assunto->nome;
@@ -273,8 +273,8 @@ class AbrirprocessoController extends BaseController
 
     protected function _getListaBairros()
     {
-        $bairroDao = new BairroDao($this->getTicket());
-        $bairros = $bairroDao->getBairros();
+        $bairroService = new BairroService($this->getTicket());
+        $bairros = $bairroService->getBairros();
         $listaBairros = array();
         foreach ($bairros as $bairro) {
             $listaBairros[$bairro->id] = $bairro->descricao;
@@ -292,8 +292,8 @@ class AbrirprocessoController extends BaseController
 
     protected function _getListaPrioridades()
     {
-        $prioridadeDao = new PrioridadeDao($this->getTicket());
-        $prioridades = $prioridadeDao->fetchAll();
+        $prioridadeService = new PrioridadeService($this->getTicket());
+        $prioridades = $prioridadeService->fetchAll();
         $listaPrioridades = array();
         foreach ($prioridades as $prioridade) {
             $listaPrioridades[$prioridade->id] = $prioridade->descricao;
@@ -311,8 +311,8 @@ class AbrirprocessoController extends BaseController
 
     protected function _getListaOrigens()
     {
-        $protocoloDao = new ProtocoloDao($this->getTicket());
-        $protocolos = $protocoloDao->getProtocolos();
+        $protocoloService = new ProtocoloService($this->getTicket());
+        $protocolos = $protocoloService->getProtocolos();
         $listaProtocolos = array();
         foreach ($protocolos as $protocolo) {
             $listaProtocolos[$protocolo->id] = $protocolo->path;

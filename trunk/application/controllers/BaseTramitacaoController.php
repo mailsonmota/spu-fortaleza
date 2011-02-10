@@ -31,8 +31,8 @@ class BaseTramitacaoController extends BaseController
     {
     	$processos = array();
     	foreach ($listaComIdsProcessos as $processoId) {
-        	$processoDao = new ProcessoDao($this->getTicket());
-        	$processos[] = $processoDao->getProcesso($processoId);
+        	$processoService = new ProcessoService($this->getTicket());
+        	$processos[] = $processoService->getProcesso($processoId);
         }
         
         return $processos;
