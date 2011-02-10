@@ -4,7 +4,6 @@ require_once('Assunto.php');
 Loader::loadClassification('TipoTramitacao');
 Loader::loadClassification('TipoAbrangencia');
 Loader::loadClassification('TipoManifestante');
-Loader::loadDao('TipoProcessoDao');
 class TipoProcesso extends BaseEntity
 {
     protected $_nodeRef;

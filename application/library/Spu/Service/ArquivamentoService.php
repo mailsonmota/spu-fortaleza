@@ -1,7 +1,7 @@
 <?php
 Loader::loadAspect('Arquivamento');
-Loader::loadDao('StatusArquivamentoDao');
-class ArquivamentoDao extends BaseDao
+Loader::loadService('StatusArquivamentoService');
+class ArquivamentoService extends BaseService
 {
     public function loadFromHash($hash)
     {
@@ -18,8 +18,8 @@ class ArquivamentoDao extends BaseDao
     public function loadStatusFromHash($hash)
     {
         $hash = array_pop($hash);
-        $statusArquivamentoDao = new StatusArquivamentoDao();
-        $status = $statusArquivamentoDao->loadFromHash($hash);
+        $statusArquivamentoService = new StatusArquivamentoService();
+        $status = $statusArquivamentoService->loadFromHash($hash);
         
         return $status;
     }

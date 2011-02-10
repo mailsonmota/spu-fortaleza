@@ -1,7 +1,7 @@
 <?php
-require_once('BaseDao.php');
-Loader::loadDao('BairroDao');
-class ManifestanteDao extends BaseDao
+require_once('BaseService.php');
+Loader::loadService('BairroService');
+class ManifestanteService extends BaseService
 {
     private $_manifestantesBaseUrl = 'spu/manifestantes';
     private $_manifestantesTicketUrl = 'ticket';
@@ -54,8 +54,8 @@ class ManifestanteDao extends BaseDao
     protected function _loadBairroFromHash($hash)
     {
         $hash = array_pop($hash);
-        $bairroDao = new BairroDao($this->getTicket());
-        $bairro = $bairroDao->loadFromHash($hash);
+        $bairroService = new BairroService($this->getTicket());
+        $bairro = $bairroService->loadFromHash($hash);
         
         return $bairro;
     }

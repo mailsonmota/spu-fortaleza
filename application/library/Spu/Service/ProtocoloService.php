@@ -1,7 +1,7 @@
 <?php
-require_once('BaseDao.php');
+require_once('BaseService.php');
 Loader::loadEntity('Protocolo');
-class ProtocoloDao extends BaseDao
+class ProtocoloService extends BaseService
 {
     private $_protocoloBaseUrl = 'spu/protocolo';
     private $_protocoloTicketUrl = 'ticket';

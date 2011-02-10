@@ -1,8 +1,8 @@
 <?php
-require_once('BaseDao.php');
+require_once('BaseService.php');
 Loader::loadEntity('Arquivo');
 Loader::loadEntity('RespostasFormulario');
-class ArquivoDao extends BaseDao
+class ArquivoService extends BaseService
 {
 	private $_processoBaseUrl = 'spu/processo';
 

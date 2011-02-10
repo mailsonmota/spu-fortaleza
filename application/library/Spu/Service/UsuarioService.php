@@ -1,7 +1,7 @@
 <?php
-require_once('BaseDao.php');
+require_once('BaseService.php');
 Loader::loadEntity('Usuario');
-class UsuarioDao extends BaseDao
+class UsuarioService extends BaseService
 {
     public function fetchAll($filter = null)
     {

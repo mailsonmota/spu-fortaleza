@@ -1,6 +1,6 @@
 <?php
-require_once('BaseDao.php');
-class StatusDao extends BaseDao
+require_once('BaseService.php');
+class StatusService extends BaseService
 {
     private $_baseUrl = 'spu/processo';
     private $_ticketUrl = 'ticket';

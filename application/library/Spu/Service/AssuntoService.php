@@ -1,8 +1,8 @@
 <?php
-require_once('BaseDao.php');
+require_once('BaseService.php');
 Loader::loadEntity('Assunto');
-Loader::loadDao('ArquivoDao');
-class AssuntoDao extends BaseDao
+Loader::loadService('ArquivoService');
+class AssuntoService extends BaseService
 {
     private $_assuntosBaseUrl = 'spu/assuntos';
     private $_assuntosTicketUrl = 'ticket';
@@ -107,10 +107,10 @@ class AssuntoDao extends BaseDao
     
     protected function _loadFormulario($assuntoId)
     {
-    	$arquivoDao = new ArquivoDao($this->getTicket());
+    	$arquivoService = new ArquivoService($this->getTicket());
     	$formulario = new Formulario();
     	try {
-    	   $formularioData = $arquivoDao->getContentFromUrl(array('id' => $assuntoId));
+    	   $formularioData = $arquivoService->getContentFromUrl(array('id' => $assuntoId));
     	   $formulario->setData($formularioData);
     	} catch (Exception $e) {
     		

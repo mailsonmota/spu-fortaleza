@@ -1,6 +1,6 @@
 <?php
 require_once('Base.php');
-Loader::loadDao('ManifestanteDao');
+Loader::loadService('ManifestanteService');
 Loader::loadClassification('Bairro');
 class Manifestante extends Spu_Aspect_Base
 {

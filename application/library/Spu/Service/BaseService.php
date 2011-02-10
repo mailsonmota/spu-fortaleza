@@ -1,5 +1,5 @@
 <?php
-class BaseDao
+class BaseService
 {
     const ALFRESCO_URL = 'http://172.30.116.21:8080/alfresco/service';
     const ALFRESCO_BASE_URL = 'http://172.30.116.21:8080/alfresco';

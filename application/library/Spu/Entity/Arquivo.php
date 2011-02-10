@@ -1,6 +1,5 @@
 <?php
 require_once('BaseEntity.php');
-Loader::loadDao('ArquivoDao');
 class Arquivo extends BaseEntity
 {
     protected $_id;
@@ -36,27 +35,5 @@ class Arquivo extends BaseEntity
     public function setMimetype($value)
     {
         $this->_mimetype = $value;
-    }
-    
-    protected function _getDao()
-    {
-        return new ArquivoDao($this->_getTicket());
-    }
-    
-    public function getDao()
-    {
-        return $this->_getDao();
-    }
-    
-    public function getArquivoDownloadUrl($arquivoHash)
-    {
-        $dao = $this->_getDao();
-        return $dao->getArquivoDownloadUrl($arquivoHash);
-    }
-    
-    public function getArquivoProcessoDownloadUrl($arquivoHash)
-    {
-        $dao = $this->_getDao();
-        return $dao->getArquivoProcessoDownloadUrl($arquivoHash);
     }
 }

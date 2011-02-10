@@ -1,7 +1,7 @@
 <?php
-require_once('BaseDao.php');
+require_once('BaseService.php');
 Loader::loadEntity('TipoTramitacao');
-class TipoTramitacaoDao extends BaseDao
+class TipoTramitacaoService extends BaseService
 {
     private $_baseUrl = 'spu/tiposprocesso';
     private $_ticketUrl = 'ticket';
