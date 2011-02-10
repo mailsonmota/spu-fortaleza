@@ -1,5 +1,6 @@
 <?php
 require_once('BaseDao.php');
+Loader::loadEntity('Protocolo');
 class ProtocoloDao extends BaseDao
 {
     private $_protocoloBaseUrl = 'spu/protocolo';
@@ -14,7 +15,7 @@ class ProtocoloDao extends BaseDao
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
 
-        return $result['Protocolo'][0];
+        return $this->_loadFromHash(array_pop(array_pop($result['Protocolo'][0])));
     }
 
     public function getProtocolos()
@@ -26,7 +27,7 @@ class ProtocoloDao extends BaseDao
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
 
-        return $result['Protocolos'][0];
+        return $this->_loadManyFromHash($result['Protocolos'][0]);
     }
 
     public function getTodosProtocolos()
@@ -38,7 +39,7 @@ class ProtocoloDao extends BaseDao
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
 
-        return $result['Protocolos'][0];
+        return $this->_loadManyFromHash($result['Protocolos'][0]);
     }
 
     public function alterar($id, $postData)
@@ -54,7 +55,7 @@ class ProtocoloDao extends BaseDao
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
 
-        return $result['Protocolo'][0];
+        return $this->_loadFromHash($result['Protocolo'][0]);
     }
     
     public function getTodosProtocolosPaginado($offset = 0, $pageSize = 20, $filter = null)
@@ -67,18 +68,42 @@ class ProtocoloDao extends BaseDao
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
 
-        return $result['Protocolos'][0];
+        return $this->_loadManyFromHash($result['Protocolos'][0]);
+    }
+
+    protected function _loadFromHash($hash)
+    {
+    	$protocolo = new Protocolo();
+    	
+        $protocolo->setNodeRef($this->_getHashValue($hash, 'noderef'));
+        $protocolo->setNome($this->_getHashValue($hash, 'nome'));
+        $protocolo->setParent($this->_loadParentFromHash($this->_getHashValue($hash, 'parentId')));
+        $protocolo->setDescricao($this->_getHashValue($hash, 'descricao'));
+        $protocolo->setOrgao($this->_getHashValue($hash, 'orgao'));
+        $protocolo->setLotacao($this->_getHashValue($hash, 'lotacao'));
+        $protocolo->setRecebePelosSubsetores(($this->_getHashValue($hash, 'recebePelosSubsetores') == '1') ? true : false);
+        $protocolo->setRecebeMalotes(($this->_getHashValue($hash, 'recebeMalotes') == '1') ? true : false);
+        $protocolo->setNivel($this->_getHashValue($hash, 'nivel'));
+        $protocolo->setPath($this->_getHashValue($hash, 'path'));
+        
+        return $protocolo;
     }
     
-    public function getProprietariosPaginado($tipoProcessoId, $offset, $pageSize, $filter)
+    protected function _loadParentFromHash($id)
     {
-    	$url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listarTodosPaginado/$offset/$pageSize/$filter";
-        $url = $this->addAlfTicketUrl($url);
+        $parent = new Protocolo();
+        $parent->setNodeRef($id);
+        return $parent;
+    }
+    
+    protected function _loadManyFromHash($hash)
+    {
+        $protocolos = array();
+        foreach ($hash as $hashProtocolo) {
+            $hashProtocolo = array_pop($hashProtocolo);
+            $protocolos[] = $this->_loadFromHash($hashProtocolo);
+        }
 
-        $curlObj = new CurlClient();
-        $resultJson = $curlObj->doGetRequest($url);
-        $result = json_decode($resultJson, true);
-
-        return $result['Protocolos'][0];
+        return $protocolos;
     }
 }

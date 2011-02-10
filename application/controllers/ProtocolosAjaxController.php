@@ -1,5 +1,6 @@
 <?php
 require_once 'BaseDataTablesController.php';
+Loader::loadDao('ProtocoloDao');
 class ProtocolosAjaxController extends BaseDataTablesController
 {
     public function listarTodosAction()
@@ -13,8 +14,8 @@ class ProtocolosAjaxController extends BaseDataTablesController
     
     protected function _getTodosProtocolos()
     {
-    	$protocolo = new Protocolo($this->getTicket());
-    	$protocolos = $protocolo->listarTodosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+    	$protocoloDao = new ProtocoloDao($this->getTicket());
+    	$protocolos = $protocoloDao->getTodosProtocolosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
     	
     	return $this->_convertProtocolosToDataTablesRow($protocolos, true);
     }

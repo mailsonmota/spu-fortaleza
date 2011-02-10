@@ -15,7 +15,7 @@ class TipoTramitacaoDao extends BaseDao
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
         
-        return $result['Tramitacoes'][0];
+        return $this->_loadManyFromHash($result['Tramitacoes'][0]);
     }
     
     protected function _loadFromHash($hash)
@@ -31,9 +31,9 @@ class TipoTramitacaoDao extends BaseDao
     
     protected function _loadManyFromHash($hash)
     {
-        $tiposTramitacao = array();
-        foreach ($hash[0] as $hashTipoTramitacao) {
-            $tiposTramitacao[] = $this->_loadFromHash($hashTipoTramitacao[0]);
+    	$tiposTramitacao = array();
+        foreach ($hash as $hashTipoTramitacao) {
+        	$tiposTramitacao[] = $this->_loadFromHash($hashTipoTramitacao[0]);
         }
         
         return $tiposTramitacao;

@@ -14,7 +14,7 @@ class TipoManifestanteDao extends BaseDao
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
         
-        return $result['Tipos de Manifestante'][0];
+        return $this->_loadManyFromHash($result['Tipos de Manifestante'][0]);
     }
     
     protected function _loadFromHash($hash)
@@ -31,7 +31,7 @@ class TipoManifestanteDao extends BaseDao
     protected function _loadManyFromHash($hash)
     {
         $tiposManifestante = array();
-        foreach ($hash[0] as $hashTipoManifestante) {
+        foreach ($hash as $hashTipoManifestante) {
             $tiposManifestante[] = $this->_loadFromHash($hashTipoManifestante[0]);
         }
         

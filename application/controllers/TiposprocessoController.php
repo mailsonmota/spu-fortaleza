@@ -1,14 +1,15 @@
 <?php
-Loader::loadEntity('TipoProcesso');
-Loader::loadEntity('TipoTramitacao');
-Loader::loadEntity('TipoAbrangencia');
-Loader::loadEntity('TipoManifestante');
+Loader::loadDao('TipoProcessoDao');
+Loader::loadDao('TipoTramitacaoDao');
+Loader::loadDao('TipoAbrangenciaDao');
+Loader::loadDao('TipoManifestanteDao');
+Loader::loadDao('AssuntoDao');
 class TiposprocessoController extends BaseController
 {
     public function indexAction()
     {
-        $tipoProcesso = new TipoProcesso($this->getTicket());
-        $this->view->lista = $tipoProcesso->listar();
+        $tipoProcessoDao = new TipoProcessoDao($this->getTicket());
+        $this->view->lista = $tipoProcessoDao->getTiposProcesso();
     }
     
     public function editarAction()
@@ -16,8 +17,8 @@ class TiposprocessoController extends BaseController
         $id = $this->_getIdFromUrl();
         
         try {
-            $tipoProcesso = new TipoProcesso($this->getTicket());
-            $tipoProcesso->carregarPeloId($id);
+            $tipoProcessoDao = new TipoProcessoDao($this->getTicket());
+            $tipoProcesso = $tipoProcessoDao->getTipoProcesso($id);
             $listaTiposTramitacao = $this->_getListaTiposTramitacao();
             $listaTiposAbrangencia = $this->_getListaTiposAbrangencia();
             $listaTiposManifestante = $this->_getListaTiposManifestante();
@@ -43,8 +44,8 @@ class TiposprocessoController extends BaseController
     
     protected function _getListaTiposTramitacao()
     {
-        $tipoTramitacao = new TipoTramitacao($this->getTicket());
-        $tiposTramitacao = $tipoTramitacao->listar();
+        $tipoTramitacaoDao = new TipoTramitacaoDao($this->getTicket());
+        $tiposTramitacao = $tipoTramitacaoDao->fetchAll();
         $listaTiposTramitacao = array();
         foreach ($tiposTramitacao as $tipoTramitacao) {
             $listaTiposTramitacao[$tipoTramitacao->id] = $tipoTramitacao->descricao;
@@ -62,8 +63,8 @@ class TiposprocessoController extends BaseController
     
     protected function _getListaTiposAbrangencia()
     {
-        $tipoAbrangencia = new TipoAbrangencia($this->getTicket());
-        $tiposAbrangencia = $tipoAbrangencia->listar();
+        $tipoAbrangenciaDao = new TipoAbrangenciaDao($this->getTicket());
+        $tiposAbrangencia = $tipoAbrangenciaDao->fetchAll();
         $listaTiposAbrangencia = array();
         foreach ($tiposAbrangencia as $tipoAbrangencia) {
             $listaTiposAbrangencia[$tipoAbrangencia->id] = $tipoAbrangencia->descricao;
@@ -81,8 +82,8 @@ class TiposprocessoController extends BaseController
     
     protected function _getListaTiposManifestante()
     {
-        $tipoManifestante = new TipoManifestante($this->getTicket());
-        $tiposManifestante = $tipoManifestante->listar();
+        $tipoManifestanteDao = new TipoManifestanteDao($this->getTicket());
+        $tiposManifestante = $tipoManifestanteDao->fetchAll();
         $listaTiposManifestante = array();
         foreach ($tiposManifestante as $tipoManifestante) {
             $listaTiposManifestante[$tipoManifestante->id] = $tipoManifestante->descricao;
@@ -117,10 +118,13 @@ class TiposprocessoController extends BaseController
     {
         $id = $this->_getIdFromUrl();
         
-        $tipoProcesso = new TipoProcesso($this->getTicket());
-        $tipoProcesso->carregarPeloId($id);
+        $tipoProcessoDao = new TipoProcessoDao($this->getTicket());
+        $tipoProcesso = $tipoProcessoDao->getTipoProcesso($id);
+        $assuntoDao = new AssuntoDao($this->getTicket());
+        $assuntos = $assuntoDao->getAssuntosPorTipoProcesso($id);
         
         $this->view->tipoProcesso = $tipoProcesso;
+        $this->view->assuntos = $assuntos;
         $this->view->id = $tipoProcesso->getId();
         $this->view->isEdit = true;
     }   

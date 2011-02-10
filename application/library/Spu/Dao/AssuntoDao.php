@@ -1,5 +1,6 @@
 <?php
 require_once('BaseDao.php');
+Loader::loadEntity('Assunto');
 class AssuntoDao extends BaseDao
 {
     private $_assuntosBaseUrl = 'spu/assuntos';
@@ -14,7 +15,7 @@ class AssuntoDao extends BaseDao
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
         
-        return $result['assuntos'];
+        return $this->_loadManyFromHash($result['assuntos']);
     }
     
     public function getAssuntosPorTipoProcesso($idTipoProcesso)
@@ -26,7 +27,7 @@ class AssuntoDao extends BaseDao
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
         
-        return $result['assuntos'];
+        return $this->_loadManyFromHash($result['assuntos']);
     }
     
     protected function _getNomeAjustadoNomeParaUrl($nome)
@@ -44,7 +45,7 @@ class AssuntoDao extends BaseDao
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
         
-        return $result['Assunto'][0];
+        return $this->_loadFromHash(array_pop(array_pop($result['Assunto'][0])));
     }
     
     public function inserir($postData)
@@ -60,7 +61,7 @@ class AssuntoDao extends BaseDao
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
         
-        return $result['Assunto'][0];
+        return $this->_loadFromHash(array_pop(array_pop($result['Assunto'][0])));
     }
     
     public function editar($id, $postData)
@@ -76,6 +77,41 @@ class AssuntoDao extends BaseDao
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
         
-        return $result['Assunto'][0];
+        return $this->_loadFromHash(array_pop(array_pop($result['Assunto'][0])));
+    }
+    
+    protected function _loadFromHash($hash)
+    {
+    	$assunto = new Assunto();
+    	
+        $assunto->setNodeRef($this->_getHashValue($hash, 'noderef'));
+        $assunto->setNome($this->_getHashValue($hash, 'nome'));
+        $assunto->setCorpo($this->_getHashValue($hash, 'corpo'));
+        $assunto->setNotificarNaAbertura($this->_getHashValue($hash, 'notificarNaAbertura') ? true : false);
+        $assunto->setTipoProcesso($this->_loadTipoProcessoFromHash($this->_getHashValue($hash, 'tipoProcesso')));
+        
+        return $assunto;
+    }
+    
+    protected function _loadTipoProcessoFromHash($hash){
+        $tipoProcesso = new TipoProcesso();
+        if ($hash AND is_array($hash)) {
+            $hash = array_pop($hash);
+            $tipoProcesso->setNodeRef($this->_getHashValue($hash, 'noderef'));
+            $tipoProcesso->setNome($this->_getHashValue($hash, 'nome'));
+        }
+        return $tipoProcesso;
+    }
+    
+    protected function _loadManyFromHash($hash)
+    {
+        $hashAssuntos = array();
+        foreach ($hash as $hashAssunto) {
+        	//FIXME: Esse service nao esta respondendo coforme o padrão
+            //$hashAssunto = array_pop($hashAssunto);
+            $hashAssuntos[] = $this->_loadFromHash($hashAssunto);
+        }
+
+        return $hashAssuntos;
     }
 }

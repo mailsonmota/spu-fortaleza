@@ -15,7 +15,7 @@ class TipoProcessoDao extends BaseDao
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
         
-        return $result['Tipos de Processo'][0];
+        return $this->_loadManyFromHash($result['Tipos de Processo'][0]);
     }
     
     public function getTipoProcesso($nodeUuid)
@@ -29,7 +29,7 @@ class TipoProcessoDao extends BaseDao
         
         $hashTipoProcesso = $result['Tipo de Processo'][0];
         
-        return $this->_loadFromHash($hashTipoProcesso);
+        return $this->_loadFromHash(array_pop(array_pop($hashTipoProcesso)));
     }
     
     protected function _loadFromHash($hash)
@@ -93,5 +93,16 @@ class TipoProcessoDao extends BaseDao
             }         
         }
         return $tiposManifestante;
+    }
+    
+    protected function _loadManyFromHash($hash)
+    {
+        $tiposProcesso = array();
+        foreach ($hash as $hashTipoProcesso) {
+            $hashTipoProcesso = array_pop($hashTipoProcesso);
+            $tiposProcesso[] = $this->_loadFromHash($hashTipoProcesso);
+        }
+
+        return $tiposProcesso;
     }
 }
