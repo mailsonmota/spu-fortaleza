@@ -9,7 +9,7 @@ Loader::loadAspect('Manifestante');
 Loader::loadAspect('Arquivamento');
 Loader::loadClassification('Prioridade');
 Loader::loadClassification('Status');
-Loader::loadDao('ProcessoDao');
+Loader::loadService('ProcessoService');
 class Processo extends BaseEntity
 {
     protected $_nodeRef;
@@ -266,17 +266,17 @@ class Processo extends BaseEntity
         return ($this->getStatus()->nome == Status::ARQUIVADO);
     }
     
-    protected function _getDao()
+    protected function _getService()
     {
-        $dao = new ProcessoDao($this->_getTicket());
-        return $dao;
+        $Service = new ProcessoService($this->_getTicket());
+        return $Service;
     }
     
     public function incorporar($data)
     {
-        $dao = $this->_getDao();
+        $Service = $this->_getService();
         try {
-            $return = $dao->incorporar($data);
+            $return = $Service->incorporar($data);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }

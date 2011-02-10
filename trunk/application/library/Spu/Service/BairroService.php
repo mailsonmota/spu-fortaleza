@@ -1,7 +1,7 @@
 <?php
-require_once('BaseDao.php');
+require_once('BaseService.php');
 Loader::loadClassification('Bairro');
-class BairroDao extends BaseDao
+class BairroService extends BaseService
 {
     private $_bairrosBaseUrl = 'spu/bairros';
     private $_bairrosTicketUrl = 'ticket';

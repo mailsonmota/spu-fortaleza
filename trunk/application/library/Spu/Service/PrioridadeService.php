@@ -1,7 +1,7 @@
 <?php
-require_once('BaseDao.php');
+require_once('BaseService.php');
 Loader::loadEntity('Prioridade');
-class PrioridadeDao extends BaseDao
+class PrioridadeService extends BaseService
 {
     private $_baseUrl = 'spu/processo';
     private $_ticketUrl = 'ticket';

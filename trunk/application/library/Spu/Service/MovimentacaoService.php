@@ -1,6 +1,6 @@
 <?php
 Loader::loadAspect('Movimentacao');
-class MovimentacaoDao extends BaseDao
+class MovimentacaoService extends BaseService
 {
     public function loadManyFromHash($hash)
     {
@@ -50,8 +50,8 @@ class MovimentacaoDao extends BaseDao
     {
         if ($hash) {
 	    	$hash = array_pop($hash);
-	        $protocoloDao = new ProtocoloDao($this->getTicket());
-	        $protocolo = $protocoloDao->loadFromHash($hash);
+	        $protocoloService = new ProtocoloService($this->getTicket());
+	        $protocolo = $protocoloService->loadFromHash($hash);
         } else {
         	$protocolo = new Protocolo();
         }
@@ -62,8 +62,8 @@ class MovimentacaoDao extends BaseDao
     protected function _loadPrioridadeFromHash($hash)
     {
         $hash = array_pop($hash);
-        $prioridadeDao = new PrioridadeDao($this->getTicket());
-        $prioridade = $prioridadeDao->loadFromHash($hash);
+        $prioridadeService = new PrioridadeService($this->getTicket());
+        $prioridade = $prioridadeService->loadFromHash($hash);
         
         return $prioridade;
     }

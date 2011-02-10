@@ -1,7 +1,7 @@
 <?php
-require_once('BaseDao.php');
+require_once('BaseService.php');
 Loader::loadEntity('StatusArquivamento');
-class StatusArquivamentoDao extends BaseDao
+class StatusArquivamentoService extends BaseService
 {
     private $_baseUrl = 'spu/processo';
     private $_ticketUrl = 'ticket';

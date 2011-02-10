@@ -1,6 +1,6 @@
 <?php
-require_once('BaseDao.php');
-class TipoManifestanteDao extends BaseDao
+require_once('BaseService.php');
+class TipoManifestanteService extends BaseService
 {
     private $_baseUrl = 'spu/tiposprocesso';
     private $_ticketUrl = 'ticket';
