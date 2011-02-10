@@ -1,6 +1,5 @@
 <?php
 require_once('BaseEntity.php');
-Loader::loadDao('ProtocoloDao');
 class Protocolo extends BaseEntity
 {
     protected $_nodeRef;
@@ -14,7 +13,6 @@ class Protocolo extends BaseEntity
     protected $_nivel;
     protected $_path;
     
-
     public function getNodeRef()
     {
         return $this->_nodeRef;
@@ -105,10 +103,6 @@ class Protocolo extends BaseEntity
         $this->_path = $value;
     }
 
-    /**
-     * getParent
-     * @return Protocolo
-     */
     public function getParent()
     {
         return $this->_parent;
@@ -136,99 +130,5 @@ class Protocolo extends BaseEntity
             $orgaoLotacao = ($this->getDescricao()) ? $this->getDescricao() : $this->getNome();
         }
         return $orgaoLotacao;
-    }
-
-    public function listar()
-    {
-        $dao = $this->_getDao();
-        $hashProtocolos = $dao->getProtocolos();
-
-        return $this->loadManyFromHash($hashProtocolos);
-    }
-
-    protected function _getDao()
-    {
-        $dao = new ProtocoloDao($this->_getTicket());
-        return $dao;
-    }
-
-    public function loadManyFromHash($hashProtocolos)
-    {
-        $protocolos = array();
-        foreach ($hashProtocolos as $hashProtocolo) {
-            $hashProtocolo = array_pop($hashProtocolo);
-            $protocolo = new Protocolo($this->_getTicket());
-            $protocolo->loadFromHash($hashProtocolo);
-            $protocolos[] = $protocolo;
-        }
-
-        return $protocolos;
-    }
-
-    public function loadFromHash($hash)
-    {
-        $this->setNodeRef($hash['noderef']);
-        $this->setNome($hash['nome']);
-        $this->setParent($this->loadParentFromId($this->_getHashValue($hash, 'parentId')));
-        $this->setDescricao($hash['descricao']);
-        $this->setOrgao($this->_getHashValue($hash, 'orgao'));
-        $this->setLotacao($this->_getHashValue($hash, 'lotacao'));
-        $this->setRecebePelosSubsetores(($this->_getHashValue($hash, 'recebePelosSubsetores') == '1') ? true : false);
-        $this->setRecebeMalotes(($this->_getHashValue($hash, 'recebeMalotes') == '1') ? true : false);
-        $this->setNivel($this->_getHashValue($hash, 'nivel'));
-        $this->setPath($this->_getHashValue($hash, 'path'));
-    }
-
-    public function loadParentFromId($id)
-    {
-        $parent = new Protocolo($this->_getTicket());
-        $parent->setNodeRef($id);
-        return $parent;
-    }
-
-    public function listarTodos()
-    {
-        $dao = $this->_getDao();
-        $hashProtocolos = $dao->getTodosProtocolos();
-
-        return $this->loadManyFromHash($hashProtocolos);
-    }
-
-    public function carregarPeloId($id)
-    {
-        $dao = $this->_getDao();
-        $hashDeProtocolo = $dao->getProtocolo($id);
-
-        foreach ($hashDeProtocolo as $hashProtocolo) {
-            $hashDadosProtocolo = array_pop($hashProtocolo);
-            $this->loadFromHash($hashDadosProtocolo);
-        }
-    }
-
-    public function alterar($postData)
-    {
-        $dao = $this->_getDao();
-        $hashDeProtocolo = $dao->alterar($this->getId(), $postData);
-
-        foreach ($hashDeProtocolo as $hashProtocolo) {
-            $hashDadosProtocolo = array_pop($hashProtocolo);
-            $this->loadFromHash($hashDadosProtocolo);
-        }
-    }
-    
-    public function listarTodosPaginado($offset, $pageSize, $filter)
-    {
-    	$dao = $this->_getDao();
-        $hashProtocolos = $dao->getTodosProtocolosPaginado($offset, $pageSize, $filter);
-
-        return $this->loadManyFromHash($hashProtocolos);
-    }
-    
-    public function listarProprietariosPaginado($tipoProcessoId, $offset, $pageSize, $filter)
-    {
-        $dao = $this->_getDao();
-        $hashProtocolos = $dao->getProprietariosPaginado($tipoProcessoId, $offset, $pageSize, $filter);
-
-        return $this->loadManyFromHash($hashProtocolos);
     }
 }

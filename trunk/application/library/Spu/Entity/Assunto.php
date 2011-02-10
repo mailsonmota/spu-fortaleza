@@ -92,63 +92,11 @@ class Assunto extends BaseEntity
 
 		return $assuntos;
 	}
-
-	protected function _getDao()
-	{
-		$dao = new AssuntoDao($this->_getTicket());
-		return $dao;
-	}
 	
 	protected function _getArquivoDao()
 	{
 		$dao = new ArquivoDao($this->_getTicket());
 		return $dao;
-	}
-
-	protected function _loadAssuntoFromHash($hash)
-	{
-		$this->setNodeRef($this->_getHashValue($hash, 'noderef'));
-		$this->setNome($this->_getHashValue($hash, 'nome'));
-		$this->setCorpo($this->_getHashValue($hash, 'corpo'));
-		$this->setNotificarNaAbertura($this->_getHashValue($hash, 'notificarNaAbertura') ? true : false);
-		$this->setTipoProcesso($this->_loadTipoProcessoFromHash($this->_getHashValue($hash, 'tipoProcesso')));
-	}
-	
-	protected function _loadTipoProcessoFromHash($hash){
-		$tipoProcesso = new TipoProcesso($this->_ticket);
-		if ($hash) {
-			$hash = array_pop($hash);
-			$tipoProcesso->setNodeRef($this->_getHashValue($hash, 'noderef'));
-			$tipoProcesso->setNome($this->_getHashValue($hash, 'nome'));
-		}
-       return $tipoProcesso;
-	}
-
-	public function listarPorTipoProcesso($idTipoProcesso)
-	{
-		$dao = $this->_getDao();
-		$hashDeAssuntos = $dao->getAssuntosPorTipoProcesso($idTipoProcesso);
-
-		$assuntos = array();
-		foreach ($hashDeAssuntos as $hashAssunto) {
-			$assunto = new Assunto($this->_getTicket());
-			$assunto->_loadAssuntoFromHash($hashAssunto);
-			$assuntos[] = $assunto;
-		}
-
-		return $assuntos;
-	}
-
-	public function carregarPeloId($id)
-	{
-		$dao = $this->_getDao();
-		$hashDeAssuntos = $dao->getAssunto($id);
-
-		foreach ($hashDeAssuntos as $hashAssunto) {
-			$hashDadosAssunto = array_pop($hashAssunto);
-			$this->_loadAssuntoFromHash($hashDadosAssunto);
-			$this->setCategoria($hashDadosAssunto['tipoProcesso']);
-		}
 	}
 	
 	public function inserir($postData)

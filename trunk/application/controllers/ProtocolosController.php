@@ -1,5 +1,5 @@
 <?php
-Loader::loadEntity('Protocolo');
+Loader::loadDao('ProtocoloDao');
 class ProtocolosController extends BaseController
 {
 	public function indexAction() {}
@@ -8,8 +8,8 @@ class ProtocolosController extends BaseController
 	{
 		$id = $this->_getIdFromUrl();
 
-		$protocolo = new Protocolo($this->getTicket());
-		$protocolo->carregarPeloId($id);
+		$protocoloDao = new ProtocoloDao($this->getTicket());
+		$protocolo = $protocoloDao->getProtocolo($id);
 		
 		$this->view->protocolo = $protocolo;
 		$this->view->id = $protocolo->getId();

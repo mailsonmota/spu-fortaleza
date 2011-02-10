@@ -1,12 +1,12 @@
 <?php
-Loader::loadEntity('Assunto');
+Loader::loadDao('AssuntoDao');
 class AssuntosController extends BaseController
 {
 
 	public function indexAction()
 	{
-		$assunto = new Assunto($this->getTicket());
-		$listaAssuntos = $assunto->listar();
+		$assuntoDao = new AssuntoDao($this->getTicket());
+		$listaAssuntos = $assuntoDao->getAssuntos();
 		$this->view->lista = $listaAssuntos;
 	}
 
@@ -14,8 +14,8 @@ class AssuntosController extends BaseController
     {
         $id = $this->_getIdFromUrl();
         
-        $assunto = new Assunto($this->getTicket());
-        $assunto->carregarPeloId($id);
+        $assuntoDao = new AssuntoDao($this->getTicket());
+        $assunto = $assuntoDao->getAssunto($id);
         if ($this->getRequest()->isPost()) {
             try {
                 $assunto->editar($this->getRequest()->getPost());

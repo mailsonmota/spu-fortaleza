@@ -15,7 +15,7 @@ class TipoAbrangenciaDao extends BaseDao
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
         
-        return $result['Abrangencias'][0];
+        return $this->_loadManyFromHash($result['Abrangencias'][0]);
     }
     
     protected function _loadFromHash($hash)
@@ -32,7 +32,7 @@ class TipoAbrangenciaDao extends BaseDao
     protected function _loadManyFromHash($hash)
     {
         $tiposAbrangencia = array();
-        foreach ($hash[0] as $hashTipoAbrangencia) {
+        foreach ($hash as $hashTipoAbrangencia) {
             $tiposAbrangencia[] = $this->_loadFromHash($hashTipoAbrangencia[0]);
         }
         
