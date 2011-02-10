@@ -1,5 +1,7 @@
 <?php
 require_once('BaseService.php');
+Loader::loadEntity('Processo');
+Loader::loadService('TipoProcessoService');
 Loader::loadService('PrioridadeService');
 Loader::loadService('StatusService');
 Loader::loadService('ProtocoloService');
