@@ -6,8 +6,8 @@ class EncaminharController extends BaseTramitacaoController
     {
     	if ($this->getRequest()->isPost()) {
     		try {
-    			$processo = new Processo($this->getTicket());
-    			$processo->tramitarVarios($this->getRequest()->getPost());
+    			$processoDao = new ProcessoDao($this->getTicket());
+    			$processoDao->tramitarVarios($this->getRequest()->getPost());
 	    		$this->setSuccessMessage('Processos tramitados com sucesso.');
 	    		$this->_redirectEmAnalise();
 			} catch (Exception $e) {
@@ -34,8 +34,8 @@ class EncaminharController extends BaseTramitacaoController
     {
     	$processos = array();
     	foreach ($listaComIdsProcessos as $processoId) {
-        	$processo = new Processo($this->getTicket());
-        	$processo->carregarPeloId($processoId);
+        	$processoDao = new ProcessoDao($this->getTicket());
+        	$processo = $processoDao->getProcesso($processoId);
         	$processos[] = $processo;
         }
         
