@@ -12,8 +12,7 @@ class StatusArquivamentoService extends BaseService
         $url = $this->addAlfTicketUrl($url);
         
         $curlObj = new CurlClient();
-        $resultJson = $curlObj->doGetRequest($url);
-        $result = json_decode($resultJson, true);
+        $result = $curlObj->doGetRequest($url);
         
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));

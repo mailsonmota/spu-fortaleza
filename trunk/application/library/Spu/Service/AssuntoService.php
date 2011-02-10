@@ -13,8 +13,7 @@ class AssuntoService extends BaseService
         $url = $this->addAlfTicketUrl($url);
         
         $curlObj = new CurlClient();
-        $resultJson = $curlObj->doGetRequest($url);
-        $result = json_decode($resultJson, true);
+        $result = $curlObj->doGetRequest($url);
         
         return $this->_loadManyFromHash($result['assuntos']);
     }
@@ -25,8 +24,7 @@ class AssuntoService extends BaseService
         $url = $this->addAlfTicketUrl($url);
         
         $curlObj = new CurlClient();
-        $resultJson = $curlObj->doGetRequest($url);
-        $result = json_decode($resultJson, true);
+        $result = $curlObj->doGetRequest($url);
         
         return $this->_loadManyFromHash($result['assuntos']);
     }
@@ -43,8 +41,7 @@ class AssuntoService extends BaseService
         $url = $this->addAlfTicketUrl($url);
         
         $curlObj = new CurlClient();
-        $resultJson = $curlObj->doGetRequest($url);
-        $result = json_decode($resultJson, true);
+        $result = $curlObj->doGetRequest($url);
         
         return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])));
     }
