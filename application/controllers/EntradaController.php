@@ -10,8 +10,8 @@ class EntradaController extends BaseTramitacaoController
     		if (!$this->getRequest()->isPost() OR !$this->getRequest()->getParam('processos')) {
     			throw new Exception("Por favor, selecione pelo menos um processo para receber.");
     		}
-    		$processoDao = new ProcessoDao($this->getTicket());
-    		$processoDao->receberVarios($this->getRequest()->getPost());
+    		$processoService = new ProcessoService($this->getTicket());
+    		$processoService->receberVarios($this->getRequest()->getPost());
     		$this->setSuccessMessage('Processos recebidos com sucesso.');
     	} catch (Exception $e) {
     		$this->setErrorMessage($e->getMessage());

@@ -20,8 +20,8 @@ class ConsultarController extends BaseController
 			$postData[$field] = $globalSearch;
 		}
 		
-		$processoDao = new ProcessoDao($this->getTicket());
-		$resultado = $processoDao->consultar($postData);
+		$processoService = new ProcessoService($this->getTicket());
+		$resultado = $processoService->consultar($postData);
 		
 		if (count($resultado) == 1) {
 			$processoId = $resultado[0]->id;

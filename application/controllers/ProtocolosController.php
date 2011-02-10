@@ -1,5 +1,5 @@
 <?php
-Loader::loadDao('ProtocoloDao');
+Loader::loadService('ProtocoloService');
 class ProtocolosController extends BaseController
 {
 	public function indexAction() {}
@@ -8,8 +8,8 @@ class ProtocolosController extends BaseController
 	{
 		$id = $this->_getIdFromUrl();
 
-		$protocoloDao = new ProtocoloDao($this->getTicket());
-		$protocolo = $protocoloDao->getProtocolo($id);
+		$protocoloService = new ProtocoloService($this->getTicket());
+		$protocolo = $protocoloService->getProtocolo($id);
 		
 		$this->view->protocolo = $protocolo;
 		$this->view->id = $protocolo->getId();
