@@ -12,8 +12,7 @@ class ManifestanteService extends BaseService
         $url = $this->addAlfTicketUrl($url);
         
         $curlObj = new CurlClient();
-        $resultJson = $curlObj->doGetRequest($url);
-        $result = json_decode($resultJson, true);
+        $result = $curlObj->doGetRequest($url);
         
         return $this->loadManyFromHash($result['Manifestantes']);
     }
@@ -24,8 +23,7 @@ class ManifestanteService extends BaseService
         $url = $this->addAlfTicketUrl($url);
         
         $curlObj = new CurlClient();
-        $resultJson = $curlObj->doGetRequest($url);
-        $result = json_decode($resultJson, true);
+        $result = $curlObj->doGetRequest($url);
         
         return $this->loadFromHash(array_pop(array_pop(array_pop($result['Manifestante']))));
     }
