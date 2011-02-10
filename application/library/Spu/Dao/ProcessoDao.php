@@ -6,6 +6,7 @@ Loader::loadDao('ProtocoloDao');
 Loader::loadDao('TipoManifestanteDao');
 Loader::loadDao('ArquivamentoDao');
 Loader::loadDao('MovimentacaoDao');
+Loader::loadDao('AssuntoDao');
 class ProcessoDao extends BaseDao
 {
     private $_processoBaseUrl = 'spu/processo';
@@ -92,7 +93,23 @@ class ProcessoDao extends BaseDao
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
         
-        return $this->loadFromHash(array_pop(array_pop($result['Processo'][0])));
+        $processo = $this->loadFromHash(array_pop(array_pop($result['Processo'][0])));
+        
+        return $this->_getProcessoDetalhado($processo);
+    }
+    
+    protected function _getProcessoDetalhado($processo) {
+    	$arquivoDao = new ArquivoDao($this->getTicket());
+        $processo->setRespostasFormulario($arquivoDao->getRespostasFormulario($processo->id));
+            
+        $tipoProcessoDao = new TipoProcessoDao($this->getTicket());
+        $processo->setTipoProcesso($tipoProcessoDao->getTipoProcesso($processo->tipoProcesso->id));
+        
+        $processo->setArquivos($arquivoDao->getArquivos($processo->id));
+        
+        $processo->setMovimentacoes($this->getHistorico($processo->id));
+        
+        return $processo;
     }
     
     public function getProcesso($nodeUuid)
@@ -106,17 +123,7 @@ class ProcessoDao extends BaseDao
         
         $processoHash = array_pop(array_pop($result['Processo'][0])); 
         
-        $processo = $this->loadFromHash($processoHash);
-        
-        $arquivoDao = new ArquivoDao($this->getTicket());
-        $processo->setRespostasFormulario($arquivoDao->getRespostasFormulario($processo->id));
-            
-        $tipoProcessoDao = new TipoProcessoDao($this->getTicket());
-        $processo->setTipoProcesso($tipoProcessoDao->getTipoProcesso($processo->tipoProcesso->id));
-        
-        $processo->setArquivos($arquivoDao->getArquivos($processo->id));
-        
-        $processo->setMovimentacoes($this->getHistorico($processo->id));
+        $processo = $this->_getProcessoDetalhado($this->loadFromHash($processoHash));
         
         return $processo;
     }
@@ -389,9 +396,8 @@ class ProcessoDao extends BaseDao
     protected function _loadAssuntoFromHash($hash)
     {
         $hash = array_pop($hash);
-        $assunto = new Assunto($this->getTicket());
-        $assunto->setNodeRef($hash['noderef']);
-        $assunto->setNome($hash['nome']);
+        $assuntoDao = new AssuntoDao($this->getTicket());
+        $assunto = $assuntoDao->loadFromHash($hash);
         
         return $assunto;
     }
