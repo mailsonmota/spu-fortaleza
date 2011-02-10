@@ -20,9 +20,10 @@ echo $this->pagenav()->closeList();
 
 <div id="article">
     <?php 
-    $headerColumns = array('Nome', 'Ações');
+    $headerColumns = array('', 'Nome', 'Ações');
     $columns = array('nome');
     $grid = new SimpleDataTable($this->assuntos, array('headerColumns' => $headerColumns, 'columns' => $columns));
+    $grid->addCheckboxColumn('assuntos', 'id');
     $grid->addActionColumn('Editar', $this->simpleUrl('editar', $this->action) . '/id/', 'id');
     echo $grid->render();
     ?>

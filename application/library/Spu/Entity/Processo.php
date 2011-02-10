@@ -9,7 +9,6 @@ Loader::loadAspect('Manifestante');
 Loader::loadAspect('Arquivamento');
 Loader::loadClassification('Prioridade');
 Loader::loadClassification('Status');
-Loader::loadService('ProcessoService');
 class Processo extends BaseEntity
 {
     protected $_nodeRef;
