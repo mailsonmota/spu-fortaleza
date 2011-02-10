@@ -18,7 +18,7 @@ class AssuntosController extends BaseController
         $assunto = $assuntoDao->getAssunto($id);
         if ($this->getRequest()->isPost()) {
             try {
-                $assunto->editar($this->getRequest()->getPost());
+            	$assunto = $assuntoDao->editar($id, $this->getRequest()->getPost());
                 $this->setMessageForTheView('Assunto salvo com sucesso.', 'success');
             } catch (Exception $e) {
                 $this->setMessageForTheView($e->getMessage(), 'error');
@@ -34,15 +34,17 @@ class AssuntosController extends BaseController
     {
         $id = $this->_getTipoProcessoFromUrl();
         
-        $assunto = new Assunto($this->getTicket());
+        $assunto = new Assunto();
         if ($this->getRequest()->isPost()) {
         	try {
-        		$assunto->inserir($this->getRequest()->getPost());
+        		$assuntoDao = new AssuntoDao($this->getTicket());
+        		$assunto = $assuntoDao->inserir($this->getRequest()->getPost());
                 $this->setMessageForTheView('Assunto salvo com sucesso.', 'success');
             } catch (Exception $e) {
                 $this->setMessageForTheView($e->getMessage(), 'error');
             }
-        } 
+        }
+         
 	    $this->view->assunto = $assunto;
 	    $this->view->id = $assunto->getId();
 	    $this->view->isEdit = true;
