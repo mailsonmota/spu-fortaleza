@@ -22,7 +22,7 @@ class StatusArquivamentoDao extends BaseDao
         return $result['Status'][0];
     }
     
-    protected function _loadFromHash($hash)
+    public function loadFromHash($hash)
     {
         $statusArquivamento = new StatusArquivamento();
         
@@ -37,7 +37,7 @@ class StatusArquivamentoDao extends BaseDao
     {
         $statusArquivamento = array();
         foreach ($hash[0] as $hashStatusArquivamento) {
-            $statusArquivamento[] = $this->_loadFromHash($hashStatusArquivamento[0]);
+            $statusArquivamento[] = $this->loadFromHash($hashStatusArquivamento[0]);
         }
         
         return $statusArquivamento;

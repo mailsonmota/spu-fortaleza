@@ -15,7 +15,7 @@ class ProtocoloDao extends BaseDao
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
 
-        return $this->_loadFromHash(array_pop(array_pop($result['Protocolo'][0])));
+        return $this->loadFromHash(array_pop(array_pop($result['Protocolo'][0])));
     }
 
     public function getProtocolos()
@@ -55,7 +55,7 @@ class ProtocoloDao extends BaseDao
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
 
-        return $this->_loadFromHash($result['Protocolo'][0]);
+        return $this->loadFromHash($result['Protocolo'][0]);
     }
     
     public function getTodosProtocolosPaginado($offset = 0, $pageSize = 20, $filter = null)
@@ -71,7 +71,7 @@ class ProtocoloDao extends BaseDao
         return $this->_loadManyFromHash($result['Protocolos'][0]);
     }
 
-    protected function _loadFromHash($hash)
+    public function loadFromHash($hash)
     {
     	$protocolo = new Protocolo();
     	
@@ -101,7 +101,7 @@ class ProtocoloDao extends BaseDao
         $protocolos = array();
         foreach ($hash as $hashProtocolo) {
             $hashProtocolo = array_pop($hashProtocolo);
-            $protocolos[] = $this->_loadFromHash($hashProtocolo);
+            $protocolos[] = $this->loadFromHash($hashProtocolo);
         }
 
         return $protocolos;

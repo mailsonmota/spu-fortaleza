@@ -1,6 +1,7 @@
 <?php
 require_once('BaseDao.php');
 Loader::loadEntity('Assunto');
+Loader::loadDao('ArquivoDao');
 class AssuntoDao extends BaseDao
 {
     private $_assuntosBaseUrl = 'spu/assuntos';
@@ -45,7 +46,7 @@ class AssuntoDao extends BaseDao
         $resultJson = $curlObj->doGetRequest($url);
         $result = json_decode($resultJson, true);
         
-        return $this->_loadFromHash(array_pop(array_pop($result['Assunto'][0])));
+        return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])));
     }
     
     public function inserir($postData)
@@ -61,7 +62,7 @@ class AssuntoDao extends BaseDao
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
         
-        return $this->_loadFromHash(array_pop(array_pop($result['Assunto'][0])));
+        return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])));
     }
     
     public function editar($id, $postData)
@@ -77,10 +78,10 @@ class AssuntoDao extends BaseDao
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
         
-        return $this->_loadFromHash(array_pop(array_pop($result['Assunto'][0])));
+        return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])));
     }
     
-    protected function _loadFromHash($hash)
+    public function loadFromHash($hash)
     {
     	$assunto = new Assunto();
     	
@@ -89,6 +90,7 @@ class AssuntoDao extends BaseDao
         $assunto->setCorpo($this->_getHashValue($hash, 'corpo'));
         $assunto->setNotificarNaAbertura($this->_getHashValue($hash, 'notificarNaAbertura') ? true : false);
         $assunto->setTipoProcesso($this->_loadTipoProcessoFromHash($this->_getHashValue($hash, 'tipoProcesso')));
+        $assunto->setFormulario($this->_loadFormulario($assunto->getId()));
         
         return $assunto;
     }
@@ -103,13 +105,27 @@ class AssuntoDao extends BaseDao
         return $tipoProcesso;
     }
     
+    protected function _loadFormulario($assuntoId)
+    {
+    	$arquivoDao = new ArquivoDao($this->getTicket());
+    	$formulario = new Formulario();
+    	try {
+    	   $formularioData = $arquivoDao->getContentFromUrl(array('id' => $assuntoId));
+    	   $formulario->setData($formularioData);
+    	} catch (Exception $e) {
+    		
+    	}
+    	
+    	return $formulario;
+    }
+    
     protected function _loadManyFromHash($hash)
     {
         $hashAssuntos = array();
         foreach ($hash as $hashAssunto) {
         	//FIXME: Esse service nao esta respondendo coforme o padrão
             //$hashAssunto = array_pop($hashAssunto);
-            $hashAssuntos[] = $this->_loadFromHash($hashAssunto);
+            $hashAssuntos[] = $this->loadFromHash($hashAssunto);
         }
 
         return $hashAssuntos;

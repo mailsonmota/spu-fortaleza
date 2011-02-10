@@ -23,7 +23,7 @@ class AssuntosController extends BaseController
             } catch (Exception $e) {
                 $this->setMessageForTheView($e->getMessage(), 'error');
             }
-        } 
+        }
         
         $this->view->assunto = $assunto;
         $this->view->id = $assunto->id;
@@ -64,8 +64,6 @@ class AssuntosController extends BaseController
 		$assuntoDao = new AssuntoDao($this->getTicket());
 		$assunto = $assuntoDao->getAssunto($id);
 
-		$arquivoDao = new ArquivoDao($this->getTicket());
-		
 		$this->view->assunto = $assunto;
 		$this->view->id = $assunto->getId();
 		$this->view->isEdit = true;

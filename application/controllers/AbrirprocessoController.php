@@ -74,8 +74,8 @@ class AbrirprocessoController extends BaseController
                 $formDadosGeraisProcesso = $session->formDadosGeraisProcesso;
                 $postData = $this->getRequest()->getPost();
                 $dataMerged = array_merge($formDadosGeraisProcesso, $postData);
-                $processo = new Processo($this->getTicket());
-                $processo->abrirProcesso($dataMerged);
+                $processoDao = new ProcessoDao($this->getTicket());
+                $processo = $processoDao->abrirProcesso($dataMerged);
                 $session->processo = $processo;
                 
                 if ($processo->assunto->hasFormulario()) {
@@ -101,8 +101,8 @@ class AbrirprocessoController extends BaseController
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
             try {
-                $processo = new Processo($this->getTicket());
-                $processo->salvarRespostasFormulario($postData);
+                $arquivoDao = new ArquivoDao($this->getTicket());
+                $arquivoDao->salvarFormulario($postData);
                 $this->_redirectUploadArquivo();
             }
             catch (AlfrescoApiException $e) {
@@ -138,7 +138,8 @@ class AbrirprocessoController extends BaseController
                 $postData['fileToUpload'] = "@" . $newFilePath;
 
                 try {
-                    $processo->uploadArquivo($postData);
+                	$arquivoDao = new ArquivoDao($this->getTicket());
+                	$arquivoDao->uploadArquivo($postData);
                 } catch (Exception $e) {
                     throw new Exception('Erro no upload de arquivo. Mensagem: ' . $e->getMessage());
                 }
@@ -148,7 +149,8 @@ class AbrirprocessoController extends BaseController
         }
 
         // Recarregando o processo para pegar os arquivos recém-anexados
-        $processo->carregarPeloId($processo->id);
+        $processoDao = new ProcessoDao($this->getTicket());
+        $processo = $processoDao->getProcesso($processo->id);
         
         $this->view->hasFormulario = $processo->assunto->hasFormulario();
         $this->view->uploadedFiles = $processo->getArquivos();
@@ -158,29 +160,30 @@ class AbrirprocessoController extends BaseController
     {
         $session = new Zend_Session_Namespace('aberturaProcesso');
         
-        $protocoloEntity = new Protocolo($this->getTicket());
-        $protocoloEntity->carregarPeloId($session->formDadosGeraisProcesso['origem']);
-        $this->view->origemNome = $protocoloEntity->nome;
+        $protocoloDao = new ProtocoloDao($this->getTicket());
+        $protocoloOrigem = $protocoloDao->getProtocolo($session->formDadosGeraisProcesso['origem']);
+        $this->view->origemNome = $protocoloOrigem->nome;
         
         if ($this->getRequest()->isPost()) {
-                $session = new Zend_Session_Namespace('aberturaProcesso');
-                $processo = $session->processo;
-                $postData['processoId'] = $processo->id;
-                $postData['destinoId'] = $session->formDadosGeraisProcesso['destino'];
-                $postData['prioridadeId'] = $processo->prioridade->id;
-                $postData['prazo'] = $processo->data;
-                $postData['despacho'] = "";
-                $postData['copias'] = $session->formDadosGeraisProcesso['copias'];
+            $session = new Zend_Session_Namespace('aberturaProcesso');
+            $processo = $session->processo;
+            $postData['processoId'] = $processo->id;
+            $postData['destinoId'] = $session->formDadosGeraisProcesso['destino'];
+            $postData['prioridadeId'] = $processo->prioridade->id;
+            $postData['prazo'] = $processo->data;
+            $postData['despacho'] = "";
+            $postData['copias'] = $session->formDadosGeraisProcesso['copias'];
 
-                try {
-                $processo->tramitar($postData);
-                } catch (AlfrescoApiException $e) {
-                        throw $e;
-                } catch (Exception $e) {
-                        throw $e;
-                }
+            try {
+                $processoDao = new ProcessoDao($this->getTicket());
+                $processoDao->tramitar($postData);
+            } catch (AlfrescoApiException $e) {
+                    throw $e;
+            } catch (Exception $e) {
+                    throw $e;
+            }
 
-                $this->_redirectProcessoDetalhes($processo->id);
+            $this->_redirectProcessoDetalhes($processo->id);
         }
     }
 

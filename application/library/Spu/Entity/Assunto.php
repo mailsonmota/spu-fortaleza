@@ -1,7 +1,6 @@
 <?php
 require_once('BaseEntity.php');
-Loader::loadDao('AssuntoDao');
-Loader::loadDao('ArquivoDao');
+Loader::loadEntity('Formulario');
 class Assunto extends BaseEntity
 {
 	protected $_nodeRef;
@@ -9,6 +8,7 @@ class Assunto extends BaseEntity
 	protected $_corpo;
 	protected $_notificarNaAbertura;
 	protected $_tipoProcesso;
+	protected $_formulario;
 	
 	public function getTipoProcesso()
 	{
@@ -60,6 +60,15 @@ class Assunto extends BaseEntity
 		$this->_notificarNaAbertura = $value;
 	}
 
+	public function getFormulario() {
+		return $this->_formulario;
+	}
+	
+	public function setFormulario($value)
+	{
+		$this->_formulario = $value;
+	}
+	
 	public function getId()
 	{
 		$nodeRef = $this->getNodeRef();
@@ -69,14 +78,6 @@ class Assunto extends BaseEntity
 	//FIXME: Implementar Assunto::hasFormulario
 	public function hasFormulario()
 	{
-		$hasFormulario = false;
-		try {
-		    $formularioXsd = $this->getFormularioXsd();
-		    $hasFormulario = true;
-		} catch (Exception $e) {
-			$hasFormulario = false;
-		}
-		
-		return $hasFormulario;
+		return $this->_formulario->hasData();
 	}
 }

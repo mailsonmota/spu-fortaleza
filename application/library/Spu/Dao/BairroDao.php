@@ -1,6 +1,6 @@
 <?php
 require_once('BaseDao.php');
-Loader::loadEntity('Bairro');
+Loader::loadClassification('Bairro');
 class BairroDao extends BaseDao
 {
     private $_bairrosBaseUrl = 'spu/bairros';
@@ -18,7 +18,7 @@ class BairroDao extends BaseDao
         return $this->_loadManyFromHash($result['Bairros']);
     }
     
-    protected function _loadFromHash($hash)
+    public function loadFromHash($hash)
     {
     	$bairro = new Bairro();
     	
@@ -33,7 +33,7 @@ class BairroDao extends BaseDao
     {
         $bairros = array();
         foreach ($hash[0] as $hashBairro) {
-        	$bairros[] = $this->_loadFromHash($hashBairro[0]);
+        	$bairros[] = $this->loadFromHash($hashBairro[0]);
         }
         
         return $bairros;

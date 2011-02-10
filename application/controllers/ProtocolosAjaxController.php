@@ -64,8 +64,8 @@ class ProtocolosAjaxController extends BaseDataTablesController
     
     protected function _getListaProtocolosDestino()
     {
-    	$protocolo = new Protocolo($this->getTicket());
-        $protocolos = $protocolo->listarTodosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearchTerm());
+    	$protocoloDao = new ProtocoloDao($this->getTicket());
+        $protocolos = $protocoloDao->getTodosProtocolosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearchTerm());
         
         return $protocolos;
     }
@@ -77,8 +77,8 @@ class ProtocolosAjaxController extends BaseDataTablesController
 
     protected function _getProtocolosDestino()
     {
-        $protocolo = new Protocolo($this->getTicket());
-        $protocolos = $protocolo->listarTodosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+        $protocoloDao = new ProtocoloDao($this->getTicket());
+        $protocolos = $protocolo->getTodosProtocolosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
         
         return $this->_convertProtocolosDestinoToDataTablesRow($protocolos);
     }
