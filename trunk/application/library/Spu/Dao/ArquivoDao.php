@@ -1,5 +1,6 @@
 <?php
 require_once('BaseDao.php');
+Loader::loadEntity('Arquivo');
 Loader::loadEntity('RespostasFormulario');
 class ArquivoDao extends BaseDao
 {
@@ -18,7 +19,7 @@ class ArquivoDao extends BaseDao
 			throw new Exception($this->getAlfrescoErrorMessage($result));
 		}
 
-		return $result;
+		return $this->loadManyFromHash($result);
 	}
 
 	/**
@@ -121,5 +122,24 @@ class ArquivoDao extends BaseDao
 	protected function _isValidRespostasXML($xml)
 	{
 		return (is_string($xml) AND strpos($xml, '<title>Apache') == -1) ? true : false;
+	}
+	
+	public function loadFromHash($hash)
+	{
+		$arquivo = new Arquivo();
+        $arquivo->setId($this->_getHashValue($hash, 'id'));
+        $arquivo->setNome($this->_getHashValue($hash, 'nome'));
+        
+        return $arquivo;
+	}
+	
+	public function loadManyFromHash($hash)
+	{
+        $arquivos = Array();
+        foreach ($hash as $hashArquivo) {
+            $arquivos[] = $this->loadFromHash($hashArquivo);
+        }
+        
+        return $arquivos;
 	}
 }
