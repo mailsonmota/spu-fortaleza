@@ -284,22 +284,6 @@ class Processo extends BaseEntity
         return $return;
     }
     
-    public function consultar($postData)
-    {
-        $dao = $this->_getDao();
-        $processos = array();
-        
-        try {
-           $hashProcessos = $dao->consultar($postData);
-           $processos = $this->_loadManyFromHash($hashProcessos);
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-            //throw new AlfrescoApiException('Houve um erro na tramitação do processo', $e->getMessage());
-        }
-        
-        return $processos;
-    }
-    
     /*
      * Lista os processos possíveis de ser incorporados a um outro ($this).
      * 

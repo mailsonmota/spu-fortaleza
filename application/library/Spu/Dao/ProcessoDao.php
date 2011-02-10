@@ -315,7 +315,7 @@ class ProcessoDao extends BaseDao
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
         
-        return $result['Processos'][0];
+        return $this->_loadManyFromHash($result['Processos'][0]);
     }
     
     public function getProcessosParalelos($processoId)

@@ -113,6 +113,9 @@ class AbrirprocessoController extends BaseController
             }
         }
         
+        $processoDao = new ProcessoDao($this->getTicket());
+        $session->processo = $processoDao->getProcesso($processo->id);
+        
         $this->view->processoId = $processo->id;
         $this->view->assuntoId = $processo->assunto->id;
     }
