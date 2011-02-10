@@ -4,7 +4,7 @@
  * @author bruno
  * @package SGC
  */
-Loader::loadEntity('Processo');
+Loader::loadService('ProcessoService');
 require_once 'BaseAuthenticatedController.php';
 abstract class BaseController extends BaseAuthenticatedController
 {

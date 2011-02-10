@@ -1,6 +1,6 @@
 <?php
 require_once('BaseService.php');
-Loader::loadEntity('Prioridade');
+Loader::loadClassification('Prioridade');
 class PrioridadeService extends BaseService
 {
     private $_baseUrl = 'spu/processo';
