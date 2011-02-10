@@ -1,7 +1,10 @@
 <?php
-Loader::loadEntity('Processo');
-Loader::loadEntity('Bairro');
-Loader::loadEntity('Protocolo');
+Loader::loadDao('ProcessoDao');
+Loader::loadDao('BairroDao');
+Loader::loadDao('ProtocoloDao');
+Loader::loadDao('TipoProcessoDao');
+Loader::loadDao('AssuntoDao');
+Loader::loadDao('PrioridadeDao');
 class AbrirprocessoController extends BaseController
 {
     public function indexAction()
@@ -13,10 +16,8 @@ class AbrirprocessoController extends BaseController
                                            array('tipoprocesso' => $this->_getIdTipoProcessoPost()));
         }
 
-        $tipoProcesso = new TipoProcesso($this->getTicket());
         $listaTiposProcesso = $this->_getListaTiposProcesso();
 
-        $this->view->tipoProcesso = $tipoProcesso;
         $this->view->listaTiposProcesso = $listaTiposProcesso;
     }
 
@@ -196,8 +197,8 @@ class AbrirprocessoController extends BaseController
 
     protected function _getListaTiposProcesso()
     {
-        $tipoProcesso = new TipoProcesso($this->getTicket());
-        $tiposProcesso = $tipoProcesso->listar();
+        $tipoProcessoDao = new TipoProcessoDao($this->getTicket());
+        $tiposProcesso = $tipoProcessoDao->getTiposProcesso();
         $listaTiposProcesso = array();
         foreach ($tiposProcesso as $tipoProcesso) {
             $listaTiposProcesso[$tipoProcesso->id] = $tipoProcesso->nome;
@@ -219,9 +220,9 @@ class AbrirprocessoController extends BaseController
 
     protected function _getTipoProcesso($idTipoProcesso = null)
     {
-        $tipoProcesso = new TipoProcesso($this->getTicket());
+        $tipoProcessoDao = new TipoProcessoDao($this->getTicket());
         if ($idTipoProcesso) {
-            $tipoProcesso->carregarPeloId($idTipoProcesso);
+            $tipoProcesso = $tipoProcessoDao->getTipoProcesso($idTipoProcesso);
         }
 
         return $tipoProcesso;
@@ -229,7 +230,8 @@ class AbrirprocessoController extends BaseController
 
     protected function _getListaAssuntos(TipoProcesso $tipoProcesso)
     {
-        $assuntos = $tipoProcesso->getAssuntos();
+    	$assuntoDao = new AssuntoDao($this->getTicket());
+        $assuntos = $assuntoDao->getAssuntosPorTipoProcesso($tipoProcesso->getId());
         $listaAssuntos = array();
         foreach ($assuntos as $assunto) {
             $listaAssuntos[$assunto->id] = $assunto->nome;
@@ -265,8 +267,8 @@ class AbrirprocessoController extends BaseController
 
     protected function _getListaBairros()
     {
-        $bairro = new Bairro($this->getTicket());
-        $bairros = $bairro->listar();
+        $bairroDao = new BairroDao($this->getTicket());
+        $bairros = $bairroDao->getBairros();
         $listaBairros = array();
         foreach ($bairros as $bairro) {
             $listaBairros[$bairro->id] = $bairro->descricao;
@@ -284,8 +286,8 @@ class AbrirprocessoController extends BaseController
 
     protected function _getListaPrioridades()
     {
-        $prioridade = new Prioridade($this->getTicket());
-        $prioridades = $prioridade->listar();
+        $prioridadeDao = new PrioridadeDao($this->getTicket());
+        $prioridades = $prioridadeDao->fetchAll();
         $listaPrioridades = array();
         foreach ($prioridades as $prioridade) {
             $listaPrioridades[$prioridade->id] = $prioridade->descricao;
@@ -303,8 +305,8 @@ class AbrirprocessoController extends BaseController
 
     protected function _getListaOrigens()
     {
-        $protocolo = new Protocolo($this->getTicket());
-        $protocolos = $protocolo->listar();
+        $protocoloDao = new ProtocoloDao($this->getTicket());
+        $protocolos = $protocoloDao->getProtocolos();
         $listaProtocolos = array();
         foreach ($protocolos as $protocolo) {
             $listaProtocolos[$protocolo->id] = $protocolo->path;
