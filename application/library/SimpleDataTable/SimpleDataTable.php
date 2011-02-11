@@ -15,6 +15,7 @@ class SimpleDataTable
     const COLUMN_LINK = 'link';
     const COLUMN_CHECKBOX = 'checkbox';
     const COLUMN_RADIO = 'radio';
+    const DEFAULT_PAGE_SIZE = 20;
     
     protected $_html = '';
     protected $_options;
@@ -151,7 +152,9 @@ class SimpleDataTable
         if ($this->_hasFooter()) {
             $colspan = 'colspan="' . $this->_getNumberOfColumns() . '"';
             $numberOfRecords = $this->_getNumberOfRecords();
-            $html = "<tfoot><tr><td $colspan><em>Exibindo $numberOfRecords registros.</em></td></tr></tfoot>";
+            $html  = "<tfoot><tr>";
+            $html .= "<td $colspan><em>Exibindo $numberOfRecords registros.</em></td>";
+            $html .= "</tr></tfoot>";
             
             $this->_addHtml($html);
         }
@@ -165,6 +168,46 @@ class SimpleDataTable
     protected function _getNumberOfColumns()
     {
         return count($this->_getColumns());
+    }
+    
+    protected function _renderPagination()
+    {
+    	$html  = '';
+    	$html .= '<td>';
+    	if ($this->_getCurrentPage() > 1) {
+            $html .= '<a href="' . $this->_getPageUrl($this->_getCurrentPage() - 1) . '">Página Anterior</a>';
+    	}
+    	if ($this->_getNumberOfRecords() < $this->_getPageSize()) {
+    		$html .= '<a href="' . $this->_getPageUrl($this->_getCurrentPage() + 1) . '">Página Seguinte</a>';
+    	}
+    	$html .= '</td>';
+    	
+    	return $html;
+    }
+    
+    protected function _getCurrentPage()
+    {
+    	return (isset($_GET['pagina'])) ? $_GET['pagina'] : 1;
+    }
+    
+    protected function _getPageUrl($page)
+    {
+    	$pageUrl = $_SERVER['REQUEST_URI'];
+    	if (strpos($pageUrl, 'pagina=') > -1) {
+    		$pageUrl = substr($pageUrl, 0, strpos($pageUrl, 'pagina=')) . 'pagina=' . $page;
+    	} else {
+    		if (strpos($pageUrl, '?') > -1) {
+    			$pageUrl .= '&pagina=' . $page;
+    		} else {
+    			$pageUrl .= '?pagina=' . $page;
+    		}
+    	}
+    	return $pageUrl;
+    }
+    
+    protected function _getPageSize()
+    {
+    	return ($this->_getOption('pageSize')) ? $this->_getOption('pageSize') : self::DEFAULT_PAGE_SIZE;
     }
     
     protected function _getNumberOfRecords()
