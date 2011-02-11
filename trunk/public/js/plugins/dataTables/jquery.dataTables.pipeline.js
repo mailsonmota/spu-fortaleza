@@ -5,10 +5,6 @@ function fnDataTablesPipeline (sSource, aoData, fnCallback) {
 		url: sSource,
 		dataType: 'json',
 		data: aoData,
-		beforeSend: function(jqXHR, settings) {
-			$('.dataTables_processing').hide();
-			$('.dataTables_processing').fadeIn('slow');
-		}, 
 		success: function(json) {
 			fnCallback(json);
 		}, 
