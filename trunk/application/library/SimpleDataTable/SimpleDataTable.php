@@ -68,9 +68,7 @@ class SimpleDataTable
     
     protected function _renderBeginningOfTheTable()
     {
-        $tableClass = ($this->_getTableClass()) ? 
-                'class="' . $this->_getTableClass() . '"' : 
-                '';
+        $tableClass = ($this->_getTableClass()) ? 'class="' . $this->_getTableClass() . '"' : '';
         
         $html = "<table $tableClass summary=\"data grid\" id=\"datagrid\">";
         $this->_addHtml($html);
@@ -80,13 +78,7 @@ class SimpleDataTable
     {
         if ($this->_hasHeader()) {
             $columns = $this->_renderHeaderColumns();
-            
-            $html = "
-                    <thead>
-                        <tr>$columns</tr>
-                    </thead>
-            ";
-            
+            $html = "<thead><tr>$columns</tr></thead>";
             $this->_addHtml($html);
         }
     }
@@ -105,9 +97,7 @@ class SimpleDataTable
     
     protected function _getOption($option)
     {
-        return (is_array($this->_options) and isset($this->_options[$option])) ? 
-            $this->_options[$option] : 
-            null;
+        return (is_array($this->_options) and isset($this->_options[$option])) ? $this->_options[$option] :null;
     }
     
     protected function _renderHeaderColumns()
@@ -123,16 +113,12 @@ class SimpleDataTable
     
     protected function _getHeaderColumns()
     {
-        return ($this->_getOption('headerColumns')) ? 
-            $this->_getOption('headerColumns') : 
-            $this->_getDataColumns();
+        return ($this->_getOption('headerColumns')) ? $this->_getOption('headerColumns') : $this->_getDataColumns();
     }
     
     protected function _getColumns()
     {
-        return ($this->_getOption('columns')) ? 
-            $this->_getOption('columns') : 
-            $this->_getColumnsFromData();
+        return ($this->_getOption('columns')) ? $this->_getOption('columns') : $this->_getColumnsFromData();
     }
     
     protected function _getColumnsFromData()
@@ -157,13 +143,7 @@ class SimpleDataTable
         if ($this->_hasFooter()) {
             $colspan = 'colspan="' . $this->_getNumberOfColumns() . '"';
             $numberOfRecords = $this->_getNumberOfRecords();
-            $html = "
-                <tfoot>
-                    <tr>
-                        <td $colspan><em>Exibindo $numberOfRecords registros.</em></td>
-                    </tr>
-                </tfoot>
-            ";
+            $html = "<tfoot><tr><td $colspan><em>Exibindo $numberOfRecords registros.</em></td></tr></tfoot>";
             
             $this->_addHtml($html);
         }
