@@ -101,7 +101,7 @@ class ArquivoService extends BaseService
         
         $curlObj = new CurlClient();
         try {
-            $result = $curlObj->doGetRequest($url);
+            $result = $curlObj->doGetRequest($url, CurlClient::FORMAT_STRING);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -116,7 +116,7 @@ class ArquivoService extends BaseService
 	
 	protected function _isValidRespostasXML($xml)
 	{
-		return (is_string($xml) AND strpos($xml, '<title>Apache') == -1) ? true : false;
+		return (is_string($xml) AND strpos($xml, '<title>Apache') === false) ? true : false;
 	}
 	
 	public function loadFromHash($hash)

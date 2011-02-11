@@ -55,7 +55,7 @@ textarea {height: 5.5em}
 .buttons li {float: left;margin-right: 0.5em;}
 .buttons .description {padding-top: 0.70em;}
 .buttons.grid {margin-bottom: 0;}
-button {padding: 0.5em 1.5em;font-size: 1em;}
+button, input[type=button], input[type=submit] {padding: 0.5em 1.5em;font-size: 1em;}
 
 /* Tabelas */
 table.grid {width: 100%;margin-top: 1%;border-collapse:collapse;}
