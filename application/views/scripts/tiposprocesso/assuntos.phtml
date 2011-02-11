@@ -19,7 +19,14 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <?php 
+    <form action="<?php echo $this->simpleUrl('remover', 'assuntos') ?>" method="post">
+    <input type="hidden" name="tipoProcessoId" value="<?php echo $this->id ?>">
+    <?php
+    echo $this->buttonlist()->open();
+    echo $this->buttonlist()->defaultBlockActionsDescription();
+    echo $this->buttonlist()->button('Remover');
+    echo $this->buttonlist()->close(true);
+    
     $headerColumns = array('', 'Nome', 'Ações');
     $columns = array('nome');
     $grid = new SimpleDataTable($this->assuntos, array('headerColumns' => $headerColumns, 'columns' => $columns));
@@ -27,4 +34,5 @@ echo $this->pagenav()->closeList();
     $grid->addActionColumn('Editar', $this->simpleUrl('editar', $this->action) . '/id/', 'id');
     echo $grid->render();
     ?>
+    </form>
 </div>
