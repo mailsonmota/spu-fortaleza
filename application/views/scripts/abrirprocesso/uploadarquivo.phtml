@@ -17,19 +17,22 @@ echo $this->pagenav()->closeList();
     <h4><?php echo ($this->hasFormulario) ? '5' : '4' ?>. Escolha arquivos para adicionar ao processo</h4>
     
     <form action="" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
-        <?php
-        echo $this->form()->openFieldList();
-        echo $this->file('Arquivo', 'fileToUpload');
-        echo $this->form()->closeFieldList();
-        echo $this->buttonlist()->open();
-	    echo $this->buttonlist()->button('Enviar Arquivo');
-	    echo $this->buttonlist()->close(true); 
-	    ?>
+        <fieldset>
+            <legend>Enviar arquivo</legend>
+	        <input type="hidden" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
+	        <?php
+	        echo $this->form()->openFieldList();
+	        echo $this->file('Arquivo', 'fileToUpload');
+	        echo $this->form()->closeFieldList();
+	        echo $this->buttonlist()->open();
+		    echo $this->buttonlist()->button('Enviar Arquivo');
+		    echo $this->buttonlist()->close(true); 
+		    ?>
+	    </fieldset>
     </form>
 
     <fieldset>
-    <legend>Lista de arquivos</legend>
+        <legend>Lista de arquivos</legend>
 	    <ul>
 		    <?php
 		    if (empty($this->uploadedFiles)) {
