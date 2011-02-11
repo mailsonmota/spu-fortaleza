@@ -1,5 +1,5 @@
 <?php
-Loader::loadEntity("Assunto");
+Loader::loadService("AssuntoService");
 class FormularioController extends BaseController
 {
 	public function contentAction()
