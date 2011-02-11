@@ -33,7 +33,7 @@ a:hover, a:active {background-color: #000;color: #fff;text-decoration: none;}
 /* Forms */
 dl dd input[type=text], dl dd input, dl dd select, dl dd textarea {margin-top: 0; margin-bottom: 0}
 label {font-weight: normal;}
-input, select, textarea {padding: 0.25em 0;text-indent: 3px;font-size: 1em;}
+input, select, textarea {padding: 0.25em 0;text-indent: 3px;}
 select {text-indent: 0;}
 fieldset {border-width: 1px 0 0 0;}
 

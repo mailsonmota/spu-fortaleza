@@ -14,9 +14,8 @@ class AssuntoService extends BaseService
 
 		$curlObj = new CurlClient();
 		$resultJson = $curlObj->doGetRequest($url);
-		$result = json_decode($resultJson, true);
-
-		return $this->_loadManyFromHash($result['assuntos']);
+		
+		return $this->_loadManyFromHash($resultJson['assuntos']);
 	}
 
 	public function getAssuntosPorTipoProcesso($idTipoProcesso)
@@ -26,9 +25,8 @@ class AssuntoService extends BaseService
 
 		$curlObj = new CurlClient();
 		$resultJson = $curlObj->doGetRequest($url);
-		$result = json_decode($resultJson, true);
-
-		return $this->_loadManyFromHash($result['assuntos']);
+		
+		return $this->_loadManyFromHash($resultJson['assuntos']);
 	}
 
 	protected function _getNomeAjustadoNomeParaUrl($nome)
@@ -44,9 +42,8 @@ class AssuntoService extends BaseService
 
 		$curlObj = new CurlClient();
 		$resultJson = $curlObj->doGetRequest($url);
-		$result = json_decode($resultJson, true);
-
-		return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])));
+		
+		return $this->loadFromHash(array_pop(array_pop($resultJson['Assunto'][0])));
 	}
 
 	public function inserir($postData)
