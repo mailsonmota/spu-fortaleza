@@ -85,7 +85,7 @@ class ArquivoService extends BaseService
 	{
 		$url = $this->getArquivoFormularioDownloadUrl($getData);
 		$curlObj = new CurlClient();
-		$result = $curlObj->doGetRequest($url);
+		$result = $curlObj->doGetRequest($url, CurlClient::FORMAT_STRING);
 		
 		if (strpos($result, 'Internal Error') > -1) {
 			throw new Exception('Erro ao capturar o formulario');

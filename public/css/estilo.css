@@ -13,7 +13,7 @@
 
 /* Básico */
 body {background-color: #EEE; color: #333333; line-height: 1.429; margin: 0; padding: 0; text-align: left; font-size: 80%}
-body, input, button {font-family: sans-serif}
+body, input, button, textarea {font-family: sans-serif}
 
 /* Cabeçalhos */
 h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#111;}
@@ -33,7 +33,7 @@ a:hover, a:active {background-color: #000;color: #fff;text-decoration: none;}
 /* Forms */
 dl dd input[type=text], dl dd input, dl dd select, dl dd textarea {margin-top: 0; margin-bottom: 0}
 label {font-weight: normal;}
-input, select, textarea {padding: 0.25em 0;text-indent: 3px;}
+input, select, textarea {padding: 0.25em 0;text-indent: 3px;font-size: 1em;}
 select {text-indent: 0;}
 fieldset {border-width: 1px 0 0 0;}
 
