@@ -144,47 +144,5 @@ class AssuntoService extends BaseService
 		}
 		return (true);
 	}
-
-	public function getAssuntosPorTipoProcesso($idTipoProcesso)
-	{
-		$url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listarportipoprocesso/$idTipoProcesso";
-		$url = $this->addAlfTicketUrl($url);
-
-		$curlObj = new CurlClient();
-		$result = $curlObj->doGetRequest($url);
-
-		return $this->_loadManyFromHash($result['assuntos']);
-	}
-
-	protected function _getNomeAjustadoNomeParaUrl($nome)
-	{
-		$nome = str_replace(' ', '%20', $nome);
-		return $nome;
-	}
-
-	public function getAssunto($nodeUuid)
-	{
-		$url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/get/$nodeUuid";
-		$url = $this->addAlfTicketUrl($url);
-
-		$curlObj = new CurlClient();
-		$result = $curlObj->doGetRequest($url);
-
-		return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])));
-	}
-
-	public function inserir($postData)
-	{
-		$url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/inserir";
-		$url = $this->addAlfTicketUrl($url);
-
-		$curlObj = new CurlClient();
-
-		$result = $curlObj->doPostRequest($url, $postData);
-
-		if ($this->isAlfrescoError($result)) {
-			throw new Exception($this->getAlfrescoErrorMessage($result));
-		}
-		return (true);
-	}
+	
 }
