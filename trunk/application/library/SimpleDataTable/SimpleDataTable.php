@@ -1,4 +1,12 @@
 <?php
+/**
+ * SimpleDataTable
+ * 
+ * Component to create a table from a domain class
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @version 1.1
+ */
 class SimpleDataTable
 {
     const DEFAULT_GRID_CLASS = 'grid';
