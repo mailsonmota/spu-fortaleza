@@ -58,7 +58,12 @@ class ProtocoloService extends BaseService
     public function getTodosProtocolosPaginado($offset = 0, $pageSize = 20, $filter = null)
     {
         $filter = urlencode($filter);
-        $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listarTodosPaginado/$offset/$pageSize/?s=$filter";
+        $url = $this->getBaseUrl() . "/" 
+                                    . $this->_protocoloBaseUrl 
+                                    . "/listarTodosPaginado" 
+                                    . "/$offset" 
+                                    . "/$pageSize"  
+                                    . "/?s=$filter";
         $url = $this->addAlfTicketUrl($url);
 
         $curlObj = new CurlClient();
@@ -77,7 +82,8 @@ class ProtocoloService extends BaseService
         $protocolo->setDescricao($this->_getHashValue($hash, 'descricao'));
         $protocolo->setOrgao($this->_getHashValue($hash, 'orgao'));
         $protocolo->setLotacao($this->_getHashValue($hash, 'lotacao'));
-        $protocolo->setRecebePelosSubsetores(($this->_getHashValue($hash, 'recebePelosSubsetores') == '1') ? true : false);
+        $protocolo->setRecebePelosSubsetores(($this->_getHashValue($hash, 'recebePelosSubsetores') == '1') ? 
+            true : false);
         $protocolo->setRecebeMalotes(($this->_getHashValue($hash, 'recebeMalotes') == '1') ? true : false);
         $protocolo->setNivel($this->_getHashValue($hash, 'nivel'));
         $protocolo->setPath($this->_getHashValue($hash, 'path'));

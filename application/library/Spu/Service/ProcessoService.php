@@ -40,7 +40,12 @@ class ProcessoService extends BaseService
     
     public function getCaixaAnaliseIncorporacao($processo)
     {
-        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/incorporacaocaixaanalise/{$processo->manifestante->cpf}/{$processo->id}/{$processo->assunto->id}";
+        $url = $this->getBaseUrl() . "/" 
+                                    . $this->_processoBaseUrl 
+                                    . "/incorporacaocaixaanalise" 
+                                    . "/{$processo->manifestante->cpf}" 
+                                    . "/{$processo->id}" 
+                                    . "/{$processo->assunto->id}";
         $url = $this->addAlfTicketUrl($url);
         
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
