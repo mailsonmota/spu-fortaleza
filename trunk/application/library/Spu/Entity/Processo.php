@@ -265,49 +265,6 @@ class Processo extends BaseEntity
         return ($this->getStatus()->nome == Status::ARQUIVADO);
     }
     
-    protected function _getService()
-    {
-        $Service = new ProcessoService($this->_getTicket());
-        return $Service;
-    }
-    
-    public function incorporar($data)
-    {
-        $Service = $this->_getService();
-        try {
-            $return = $Service->incorporar($data);
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-        
-        return $return;
-    }
-    
-    /*
-     * Lista os processos possíveis de ser incorporados a um outro ($this).
-     * 
-     * Critérios: as características tipo de processo, assunto e cpf do manifestante do processo incorporado
-     * devem ser iguais as do principal. Também, o próprio processo principal ($this) é excluído da lista. 
-     */
-    public function listarProcessosCaixaAnaliseIncorporado()
-    {
-        $listaCaixaAnalise = $this->listarProcessosCaixaAnalise();
-        $listaCaixaAnaliseFiltrada = Array();
-        
-        for ($i = 0; $i < count($listaCaixaAnalise); $i++) {
-            if (
-                ($listaCaixaAnalise[$i]->tipoProcesso->nodeRef == $this->tipoProcesso->nodeRef) AND
-                ($listaCaixaAnalise[$i]->assunto->nodeRef == $this->assunto->nodeRef) AND
-                ($listaCaixaAnalise[$i]->manifestante->cpf == $this->manifestante->cpf) AND
-                ($listaCaixaAnalise[$i]->nome != str_replace("/", "_", $this->numero))
-               ) {
-                $listaCaixaAnaliseFiltrada[] = $listaCaixaAnalise[$i];
-            }
-        }
-
-        return $listaCaixaAnaliseFiltrada;
-    }
-    
     public function hasArquivos()
     {
         if (count($this->getArquivos())) {
