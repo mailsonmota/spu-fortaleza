@@ -24,6 +24,12 @@ class AnaliseController extends BaseTramitacaoController
         		$session->processos = $processosSelecionados;
         		$this->_redirectEncaminharExternos();
         	} elseif ($this->_isPostCriarDespacho()) {
+        	    /*
+        	     * Apaga a lista de arquivos na sessão utilizada pelo controlador 'Despachar'
+        	     */
+        	    $sessionDespachar = new Zend_Session_Namespace('despachar');
+        	    unset($sessionDespachar->filesToUpload);
+        	    
         		$session = new Zend_Session_Namespace('comentar');
         		$session->processos = $processosSelecionados;
         		$this->_redirectComentar();
