@@ -1,7 +1,8 @@
 <?php
 class AuthController extends BaseController
 {
-    public function indexAction() {}
+    public function indexAction() {
+    }
     
     public function loginAction()
     {
@@ -19,9 +20,8 @@ class AuthController extends BaseController
         switch ($result->getCode()) {
      
             case Zend_Auth_Result::FAILURE:
-                $this->setErrorMessage(
-                    'Não foi possível se conectar ao Alfresco. Por favor, tente novamente mais tarde.'
-                );
+                $this->setErrorMessage('Não foi possível se conectar ao Alfresco.' .
+                                       'Por favor, tente novamente mais tarde.');
                 $this->redirectLogin();
                 break;
          

@@ -57,7 +57,7 @@ class DespacharController extends BaseTramitacaoController
         $this->view->filesToUpload = $sessionDespachar->filesToUpload;
     }
     
-    protected function removerarquivoAction()
+    public function removerarquivoAction()
     {
         $numero = $this->getRequest()->getParam('removerarquivo');
         $sessionDespachar = new Zend_Session_Namespace('despachar');

@@ -1,38 +1,38 @@
 <?php
 class BaseTramitacaoController extends BaseController
 {
-	public function init()
-	{
-		parent::init();
-		$this->view->abaAtiva = $this->getController();	
-	}
-	
-	protected function _redirectEmAnalise()
+    public function init()
     {
-    	$this->_helper->redirector('index', 'analise', 'default');
+        parent::init();
+        $this->view->abaAtiva = $this->getController();    
     }
     
-	protected function _redirectEntrada()
+    protected function _redirectEmAnalise()
     {
-    	$this->_helper->redirector('index', 'entrada', 'default');
+        $this->_helper->redirector('index', 'analise', 'default');
     }
     
-	protected function _redirectArquivo()
+    protected function _redirectEntrada()
     {
-    	$this->_helper->redirector('index', 'arquivo', 'default');
+        $this->_helper->redirector('index', 'entrada', 'default');
     }
     
-	protected function _redirectEncaminhar()
+    protected function _redirectArquivo()
     {
-    	$this->_helper->redirector('index', 'encaminhar', 'default');
+        $this->_helper->redirector('index', 'arquivo', 'default');
     }
     
-	protected function _getListaCarregadaProcessos($listaComIdsProcessos)
+    protected function _redirectEncaminhar()
     {
-    	$processos = array();
-    	foreach ($listaComIdsProcessos as $processoId) {
-        	$processoService = new ProcessoService($this->getTicket());
-        	$processos[] = $processoService->getProcesso($processoId);
+        $this->_helper->redirector('index', 'encaminhar', 'default');
+    }
+    
+    protected function _getListaCarregadaProcessos($listaComIdsProcessos)
+    {
+        $processos = array();
+        foreach ($listaComIdsProcessos as $processoId) {
+            $processoService = new ProcessoService($this->getTicket());
+            $processos[] = $processoService->getProcesso($processoId);
         }
         
         return $processos;
