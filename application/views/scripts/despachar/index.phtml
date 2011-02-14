@@ -9,8 +9,44 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
+    <h4>Escreva o despacho e, opcionalmente, anexe arquivos a ele</h4>
+	<form action="" method="post" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Enviar arquivo</legend>
+            <input type="hidden" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
+            <?php
+            echo $this->form()->openFieldList();
+            echo $this->file('Arquivo', 'fileToUpload');
+            echo $this->form()->closeFieldList();
+            echo $this->buttonlist()->open();
+            echo $this->buttonlist()->button('Enviar Arquivo');
+            echo $this->buttonlist()->close(true); 
+            ?>
+        </fieldset>
+    </form>
+
+    <fieldset>
+        <legend>Lista de arquivos a ser submetida</legend>
+        <ul>
+            <?php
+            if (empty($this->filesToUpload)) {
+                echo '<li>Nenhum arquivo enviado.</li>';
+            } else {
+                for ($i = 0; $i < count($this->filesToUpload); $i++) {
+                    $nomeArquivo = substr(strrchr($this->filesToUpload[$i], '/'), 1);
+                    $fileDelUrl = $this->simpleUrl('removerarquivo', 'despachar', array('removerarquivo' => $i));
+                    
+                    print "<li>$nomeArquivo (<a href={$fileDelUrl}>Remover</a>)</li>";
+                }
+            }
+            ?>
+        </ul>
+    </fieldset>
+    
 	<form action="" method="post">
-    	<?php 
+	    <fieldset>
+    	<legend>Despacho</legend>
+        <?php 
         $htmlProcessos = '<ul>';
         foreach ($this->processos as $processo) {
         	echo '<input type="hidden" name="processos[]" value="' . $processo->id . '"/>';
@@ -24,9 +60,10 @@ echo $this->pagenav()->closeList();
         echo $this->form()->closeFieldList();
         
         echo $this->buttonlist()->open();
-        echo $this->buttonlist()->button('Salvar');
+        echo $this->buttonlist()->button('Salvar Despacho');
         echo $this->buttonlist()->resetbutton();
         echo $this->buttonlist()->close(true); 
         ?>
+        </fieldset>
     </form>
 </div>
