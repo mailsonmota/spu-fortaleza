@@ -124,4 +124,15 @@ abstract class BaseController extends BaseAuthenticatedController
     	   'TO' => 'TO'
     	);
     }
+    
+    protected function _uploadFilePathConverter($fileName, $fileTmpName) {
+        $uploadFolder = dirname($fileTmpName);
+
+        $tmpFilePath = $uploadFolder . "/" . basename($fileTmpName);
+        $newFilePath = $uploadFolder . "/" . basename($fileName);
+
+        rename($tmpFilePath, $newFilePath);
+
+        return "@" . $newFilePath;
+    }
 }
