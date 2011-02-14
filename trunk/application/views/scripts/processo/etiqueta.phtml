@@ -14,6 +14,16 @@ echo $this->text('Envolvido', $this->processo->manifestante->nome);
 echo $this->text('Descrição', $this->processo->corpo);
 echo $this->text('Destino', $this->processo->protocolo->descricao);
 echo $this->text('Folha', "1");
+
+if (is_array($this->processo->arquivos)):
+    $htmlAnexos = '<ul>';
+    foreach ($this->processo->arquivos as $arquivo): 
+        $htmlAnexos .= '<li>' . $arquivo->nome . '</li>';
+    endforeach;
+    $htmlAnexos .= '</ul>';
+    echo $this->text('Anexos', $htmlAnexos);    
+endif; 
+
 echo $this->form()->closeFieldList();
 ?>
 
