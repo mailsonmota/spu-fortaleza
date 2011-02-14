@@ -30,9 +30,9 @@ class TipoTramitacaoService extends BaseService
     
     protected function _loadManyFromHash($hash)
     {
-    	$tiposTramitacao = array();
+        $tiposTramitacao = array();
         foreach ($hash as $hashTipoTramitacao) {
-        	$tiposTramitacao[] = $this->loadFromHash($hashTipoTramitacao[0]);
+            $tiposTramitacao[] = $this->loadFromHash($hashTipoTramitacao[0]);
         }
         
         return $tiposTramitacao;

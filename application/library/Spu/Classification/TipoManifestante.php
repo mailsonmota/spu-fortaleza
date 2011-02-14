@@ -1,3 +1,5 @@
 <?php
 require_once('BaseClassification.php');
-class TipoManifestante extends BaseClassification {}
+class TipoManifestante extends BaseClassification
+{
+}

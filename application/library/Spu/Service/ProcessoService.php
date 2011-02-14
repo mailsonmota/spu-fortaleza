@@ -108,7 +108,7 @@ class ProcessoService extends BaseService
     }
     
     protected function _getProcessoDetalhado($processo) {
-    	$arquivoService = new ArquivoService($this->getTicket());
+        $arquivoService = new ArquivoService($this->getTicket());
         $processo->setRespostasFormulario($arquivoService->getRespostasFormulario($processo->id));
             
         $tipoProcessoService = new TipoProcessoService($this->getTicket());
@@ -335,8 +335,8 @@ class ProcessoService extends BaseService
     
     public function loadFromHash($hash)
     {
-    	$processo = new Processo();
-    	$processo->setNodeRef($this->_getHashValue($hash, 'noderef'));
+        $processo = new Processo();
+        $processo->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $processo->setNome($this->_getHashValue($hash, 'nome'));
         $processo->setCorpo($this->_getHashValue($hash, 'corpo'));
         $processo->setData($this->_getHashValue($hash, 'data'));
@@ -438,8 +438,8 @@ class ProcessoService extends BaseService
     
     protected function _loadMovimentacoesFromHash($hash)
     {
-    	$movimentacaoService = new MovimentacaoService();
-    	return $movimentacaoService->loadManyFromHash($hash);
+        $movimentacaoService = new MovimentacaoService();
+        return $movimentacaoService->loadManyFromHash($hash);
     }
     
     protected function _loadManyFromHash($hashProcessos)

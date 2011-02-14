@@ -1,3 +1,5 @@
 <?php
 require_once('BaseClassification.php');
-class TipoAbrangencia extends BaseClassification {}
+class TipoAbrangencia extends BaseClassification
+{
+}

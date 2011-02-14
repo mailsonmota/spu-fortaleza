@@ -134,11 +134,11 @@ class Protocolo extends BaseEntity
     
     public function getSiglaDescricao()
     {
-    	$siglaDescricao = $this->_nome;
-    	if ($this->_descricao) {
-    		$siglaDescricao .= ' - ' . $this->_descricao;
-    	}
-    	
-    	return $siglaDescricao;
+        $siglaDescricao = $this->_nome;
+        if ($this->_descricao) {
+            $siglaDescricao .= ' - ' . $this->_descricao;
+        }
+        
+        return $siglaDescricao;
     }
 }

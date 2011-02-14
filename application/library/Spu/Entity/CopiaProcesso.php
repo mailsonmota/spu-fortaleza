@@ -1,3 +1,5 @@
 <?php
 require_once('LinkProcesso.php');
-class CopiaProcesso extends LinkProcesso {}
+class CopiaProcesso extends LinkProcesso
+{
+}
