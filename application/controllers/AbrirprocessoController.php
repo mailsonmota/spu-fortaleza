@@ -131,15 +131,8 @@ class AbrirprocessoController extends BaseController
             $postData = $this->getRequest()->getParams();
 
             if (!empty($_FILES)) {
-                $uploadFolder = dirname($_FILES['fileToUpload']['tmp_name']);
-
-                $tmpFilePath = $uploadFolder . "/" . basename($_FILES['fileToUpload']['tmp_name']);
-                $newFilePath = $uploadFolder . "/" . basename($_FILES['fileToUpload']['name']);
-
-                rename($tmpFilePath, $newFilePath);
-
-                $postData['fileToUpload'] = "@" . $newFilePath;
-
+                $postData['fileToUpload'] = $this->_uploadFilePathConverter($_FILES['fileToUpload']['name'], $_FILES['fileToUpload']['tmp_name']);
+                
                 try {
                 	$arquivoService = new ArquivoService($this->getTicket());
                 	$arquivoService->uploadArquivo($postData);
