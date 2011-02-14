@@ -17,7 +17,7 @@ class MovimentacaoService extends BaseService
     
     public function loadFromHash($hash)
     {
-    	$movimentacao = new Movimentacao();
+        $movimentacao = new Movimentacao();
         
         $movimentacao->setData($this->_getHashValue($hash, 'data'));
         $movimentacao->setHora($this->_getHashValue($hash, 'hora'));
@@ -49,11 +49,11 @@ class MovimentacaoService extends BaseService
     protected function _loadProtocoloFromHash($hash)
     {
         if ($hash) {
-	    	$hash = array_pop($hash);
-	        $protocoloService = new ProtocoloService($this->getTicket());
-	        $protocolo = $protocoloService->loadFromHash($hash);
+            $hash = array_pop($hash);
+            $protocoloService = new ProtocoloService($this->getTicket());
+            $protocolo = $protocoloService->loadFromHash($hash);
         } else {
-        	$protocolo = new Protocolo();
+            $protocolo = new Protocolo();
         }
         
         return $protocolo;

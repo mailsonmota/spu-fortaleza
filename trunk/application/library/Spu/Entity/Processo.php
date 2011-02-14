@@ -274,6 +274,6 @@ class Processo extends BaseEntity
     
     public function hasRespostasFormulario()
     {
-    	return $this->_respostasFormulario->hasData();
+        return $this->_respostasFormulario->hasData();
     }
 }

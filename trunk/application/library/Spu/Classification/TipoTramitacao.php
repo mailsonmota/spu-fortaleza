@@ -2,10 +2,10 @@
 require_once('BaseClassification.php');
 class TipoTramitacao extends BaseClassification
 {
-	const PARALELA = 'Paralelo';
+    const PARALELA = 'Paralelo';
     
     public function isParalela()
     {
-    	return ($this->_nome == self::PARALELA);
+        return ($this->_nome == self::PARALELA);
     }
 }

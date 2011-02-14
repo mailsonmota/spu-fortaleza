@@ -57,8 +57,8 @@ class ProtocoloService extends BaseService
     
     public function getTodosProtocolosPaginado($offset = 0, $pageSize = 20, $filter = null)
     {
-    	$filter = urlencode($filter);
-    	$url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listarTodosPaginado/$offset/$pageSize/?s=$filter";
+        $filter = urlencode($filter);
+        $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listarTodosPaginado/$offset/$pageSize/?s=$filter";
         $url = $this->addAlfTicketUrl($url);
 
         $curlObj = new CurlClient();
@@ -69,8 +69,8 @@ class ProtocoloService extends BaseService
 
     public function loadFromHash($hash)
     {
-    	$protocolo = new Protocolo();
-    	
+        $protocolo = new Protocolo();
+        
         $protocolo->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $protocolo->setNome($this->_getHashValue($hash, 'nome'));
         $protocolo->setParent($this->_loadParentFromHash($this->_getHashValue($hash, 'parentId')));

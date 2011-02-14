@@ -30,8 +30,8 @@ class ManifestanteService extends BaseService
     
     public function loadFromHash($hash)
     {
-    	$manifestante = new Manifestante();
-    	
+        $manifestante = new Manifestante();
+        
         $manifestante->setCpf($this->_getHashValue($hash, 'cpfCnpj'));
         $manifestante->setNome($this->_getHashValue($hash, 'nome'));
         $manifestante->setSexo($this->_getHashValue($hash, 'sexo'));
@@ -60,7 +60,7 @@ class ManifestanteService extends BaseService
     
     public function loadManyFromHash($hash)
     {
-    	$manifestantes = array();
+        $manifestantes = array();
         foreach ($hash[0] as $hashManifestante) {
             
             if ($hashManifestante) {

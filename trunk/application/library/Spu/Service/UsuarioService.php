@@ -30,7 +30,7 @@ class UsuarioService extends BaseService
     public function loadFromHash($hash) {
         $usuario = new Usuario();
         
-    	$usuario->setNome($this->_getHashValue($hash, 'firstName'));
+        $usuario->setNome($this->_getHashValue($hash, 'firstName'));
         $usuario->setSobrenome($this->_getHashValue($hash, 'lastName'));
         $usuario->setEmail($this->_getHashValue($hash, 'email'));
         $usuario->setLogin($this->_getHashValue($hash, 'userName'));

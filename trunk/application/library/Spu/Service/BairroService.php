@@ -19,8 +19,8 @@ class BairroService extends BaseService
     
     public function loadFromHash($hash)
     {
-    	$bairro = new Bairro();
-    	
+        $bairro = new Bairro();
+        
         $bairro->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $bairro->setNome($this->_getHashValue($hash, 'nome'));
         $bairro->setDescricao($this->_getHashValue($hash, 'descricao'));
@@ -32,7 +32,7 @@ class BairroService extends BaseService
     {
         $bairros = array();
         foreach ($hash[0] as $hashBairro) {
-        	$bairros[] = $this->loadFromHash($hashBairro[0]);
+            $bairros[] = $this->loadFromHash($hashBairro[0]);
         }
         
         return $bairros;

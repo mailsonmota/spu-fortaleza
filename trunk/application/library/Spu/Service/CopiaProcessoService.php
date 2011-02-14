@@ -38,8 +38,8 @@ class CopiaProcessoService extends BaseService
     
     public function loadFromHash($hash)
     {
-    	$copia = new CopiaProcesso($this->getTicket());
-    	
+        $copia = new CopiaProcesso($this->getTicket());
+        
         $copia->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $copia->setNome($this->_getHashValue($hash, 'nome'));
         $copia->setProcesso($this->_loadProcessoFromHash($this->_getHashValue($hash, 'Processo')));
@@ -61,7 +61,7 @@ class CopiaProcessoService extends BaseService
     {
         $copias = array();
         foreach ($hashCopias as $hashCopia) {
-        	$hashCopia = array_pop($hashCopia);
+            $hashCopia = array_pop($hashCopia);
             $copias[] = $this->loadFromHash($hashCopia);
         }
         

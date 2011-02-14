@@ -1,8 +1,8 @@
 <?php
 class Formulario extends BaseEntity
 {
-	protected $_data;
-	
+    protected $_data;
+    
     public function hasData()
     {
         return (isset($this->_data));

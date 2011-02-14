@@ -1,3 +1,5 @@
 <?php
 require_once('BaseClassification.php');
-class Bairro extends BaseClassification {}
+class Bairro extends BaseClassification
+{
+}
