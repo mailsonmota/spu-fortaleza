@@ -79,7 +79,7 @@ class AbrirprocessoController extends BaseController
                 $session->processo = $processo;
                 
                 if ($processo->assunto->hasFormulario()) {
-                	$this->_redirectFormularioAssunto();
+                    $this->_redirectFormularioAssunto();
                 } else {
                     $this->_redirectUploadArquivo();
                 }
@@ -95,7 +95,7 @@ class AbrirprocessoController extends BaseController
     
     public function formularioAssuntoAction()
     {
-    	$session = new Zend_Session_Namespace('aberturaProcesso');
+        $session = new Zend_Session_Namespace('aberturaProcesso');
         $processo = $session->processo;
         
         if ($this->getRequest()->isPost()) {
@@ -131,15 +131,26 @@ class AbrirprocessoController extends BaseController
             $postData = $this->getRequest()->getParams();
 
             if (!empty($_FILES)) {
-                $postData['fileToUpload'] = $this->_uploadFilePathConverter($_FILES['fileToUpload']['name'], $_FILES['fileToUpload']['tmp_name']);
-                
+                $fileTmp = $this->_uploadFilePathConverter($_FILES['fileToUpload']['name'],
+                                                           $_FILES['fileToUpload']['tmp_name']);
+                foreach ($session->filesToUpload as $fileToUpload) {
+                    if ($fileToUpload == $fileTmp) {
+                        $this->setErrorMessage('Este arquivo já se encontra na lista de arquivos a ser submetida.');
+                        $this->_redirectUploadArquivo();
+                    }
+                }
+                $session->filesToUpload[] = $fileTmp; 
+            } else {
                 try {
-                	$arquivoService = new ArquivoService($this->getTicket());
-                	$arquivoService->uploadArquivo($postData);
+                    foreach ($session->filesToUpload as $fileToUpload) {
+                        $postData['fileToUpload'] = $fileToUpload;
+                        $arquivoService = new ArquivoService($this->getTicket());
+                        $arquivoService->uploadArquivo($postData);
+                    }
                 } catch (Exception $e) {
                     throw new Exception('Erro no upload de arquivo. Mensagem: ' . $e->getMessage());
                 }
-            } else {
+                
                 $this->_redirectConfirmacaoCriacao();
             }
         }
@@ -150,6 +161,17 @@ class AbrirprocessoController extends BaseController
         
         $this->view->hasFormulario = $processo->assunto->hasFormulario();
         $this->view->uploadedFiles = $processo->getArquivos();
+        $this->view->filesToUpload = $session->filesToUpload;
+    }
+    
+    public function removerarquivoAction()
+    {
+        $session = new Zend_Session_Namespace('aberturaProcesso');
+        $numero = $this->getRequest()->getParam('removerarquivo');
+        unset($session->filesToUpload[$numero]);
+        $session->filesToUpload = array_values($session->filesToUpload);
+        $this->setSuccessMessage('Arquivo removido da lista de arquivo a ser submetida.');
+        $this->_redirectUploadArquivo();
     }
 
     public function confirmacaocriacaoAction()
@@ -229,7 +251,7 @@ class AbrirprocessoController extends BaseController
 
     protected function _getListaAssuntos(TipoProcesso $tipoProcesso)
     {
-    	$assuntoService = new AssuntoService($this->getTicket());
+        $assuntoService = new AssuntoService($this->getTicket());
         $assuntos = $assuntoService->getAssuntosPorTipoProcesso($tipoProcesso->getId());
         $listaAssuntos = array();
         foreach ($assuntos as $assunto) {
@@ -332,7 +354,7 @@ class AbrirprocessoController extends BaseController
 
     protected function _redirectFormularioAssunto()
     {
-    	$this->_helper->redirector('formulario-assunto', $this->getController(), 'default');
+        $this->_helper->redirector('formulario-assunto', $this->getController(), 'default');
     }
     
     protected function _redirectUploadArquivo()

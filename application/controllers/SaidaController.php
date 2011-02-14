@@ -2,42 +2,42 @@
 require_once('BaseTramitacaoController.php');
 class SaidaController extends BaseTramitacaoController
 {
-	public function indexAction()
+    public function indexAction()
     {
-    	if ($this->getRequest()->isPost()) {
-    		try {
-	    		if ($this->_isPostComprovanteEncaminhamento()) {
-	    			$session = new Zend_Session_Namespace('comprovanteEncaminhamento');
-	        		$session->processos = $this->getRequest()->getParam('processos');
-	        		$this->_redirectComprovanteEncaminhamento();
-	        	} else {
-	    			$processoService = new ProcessoService($this->getTicket());
-		    		$processoService->cancelarEnvios($this->getRequest()->getPost());
-		    		$this->setSuccessMessage('Envios cancelados com sucesso.');
-		    		$this->_redirectEntrada();
-	        	}
-			} catch (Exception $e) {
-	    		$this->setMessageForTheView($e->getMessage(), 'error');
-	    	}
-    	}
+        if ($this->getRequest()->isPost()) {
+            try {
+                if ($this->_isPostComprovanteEncaminhamento()) {
+                    $session = new Zend_Session_Namespace('comprovanteEncaminhamento');
+                    $session->processos = $this->getRequest()->getParam('processos');
+                    $this->_redirectComprovanteEncaminhamento();
+                } else {
+                    $processoService = new ProcessoService($this->getTicket());
+                    $processoService->cancelarEnvios($this->getRequest()->getPost());
+                    $this->setSuccessMessage('Envios cancelados com sucesso.');
+                    $this->_redirectEntrada();
+                }
+            } catch (Exception $e) {
+                $this->setMessageForTheView($e->getMessage(), 'error');
+            }
+        }
     }
     
-	protected function _isPostComprovanteEncaminhamento()
+    protected function _isPostComprovanteEncaminhamento()
     {
-    	return ($this->getRequest()->getParam('comprovanteEncaminhamento', false) !== false) ? true : false;	
+        return ($this->getRequest()->getParam('comprovanteEncaminhamento', false) !== false) ? true : false;    
     }
     
-	protected function _redirectComprovanteEncaminhamento()
+    protected function _redirectComprovanteEncaminhamento()
     {
-    	$this->_helper->redirector('comprovante-encaminhamento');
+        $this->_helper->redirector('comprovante-encaminhamento');
     }
     
     public function comprovanteEncaminhamentoAction()
     {
-    	$this->_helper->layout()->setLayout('relatorio');
-    	$session = new Zend_Session_Namespace('comprovanteEncaminhamento');
-    	$processosSelecionados = $session->processos;
-    	$processos = $this->_getListaCarregadaProcessos($processosSelecionados);
-    	$this->view->processos = $processos;
+        $this->_helper->layout()->setLayout('relatorio');
+        $session = new Zend_Session_Namespace('comprovanteEncaminhamento');
+        $processosSelecionados = $session->processos;
+        $processos = $this->_getListaCarregadaProcessos($processosSelecionados);
+        $this->view->processos = $processos;
     }
 }

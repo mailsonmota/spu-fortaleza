@@ -15,11 +15,13 @@ class TramitacaoAjaxController extends BaseDataTablesController
     
     protected function _getCaixaEntrada()
     {
-    	try {
-	        $processoService = new ProcessoService($this->getTicket());
-	        $processos = $processoService->getCaixaEntrada($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
-	        
-	        return $this->_convertProcessosToDataTablesRow($processos);
+        try {
+            $processoService = new ProcessoService($this->getTicket());
+            $processos = $processoService->getCaixaEntrada($this->_getOffset(),
+                                                           $this->_getPageSize(),
+                                                           $this->_getSearch());
+            
+            return $this->_convertProcessosToDataTablesRow($processos);
         } catch (Exception $e) {
             return $this->_getJsonErrorRow($e);
         }
@@ -44,7 +46,7 @@ class TramitacaoAjaxController extends BaseDataTablesController
     
     protected function _getColunasPadraoProcesso(&$linhaDoArray, $processo)
     {
-    	$row['numero'] = $processo->numero;
+        $row['numero'] = $processo->numero;
         $row['data'] = $processo->data;
         $row['nomeManifestante'] = $processo->nomeManifestante;
         $row['nomeTipoProcesso'] = $processo->nomeTipoProcesso;
@@ -64,11 +66,13 @@ class TramitacaoAjaxController extends BaseDataTablesController
     
     protected function _getCaixaAnalise()
     {
-    	try {
-	        $processoService = new ProcessoService($this->getTicket());
-	        $processos = $processoService->getCaixaAnalise($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
-	        
-	        return $this->_convertProcessosToDataTablesRow($processos);
+        try {
+            $processoService = new ProcessoService($this->getTicket());
+            $processos = $processoService->getCaixaAnalise($this->_getOffset(),
+                                                           $this->_getPageSize(),
+                                                           $this->_getSearch());
+            
+            return $this->_convertProcessosToDataTablesRow($processos);
         } catch (Exception $e) {
             return $this->_getJsonErrorRow($e);
         }
@@ -102,10 +106,10 @@ class TramitacaoAjaxController extends BaseDataTablesController
             $row = array();
             $row['input'] = "<input type='checkbox' name='copias[]' value='" . $copia->id . "' />";
             $row['numero'] = $copia->numeroProcesso;
-	        $row['data'] = $copia->dataProcesso;
-	        $row['nomeManifestante'] = $copia->nomeManifestanteProcesso;
-	        $row['nomeTipoProcesso'] = $copia->nomeTipoProcesso;
-	        $row['nomeAssunto'] = $copia->nomeAssuntoProcesso;
+            $row['data'] = $copia->dataProcesso;
+            $row['nomeManifestante'] = $copia->nomeManifestanteProcesso;
+            $row['nomeTipoProcesso'] = $copia->nomeTipoProcesso;
+            $row['nomeAssunto'] = $copia->nomeAssuntoProcesso;
             
             $url = $this->_helper->url('detalhes', 'processo', null, array('id' => $copia->idProcesso));
             $row['detalhes'] = "<a href='$url'>Detalhes</a>";
@@ -129,7 +133,9 @@ class TramitacaoAjaxController extends BaseDataTablesController
     {
         try {
             $processoService = new ProcessoService($this->getTicket());
-            $processos = $processoService->getCaixaArquivo($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+            $processos = $processoService->getCaixaArquivo($this->_getOffset(),
+                                                           $this->_getPageSize(),
+                                                           $this->_getSearch());
             
             return $this->_convertProcessosToDataTablesRow($processos);
         } catch (Exception $e) {
@@ -149,14 +155,16 @@ class TramitacaoAjaxController extends BaseDataTablesController
     
     protected function _getCaixaSaida()
     {
-    	try {
-	        $processoService = new ProcessoService($this->getTicket());
-	        $processos = $processoService->getCaixaSaida($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
-	        
-	        return $this->_convertProcessosEnviadosToDataTablesRow($processos);
-    	} catch (Exception $e) {
-    		return $this->_getJsonErrorRow($e);
-    	}
+        try {
+            $processoService = new ProcessoService($this->getTicket());
+            $processos = $processoService->getCaixaSaida($this->_getOffset(),
+                                                         $this->_getPageSize(),
+                                                         $this->_getSearch());
+            
+            return $this->_convertProcessosEnviadosToDataTablesRow($processos);
+        } catch (Exception $e) {
+            return $this->_getJsonErrorRow($e);
+        }
     }
     
     protected function _convertProcessosEnviadosToDataTablesRow($processos, $checkboxColumn = true)
@@ -190,11 +198,13 @@ class TramitacaoAjaxController extends BaseDataTablesController
     
     protected function _getCaixaEnviados()
     {
-    	try {
-	        $processoService = new ProcessoService($this->getTicket());
-	        $processos = $processoService->getCaixaEnviados($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
-	        
-	        return $this->_convertProcessosEnviadosToDataTablesRow($processos, false);
+        try {
+            $processoService = new ProcessoService($this->getTicket());
+            $processos = $processoService->getCaixaEnviados($this->_getOffset(),
+                                                            $this->_getPageSize(),
+                                                            $this->_getSearch());
+            
+            return $this->_convertProcessosEnviadosToDataTablesRow($processos, false);
         } catch (Exception $e) {
             return $this->_getJsonErrorRow($e);
         }

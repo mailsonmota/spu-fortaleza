@@ -6,7 +6,7 @@ class BaseAuthenticatedController extends Zend_Controller_Action
         $user = AuthPlugin::getIdentity();
         return $user['ticket'];
     }
-	
+    
     protected function _validateAuthInstance($authInstance = null)
     {
         if (!isset($authInstance)) {

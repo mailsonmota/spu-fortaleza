@@ -5,42 +5,44 @@ class ProtocolosAjaxController extends BaseDataTablesController
 {
     public function listarTodosAction()
     {
-    	$this->_rows = $this->_getTodosProtocolos();
-    	$this->_total = 1000;
-    	
-    	$this->_helper->layout()->disableLayout();
-    	$this->view->output = $this->_getOutput();
+        $this->_rows = $this->_getTodosProtocolos();
+        $this->_total = 1000;
+        
+        $this->_helper->layout()->disableLayout();
+        $this->view->output = $this->_getOutput();
     }
     
     protected function _getTodosProtocolos()
     {
-    	$protocoloService = new ProtocoloService($this->getTicket());
-    	$protocolos = $protocoloService->getTodosProtocolosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
-    	
-    	return $this->_convertProtocolosToDataTablesRow($protocolos, true);
+        $protocoloService = new ProtocoloService($this->getTicket());
+        $protocolos = $protocoloService->getTodosProtocolosPaginado($this->_getOffset(),
+                                                                    $this->_getPageSize(),
+                                                                    $this->_getSearch());
+        
+        return $this->_convertProtocolosToDataTablesRow($protocolos, true);
     }
     
     protected function _convertProtocolosToDataTablesRow($protocolos, $detalhes = false)
     {
-    	$rows = array();
-    	foreach ($protocolos as $protocolo) {
-    		$row = array();
-    		$row['nome'] = $protocolo->path;
-    		
-    		if ($detalhes) {
+        $rows = array();
+        foreach ($protocolos as $protocolo) {
+            $row = array();
+            $row['nome'] = $protocolo->path;
+            
+            if ($detalhes) {
                 $url = $this->_helper->url('editar', 'protocolos', null, array('id' => $protocolo->id));
                 $row['detalhes'] = "<a href='$url'>Detalhes</a>";
-    		}
-    		
-    		$rows[] = $row;
-    	}
-    	
-    	return $rows;
+            }
+            
+            $rows[] = $row;
+        }
+        
+        return $rows;
     }
     
     public function listarDestinosAction()
     {
-    	$this->_helper->layout()->disableLayout();
+        $this->_helper->layout()->disableLayout();
         $this->view->output = $this->_getOutputProtocolos($this->_getListaProtocolosDestino());
     }
 
@@ -64,67 +66,40 @@ class ProtocolosAjaxController extends BaseDataTablesController
     
     protected function _getListaProtocolosDestino()
     {
-    	$protocoloService = new ProtocoloService($this->getTicket());
-        $protocolos = $protocoloService->getTodosProtocolosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearchTerm());
+        $protocoloService = new ProtocoloService($this->getTicket());
+        $protocolos = $protocoloService->getTodosProtocolosPaginado($this->_getOffset(),
+                                                                    $this->_getPageSize(),
+                                                                    $this->_getSearchTerm());
         
         return $protocolos;
     }
     
     protected function _getSearchTerm()
     {
-    	return $this->getRequest()->getParam('term', null);
+        return $this->getRequest()->getParam('term', null);
     }
 
     protected function _getProtocolosDestino()
     {
         $protocoloService = new ProtocoloService($this->getTicket());
-        $protocolos = $protocolo->getTodosProtocolosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+        $protocolos = $protocolo->getTodosProtocolosPaginado($this->_getOffset(),
+                                                             $this->_getPageSize(),
+                                                             $this->_getSearch());
         
         return $this->_convertProtocolosDestinoToDataTablesRow($protocolos);
     }
     
     protected function _convertProtocolosDestinoToDataTablesRow($protocolos)
     {
-    	$rows = array();
+        $rows = array();
         foreach ($protocolos as $protocolo) {
-        	$row = array();
+            $row = array();
             $row['input'] = "<input type='radio' name='protocoloDestino' value='" . $protocolo->id . "' />";
-        	$row['nome'] = $protocolo->path;
+            $row['nome'] = $protocolo->path;
             
             $rows[] = $row;
         }
         
         return $rows;
     }
-
-    /*public function listarDestinosAction()
-    {
-    	$this->_rows = $this->_getProtocolosDestino();
-        $this->_total = 1000;
-        
-        $this->_helper->layout()->disableLayout();
-        $this->view->output = $this->_getOutput();
-    }
-    
-    protected function _getProtocolosDestino()
-    {
-        $protocolo = new Protocolo($this->getTicket());
-        $protocolos = $protocolo->listarTodosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
-        
-        return $this->_convertProtocolosDestinoToDataTablesRow($protocolos);
-    }
-    
-    protected function _convertProtocolosDestinoToDataTablesRow($protocolos)
-    {
-    	$rows = array();
-        foreach ($protocolos as $protocolo) {
-        	$row = array();
-            $row['input'] = "<input type='radio' name='protocoloDestino' value='" . $protocolo->id . "' />";
-        	$row['nome'] = $protocolo->path;
-            
-            $rows[] = $row;
-        }
-        
-        return $rows;
-    }*/
 }
