@@ -61,13 +61,13 @@ abstract class BaseController extends BaseAuthenticatedController
     
     protected function _setVersaoSistema()
     {
-    	$bootstrap = $this->getInvokeArg('bootstrap');
+        $bootstrap = $this->getInvokeArg('bootstrap');
         $aConfig = $bootstrap->getOptions();
         
         $versao = (isset($aConfig['spu']) AND isset($aConfig['spu']['versao'])) ? $aConfig['spu']['versao'] : '0.3';
         $this->view->versao = $versao;
     }
-    
+
     private function setMessageFromFlashMessenger()
     {
         if ($this->_helper->flashMessenger->getMessages()) {
@@ -94,35 +94,35 @@ abstract class BaseController extends BaseAuthenticatedController
     
     protected function _getListaUfs()
     {
-    	return array(
-    	   'CE' => 'CE',
-    	   'AC' => 'AC',
-    	   'AL' => 'AL',
-    	   'AM' => 'AM',
-    	   'AP' => 'AP',
-    	   'BA' => 'BA',
-    	   'DF' => 'DF',
-    	   'ES' => 'ES',
-    	   'GO' => 'GO',
-    	   'MA' => 'MA',
-    	   'MG' => 'MG',
-    	   'MS' => 'MS',
-    	   'MT' => 'MT',
-    	   'PA' => 'PA',
-    	   'PB' => 'PB',
-    	   'PE' => 'PE',
-    	   'PI' => 'PI',
-    	   'PR' => 'PR',
-    	   'RJ' => 'RJ',
-    	   'RN' => 'RN',
-    	   'RO' => 'RO',
-    	   'RR' => 'RR',
-    	   'RS' => 'RS',
-    	   'SC' => 'SC',
-    	   'SE' => 'SE',
-    	   'SP' => 'SP',
-    	   'TO' => 'TO'
-    	);
+        return array(
+           'CE' => 'CE',
+           'AC' => 'AC',
+           'AL' => 'AL',
+           'AM' => 'AM',
+           'AP' => 'AP',
+           'BA' => 'BA',
+           'DF' => 'DF',
+           'ES' => 'ES',
+           'GO' => 'GO',
+           'MA' => 'MA',
+           'MG' => 'MG',
+           'MS' => 'MS',
+           'MT' => 'MT',
+           'PA' => 'PA',
+           'PB' => 'PB',
+           'PE' => 'PE',
+           'PI' => 'PI',
+           'PR' => 'PR',
+           'RJ' => 'RJ',
+           'RN' => 'RN',
+           'RO' => 'RO',
+           'RR' => 'RR',
+           'RS' => 'RS',
+           'SC' => 'SC',
+           'SE' => 'SE',
+           'SP' => 'SP',
+           'TO' => 'TO'
+        );
     }
     
     protected function _uploadFilePathConverter($fileName, $fileTmpName) {
