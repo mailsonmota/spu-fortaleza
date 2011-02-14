@@ -3,14 +3,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8" />
         <?php echo $this->headTitle() ?>
-        <link rel="stylesheet" media="screen" href="../css/reset.css" type="text/css"/>
-        <link rel="stylesheet" media="screen" href="../css/relatorios.css" type="text/css"/>
-        <link rel="stylesheet" media="print" href="../css/print.css" type="text/css"/>
+        <link rel="stylesheet" media="screen" href="<?php echo $this->baseUrl() ?>/css/reset.css" type="text/css"/>
+        <link rel="stylesheet" media="screen" href="<?php echo $this->baseUrl() ?>/css/relatorios.css" type="text/css"/>
+        <link rel="stylesheet" media="print" href="<?php echo $this->baseUrl() ?>/css/print.css" type="text/css"/>
     </head>
     <?php flush(); ?>
     <body>
         <div id="header">
-           	<img src="../img/logoFortalezaP&B.png" alt="Brasão da Prefeitura Municipal de Fortaleza" />
+           	<img src="<?php echo $this->baseUrl() ?>/img/logoFortalezaP&B.png" alt="Brasão da Prefeitura Municipal de Fortaleza" />
             <h1>Sistema de Protocolo Único<span>Prefeitura Municipal de Fortaleza</span></h1>
         </div>
         <div id="section">

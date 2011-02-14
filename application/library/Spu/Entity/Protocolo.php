@@ -131,4 +131,14 @@ class Protocolo extends BaseEntity
         }
         return $orgaoLotacao;
     }
+    
+    public function getSiglaDescricao()
+    {
+    	$siglaDescricao = $this->_nome;
+    	if ($this->_descricao) {
+    		$siglaDescricao .= ' - ' . $this->_descricao;
+    	}
+    	
+    	return $siglaDescricao;
+    }
 }

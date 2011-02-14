@@ -8,9 +8,16 @@ echo $this->pagenav()->closeList();
 ?>
 <div id="article">
 	<?php 
-    if ($this->processo->id) {
+    if ($this->processo->id):
         echo $this->partial('snippets/detalhesProcesso.phtml', array('processo' => $this->processo));
         echo $this->partial('snippets/movimentacoes.phtml', array('movimentacoes' => $this->processo->movimentacoes));
-    }
     ?>
+    <form action="" method="get">
+        <?php 
+        echo $this->buttonlist()->open();
+        echo $this->buttonlist()->button('Etiqueta', 'etiqueta');
+        echo $this->buttonlist()->close();
+        ?>
+    </form>
+    <?php endif ?>
 </div>

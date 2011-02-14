@@ -1,0 +1,25 @@
+<?php 
+$this->breadcrumbs()->addPage('Detalhes', 'processo', 'detalhes');
+$this->breadcrumbs()->addPage($this->processo->numero);
+echo $this->breadcrumbs()->render(); 
+?>
+
+<?php 
+echo $this->form()->openFieldList();
+echo $this->text('Processo', $this->processo->numero);
+echo $this->text('Abertura', $this->processo->data);
+echo $this->text('Origem', $this->processo->proprietario->descricao);
+echo $this->text('Assunto', $this->processo->assunto->nome);
+echo $this->text('Envolvido', $this->processo->manifestante->nome);
+echo $this->text('Descrição', $this->processo->corpo);
+echo $this->text('Destino', $this->processo->protocolo->descricao);
+echo $this->text('Folha', "1");
+echo $this->form()->closeFieldList();
+?>
+
+<?php 
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->addLink($this->simpleUrl('detalhes', 'processo', array('id' => $this->processo->id)), 'Voltar');
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
