@@ -38,6 +38,14 @@ class ProcessoService extends BaseService
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
     
+    public function getCaixaAnaliseIncorporacao($processo)
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/incorporacaocaixaanalise/{$processo->manifestante->cpf}/{$processo->id}/{$processo->assunto->id}";
+        $url = $this->addAlfTicketUrl($url);
+        
+        return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
+    }
+    
     public function getCaixaEnviados($offset, $pageSize, $filter)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/enviados/$offset/$pageSize/$filter";
