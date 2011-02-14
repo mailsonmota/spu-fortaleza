@@ -2,7 +2,7 @@
 require_once('BaseTramitacaoController.php');
 class DespacharController extends BaseTramitacaoController
 {
-	public function indexAction()
+    public function indexAction()
     {
         $sessionDespachar = new Zend_Session_Namespace('despachar');
         
@@ -12,7 +12,7 @@ class DespacharController extends BaseTramitacaoController
                                                            $_FILES['fileToUpload']['tmp_name']);
                 foreach ($sessionDespachar->filesToUpload as $fileToUpload) {
                     if ($fileToUpload == $fileTmp) {
-                        $this->setErrorMessage('Este arquivo já está adicionado a lista de arquivos a ser submetida.');
+                        $this->setErrorMessage('Este arquivo já se encontra na lista de arquivos a ser submetida.');
                         $this->_redirectIndex();
                     }
                 }
@@ -21,38 +21,38 @@ class DespacharController extends BaseTramitacaoController
                 try {
                     $postData = $this->getRequest()->getPost();
                     
-        			$processoService = new ProcessoService($this->getTicket());
-    	    		$processoService->comentarVarios($this->getRequest()->getPost());
-    	    		
-    	    		$arquivoService = new ArquivoService($this->getTicket());
-    	    		
-    	    		foreach($postData['processos'] as $processoId) {
-    	    		    $postData['destNodeUuid'] = $processoId;
-        	    		foreach ($sessionDespachar->filesToUpload as $fileToUpload) {
-        	    		    $postData['fileToUpload'] = $fileToUpload;
-        	    		    $arquivoService->uploadArquivo($postData);
-        	    		}
-    	    		}
-    	    		
-    	    		$this->setSuccessMessage('Despachos criados com sucesso.');
-    	    		$this->_redirectEmAnalise();
-    			} catch (Exception $e) {
-    	    		$this->setMessageForTheView($e->getMessage(), 'error');
-    	    	}
+                    $processoService = new ProcessoService($this->getTicket());
+                    $processoService->comentarVarios($this->getRequest()->getPost());
+                    
+                    $arquivoService = new ArquivoService($this->getTicket());
+                    
+                    foreach ($postData['processos'] as $processoId) {
+                        $postData['destNodeUuid'] = $processoId;
+                        foreach ($sessionDespachar->filesToUpload as $fileToUpload) {
+                            $postData['fileToUpload'] = $fileToUpload;
+                            $arquivoService->uploadArquivo($postData);
+                        }
+                    }
+                    
+                    $this->setSuccessMessage('Despachos criados com sucesso.');
+                    $this->_redirectEmAnalise();
+                } catch (Exception $e) {
+                    $this->setMessageForTheView($e->getMessage(), 'error');
+                }
             }
-    	}
-    	
-    	$processos = array();
-    	
-	    try {
-	    	$session = new Zend_Session_Namespace('comentar');
-	    	$processosSelecionados = $session->processos;
-	    	$processos = $this->_getListaCarregadaProcessos($processosSelecionados);
-	    } catch (Exception $e) {
-    		$this->setErrorMessage($e->getMessage());
-    		$this->_redirectEmAnalise();
-    	}
-    	
+        }
+        
+        $processos = array();
+        
+        try {
+            $session = new Zend_Session_Namespace('comentar');
+            $processosSelecionados = $session->processos;
+            $processos = $this->_getListaCarregadaProcessos($processosSelecionados);
+        } catch (Exception $e) {
+            $this->setErrorMessage($e->getMessage());
+            $this->_redirectEmAnalise();
+        }
+        
         $this->view->processos = $processos;
         $this->view->filesToUpload = $sessionDespachar->filesToUpload;
     }

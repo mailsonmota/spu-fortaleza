@@ -7,7 +7,7 @@ class ProcessoController extends BaseController
 {
     public function detalhesAction()
     {
-    	try {
+        try {
             $idProcesso = $this->_getIdProcessoUrl();
             $processoService = new ProcessoService($this->getTicket());
             $processo = $processoService->getProcesso($idProcesso);
@@ -118,8 +118,8 @@ class ProcessoController extends BaseController
     
     public function etiquetaAction()
     {
-    	$processo = new Processo();
-    	try {
+        $processo = new Processo();
+        try {
             $idProcesso = $this->_getIdProcessoUrl();
             $processoService = new ProcessoService($this->getTicket());
             $processo = $processoService->getProcesso($idProcesso);
