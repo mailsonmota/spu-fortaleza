@@ -10,8 +10,8 @@ class IncorporacaoController extends BaseController
             $session->processoPrincipalId = $postData['processos'][0];
             $this->_redirectEscolherIncorporado();
         }
-        $processo = new Processo($this->getTicket());
-        $this->view->lista = $processo->listarProcessosCaixaAnalise();
+        $processoService = new ProcessoService($this->getTicket());
+        $this->view->lista = $processoService->getCaixaAnalise(0, 10000, null);
     }
     
     public function escolherincorporadoAction()
@@ -22,13 +22,20 @@ class IncorporacaoController extends BaseController
             $session->processoIncorporadoId = $postData['processos'][0];
             $this->_redirectConfirmacao();
         }
-        $processo = new Processo($this->getTicket());
-        $processo->carregarPeloId($session->processoPrincipalId);
+        $processoService = new ProcessoService($this->getTicket());
+        $processo = $processoService->getProcesso($session->processoPrincipalId);
         
-        $listaCaixaAnaliseFiltrada = $processo->listarProcessosCaixaAnaliseIncorporado();
+        $caixaAnaliseIncorporacao = $processoService->getCaixaAnaliseIncorporacao($processo);
+        
+        for ($i = 0; $i < count($caixaAnaliseIncorporacao); $i++) {
+            if ($caixaAnaliseIncorporacao[$i]->id == $processo->id) {
+                unset($caixaAnaliseIncorporacao[$i]);
+                array_values($caixaAnaliseIncorporacao);
+            }
+        }
         
         $this->view->processo = $processo;
-        $this->view->lista = $listaCaixaAnaliseFiltrada;
+        $this->view->lista = $caixaAnaliseIncorporacao;
     }
     
     public function confirmacaoAction()
