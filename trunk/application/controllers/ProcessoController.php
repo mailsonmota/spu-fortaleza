@@ -13,7 +13,11 @@ class ProcessoController extends BaseController
             $processo = $processoService->getProcesso($idProcesso);
             $processosParalelos = $processoService->getProcessosParalelos($processo->id);
         } catch (Exception $e) {
-                $this->setMessageForTheView('Não foi possível carregar o processo', 'error');
+            $this->setMessageForTheView('Não foi possível carregar o processo', 'error');
+        }
+        
+        if ($this->getRequest()->getParam('etiqueta', false) !== false) {
+            $this->_redirectEtiqueta($idProcesso);
         }
         
         $this->view->processo = $processo;
@@ -105,5 +109,26 @@ class ProcessoController extends BaseController
     protected function _redirectDetalhesProcesso($idProcesso)
     {
         $this->_helper->redirector('detalhes', $this->getController(), 'default', array('id' => $idProcesso));
+    }
+    
+    protected function _redirectEtiqueta($idProcesso)
+    {
+        $this->_helper->redirector('etiqueta', $this->getController(), 'default', array('id' => $idProcesso));
+    }
+    
+    public function etiquetaAction()
+    {
+    	$processo = new Processo();
+    	try {
+            $idProcesso = $this->_getIdProcessoUrl();
+            $processoService = new ProcessoService($this->getTicket());
+            $processo = $processoService->getProcesso($idProcesso);
+        } catch (Exception $e) {
+            $this->setMessageForTheView('Não foi possível carregar o processo', 'error');
+        }
+        
+        $this->_helper->layout()->setLayout('relatorio');
+        
+        $this->view->processo = $processo;
     }
 }
