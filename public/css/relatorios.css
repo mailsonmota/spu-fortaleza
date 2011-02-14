@@ -5,35 +5,30 @@ dl:after {content:".";clear:both;display:block;overflow:hidden;visibility:hidden
 
 /* Basic */
 body {font-family: sans-serif; font-size: 13px}
-
 h1 {font-size: 1.75em; margin-bottom: 2em}
 h2 {font-size: 1.5em; margin-bottom: 2em; text-align: center}
-
-dt, dd {float: left}
-dt, dd {margin-bottom: 1em}
-dt {width: 10em; clear: both; text-align: right}
-dd {font-weight: bold; margin-left: 0.5em}
-
-p, table {margin-bottom: 1em}
-
+p, table, ul li, ol li, dt, dd {margin-bottom: 1em}
 table {border-spacing: 0; width: 100%}
 table th, table td {padding: 0.5em 1em}
 table th {text-align: left; border-bottom: 1px solid black}
 table td {border-bottom: 1px solid #D1D1D1}
 table tfoot td {display: none}
 
+/* Lists */
+dt, dd {float: left}
+dt {width: 10em; clear: both; text-align: right}
+dd {font-weight: bold; margin-left: 0.5em}
+dd ul li, dd ol li {margin-bottom: 0.5em}
+
 /* Structrue */
 #usuario, #menu, #breadcrumbs, #footer {display: none}
 
 #header, #section {margin: 2em}
-
 #header a {text-decoration: none; color: black}
 #header img {float: left; margin-right: 1em}
 #header h1 {padding: 0.1em 0}
 #header h1 span {display: block; font-size: 0.5em; margin-top: 0.2em} 
 
 .comprovante-assinatura {text-align: center; margin-top: 3em}
-
 ul.buttons {list-style-type: none}
-
 .nav li {padding: 1em 0;float: left;margin-right: 2em}
