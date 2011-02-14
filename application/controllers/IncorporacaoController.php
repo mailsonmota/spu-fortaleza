@@ -41,12 +41,14 @@ class IncorporacaoController extends BaseController
     public function confirmacaoAction()
     {
         $session = new Zend_Session_Namespace('incorporacaoSession');
+        $processoService = new ProcessoService($this->getTicket());
+        
         if ($this->getRequest()->isPost()) {
             $data['principal'] = $session->processoPrincipalId;
             $data['incorporado'] =  $session->processoIncorporadoId;
-            $processo = new Processo($this->getTicket());
+            
             try {
-                $processo->incorporar($data);
+                $processoServico->incorporar($data);
             }
             catch (AlfrescoApiException $e) {
                 throw $e;
@@ -57,11 +59,11 @@ class IncorporacaoController extends BaseController
             $this->_redirectConclusao();
         }
         
-        $processoPrincipal = new Processo($this->getTicket());
-        $processoPrincipal->carregarPeloId($session->processoPrincipalId);
+        $processoPrincipal = new Processo();
+        $processoPrincipal = $processoService->getProcesso($session->processoPrincipalId);
         
-        $processoIncorporado = new Processo($this->getTicket());
-        $processoIncorporado->carregarPeloId($session->processoIncorporadoId);
+        $processoIncorporado = new Processo();
+        $processoIncorporado = $processoService->getProcesso($session->processoIncorporadoId);
         
         $this->view->principal = $processoPrincipal;
         $this->view->incorporado = $processoIncorporado;
@@ -70,12 +72,13 @@ class IncorporacaoController extends BaseController
     public function conclusaoAction()
     {
         $session = new Zend_Session_Namespace('incorporacaoSession');
+        $processoService = new ProcessoService($this->getTicket());
         
-        $processoPrincipal = new Processo($this->getTicket());
-        $processoPrincipal->carregarPeloId($session->processoPrincipalId);
+        $processoPrincipal = new Processo();
+        $processoPrincipal = $processoService->getProcesso($session->processoPrincipalId);
         
-        $processoIncorporado = new Processo($this->getTicket());
-        $processoIncorporado->carregarPeloId($session->processoIncorporadoId);
+        $processoIncorporado = new Processo();
+        $processoIncorporado = $processoService->getProcesso($session->processoIncorporadoId);
         
         $this->view->principal = $processoPrincipal;
         $this->view->incorporado = $processoIncorporado;
