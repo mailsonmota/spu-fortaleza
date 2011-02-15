@@ -64,4 +64,24 @@ class Zend_View_Helper_Select extends Zend_View_Helper_Form
     {
         return (isset($this->_options['chooseLink'])) ? true : false;
     }
+    
+    protected function getId()
+    {
+        $id = $this->_name;
+        if (isset($this->_options['id'])) {
+            $id = $this->_options['id'];
+        }
+        
+        return $id;
+    }
+    
+    public function getLabelClass()
+    {
+        $class = '';
+        if (isset($this->_options['required'])) {
+            $class .= 'required';
+        }
+        
+        return $class;
+    }
 }
