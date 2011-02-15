@@ -16,62 +16,62 @@ body {background-color: #EEE; color: #333333; line-height: 1.429; margin: 0; pad
 body, input, button, textarea {font-family: sans-serif}
 
 /* Cabeçalhos */
-h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#111;}
-h1 {font-size:3.5em;line-height:1;margin-bottom:0.5em;}
-h2 {font-size:2.5em;margin-bottom:0.75em;}
-h3 {font-size:2em;line-height:1;margin-bottom:1em;}
-h4 {font-size:1.7em;line-height:1.25;margin-bottom:1.25em;}
-h5 {font-size:1em;font-weight:bold;margin-bottom:1.5em;}
-h6 {font-size:1em;font-weight:bold;}
+h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#111}
+h1 {font-size:3.5em;line-height:1;margin-bottom:0.5em}
+h2 {font-size:2.5em;margin-bottom:0.75em}
+h3 {font-size:2em;line-height:1;margin-bottom:1em}
+h4 {font-size:1.7em;line-height:1.25;margin-bottom:1.25em}
+h5 {font-size:1em;font-weight:bold;margin-bottom:1.5em}
+h6 {font-size:1em;font-weight:bold}
     
 /* Links */
-a {outline: 0; font-weight: bold;}
-a img {border: 0px; text-decoration: none;}
-a:link, a:visited {color: #000;padding: 0 1px;text-decoration: underline;}
-a:hover, a:active {background-color: #000;color: #fff;text-decoration: none;}
+a {outline: 0; font-weight: bold}
+a img {border: 0px; text-decoration: none}
+a:link, a:visited {color: #000;padding: 0 1px;text-decoration: underline}
+a:hover, a:active {background-color: #000;color: #fff;text-decoration: none}
 
 /* Forms */
 dl dd input[type=text], dl dd input, dl dd select, dl dd textarea {margin-top: 0; margin-bottom: 0}
-label {font-weight: normal;}
-input, select, textarea {padding: 0.25em 0;text-indent: 3px;font-size: 1em;}
-select {text-indent: 0;}
-fieldset {border-width: 1px 0 0 0;}
+label {font-weight: normal}
+input, select, textarea {padding: 0.25em 0;text-indent: 3px;font-size: 1em}
+select {text-indent: 0}
+fieldset {border-width: 1px 0 0 0}
 
 /* Tabelas */
 table tr td, table tr th {padding: 0.5em}
 
 /* Forms - Classes Adicionais */
-.middleText {width: 30em;}
-.largeText {width: 50em;}
-.campoTexto {padding-top: 0.25em;}
-label.required {font-weight: bold;}
+.middleText {width: 30em}
+.largeText {width: 50em}
+.campoTexto {padding-top: 0.25em}
+label.required {font-weight: bold}
 dd label.error {margin: 0; border: 0; background: none; padding: 0; display: block}
 input.error, textarea.error, .xsd__validationfailed {margin: 0.5em 0; padding: 0.25em 0;border-width: 1px; border-color: #8a1f11;background: #FBE3E4}
-dd a.dp-choose-date {margin-left: 0.5em;}
+dd a.dp-choose-date {margin-left: 0.5em}
 textarea {height: 5.5em}
 
 /* Botões */
-.buttons {border-top: 1px solid #DDD;padding: 1%;margin: 1% 0;background: #FAFAFA;clear: left;}
-.buttons li {float: left;margin-right: 0.5em;}
-.buttons .description {padding-top: 0.70em;}
-.buttons.grid {margin-bottom: 0;}
-button, input[type=button], input[type=submit] {padding: 0.5em 1.5em;font-size: 1em;}
+.buttons {border-top: 1px solid #DDD;padding: 1%;margin: 1% 0;background: #FAFAFA;clear: left}
+.buttons li {float: left;margin-right: 0.5em}
+.buttons .description {padding-top: 0.70em}
+.buttons.grid {margin-bottom: 0}
+button, input[type=button], input[type=submit] {padding: 0.5em 1.5em;font-size: 1em}
 
 /* Tabelas */
-table.grid {width: 100%;margin-top: 1%;border-collapse:collapse;}
-.grid tr th {background: #777;border-color: #666;border-width: 1px 0;border-style: solid;color: white;font-weight: normal;text-shadow: 1px 1px #444;}
-.grid .tableFilter th {background: #888;border-color: #777;}
-.grid .tableFilter th * {margin: 0;border: 0;}
-.grid tr td {border-color: #E1E1E3; border-style: solid; border-width: 1px 0;}
-.grid .odd {background: #F5F5F5;}
-.grid tbody a {margin-right: 12px;}
-.grid tfoot tr td {border: 0;}
+table.grid {width: 100%;margin-top: 1%;border-collapse:collapse}
+.grid tr th {background: #777;border-color: #666;border-width: 1px 0;border-style: solid;color: white;font-weight: normal;text-shadow: 1px 1px #444}
+.grid .tableFilter th {background: #888;border-color: #777}
+.grid .tableFilter th * {margin: 0;border: 0}
+.grid tr td {border-color: #E1E1E3; border-style: solid; border-width: 1px 0}
+.grid .odd {background: #F5F5F5}
+.grid tbody a {margin-right: 12px}
+.grid tfoot tr td {border: 0}
 .grid .marked td {background: #FBEE99;border-color: #ded388}
-.grid .colunaFixa input {margin: 0 auto;display: block;}
+.grid .colunaFixa input {margin: 0 auto;display: block}
 
 /* Páragrafos */
-p {margin-bottom: 1.143em;}
-* p:last-child {margin-bottom: 0;}
+p {margin-bottom: 1.143em}
+* p:last-child {margin-bottom: 0}
 
 /* Listas */
 dl {margin-bottom: 1em}
@@ -79,9 +79,9 @@ dl dt label {display: block; padding-top: 0.25em}
 dl dt, dl dd {margin-bottom: 0.75em}
 dt, dd {float: left}
 dt {width: 12em;clear: both;text-align: right;margin-right: 0.5em}
-dd ul li {padding: 0.25em 0;}
-dd ul li.even {background: #FAFAFA;}
-dd ul li.odd {background: #F5F5F5;}
+dd ul li {padding: 0.25em 0}
+dd ul li.even {background: #FAFAFA}
+dd ul li.odd {background: #F5F5F5}
 dd dl dt, dd dl dd {margin: 0 0 0.2em; padding-top: 0}
 dd dl dt {text-align: left;width: auto;margin-right: 0.25em}
 
@@ -89,33 +89,33 @@ dd dl dt {text-align: left;width: auto;margin-right: 0.25em}
 code {margin-bottom: 1.25em; display: block}
 
 /* Tags de Texto */
-strong, b {font-weight: bold;}
-em, i {font-style: italic;}
+strong, b {font-weight: bold}
+em, i {font-style: italic}
 ol.orderedList {list-style-type: decimal; margin-left: 3em; margin-bottom: 1.5em}
 
 /* Seleções */
-::-moz-selection {background: #000; color: #fff;}
-::selection {background: #000; color: #fff;}
+::-moz-selection {background: #000; color: #fff}
+::selection {background: #000; color: #fff}
 
 /* Estrutura */
-#section, #footer {padding: 1%;}
-#container {background: url(../img/degrade.jpg) repeat-x 0% 0% white; padding: 2% 0; overflow: hidden;}
+#section, #footer {padding: 1%}
+#container {background: url(../img/degrade.jpg) repeat-x 0% 0% white; padding: 2% 0; overflow: hidden}
 
 /* Cabecalho */
 #header {position: relative;padding: 1em;border-bottom: 1px solid #111;text-shadow: 1px 1px 1px #000}
 #header {background: url(../img/bg_topo.png) no-repeat #272727 center}
-#header h1 {font-size: 24px;position: relative;height: 44px;background: url(../img/logoFortaleza.png) no-repeat 0 50%;padding-left: 52px;margin-bottom: 0;}
+#header h1 {font-size: 24px;position: relative;height: 44px;background: url(../img/logoFortaleza.png) no-repeat 0 50%;padding-left: 52px;margin-bottom: 0}
 #header h1 a {text-decoration: none;color: white;line-height: 34px;font-weight: bold}
-#header h1 a:hover {background: none;text-shadow: 1px 1px 1px #000;text-decoration: underline;}
+#header h1 a:hover {background: none;text-shadow: 1px 1px 1px #000;text-decoration: underline}
 #header h1 span {position: absolute;font-size: 12px;font-weight: normal;clear: both;bottom: 0;color: white;line-height: 12px;display: block}
-#usuario {position: absolute;top: 12px;right: 12px;line-height: 1.75em;color: white;text-align: right;}
-#usuario a {color: white;}
+#usuario {position: absolute;top: 12px;right: 12px;line-height: 1.75em;color: white;text-align: right}
+#usuario a {color: white}
 
 /* Menu */
-#menu {float: left;width: 18%;padding-left: 2%;display: inline;}
-#menu ul {list-style-type: none;max-width:100%;position:relative;}
-#menu ul li {list-style-type: none;width: 100%;}
-#menu ul li span, #globalSearch label {color: black;display: block;text-decoration: none;width: 96%;padding: 2%;border-bottom: 1px dotted #AAA;margin-bottom: 2%}
+#menu {float: left;width: 18%;padding-left: 2%;display: inline}
+#menu ul {list-style-type: none;max-width:100%;position:relative}
+#menu ul li {list-style-type: none;width: 100%}
+#menu ul li span, #globalSearch label {display: block;width: 96%;padding: 2%;border-bottom: 1px dotted #AAA;margin-bottom: 2%}
 
 /* Busca */
 #globalSearch {height: auto;margin: 0 0 5%}
@@ -124,22 +124,22 @@ ol.orderedList {list-style-type: decimal; margin-left: 3em; margin-bottom: 1.5em
 #globalSearch button {margin-bottom: 0;outline: 0}
 
 /* Submenu */
-#menu ul li ul {height: auto;margin: 4% 0;}
-#menu ul li ul li {clear: left;text-indent: 5%;}
-#menu ul li ul li a {line-height: 1.5em;}
+#menu ul li ul {height: auto;margin: 4% 0}
+#menu ul li ul li {clear: left;text-indent: 5%}
+#menu ul li ul li a {line-height: 1.5em}
 
 /* Conteúdo */
-#section {padding: 0 2%;width: 76%;float: right;}
-#section h2 {margin-bottom: 6px;}
-.nav {background: #F5F4EF;border-top: 1px solid #AAA;margin-bottom: 2%;}
-.nav li {padding: 1em 1%;float: left;margin-left: 1%;}
-.nav .back, .nav .print, .nav .help {float: right;}
-.nav .print {background: url(../img/icons/printer.png) no-repeat 0% 50%; text-indent: 10px;}
-.nav .help {background: url(../img/icons/help.png) no-repeat 0% 50%; text-indent: 10px;}
-.nav .insert {background: url(../img/icons/add.png) no-repeat 0% 50%; text-indent: 10px;}
+#section {padding: 0 2%;width: 76%;float: right}
+#section h2 {margin-bottom: 6px}
+.nav {background: #F5F4EF;border-top: 1px solid #AAA;margin-bottom: 2%}
+.nav li {padding: 1em 1%;float: left;margin-left: 1%}
+.nav .back, .nav .print, .nav .help {float: right}
+.nav .print {background: url(../img/icons/printer.png) no-repeat 0% 50%; text-indent: 10px}
+.nav .help {background: url(../img/icons/help.png) no-repeat 0% 50%; text-indent: 10px}
+.nav .insert {background: url(../img/icons/add.png) no-repeat 0% 50%; text-indent: 10px}
 
 /* Abas */
-.tabs {list-style-type: none;margin-left: 1em;}
+.tabs {list-style-type: none;margin-left: 1em}
 .tabs li {
     display: block;
     float: left;
@@ -156,9 +156,9 @@ ol.orderedList {list-style-type: decimal; margin-left: 3em; margin-bottom: 1.5em
     border-radius: 6px 6px 0 0;
     z-index: 0;
 }
-.tabs li.active {background: #F5F4EF !important;border-bottom-color: #F5F4FF;}
-.tabs li.active a {text-decoration: none;color: black;}
-.tabs .active a:hover {background: none;}
+.tabs li.active {background: #F5F4EF !important;border-bottom-color: #F5F4FF}
+.tabs li.active a {text-decoration: none;color: black}
+.tabs .active a:hover {background: none}
 
 /* Widgets */
 .widgetLeft, .widgetRight {margin-bottom: 2%; width: 49%;float: left}
@@ -170,32 +170,32 @@ ol.orderedList {list-style-type: decimal; margin-left: 3em; margin-bottom: 1.5em
 div.message {margin: 0 0 2% 0; border-width: 1px 0}
 
 /* Sidebar */
-#article {display: block;z-index: 1;}
-#aside {width: 23%;float: left;right: 0;margin-right: 2%;background: #F5F4EF;padding: 2%;}
-#article h3 {margin-bottom: 2%;}
-#section.withSidebar #article {width: 71%;float: left;}
+#article {display: block;z-index: 1}
+#aside {width: 23%;float: left;right: 0;margin-right: 2%;background: #F5F4EF;padding: 2%}
+#article h3 {margin-bottom: 2%}
+#section.withSidebar #article {width: 71%;float: left}
 
 /* Footer */
 #footer {background: url(../img/bgRodape.gif) repeat-x 0% 0%;font-size: 1em; color: #333}
-#footer p {float: right;margin-bottom: 0;}
-#footer address {float: left;margin-right: 12px;}
-#footer ul, #footer ul li {float: left;}
-#footer ul li {margin: 0 12px;}
+#footer p {float: right;margin-bottom: 0}
+#footer address {float: left;margin-right: 12px}
+#footer ul, #footer ul li {float: left}
+#footer ul li {margin: 0 12px}
 
 /* Login */
-body.basic {background: url(../img/degrade.jpg) repeat-x 0% 0% white;}
-#wrapper {width: 40em; margin: 5em auto;}
-#wrapper #header {padding: 1em; background: none; border-bottom: 1px solid #CCC;}
-#wrapper #header span {color: black;line-height: 30px;}
-#wrapper #section {background: white;}
-#wrapper #footer {background: none; border-top: 1px solid #CCC; color: #666;}
-#wrapper #footer p {float: none; margin: 1% 0;}
+body.basic {background: url(../img/degrade.jpg) repeat-x 0% 0% white}
+#wrapper {width: 40em; margin: 5em auto}
+#wrapper #header {padding: 1em; background: none; border-bottom: 1px solid #CCC}
+#wrapper #header span {color: black;line-height: 30px}
+#wrapper #section {background: white}
+#wrapper #footer {background: none; border-top: 1px solid #CCC; color: #666}
+#wrapper #footer p {float: none; margin: 1% 0}
 #wrapper #section {padding: 3em; width: 27em; margin: 0 auto; float: none}
-#wrapper h1 {text-shadow: 1px 1px 1px #FFF;height: 48px;}
-#wrapper h1 a {color: black; line-height: 30px;}
-#wrapper h1 a:hover {text-shadow: 0 0 0;}
+#wrapper h1 {text-shadow: 1px 1px 1px #FFF;height: 48px}
+#wrapper h1 a {color: black; line-height: 30px}
+#wrapper h1 a:hover {text-shadow: 0 0 0}
 #login dt, #login dd {width: auto; clear: left; float: none; text-align: left; padding: 0; margin-right: 0}
-#login dd {margin-bottom: 1em;}
+#login dd {margin-bottom: 1em}
 #username, #password {
 	padding: 1em 1em 1em 2.75em; 
 	background-color: #FBFBFB; 
@@ -204,9 +204,9 @@ body.basic {background: url(../img/degrade.jpg) repeat-x 0% 0% white;}
 	border: 1px solid #E5E5E5;
 	width: 23em;
 }
-#section ul.buttons {background: none; border: 0; margin: 0; padding: 0;}
-#username {background-image: url(../img/icons/username.png);}
-#password {background-image: url(../img/icons/password.png);}
+#section ul.buttons {background: none; border: 0; margin: 0; padding: 0}
+#username {background-image: url(../img/icons/username.png)}
+#password {background-image: url(../img/icons/password.png)}
 body.basic #message {border-top: 0}
 
 /* Botão Pesquisar */
@@ -214,12 +214,12 @@ body.basic #message {border-top: 0}
 
 /* Ajuda */
 .item-ajuda h3 {border-bottom-width: 1px; border-color: #DDD; margin-bottom: 0.75em}
-.item-ajuda dt {float: none; font-weight: bold; width: auto; text-align: left;}
-.item-ajuda h4 {font-size: 1.25em; font-weight: bold; margin-bottom: auto;}
+.item-ajuda dt {float: none; font-weight: bold; width: auto; text-align: left}
+.item-ajuda h4 {font-size: 1.25em; font-weight: bold; margin-bottom: auto}
 
 /* Historico */
 blockquote {background: #DDD; color: #333; padding: 0.5em 0.75em; margin: 0 0 0.5em 0;float: left}
-.comentario {background: url(../img/commentArrow.png) no-repeat 0.5em 0px; padding-top: 5px; margin-top: 0.1em;}
+.comentario {background: url(../img/commentArrow.png) no-repeat 0.5em 0px; padding-top: 5px; margin-top: 0.1em}
 ol.historico li {margin-bottom:1em}
 .dataMovimentacao, .descricaoMovimentacao {float: left}
 .dataMovimentacao {margin-right: 1em}
@@ -228,7 +228,7 @@ ol.historico li {margin-bottom:1em}
 #fileUpload {margin-bottom: 2%}
 #fileUpload h5 {margin: 1% 0 0 0}
 #fileList {margin: 0 0 1% 1%}
-#fileList li {margin: 0.85em 0;}
+#fileList li {margin: 0.85em 0}
 
 /* Relatórios */
 .comprovante-assinatura {text-align: center}
@@ -267,7 +267,7 @@ ol.historico li {margin-bottom:1em}
 .dataTables_info {width: auto; float: right; font-style: italic; text-align: right}
 
 /* Identação */
-.indentedName {padding-left: 16px; background: url(../img/icons/child.png) no-repeat 0% 50%;}
+.indentedName {padding-left: 16px; background: url(../img/icons/child.png) no-repeat 0% 50%}
 
 /* jQueryUI */
 .ui-widget { font-family: inherit }
