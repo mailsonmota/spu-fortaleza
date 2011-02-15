@@ -5,8 +5,7 @@
  * @author Bruno Cavalcante
  * @since 15/12/2010
  */
-require_once('Selectmultiple.php');
-class Zend_View_Helper_SelectPicker extends Zend_View_Helper_Selectmultiple
+class Zend_View_Helper_SelectPicker extends Zend_View_Helper_Select
 {
     const CHOOSELINK_TEXT = 'Escolher';
 
