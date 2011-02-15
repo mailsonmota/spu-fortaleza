@@ -78,7 +78,7 @@ dl {margin-bottom: 1em}
 dl dt label {display: block; padding-top: 0.25em}
 dl dt, dl dd {margin-bottom: 0.75em}
 dt, dd {float: left}
-dt {width: 12em;clear: both;text-align: right;margin-right: 1em}
+dt {width: 12em;clear: both;text-align: right;margin-right: 0.5em}
 dd ul li {padding: 0.25em 0;}
 dd ul li.even {background: #FAFAFA;}
 dd ul li.odd {background: #F5F5F5;}

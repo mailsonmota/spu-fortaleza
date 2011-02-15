@@ -108,7 +108,7 @@
     <legend>Formulário do Assunto</legend>
     <dl>
     <?php foreach ($this->processo->respostasFormulario->getData() as $campo => $valor): ?>
-        <dt><?php echo $campo ?></dt>
+        <dt><?php echo $this->processo->respostasFormulario->getAdjustedKeyName($campo) ?>:</dt>
         <dd><?php echo $valor ?></dd>
     <?php endforeach ?>
     </dl>
