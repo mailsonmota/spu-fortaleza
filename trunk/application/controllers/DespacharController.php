@@ -63,7 +63,7 @@ class DespacharController extends BaseTramitacaoController
         $sessionDespachar = new Zend_Session_Namespace('despachar');
         unset($sessionDespachar->filesToUpload[$numero]);
         $sessionDespachar->filesToUpload = array_values($sessionDespachar->filesToUpload);
-        $this->setSuccessMessage('Arquivo removido da lista de arquivo a ser submetida.');
+        $this->setSuccessMessage('Arquivo removido da lista de arquivos a ser submetida.');
         $this->_redirectIndex();
     }
     
