@@ -32,9 +32,9 @@
     
     if (!$this->tipoProcesso->tramitacao->isParalela()) {
         echo $this->ajaxSelectMultiple('Com Cópia', 
-                                         'copias', 
-                                         $this->simpleUrl('listar-destinos', 'protocolos-ajax'), 
-                                         array('id' => 'copias'));
+                                       'copias', 
+                                       $this->simpleUrl('listar-destinos', 'protocolos-ajax'), 
+                                       array('id' => 'copias'));
     }
     
     echo $this->textarea('Corpo', 'corpo', null, array('required' => true));
