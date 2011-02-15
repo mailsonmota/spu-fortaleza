@@ -10,10 +10,10 @@ class AbrirprocessoController extends BaseController
     public function indexAction()
     {
         if ($this->getRequest()->isPost()) {
-                $this->_helper->redirector('formulario',
-                                           $this->getController(),
-                                           'default',
-                                           array('tipoprocesso' => $this->_getIdTipoProcessoPost()));
+            $this->_helper->redirector('formulario',
+                                       $this->getController(),
+                                       'default',
+                                       array('tipoprocesso' => $this->_getIdTipoProcessoPost()));
         }
 
         $listaTiposProcesso = $this->_getListaTiposProcesso();
@@ -139,7 +139,7 @@ class AbrirprocessoController extends BaseController
                         $this->_redirectUploadArquivo();
                     }
                 }
-                $session->filesToUpload[] = $fileTmp; 
+                $session->filesToUpload[] = $fileTmp;
             } else {
                 try {
                     foreach ($session->filesToUpload as $fileToUpload) {
@@ -170,7 +170,7 @@ class AbrirprocessoController extends BaseController
         $numero = $this->getRequest()->getParam('removerarquivo');
         unset($session->filesToUpload[$numero]);
         $session->filesToUpload = array_values($session->filesToUpload);
-        $this->setSuccessMessage('Arquivo removido da lista de arquivo a ser submetida.');
+        $this->setSuccessMessage('Arquivo removido da lista de arquivos a ser submetida.');
         $this->_redirectUploadArquivo();
     }
 
