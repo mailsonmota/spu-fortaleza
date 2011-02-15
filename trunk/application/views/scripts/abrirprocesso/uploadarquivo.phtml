@@ -3,7 +3,7 @@ $this->breadcrumbs()->addPage('Abrir Processo', 'abrirprocesso');
 $this->breadcrumbs()->addPage('Formulário', 'abrirprocesso', 'formulario');
 $this->breadcrumbs()->addPage('Formulário Envolvido', 'abrirprocesso', 'formulario');
 if ($this->hasFormulario) {
-    $this->breadcrumbs()->addPage('Formulário do Assunto', 'abrirprocesso', 'formulario-assunto');	
+    $this->breadcrumbs()->addPage('Formulário do Assunto', 'abrirprocesso', 'formulario-assunto');  
 }
 $this->breadcrumbs()->addPage('Adição de Arquivos', 'abrirprocesso', 'uploadarquivo');
 echo $this->breadcrumbs()->render(); 
@@ -19,34 +19,38 @@ echo $this->pagenav()->closeList();
     <form action="" method="post" enctype="multipart/form-data">
         <fieldset>
             <legend>Enviar arquivo</legend>
-	        <input type="hidden" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
-	        <?php
-	        echo $this->form()->openFieldList();
-	        echo $this->file('Arquivo', 'fileToUpload');
-	        echo $this->form()->closeFieldList();
-	        echo $this->buttonlist()->open();
-		    echo $this->buttonlist()->button('Enviar Arquivo');
-		    echo $this->buttonlist()->close(true); 
-		    ?>
-	    </fieldset>
+            <input type="hidden" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
+            <?php
+            echo $this->form()->openFieldList();
+            echo $this->file('Arquivo', 'fileToUpload');
+            echo $this->form()->closeFieldList();
+            echo $this->buttonlist()->open();
+            echo $this->buttonlist()->button('Adicionar Arquivo');
+            echo $this->buttonlist()->close(true); 
+            ?>
+        </fieldset>
     </form>
 
     <fieldset>
         <legend>Lista de arquivos</legend>
-	    <ul>
-		    <?php
-		    if (empty($this->uploadedFiles)) {
-		    	echo '<li>Nenhum arquivo enviado.</li>';
-		    } else {
-		    	foreach ($this->uploadedFiles as $item) {
-		    		print '<li>' . $item->nome . ' (Remover)</li>';
-		    	}
-		    }
-		    ?>
-	    </ul>
+        <ul>
+            <?php
+            if (empty($this->filesToUpload)) {
+                echo '<li>Nenhum arquivo enviado.</li>';
+            } else {
+                for ($i = 0; $i < count($this->filesToUpload); $i++) {
+                    $nomeArquivo = substr(strrchr($this->filesToUpload[$i], '/'), 1);
+                    $fileDelUrl = $this->simpleUrl('removerarquivo', 'abrirprocesso', array('removerarquivo' => $i));
+                    
+                    print "<li>$nomeArquivo (<a href={$fileDelUrl}>Remover</a>)</li>";
+                }
+            }
+            ?>
+        </ul>
     </fieldset>
     
     <form action="" method="post">
+        <input type="hidden" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
         <?php
         echo $this->buttonlist()->open();
         echo $this->buttonlist()->button('Avançar');

@@ -71,6 +71,10 @@ class AbrirprocessoController extends BaseController
         $listaUfs = $this->_getListaUfs();
         if ($this->getRequest()->isPost()) {
                 $session = new Zend_Session_Namespace('aberturaProcesso');
+                
+                // Limpeza da lista de arquivos utilizada pelo próximo passo na Abertura de Processo
+                unset($session->filesToUpload);
+
                 $formDadosGeraisProcesso = $session->formDadosGeraisProcesso;
                 $postData = $this->getRequest()->getPost();
                 $dataMerged = array_merge($formDadosGeraisProcesso, $postData);
@@ -99,6 +103,9 @@ class AbrirprocessoController extends BaseController
         $processo = $session->processo;
         
         if ($this->getRequest()->isPost()) {
+            // Limpeza da lista de arquivos utilizada pelo próximo passo na Abertura de Processo
+            unset($session->filesToUpload);
+            
             $postData = $this->getRequest()->getPost();
             try {
                 $arquivoService = new ArquivoService($this->getTicket());
@@ -133,20 +140,25 @@ class AbrirprocessoController extends BaseController
             if (!empty($_FILES)) {
                 $fileTmp = $this->_uploadFilePathConverter($_FILES['fileToUpload']['name'],
                                                            $_FILES['fileToUpload']['tmp_name']);
-                foreach ($session->filesToUpload as $fileToUpload) {
-                    if ($fileToUpload == $fileTmp) {
-                        $this->setErrorMessage('Este arquivo já se encontra na lista de arquivos a ser submetida.');
-                        $this->_redirectUploadArquivo();
+                if (!empty($session->filesToUpload)) {
+                    foreach ($session->filesToUpload as $fileToUpload) {
+                        if ($fileToUpload == $fileTmp) {
+                            $this->setErrorMessage('Este arquivo já se encontra na lista de arquivos a ser submetida.');
+                            $this->_redirectUploadArquivo();
+                        }
                     }
                 }
                 $session->filesToUpload[] = $fileTmp;
             } else {
+                
                 try {
                     foreach ($session->filesToUpload as $fileToUpload) {
                         $postData['fileToUpload'] = $fileToUpload;
                         $arquivoService = new ArquivoService($this->getTicket());
                         $arquivoService->uploadArquivo($postData);
                     }
+                    // Limpeza da lista de arquivos
+                    unset($session->filesToUpload);
                 } catch (Exception $e) {
                     throw new Exception('Erro no upload de arquivo. Mensagem: ' . $e->getMessage());
                 }
