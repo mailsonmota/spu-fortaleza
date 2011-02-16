@@ -42,8 +42,9 @@ class Zend_View_Helper_AjaxSelect extends Zend_View_Helper_Abstract
         $html .= "<dd>
                       <ul id=\"$listId\"></ul>
                       <input type=\"text\" id=\"$autoCompleteId\" class=\"autocomplete\"/>
-                      <input type=\"hidden\" name=\"$name\" id=\"$id\" class=\"$labelClass\" />
-                  </dd>";
+                      <input type=\"hidden\" name=\"$name\" id=\"$id\" class=\"$labelClass\" />";
+        $html .= $this->_getHtmlAfterInput();
+        $html .= "</dd>";
         
         $this->_html = $html;
     }
@@ -80,6 +81,11 @@ class Zend_View_Helper_AjaxSelect extends Zend_View_Helper_Abstract
         return $id . '_list';
     }
     
+    protected function _getHtmlAfterInput()
+    {
+    	return '';
+    }
+    
     protected function _prepareScript()
     {
         $id = $this->_getId();
@@ -92,19 +98,26 @@ class Zend_View_Helper_AjaxSelect extends Zend_View_Helper_Abstract
 
                    $('#$autoCompleteId').autocomplete({
                        source: '$ajaxUrl',
-                       minLength: 3,
+                       minLength: 2,
                        select: function(event, ui) {
-                           $('#$listId li').remove();
-                           $('#$listId').append('<li>' + ui.item.label + ' (<a href=\"#\" onClick=\"removeListAndInputItem(this, \'$id\', \'' + ui.item.id + '\')\">Remover</a>)</li>');
-                           $('#$id').val(ui.item.id);
-                           
+                           addListAndInputItem('$id', '$listId', ui.item.id, ui.item.label);
                            $('#$autoCompleteId').val('');
 
                            return false;
                        }
-                   });
+                   });" . $this->_getAdditionalScript() . "
                });";
         
         $this->view->headScript()->appendScript($js, 'text/javascript');
+    }
+    
+    protected function _getAdditionalScript()
+    {
+    	return '';
+    }
+    
+    protected function _getOption($optionName)
+    {
+    	return (isset($this->_options[$optionName])) ? $this->_options[$optionName] : null;
     }
 }

@@ -125,6 +125,12 @@ function escolherModal(modalId, selectId) {
 	$.modal.close('#' + modalId);
 }
 
+function addListAndInputItem(selectId, listId, itemId, itemLabel) {
+    $("#" + listId + " li").remove();
+    $("#" + listId).append('<li>' + itemLabel + ' (<a href=\"#\" onClick=\"removeListAndInputItem(this, \'' + selectId + '\', \'' + itemId + '\')\">Remover</a>)</li>');
+    $("#" + selectId).val(itemId);
+}
+
 function removeListAndInputItem(listItem, selectId, itemValue) {
 	$(listItem).parent().remove();
     $("#" + selectId).val('');

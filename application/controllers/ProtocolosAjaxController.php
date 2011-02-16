@@ -40,6 +40,25 @@ class ProtocolosAjaxController extends BaseDataTablesController
         return $rows;
     }
     
+    public function listarEstruturaAction()
+    {
+        $this->_rows = $this->_getEstruturaProtocolos();
+        $this->_total = 1000;
+        
+        $this->_helper->layout()->disableLayout();
+        $this->view->output = $this->_getOutput();
+    }
+    
+    protected function _getEstruturaProtocolos()
+    {
+        $protocoloService = new ProtocoloService($this->getTicket());
+        $protocolos = $protocoloService->getTodosProtocolosPaginado($this->_getOffset(),
+                                                                    10,
+                                                                    $this->_getSearch());
+        
+        return $this->_convertProtocolosToDataTablesRow($protocolos, false);
+    }
+    
     public function listarDestinosAction()
     {
         $this->_helper->layout()->disableLayout();

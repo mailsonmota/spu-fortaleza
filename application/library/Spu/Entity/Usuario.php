@@ -57,7 +57,7 @@ class Usuario extends BaseEntity
     
     public function isAdministrador()
     {
-        if (!$this->_grupos) {
+        if (!isset($this->_grupos)) {
             throw new Exception('Grupos não carregados');
         }
         
@@ -72,7 +72,7 @@ class Usuario extends BaseEntity
     
     public function isGuest()
     {
-        if (!$this->_grupos) {
+        if (!isset($this->_grupos)) {
             throw new Exception('Grupos não carregados');
         }
         

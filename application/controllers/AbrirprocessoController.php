@@ -18,6 +18,11 @@ class AbrirprocessoController extends BaseController
 
         $listaTiposProcesso = $this->_getListaTiposProcesso();
 
+        if (!$listaTiposProcesso) {
+        	$this->setMessageForTheView('Não será possível abrir nenhum processo, pois você não tem 
+        	                              acesso à nenhum Tipo de Processo.');
+        }
+        
         $this->view->listaTiposProcesso = $listaTiposProcesso;
     }
 
@@ -256,6 +261,8 @@ class AbrirprocessoController extends BaseController
         $tipoProcessoService = new TipoProcessoService($this->getTicket());
         if ($idTipoProcesso) {
             $tipoProcesso = $tipoProcessoService->getTipoProcesso($idTipoProcesso);
+        } else {
+        	$tipoProcesso = new TipoProcesso();
         }
 
         return $tipoProcesso;
