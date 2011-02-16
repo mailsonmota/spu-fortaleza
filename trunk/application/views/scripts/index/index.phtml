@@ -10,4 +10,12 @@ echo $this->pagenav()->closeList();
     <p>
     	Bem-vindo, <b><?php echo $this->pessoa->nome ?></b>!
     </p>
+    <?php 
+    echo $this->fieldList()->open();
+    echo $this->fieldList()->text('Text', 'Value');
+    echo $this->fieldList()->textbox('Textbox', 'nome', 'Value');
+    echo $this->fieldList()->password('Textbox', 'senha', 'Value');
+    echo $this->fieldList()->textarea('Textarea', 'descricao', 'Value');
+    echo $this->fieldList()->close();
+    ?>
 </div>
