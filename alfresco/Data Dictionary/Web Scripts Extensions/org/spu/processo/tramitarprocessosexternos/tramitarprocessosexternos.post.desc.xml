@@ -1,9 +1,0 @@
-<webscript>
-	<shortname>Tramita os processo informado</shortname>
-	<description>Tramita os processo informado</description>
-	<url>/spu/processo/tramitarExternos</url>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>
-

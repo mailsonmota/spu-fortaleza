@@ -1,5 +1,0 @@
-{
-  "filename" : "${fileName}",
-  "node" : "${nodeId}"
-}
-

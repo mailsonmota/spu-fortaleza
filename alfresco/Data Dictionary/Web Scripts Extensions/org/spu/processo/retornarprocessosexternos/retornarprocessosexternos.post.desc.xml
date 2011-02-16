@@ -1,9 +1,0 @@
-<webscript>
-	<shortname>Retorna os processos informados</shortname>
-	<description>Retorna os processos externos informados</description>
-	<url>/spu/processo/retornarExternos</url>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>
-

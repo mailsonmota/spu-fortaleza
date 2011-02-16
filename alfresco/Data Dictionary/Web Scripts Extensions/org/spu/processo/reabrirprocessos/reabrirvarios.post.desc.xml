@@ -1,9 +1,0 @@
-<webscript>
-	<shortname>Reabre varios processos</shortname>
-	<description>Reabre varios processos</description>
-	<url>/spu/processo/reabrir</url>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>
-
