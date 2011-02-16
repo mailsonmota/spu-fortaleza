@@ -1,0 +1,169 @@
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:xhtml='http://www.w3.org/1999/xhtml' targetNamespace='spu:solicitacaoDeLicitacao' elementFormDefault='qualified'>
+  <xs:element name='formSolicitacaoDeLicitacao' type='formSolicitacaoDeLicitacao'>
+    <xs:annotation>
+      <xs:appinfo>
+        <xhtml:label>Solicitacao</xhtml:label>
+      </xs:appinfo>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name='formSolicitacaoDeLicitacao'>
+    <xs:sequence>
+      <xs:element name='identificacao'>
+        <xs:annotation>
+          <xs:appinfo>
+            <xhtml:label>Solicitacao De Licitacao</xhtml:label>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name='objeto' type='xs:string'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>OBJETO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='modalidade'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>MODALIDADE</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base='xs:string'>
+                  <xs:enumeration value='TOMADA DE PREÇOS' />
+                  <xs:enumeration value='CONVITE' />
+                  <xs:enumeration value='PREGÃO ELETRÔNICO' />
+                  <xs:enumeration value='PREGÃO PRESENCIAL' />
+                  <xs:enumeration value='CONCORRÊNCIA' />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name='fonteDeRecurso' type='xs:string'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>FONTE DE RECURSO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='valorEstimado' type='xs:float'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>VALOR ESTIMADO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='numeroDoOficio' type='xs:string'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>NÚMERO DO OFÍCIO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='dataDeEntrada' type='xs:date' minOccurs='0'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>DATA DE ENTRADA</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='orgao' minOccurs='0'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>ORGÃO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base='xs:string'>
+                  <xs:enumeration value='SAM' />
+                  <xs:enumeration value='ACFOR' />
+                  <xs:enumeration value='AMC' />
+                  <xs:enumeration value='ARFOR' />
+                  <xs:enumeration value='ECAIO' />
+                  <xs:enumeration value='EMLURB' />
+                  <xs:enumeration value='ETUFOR' />
+                  <xs:enumeration value='FUNCET' />
+                  <xs:enumeration value='FUNCI' />
+                  <xs:enumeration value='GAB. PREFEITO' />
+                  <xs:enumeration value='GAB. VICE-PREFEITO' />
+                  <xs:enumeration value='SEPLA' />
+                  <xs:enumeration value='CGM' />
+                  <xs:enumeration value='GMFOR' />
+                  <xs:enumeration value='HABITAFOR' />
+                  <xs:enumeration value='IJF' />
+                  <xs:enumeration value='IMPARH' />
+                  <xs:enumeration value='OPEFOR' />
+                  <xs:enumeration value='IPEM' />
+                  <xs:enumeration value='IPM' />
+                  <xs:enumeration value='PGM' />
+                  <xs:enumeration value='SDE' />
+                  <xs:enumeration value='SEFIN' />
+                  <xs:enumeration value='SEDAS' />
+                  <xs:enumeration value='SEMAM' />
+                  <xs:enumeration value='SER I' />
+                  <xs:enumeration value='SER II' />
+                  <xs:enumeration value='SER III' />
+                  <xs:enumeration value='SER IV' />
+                  <xs:enumeration value='SER V' />
+                  <xs:enumeration value='SER VI' />
+                  <xs:enumeration value='SMS' />
+                  <xs:enumeration value='SME' />
+                  <xs:enumeration value='SEMAS' />
+                  <xs:enumeration value='SMDC' />
+                  <xs:enumeration value='SETFOR' />
+                  <xs:enumeration value='CTC' />
+                  <xs:enumeration value='SECEL' />
+                  <xs:enumeration value='SECULTFOR' />
+                  <xs:enumeration value='SERCEFOR' />
+                  <xs:enumeration value='SEINF' />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name='numeroDaLicitacao' type='xs:string' minOccurs='0'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>NUMERO DA LICITAÇÃO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='dataDaLicitacao' type='xs:date' minOccurs='0'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>DATA DA LICITAÇAO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='responsavelMembro' type='xs:string' minOccurs='0'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>RESPONSÁVEL (MEMBRO)</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='dataDeFinalizacao' type='xs:date' minOccurs='0'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>DATA DE FINALIZAÇÃO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='valorLicitado' type='xs:float' minOccurs='0'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>VALOR LICITADO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='valorDoInsucesso' type='xs:float' minOccurs='0'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>VALOR DO INSUCESSO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

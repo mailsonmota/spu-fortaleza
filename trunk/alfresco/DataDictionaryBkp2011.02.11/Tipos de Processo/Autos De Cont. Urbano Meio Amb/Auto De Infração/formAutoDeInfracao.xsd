@@ -1,0 +1,31 @@
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:xhtml='http://www.w3.org/1999/xhtml' targetNamespace='spu:autoDeInfracao' elementFormDefault='qualified'>
+  <xs:element name='formAutoDeInfracao' type='formAutoDeInfracao'>
+    <xs:annotation>
+      <xs:appinfo>
+        <xhtml:label>Auto</xhtml:label>
+      </xs:appinfo>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name='formAutoDeInfracao'>
+    <xs:sequence>
+      <xs:element name='identificacao'>
+        <xs:annotation>
+          <xs:appinfo>
+            <xhtml:label>Auto De Infracao</xhtml:label>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name='numeroDoAuto' type='xs:string'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>NUMERO DO AUTO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

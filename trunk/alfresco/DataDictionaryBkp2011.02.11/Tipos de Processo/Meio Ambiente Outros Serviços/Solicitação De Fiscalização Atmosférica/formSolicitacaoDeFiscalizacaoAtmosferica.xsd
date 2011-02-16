@@ -1,0 +1,45 @@
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:xhtml='http://www.w3.org/1999/xhtml' targetNamespace='spu:solicitacaoDeFiscalizacaoAtmosferica' elementFormDefault='qualified'>
+  <xs:element name='formSolicitacaoDeFiscalizacaoAtmosferica' type='formSolicitacaoDeFiscalizacaoAtmosferica'>
+    <xs:annotation>
+      <xs:appinfo>
+        <xhtml:label>Solicitacao</xhtml:label>
+      </xs:appinfo>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name='formSolicitacaoDeFiscalizacaoAtmosferica'>
+    <xs:sequence>
+      <xs:element name='identificacao'>
+        <xs:annotation>
+          <xs:appinfo>
+            <xhtml:label>Solicitacao De Fiscalizacao Atmosferica</xhtml:label>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name='localDaFiscalizacao' type='xs:string'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>LOCAL DA FISCALIZAÇÃO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='logradouroDaFiscalizacao' type='xs:string'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>LOGRADOURO DA FISCALIZAÇÃO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='bairroDaFiscalizacao' type='xs:string' minOccurs='0'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>BAIRRO DA FISCALIZAÇÃO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

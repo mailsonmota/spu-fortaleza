@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Retorna o XSD do formulario referente a um assunto</shortname>
+	<description>Retorna o XSD do formulario referente a um assunto</description>
+	<url>/spu/formulario/get/assunto/{noderef}</url>
+	<authentication>guest</authentication>
+	<transaction>required</transaction>
+	<format default="xml">any</format>
+</webscript>

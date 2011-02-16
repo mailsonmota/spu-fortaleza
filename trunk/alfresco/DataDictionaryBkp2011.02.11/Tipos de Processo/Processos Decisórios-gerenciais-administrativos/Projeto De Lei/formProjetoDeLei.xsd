@@ -1,0 +1,31 @@
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:xhtml='http://www.w3.org/1999/xhtml' targetNamespace='spu:projetoDeLei' elementFormDefault='qualified'>
+  <xs:element name='formProjetoDeLei' type='formProjetoDeLei'>
+    <xs:annotation>
+      <xs:appinfo>
+        <xhtml:label>Projeto</xhtml:label>
+      </xs:appinfo>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name='formProjetoDeLei'>
+    <xs:sequence>
+      <xs:element name='identificacao'>
+        <xs:annotation>
+          <xs:appinfo>
+            <xhtml:label>Projeto De Lei</xhtml:label>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name='numeroDoProjeto' type='xs:integer' minOccurs='0'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>NÚMERO DO PROJETO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

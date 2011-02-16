@@ -1,0 +1,45 @@
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:xhtml='http://www.w3.org/1999/xhtml' targetNamespace='spu:tamponLigTamponada' elementFormDefault='qualified'>
+  <xs:element name='formTamponLigTamponada' type='formTamponLigTamponada'>
+    <xs:annotation>
+      <xs:appinfo>
+        <xhtml:label>Tampon</xhtml:label>
+      </xs:appinfo>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name='formTamponLigTamponada'>
+    <xs:sequence>
+      <xs:element name='identificacao'>
+        <xs:annotation>
+          <xs:appinfo>
+            <xhtml:label>Tampon Lig Tamponada</xhtml:label>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name='numeroDeInscricao' type='xs:integer' minOccurs='0'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>NÚMERO DE INSCRIÇÃO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='numeroDoAtendimento' type='xs:integer' minOccurs='0'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>NÚMERO DO ATENDIMENTO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='pontoDeReferencia' type='xs:string'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>PONTO DE REFERÊNCIA</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

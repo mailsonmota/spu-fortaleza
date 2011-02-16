@@ -1,0 +1,52 @@
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:xhtml='http://www.w3.org/1999/xhtml' targetNamespace='spu:contasMedicasPagamento' elementFormDefault='qualified'>
+  <xs:element name='formContasMedicasPagamento' type='formContasMedicasPagamento'>
+    <xs:annotation>
+      <xs:appinfo>
+        <xhtml:label>Contas</xhtml:label>
+      </xs:appinfo>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name='formContasMedicasPagamento'>
+    <xs:sequence>
+      <xs:element name='identificacao'>
+        <xs:annotation>
+          <xs:appinfo>
+            <xhtml:label>Contas Medicas Pagamento</xhtml:label>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name='dataDeReferencia' type='xs:date'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>DATA DE REFERÊNCIA</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='valorDaFatura' type='xs:float'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>VALOR DA FATURA</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='valorDaGlosa' type='xs:float' minOccurs='0'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>VALOR DA GLOSA</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='valorDeferido' type='xs:float' minOccurs='0'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>VALOR DEFERIDO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
