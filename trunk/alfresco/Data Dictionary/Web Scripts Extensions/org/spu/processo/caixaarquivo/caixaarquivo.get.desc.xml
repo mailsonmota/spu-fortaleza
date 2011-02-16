@@ -1,8 +1,0 @@
-<webscript>
-	<shortname>Lista os Processos Arquivados</shortname>
-	<description>Lista todos os Processos nas Caixas de Arquivo do Usuário</description>
-	<url>/spu/processo/arquivo</url>
-	<authentication>guest</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>
