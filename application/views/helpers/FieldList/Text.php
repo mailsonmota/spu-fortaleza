@@ -1,11 +1,9 @@
 <?php
-require_once 'Abstract.php';
-class Zend_View_Helper_FieldList_Text extends Zend_View_Helper_FieldList_Abstract
+require_once 'Input.php';
+class Zend_View_Helper_FieldList_Text extends Zend_View_Helper_FieldList_Input
 {
 	public function text($label = '', $value = '', array $options = array()) {
-		$this->_label = $label;
-		$this->_value = $value;
-        return parent::__construct($options);
+		return parent::__construct($label, null, $value, $options);
     }
     
     protected function _renderValueItemBefore()

@@ -1,16 +1,14 @@
 <?php
-require_once 'Abstract.php';
-class Zend_View_Helper_FieldList_Textbox extends Zend_View_Helper_FieldList_Abstract
+require_once 'Input.php';
+class Zend_View_Helper_FieldList_Textbox extends Zend_View_Helper_FieldList_Input
 {
-    public function textbox($label = '', $value = '', array $options = array()) {
-        $this->_label = $label;
-        $this->_value = $this->_renderTextbox($value);
-        return parent::__construct($options);
+    public function textbox($label = '', $name = '', $value = '', array $options = array()) {
+        return parent::__construct($label, $name, $value, $options);
     }
     
-    protected function _renderTextbox($value)
+    protected function _renderInput($value)
     {
-    	$html = "<input type=\"text\" value=\"$value\" />";
+    	$html = "<input type=\"text\" value=\"$value\" name=\"" . $this->_name . "\" />";
     	
     	return $html;
     }

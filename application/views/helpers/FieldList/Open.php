@@ -2,8 +2,6 @@
 require_once 'Abstract.php';
 class Zend_View_Helper_FieldList_Open extends Zend_View_Helper_FieldList_Abstract
 {
-	const LIST_OPEN = 'dl';
-    
 	public function open(array $options = array()) {
 		return parent::__construct($options);
 	}
