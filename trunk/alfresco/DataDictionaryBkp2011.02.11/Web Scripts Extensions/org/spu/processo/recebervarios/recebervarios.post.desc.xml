@@ -1,9 +1,0 @@
-<webscript>
-	<shortname>Recebe varios processos</shortname>
-	<description>Recebe (os coloca em análise) varios processos</description>
-	<url>/spu/processo/receber</url>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>
-

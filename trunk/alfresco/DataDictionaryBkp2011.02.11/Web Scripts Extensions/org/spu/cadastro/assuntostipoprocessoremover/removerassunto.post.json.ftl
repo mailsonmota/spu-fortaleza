@@ -1,1 +1,0 @@
-["remoção concluída com sucesso"]

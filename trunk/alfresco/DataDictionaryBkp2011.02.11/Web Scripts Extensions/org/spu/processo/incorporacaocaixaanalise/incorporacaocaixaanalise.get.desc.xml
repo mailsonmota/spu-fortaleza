@@ -1,8 +1,0 @@
-<webscript>
-	<shortname>Lista os Processos em Análise, filtrados, para a Incorporação</shortname>
-	<description>Lista os Processos em Análise, para a a funcionalidade de Incorporação, considerando os filtros</description>
-	<url>/spu/processo/incorporacaocaixaanalise/{processoId}/{assuntoId}/{manifestanteCpf}</url>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>

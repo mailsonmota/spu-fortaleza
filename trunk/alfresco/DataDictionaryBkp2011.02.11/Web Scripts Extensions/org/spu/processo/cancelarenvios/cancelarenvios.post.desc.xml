@@ -1,9 +1,0 @@
-<webscript>
-	<shortname>Cancela os envios dos processos informados</shortname>
-	<description>Cancela os envios dos processos informados</description>
-	<url>/spu/processo/cancelarEnvios</url>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>
-

@@ -1,8 +1,0 @@
-<webscript>
-	<shortname>Lista Hierarquia dos Protocolos do SPU</shortname>
-	<description>Lista a hierarquia dos protocolos</description>
-	<url>/spu/protocolo/listarTodos</url>
-	<authentication>guest</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>
