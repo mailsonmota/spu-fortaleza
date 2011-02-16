@@ -1,8 +1,0 @@
-<webscript>
-	<shortname>Cria os Protocolos Iniciais do SPU</shortname>
-	<description>Cria Protocolos Iniciais utilizados pelo Sistema de Protocolo Unico</description>
-	<url>/spu/gerar/protocolos</url>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-</webscript>
-

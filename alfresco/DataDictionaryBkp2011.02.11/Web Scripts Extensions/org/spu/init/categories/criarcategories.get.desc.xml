@@ -1,8 +1,0 @@
-<webscript>
-	<shortname>Cria as Categorias do SPU</shortname>
-	<description>Cria as categorias utilizadas pelo Sistema de Protocolo Unico</description>
-	<url>/spu/criar/categories</url>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-</webscript>
-

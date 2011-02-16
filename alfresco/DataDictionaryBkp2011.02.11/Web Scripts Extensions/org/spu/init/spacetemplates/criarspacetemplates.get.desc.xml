@@ -1,8 +1,0 @@
-<webscript>
-	<shortname>Cria os Space Templates Iniciais do SPU</shortname>
-	<description>Cria Space Templates Iniciais utilizados pelo Sistema de Protocolo Unico</description>
-	<url>/spu/criar/spacetemplates</url>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-</webscript>
-

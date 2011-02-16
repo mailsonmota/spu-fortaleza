@@ -1,8 +1,0 @@
-<webscript>
-	<shortname>Editar Assunto</shortname>
-	<description>Edicao do Assunto do Tipo de Processo</description>
-	<url>/spu/assuntos/editar/{noderef}</url>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>

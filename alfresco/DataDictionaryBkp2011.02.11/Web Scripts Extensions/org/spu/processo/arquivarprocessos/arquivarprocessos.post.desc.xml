@@ -1,9 +1,0 @@
-<webscript>
-	<shortname>Arquiva varios processos</shortname>
-	<description>Arquiva varios processos</description>
-	<url>/spu/processo/arquivar</url>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>
-
