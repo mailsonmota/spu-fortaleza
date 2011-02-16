@@ -20,7 +20,9 @@
         echo $this->ajaxSelect('Destino', 
                                'destino', 
                                $this->simpleUrl('listar-destinos', 'protocolos-ajax'), 
-                               array('required' => true));
+                               $this->simpleUrl('listar-estrutura', 'protocolos-ajax'), 
+                               array('Nome'), 
+                               array('required' => true, 'linkName' => 'Estrutura'));
     } else {
     	echo $this->ajaxSelectMultiple('Destinos', 
     	                               'destino', 

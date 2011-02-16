@@ -275,5 +275,5 @@ ol.historico li {margin-bottom:1em}
 .ui-widget-content a {text-decoration: underline; font-weight: normal; font-size: 0.85em}
 
 /* Autocomplete */
-.autocomplete {background: url(../img/icons/search.png) no-repeat 6px 50%; padding-left: 24px}
+.autocomplete {background: url(../img/icons/search.png) no-repeat 6px 50%; padding-left: 2em; width: 28em}
 .autocomplete-wait {color: #AAA; font-style: italic}
