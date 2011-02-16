@@ -1,0 +1,52 @@
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:xhtml='http://www.w3.org/1999/xhtml' targetNamespace='spu:contasMedicasRevisao' elementFormDefault='qualified'>
+  <xs:element name='formContasMedicasRevisao' type='formContasMedicasRevisao'>
+    <xs:annotation>
+      <xs:appinfo>
+        <xhtml:label>Contas</xhtml:label>
+      </xs:appinfo>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name='formContasMedicasRevisao'>
+    <xs:sequence>
+      <xs:element name='identificacao'>
+        <xs:annotation>
+          <xs:appinfo>
+            <xhtml:label>Contas Medicas Revisao</xhtml:label>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name='numeroDoProtocolo' type='xs:string'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>NÚMERO DO PROTOCOLO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='valorDaFatura' type='xs:float'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>VALOR DA FATURA</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='valorDaGlosa' type='xs:float'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>VALOR DA GLOSA</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name='valorRevisado' type='xs:float' minOccurs='0'>
+              <xs:annotation>
+                <xs:appinfo>
+                  <xhtml:label>VALOR REVISADO</xhtml:label>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

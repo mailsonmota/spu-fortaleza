@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Inserir Assunto</shortname>
+	<description>Insercao do Assunto do Tipo de Processo</description>
+	<url>/spu/assuntos/inserir</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>

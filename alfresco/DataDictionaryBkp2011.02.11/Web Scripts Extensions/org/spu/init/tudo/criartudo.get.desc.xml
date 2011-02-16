@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Prepara o Ambiente do SPU</shortname>
+	<description>Prepara o Ambiente do Sistema de Protocolo Unico</description>
+	<url>/spu/criar/tudo</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>
+

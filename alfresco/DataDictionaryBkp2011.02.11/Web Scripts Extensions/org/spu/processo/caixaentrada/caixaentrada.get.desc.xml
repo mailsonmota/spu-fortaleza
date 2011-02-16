@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Lista os Processos Ativos</shortname>
+	<description>Lista todos os Processos nas Caixas de Entrada do Usuário</description>
+	<url>/spu/processo/entrada/{offset}/{pageSize}/{search}</url>
+	<authentication>guest</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>

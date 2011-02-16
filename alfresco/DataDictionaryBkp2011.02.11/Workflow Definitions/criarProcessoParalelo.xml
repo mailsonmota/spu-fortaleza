@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition xmlns="urn:jbpm.org:jpdl-3.1" name="spu:criarProcessoParalelo">
+   <swimlane name="initiator"/>
+   <start-state name="start">
+      <task name="bpm:startTask" swimlane="initiator"/>
+      <transition name="" to="end">
+         <action class="org.alfresco.repo.workflow.jbpm.AlfrescoJavaScript">
+            <runas>admin</runas>
+            <script>
+                var processo = bpm_package.children[0];
+                processo.properties['spu:processo.Destino'] = null;
+                processo.save();
+                processo.createVersion('', true);
+            </script>
+         </action>
+      </transition>
+   </start-state>
+   <end-state name="end"/>
+</process-definition>
