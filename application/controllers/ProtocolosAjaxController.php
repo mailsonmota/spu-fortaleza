@@ -64,7 +64,18 @@ class ProtocolosAjaxController extends BaseDataTablesController
         $this->_helper->layout()->disableLayout();
         $this->view->output = $this->_getOutputProtocolos($this->_getListaProtocolosDestino());
     }
-
+    
+    public function listarDestinosNovoAction()
+    {
+        $this->_helper->layout()->disableLayout();
+        
+        $protocoloOrigemId = $this->_getProtocoloOrigemId();
+        $tipoProcessoId = ($this->_getTipoProcessoId()) ? $this->_getTipoProcessoId() : null;
+        
+        $this->view->output = $this->_getOutputProtocolos($this->_getListaProtocolosDestinoNovo($protocoloOrigemId,
+                                                                                                $tipoProcessoId));
+    }
+    
     protected function _getOutputProtocolos($protocolos) {
         $output = '[';
         if (is_array($protocolos)) {
@@ -93,6 +104,19 @@ class ProtocolosAjaxController extends BaseDataTablesController
         return $protocolos;
     }
     
+    protected function _getListaProtocolosDestinoNovo($protocoloOrigemId, $tipoProcessoId = null, $filter = null, $offset = 0, $pageSize = 20)
+    {
+        $protocoloService = new ProtocoloService($this->getTicket());
+        $protocolos = $protocoloService->getProtocolosDestino($protocoloOrigemId,
+                                                              $tipoProcessoId,
+                                                              $this->_getSearchTerm(),
+                                                              $offset,
+                                                              $this->_getPageSize());
+        
+        return $protocolos;
+    }
+    
+    
     protected function _getSearchTerm()
     {
         return $this->getRequest()->getParam('term', null);
@@ -120,5 +144,15 @@ class ProtocolosAjaxController extends BaseDataTablesController
         }
         
         return $rows;
+    }
+
+    protected function _getProtocoloOrigemId()
+    {
+        return $this->getRequest()->getParam('protocoloOrigemId', null);
+    }
+    
+    protected function _getTipoProcessoId()
+    {
+        return $this->getRequest()->getParam('tipoProcessoId', null);
     }
 }
