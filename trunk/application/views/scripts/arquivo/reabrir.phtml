@@ -19,7 +19,7 @@ echo $this->pagenav()->closeList();
         $htmlProcessos .= '</ul>';
         
         echo $this->fieldList()->open();
-        echo $this->text('Processos', $htmlProcessos);
+        echo $this->fieldList()->text('Processos', $htmlProcessos);
         echo $this->fieldList()->textarea('Despacho', 'despacho', null, array('required' => true));
         echo $this->fieldList()->close();
         

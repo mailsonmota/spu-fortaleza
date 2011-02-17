@@ -13,7 +13,7 @@ echo $this->pagenav()->closeList();
     <form action="" method="post" id="formularioProcesso">
         <?php 
         echo $this->fieldList()->open();
-        echo $this->text('Tipo de Processo', $this->tipoProcesso->nome);
+        echo $this->fieldList()->text('Tipo de Processo', $this->tipoProcesso->nome);
         if ($this->tipoProcesso->id) {
             echo $this->fieldList()->select('Assunto', 'assunto', $this->listaAssuntos, null, array('required' => true));
         }
