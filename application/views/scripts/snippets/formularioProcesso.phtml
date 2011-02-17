@@ -26,7 +26,7 @@
     } else {
     	echo $this->ajaxSelectMultiple('Destinos', 
     	                               'destino', 
-    	                               $this->simpleUrl('listar-destinos', 'protocolos-ajax'), 
+    	                               $this->simpleUrl('listar-destinos-novo', 'protocolos-ajax'), 
     	                               array('required' => true));
     }
     echo $this->select('Prioridade', 'prioridadeId', $this->listaPrioridades, null, array('required' => true));
@@ -35,7 +35,7 @@
     if (!$this->tipoProcesso->tramitacao->isParalela()) {
         echo $this->ajaxSelectMultiple('Com Cópia', 
                                        'copias', 
-                                       $this->simpleUrl('listar-destinos', 'protocolos-ajax'), 
+                                       $this->simpleUrl('listar-destinos-novo', 'protocolos-ajax'), 
                                        array('id' => 'copias'));
     }
     
