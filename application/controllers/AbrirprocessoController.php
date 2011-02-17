@@ -13,17 +13,20 @@ class AbrirprocessoController extends BaseController
             $this->_helper->redirector('formulario',
                                        $this->getController(),
                                        'default',
-                                       array('tipoprocesso' => $this->_getIdTipoProcessoPost()));
+                                       array('origem' => $this->_getIdProtocoloOrigemRequestParam(),
+                                             'tipoprocesso' => $this->_getIdTipoProcessoPost()));
         }
 
         $listaTiposProcesso = $this->_getListaTiposProcesso();
-
+        $listaOrigens = $this->_getListaOrigens();
+        
         if (!$listaTiposProcesso) {
         	$this->setMessageForTheView('Não será possível abrir nenhum processo, pois você não tem 
         	                              acesso à nenhum Tipo de Processo.');
         }
         
         $this->view->listaTiposProcesso = $listaTiposProcesso;
+        $this->view->listaOrigens = $listaOrigens;
     }
 
     public function formularioAction()
@@ -35,12 +38,11 @@ class AbrirprocessoController extends BaseController
             $listaBairros = $this->_getListaBairros();
             $listaTiposManifestante = $this->_getListaTiposManifestante($tipoProcesso);
             $listaPrioridades = $this->_getListaPrioridades();
-            $listaOrigens = $this->_getListaOrigens();
         } catch (Exception $e) {
             $this->setErrorMessage($e->getMessage());
             $this->_redirectEscolhaTipoProcesso();
         }
-
+        
         if ($this->getRequest()->isPost()) {
             
             $postData = $this->getRequest()->getParams();
@@ -65,7 +67,6 @@ class AbrirprocessoController extends BaseController
         $this->view->listaBairros = $listaBairros;
         $this->view->listaTiposManifestante = $listaTiposManifestante;
         $this->view->listaPrioridades = $listaPrioridades;
-        $this->view->listaOrigens = $listaOrigens;
     }
 
     public function formularioenvolvidoAction()
@@ -233,6 +234,11 @@ class AbrirprocessoController extends BaseController
         return ($this->getRequest()->getParam('tipoprocesso')) ? $this->getRequest()->getParam('tipoprocesso') : null;
     }
 
+    protected function _getIdProtocoloOrigemRequestParam()
+    {
+        return ($this->getRequest()->getParam('origem')) ? $this->getRequest()->getParam('origem') : null;
+    }
+    
     protected function _getListaTiposProcesso()
     {
         $tipoProcessoService = new TipoProcessoService($this->getTicket());
