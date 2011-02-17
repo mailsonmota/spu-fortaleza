@@ -18,10 +18,10 @@ echo $this->pagenav()->closeList();
         }
         $htmlProcessos .= '</ul>';
         
-        echo $this->form()->openFieldList();
+        echo $this->fieldList()->open();
         echo $this->text('Processos', $htmlProcessos);
-        echo $this->textarea('Despacho', 'despacho', null, array('required' => true));
-        echo $this->form()->closeFieldList();
+        echo $this->fieldList()->textarea('Despacho', 'despacho', null, array('required' => true));
+        echo $this->fieldList()->close();
         
         echo $this->buttonlist()->open();
         echo $this->buttonlist()->button('Salvar');

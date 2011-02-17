@@ -12,15 +12,15 @@ echo $this->pagenav()->closeList();
 <div id="article">
     <form action="" method="post">
         <?php
-        echo $this->form()->openFieldList();
-        echo $this->textbox('Nome', 'nome', $this->protocolo->nome, array('required' => true));
-        echo $this->select('Protocolo Pai', 'parentId', $this->listaProtocolos, $this->protocolo->parent->id, array('required' => true));
-        echo $this->textbox('Descrição', 'descricao', $this->protocolo->descricao, array('length' => 60));
-        echo $this->textbox('Orgão', 'orgao', $this->protocolo->orgao, array('length' => 60));
-        echo $this->textbox('Lotação', 'lotacao', $this->protocolo->lotacao, array('length' => 60));
-        echo $this->checkbox('Recebe pelo Subsetores', 'recebePelosSubsetores', $this->protocolo->recebePelosSubsetores);
-        echo $this->checkbox('Recebe Malote', 'recebeMalotes', $this->protocolo->recebeMalotes);
-        echo $this->form()->closeFieldList();
+        echo $this->fieldList()->open();
+        echo $this->fieldList()->textbox('Nome', 'nome', $this->protocolo->nome, array('required' => true));
+        echo $this->fieldList()->select('Protocolo Pai', 'parentId', $this->listaProtocolos, $this->protocolo->parent->id, array('required' => true));
+        echo $this->fieldList()->textbox('Descrição', 'descricao', $this->protocolo->descricao, array('length' => 60));
+        echo $this->fieldList()->textbox('Orgão', 'orgao', $this->protocolo->orgao, array('length' => 60));
+        echo $this->fieldList()->textbox('Lotação', 'lotacao', $this->protocolo->lotacao, array('length' => 60));
+        echo $this->fieldList()->checkbox('Recebe pelo Subsetores', 'recebePelosSubsetores', $this->protocolo->recebePelosSubsetores);
+        echo $this->fieldList()->checkbox('Recebe Malote', 'recebeMalotes', $this->protocolo->recebeMalotes);
+        echo $this->fieldList()->close();
         
         echo $this->buttonlist()->open();
         echo $this->buttonlist()->button('Salvar'); 

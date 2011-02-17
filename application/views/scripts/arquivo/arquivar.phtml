@@ -18,14 +18,14 @@ echo $this->pagenav()->closeList();
         }
         $htmlProcessos .= '</ul>';
         
-        echo $this->form()->openFieldList();
+        echo $this->fieldList()->open();
         echo $this->text('Processos', $htmlProcessos);
-        echo $this->textarea('Despacho', 'despacho', null, array('required' => true));
-        echo $this->select('Status', 'statusArquivamento', $this->listaStatusArquivamento, null, array('required' => true));
-        echo $this->textbox('Motivo', 'motivo', null, array('length' => 60));
-        echo $this->textbox('Local', 'local', null, array('length' => 60));
-        echo $this->textbox('Pasta', 'pasta', null, array('length' => 60));
-        echo $this->form()->closeFieldList();
+        echo $this->fieldList()->textarea('Despacho', 'despacho', null, array('required' => true));
+        echo $this->fieldList()->select('Status', 'statusArquivamento', $this->listaStatusArquivamento, null, array('required' => true));
+        echo $this->fieldList()->textbox('Motivo', 'motivo', null, array('length' => 60));
+        echo $this->fieldList()->textbox('Local', 'local', null, array('length' => 60));
+        echo $this->fieldList()->textbox('Pasta', 'pasta', null, array('length' => 60));
+        echo $this->fieldList()->close();
         
         echo $this->buttonlist()->open();
         echo $this->buttonlist()->button('Salvar');

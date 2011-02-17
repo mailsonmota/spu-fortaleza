@@ -15,9 +15,9 @@ echo $this->pagenav()->closeList();
             <legend>Enviar arquivo</legend>
             <input type="hidden" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
             <?php
-            echo $this->form()->openFieldList();
-            echo $this->file('Arquivo', 'fileToUpload');
-            echo $this->form()->closeFieldList();
+            echo $this->fieldList()->open();
+            echo $this->fieldList()->file('Arquivo', 'fileToUpload');
+            echo $this->fieldList()->close();
             echo $this->buttonlist()->open();
             echo $this->buttonlist()->button('Adicionar Arquivo');
             echo $this->buttonlist()->close(true); 
@@ -54,10 +54,10 @@ echo $this->pagenav()->closeList();
         }
         $htmlProcessos .= '</ul>';
         
-        echo $this->form()->openFieldList();
+        echo $this->fieldList()->open();
         echo $this->text('Processos', $htmlProcessos);
-        echo $this->textarea('Despacho', 'despacho', null, array('required' => true));
-        echo $this->form()->closeFieldList();
+        echo $this->fieldList()->textarea('Despacho', 'despacho', null, array('required' => true));
+        echo $this->fieldList()->close();
         
         echo $this->buttonlist()->open();
         echo $this->buttonlist()->button('Salvar Despacho');

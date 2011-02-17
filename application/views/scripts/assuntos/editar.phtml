@@ -20,12 +20,12 @@ echo $this->pagenav()->closeList();
 
 <div id="article">
 <form action="" method="post"><?php 
-echo $this->form()->openFieldList();
+echo $this->fieldList()->open();
 echo $this->text('Tipo de Processo', $this->assunto->tipoProcesso->nome);
-echo $this->textbox('Nome', 'nome', $this->assunto->nome, array('required' => true, 'length' => 90));
-echo $this->textarea('Corpo', 'corpo', $this->assunto->corpo, array('required' => true));
-echo $this->checkbox('Notificar na abertura', 'notificarNaAbertura', $this->assunto->notificarNaAbertura);
-echo $this->form()->closeFieldList();
+echo $this->fieldList()->textbox('Nome', 'nome', $this->assunto->nome, array('required' => true, 'length' => 90));
+echo $this->fieldList()->textarea('Corpo', 'corpo', $this->assunto->corpo, array('required' => true));
+echo $this->fieldList()->checkbox('Notificar na abertura', 'notificarNaAbertura', $this->assunto->notificarNaAbertura);
+echo $this->fieldList()->close();
 
 echo $this->buttonlist()->open();
 echo $this->buttonlist()->button('Salvar');
