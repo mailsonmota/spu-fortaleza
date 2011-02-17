@@ -8,9 +8,9 @@ class Zend_View_Helper_FieldList_File extends Zend_View_Helper_FieldList_Input
     
     protected function _renderInput($value)
     {
-    	$class = $this->_getInputClass();
-    	$html = "<input type=\"file\" name=\"" . $this->_name . "\" $class />";
-    	
-    	return $html;
+        $class = $this->_getInputClass();
+        $html = "<input type=\"file\" name=\"" . $this->_name . "\" $class />";
+        
+        return $html;
     }
 }

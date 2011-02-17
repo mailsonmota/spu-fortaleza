@@ -120,8 +120,8 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
     
     private function _getAuthPlugin()
     {
-    	$authPlugin = Zend_Controller_Front::getInstance()->getPlugin('AuthPlugin');
-    	
-    	return $authPlugin;
+        $authPlugin = Zend_Controller_Front::getInstance()->getPlugin('AuthPlugin');
+
+        return $authPlugin;
     }
 }

@@ -2,12 +2,12 @@
 require_once 'Abstract.php';
 abstract class Zend_View_Helper_FieldList_Input extends Zend_View_Helper_FieldList_Abstract
 {
-	protected $_label;
+    protected $_label;
     protected $_name;
     protected $_value;
     
     public function __construct($label = '', $name = '', $value = '', array $options = array()) {
-    	$this->_label = $label;
+        $this->_label = $label;
         $this->_name = $name;
         $this->_options = $options;
         $this->_value = $this->_renderInput($value);
@@ -41,8 +41,8 @@ abstract class Zend_View_Helper_FieldList_Input extends Zend_View_Helper_FieldLi
     
     protected function _renderLabel()
     {
-    	$class = ($this->_isRequired()) ? 'class="required"' : '';
-    	return "<label $class>" . $this->_label . '</label>';
+        $class = ($this->_isRequired()) ? 'class="required"' : '';
+        return "<label $class>" . $this->_label . '</label>';
     }
     
     protected function _renderLabelItemAfter()
@@ -76,12 +76,12 @@ abstract class Zend_View_Helper_FieldList_Input extends Zend_View_Helper_FieldLi
     
     protected function _getId()
     {
-    	return ($this->_getOption('id')) ? $this->_getOption['id'] : $this->_name;
+        return ($this->_getOption('id')) ? $this->_getOption['id'] : $this->_name;
     }
     
     protected function _isRequired()
     {
-    	return ($this->_getOption('required')) ? $this->_getOption('required') : false;
+        return ($this->_getOption('required')) ? $this->_getOption('required') : false;
     }
     
     protected function _getInputClass()
