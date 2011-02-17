@@ -71,9 +71,11 @@ class ProtocolosAjaxController extends BaseDataTablesController
         
         $protocoloOrigemId = $this->_getProtocoloOrigemId();
         $tipoProcessoId = ($this->_getTipoProcessoId()) ? $this->_getTipoProcessoId() : null;
+        $filter = ($this->_getSearchTerm()) ? $this->_getSearchTerm() : null;
         
         $this->view->output = $this->_getOutputProtocolos($this->_getListaProtocolosDestinoNovo($protocoloOrigemId,
-                                                                                                $tipoProcessoId));
+                                                                                                $tipoProcessoId,
+                                                                                                $filter));
     }
     
     protected function _getOutputProtocolos($protocolos) {
