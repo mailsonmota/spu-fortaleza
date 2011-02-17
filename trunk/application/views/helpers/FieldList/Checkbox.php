@@ -2,7 +2,7 @@
 require_once 'Input.php';
 class Zend_View_Helper_FieldList_Checkbox extends Zend_View_Helper_FieldList_Input
 {
-    public function checkbox($label = '', $name = '', boolean $value = false, array $options = array()) {
+    public function checkbox($label = '', $name = '', $value = false, array $options = array()) {
         return parent::__construct($label, $name, $value, $options);
     }
     
