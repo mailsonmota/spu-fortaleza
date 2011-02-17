@@ -71,6 +71,18 @@ class ProtocoloService extends BaseService
 
         return $this->_loadManyFromHash($result['Protocolos'][0]);
     }
+    
+    public function getProtocolosDestino($protocoloOrigemId, $tipoProcessoId, $filter, $offset, $pageSize)
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listardestinos/";
+        $url .= "{$protocoloOrigemId}/{$tipoProcessoId}/{$filter}/{$offset}/{$pageSize}";
+        $url = $this->addAlfTicketUrl($url);
+
+        $curlObj = new CurlClient();
+        $result = $curlObj->doGetRequest($url);
+        
+        return $this->_loadManyFromHash($result['Protocolos'][0]);
+    }
 
     public function loadFromHash($hash)
     {
