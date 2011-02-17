@@ -5,7 +5,7 @@ echo $this->breadcrumbs()->render();
 ?>
 
 <?php 
-echo $this->form()->openFieldList();
+echo $this->fieldList()->open();
 echo $this->text('Processo', $this->processo->numero);
 echo $this->text('Abertura', $this->processo->data);
 echo $this->text('Origem', $this->processo->proprietario->descricao);
@@ -29,7 +29,7 @@ if (is_array($this->processo->arquivos)):
     echo $this->text('Anexos', $htmlAnexos);    
 endif; 
 
-echo $this->form()->closeFieldList();
+echo $this->fieldList()->close();
 ?>
 
 <?php 

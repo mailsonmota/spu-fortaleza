@@ -3,10 +3,10 @@
     <div id="login">
         <form action="<?php echo $this->simpleUrl('authorize'); ?>" method="post">
             <?php 
-            echo $this->form()->openFieldList();
-            echo $this->textbox('Usuário', 'username');
-            echo $this->password('Senha', 'password');
-            echo $this->form()->closeFieldList();
+            echo $this->fieldList()->open();
+            echo $this->fieldList()->textbox('Usuário', 'username');
+            echo $this->fieldList()->password('Senha', 'password');
+            echo $this->fieldList()->close();
             
             echo $this->buttonlist()->open();
             echo $this->buttonlist()->button('Entrar');

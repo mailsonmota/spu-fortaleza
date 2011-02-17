@@ -2,10 +2,10 @@
 <fieldset>
     <legend>Manifestante</legend>
     <?php 
-    echo $this->form()->openFieldList();
-    echo $this->textbox('CPF/CNPJ', 'manifestanteCpfCnpj', null, array('required' => true, 'length' => 38));
-    echo $this->textbox('Nome', 'manifestanteNome', null, array('required' => true, 'length' => 60));
-    echo $this->select(
+    echo $this->fieldList()->open();
+    echo $this->fieldList()->textbox('CPF/CNPJ', 'manifestanteCpfCnpj', null, array('required' => true, 'length' => 38));
+    echo $this->fieldList()->textbox('Nome', 'manifestanteNome', null, array('required' => true, 'length' => 60));
+    echo $this->fieldList()->select(
         'Sexo',
         'manifestanteSexo',
         array('M' => 'Masculino', 'F' => 'Feminino'),
@@ -13,25 +13,25 @@
         array('required' => true, 'length')
     );
     
-    echo $this->select('Tipo', 'manifestanteTipoId', $this->listaTiposManifestante, null, array('required' => true));
-    echo $this->textbox('Responsável', 'responsavel', null, array('length' => 60));
+    echo $this->fieldList()->select('Tipo', 'manifestanteTipoId', $this->listaTiposManifestante, null, array('required' => true));
+    echo $this->fieldList()->textbox('Responsável', 'responsavel', null, array('length' => 60));
     
-    echo $this->textbox('Organização', 'manifestanteOrganizacao', null, array('length' => 60));
+    echo $this->fieldList()->textbox('Organização', 'manifestanteOrganizacao', null, array('length' => 60));
     
-    echo $this->textbox('Logradouro', 'manifestanteLogradouro', null, array('length' => 60));
-    echo $this->textbox('Número', 'manifestanteNumero', null, array('length' => 10));
-    echo $this->textbox('Complemento', 'manifestanteComplemento', null, array('length' => 60));
-    echo $this->select('Bairro', 'manifestanteBairroId', $this->listaBairros, null, array('required' => true, 'length'));
-    echo $this->textbox('CEP', 'manifestanteCep', null, array('length' => 12, 'class' => 'mascaraCep'));
-    echo $this->textbox('Cidade', 'manifestanteCidade', null, array('length' => 60));
-    echo $this->select('UF', 'manifestanteUf', $this->listaUfs, null, array('required' => true));
+    echo $this->fieldList()->textbox('Logradouro', 'manifestanteLogradouro', null, array('length' => 60));
+    echo $this->fieldList()->textbox('Número', 'manifestanteNumero', null, array('length' => 10));
+    echo $this->fieldList()->textbox('Complemento', 'manifestanteComplemento', null, array('length' => 60));
+    echo $this->fieldList()->select('Bairro', 'manifestanteBairroId', $this->listaBairros, null, array('required' => true, 'length'));
+    echo $this->fieldList()->textbox('CEP', 'manifestanteCep', null, array('length' => 12, 'class' => 'mascaraCep'));
+    echo $this->fieldList()->textbox('Cidade', 'manifestanteCidade', null, array('length' => 60));
+    echo $this->fieldList()->select('UF', 'manifestanteUf', $this->listaUfs, null, array('required' => true));
     
-    echo $this->textbox('Telefone Residencial', 'manifestanteFoneResidencial', null, array('length' => 30, 'class' => 'fone'));
-    echo $this->textbox('Telefone Comercial', 'manifestanteFoneComercial', null, array('length' => 30, 'class' => 'fone'));
-    echo $this->textbox('Telefone Celular', 'manifestanteFoneCelular', null, array('length' => 30, 'class' => 'fone'));
+    echo $this->fieldList()->textbox('Telefone Residencial', 'manifestanteFoneResidencial', null, array('length' => 30, 'class' => 'fone'));
+    echo $this->fieldList()->textbox('Telefone Comercial', 'manifestanteFoneComercial', null, array('length' => 30, 'class' => 'fone'));
+    echo $this->fieldList()->textbox('Telefone Celular', 'manifestanteFoneCelular', null, array('length' => 30, 'class' => 'fone'));
     
-    echo $this->textbox('Observação', 'manifestanteObs', null, array('length' => 60));
+    echo $this->fieldList()->textbox('Observação', 'manifestanteObs', null, array('length' => 60));
     
-    echo $this->form()->closeFieldList();
+    echo $this->fieldList()->close();
     ?>
 </fieldset>

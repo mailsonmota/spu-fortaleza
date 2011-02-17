@@ -16,12 +16,12 @@ echo $this->pagenav()->closeList();
     <form action="" method="post">
     	<input type="hidden" name="processoId" value="<?php echo $this->processo->id ?>"/>
         <?php
-        echo $this->form()->openFieldList();
-        echo $this->select('Prioridade', 'prioridadeId', $this->listaPrioridades, null, array('required' => true));
-    	echo $this->select('Destino', 'destinoId', $this->listaProtocolos, null, array('required' => true));
-        echo $this->textbox('Prazo', 'prazo', null, array('required' => true, 'class' => 'mascaraData'));
-        echo $this->textarea('Despacho', 'despacho', null, array('required' => true));
-        echo $this->form()->closeFieldList();
+        echo $this->fieldList()->open();
+        echo $this->fieldList()->select('Prioridade', 'prioridadeId', $this->listaPrioridades, null, array('required' => true));
+    	echo $this->fieldList()->select('Destino', 'destinoId', $this->listaProtocolos, null, array('required' => true));
+        echo $this->fieldList()->textbox('Prazo', 'prazo', null, array('required' => true, 'class' => 'mascaraData'));
+        echo $this->fieldList()->textarea('Despacho', 'despacho', null, array('required' => true));
+        echo $this->fieldList()->close();
         
         echo $this->buttonlist()->open();
         echo $this->buttonlist()->button('Salvar');

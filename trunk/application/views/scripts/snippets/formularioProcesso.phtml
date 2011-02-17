@@ -1,19 +1,19 @@
 <fieldset>
     <legend>Dados Gerais</legend>
     <?php 
-    echo $this->form()->openFieldList();
-    echo $this->textbox('Data', 'data', null, array('required' => true, 'class' => 'mascaraData'));
-    echo $this->textbox('Hora', 'hora', date('H:i'), array('required' => true, 'class' => 'mascaraHora'));
-    echo $this->textbox('N&ordm; Origem', 'numeroOrigem');
-    echo $this->textbox('Observa&ccedil;&atilde;o', 'observacao', null, array('length' => 60));
-    echo $this->form()->closeFieldList();
+    echo $this->fieldList()->open();
+    echo $this->fieldList()->textbox('Data', 'data', null, array('required' => true, 'class' => 'mascaraData'));
+    echo $this->fieldList()->textbox('Hora', 'hora', date('H:i'), array('required' => true, 'class' => 'mascaraHora'));
+    echo $this->fieldList()->textbox('N&ordm; Origem', 'numeroOrigem');
+    echo $this->fieldList()->textbox('Observa&ccedil;&atilde;o', 'observacao', null, array('length' => 60));
+    echo $this->fieldList()->close();
     ?>
 </fieldset>
 
 <fieldset>
     <legend>Processo</legend>
     <?php 
-    echo $this->form()->openFieldList();
+    echo $this->fieldList()->open();
     
     if (!$this->tipoProcesso->tramitacao->isParalela()) {
         echo $this->ajaxSelect('Destino', 
@@ -28,8 +28,8 @@
     	                               $this->simpleUrl('listar-destinos-novo', 'protocolos-ajax'), 
     	                               array('required' => true));
     }
-    echo $this->select('Prioridade', 'prioridadeId', $this->listaPrioridades, null, array('required' => true));
-    echo $this->textbox('Data Prazo', 'dataPrazo', null, array('class' => 'mascaraData'));
+    echo $this->fieldList()->select('Prioridade', 'prioridadeId', $this->listaPrioridades, null, array('required' => true));
+    echo $this->fieldList()->textbox('Data Prazo', 'dataPrazo', null, array('class' => 'mascaraData'));
     
     if (!$this->tipoProcesso->tramitacao->isParalela()) {
         echo $this->ajaxSelectMultiple('Com Cópia', 
@@ -38,7 +38,7 @@
                                        array('id' => 'copias'));
     }
     
-    echo $this->textarea('Corpo', 'corpo', null, array('required' => true));
-    echo $this->form()->closeFieldList();
+    echo $this->fieldList()->textarea('Corpo', 'corpo', null, array('required' => true));
+    echo $this->fieldList()->close();
     ?>
 </fieldset>

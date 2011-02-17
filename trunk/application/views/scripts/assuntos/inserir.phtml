@@ -22,11 +22,11 @@ echo $this->pagenav()->closeList();
     <form action="" method="post">
         <input type="hidden" name="tipoProcessoId" value="<?php echo $this->tipoProcesso ?>">
         <?php 
-        echo $this->form()->openFieldList();
-        echo $this->textbox('Nome', 'nome', $this->assunto->nome, array('required' => true, 'length' => 90));
-        echo $this->textarea('Corpo', 'corpo', $this->assunto->corpo, array('required' => true));
-        echo $this->checkbox('Notificar na abertura', 'notificarNaAbertura', $this->assunto->notificarNaAbertura);        
-        echo $this->form()->closeFieldList();
+        echo $this->fieldList()->open();
+        echo $this->fieldList()->textbox('Nome', 'nome', $this->assunto->nome, array('required' => true, 'length' => 90));
+        echo $this->fieldList()->textarea('Corpo', 'corpo', $this->assunto->corpo, array('required' => true));
+        echo $this->fieldList()->checkbox('Notificar na abertura', 'notificarNaAbertura', $this->assunto->notificarNaAbertura);        
+        echo $this->fieldList()->close();
         
         echo $this->buttonlist()->open();
         echo $this->buttonlist()->button('Salvar');

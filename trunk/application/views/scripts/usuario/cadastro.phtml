@@ -19,12 +19,12 @@ echo $this->pagenav()->closeList();
         }
     }
     
-    echo $this->form()->openFieldList();
+    echo $this->fieldList()->open();
 	echo $this->text('Usuário', $this->pessoa->login);
 	echo $this->text('Nome', $this->pessoa->nome);
 	echo $this->text('Sobrenome', $this->pessoa->sobrenome);
 	echo $this->text('Email', $this->pessoa->email);
-	echo $this->form()->closeFieldList();
+	echo $this->fieldList()->close();
 	?>
 	
 	<p>
