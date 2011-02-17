@@ -9,7 +9,14 @@ ALFRESCO_WEBDAV_MOUNT_POINT="/mnt/alfrescowebdav"
 date_now=`date +%Y-%m-%d_%H-%M-%S`
 filename="/tmp/alfresco_data_dictionary_backup_${date_now}.tar.bz2"
 
-# Caso o diretório informado não seja válido
+# Caso o diretório informado como ponto de montagem para o WebDAV não seja válido
+if [ ! -d $ALFRESCO_WEBDAV_MOUNT_POINT ]
+then
+    echo "ERRO >>> O diretório informado como ponto de montagem para o WebDAV\nnão é válido"
+    return 1
+fi
+
+# Caso o diretório informado como destino do arquivo de backup não seja válido
 if [ -n $1 ] && [ ! -d $1 ]
 then
     echo "ERRO >>> O seguinte endereço de destino para onde seria movido o\narquivo de backup não é válido: ${1}"
