@@ -46,7 +46,7 @@ class Zend_View_Helper_Simpleurl extends Zend_View_Helper_Abstract
         $url['controller'] = $this->_controller;
         $url['action'] = $this->_action;
         
-        foreach($this->_params as $key => $value) {
+        foreach ($this->_params as $key => $value) {
             $url[$key] = $value;
         }
         

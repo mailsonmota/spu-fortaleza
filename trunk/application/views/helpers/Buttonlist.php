@@ -41,9 +41,9 @@ class Zend_View_Helper_Buttonlist extends Zend_View_Helper_Abstract
         return $html;
     }
     
-	public function defaultBlockActionsDescription()
+    public function defaultBlockActionsDescription()
     {
-    	return $this->description('Ações em bloco:');
+        return $this->description('Ações em bloco:');
     }
     
     public function button($text, $name = null, array $buttonOptions = array())

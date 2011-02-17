@@ -10,7 +10,7 @@
  */
 abstract class Zend_View_Helper_Proxy extends Zend_View_Helper_Abstract
 {
-	/**
+    /**
      * Contains references to proxied helpers
      *
      * @var array
@@ -50,16 +50,16 @@ abstract class Zend_View_Helper_Proxy extends Zend_View_Helper_Abstract
 
     private function _getProxyName()
     {
-    	return $this->_getClassFromNamespace($this->_getProxyFullName());
+        return $this->_getClassFromNamespace($this->_getProxyFullName());
     }
     
     private function _getProxyFullName()
     {
-    	return get_class($this);
+        return get_class($this);
     }
     
     private function _getClassFromNamespace($namespace)
     {
-    	return substr(strrchr($namespace, '_'), 1);
+        return substr(strrchr($namespace, '_'), 1);
     }
 }

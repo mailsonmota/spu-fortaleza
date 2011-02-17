@@ -3,29 +3,29 @@ require_once 'Input.php';
 class Zend_View_Helper_FieldList_Textbox extends Zend_View_Helper_FieldList_Input
 {
     public function textbox($label = '', $name = '', $value = '', array $options = array()) {
-    	return parent::__construct($label, $name, $value, $options);
+        return parent::__construct($label, $name, $value, $options);
     }
     
     protected function _renderInput($value)
     {
-    	$class = $this->_getInputClass();
-    	$html = "<input type=\"text\" value=\"$value\" name=\"" . $this->_name . "\" $class />";
-    	
-    	return $html;
+        $class = $this->_getInputClass();
+        $html = "<input type=\"text\" value=\"$value\" name=\"" . $this->_name . "\" $class />";
+        
+        return $html;
     }
     
     protected function _getInputClass()
     {
-    	$lengthClass = $this->_getClassByLength($this->_getLength());
+        $lengthClass = $this->_getClassByLength($this->_getLength());
         $optionalClasses = $this->_getOptionalClasses();
         $requiredClass = ($this->_isRequired()) ? 'required' : '';
 
         $class = '';
         if ($lengthClass OR $optionalClasses OR $requiredClass) {
-        	$class = "class=\"" . trim("$lengthClass $optionalClasses $requiredClass") . "\"";
+            $class = "class=\"" . trim("$lengthClass $optionalClasses $requiredClass") . "\"";
         }
         
-    	return $class;
+        return $class;
     }
     
     protected function _getLength()

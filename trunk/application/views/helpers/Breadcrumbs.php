@@ -6,8 +6,8 @@
  */
 class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
 {
-	const SEPARATOR = " &rarr; ";
-	
+    const SEPARATOR = " &rarr; ";
+    
     protected $_page = array(array('nome' => 'Início', 'controller' => '', 'action' => '', 'params' => array()));
     protected $_html;
     
@@ -45,14 +45,14 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
                 $url['controller'] = $this->_page[$i]['controller'];
                 $url['action'] = $this->_page[$i]['action'];
                 
-                foreach($this->_page[$i]['params'] as $key => $value) {
+                foreach ($this->_page[$i]['params'] as $key => $value) {
                     $url[$key] = $value;
                 }
                 
                 $href = $this->view->url($url, NULL, TRUE);
                 $html .= "<a href='$href' title='$titulo'>$titulo</a>";
             } else {
-            	$html .= "</div>";
+                $html .= "</div>";
                 $html .= "<h2>$titulo</h2>";    
             }
         }

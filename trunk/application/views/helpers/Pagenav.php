@@ -9,7 +9,7 @@
  */
 class Zend_View_Helper_Pagenav extends Zend_View_Helper_Abstract
 {
-	const BASE_HELP_URL = '../docs/';
+    const BASE_HELP_URL = '../docs/';
     protected $_options = array();
     
     public function pagenav()
@@ -51,7 +51,7 @@ class Zend_View_Helper_Pagenav extends Zend_View_Helper_Abstract
     
     protected function _getHelpLinkUrl($url = null)
     {
-    	return ($url) ? Zend_Controller_Front::getInstance()->getBaseUrl() . '/' . self::BASE_HELP_URL . $url : null;
+        return ($url) ? Zend_Controller_Front::getInstance()->getBaseUrl() . '/' . self::BASE_HELP_URL . $url : null;
     }
     
     public function helpLink($url)

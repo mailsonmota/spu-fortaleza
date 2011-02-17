@@ -1,23 +1,23 @@
 <?php
 class Zend_View_Helper_AjaxSelect extends Zend_View_Helper_Abstract
 {
-	protected $_label;
+    protected $_label;
     protected $_name;
     protected $_ajaxUrl;
     protected $_options;
     protected $_html;
     
     const MAX_RESULT_SIZE = 20;
-	
+    
     /**
      * ajaxSelectMultiple
      * 
      * @param $ajaxUrl
      * @param $options [id, required]
      */
-	public function ajaxSelect($label, $name, $ajaxUrl, $options = array())
-	{
-		$this->_label = $label;
+    public function ajaxSelect($label, $name, $ajaxUrl, $options = array())
+    {
+        $this->_label = $label;
         $this->_name = $name;
         $this->_ajaxUrl = $ajaxUrl;
         $this->_options = $options;
@@ -26,8 +26,8 @@ class Zend_View_Helper_AjaxSelect extends Zend_View_Helper_Abstract
         $this->_prepareScript();
         
         return $this->_html;
-	}
-	
+    }
+    
     protected function _prepareHtml()
     {
         $label = $this->_label;
@@ -83,7 +83,7 @@ class Zend_View_Helper_AjaxSelect extends Zend_View_Helper_Abstract
     
     protected function _getHtmlAfterInput()
     {
-    	return '';
+        return '';
     }
     
     protected function _prepareScript()
@@ -113,11 +113,11 @@ class Zend_View_Helper_AjaxSelect extends Zend_View_Helper_Abstract
     
     protected function _getAdditionalScript()
     {
-    	return '';
+        return '';
     }
     
     protected function _getOption($optionName)
     {
-    	return (isset($this->_options[$optionName])) ? $this->_options[$optionName] : null;
+        return (isset($this->_options[$optionName])) ? $this->_options[$optionName] : null;
     }
 }

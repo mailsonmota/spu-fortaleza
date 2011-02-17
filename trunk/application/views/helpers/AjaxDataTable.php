@@ -2,7 +2,7 @@
 require_once('Proxy.php');
 class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
 {
-	const TABLE_CLASS = 'grid no-datatable';
+    const TABLE_CLASS = 'grid no-datatable';
     
     protected $_ajaxUrl;
     protected $_columns;
@@ -10,7 +10,7 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
     protected $_pageSize = 20;
     protected $_html;
     
-	public function ajaxDataTable($ajaxUrl = '', array $columns = array(), array $options = array())
+    public function ajaxDataTable($ajaxUrl = '', array $columns = array(), array $options = array())
     {
         $this->_html = '';
         $this->_ajaxUrl = $ajaxUrl;
@@ -123,8 +123,8 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
     
     public function render()
     {
-    	$this->_prepareJavascript();
-    	
+        $this->_prepareJavascript();
+        
         return $this->_html;
     }
 }
