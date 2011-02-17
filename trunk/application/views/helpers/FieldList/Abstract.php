@@ -30,4 +30,9 @@ class Zend_View_Helper_FieldList_Abstract extends Zend_View_Helper_Abstract
 		$html = '</' . $element . '>';
 		return $html;
 	}
+	
+	protected function _getOption($option)
+	{
+		return (is_array($this->_options) AND isset($this->_options[$option])) ? $this->_options[$option] : null;
+	}
 }

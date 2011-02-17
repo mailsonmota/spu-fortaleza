@@ -8,7 +8,8 @@ class Zend_View_Helper_FieldList_Textarea extends Zend_View_Helper_FieldList_Inp
     
     protected function _renderInput($value)
     {
-    	$html = "<textarea name=\"" . $this->_name . "\">$value</textarea>";
+    	$class = $this->_getInputClass();
+    	$html = "<textarea name=\"" . $this->_name . "\" $class>$value</textarea>";
     	
     	return $html;
     }
