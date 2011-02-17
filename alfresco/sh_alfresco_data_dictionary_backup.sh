@@ -50,7 +50,7 @@ if [ -z $1 ]
 then
     echo "INFO >>> Avisando novamente: nenhum diretório foi escolhido para onde mover o\narquivo de backup. Ele se encontra então em seu local default:\n${filename}\n"
 else
-    echo "INFO >>> Movento o arquivo de backup para ${1}\n"
+    echo "INFO >>> Movendo o arquivo de backup para ${1}\n"
     mv $filename $1
 fi
 
