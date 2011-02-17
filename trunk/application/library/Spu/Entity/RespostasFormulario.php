@@ -64,9 +64,9 @@ class RespostasFormulario extends BaseEntity
     
     public function getAdjustedKeyName($key)
     {
-    	$key = preg_replace('/([^\s])([A-Z])/', '\1 \2', $key);
-    	$key = strtolower($key);
-    	$key = ucfirst($key);
-    	return $key;
+        $key = preg_replace('/([^\s])([A-Z])/', '\1 \2', $key);
+        $key = strtolower($key);
+        $key = ucfirst($key);
+        return $key;
     }
 }
