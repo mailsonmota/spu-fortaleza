@@ -21,7 +21,7 @@ echo $this->pagenav()->closeList();
 <div id="article">
 <form action="" method="post"><?php 
 echo $this->fieldList()->open();
-echo $this->text('Tipo de Processo', $this->assunto->tipoProcesso->nome);
+echo $this->fieldList()->text('Tipo de Processo', $this->assunto->tipoProcesso->nome);
 echo $this->fieldList()->textbox('Nome', 'nome', $this->assunto->nome, array('required' => true, 'length' => 90));
 echo $this->fieldList()->textarea('Corpo', 'corpo', $this->assunto->corpo, array('required' => true));
 echo $this->fieldList()->checkbox('Notificar na abertura', 'notificarNaAbertura', $this->assunto->notificarNaAbertura);

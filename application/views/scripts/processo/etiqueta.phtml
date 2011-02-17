@@ -6,19 +6,19 @@ echo $this->breadcrumbs()->render();
 
 <?php 
 echo $this->fieldList()->open();
-echo $this->text('Processo', $this->processo->numero);
-echo $this->text('Abertura', $this->processo->data);
-echo $this->text('Origem', $this->processo->proprietario->descricao);
-echo $this->text('Assunto', $this->processo->assunto->nome);
-echo $this->text('Envolvido', $this->processo->manifestante->nome);
+echo $this->fieldList()->text('Processo', $this->processo->numero);
+echo $this->fieldList()->text('Abertura', $this->processo->data);
+echo $this->fieldList()->text('Origem', $this->processo->proprietario->descricao);
+echo $this->fieldList()->text('Assunto', $this->processo->assunto->nome);
+echo $this->fieldList()->text('Envolvido', $this->processo->manifestante->nome);
 
 if ($this->processo->observacao):
-    echo $this->text('Observação', $this->processo->observacao);
+    echo $this->fieldList()->text('Observação', $this->processo->observacao);
 endif;
 
-echo $this->text('Descrição', $this->processo->corpo);
-echo $this->text('Destino', $this->processo->protocolo->descricao);
-echo $this->text('Folha', "1");
+echo $this->fieldList()->text('Descrição', $this->processo->corpo);
+echo $this->fieldList()->text('Destino', $this->processo->protocolo->descricao);
+echo $this->fieldList()->text('Folha', "1");
 
 if (is_array($this->processo->arquivos)):
     $htmlAnexos = '<ul>';
@@ -26,7 +26,7 @@ if (is_array($this->processo->arquivos)):
         $htmlAnexos .= '<li>' . $arquivo->nome . '</li>';
     endforeach;
     $htmlAnexos .= '</ul>';
-    echo $this->text('Anexos', $htmlAnexos);    
+    echo $this->fieldList()->text('Anexos', $htmlAnexos);    
 endif; 
 
 echo $this->fieldList()->close();

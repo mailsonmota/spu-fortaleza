@@ -20,10 +20,10 @@ echo $this->pagenav()->closeList();
     }
     
     echo $this->fieldList()->open();
-	echo $this->text('Usuário', $this->pessoa->login);
-	echo $this->text('Nome', $this->pessoa->nome);
-	echo $this->text('Sobrenome', $this->pessoa->sobrenome);
-	echo $this->text('Email', $this->pessoa->email);
+	echo $this->fieldList()->text('Usuário', $this->pessoa->login);
+	echo $this->fieldList()->text('Nome', $this->pessoa->nome);
+	echo $this->fieldList()->text('Sobrenome', $this->pessoa->sobrenome);
+	echo $this->fieldList()->text('Email', $this->pessoa->email);
 	echo $this->fieldList()->close();
 	?>
 	

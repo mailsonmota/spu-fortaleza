@@ -22,7 +22,7 @@ echo $this->pagenav()->closeList();
         $htmlProcessos .= '</ul>';
         
         echo $this->fieldList()->open();
-        echo $this->text('Processos', $htmlProcessos);
+        echo $this->fieldList()->text('Processos', $htmlProcessos);
         echo $this->ajaxSelectMultiple('Destino', 'destinoId', $this->simpleUrl('listar-destinos', 'protocolos-ajax'), array('required' => true));
         echo $this->fieldList()->textarea('Despacho', 'despacho', null, array('required' => true));
         echo $this->ajaxSelectMultiple('Com Cópia', 'copias', $this->simpleUrl('listar-destinos', 'protocolos-ajax'), array('id' => 'copias'));
