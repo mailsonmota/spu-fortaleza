@@ -2,7 +2,6 @@
     <legend>Dados Gerais</legend>
     <?php 
     echo $this->form()->openFieldList();
-    echo $this->select('Origem', 'origem', $this->listaOrigens, null, array('required' => true));
     echo $this->textbox('Data', 'data', null, array('required' => true, 'class' => 'mascaraData'));
     echo $this->textbox('Hora', 'hora', date('H:i'), array('required' => true, 'class' => 'mascaraHora'));
     echo $this->textbox('N&ordm; Origem', 'numeroOrigem');
