@@ -29,8 +29,7 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
     public function orderItems()
     {
         if (!function_exists('compareItems')) {
-            function compareItems($itemA, $itemB)
-            {
+            function compareItems($itemA, $itemB) {
                 return strnatcasecmp($itemA['name'], $itemB['name']);
             }
         }
@@ -96,8 +95,7 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
         return false;
     }
     
-    protected function _renderMenu(Zend_Navigation_Container $container,
-                                   $ulClass,
+    protected function _renderMenu(Zend_Navigation_Container $container, $ulClass,
                                    $indent,
                                    $minDepth,
                                    $maxDepth,
