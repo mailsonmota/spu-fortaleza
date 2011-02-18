@@ -9,7 +9,9 @@ class Zend_View_Helper_FieldList_Password extends Zend_View_Helper_FieldList_Tex
     protected function _renderInput($value)
     {
         $class = $this->_getInputClass();
-        $html = "<input type=\"password\" value=\"$value\" name=\"" . $this->_name . "\" $class />";
+        $id = $this->_getId();
+        $name = $this->_name;
+        $html = "<input type=\"password\" value=\"$value\" name=\"$name\" autocomplete=\"off\" id=\"$id\" $class />";
         
         return $html;
     }

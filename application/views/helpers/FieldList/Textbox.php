@@ -9,7 +9,8 @@ class Zend_View_Helper_FieldList_Textbox extends Zend_View_Helper_FieldList_Inpu
     protected function _renderInput($value)
     {
         $class = $this->_getInputClass();
-        $html = "<input type=\"text\" value=\"$value\" name=\"" . $this->_name . "\" $class />";
+        $id = $this->_getId();
+        $html = "<input type=\"text\" value=\"$value\" name=\"" . $this->_name . "\" id=\"$id\" $class />";
         
         return $html;
     }
