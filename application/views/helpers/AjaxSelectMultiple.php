@@ -92,7 +92,7 @@ class Zend_View_Helper_AjaxSelectMultiple extends Zend_View_Helper_Abstract
 
                    $('#$autoCompleteId').autocomplete({
                        source: '$ajaxUrl',
-                       minLength: 3,
+                       minLength: 2,
                        select: function(event, ui) {
                            var itemId = ui.item.id;
                            var itemName = ui.item.value;
