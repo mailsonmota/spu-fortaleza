@@ -55,6 +55,11 @@ class Usuario extends BaseEntity
         return $this->_nome . ' ' . $this->_sobrenome;
     }
     
+    public function getNomeOuSobrenome()
+    {
+    	return ($this->_nome) ? $this->_nome : $this->_sobrenome;
+    } 
+    
     public function isAdministrador()
     {
         if (!isset($this->_grupos)) {
