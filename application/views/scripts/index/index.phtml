@@ -10,15 +10,4 @@ echo $this->pagenav()->closeList();
     <p>
     	Bem-vindo, <b><?php echo $this->pessoa->nomeOuSobrenome ?></b>!
     </p>
-    <?php 
-    echo $this->fieldList()->open();
-    echo $this->fieldList()->text('Text', 'Value');
-    echo $this->fieldList()->textbox('Textbox', 'nome', 'Value', array('required' => true));
-    echo $this->fieldList()->password('Textbox', 'senha', 'Value', array('required' => true));
-    echo $this->fieldList()->textarea('Textarea', 'descricao', 'Value', array('required' => true));
-    echo $this->fieldList()->select('Select', 'prf', array('1' => 'A', '2' => 'B'), '2', array('required' => true));
-    echo $this->fieldList()->file('File', 'file', 'Value', array('required' => true));
-    echo $this->fieldList()->checklist('Checklist', 'chk', array('1' => 'A', '2' => 'B'), array('2'), array('required' => true));
-    echo $this->fieldList()->close();
-    ?>
 </div>
