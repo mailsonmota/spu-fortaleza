@@ -43,7 +43,7 @@ class AssuntoService extends BaseService
         $curlObj = new CurlClient();
         $resultJson = $curlObj->doGetRequest($url);
         
-        return $this->loadFromHash(array_pop(array_pop($resultJson['Assunto'][0])));
+        return $this->loadFromHash(array_pop(array_pop($resultJson['Assunto'][0])), true);
     }
 
     public function inserir($postData)
@@ -59,7 +59,7 @@ class AssuntoService extends BaseService
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
 
-        return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])));
+        return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])), true);
     }
 
     public function editar($id, $postData)
@@ -75,10 +75,10 @@ class AssuntoService extends BaseService
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
 
-        return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])));
+        return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])), true);
     }
 
-    public function loadFromHash($hash)
+    public function loadFromHash($hash, $carregarDetalhes = false)
     {
         $assunto = new Assunto();
             
@@ -86,8 +86,10 @@ class AssuntoService extends BaseService
         $assunto->setNome($this->_getHashValue($hash, 'nome'));
         $assunto->setCorpo($this->_getHashValue($hash, 'corpo'));
         $assunto->setNotificarNaAbertura($this->_getHashValue($hash, 'notificarNaAbertura') ? true : false);
-        $assunto->setTipoProcesso($this->_loadTipoProcessoFromHash($this->_getHashValue($hash, 'tipoProcesso')));
-        $assunto->setFormulario($this->_loadFormulario($assunto->getId()));
+        if ($carregarDetalhes) {
+            $assunto->setTipoProcesso($this->_loadTipoProcessoFromHash($this->_getHashValue($hash, 'tipoProcesso')));
+            $assunto->setFormulario($this->_loadFormulario($assunto->getId()));
+        }
 
         return $assunto;
     }

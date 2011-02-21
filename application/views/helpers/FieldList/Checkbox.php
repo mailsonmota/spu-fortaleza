@@ -8,7 +8,7 @@ class Zend_View_Helper_FieldList_Checkbox extends Zend_View_Helper_FieldList_Inp
     
     protected function _renderInput($value)
     {
-        $checked = ($this->_value) ? 'checked="checked"' : '';
+    	$checked = ($value == true) ? 'checked="checked"' : '';
         
         $html = "<input type=\"checkbox\" name=\"" . $this->_name . "\" $checked />";
         

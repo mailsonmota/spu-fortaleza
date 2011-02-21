@@ -1,10 +1,52 @@
 <?php
+Loader::loadService('StatusService');
 class ConsultarController extends BaseController
 {
     public function indexAction()
     {
+    	$tiposProcesso = array();
+    	try {
+    		$tiposProcesso = $this->_getListaTiposProcesso();
+    	} catch (Exception $e) {
+    		$this->setMessageForTheView($e->getMessage());
+    	}
+    	
+    	$this->view->tiposProcesso = $tiposProcesso;
     }
     
+    protected function _getListaTiposProcesso()
+    {
+        $tipoProcessoService = new TipoProcessoService($this->getTicket());
+        $tiposProcesso = $tipoProcessoService->getTiposProcesso();
+        $listaTiposProcesso = array();
+        $listaTiposProcesso = array_merge($listaTiposProcesso, $this->_getOpcaoVazia());
+        foreach ($tiposProcesso as $tipoProcesso) {
+            $listaTiposProcesso[$tipoProcesso->id] = $tipoProcesso->nome;
+        }
+
+        return $listaTiposProcesso;
+    }
+    
+    protected function _getListaStatus()
+    {
+    	$statusService = new StatusService($this->getTicket());
+    	$status = $statusService->listar();
+    	$listaStatus = array();
+    	$listaStatus = array_merge($listaStatus, $this->_getOpcaoVazia());
+    	foreach ($status as $s) {
+    		$listaStatus[$s->id] = $s->nome;
+    	}
+    	
+    	return $listaStatus;
+    }
+    
+    protected function _getOpcaoVazia()
+    {
+    	$opcaoVazia = array();
+    	$opcaoVazia[0] = '';
+    	return $opcaoVazia;
+    }
+
     public function executarAction()
     {
         if (!$this->getRequest()->isPost()) {

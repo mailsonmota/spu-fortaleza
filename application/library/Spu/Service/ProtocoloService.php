@@ -113,9 +113,11 @@ class ProtocoloService extends BaseService
     protected function _loadManyFromHash($hash)
     {
         $protocolos = array();
-        foreach ($hash as $hashProtocolo) {
-            $hashProtocolo = array_pop($hashProtocolo);
-            $protocolos[] = $this->loadFromHash($hashProtocolo);
+        if ($hash) {
+	        foreach ($hash as $hashProtocolo) {
+	            $hashProtocolo = array_pop($hashProtocolo);
+	            $protocolos[] = $this->loadFromHash($hashProtocolo);
+	        }
         }
 
         return $protocolos;
