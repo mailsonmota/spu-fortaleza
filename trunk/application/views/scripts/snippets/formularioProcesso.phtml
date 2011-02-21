@@ -19,13 +19,12 @@
         echo $this->ajaxSelect('Destino', 
                                'destino', 
                                $this->simpleUrl('listar-destinos', 'protocolos-ajax'), 
-                               $this->simpleUrl('listar-estrutura', 'protocolos-ajax'), 
                                array('Nome'), 
                                array('required' => true, 'linkName' => 'Estrutura'));
     } else {
     	echo $this->ajaxSelectMultiple('Destinos', 
     	                               'destino', 
-    	                               $this->simpleUrl('listar-destinos-novo', 'protocolos-ajax'), 
+    	                               $this->simpleUrl('listar-destinos', 'protocolos-ajax'), 
     	                               array('required' => true));
     }
     echo $this->fieldList()->select('Prioridade', 'prioridadeId', $this->listaPrioridades, null, array('required' => true));
@@ -34,7 +33,7 @@
     if (!$this->tipoProcesso->tramitacao->isParalela()) {
         echo $this->ajaxSelectMultiple('Com Cópia', 
                                        'copias', 
-                                       $this->simpleUrl('listar-destinos-novo', 'protocolos-ajax'), 
+                                       $this->simpleUrl('listar-destinos', 'protocolos-ajax'), 
                                        array('id' => 'copias'));
     }
     

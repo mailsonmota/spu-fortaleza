@@ -120,12 +120,29 @@ class TiposprocessoController extends BaseController
         
         $tipoProcessoService = new TipoProcessoService($this->getTicket());
         $tipoProcesso = $tipoProcessoService->getTipoProcesso($id);
-        $assuntoService = new AssuntoService($this->getTicket());
-        $assuntos = $assuntoService->getAssuntosPorTipoProcesso($id);
+        $assuntos = $this->_getAssuntos($id);
         
         $this->view->tipoProcesso = $tipoProcesso;
         $this->view->assuntos = $assuntos;
         $this->view->id = $tipoProcesso->getId();
         $this->view->isEdit = true;
-    }   
+    }
+    
+    protected function _getAssuntos($tipoProcessoId)
+    {
+    	$assuntoService = new AssuntoService($this->getTicket());
+        $assuntos = $assuntoService->getAssuntosPorTipoProcesso($tipoProcessoId);
+        
+        return $assuntos;
+    }
+    
+    public function assuntosAjaxAction()
+    {
+    	$id = $this->_getIdFromUrl();
+    	$assuntos = $this->_getAssuntos($id);
+
+    	$this->_helper->layout()->disableLayout();
+    	
+    	$this->view->assuntos = $assuntos;
+    }
 }

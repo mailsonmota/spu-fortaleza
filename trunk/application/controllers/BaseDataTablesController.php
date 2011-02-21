@@ -25,8 +25,7 @@ class BaseDataTablesController extends BaseAuthenticatedController
     protected function _getSearch()
     {
         $search = '';
-        if ($this->getRequest()->getParam('sSearch', null) AND 
-            $this->getRequest()->getParam('sSearch') != '') {
+        if ($this->getRequest()->getParam('sSearch', null) AND $this->getRequest()->getParam('sSearch') != '') {
             $search = $this->getRequest()->getParam('sSearch');
         }
         
