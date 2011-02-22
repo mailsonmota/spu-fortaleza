@@ -5,6 +5,9 @@ function fnDataTablesPipeline (sSource, aoData, fnCallback) {
 		url: sSource,
 		dataType: 'json',
 		data: aoData,
+		beforeSend: function() {
+			$('.dataTables_processing').html('<span>' + $('.dataTables_processing').text() + '</span>');
+		},
 		success: function(json) {
 			fnCallback(json);
 		}, 
