@@ -115,7 +115,10 @@ class ProcessoService extends BaseService
     protected function _getProcessoDetalhado($processo) {
         $arquivoService = new ArquivoService($this->getTicket());
         $processo->setRespostasFormulario($arquivoService->getRespostasFormulario($processo->id));
-            
+        
+        $assuntoService = new AssuntoService($this->getTicket());
+        $processo->setAssunto($assuntoService->getAssunto($processo->assunto->id));
+        
         $tipoProcessoService = new TipoProcessoService($this->getTicket());
         $processo->setTipoProcesso($tipoProcessoService->getTipoProcesso($processo->tipoProcesso->id));
         
