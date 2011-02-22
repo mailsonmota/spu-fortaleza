@@ -7,7 +7,7 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
     protected $_ajaxUrl;
     protected $_columns;
     protected $_options;
-    protected $_pageSize = 20;
+    protected $_pageSize = 50;
     protected $_html;
     
     public function ajaxDataTable($ajaxUrl = '', array $columns = array(), array $options = array())
