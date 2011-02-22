@@ -2,6 +2,8 @@
 require_once 'Abstract.php';
 abstract class Zend_View_Helper_FieldList_Input extends Zend_View_Helper_FieldList_Abstract
 {
+	const AFTER_LABEL = ':';
+	
     protected $_label;
     protected $_name;
     protected $_value;
@@ -42,7 +44,7 @@ abstract class Zend_View_Helper_FieldList_Input extends Zend_View_Helper_FieldLi
     protected function _renderLabel()
     {
         $class = ($this->_isRequired()) ? 'class="required"' : '';
-        return "<label $class>" . $this->_label . '</label>';
+        return "<label $class>" . $this->_label . self::AFTER_LABEL . '</label>';
     }
     
     protected function _renderLabelItemAfter()

@@ -5,13 +5,16 @@ class ConsultarController extends BaseController
     public function indexAction()
     {
     	$tiposProcesso = array();
+    	$listaStatus = array();
     	try {
     		$tiposProcesso = $this->_getListaTiposProcesso();
+    		$listaStatus = $this->_getListaStatus();
     	} catch (Exception $e) {
     		$this->setMessageForTheView($e->getMessage());
     	}
     	
     	$this->view->tiposProcesso = $tiposProcesso;
+    	$this->view->listaStatus = $listaStatus;
     }
     
     protected function _getListaTiposProcesso()
