@@ -15,7 +15,7 @@ jQuery(document).ready(function() {
 		TEXT_CLOSE			:	'Fechar',
 		TEXT_CHOOSE_DATE	:	'Escolher'
 	};
-	$('.mascaraData').datePicker().val(new Date().asString()).trigger('change');
+	$('.mascaraData').datePicker().trigger('change');
 	
 	//$('a[rel*=facebox]').facebox();
 	

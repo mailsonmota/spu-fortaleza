@@ -10,7 +10,8 @@ class Zend_View_Helper_FieldList_Textbox extends Zend_View_Helper_FieldList_Inpu
     {
         $class = $this->_getInputClass();
         $id = $this->_getId();
-        $html = "<input type=\"text\" value=\"$value\" name=\"" . $this->_name . "\" id=\"$id\" $class />";
+        $length = ($this->_getLength()) ? 'maxlength="' . $this->_getLength() . '"' : '';
+        $html = "<input type=\"text\" value=\"$value\" name=\"" . $this->_name . "\" id=\"$id\" $class $length />";
         
         return $html;
     }

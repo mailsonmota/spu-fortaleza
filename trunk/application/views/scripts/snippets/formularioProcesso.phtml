@@ -2,7 +2,7 @@
     <legend>Dados Gerais</legend>
     <?php 
     echo $this->fieldList()->open();
-    echo $this->fieldList()->textbox('Data', 'data', null, array('required' => true, 'class' => 'mascaraData'));
+    echo $this->fieldList()->textbox('Data', 'data', date('d/m/Y'), array('required' => true, 'class' => 'mascaraData'));
     echo $this->fieldList()->textbox('Hora', 'hora', date('H:i'), array('required' => true, 'class' => 'mascaraHora'));
     echo $this->fieldList()->textbox('N&ordm; Origem', 'numeroOrigem');
     echo $this->fieldList()->textbox('Observa&ccedil;&atilde;o', 'observacao', null, array('length' => 60));

@@ -11,18 +11,15 @@ echo $this->pagenav()->closeList();
     <form action="" method="post">
         <?php 
         echo $this->fieldList()->open();
-        echo $this->fieldList()->textbox('Número', 'numero');
+        echo $this->fieldList()->textbox('Número', 'numero', null, array('length' => 20));
         echo $this->fieldList()->select('Tipo de Processo', 'tipoprocesso', $this->tiposProcesso);
         echo $this->fieldList()->select('Assunto', 'assunto', array());
         echo $this->ajaxSelect('Proprietario', 'proprietario',$this->simpleUrl('listar', 'protocolos-ajax'));
-        echo $this->ajaxSelect('Destino Inicial', 'destinoInicial',$this->simpleUrl('listar', 'protocolos-ajax'));
+        echo $this->fieldList()->textbox('Envolvido', 'envolvido', null, array('length' => 60));
         echo $this->fieldList()->textbox('Data Inicial', 'data', null, array('class' => 'mascaraData'));
         echo $this->fieldList()->textbox('Data Final', 'dataFinal', null, array('class' => 'mascaraData'));
-        echo $this->fieldList()->textbox('Envolvido', 'envolvido');
         echo $this->fieldList()->textbox('Corpo', 'corpo');
-        echo $this->fieldList()->select('Status', 'status', $this->status);
-        echo $this->fieldList()->checkbox('Possui Formulário', 'formulario');
-        echo $this->fieldList()->checkbox('Possui Anexo', 'anexo');
+        echo $this->fieldList()->select('Status', 'status', $this->listaStatus);
         echo $this->fieldList()->checkbox('Possui Volume', 'volume');
         echo $this->fieldList()->close();
         
@@ -42,7 +39,7 @@ echo $this->pagenav()->closeList();
                        success: function(data) {
                            $("#assunto option").remove();
                            $(data).each(function(i, value) {
-                               $("#assunto").append("<option value=\" + value.id + "\">" + value.name + "</option>");
+                               $("#assunto").append("<option value=\"" + value.id + "\">" + value.name + "</option>");
                            });
                        }, 
                        error: function(data) {
