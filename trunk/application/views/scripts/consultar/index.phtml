@@ -15,6 +15,7 @@ echo $this->pagenav()->closeList();
         echo $this->fieldList()->select('Tipo de Processo', 'tipoprocesso', $this->tiposProcesso);
         echo $this->fieldList()->select('Assunto', 'assunto', array());
         echo $this->ajaxSelect('Proprietario', 'proprietario',$this->simpleUrl('listar', 'protocolos-ajax'));
+        echo $this->ajaxSelect('Local Atual', 'protocolo',$this->simpleUrl('listar', 'protocolos-ajax'));
         echo $this->fieldList()->textbox('Envolvido', 'envolvido', null, array('length' => 60));
         echo $this->fieldList()->textbox('Data Inicial', 'data', null, array('class' => 'mascaraData'));
         echo $this->fieldList()->textbox('Data Final', 'dataFinal', null, array('class' => 'mascaraData'));
