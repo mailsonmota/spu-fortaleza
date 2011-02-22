@@ -248,6 +248,7 @@ ol.historico li {margin-bottom:1em}
     margin: 0;
     height: 100%;
     padding: 0;
+    vertical-align: middle; 
 }
 
 .dataTables_processing span {
