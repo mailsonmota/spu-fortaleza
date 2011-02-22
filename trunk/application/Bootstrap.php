@@ -48,10 +48,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         // Url Base da Aplicação (Pasta Public)
         $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
+        
         if (!$baseUrl) {
             $baseUrl = rtrim(preg_replace('/([^\/]*)$/', '', $_SERVER['PHP_SELF']), '/\\');
         }
-
+        
         $view->doctype('XHTML1_STRICT');
         $this->initTitle($view, $baseUrl);
         $this->initFavicon($view, $baseUrl);

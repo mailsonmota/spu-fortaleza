@@ -36,7 +36,7 @@
 	            $menu = $this->mainmenu();
 	            $menu->setAutoOrder(TRUE);
 	            
-	            $menu->addItem('Início', $this->simpleUrl('', 'index'), 'Usuário');
+	            $menu->addItem('Início', $this->simpleUrl('index', 'index'), 'Usuário');
 	            $menu->addItem('Cadastro', $this->simpleUrl('cadastro', 'usuario'), 'Usuário');
 	            $menu->addItem('Sair', $this->simpleUrl('logout', 'auth'), 'Usuário');
 	            
