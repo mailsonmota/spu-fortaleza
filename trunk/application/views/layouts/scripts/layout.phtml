@@ -10,7 +10,7 @@
     <body>
     
         <div id="header">
-            <h1><a href="<?php echo $this->simpleUrl('index', 'index') ?>">
+            <h1><a href="<?php echo $this->simpleUrl('', 'index') ?>">
                 Sistema de Protocolo Único</a>
                 <span>Prefeitura Municipal de Fortaleza</span>
             </h1>
@@ -36,29 +36,28 @@
 	            $menu = $this->mainmenu();
 	            $menu->setAutoOrder(TRUE);
 	            
-	            $menu->addItem('Início', $this->simpleUrl('index', 'index'), 'Usuário');
+	            $menu->addItem('Início', $this->simpleUrl('', 'index'), 'Usuário');
 	            $menu->addItem('Cadastro', $this->simpleUrl('cadastro', 'usuario'), 'Usuário');
 	            $menu->addItem('Sair', $this->simpleUrl('logout', 'auth'), 'Usuário');
 	            
 	            if (!$this->pessoa->isGuest()) {
 		            if ($this->pessoa->isAdministrador()) {
-			            //$menu->addItem('Lista Assuntos', $this->simpleUrl('index', 'assuntos'), 'Cadastros');
-			            $menu->addItem('Tipos de Processos', $this->simpleUrl('index', 'tiposprocesso'), 'Cadastros');
-			            $menu->addItem('Protocolos', $this->simpleUrl('index', 'protocolos'), 'Cadastros');
-		            }
+			            $menu->addItem('Tipos de Processos', $this->simpleUrl('', 'tiposprocesso'), 'Cadastros');
+			        }
 		            
 		            if (!$this->pessoa->isAdministrador()) {
-			            $menu->addItem('Abertura', $this->simpleUrl('index', 'abrirprocesso'), 'Processos');
-			            $menu->addItem('Tramitação', $this->simpleUrl('index', 'entrada'), 'Processos');
-			            $menu->addItem('Incorporação', $this->simpleUrl('index', 'incorporacao'), 'Processos');
-			            $menu->addItem('Envolvidos', $this->simpleUrl('index', 'envolvidos'), 'Processos');
+		            	$menu->addItem('Abertura', $this->simpleUrl('', 'abrirprocesso'), 'Processos');
+			            $menu->addItem('Tramitação', $this->simpleUrl('', 'entrada'), 'Processos');
+			            $menu->addItem('Incorporação', $this->simpleUrl('', 'incorporacao'), 'Processos');
+			            $menu->addItem('Envolvidos', $this->simpleUrl('', 'envolvidos'), 'Processos');
 		            }
-		            $menu->addItem('Consulta', $this->simpleUrl('index', 'consultar'), 'Processos');
+		            $menu->addItem('Lotações', $this->simpleUrl('', 'protocolos'), 'Processos');
+		            $menu->addItem('Consulta', $this->simpleUrl('', 'consultar'), 'Processos');
                     
 		            $menu->addItem('Envio', $this->simpleUrl('enviar', 'malotes'), 'Malotes');
 		            $menu->addItem('Recebimento', $this->simpleUrl('receber', 'malotes'), 'Malotes');
 		            $menu->addItem('Consulta', $this->simpleUrl('consultar', 'malotes'), 'Malotes');
-		            $menu->addItem('Central', $this->simpleUrl('index', 'malotes'), 'Malotes');
+		            $menu->addItem('Central', $this->simpleUrl('', 'malotes'), 'Malotes');
 	            }
 	            
 	            echo $menu->render();

@@ -1,6 +1,6 @@
 <?php 
 $this->breadcrumbs()->addPage('Protocolos', 'protocolos');
-$this->breadcrumbs()->addPage('Editar Protocolo');
+$this->breadcrumbs()->addPage('Detalhes Protocolo');
 echo $this->breadcrumbs()->render(); 
 
 echo $this->pagenav()->openList(); 
@@ -13,19 +13,10 @@ echo $this->pagenav()->closeList();
     <form action="" method="post">
         <?php
         echo $this->fieldList()->open();
-        echo $this->fieldList()->textbox('Nome', 'nome', $this->protocolo->nome, array('required' => true));
-        echo $this->fieldList()->select('Protocolo Pai', 'parentId', $this->listaProtocolos, $this->protocolo->parent->id, array('required' => true));
-        echo $this->fieldList()->textbox('Descrição', 'descricao', $this->protocolo->descricao, array('length' => 60));
-        echo $this->fieldList()->textbox('Orgão', 'orgao', $this->protocolo->orgao, array('length' => 60));
-        echo $this->fieldList()->textbox('Lotação', 'lotacao', $this->protocolo->lotacao, array('length' => 60));
-        echo $this->fieldList()->checkbox('Recebe pelo Subsetores', 'recebePelosSubsetores', $this->protocolo->recebePelosSubsetores);
-        echo $this->fieldList()->checkbox('Recebe Malote', 'recebeMalotes', $this->protocolo->recebeMalotes);
+        echo $this->fieldList()->text('Nome', $this->protocolo->nome);
+        echo $this->fieldList()->text('Protocolo Pai', $this->protocolo->parent->nome);
+        echo  $this->fieldList()->text('Descrição', $this->protocolo->descricao);
         echo $this->fieldList()->close();
-        
-        echo $this->buttonlist()->open();
-        echo $this->buttonlist()->button('Salvar'); 
-        echo $this->buttonlist()->resetbutton();
-        echo $this->buttonlist()->close(true); 
         ?>
     </form>
 </div>
