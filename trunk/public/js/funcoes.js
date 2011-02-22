@@ -28,9 +28,9 @@ jQuery(document).ready(function() {
 	// Todos as table com classe .grid dentre de #article que não sejam um .relatorio
 	$('table:not(.no-datatable).grid').dataTable({
 		"oLanguage": {
-			"sUrl":"js/plugins/dataTables/jquery.dataTables.pt-br.txt"
+			"sUrl": baseUrl + "/js/plugins/dataTables/jquery.dataTables.pt-br.txt"
 		},
-		iDisplayLength: 20, 
+		iDisplayLength: 50, 
 		sPaginationType: "full_numbers", 
 		"bLengthChange": false, 
 		"bSort": false/*, 
