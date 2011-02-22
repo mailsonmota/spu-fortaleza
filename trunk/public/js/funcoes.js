@@ -28,21 +28,7 @@ jQuery(document).ready(function() {
 	// Todos as table com classe .grid dentre de #article que não sejam um .relatorio
 	$('table:not(.no-datatable).grid').dataTable({
 		"oLanguage": {
-			"sProcessing":   "Processando...",
-			"sLengthMenu":   "Exibir _MENU_ registros",
-			"sZeroRecords":  "Não foram encontrados resultados",
-			"sInfo":         "Exibindo de _START_ a _END_ de _TOTAL_ registros",
-			"sInfoEmpty":    "Exibindo de 0 a 0 de 0 registros",
-			"sInfoFiltered": "(filtrado de _MAX_ registros no total)",
-			"sInfoPostFix":  "",
-			"sSearch":       "Busca Rápida:",
-			"sUrl":          "",
-			"oPaginate": {
-				"sFirst":    "&laquo;&laquo;  Primeiro",
-				"sPrevious": "&laquo; Anterior",
-				"sNext":     "Seguinte &raquo;",
-				"sLast":     "Último &raquo;&raquo;"
-			}
+			"sUrl":"js/plugins/dataTables/jquery.dataTables.pt-br.txt"
 		},
 		iDisplayLength: 20, 
 		sPaginationType: "full_numbers", 

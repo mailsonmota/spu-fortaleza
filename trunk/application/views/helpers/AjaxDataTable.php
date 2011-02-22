@@ -31,24 +31,11 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
     
     protected function _prepareJavascript()
     {
+    	$baseUrl = $this->view->baseUrl();
         $script = 'jQuery(document).ready(function() {
                         $("#' . $this->_getId() . '").dataTable({
                             "oLanguage": {
-                                "sProcessing":   "<span>Processando...</span>",
-                                "sLengthMenu":   "Mostrar _MENU_ registros",
-                                "sZeroRecords":  "Não foram encontrados resultados",
-                                "sInfo":         "Exibindo registros de _START_ a _END_",
-                                "sInfoEmpty":    "Exibindo de 0 a 0 de 0 registros",
-                                "sInfoFiltered": "(filtrado de _MAX_ registros no total)",
-                                "sInfoPostFix":  "",
-                                "sSearch":       "Busca Rápida:",
-                                "sUrl":          "",
-                                "oPaginate": {
-                                    "sFirst":    "«« Primeiro",
-                                    "sPrevious": "« Anterior",
-                                    "sNext":     "Seguinte »",
-                                    "sLast":     "Último »»"
-                                }
+                                "sUrl":"' . $baseUrl . '/js/plugins/dataTables/jquery.dataTables.pt-br.txt"
                             },
                             "bAutoWidth": false, 
                             iDisplayLength: ' . $this->_pageSize . ', 
