@@ -142,7 +142,6 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
         $password = $this->getPassword();
         
         $response = $this->_getLoginApi()->login($username, $password);
-        echo '<pre>'; var_dump($response); echo '</pre>'; exit;
         if (!$response['ticket']) {
         	throw new Exception("Login failed");
         }
