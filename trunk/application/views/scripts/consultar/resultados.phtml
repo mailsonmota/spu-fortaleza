@@ -1,0 +1,20 @@
+<?php 
+$this->breadcrumbs()->addPage('Consulta', 'consultar');
+$this->breadcrumbs()->addPage('Resultados');
+echo $this->breadcrumbs()->render(); 
+
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+	<?php 
+	$headerColumns = array('Nome', 'Ações');
+	$columns = array('numero');
+        
+	$grid = new SimpleDataTable($this->processos, array('headerColumns' => $headerColumns, 'columns' => $columns));
+	$grid->addActionColumn('Editar', $this->simpleUrl('editar', $this->controller) . '/id/', 'id');
+	echo $grid->render();
+	?>
+</div>

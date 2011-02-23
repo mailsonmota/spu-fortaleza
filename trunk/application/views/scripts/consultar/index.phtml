@@ -8,7 +8,7 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <form action="" method="post">
+    <form action="<?php echo $this->simpleUrl('resultados') ?>" method="post">
         <?php 
         echo $this->fieldList()->open();
         echo $this->fieldList()->textbox('Número', 'numero', null, array('length' => 20));
