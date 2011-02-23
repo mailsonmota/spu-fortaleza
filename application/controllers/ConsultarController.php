@@ -46,11 +46,11 @@ class ConsultarController extends BaseController
     protected function _getOpcaoVazia()
     {
     	$opcaoVazia = array();
-    	$opcaoVazia[0] = '';
+    	$opcaoVazia[''] = '';
     	return $opcaoVazia;
     }
 
-    public function executarAction()
+    public function resultadosAction()
     {
         if (!$this->getRequest()->isPost()) {
             $this->setErrorMessage('Busca inválida.');
@@ -66,14 +66,14 @@ class ConsultarController extends BaseController
         }
         
         $processoService = new ProcessoService($this->getTicket());
-        $resultado = $processoService->consultar($postData);
+        $processos = $processoService->consultar($postData);
         
-        if (count($resultado) == 1) {
-            $processoId = $resultado[0]->id;
+        if (count($processos) == 1) {
+            $processoId = $processos[0]->id;
             $this->_redirectToProcesso($processoId);
-        } else {
-            echo '<pre>'; var_dump($resultado); echo '</pre>'; exit;
         }
+        
+        $this->view->processos = $processos;
     }
     
     private function _getFieldFromFilter($filter)
