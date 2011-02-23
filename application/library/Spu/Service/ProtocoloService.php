@@ -74,8 +74,12 @@ class ProtocoloService extends BaseService
     
     public function getProtocolosDestino($protocoloOrigemId, $tipoProcessoId, $filter, $offset, $pageSize)
     {
-        $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listardestinos/";
-        $url .= "{$protocoloOrigemId}/{$tipoProcessoId}/{$filter}/{$offset}/{$pageSize}";
+//        $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listardestinos/";
+//        $url .= "{$protocoloOrigemId}/{$tipoProcessoId}/{$filter}/{$offset}/{$pageSize}";
+        
+        $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listardestinos?";
+        $url .= "protocoloRaizId={$protocoloOrigemId}&tipoProcessoId={$tipoProcessoId}&filter={$filter}&offset={$offset}&pageSize={$pageSize}";
+        
         $url = $this->addAlfTicketUrl($url);
 
         $curlObj = new CurlClient();
