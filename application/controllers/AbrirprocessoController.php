@@ -13,7 +13,7 @@ class AbrirprocessoController extends BaseController
             $this->_helper->redirector('formulario',
                                        $this->getController(),
                                        'default',
-                                       array('origem' => $this->_getIdProtocoloOrigemRequestParam(),
+                                       array('protocoloorigem' => $this->_getIdProtocoloOrigemRequestParam(),
                                              'tipoprocesso' => $this->_getIdTipoProcessoPost()));
         }
 
