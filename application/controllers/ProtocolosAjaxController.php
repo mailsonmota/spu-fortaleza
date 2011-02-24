@@ -117,7 +117,7 @@ class ProtocolosAjaxController extends BaseDataTablesController
 
     protected function _getProtocoloOrigemId()
     {
-        return $this->getRequest()->getParam('protocoloorigem', null);
+        return $this->getRequest()->getParam('protocoloOrigem', null);
     }
     
     protected function _getTipoProcessoId()
