@@ -85,7 +85,14 @@ class AbrirprocessoController extends BaseController
                 $postData = $this->getRequest()->getPost();
                 $dataMerged = array_merge($formDadosGeraisProcesso, $postData);
                 $processoService = new ProcessoService($this->getTicket());
-                $processo = $processoService->abrirProcesso($dataMerged);
+                
+                try {
+                    $processo = $processoService->abrirProcesso($dataMerged);
+                } catch (Exception $e) {
+                    $this->setErrorMessage('Erro ao abrir o processo. Informação técnica: ' . $e->getMessage());
+                    $this->_redirectFormularioEnvolvido();
+                }
+                
                 $session->processo = $processo;
                 
                 if ($processo->assunto->hasFormulario()) {
