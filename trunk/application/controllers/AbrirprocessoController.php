@@ -13,7 +13,7 @@ class AbrirprocessoController extends BaseController
             $this->_helper->redirector('formulario',
                                        $this->getController(),
                                        'default',
-                                       array('protocoloorigem' => $this->_getIdProtocoloOrigemRequestParam(),
+                                       array('protocoloOrigem' => $this->_getIdProtocoloOrigemRequestParam(),
                                              'tipoprocesso' => $this->_getIdTipoProcessoPost()));
         }
 
@@ -49,7 +49,7 @@ class AbrirprocessoController extends BaseController
 
             try {
                 $session = new Zend_Session_Namespace('aberturaProcesso');
-                $postData['proprietarioId'] = $postData['origem'];
+                $postData['proprietarioId'] = $postData['protocoloOrigem'];
                 $session->formDadosGeraisProcesso = $postData;
                 $this->_redirectFormularioEnvolvido($this->_getIdTipoProcessoUrl());
             }
