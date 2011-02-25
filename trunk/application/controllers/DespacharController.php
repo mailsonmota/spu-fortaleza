@@ -21,8 +21,8 @@ class DespacharController extends BaseTramitacaoController
                 try {
                     $postData = $this->getRequest()->getPost();
                     
-                    $processoService = new ProcessoService($this->getTicket());
-                    $processoService->comentarVarios($this->getRequest()->getPost());
+                    $tramitacaoService = new TramitacaoService($this->getTicket());
+                    $tramitacaoService->comentarVarios($this->getRequest()->getPost());
                     
                     $arquivoService = new ArquivoService($this->getTicket());
                     
