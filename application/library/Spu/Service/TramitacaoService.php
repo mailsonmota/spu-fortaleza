@@ -53,9 +53,8 @@ class TramitacaoService extends ProcessoService
 	public function tramitar($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/tramitar";
-        $url = $this->addAlfTicketUrl($url);
         
-        $result = $this->_doPostRequest($url, $postData);
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
@@ -66,9 +65,8 @@ class TramitacaoService extends ProcessoService
     public function tramitarVarios($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/tramitarProcessos";
-        $url = $this->addAlfTicketUrl($url);
         
-        $result = $this->_doPostRequest($url, $postData);
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
@@ -79,9 +77,8 @@ class TramitacaoService extends ProcessoService
     public function receberVarios($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/receber";
-        $url = $this->addAlfTicketUrl($url);
         
-        $result = $this->_doPostRequest($url, $postData);
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
@@ -92,9 +89,8 @@ class TramitacaoService extends ProcessoService
     public function tramitarExternos($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/tramitarExternos";
-        $url = $this->addAlfTicketUrl($url);
         
-        $result = $this->_doPostRequest($url, $postData);
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
@@ -105,9 +101,8 @@ class TramitacaoService extends ProcessoService
     public function retornarExternos($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/retornarExternos";
-        $url = $this->addAlfTicketUrl($url);
         
-        $result = $this->_doPostRequest($url, $postData);
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
@@ -118,9 +113,8 @@ class TramitacaoService extends ProcessoService
 	public function cancelarEnvios($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/cancelarEnvios";
-        $url = $this->addAlfTicketUrl($url);
         
-        $result = $this->_doPostRequest($url, $postData);
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
@@ -131,9 +125,8 @@ class TramitacaoService extends ProcessoService
 	public function arquivarVarios($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/arquivar";
-        $url = $this->addAlfTicketUrl($url);
         
-        $result = $this->_doPostRequest($url, $postData);
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
@@ -144,9 +137,8 @@ class TramitacaoService extends ProcessoService
     public function reabrirVarios($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/reabrir";
-        $url = $this->addAlfTicketUrl($url);
         
-        $result = $this->_doPostRequest($url, $postData);
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
@@ -157,9 +149,8 @@ class TramitacaoService extends ProcessoService
     public function comentarVarios($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/comentar";
-        $url = $this->addAlfTicketUrl($url);
         
-        $result = $this->_doPostRequest($url, $postData);
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
