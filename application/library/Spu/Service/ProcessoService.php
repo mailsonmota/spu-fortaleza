@@ -77,7 +77,7 @@ class ProcessoService extends BaseService
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/get/$nodeUuid";
         
-        $result = $$this->_doAuthenticatedGetRequest($url);
+        $result = $this->_doAuthenticatedGetRequest($url);
         
         $processoHash = array_pop(array_pop($result['Processo'][0])); 
         return $this->_getProcessoDetalhado($this->loadFromHash($processoHash));
@@ -87,7 +87,7 @@ class ProcessoService extends BaseService
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/historico/get/$nodeUuid";
         
-        $result = $$this->_doAuthenticatedGetRequest($url);
+        $result = $this->_doAuthenticatedGetRequest($url);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
