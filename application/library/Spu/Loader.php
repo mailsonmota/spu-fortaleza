@@ -21,12 +21,12 @@ class Loader
     
     public static function loadClassification($classFileName)
     {
-        Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/Classification/');
+        Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/Entity/Classification/');
     }
     
     public static function loadAspect($classFileName)
     {
-        Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/Aspect/');
+        Zend_Loader::loadClass($classFileName, self::MAIN_FOLDER . '/Entity/Aspect/');
     }
     
     public static function loadAlfrescoApiClass($className)
