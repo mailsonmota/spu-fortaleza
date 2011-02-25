@@ -1,5 +1,5 @@
 <?php
-require_once 'ProcessoService';
+require_once 'ProcessoService.php';
 class TramitacaoService extends ProcessoService
 {
 	public function getCaixaEntrada($offset, $pageSize, $filter)
