@@ -59,6 +59,18 @@ class BaseService
         return $value;
     }
     
+    protected function _doAuthenticatedPostRequest($url, $postData)
+    {
+    	$url = $this->addAlfTicketUrl($url);
+    	return $this->_doPostRequest($url, $postData);
+    }
+    
+    protected function _doAuthenticatedGetRequest($url)
+    {
+    	$url = $this->addAlfTicketUrl($url);
+    	return $this->_doGetRequest($url);
+    }
+    
     protected function _doPostRequest($url, $postData)
     {
     	$curlClient = $this->_getCurlClient();

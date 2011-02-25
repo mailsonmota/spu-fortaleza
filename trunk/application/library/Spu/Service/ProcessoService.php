@@ -22,7 +22,6 @@ class ProcessoService extends BaseService
                                     . "/{$processo->manifestante->cpf}" 
                                     . "/{$processo->id}" 
                                     . "/{$processo->assunto->id}";
-        $url = $this->addAlfTicketUrl($url);
         
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
@@ -36,7 +35,7 @@ class ProcessoService extends BaseService
     
     protected function _getResultFromUrl($url)
     {
-        $result = $this->_doGetRequest($url);
+        $result = $this->_doAuthenticatedGetRequest($url);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
@@ -47,9 +46,8 @@ class ProcessoService extends BaseService
     public function abrirProcesso($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/abrir";
-        $url = $this->addAlfTicketUrl($url);
         
-        $result = $this->_doPostRequest($url, $postData);
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
@@ -78,9 +76,8 @@ class ProcessoService extends BaseService
     public function getProcesso($nodeUuid)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/get/$nodeUuid";
-        $url = $this->addAlfTicketUrl($url);
         
-        $result = $$this->_doGetRequest($url);
+        $result = $$this->_doAuthenticatedGetRequest($url);
         
         $processoHash = array_pop(array_pop($result['Processo'][0])); 
         return $this->_getProcessoDetalhado($this->loadFromHash($processoHash));
@@ -89,9 +86,8 @@ class ProcessoService extends BaseService
     public function getHistorico($nodeUuid)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/historico/get/$nodeUuid";
-        $url = $this->addAlfTicketUrl($url);
         
-        $result = $$this->_doGetRequest($url);
+        $result = $$this->_doAuthenticatedGetRequest($url);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
@@ -106,9 +102,8 @@ class ProcessoService extends BaseService
     public function incorporar($data)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/incorporar";
-        $url = $this->addAlfTicketUrl($url);
         
-        $result = $this->_doPostRequest($url, $data);
+        $result = $this->_doAuthenticatedPostRequest($url, $data);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
@@ -119,9 +114,8 @@ class ProcessoService extends BaseService
     public function consultar($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/consultar";
-        $url = $this->addAlfTicketUrl($url);
         
-        $result = $this->_doPostRequest($url, $postData);
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
@@ -132,7 +126,6 @@ class ProcessoService extends BaseService
     public function getProcessosParalelos($processoId)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/paralelos/$processoId";
-        $url = $this->addAlfTicketUrl($url);
         
         return $this->_getProcessosFromUrl($url);
     }
