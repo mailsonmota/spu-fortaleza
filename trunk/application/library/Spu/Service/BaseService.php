@@ -58,4 +58,21 @@ class BaseService
         }
         return $value;
     }
+    
+    protected function _doPostRequest($url, $postData)
+    {
+    	$curlClient = $this->_getCurlClient();
+    	return $curlClient->doPostRequest($url, $postData);
+    }
+    
+    protected function _doGetRequest($url)
+    {
+    	$curlClient = $this->_getCurlClient();
+    	return $curlClient->doGetRequest($url);
+    }
+    
+    protected function _getCurlClient()
+    {
+    	return new CurlClient();
+    }
 }
