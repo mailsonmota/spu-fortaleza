@@ -36,9 +36,7 @@ class ProcessoService extends BaseService
     
     protected function _getResultFromUrl($url)
     {
-        $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url);
-        
+        $result = $this->_doGetRequest($url);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
@@ -51,16 +49,12 @@ class ProcessoService extends BaseService
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/abrir";
         $url = $this->addAlfTicketUrl($url);
         
-        $curlObj = new CurlClient();
-        
-        $result = $curlObj->doPostRequest($url, $postData);
-        
+        $result = $this->_doPostRequest($url, $postData);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
         
         $processo = $this->loadFromHash(array_pop(array_pop($result['Processo'][0])));
-        
         return $this->_getProcessoDetalhado($processo);
     }
     
@@ -86,14 +80,10 @@ class ProcessoService extends BaseService
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/get/$nodeUuid";
         $url = $this->addAlfTicketUrl($url);
         
-        $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url);
+        $result = $$this->_doGetRequest($url);
         
         $processoHash = array_pop(array_pop($result['Processo'][0])); 
-        
-        $processo = $this->_getProcessoDetalhado($this->loadFromHash($processoHash));
-        
-        return $processo;
+        return $this->_getProcessoDetalhado($this->loadFromHash($processoHash));
     }
     
     public function getHistorico($nodeUuid)
@@ -101,9 +91,7 @@ class ProcessoService extends BaseService
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/historico/get/$nodeUuid";
         $url = $this->addAlfTicketUrl($url);
         
-        $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url);
-        
+        $result = $$this->_doGetRequest($url);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
@@ -120,9 +108,7 @@ class ProcessoService extends BaseService
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/incorporar";
         $url = $this->addAlfTicketUrl($url);
         
-        $curlObj = new CurlClient();
-        $result = $curlObj->doPostRequest($url, $data);
-        
+        $result = $this->_doPostRequest($url, $data);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
@@ -135,9 +121,7 @@ class ProcessoService extends BaseService
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/consultar";
         $url = $this->addAlfTicketUrl($url);
         
-        $curlObj = new CurlClient();
-        $result = $curlObj->doPostRequest($url, $postData);
-        
+        $result = $this->_doPostRequest($url, $postData);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
