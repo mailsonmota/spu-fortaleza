@@ -6,8 +6,8 @@ class EncaminharController extends BaseTramitacaoController
     {
         if ($this->getRequest()->isPost()) {
             try {
-                $processoService = new ProcessoService($this->getTicket());
-                $processoService->tramitarVarios($this->getRequest()->getPost());
+                $tramitacaoService = new TramitacaoService($this->getTicket());
+                $tramitacaoService->tramitarVarios($this->getRequest()->getPost());
                 $this->setSuccessMessage('Processos tramitados com sucesso.');
                 $this->_redirectEmAnalise();
             } catch (Exception $e) {
@@ -46,8 +46,8 @@ class EncaminharController extends BaseTramitacaoController
     {
         if ($this->getRequest()->isPost()) {
             try {
-                $processo = new Processo($this->getTicket());
-                $processo->tramitarExternos($this->getRequest()->getPost());
+                $tramitacaoService = new TramitacaoService($this->getTicket());
+                $tramitacaoService->tramitarExternos($this->getRequest()->getPost());
                 $this->setSuccessMessage('Processos tramitados com sucesso.');
                 $this->_redirectEmAnalise();
             } catch (Exception $e) {

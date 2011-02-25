@@ -1,7 +1,7 @@
 <?php
 require_once 'BaseDataTablesController.php';
-Loader::loadService('ProcessoService');
-Loader::loadService('CopiaProcessoService');
+Loader::loadService('TramitacaoService');
+Loader::loadService('CopiaTramitacaoService');
 class TramitacaoAjaxController extends BaseDataTablesController
 {
     public function entradaAction()
@@ -16,10 +16,10 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaEntrada()
     {
         try {
-            $processoService = new ProcessoService($this->getTicket());
-            $processos = $processoService->getCaixaEntrada($this->_getOffset(),
-                                                           $this->_getPageSize(),
-                                                           $this->_getSearch());
+            $tramitacaoService = new TramitacaoService($this->getTicket());
+            $processos = $tramitacaoService->getCaixaEntrada($this->_getOffset(),
+                                                             $this->_getPageSize(),
+                                                             $this->_getSearch());
             
             return $this->_convertProcessosToDataTablesRow($processos);
         } catch (Exception $e) {
@@ -67,8 +67,8 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaAnalise()
     {
         try {
-            $processoService = new ProcessoService($this->getTicket());
-            $processos = $processoService->getCaixaAnalise($this->_getOffset(),
+            $tramitacaoService = new TramitacaoService($this->getTicket());
+            $processos = $tramitacaoService->getCaixaAnalise($this->_getOffset(),
                                                            $this->_getPageSize(),
                                                            $this->_getSearch());
             
@@ -90,7 +90,7 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCopias()
     {
         try {
-            $copiaService = new CopiaProcessoService($this->getTicket());
+            $copiaService = new CopiaTramitacaoService($this->getTicket());
             $copias = $copiaService->getCopias($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
             
             return $this->_convertCopiasToDataTablesRow($copias);
@@ -132,8 +132,8 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaArquivo()
     {
         try {
-            $processoService = new ProcessoService($this->getTicket());
-            $processos = $processoService->getCaixaArquivo($this->_getOffset(),
+            $tramitacaoService = new TramitacaoService($this->getTicket());
+            $processos = $tramitacaoService->getCaixaArquivo($this->_getOffset(),
                                                            $this->_getPageSize(),
                                                            $this->_getSearch());
             
@@ -156,8 +156,8 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaSaida()
     {
         try {
-            $processoService = new ProcessoService($this->getTicket());
-            $processos = $processoService->getCaixaSaida($this->_getOffset(),
+            $tramitacaoService = new TramitacaoService($this->getTicket());
+            $processos = $tramitacaoService->getCaixaSaida($this->_getOffset(),
                                                          $this->_getPageSize(),
                                                          $this->_getSearch());
             
@@ -199,8 +199,8 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaEnviados()
     {
         try {
-            $processoService = new ProcessoService($this->getTicket());
-            $processos = $processoService->getCaixaEnviados($this->_getOffset(),
+            $tramitacaoService = new TramitacaoService($this->getTicket());
+            $processos = $tramitacaoService->getCaixaEnviados($this->_getOffset(),
                                                             $this->_getPageSize(),
                                                             $this->_getSearch());
             

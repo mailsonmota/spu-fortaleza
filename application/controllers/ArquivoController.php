@@ -26,8 +26,8 @@ class ArquivoController extends BaseTramitacaoController
     {
         if ($this->getRequest()->isPost()) {
             try {
-                $processoService = new ProcessoService($this->getTicket());
-                $processoService->arquivarVarios($this->getRequest()->getPost());
+                $tramitacaoService = new TramitacaoService($this->getTicket());
+                $tramitacaoService->arquivarVarios($this->getRequest()->getPost());
                 $this->setSuccessMessage('Processos arquivados com sucesso.');
                 $this->_redirectArquivo();
             } catch (Exception $e) {
@@ -74,8 +74,8 @@ class ArquivoController extends BaseTramitacaoController
     {
         if ($this->getRequest()->isPost()) {
             try {
-                $processoService = new ProcessoService($this->getTicket());
-                $processoService->reabrirVarios($this->getRequest()->getPost());
+                $tramitacaoService = new TramitacaoService($this->getTicket());
+                $tramitacaoService->reabrirVarios($this->getRequest()->getPost());
                 $this->setSuccessMessage('Processos reabertos com sucesso.');
                 $this->_redirectEmAnalise();
             } catch (Exception $e) {

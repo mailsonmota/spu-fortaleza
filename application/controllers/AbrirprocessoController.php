@@ -5,6 +5,7 @@ Loader::loadService('ProtocoloService');
 Loader::loadService('TipoProcessoService');
 Loader::loadService('AssuntoService');
 Loader::loadService('PrioridadeService');
+Loader::loadService('TramitacaoService');
 class AbrirprocessoController extends BaseController
 {
     public function indexAction()
@@ -218,8 +219,8 @@ class AbrirprocessoController extends BaseController
             $postData['copias'] = $session->formDadosGeraisProcesso['copias'];
 
             try {
-                $processoService = new ProcessoService($this->getTicket());
-                $processoService->tramitar($postData);
+                $tramitacaoService = new TramitacaoService($this->getTicket());
+                $tramitacaoService->tramitar($postData);
             } catch (AlfrescoApiException $e) {
                     throw $e;
             } catch (Exception $e) {

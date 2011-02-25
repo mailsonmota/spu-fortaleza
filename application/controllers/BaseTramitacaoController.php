@@ -1,4 +1,5 @@
 <?php
+Loader::loadService('TramitacaoService');
 class BaseTramitacaoController extends BaseController
 {
     public function init()

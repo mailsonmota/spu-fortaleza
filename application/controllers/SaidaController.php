@@ -11,8 +11,8 @@ class SaidaController extends BaseTramitacaoController
                     $session->processos = $this->getRequest()->getParam('processos');
                     $this->_redirectComprovanteEncaminhamento();
                 } else {
-                    $processoService = new ProcessoService($this->getTicket());
-                    $processoService->cancelarEnvios($this->getRequest()->getPost());
+                    $tramitacaoService = new TramitacaoService($this->getTicket());
+                    $tramitacaoService->cancelarEnvios($this->getRequest()->getPost());
                     $this->setSuccessMessage('Envios cancelados com sucesso.');
                     $this->_redirectEntrada();
                 }
