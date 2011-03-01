@@ -14,6 +14,10 @@ class ProtocoloService extends BaseService
         $curlObj = new CurlClient();
         $result = $curlObj->doGetRequest($url);
 
+        if ($this->isAlfrescoError($result)) {
+            throw new Exception($this->getAlfrescoErrorMessage($result));
+        } 
+        
         return $this->loadFromHash(array_pop(array_pop($result['Protocolo'][0])));
     }
 
