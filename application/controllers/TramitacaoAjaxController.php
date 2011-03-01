@@ -1,7 +1,7 @@
 <?php
 require_once 'BaseDataTablesController.php';
 Loader::loadService('TramitacaoService');
-Loader::loadService('CopiaTramitacaoService');
+Loader::loadService('CopiaProcessoService');
 class TramitacaoAjaxController extends BaseDataTablesController
 {
     public function entradaAction()

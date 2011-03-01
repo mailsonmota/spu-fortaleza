@@ -205,7 +205,7 @@ class AbrirprocessoController extends BaseController
         $session = new Zend_Session_Namespace('aberturaProcesso');
         
         $protocoloService = new ProtocoloService($this->getTicket());
-        $protocoloOrigem = $protocoloService->getProtocolo($session->formDadosGeraisProcesso['origem']);
+        $protocoloOrigem = $protocoloService->getProtocolo($session->formDadosGeraisProcesso['protocoloOrigem']);
         $this->view->origemNome = $protocoloOrigem->nome;
         
         if ($this->getRequest()->isPost()) {

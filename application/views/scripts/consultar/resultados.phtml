@@ -10,8 +10,8 @@ echo $this->pagenav()->closeList();
 
 <div id="article">
 	<?php 
-	$headerColumns = array('Nome', 'Ações');
-	$columns = array('numero');
+	$headerColumns = array('Nome', 'Data', 'Envolvido', 'Tipo de Processo', 'Assunto', 'Ações');
+	$columns = array('numero', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
         
 	$grid = new SimpleDataTable($this->processos, array('headerColumns' => $headerColumns, 'columns' => $columns));
 	$grid->addActionColumn('Editar', $this->simpleUrl('editar', $this->controller) . '/id/', 'id');

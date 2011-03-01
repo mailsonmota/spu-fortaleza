@@ -11,8 +11,8 @@ Loader::loadService('MovimentacaoService');
 Loader::loadService('AssuntoService');
 class ProcessoService extends BaseService
 {
-    private $_processoBaseUrl = 'spu/processo';
-    private $_processoTicketUrl = 'ticket';
+    protected $_processoBaseUrl = 'spu/processo';
+    protected $_processoTicketUrl = 'ticket';
     
     public function getCaixaAnaliseIncorporacao($processo)
     {
@@ -57,7 +57,7 @@ class ProcessoService extends BaseService
     }
     
     protected function _getProcessoDetalhado($processo) {
-        $arquivoService = new ArquivoService($this->getTicket());
+    	$arquivoService = new ArquivoService($this->getTicket());
         $processo->setRespostasFormulario($arquivoService->getRespostasFormulario($processo->id));
         
         $assuntoService = new AssuntoService($this->getTicket());
@@ -132,7 +132,7 @@ class ProcessoService extends BaseService
     
     public function loadFromHash($hash)
     {
-        $processo = new Processo();
+    	$processo = new Processo();
         $processo->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $processo->setNome($this->_getHashValue($hash, 'nome'));
         $processo->setCorpo($this->_getHashValue($hash, 'corpo'));
