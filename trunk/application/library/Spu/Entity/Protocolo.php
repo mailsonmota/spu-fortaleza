@@ -95,7 +95,7 @@ class Protocolo extends BaseEntity
     
     public function getPath()
     {
-        return $this->_path;
+        return ($this->_path) ? $this->_path : $this->getNome();
     }
 
     public function setPath($value)

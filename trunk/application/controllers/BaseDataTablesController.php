@@ -34,7 +34,7 @@ class BaseDataTablesController extends BaseAuthenticatedController
     
     protected function _getEcho()
     {
-        return $this->getRequest()->getParam('sEcho', null);
+        return $this->getRequest()->getParam('sEcho', 0);
     }
     
     protected function _getTotal()
@@ -72,6 +72,13 @@ class BaseDataTablesController extends BaseAuthenticatedController
         $output .= '}';
     
         return $output;
+    }
+    
+    public function postDispatch()
+    {
+    	$this->view->echo = $this->_getEcho();
+    	$this->view->totalRecords = $this->_getTotal();
+    	$this->view->totalDisplayRecords = $this->_getTotal();
     }
     
     protected function _getJsonErrorRow($e)

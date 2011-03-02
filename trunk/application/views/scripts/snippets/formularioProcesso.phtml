@@ -18,7 +18,10 @@
     if (!$this->tipoProcesso->tramitacao->isParalela()) {
         echo $this->ajaxSelect('Destino', 
                                'destino', 
-                               $this->simpleUrl('listar-destinos', 'protocolos-ajax'), 
+                               $this->simpleUrl('listar-destinos', 
+                               					'protocolos-ajax', 
+                               					array('protocoloOrigem' => $this->protocoloOrigemId, 
+                               						  'tipoprocesso' => $this->tipoProcesso->id)), 
                                array('Nome'), 
                                array('required' => true, 'linkName' => 'Estrutura'));
     } else {
