@@ -11,6 +11,11 @@
             echo $this->buttonlist()->open();
             echo $this->buttonlist()->button('Entrar');
             echo $this->buttonlist()->close(); 
+            
+            $js = '$(document).ready(function() {
+            	       $("#username").focus();
+				   });';
+            $this->headScript()->appendScript($js, 'text/javascript');
             ?>
         </form>
     </div>
