@@ -20,7 +20,7 @@ class Manifestante extends Spu_Aspect_Base
     
     public function getCpf()
     {
-        return $this->_cpf;
+        return $this->_mascararCpfCnpj($this->_cpf);
     }
     
     public function setCpf($value)
@@ -194,8 +194,38 @@ class Manifestante extends Spu_Aspect_Base
         return $contato; 
     }
     
-    protected function _desmascararCpf($cpf)
+    public function getCpfDesformatado()
     {
-        return preg_replace("'[.,-]'", '', $cpf);
+    	return $this->_desmascararCpfCnpj($this->_cpf);
+    }
+    
+    protected function _mascararCpfCnpj($cpfCnpj)
+    {
+    	if ($this->_isCpf($cpfCnpj)) {
+    		$cpfCnpj = $this->_mascararCpf($cpfCnpj);
+    	} elseif ($this->_isCnpj($cpfCnpj)) {
+    		$cpfCnpj = $this->_mascararCnpj($cpfCnpj);
+    	}
+    	return $cpfCnpj;
+    }
+    
+    protected function _isCpf($string)
+    {
+    	return ((is_numeric($string) AND strlen($string) == 11) OR (!is_numeric($string) AND strlen($string) == 14));
+    }
+    
+	protected function _isCnpj($string)
+    {
+    	return ((is_numeric($string) AND strlen($string) == 14) OR (!is_numeric($string) AND strlen($string) == 18));
+    }
+    
+    protected function _mascararCpf($cpf)
+    {
+    	return (is_numeric($cpf)) ? preg_replace('/(\d{3})(\d{3})(\d{3})(\d{2})/', '${1}.${2}.${3}-${4}', $cpf) : $cpf;
+    }
+    
+    protected function _desmascararCpfCnpj($cpfCnpj)
+    {
+        return preg_replace("'[.,-]'", '', $cpfCnpj);
     }
 }

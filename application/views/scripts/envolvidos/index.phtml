@@ -9,8 +9,8 @@ echo $this->pagenav()->closeList();
 <div id="article">
     <form action="" method="post">
         <?php 
-        $headerColumns = array('CPF', 'Nome', 'Bairro', 'Ações');
-        echo $this->ajaxDataTable($this->simpleUrl('entrada', 'tramitacao-ajax'), $headerColumns)->render();
+        $headerColumns = array('CPF', 'Nome', 'Ações');
+        echo $this->ajaxDataTable($this->simpleUrl('listar', 'envolvidos-ajax'), $headerColumns)->render();
         ?>
     </form>
 </div>

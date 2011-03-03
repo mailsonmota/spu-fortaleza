@@ -10,7 +10,7 @@ foreach ($this->processos as $processo) {
 		echo ',';
 	}
 	echo '[';
-	echo '"<input type=\'checkbox\' name=\'processos[]\' value=\'"' . $processo->id . '"\' />",';
+	echo '"<input type=\'checkbox\' name=\'processos[]\' value=\'' . $processo->id . '\' />",';
 	echo '"' . $processo->numero . '",';
 	echo '"' . $processo->data . '",';
 	echo '"' . $processo->nomeManifestante . '",';
@@ -22,7 +22,8 @@ foreach ($this->processos as $processo) {
 	}
 	
     $url = $this->simpleUrl('detalhes', 'processo', array('id' => $processo->id));
-	echo '<a href="' . $url . '">Detalhes</a>';
+	echo '"<a href=\'' . $url . '\'>Detalhes</a>"';
+	echo ']';
 }
 ?>
 ]

@@ -6,7 +6,7 @@ class EnvolvidosController extends BaseController
     {
     }
     
-    public function editarAction()
+    public function detalhesAction()
     {
         $cpf = $this->_getCpfFromUrl();
         
