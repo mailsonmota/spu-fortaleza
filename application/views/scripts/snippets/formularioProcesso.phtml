@@ -39,8 +39,16 @@
                                        $this->simpleUrl('listar-destinos', 'protocolos-ajax'), 
                                        array('id' => 'copias'));
     }
-    
     echo $this->fieldList()->textarea('Corpo', 'corpo', null, array('required' => true));
+    echo $this->fieldList()->close();
+    ?>
+</fieldset>
+
+<fieldset>
+    <legend>Folhas e Volumes</legend>
+    <?php
+    echo $this->fieldList()->open();
+    echo $this->fieldList()->textbox('Folhas', 'folhas_quantidade[]', null, array('id' => 'folhas'));
     echo $this->fieldList()->close();
     ?>
 </fieldset>
