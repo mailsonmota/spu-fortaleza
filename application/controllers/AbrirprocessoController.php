@@ -88,9 +88,7 @@ class AbrirprocessoController extends BaseController
                 $postData = $this->getRequest()->getPost();
                 $dataMerged = array_merge($formDadosGeraisProcesso, $postData);
                 $processoService = new ProcessoService($this->getTicket());
-                print '<pre>'; print json_encode($dataMerged); print '</pre>';
                 
-                exit;
                 try {
                     $processo = $processoService->abrirProcesso($dataMerged);
                 } catch (Exception $e) {
