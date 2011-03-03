@@ -3,7 +3,6 @@ class BaseDataTablesController extends BaseAuthenticatedController
 {
     const DEFAULT_PAGE_SIZE = 20;
     
-    protected $_rows = array();
     protected $_total = 0;
     
     protected function _getPageSize()
@@ -39,39 +38,7 @@ class BaseDataTablesController extends BaseAuthenticatedController
     
     protected function _getTotal()
     {
-        return ($this->_total) ? $this->_total : count($this->_rows);
-    }
-    
-    protected function _getOutput()
-    {
-        $output = '{';
-        $output .= '"sEcho": ' . intval($this->_getEcho()) . ', ';
-        $output .= '"iTotalRecords": ' . $this->_getTotal() . ', ';
-        $output .= '"iTotalDisplayRecords": ' . $this->_getTotal() . ', ';
-        $output .= '"aaData": [ ';
-        foreach ($this->_rows as $row) {
-            $output .= "[";
-            
-            foreach ($row as $key=>$value) {
-                $value = str_replace(array('"', "\n", "\r"), array('\\"', "\\n", "\\n"), $value);
-                $output .= '"' . $value . '",';
-            }
-            
-            /*
-             * Optional Configuration:
-             * If you need to add any extra columns (add/edit/delete etc) to the table, that aren't in the
-             * database - you can do it here
-            */
-        
-            $output = substr_replace($output, "", -1);
-            $output .= "],";
-        }
-        
-        $output = substr_replace($output, "", -1);
-        $output .= ']'; //Closing aaData
-        $output .= '}';
-    
-        return $output;
+        return ($this->_total) ? $this->_total : 0;
     }
     
     public function postDispatch()

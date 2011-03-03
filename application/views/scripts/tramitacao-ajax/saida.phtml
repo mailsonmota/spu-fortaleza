@@ -1,4 +1,8 @@
 <?php 
 header('Content-Type: application/json');
-echo $this->output;
+echo $this->partial('snippets/jsonDataTableProcessos.phtml', array('processos' => $this->processos, 
+																   'echo' => $this->echo, 
+																   'totalRecords' => $this->totalRecords, 
+																   'totalDisplayRecords' => $this->totalDisplayRecords, 
+																   'exibirDestino' => true));
 ?>

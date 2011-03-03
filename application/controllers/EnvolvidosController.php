@@ -4,8 +4,6 @@ class EnvolvidosController extends BaseController
 {
     public function indexAction()
     {
-        $manifestanteService = new ManifestanteService($this->getTicket());
-        $this->view->lista = $manifestanteService->getManifestantes();
     }
     
     public function editarAction()

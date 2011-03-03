@@ -100,11 +100,6 @@ class ProtocoloService extends BaseService
         $protocolo->setNome($this->_getHashValue($hash, 'nome'));
         $protocolo->setParent($this->_loadParentFromHash($this->_getHashValue($hash, 'parentId')));
         $protocolo->setDescricao($this->_getHashValue($hash, 'descricao'));
-        $protocolo->setOrgao($this->_getHashValue($hash, 'orgao'));
-        $protocolo->setLotacao($this->_getHashValue($hash, 'lotacao'));
-        $protocolo->setRecebePelosSubsetores(($this->_getHashValue($hash, 'recebePelosSubsetores') == '1') ? 
-            true : false);
-        $protocolo->setRecebeMalotes(($this->_getHashValue($hash, 'recebeMalotes') == '1') ? true : false);
         $protocolo->setNivel($this->_getHashValue($hash, 'nivel'));
         $protocolo->setPath($this->_getHashValue($hash, 'path'));
         
