@@ -4,6 +4,7 @@ $this->breadcrumbs()->addPage('Detalhes do Envolvido');
 echo $this->breadcrumbs()->render(); 
 
 echo $this->pagenav()->openList();
+echo $this->pagenav()->link($this->simpleUrl('index'), 'Voltar');
 echo $this->pagenav()->defaultHelperLinks();
 echo $this->pagenav()->closeList();
 ?>
