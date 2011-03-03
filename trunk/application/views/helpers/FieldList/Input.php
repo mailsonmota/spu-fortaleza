@@ -78,7 +78,7 @@ abstract class Zend_View_Helper_FieldList_Input extends Zend_View_Helper_FieldLi
     
     protected function _getId()
     {
-        return ($this->_getOption('id')) ? $this->_getOption['id'] : $this->_name;
+        return ($this->_getOption('id')) ? $this->_getOption('id') : $this->_name;
     }
     
     protected function _isRequired()
