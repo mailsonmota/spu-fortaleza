@@ -83,7 +83,7 @@ dd ul li {padding: 0.25em 0}
 dd ul li.even {background: #FAFAFA}
 dd ul li.odd {background: #F5F5F5}
 dd dl dt, dd dl dd {margin: 0 0 0.2em; padding-top: 0}
-dd dl dt {text-align: left;width: auto;margin-right: 0.25em}
+dd dl dt {text-align: left;width: 8em;margin-right: 0.25em}
 
 /* Code */
 code {margin-bottom: 1.25em; display: block}
