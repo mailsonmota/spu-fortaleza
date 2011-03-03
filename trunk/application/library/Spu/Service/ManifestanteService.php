@@ -6,9 +6,9 @@ class ManifestanteService extends BaseService
     private $_manifestantesBaseUrl = 'spu/manifestantes';
     private $_manifestantesTicketUrl = 'ticket';
     
-    public function getManifestantes()
+    public function getManifestantes($offset, $pageSize, $filter)
     {
-        $url = $this->getBaseUrl() . "/" . $this->_manifestantesBaseUrl . "/listar";
+        $url = $this->getBaseUrl() . "/" . $this->_manifestantesBaseUrl . "/listar/$offset/$pageSize/$filter";
         $url = $this->addAlfTicketUrl($url);
         
         $curlObj = new CurlClient();
