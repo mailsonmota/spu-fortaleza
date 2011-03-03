@@ -21,6 +21,7 @@ class EnvolvidosAjaxController extends BaseDataTablesController
 		$this->_helper->layout()->disableLayout();
 
 		$manifestanteService = new ManifestanteService($this->getTicket());
+		return $manifestanteService->getManifestantes(0, $this->_getPageSize(), $this->_getSearchTerm());
 	}
 	
 	protected function _getSearchTerm()
