@@ -53,6 +53,11 @@
 		            }
 		            $menu->addItem('Lotações', $this->simpleUrl('', 'protocolos'), 'Processos');
 		            $menu->addItem('Consulta', $this->simpleUrl('', 'consultar'), 'Processos');
+		            $menu->addItem('Processos Antigos', 
+		            			   'http://spu.fortaleza.ce.gov.br/spu/estrutura/index.php', 
+		            			   'Processos', 
+		            			   null, 
+		            			   array('target' => '_blank'));
                     
 		            $menu->addItem('Envio', $this->simpleUrl('enviar', 'malotes'), 'Malotes');
 		            $menu->addItem('Recebimento', $this->simpleUrl('receber', 'malotes'), 'Malotes');

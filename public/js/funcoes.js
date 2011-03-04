@@ -53,6 +53,12 @@ jQuery(document).ready(function() {
 	$('.autocomplete').blur(function() {
 		if ($(this).val() == '') $(this).val('Digite para buscar...').addClass('autocomplete-wait');
 	});
+	
+	//Retrocompatibilidade
+	$('a[href=http://spu.fortaleza.ce.gov.br/spu/estrutura/index.php]').click(function() {
+		window.open($(this).attr('href'), '', 'toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=yes,width=785,height=520,left=0,top=0');
+		return false;
+	});
 });
 
 /*function updateTable(table) {
