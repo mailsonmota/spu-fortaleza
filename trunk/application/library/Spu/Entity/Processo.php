@@ -30,6 +30,7 @@ class Processo extends BaseEntity
     protected $_arquivamento;
     protected $_arquivos;
     protected $_respostasFormulario;
+    protected $_folhas;
     
     public function getNodeRef()
     {
@@ -258,6 +259,16 @@ class Processo extends BaseEntity
     public function getNomeProtocolo()
     {
         return $this->getProtocolo()->getPath();
+    }
+    
+    public function getFolhas()
+    {
+        return $this->_folhas;
+    }
+    
+    public function setFolhas($data)
+    {
+        $this->_folhas = $data;
     }
     
     public function isArquivado()

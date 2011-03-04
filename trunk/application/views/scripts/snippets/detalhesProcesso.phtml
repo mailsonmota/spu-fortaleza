@@ -103,6 +103,33 @@
     </dl>
 </fieldset>
 
+<?php if ($this->processo->folhas): ?>
+<fieldset>
+    <legend>Folhas e Volumes</legend>
+    <dl>
+        <dt>Quantidade de Folhas:</dt>
+        <dd><?php echo $this->processo->folhas->quantidade ?></dd>
+        <?php if ($this->processo->folhas->volumes): ?>
+        <?php foreach ($this->processo->folhas->volumes as $volume): ?>
+        <dt>Volume:</dt>
+        <dd>
+            <dl>
+                <dt>Nome:</dt>
+                <dd><?php echo $volume->nome ?></dd>
+                <dt>Início:</dt>
+                <dd><?php echo $volume->inicio ?></dd>
+                <dt>Fim:</dt>
+                <dd><?php echo $volume->fim ?></dd>
+                <dt>Observação:</dt>
+                <dd><?php echo $volume->observacao ?></dd>                
+            </dl>
+        </dd>
+        <?php endforeach ?>
+        <?php endif ?>
+    </dl>
+</fieldset>
+<?php endif ?>
+
 <?php if ($this->processo->hasRespostasFormulario()): ?>
 <fieldset>
     <legend>Formulário do Assunto</legend>
