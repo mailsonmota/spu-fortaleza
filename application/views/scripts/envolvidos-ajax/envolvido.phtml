@@ -4,5 +4,15 @@ header('Content-Type: application/json');
 {
 "cpfCnpj":"<?php echo $this->manifestante->cpf ?>",
 "nome":"<?php echo $this->manifestante->nome ?>",
-"logradouro":"<?php echo $this->manifestante->logradouro ?>"
+"sexo":"<?php echo $this->manifestante->sexo ?>",
+"logradouro":"<?php echo $this->manifestante->logradouro ?>",
+"numero":"<?php echo $this->manifestante->numero ?>",
+"cep":"<?php echo $this->manifestante->cep ?>",
+"bairro":"<?php echo $this->manifestante->bairro->id ?>",
+"cidade":"<?php echo $this->manifestante->cidade ?>",
+"uf":"<?php echo $this->manifestante->uf ?>",
+"telefone":"<?php echo $this->manifestante->telefone ?>",
+"telefoneComercial":"<?php echo $this->manifestante->telefoneComercial ?>",
+"celular":"<?php echo $this->manifestante->celular ?>",
+"observacao":"<?php echo $this->manifestante->observacao ?>"
 }

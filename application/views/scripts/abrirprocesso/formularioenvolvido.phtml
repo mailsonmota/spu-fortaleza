@@ -29,7 +29,13 @@ $js = '$(document).ready(function() {
 	           if ($(this).val()) {
 	               $.getJSON("' . $this->simpleUrl('envolvido', 'envolvidos-ajax') . '?term=" + $(this).val(), function(data) {
 	                   $("#manifestanteNome").val(data.nome)
+	                   $("#manifestanteSexo").val(data.sexo)
 	                   $("#manifestanteLogradouro").val(data.logradouro)
+	                   $("#manifestanteNumero").val(data.numero)
+	                   $("#manifestanteCep").val(data.cep)
+	                   $("#manifestanteBairro").val(data.bairro)
+	                   $("#manifestanteCidade").val(data.cidade)
+	                   $("#manifestanteUf").val(data.uf)
 	               });
 	           }
 	       });
