@@ -6,10 +6,15 @@ class TipoProcessoService extends BaseService
     private $_tiposProcessoBaseUrl = 'spu/tiposprocesso';
     private $_tiposProcessoTicketUrl = 'ticket';
     
-    public function getTiposProcesso()
+    public function getTiposProcesso($origem = null)
     {
-        $url = $this->getBaseUrl() . "/" . $this->_tiposProcessoBaseUrl . "/listar";
-        $url = $this->addAlfTicketUrl($url);
+    	$url = $this->getBaseUrl() . "/" . $this->_tiposProcessoBaseUrl . "/listar";
+        
+    	if ($origem) {
+    		$url .= "/$origem";
+    	}
+    	
+    	$url = $this->addAlfTicketUrl($url);
         
         $curlObj = new CurlClient();
         $result = $curlObj->doGetRequest($url);
@@ -96,10 +101,12 @@ class TipoProcessoService extends BaseService
     protected function _loadManyFromHash($hash)
     {
         $tiposProcesso = array();
-        foreach ($hash as $hashTipoProcesso) {
-            $hashTipoProcesso = array_pop($hashTipoProcesso);
-            $tiposProcesso[] = $this->loadFromHash($hashTipoProcesso);
-        }
+		if ($hash) {
+	        foreach ($hash as $hashTipoProcesso) {
+	            $hashTipoProcesso = array_pop($hashTipoProcesso);
+	            $tiposProcesso[] = $this->loadFromHash($hashTipoProcesso);
+	        }
+		}
 
         return $tiposProcesso;
     }

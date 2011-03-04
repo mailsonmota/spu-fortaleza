@@ -1,0 +1,13 @@
+<?php 
+header('Content-Type: application/json');
+$output = '[';
+for ($i = 0; $i < count($this->tiposprocesso); $i++) {
+    if ($i > 0) {
+        $output .= ',';
+    }
+    $output .= '{"id":"'. $this->tiposprocesso[$i]->id . '", "name":"' . $this->tiposprocesso[$i]->nome . '"}';
+}
+$output .= ']';
+
+echo $output;
+?>
