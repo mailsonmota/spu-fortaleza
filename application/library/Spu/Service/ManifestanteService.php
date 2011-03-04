@@ -8,7 +8,7 @@ class ManifestanteService extends BaseService
     
     public function getManifestantes($offset, $pageSize, $filter)
     {
-        $url = $this->getBaseUrl() . "/" . $this->_manifestantesBaseUrl . "/listar/$offset/$pageSize/$filter";
+        $url = $this->getBaseUrl() . "/" . $this->_manifestantesBaseUrl . "/listar/$offset/$pageSize/?s=$filter";
         $url = $this->addAlfTicketUrl($url);
         
         $curlObj = new CurlClient();

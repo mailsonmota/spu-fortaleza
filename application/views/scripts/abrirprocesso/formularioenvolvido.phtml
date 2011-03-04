@@ -23,3 +23,16 @@ echo $this->pagenav()->closeList();
         ?>
     </form>
 </div>
+<?php 
+$js = '$(document).ready(function() {
+	       $("#manifestanteCpfCnpj").blur(function() {
+	           if ($(this).val()) {
+	               $.getJSON("' . $this->simpleUrl('envolvido', 'envolvidos-ajax') . '?term=" + $(this).val(), function(data) {
+	                   $("#manifestanteNome").val(data.nome)
+	                   $("#manifestanteLogradouro").val(data.logradouro)
+	               });
+	           }
+	       });
+	   });';
+$this->headScript()->appendScript($js, 'text/javascript');
+?>
