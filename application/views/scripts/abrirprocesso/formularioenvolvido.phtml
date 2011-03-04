@@ -28,14 +28,20 @@ $js = '$(document).ready(function() {
 	       $("#manifestanteCpfCnpj").blur(function() {
 	           if ($(this).val()) {
 	               $.getJSON("' . $this->simpleUrl('envolvido', 'envolvidos-ajax') . '?term=" + $(this).val(), function(data) {
-	                   $("#manifestanteNome").val(data.nome)
-	                   $("#manifestanteSexo").val(data.sexo)
-	                   $("#manifestanteLogradouro").val(data.logradouro)
-	                   $("#manifestanteNumero").val(data.numero)
-	                   $("#manifestanteCep").val(data.cep)
-	                   $("#manifestanteBairro").val(data.bairro)
-	                   $("#manifestanteCidade").val(data.cidade)
-	                   $("#manifestanteUf").val(data.uf)
+	                   if (data) {
+		               	   $("#manifestanteNome").val(data.nome)
+		                   $("#manifestanteSexo").val(data.sexo)
+		                   $("#manifestanteLogradouro").val(data.logradouro)
+		                   $("#manifestanteNumero").val(data.numero)
+		                   $("#manifestanteCep").val(data.cep)
+		                   $("#manifestanteBairro").val(data.bairro)
+		                   $("#manifestanteCidade").val(data.cidade)
+		                   $("#manifestanteUf").val(data.uf)
+		                   $("#manifestanteFoneResidencial").val(data.telefone)
+		                   $("#manifestanteFoneComercial").val(data.celular)
+		                   $("#manifestanteFoneCelular").val(data.celular)
+		                   $("#manifestanteObs").val(data.observacao)
+		               }
 	               });
 	           }
 	       });
