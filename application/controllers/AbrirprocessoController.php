@@ -18,16 +18,22 @@ class AbrirprocessoController extends BaseController
                                              'tipoprocesso' => $this->_getIdTipoProcessoPost()));
         }
 
-        $listaTiposProcesso = $this->_getListaTiposProcesso();
         $listaOrigens = $this->_getListaOrigens();
         
-        if (!$listaTiposProcesso) {
+    	$listaTiposProcesso = $this->_getListaTiposProcesso($this->_getIdOrigemPreferencial($listaOrigens));
+        
+    	if (!$listaTiposProcesso) {
         	$this->setMessageForTheView('Não será possível abrir nenhum processo, pois você não tem 
         	                              acesso à nenhum Tipo de Processo.');
         }
         
         $this->view->listaTiposProcesso = $listaTiposProcesso;
         $this->view->listaOrigens = $listaOrigens;
+    }
+    
+    protected function _getIdOrigemPreferencial($listaOrigens)
+    {
+    	return (is_array($listaOrigens)) ? key($listaOrigens) : null;
     }
 
     public function formularioAction()
@@ -249,10 +255,10 @@ class AbrirprocessoController extends BaseController
         return ($this->getRequest()->getParam('origem')) ? $this->getRequest()->getParam('origem') : null;
     }
     
-    protected function _getListaTiposProcesso()
+    protected function _getListaTiposProcesso($origemId)
     {
         $tipoProcessoService = new TipoProcessoService($this->getTicket());
-        $tiposProcesso = $tipoProcessoService->getTiposProcesso();
+        $tiposProcesso = $tipoProcessoService->getTiposProcesso($origemId);
         $listaTiposProcesso = array();
         foreach ($tiposProcesso as $tipoProcesso) {
             $listaTiposProcesso[$tipoProcesso->id] = $tipoProcesso->nome;

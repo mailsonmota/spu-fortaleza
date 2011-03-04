@@ -22,7 +22,7 @@ echo $this->pagenav()->closeList();
             echo $this->fieldList()->select('Origem', 'origem', $this->listaOrigens, null, array('required' => true));
         } elseif (count($this->listaOrigens) == 1) {
             $keys = array_keys($this->listaOrigens);
-            echo '<input type="hidden" name="origem" value="' . $keys[0] . '" />';
+            echo '<input type="hidden" name="origem" id="origem" value="' . $keys[0] . '" />';
         }
         
         echo $this->fieldList()->close();
@@ -33,3 +33,25 @@ echo $this->pagenav()->closeList();
         ?>
     </form>
 </div>
+<?php 
+$js = '$(document).ready(function() {
+	       if ($("#origem option").size() > 0) {
+	           $("#origem").change(function() {
+	               $.ajax({
+                       dataType: "json",
+                       url:"' . $this->simpleUrl('listar-por-protocolo', 'tiposprocesso-ajax') . '/protocolo/" + $(this).val(),
+                       success: function(data) {
+                           $("#origem option").remove();
+                           $(data).each(function(i, value) {
+                               $("#origem").append("<option value=\"" + value.id + "\">" + value.name + "</option>");
+                           });
+                       }, 
+                       error: function(data) {
+                           $("#origem option").remove();
+                       }
+                   });
+	           });
+	       }
+	   });';
+$this->headScript()->appendScript($js, 'text/javascript');
+?>
