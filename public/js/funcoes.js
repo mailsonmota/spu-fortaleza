@@ -1,32 +1,5 @@
 jQuery(document).ready(function() {
-	
-	/* Folhas e Volumes */
-	var html_adicionar_volume = '<a href="#" class="adicionar-volume">Adicionar Volume</a>';
-	var html_volume_input_list = '<dl>';
-	html_volume_input_list += '<dt>Nome:</dt><dd><input type="text" name="folhas_volumes_nome[]" /></dd>';
-	html_volume_input_list += '<dt>Início:</dt><dd><input type="text" name="folhas_volumes_inicio[]" /></dd>';
-	html_volume_input_list += '<dt>Fim:</dt><dd><input type="text" name="folhas_volumes_fim[]" /></dd>';
-    html_volume_input_list += '<dt>Descrição:</dt><dd><input type="text" name="folhas_volumes_descricao[]" /></dd>';
-	html_volume_input_list += '</dl>';
-	
-	var html_volume_remover = '<a href="#" class="remover-volume">Remover este volume</a>'
-	
-	var html_volume = '<dt>Volume:</dt><dd>' + html_volume_input_list + html_volume_remover + '</dd>';
-	
-	/* folhas_volume_quantidade
-	 * folhas_volume_nome
-	 * folhas_volume_descricao */
-	$('#folhas').parent().append(html_adicionar_volume);
-	$('.adicionar-volume').click(function() {
-		$(this).parent().parent().append(html_volume);
-		$('.remover-volume').click(function() {
-			$(this).parent().prev().remove();
-			$(this).parent().remove();
-			return false;
-		});
-		return false; // Impede o recarregamento da página
-	});
-	
+		
 	createUncheckedSelector();
 	triggerEnterButton();
 	
