@@ -1,6 +1,8 @@
 <?php
 require_once('BaseService.php');
 Loader::loadEntity('Processo');
+Loader::loadEntity('Folhas');
+Loader::loadEntity('Volume');
 Loader::loadService('TipoProcessoService');
 Loader::loadService('PrioridadeService');
 Loader::loadService('StatusService');
@@ -80,6 +82,7 @@ class ProcessoService extends BaseService
         $result = $this->_doAuthenticatedGetRequest($url);
         
         $processoHash = array_pop(array_pop($result['Processo'][0])); 
+        
         return $this->_getProcessoDetalhado($this->loadFromHash($processoHash));
     }
     
@@ -151,8 +154,30 @@ class ProcessoService extends BaseService
         $processo->setArquivamento($this->_loadArquivamentoFromHash($this->_getHashValue($hash, 'arquivamento')));
         $processo->setMovimentacoes($this->_loadMovimentacoesFromHash($this->_getHashValue($hash, 
                                                                                          'ultimaMovimentacao')));
+        if (!empty($hash['folhas'])) {
+            $processo->setFolhas($this->_loadFolhasFromHash($hash['folhas']));
+        }
         
         return $processo;
+    }
+    
+    protected function _loadFolhasFromHash($hash)
+    {
+        $folhas = new Folhas();
+        $folhas->setQuantidade($hash['quantidade']);
+        
+        $volumesObjectArray = array();
+        foreach ($hash['volumes'] as $volumeHash) {
+            $volume = new Volume();
+            $volume->setNome($volumeHash['nome']);
+            $volume->setInicio($volumeHash['inicio']);
+            $volume->setFim($volumeHash['fim']);
+            $volume->setObservacao($volumeHash['observacao']);
+            $volumesObjectArray[] = $volume;
+        }
+        
+        $folhas->setVolumes($volumesObjectArray);
+        return $folhas;
     }
     
     protected function _loadPrioridadeFromHash($hash)
