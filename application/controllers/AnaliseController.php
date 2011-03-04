@@ -5,35 +5,43 @@ class AnaliseController extends BaseTramitacaoController
     public function indexAction()
     {
         if ($this->getRequest()->isPost()) {
-            $processosSelecionados = $this->getRequest()->getParam('processos');
-            
-            if ($this->_isPostComprovanteRecebimento()) {
-                $session = new Zend_Session_Namespace('comprovanteRecebimento');
-                $session->processos = $processosSelecionados;
-                $this->_redirectComprovanteRecebimento();
-            } elseif ($this->_isPostEncaminhamento()) {
-                $session = new Zend_Session_Namespace('encaminhar');
-                $session->processos = $processosSelecionados;
-                $this->_redirectEncaminhar();
-            } elseif ($this->_isPostArquivamento()) {
-                $session = new Zend_Session_Namespace('arquivar');
-                $session->processos = $processosSelecionados;
-                $this->_redirectArquivar();
-            } elseif ($this->_isPostEncaminhamentoExterno()) {
-                $session = new Zend_Session_Namespace('encaminharExternos');
-                $session->processos = $processosSelecionados;
-                $this->_redirectEncaminharExternos();
-            } elseif ($this->_isPostCriarDespacho()) {
-                /*
-                 * Apaga a lista de arquivos na sessão utilizada pelo controlador 'Despachar'
-                 */
-                $sessionDespachar = new Zend_Session_Namespace('despachar');
-                unset($sessionDespachar->filesToUpload);
-                
-                $session = new Zend_Session_Namespace('comentar');
-                $session->processos = $processosSelecionados;
-                $this->_redirectComentar();
-            }
+        	try {
+	            $processosSelecionados = $this->getRequest()->getParam('processos');
+	            
+	            if (!$processosSelecionados) {
+	            	throw new Exception('Por favor, selecione pelo menos um processo.');
+	            }
+	            
+	            if ($this->_isPostComprovanteRecebimento()) {
+	                $session = new Zend_Session_Namespace('comprovanteRecebimento');
+	                $session->processos = $processosSelecionados;
+	                $this->_redirectComprovanteRecebimento();
+	            } elseif ($this->_isPostEncaminhamento()) {
+	                $session = new Zend_Session_Namespace('encaminhar');
+	                $session->processos = $processosSelecionados;
+	                $this->_redirectEncaminhar();
+	            } elseif ($this->_isPostArquivamento()) {
+	                $session = new Zend_Session_Namespace('arquivar');
+	                $session->processos = $processosSelecionados;
+	                $this->_redirectArquivar();
+	            } elseif ($this->_isPostEncaminhamentoExterno()) {
+	                $session = new Zend_Session_Namespace('encaminharExternos');
+	                $session->processos = $processosSelecionados;
+	                $this->_redirectEncaminharExternos();
+	            } elseif ($this->_isPostCriarDespacho()) {
+	                /*
+	                 * Apaga a lista de arquivos na sessão utilizada pelo controlador 'Despachar'
+	                 */
+	                $sessionDespachar = new Zend_Session_Namespace('despachar');
+	                unset($sessionDespachar->filesToUpload);
+	                
+	                $session = new Zend_Session_Namespace('comentar');
+	                $session->processos = $processosSelecionados;
+	                $this->_redirectComentar();
+	            }
+	        } catch (Exception $e) {
+	            $this->setMessageForTheView($e->getMessage(), 'error');
+	        }
         }
     }
     
