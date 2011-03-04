@@ -3,6 +3,7 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
 {
     private $_items = array();
     private $_autoOrder = FALSE;
+    private $_options = array();
     
     public function mainmenu()
     {
@@ -21,7 +22,7 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
     
     public function addItem($name, $url, $group = NULL, $resource = NULL, array $options = array())
     {
-        $this->_items[$group][] = array('name' => $name, 'url' => $url, 'resource' => $resource);
+    	$this->_items[$group][] = array('name' => $name, 'url' => $url, 'resource' => $resource, 'options' => $options);
         
         return $this;
     }
@@ -66,7 +67,9 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
                 if ($this->isAllowed($item)) {
                     $url = $item['url'];
                     $name = $item['name'];
-                    $html .= "<li><a href='$url'>$name</a></li>";
+                    $target = $this->_getTarget($item['options']);
+                    $targetHtml = ($target) ? "target=\"$target\"" : '';
+                    $html .= "<li><a href='$url' $targetHtml>$name</a></li>";
                 }
             }
             
@@ -123,5 +126,10 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
         $authPlugin = Zend_Controller_Front::getInstance()->getPlugin('AuthPlugin');
 
         return $authPlugin;
+    }
+    
+    protected function _getTarget($options)
+    {
+    	return (isset($options['target'])) ? $options['target'] : null; 
     }
 }
