@@ -16,12 +16,17 @@ class EnvolvidosAjaxController extends BaseDataTablesController
 		return $manifestanteService->getManifestantes($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
 	}
 	
-	public function autocompleteAction()
+	public function envolvidoAction()
 	{
 		$this->_helper->layout()->disableLayout();
-
+		
+		$this->view->manifestante = $this->_getManifestante($this->_getSearchTerm());
+	}
+	
+	protected function _getManifestante($cpfCnpj)
+	{
 		$manifestanteService = new ManifestanteService($this->getTicket());
-		return $manifestanteService->getManifestantes(0, $this->_getPageSize(), $this->_getSearchTerm());
+		return $manifestanteService->getManifestante($cpfCnpj);
 	}
 	
 	protected function _getSearchTerm()

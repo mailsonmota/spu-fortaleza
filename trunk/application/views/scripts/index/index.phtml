@@ -10,4 +10,24 @@ echo $this->pagenav()->closeList();
     <p>
     	Bem-vindo, <b><?php echo $this->pessoa->nomeOuSobrenome ?></b>!
     </p>
+    <?php 
+    echo $this->fieldList()->open();
+    echo $this->fieldList()->textbox('CPF/CNPJ', 'cpfcnpj');
+    echo $this->fieldList()->textbox('Nome', 'nome');
+    echo $this->fieldList()->textbox('Logradouro', 'logradouro');
+    echo $this->fieldList()->close();
+    ?>
 </div>
+<?php 
+$js = '$(document).ready(function() {
+	       $("#cpfcnpj").blur(function() {
+	           if ($(this).val()) {
+	               $.getJSON("' . $this->simpleUrl('envolvido', 'envolvidos-ajax') . '?term=" + $(this).val(), function(data) {
+	                   $("#nome").val(data.nome)
+	                   $("#logradoudo").val(data.logradouro)
+	               });
+	           }
+	       });
+	   });';
+$this->headScript()->appendScript($js, 'text/javascript');
+?>

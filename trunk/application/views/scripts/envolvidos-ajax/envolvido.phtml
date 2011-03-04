@@ -1,0 +1,8 @@
+<?php 
+header('Content-Type: application/json');
+?>
+{
+"cpfCnpj":"<?php echo $this->manifestante->cpf ?>",
+"nome":"<?php echo $this->manifestante->nome ?>",
+"logradouro":"<?php echo $this->manifestante->logradouro ?>"
+}
