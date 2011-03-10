@@ -39,9 +39,10 @@ class AbrirprocessoController extends BaseController
     public function formularioAction()
     {
         try {
-            $protocoloOrigem = $this->_getProtocolo($this->_getIdProtocoloOrigemUrl());
+            $protocoloOrigemId = $this->_getIdProtocoloOrigemUrl();
+            $protocoloOrigem = $this->_getProtocolo($protocoloOrigemId);
             $tipoProcesso = $this->_getTipoProcesso($this->_getIdTipoProcessoUrl());
-            $listaTiposProcesso = $this->_getListaTiposProcesso(); // Pra quê?
+            //$listaTiposProcesso = $this->_getListaTiposProcesso(); // Pra quê?
             $listaAssuntos = $this->_getListaAssuntos($tipoProcesso, $protocoloOrigem);
             $listaBairros = $this->_getListaBairros();
             $listaTiposManifestante = $this->_getListaTiposManifestante($tipoProcesso);
@@ -70,7 +71,7 @@ class AbrirprocessoController extends BaseController
         }
 
         $this->view->tipoProcesso = $tipoProcesso;
-        $this->view->listaTiposProcesso = $listaTiposProcesso;
+        //$this->view->listaTiposProcesso = $listaTiposProcesso;
         $this->view->listaAssuntos = $listaAssuntos;
         $this->view->listaBairros = $listaBairros;
         $this->view->listaTiposManifestante = $listaTiposManifestante;
@@ -309,7 +310,7 @@ class AbrirprocessoController extends BaseController
     protected function _getListaAssuntos(TipoProcesso $tipoProcesso, Protocolo $protocoloOrigem)
     {
         $assuntoService = new AssuntoService($this->getTicket());
-        $assuntos = $assuntoService->getAssuntosPorTipoProcesso($tipoProcesso->getId(), $procotoloOrigem->getId());
+        $assuntos = $assuntoService->getAssuntosPorTipoProcesso($tipoProcesso->getId(), $protocoloOrigem->getId());
         $listaAssuntos = array();
         foreach ($assuntos as $assunto) {
             $listaAssuntos[$assunto->id] = $assunto->nome;
