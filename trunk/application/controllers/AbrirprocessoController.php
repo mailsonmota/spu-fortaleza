@@ -44,7 +44,6 @@ class AbrirprocessoController extends BaseController
             $protocoloOrigem = $this->_getProtocolo($protocoloOrigemId);
             
             $tipoProcesso = $this->_getTipoProcesso($this->_getIdTipoProcessoUrl());
-            //$listaTiposProcesso = $this->_getListaTiposProcesso(); // Pra quê?
             $listaAssuntos = $this->_getListaAssuntos($tipoProcesso, $protocoloOrigem);
             $listaBairros = $this->_getListaBairros();
             $listaTiposManifestante = $this->_getListaTiposManifestante($tipoProcesso);
@@ -73,7 +72,6 @@ class AbrirprocessoController extends BaseController
         }
 
         $this->view->tipoProcesso = $tipoProcesso;
-        //$this->view->listaTiposProcesso = $listaTiposProcesso;
         $this->view->listaAssuntos = $listaAssuntos;
         $this->view->listaBairros = $listaBairros;
         $this->view->listaTiposManifestante = $listaTiposManifestante;
