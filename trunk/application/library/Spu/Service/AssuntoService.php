@@ -23,7 +23,7 @@ class AssuntoService extends BaseService
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listarportipoprocesso?tipoprocessoid=$idTipoProcesso";
         
         if ($origem) {
-            $url .= "&procotoloorigemid=$origem";
+            $url .= "&protocoloorigemid=$origem";
         }
         
         $url = $this->addAlfTicketUrl($url);
