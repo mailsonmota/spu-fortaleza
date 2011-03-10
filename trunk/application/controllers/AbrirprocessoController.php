@@ -40,7 +40,9 @@ class AbrirprocessoController extends BaseController
     {
         try {
             $protocoloOrigemId = $this->_getIdProtocoloOrigemUrl();
+            
             $protocoloOrigem = $this->_getProtocolo($protocoloOrigemId);
+            
             $tipoProcesso = $this->_getTipoProcesso($this->_getIdTipoProcessoUrl());
             //$listaTiposProcesso = $this->_getListaTiposProcesso(); // Pra quê?
             $listaAssuntos = $this->_getListaAssuntos($tipoProcesso, $protocoloOrigem);
