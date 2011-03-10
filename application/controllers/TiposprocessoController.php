@@ -19,27 +19,26 @@ class TiposprocessoController extends BaseController
         try {
             $tipoProcessoService = new TipoProcessoService($this->getTicket());
             $tipoProcesso = $tipoProcessoService->getTipoProcesso($id);
+            $listaTiposManifestante = $this->_getListaTiposManifestante();
             $listaTiposTramitacao = $this->_getListaTiposTramitacao();
             $listaTiposAbrangencia = $this->_getListaTiposAbrangencia();
-            $listaTiposManifestante = $this->_getListaTiposManifestante();
         } catch (Exception $e) {
             $this->setErrorMessage($e->getMessage());
             $this->_redirectListaTiposProcesso();
         }
         
         $this->view->tipoProcesso = $tipoProcesso;
-        $this->view->listaTiposTramitacao = $listaTiposTramitacao;
-        $this->view->listaTiposAbrangencia = $listaTiposAbrangencia;
         $this->view->listaTiposManifestante = $listaTiposManifestante;
         $this->view->tiposManifestante = $this->_getTiposManifestanteTipoProcesso($tipoProcesso);
+        $this->view->listaTiposTramitacao = $listaTiposTramitacao;
+        $this->view->listaTiposAbrangencia = $listaTiposAbrangencia;
         $this->view->id = $tipoProcesso->getId();
         $this->view->isEdit = true;
     }
     
     private function _getIdFromUrl()
     {
-        $id = $this->getRequest()->getParam('id');
-        return $id;
+        return $this->getRequest()->getParam('id');
     }
     
     protected function _getListaTiposTramitacao()
