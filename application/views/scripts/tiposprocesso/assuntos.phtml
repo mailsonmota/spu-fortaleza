@@ -13,7 +13,10 @@ endif;
 
 echo $this->pagenav()->openList(); 
 echo $this->pagenav()->link($this->simpleUrl('editar', $this->controller, array('id' => $this->id)), 'Voltar');
-echo $this->pagenav()->link($this->simpleUrl('inserir', 'assuntos', array('tipoprocesso' => $this->id) ), 'Inserir Outro Assunto');
+echo $this->pagenav()->link($this->simpleUrl('inserir',
+                                             'assuntos',
+                                             array('tipoprocesso' => $this->id)),
+                            'Inserir Outro Assunto');
 echo $this->pagenav()->defaultHelperLinks('assuntos.html');
 echo $this->pagenav()->closeList();
 ?>

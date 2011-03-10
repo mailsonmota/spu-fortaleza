@@ -20,14 +20,39 @@ echo $this->pagenav()->closeList();
     <form action="" method="post">
         <?php
         echo $this->fieldList()->open();
-        echo $this->fieldList()->textbox('Nome', 'titulo', $this->tipoProcesso->titulo, array('required' => true, 'length' => 90));
-        echo $this->fieldList()->checklist('Tipos de Manifestante', 'tiposmanifestante', $this->listaTiposManifestante, $this->tiposManifestante, array('required' => true));
-        echo $this->fieldList()->textbox('Letra', 'letra', $this->tipoProcesso->letra, array('required' => true, 'length' => 2));
-        echo $this->fieldList()->select('Tramitação', 'tramitacao', $this->listaTiposTramitacao, $this->tipoProcesso->tramitacao->id, array('required' => true));
-        echo $this->fieldList()->select('Abrangência', 'abrangencia', $this->listaTiposAbrangencia, $this->tipoProcesso->abrangencia->id, array('required' => true));
-        echo $this->fieldList()->checkbox('Simples', 'simples', $this->tipoProcesso->simples, array('required' => true));
-        echo $this->fieldList()->checkbox('Envolvido Sigiloso', 'envolvidoSigiloso', $this->tipoProcesso->envolvidoSigiloso);
-        echo $this->fieldList()->textarea('Observacao', 'observacao', $this->tipoProcesso->observacao);
+        echo $this->fieldList()->textbox('Nome',
+                                         'titulo',
+                                         $this->tipoProcesso->titulo,
+                                         array('required' => true, 'length' => 90));
+        echo $this->fieldList()->checklist('Tipos de Manifestante',
+                                           'tiposmanifestante',
+                                           $this->listaTiposManifestante,
+                                           $this->tiposManifestante,
+                                           array('required' => true));
+        echo $this->fieldList()->textbox('Letra',
+                                         'letra',
+                                         $this->tipoProcesso->letra,
+                                         array('required' => true, 'length' => 2));
+        echo $this->fieldList()->select('Tramitação',
+                                        'tramitacao',
+                                        $this->listaTiposTramitacao,
+                                        $this->tipoProcesso->tramitacao->id,
+                                        array('required' => true));
+        echo $this->fieldList()->select('Abrangência',
+                                        'abrangencia',
+                                        $this->listaTiposAbrangencia,
+                                        $this->tipoProcesso->abrangencia->id,
+                                        array('required' => true));
+        echo $this->fieldList()->checkbox('Simples',
+                                          'simples',
+                                          $this->tipoProcesso->simples,
+                                          array('required' => true));
+        echo $this->fieldList()->checkbox('Envolvido Sigiloso',
+                                          'envolvidoSigiloso',
+                                          $this->tipoProcesso->envolvidoSigiloso);
+        echo $this->fieldList()->textarea('Observacao',
+                                          'observacao',
+                                          $this->tipoProcesso->observacao);
         echo $this->fieldList()->close();
         
         echo $this->buttonlist()->open();
