@@ -39,13 +39,13 @@ class AbrirprocessoController extends BaseController
     public function formularioAction()
     {
         try {
+            $protocoloOrigem = $this->_getProtocolo($this->_getIdProtocoloOrigemUrl());
             $tipoProcesso = $this->_getTipoProcesso($this->_getIdTipoProcessoUrl());
-            $listaTiposProcesso = $this->_getListaTiposProcesso();
-            $listaAssuntos = $this->_getListaAssuntos($tipoProcesso);
+            $listaTiposProcesso = $this->_getListaTiposProcesso(); // Pra quê?
+            $listaAssuntos = $this->_getListaAssuntos($tipoProcesso, $protocoloOrigem);
             $listaBairros = $this->_getListaBairros();
             $listaTiposManifestante = $this->_getListaTiposManifestante($tipoProcesso);
             $listaPrioridades = $this->_getListaPrioridades();
-            $protocoloOrigemId = $this->_getIdProtocoloOrigemUrl();
         } catch (Exception $e) {
             $this->setErrorMessage($e->getMessage());
             $this->_redirectEscolhaTipoProcesso();
@@ -295,10 +295,21 @@ class AbrirprocessoController extends BaseController
         return $tipoProcesso;
     }
 
-    protected function _getListaAssuntos(TipoProcesso $tipoProcesso)
+    protected function _getProtocolo($protocoloId = null)
+    {
+        $protocoloService = new ProtocoloService($this->getTicket());
+        if ($protocoloId) {
+            $protocolo = $protocoloService->getProtocolo($protocoloId);
+        } else {
+            $protocolo = new Protocolo();
+        }
+        return $protocolo;
+    }
+    
+    protected function _getListaAssuntos(TipoProcesso $tipoProcesso, Protocolo $protocoloOrigem)
     {
         $assuntoService = new AssuntoService($this->getTicket());
-        $assuntos = $assuntoService->getAssuntosPorTipoProcesso($tipoProcesso->getId());
+        $assuntos = $assuntoService->getAssuntosPorTipoProcesso($tipoProcesso->getId(), $procotoloOrigem->getId());
         $listaAssuntos = array();
         foreach ($assuntos as $assunto) {
             $listaAssuntos[$assunto->id] = $assunto->nome;
