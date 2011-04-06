@@ -50,6 +50,9 @@ class AuthPlugin extends Zend_Controller_Plugin_Abstract
         
         $alfrescoLogin = new Alfresco_Rest_Login(BaseService::ALFRESCO_URL);
         $user = $this->getIdentity();
+        if (!$user) {
+        	return false;
+        }
         $alfrescoLogin->setTicket($user['ticket']);
         
         return $alfrescoLogin->validate();
