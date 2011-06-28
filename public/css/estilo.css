@@ -265,7 +265,9 @@ ol.historico li {margin-bottom:1em}
     text-shadow: 1px 1px white;
 }
 
-.dataTables_info {width: auto; float: right; font-style: italic; text-align: right}
+.paginate_button.disabled {display: none;}
+
+.dataTables_info {width: auto; float: right; font-style: italic; text-align: right; display: none}
 
 /* Identação */
 .indentedName {padding-left: 16px; background: url(../img/icons/child.png) no-repeat 0% 50%}
