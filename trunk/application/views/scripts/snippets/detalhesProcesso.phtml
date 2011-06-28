@@ -177,7 +177,7 @@
             </tr>
         </thead>
         <tbody>
-        <?php foreach ($processosParalelos as $processoParalelo): ?>
+        <?php foreach ($this->processosParalelos as $processoParalelo): ?>
             <tr>
                 <td><?php echo $processoParalelo->protocolo->path ?></td>
                 <td><?php echo $processoParalelo->movimentacoes[0]->data ?></td>

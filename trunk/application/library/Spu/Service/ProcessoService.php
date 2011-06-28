@@ -130,7 +130,7 @@ class ProcessoService extends BaseService
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/paralelos/$processoId";
         
-        return $this->_getProcessosFromUrl($url);
+        return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
     
     public function loadFromHash($hash)
