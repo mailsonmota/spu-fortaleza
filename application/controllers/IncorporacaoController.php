@@ -1,4 +1,5 @@
 <?php
+Loader::loadService('TramitacaoService');
 class IncorporacaoController extends BaseController
 {
     public function indexAction()
@@ -10,8 +11,8 @@ class IncorporacaoController extends BaseController
             $session->processoPrincipalId = $postData['processos'][0];
             $this->_redirectEscolherIncorporado();
         }
-        $processoService = new ProcessoService($this->getTicket());
-        $this->view->lista = $processoService->getCaixaAnalise(0, 10000, null);
+        $tramitacaoService = new TramitacaoService($this->getTicket());
+        $this->view->lista = $tramitacaoService->getCaixaAnalise(0, 10000, null);
     }
     
     public function escolherincorporadoAction()
