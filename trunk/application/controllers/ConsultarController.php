@@ -66,6 +66,7 @@ class ConsultarController extends BaseController
         }
         
         $processoService = new ProcessoService($this->getTicket());
+        
         $processos = $processoService->consultar($postData);
         
         if (count($processos) == 1) {

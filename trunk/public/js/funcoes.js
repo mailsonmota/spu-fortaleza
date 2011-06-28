@@ -32,7 +32,7 @@ jQuery(document).ready(function() {
 			"sUrl": baseUrl + "/js/plugins/dataTables/jquery.dataTables.pt-br.txt"
 		},
 		iDisplayLength: 50, 
-		sPaginationType: "full_numbers", 
+		sPaginationType: "text_only", 
 		"bLengthChange": false, 
 		"bSort": false/*, 
 		"fnDrawCallback": function() {

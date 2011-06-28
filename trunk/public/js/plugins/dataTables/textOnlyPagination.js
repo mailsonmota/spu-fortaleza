@@ -55,15 +55,15 @@ $.fn.dataTableExt.oPagination.text_only = {
 		for ( var i=0, iLen=an.length ; i<iLen ; i++ )
 		{
 			var buttons = an[i].getElementsByTagName('span');
-			if ( oSettings._iDisplayStart === 0 )
-			{
-				buttons[0].className = "paginate_button previous";
-				buttons[1].className = "paginate_button next";
-			}
-			else
+			
+			if ( oSettings.iNextId < 50 )
 			{
 				buttons[0].className = "paginate_button previous disabled";
 				buttons[1].className = "paginate_button next disabled";
+			} else
+			{
+				buttons[0].className = "paginate_button previous";
+				buttons[1].className = "paginate_button next";
 			}
 		}
 	}
