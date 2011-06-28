@@ -61,7 +61,7 @@ class AuthController extends BaseController
         Loader::loadAlfrescoApiClass('Login');
         
         $alfrescoLoginObj = new Alfresco_Rest_Login(BaseService::ALFRESCO_URL);
-        $authNamespace = new Zend_Session_Namespace('Zend_Auth');
+        $authNamespace = new Zend_Session_Namespace('Zend_Auth_SPU');
         $alfrescoLoginObj->logout($authNamespace->adminTicket);
         
         $this->_helper->redirector('login', 'auth');
