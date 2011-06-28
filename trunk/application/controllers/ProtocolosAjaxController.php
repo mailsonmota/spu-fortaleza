@@ -56,7 +56,7 @@ class ProtocolosAjaxController extends BaseDataTablesController
     public function listarAction()
     {
     	$this->_helper->layout()->disableLayout();
-        $this->view->results = $this->_getProtocolosAutocomplete();
+    	$this->view->resultados = $this->_getProtocolosAutocomplete();
     }
     
     protected function _getProtocolosAutocomplete()
