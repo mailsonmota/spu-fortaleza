@@ -20,14 +20,15 @@ class AssuntoService extends BaseService
 
     public function getAssuntosPorTipoProcesso($idTipoProcesso, $origem = null)
     {
-        $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listarportipoprocesso?tipoprocessoid=$idTipoProcesso";
+        // era: $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listarportipoprocesso?tipoprocessoid=$idTipoProcesso";
+        $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listarportipoprocesso/$idTipoProcesso";
         
         if ($origem) {
-            $url .= "&protocoloorigemid=$origem";
+            //$url .= "&protocoloorigemid=$origem";
         }
-        
-        $url = $this->addAlfTicketUrl($url);
 
+        $url = $this->addAlfTicketUrl($url);
+        
         $curlObj = new CurlClient();
         $resultJson = $curlObj->doGetRequest($url);
         
