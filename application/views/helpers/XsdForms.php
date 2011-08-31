@@ -30,6 +30,10 @@ class Zend_View_Helper_XsdForms extends Zend_View_Helper_Abstract
                             return true;
                         });
                         generateXsdFormUI();
+                        
+                        $('.xsdForm__mandatory').each(function() {
+				       		$('label[for=' + $(this).attr('name') + ']').addClass('required')
+				        });
                     });";
         
         $this->view->headScript()->appendScript($script, 'text/javascript');
