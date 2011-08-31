@@ -17,6 +17,10 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
         $this->_columns = $columns;
         $this->_options = $options;
         
+        if (isset($options['pageSize'])) {
+        	$this->_pageSize = $options['pageSize'];
+        }
+        
         $this->_prepare();
         
         return $this;

@@ -58,11 +58,6 @@
 		            			   'Processos', 
 		            			   null, 
 		            			   array('target' => '_blank'));
-                    
-		            $menu->addItem('Envio', $this->simpleUrl('enviar', 'malotes'), 'Malotes');
-		            $menu->addItem('Recebimento', $this->simpleUrl('receber', 'malotes'), 'Malotes');
-		            $menu->addItem('Consulta', $this->simpleUrl('consultar', 'malotes'), 'Malotes');
-		            $menu->addItem('Central', $this->simpleUrl('', 'malotes'), 'Malotes');
 	            }
 	            
 	            echo $menu->render();

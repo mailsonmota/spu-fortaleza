@@ -23,7 +23,7 @@ class UsuarioService extends BaseService
     
     protected function _getApi()
     {
-        $api = new Alfresco_Rest_People(self::ALFRESCO_URL, $this->getTicket());
+        $api = new Alfresco_Rest_People(self::getBaseUrl(), $this->getTicket());
         return $api;
     }
     

@@ -12,18 +12,12 @@ echo $this->pagenav()->closeList();
 
 <div id="article">
     <?php
-    $htmlGrupos = '';
-    if ($this->pessoa->grupos) {
-        foreach ($this->pessoa->grupos as $grupo) {
-            $htmlGrupos .= $grupo->nome . '<br/>';
-        }
-    }
-    
     echo $this->fieldList()->open();
 	echo $this->fieldList()->text('Usuário', $this->pessoa->login);
 	echo $this->fieldList()->text('Nome', $this->pessoa->nome);
 	echo $this->fieldList()->text('Sobrenome', $this->pessoa->sobrenome);
 	echo $this->fieldList()->text('Email', $this->pessoa->email);
+	echo $this->fieldList()->text('Protocolos', implode(', ', $this->nomeProtocolos));
 	echo $this->fieldList()->close();
 	?>
 	
