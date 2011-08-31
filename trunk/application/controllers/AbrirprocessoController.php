@@ -329,6 +329,11 @@ class AbrirprocessoController extends BaseController
     {
         $tiposManifestante = $tipoProcesso->getTiposManifestante();
 
+        if (!$tiposManifestante) {
+        	$serviceTiposManifestante = new TipoManifestanteService($this->getTicket());
+        	$tiposManifestante = $serviceTiposManifestante->fetchAll();
+        }
+        
         $listaTiposManifestante = array();
         foreach ($tiposManifestante as $tipoManifestante) {
             $listaTiposManifestante[$tipoManifestante->id] = $tipoManifestante->descricao;
