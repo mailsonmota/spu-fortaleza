@@ -38,7 +38,7 @@
                                        $this->simpleUrl('listar-destinos', 'protocolos-ajax'), 
                                        array('id' => 'copias'));
     }
-    echo $this->fieldList()->textarea('Corpo', 'corpo', null, array('required' => true));
+    echo $this->fieldList()->textarea('Corpo', 'corpo', null, array('required' => true, 'length' => 5000));
     echo $this->fieldList()->close();
     ?>
 </fieldset>

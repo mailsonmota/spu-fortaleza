@@ -99,6 +99,7 @@ class Zend_View_Helper_AjaxSelect extends Zend_View_Helper_Abstract
                    $('#$autoCompleteId').autocomplete({
                        source: '$ajaxUrl',
                        minLength: 2,
+                       autoFocus: true, 
                        select: function(event, ui) {
                            addListAndInputItem('$id', '$listId', ui.item.id, ui.item.label);
                            $('#$autoCompleteId').val('');

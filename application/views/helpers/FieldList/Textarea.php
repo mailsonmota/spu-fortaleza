@@ -9,8 +9,14 @@ class Zend_View_Helper_FieldList_Textarea extends Zend_View_Helper_FieldList_Inp
     protected function _renderInput($value)
     {
         $class = $this->_getInputClass();
-        $html = "<textarea name=\"" . $this->_name . "\" $class>$value</textarea>";
+        $length = ($this->_getLength()) ? 'maxlength="' . $this->_getLength() . '"' : '';
+        $html = "<textarea name=\"" . $this->_name . "\" $class $length>$value</textarea>";
         
         return $html;
+    }
+    
+    protected function _getLength()
+    {
+    	return ($this->_getOption('length')) ? $this->_getOption('length') : 0;
     }
 }

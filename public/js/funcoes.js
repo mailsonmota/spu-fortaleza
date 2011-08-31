@@ -51,7 +51,7 @@ jQuery(document).ready(function() {
 	$('.autocomplete').val('Digite para buscar...').addClass('autocomplete-wait');
 	$('.autocomplete').focus(function() {$(this).val('').removeClass('autocomplete-wait');});
 	$('.autocomplete').blur(function() {
-		if ($(this).val() == '') $(this).val('Digite para buscar...').addClass('autocomplete-wait');
+		$(this).val('Digite para buscar...').addClass('autocomplete-wait');
 	});
 	
 	//Retrocompatibilidade
