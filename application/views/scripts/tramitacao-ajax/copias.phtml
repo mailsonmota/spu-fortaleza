@@ -13,7 +13,7 @@ foreach ($this->copias as $copia) {
 		echo ',';
 	}
 	echo '[';
-	echo '"<input type=\'checkbox\' name=\'copias[]\' value=\'"' . $copia->id . '"\' />",';
+	echo '"<input type=\'checkbox\' name=\'copias[]\' value=\'' . $copia->id . '\' />",';
 	echo '"' . $copia->numeroProcesso . '",';
 	echo '"' . $copia->dataProcesso . '",';
 	echo '"' . $copia->nomeManifestanteProcesso . '",';
@@ -21,7 +21,8 @@ foreach ($this->copias as $copia) {
 	echo '"' . $copia->nomeAssuntoProcesso . '",';
 	
 	$url = $this->simpleUrl('detalhes', 'processo', array('id' => $copia->idProcesso));
-	echo '<a href="' . $url . '">Detalhes</a>';
+	echo '"<a href=\'' . $url . '\'>Detalhes</a>"';
+	echo ']';
 }
 ?>
 ]
