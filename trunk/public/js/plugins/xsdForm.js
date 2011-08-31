@@ -432,6 +432,11 @@ function generateFormFromSimpleTypeNodeRestrictionEnumeration(tagRaiz, xmlNode, 
     var newSelect = document.createElement('select');
     newSelect.name  = inputName;
     newSelect.id    = inputName;
+    
+    if (minOccurs > 0) {
+    	newSelect.setAttribute('class', 'xsdForm__float xsdForm__mandatory')
+    }
+    
     dd.appendChild(newSelect);
 
     var restrictionNode = getNodeByTagName(xmlNode, 'xs:restriction');
@@ -449,6 +454,7 @@ function generateFormFromSimpleTypeNodeRestrictionEnumeration(tagRaiz, xmlNode, 
     }
 
     var newLabel = document.createElement("label");
+    
     newLabel.innerHTML = label;
     newLabel.htmlFor = inputName;
 
