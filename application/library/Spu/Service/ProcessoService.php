@@ -267,9 +267,12 @@ class ProcessoService extends BaseService
     protected function _loadManyFromHash($hashProcessos)
     {
         $processos = array();
-        foreach ($hashProcessos as $hashProcesso) {
-            $hashDadosProcesso = array_pop($hashProcesso); 
-            $processos[] = $this->loadFromHash($hashDadosProcesso);
+        
+        if ($hashProcessos) {
+	        foreach ($hashProcessos as $hashProcesso) {
+	            $hashDadosProcesso = array_pop($hashProcesso); 
+	            $processos[] = $this->loadFromHash($hashDadosProcesso);
+	        }
         }
         
         return $processos;

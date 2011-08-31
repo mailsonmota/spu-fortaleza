@@ -48,7 +48,7 @@ class AuthPlugin extends Zend_Controller_Plugin_Abstract
     {
     	Loader::loadAlfrescoApiClass('Login');
         
-        $alfrescoLogin = new Alfresco_Rest_Login(BaseService::ALFRESCO_URL);
+        $alfrescoLogin = new Alfresco_Rest_Login(BaseService::getBaseUrl());
         $user = $this->getIdentity();
         if (!$user) {
         	return false;

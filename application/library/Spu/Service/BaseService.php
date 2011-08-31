@@ -1,20 +1,18 @@
 <?php
 class BaseService
 {
-    const ALFRESCO_URL = 'http://172.30.116.21:8080/alfresco/service';
-    const ALFRESCO_BASE_URL = 'http://172.30.116.21:8080/alfresco';
-    
     protected $_service;
         
     public function __construct($ticket = null) {
-        $this->_service = new Alfresco_Rest_Service(self::ALFRESCO_URL);
+    	$this->_service = new Alfresco_Rest_Service(self::getBaseUrl());
         if (isset($ticket)) {
             $this->setTicket($ticket);
         }
     }
     
-    public function getBaseUrl() {
-        return self::ALFRESCO_URL;
+    public static function getBaseUrl() {
+    	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+    	return $config->get('alfresco')->get('url') . '/service';
     }
     
     public function getTicket() {

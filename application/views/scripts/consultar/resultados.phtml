@@ -14,7 +14,7 @@ echo $this->pagenav()->closeList();
 	$columns = array('numero', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
         
 	$grid = new SimpleDataTable($this->processos, array('headerColumns' => $headerColumns, 'columns' => $columns));
-	$grid->addActionColumn('Editar', $this->simpleUrl('editar', $this->controller) . '/id/', 'id');
+	$grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', 'processo') . '/id/', 'id');
 	echo $grid->render();
 	?>
 </div>

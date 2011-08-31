@@ -249,7 +249,7 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
     
     protected function _getAlfrescoBaseUrl()
     {
-        return 'localhost:8080/alfresco/service';
+        return '172.30.41.24:8080/alfresco/service';
     }
     
     public function logout()

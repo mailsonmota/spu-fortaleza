@@ -176,7 +176,7 @@ div.message {margin: 0 0 2% 0; border-width: 1px 0}
 #section.withSidebar #article {width: 71%;float: left}
 
 /* Footer */
-#footer {background: url(../img/bgRodape.gif) repeat-x 0% 0%;font-size: 1em; color: #333}
+#footer {font-size: 1em; color: #333}
 #footer p {float: right;margin-bottom: 0}
 #footer address {float: left;margin-right: 12px}
 #footer ul, #footer ul li {float: left}

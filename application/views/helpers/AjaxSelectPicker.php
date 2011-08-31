@@ -21,7 +21,9 @@ class Zend_View_Helper_AjaxSelectPicker extends Zend_View_Helper_AjaxSelect
         
         $html  = " <a href=\"#$modalId\" rel=\"modal\">$linkName</a>";
         
-        $dataTable = $this->view->ajaxDataTable($this->_ajaxDataTableUrl, $this->_ajaxDataTableColumns)->render();
+        $dataTable = $this->view->ajaxDataTable($this->_ajaxDataTableUrl, 
+        										$this->_ajaxDataTableColumns, 
+        										array('pageSize' => 10))->render();
         $html .= "<div id=\"modal-wrap\">
                       <div class=\"overlay\">
                           <div id=\"$modalId\" class=\"modal\" style=\"display: none\">$dataTable</div>
