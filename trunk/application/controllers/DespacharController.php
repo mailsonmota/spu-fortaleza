@@ -8,15 +8,24 @@ class DespacharController extends BaseTramitacaoController
         
         if ($this->getRequest()->isPost()) {
             if (!empty($_FILES)) {
-                $fileTmp = $this->_uploadFilePathConverter($_FILES['fileToUpload']['name'],
-                                                           $_FILES['fileToUpload']['tmp_name']);
-                foreach ($sessionDespachar->filesToUpload as $fileToUpload) {
-                    if ($fileToUpload == $fileTmp) {
-                        $this->setErrorMessage('Este arquivo já se encontra na lista de arquivos a ser submetida.');
-                        $this->_redirectIndex();
-                    }
-                }
-                $sessionDespachar->filesToUpload[] = $fileTmp;
+            	if ($_FILES['fileToUpload']['name']) {
+	            	$fileTmp = $this->_uploadFilePathConverter($_FILES['fileToUpload']['name'],
+	                                                           $_FILES['fileToUpload']['tmp_name']);
+	                
+	                if (!$sessionDespachar->filesToUpload) {
+	                	$sessionDespachar->filesToUpload = array();
+	                }
+	                
+	                foreach ($sessionDespachar->filesToUpload as $fileToUpload) {
+	                    if ($fileToUpload == $fileTmp) {
+	                        $this->setErrorMessage('Este arquivo já se encontra na lista de arquivos a ser submetida.');
+	                        $this->_redirectIndex();
+	                    }
+	                }
+	                $sessionDespachar->filesToUpload[] = $fileTmp;
+            	} else {
+            		$this->setMessageForTheView('Por favor, escolha um arquivo para adicionar.');
+            	}
             } else {
                 try {
                     $postData = $this->getRequest()->getPost();
