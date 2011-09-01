@@ -8,11 +8,11 @@ header('Content-Type: application/json');
 "aaData": [
 <?php 
 $i = 0;
-foreach ($this->protocolos as $protocolo):
+if ($this->protocolos): foreach ($this->protocolos as $protocolo):
 	$url = $this->simpleUrl('editar', 'protocolos', array('id' => $protocolo->id));
 	if (++$i > 1) echo ',';
 	echo '["' . $protocolo->path . '", "<a href=\'' . $url . '\'>Detalhes</a>"]';
-endforeach;
+endforeach; endif;
 ?>
 ]
 }

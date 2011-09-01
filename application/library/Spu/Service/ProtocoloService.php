@@ -73,6 +73,10 @@ class ProtocoloService extends BaseService
         $curlObj = new CurlClient();
         $result = $curlObj->doGetRequest($url);
 
+        if (!isset($result['Protocolos'])) {
+        	return false;
+        }
+        
         return $this->_loadManyFromHash($result['Protocolos'][0]);
     }
     
