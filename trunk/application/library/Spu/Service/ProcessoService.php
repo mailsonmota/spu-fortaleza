@@ -3,6 +3,7 @@ require_once('BaseService.php');
 Loader::loadEntity('Processo');
 Loader::loadEntity('Folhas');
 Loader::loadEntity('Volume');
+Loader::loadEntity('Anexo');
 Loader::loadService('TipoProcessoService');
 Loader::loadService('PrioridadeService');
 Loader::loadService('StatusService');
@@ -124,6 +125,42 @@ class ProcessoService extends BaseService
         }
         
         return $this->_loadManyFromHash($result['Processos'][0]);
+    }
+    
+    public function consultarAnexos($offset = 0, $pageSize = 20, $filter)
+    {
+    	$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/consultar-conteudo/$offset/$pageSize/$filter";
+    
+    	$result = $this->_doAuthenticatedGetRequest($url);
+    	if ($this->isAlfrescoError($result)) {
+    		throw new Exception($this->getAlfrescoErrorMessage($result));
+    	}
+    	
+    	return $this->_loadManyAnexosFromHash($result['Anexos'][0]);
+    }
+    
+    protected function _loadManyAnexosFromHash($hashAnexos)
+    {
+    	$anexos = array();
+    	
+    	if ($hashAnexos) {
+    		foreach ($hashAnexos as $hashAnexo) {
+    			$anexos[] = $this->_loadAnexoFromHash($hashAnexo);
+    		}
+    	}
+    	
+    	return $anexos;
+    }
+    
+    protected function _loadAnexoFromHash($hash)
+    {
+    	$anexo = new Anexo();
+    	$anexo->setId($this->_getHashValue($hash, 'noderef'));
+    	$anexo->setNome($this->_getHashValue($hash, 'nome'));
+    	$anexo->setMimetype($this->_getHashValue($hash, 'mimetype'));
+    	$anexo->setProcesso($this->loadFromHash(array_pop(array_pop($this->_getHashValue($hash, 'processo')))));
+    	
+    	return $anexo;
     }
     
     public function getProcessosParalelos($processoId)

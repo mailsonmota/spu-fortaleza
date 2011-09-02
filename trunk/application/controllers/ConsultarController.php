@@ -2,7 +2,7 @@
 Loader::loadService('StatusService');
 class ConsultarController extends BaseController
 {
-    public function indexAction()
+	public function indexAction()
     {
     	$tiposProcesso = array();
     	$listaStatus = array();
@@ -15,6 +15,7 @@ class ConsultarController extends BaseController
     	
     	$this->view->tiposProcesso = $tiposProcesso;
     	$this->view->listaStatus = $listaStatus;
+    	$this->view->abaAtiva = 'dadosGerais';
     }
     
     protected function _getListaTiposProcesso()
@@ -75,6 +76,7 @@ class ConsultarController extends BaseController
         }
         
         $this->view->processos = $processos;
+        $this->view->abaAtiva = 'dadosGerais';
     }
     
     private function _getFieldFromFilter($filter)
@@ -100,5 +102,26 @@ class ConsultarController extends BaseController
     private function _redirectToProcesso($processoId)
     {
         $this->_helper->redirector('detalhes', 'processo', 'default', array('id' => $processoId));
+    }
+    
+    public function anexosAction()
+    {
+    	$this->view->abaAtiva = 'anexos';
+    }
+    
+    public function anexoResultadosAction()
+    {
+    	$this->view->conteudo = $this->_getParam('conteudo');
+    	$this->view->abaAtiva = 'anexos';
+    }
+    
+    private function _redirectToConsultaAnexos()
+    {
+    	$this->_helper->redirector('anexos');
+    }
+    
+    public function serviceAnexoResultadosAction()
+    {
+    	
     }
 }

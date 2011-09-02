@@ -49,7 +49,8 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
                             "bProcessing": true,
                             "bServerSide": true,
                             "sAjaxSource": "' . $this->_ajaxUrl . '", 
-                            "fnServerData": fnDataTablesPipeline
+                            "fnServerData": fnDataTablesPipeline, 
+                            "bFilter": ' . $this->_isSearchable() . '
                         }).fnSetFilteringDelay();
                     });';
         
@@ -59,6 +60,11 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
     protected function _getId()
     {
         return (isset($this->_options['id'])) ? $this->_options['id'] : 'grid-ajax';
+    }
+    
+    protected function _isSearchable()
+    {
+    	return (isset($this->_options['searchable']) && !$this->_options['searchable']) ? 'false' : 'true';
     }
     
     protected function _prepareHeader()
