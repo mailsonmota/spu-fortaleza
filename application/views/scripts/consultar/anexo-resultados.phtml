@@ -1,0 +1,20 @@
+<?php 
+$this->breadcrumbs()->addPage('Consulta', 'consultar');
+$this->breadcrumbs()->addPage('Anexos', 'consultar', 'anexos');
+$this->breadcrumbs()->addPage('Resultados', 'consultar', 'anexo-resultados');
+echo $this->breadcrumbs()->render(); 
+
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+<div id="article">
+	<?php
+	$headerColumns = array('Nome', 'Processo', 'Detalhes');
+    echo $this->ajaxDataTable(
+    	$this->simpleUrl('anexo-resultados', 'consultar-ajax', array('sSearch' => $this->conteudo)), 
+    	$headerColumns, 
+    	array('searchable' => false)
+    )->render();
+    ?>
+</div>

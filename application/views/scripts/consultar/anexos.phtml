@@ -1,0 +1,26 @@
+<?php 
+$this->breadcrumbs()->addPage('Consulta', 'consultar');
+$this->breadcrumbs()->addPage('Anexos', 'consultar', 'anexos');
+echo $this->breadcrumbs()->render(); 
+
+echo $this->render('snippets/abasConsulta.phtml');
+
+echo $this->pagenav()->openList(); 
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+    <form action="<?php echo $this->simpleUrl('anexo-resultados') ?>" method="get">
+        <?php 
+        echo $this->fieldList()->open();
+        echo $this->fieldList()->textarea('Conteúdo', 'conteudo', null, array('required' => true));
+        echo $this->fieldList()->close();
+        
+        echo $this->buttonlist()->open();
+        echo $this->buttonlist()->button('Buscar');
+        echo $this->buttonlist()->resetbutton();
+        echo $this->buttonlist()->close(true);
+        ?>
+    </form>
+</div>

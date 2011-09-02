@@ -1,0 +1,5 @@
+<?php 
+echo $this->tabs()->openList();
+echo $this->tabs()->addTab($this->simpleUrl('index'), 'Dados Gerais', $this->abaAtiva == 'dadosGerais');
+echo $this->tabs()->addTab($this->simpleUrl('anexos'), 'Anexos', $this->abaAtiva == 'anexos');
+echo $this->tabs()->closeList();
