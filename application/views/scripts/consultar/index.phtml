@@ -2,6 +2,8 @@
 $this->breadcrumbs()->addPage('Consulta', 'consultar');
 echo $this->breadcrumbs()->render(); 
 
+echo $this->render('snippets/abasConsulta.phtml');
+
 echo $this->pagenav()->openList(); 
 echo $this->pagenav()->defaultHelperLinks();
 echo $this->pagenav()->closeList();
