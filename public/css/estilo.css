@@ -46,7 +46,7 @@ table tr td, table tr th {padding: 0.5em}
 .campoTexto {padding-top: 0.25em}
 label.required {font-weight: bold}
 dd label.error {margin: 0; border: 0; background: none; padding: 0; display: block}
-input.error, textarea.error, input.xsd__validationfailed, select.xsd__validationfailed {margin: 0.5em 0; padding: 0.25em 0;border-width: 1px; border-color: #8a1f11;background: #FBE3E4}
+input.error, textarea.error, input.xsd__validationfailed, select.xsd__validationfailed, textarea.xsd__validationfailed {margin: 0.5em 0; padding: 0.25em 0;border-width: 1px; border-color: #8a1f11;background: #FBE3E4}
 dd a.dp-choose-date, dd a.adicionar-volume {margin-left: 0.5em}
 textarea {height: 5.5em}
 
