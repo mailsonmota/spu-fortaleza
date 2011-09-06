@@ -56,6 +56,7 @@ class ProcessoService extends BaseService
         }
 
         $processo = $this->loadFromHash(array_pop(array_pop($result['Processo'][0])));
+        
         return $this->_getProcessoDetalhado($processo);
     }
 

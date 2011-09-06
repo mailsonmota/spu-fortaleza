@@ -114,7 +114,7 @@ class Processo extends BaseEntity
     
     public function getCorpo()
     {
-        return $this->_corpo;
+    	return $this->_corpo;
     }
     
     public function setCorpo($value)
