@@ -39,7 +39,21 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
         $script = 'jQuery(document).ready(function() {
                         $("#' . $this->_getId() . '").dataTable({
                             "oLanguage": {
-                                "sUrl":"' . $baseUrl . '/js/plugins/dataTables/jquery.dataTables.pt-br.txt"
+                            	"sProcessing":   "Processando...",
+								"sLengthMenu":   "Exibir _MENU_ registros",
+								"sZeroRecords":  "Não foram encontrados resultados",
+								"sInfo":         "Exibindo de _START_ a _END_ de _TOTAL_ registros",
+								"sInfoEmpty":    "Exibindo de 0 a 0 de 0 registros",
+								"sInfoFiltered": "(filtrado de _MAX_ registros no total)",
+								"sInfoPostFix":  "",
+								"sSearch":       "' . $this->_getSearchLabel() . '",
+								"sUrl":          "",
+								"oPaginate": {
+									"sFirst":    "«« Primeiro",
+									"sPrevious": "« Anterior",
+									"sNext":     "Seguinte »",
+									"sLast":     "Último »»"
+								}
                             },
                             "bAutoWidth": false, 
                             iDisplayLength: ' . $this->_pageSize . ', 
@@ -55,6 +69,11 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
                     });';
         
         $this->view->headScript()->appendScript($script, 'text/javascript');
+    }
+    
+    protected function _getSearchLabel()
+    {
+    	return (isset($this->_options['searchLabel'])) ? $this->_options['searchLabel'] : 'Busca Rápida:';
     }
     
     protected function _getId()

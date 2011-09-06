@@ -17,7 +17,7 @@ echo $this->pagenav()->closeList();
         $columns = array('numero', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
         
         $headerColumns = array('Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Para', 'Detalhes');
-        echo $this->ajaxDataTable($this->simpleUrl('enviados', 'tramitacao-ajax'), $headerColumns)->render();
+        echo $this->ajaxDataTable($this->simpleUrl('enviados', 'tramitacao-ajax'), $headerColumns, array('searchLabel' => 'Busca por Número do Processo:'))->render();
         ?>
     </form>
 </div>
