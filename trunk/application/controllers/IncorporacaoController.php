@@ -7,7 +7,7 @@ class IncorporacaoController extends BaseController
         // TODO Verificar possibilidades de quebrar a incorporação indo do passo 2 ao 1 e depois confirmando etc.
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
-            $this->_checarEscolhaDeProcesso($postData);
+            $this->_checarEscolhaDeProcesso($postData, $this->getAction());
             $session = new Zend_Session_Namespace('incorporacaoSession');
             $session->processoPrincipalId = $postData['processos'][0];
             $this->_redirectEscolherIncorporado();
@@ -21,7 +21,7 @@ class IncorporacaoController extends BaseController
         $session = new Zend_Session_Namespace('incorporacaoSession');
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
-            $this->_checarEscolhaDeProcesso($postData);
+            $this->_checarEscolhaDeProcesso($postData, $this->getAction());
             $session->processoIncorporadoId = $postData['processos'][0];
             $this->_redirectConfirmacao();
         }
@@ -51,7 +51,7 @@ class IncorporacaoController extends BaseController
             $data['incorporado'] =  $session->processoIncorporadoId;
 
             try {
-                $processoServico->incorporar($data);
+                $processoService->incorporar($data);
             }
             catch (AlfrescoApiException $e) {
                 throw $e;
@@ -87,14 +87,14 @@ class IncorporacaoController extends BaseController
         $this->view->incorporado = $processoIncorporado;
     }
 
-    protected function _checarEscolhaDeProcesso($postData)
+    protected function _checarEscolhaDeProcesso($postData, $action)
     {
         if (isset($postData['processos'][1])) {
             $this->setErrorMessage('Não é possível escolher mais de um processo na Incorporação. Por favor, escolha apenas um.');
-            $this->_redirectEscolherPrincipal();
+            $this->_helper->redirector($action);
         } else if (empty($postData['processos'][0])) {
             $this->setErrorMessage('Nenhum processo foi escolhido.');
-            $this->_redirectEscolherPrincipal();
+            $this->_helper->redirector($action);
         }
     }
 
