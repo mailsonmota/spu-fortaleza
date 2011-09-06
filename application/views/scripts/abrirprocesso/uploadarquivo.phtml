@@ -18,7 +18,7 @@ echo $this->pagenav()->closeList();
     
     <form action="" method="post" enctype="multipart/form-data">
         <fieldset>
-            <legend>Enviar arquivo</legend>
+            <legend>Enviar arquivo (tamanho máximo: <?php echo ini_get('upload_max_filesize') ?>)</legend>
             <input type="hidden" name="destNodeUuid" value="<?php echo $this->processoUuid ?>" />
             <?php
             echo $this->fieldList()->open();
