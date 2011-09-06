@@ -161,6 +161,11 @@ class AbrirprocessoController extends BaseController
             $postData = $this->getRequest()->getParams();
 
             if (!empty($_FILES)) {
+                if (empty($_FILES['fileToUpload']['tmp_name'])) {
+                    $this->setErrorMessage('Não foi possível enviar o arquivo. Talvez o tamanho é maior que o máximo permitido.');
+                    $this->_redirectUploadArquivo();
+                }
+
                 $fileTmp = $this->_uploadFilePathConverter($_FILES['fileToUpload']['name'],
                                                            $_FILES['fileToUpload']['tmp_name']);
                 if (!empty($session->filesToUpload)) {
