@@ -23,7 +23,7 @@ echo $this->pagenav()->closeList();
         echo $this->buttonlist()->close(true); 
         
         $headerColumns = array('', 'Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
-        echo $this->ajaxDataTable($this->simpleUrl('analise', 'tramitacao-ajax'), $headerColumns)->render();
+        echo $this->ajaxDataTable($this->simpleUrl('analise', 'tramitacao-ajax'), $headerColumns, array('searchLabel' => 'Busca por Número do Processo:'))->render();
         ?>
     </form>
 </div>
