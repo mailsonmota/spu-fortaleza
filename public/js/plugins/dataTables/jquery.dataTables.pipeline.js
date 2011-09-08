@@ -16,7 +16,7 @@ function fnDataTablesPipeline (sSource, aoData, fnCallback) {
 			$('#section').prepend('<div class="message error">' + errorThrown + '</div>');
 		}, 
 		complete: function(jqXHR, textStatus) {
-			tableRowCheckboxToggle();
+			//tableRowCheckboxToggle();
 			//tableRowRadioToggle();
 		}
 	});

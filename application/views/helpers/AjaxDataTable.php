@@ -37,7 +37,7 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
     {
     	$baseUrl = $this->view->baseUrl();
         $script = 'jQuery(document).ready(function() {
-                        $("#' . $this->_getId() . '").dataTable({
+                       $("#' . $this->_getId() . '").dataTable({
                             "oLanguage": {
                             	"sProcessing":   "Processando...",
 								"sLengthMenu":   "Exibir _MENU_ registros",
@@ -65,8 +65,19 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
                             "sAjaxSource": "' . $this->_ajaxUrl . '", 
                             "fnServerData": fnDataTablesPipeline, 
                             "bFilter": ' . $this->_isSearchable() . '
-                        }).fnSetFilteringDelay();
-                    });';
+                       }).fnSetFilteringDelay();
+        		       $("#checkbox_' . $this->_getId() . '").click(function() {
+        		           checked = $(this).attr("checked");
+        		           $("#' . $this->_getId() . ' tbody input").each(function() {
+        		               $(this).attr("checked", checked)
+        		               if (checked) {
+        		                   $(this).parent().parent().addClass("marked")
+        		               } else {
+        		                   $(this).parent().parent().removeClass("marked")
+        		               }
+        		           });
+    			       });
+                   });';
         
         $this->view->headScript()->appendScript($script, 'text/javascript');
     }
@@ -86,6 +97,11 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
     	return (isset($this->_options['searchable']) && !$this->_options['searchable']) ? 'false' : 'true';
     }
     
+    protected function _hasCheckboxColumn()
+    {
+    	return (isset($this->_options['checkboxColumn']) && $this->_options['checkboxColumn']) ? true : false;
+    }
+    
     protected function _prepareHeader()
     {
         $tableClass = self::TABLE_CLASS;
@@ -94,6 +110,9 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
         $html .= '<thead>';
         $html .= '<tr>';
         $html .= $this->_getBeforeHeaderColumns();
+        if ($this->_hasCheckboxColumn()) {
+        	$html .= "<th><input type=\"checkbox\" id=\"checkbox_$tableId\" /></th>";
+        }
         foreach ($this->_columns as $column) {
             $html .= '<th>' . $column . '</th>';
         }

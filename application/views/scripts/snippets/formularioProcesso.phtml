@@ -17,12 +17,12 @@
     
     if (!$this->tipoProcesso->tramitacao->isParalela()) {
         echo $this->ajaxSelect('Destino', 
-                                     'destino', 
-                                     $this->simpleUrl('listar-destinos', 
-                               					      'protocolos-ajax', 
-                               					      array('protocoloOrigem' => $this->protocoloOrigemId, 
-                               						        'tipoprocesso' => $this->tipoProcesso->id)), 
-                                     array('required' => true));
+                               'destino', 
+                               $this->simpleUrl('listar-destinos', 
+                                                'protocolos-ajax', 
+                               				     array('protocoloOrigem' => $this->protocoloOrigemId, 
+                               				          'tipoprocesso' => $this->tipoProcesso->id)),
+							   array('required' => true));
     } else {
     	echo $this->ajaxSelectMultiple('Destinos', 
     	                               'destino', 
