@@ -77,7 +77,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headLink()->appendStylesheet($baseUrl . '/css/reset.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/forms.css');
         //$view->headLink()->appendStylesheet($baseUrl . '/css/facebox.css');
-        $view->headLink()->appendStylesheet($baseUrl . '/css/modal.css');
+        $view->headLink()->appendStylesheet($baseUrl . '/css/simple-modal.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/datePicker.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/plupload.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/dataTables.css');
@@ -99,9 +99,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headScript()->appendFile($pluginsPath . 'date.js');
         $view->headScript()->appendFile($pluginsPath . 'date_pt-br.js');
         $view->headScript()->appendFile($pluginsPath . 'jquery.datePicker.js');
-        $view->headScript()->appendFile($pluginsPath . 'jquery.modal.js');
+        $view->headScript()->appendFile($pluginsPath . 'jquery.simplemodal.1.4.1.min.js');
         $view->headScript()->appendFile($pluginsPath . 'jquery.elastic.js');
-        $view->headScript()->appendFile($pluginsPath . 'tableRowCheckboxToggle.js');
         $view->headScript()->appendFile($pluginsPath . '/dataTables/jquery.dataTables.min.js');
         $view->headScript()->appendFile($pluginsPath . '/dataTables/textOnlyPagination.js');
         $view->headScript()->appendFile($pluginsPath . '/dataTables/jquery.dataTables.pipeline.js');

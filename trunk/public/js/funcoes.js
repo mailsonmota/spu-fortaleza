@@ -20,10 +20,13 @@ jQuery(document).ready(function() {
 	
 	//$('a[rel*=facebox]').facebox();
 	
-	tableRowCheckboxToggle();
+	//tableRowCheckboxToggle();
 	//tableRowRadioToggle();
 	
-	$.modal();
+	$('a[rel=modal]').click(function() {
+		$($(this).attr('href')).modal();
+	});
+	
 	$('textarea').elastic();
 	
 	// Todos as table com classe .grid dentre de #article que não sejam um .relatorio
@@ -58,6 +61,14 @@ jQuery(document).ready(function() {
 	$('a[href=http://spu.fortaleza.ce.gov.br/spu/estrutura/index.php]').click(function() {
 		window.open($(this).attr('href'), '', 'toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=yes,width=785,height=520,left=0,top=0');
 		return false;
+	});
+	
+	$('tbody tr:not(input)').live('click', function(event) {
+		$(this).toggleClass('marked')
+		if (event.target.type !== 'checkbox') {
+			checked = $(this).hasClass('marked')
+			$(':checkbox', this).attr('checked', checked)
+		}
 	});
 });
 
