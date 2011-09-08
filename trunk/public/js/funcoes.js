@@ -63,7 +63,7 @@ jQuery(document).ready(function() {
 		return false;
 	});
 	
-	$('tbody tr:not(input)').live('click', function(event) {
+	$('tbody tr').live('click', function(event) {
 		$(this).toggleClass('marked')
 		if (event.target.type !== 'checkbox') {
 			checked = $(this).hasClass('marked')

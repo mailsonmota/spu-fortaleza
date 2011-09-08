@@ -18,8 +18,8 @@ echo $this->pagenav()->closeList();
         echo $this->buttonlist()->button('Excluir');
         echo $this->buttonlist()->close(true); 
         
-        $headerColumns = array('', 'Nome', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
-        echo $this->ajaxDataTable($this->simpleUrl('copias', 'tramitacao-ajax'), $headerColumns, array('searchLabel' => 'Busca por Número do Processo:'))->render();
+        $headerColumns = array('Nome', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
+        echo $this->ajaxDataTable($this->simpleUrl('copias', 'tramitacao-ajax'), $headerColumns, array('searchLabel' => 'Busca por Número do Processo:', 'checkboxColumn' => true))->render();
         ?>
     </form>
 </div>
