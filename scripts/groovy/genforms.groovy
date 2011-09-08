@@ -66,13 +66,13 @@ def generateAll(sql, tipos, clback) {
 	def assuntosComForm = []
 	sql.eachRow(queryAssuntosComForm, { it ->
 		assuntosComForm << it[0]
-		/*def aux = normalize(it[1]).split(' ').findAll{it.size() > 1}.collect{it[0].toUpperCase() + it[1..it.size()-1]}
+		def aux = normalize(it[1]).split(' ').findAll{it.size() > 1}.collect{it[0].toUpperCase() + it[1..it.size()-1]}
 		def form = [ns:"spu:${camelize(it[1])}", name:"form${camelize(it[1],false)}", head:aux[0], formHead:aux.join(' '), fields:[]]
 		def xml = generateAssunto(sql, it[0], form, tipos)
 		def envolvidos = sql.rows(queryEnvolvidos, [it[4]]).collect{ e -> tipoEnvolvido.get(e[0] as Integer)}
 		def tramitAbran = sql.rows(queryTramitacaoAbrangencia, [it[4]])[0]
 		clback(xml, "form${camelize(it[1],false)}", finalName(it[1]), finalName(it[2]), (it[3])?it[3]:'', envolvidos, tramitacao[tramitAbran[0] as Integer], abrangencia[tramitAbran[1] as Integer])
-	*/});
+	});
 	
 	def queryAssuntosSemForm = """
 				select tpa.tpa_codigo, 
@@ -215,7 +215,7 @@ def openSqlConnection() {
 }
 
 def createHttpSession() {
-	def http = new HTTPBuilder('http://172.30.116.21:8080/alfresco/');
+	def http = new HTTPBuilder('http://localhost:8080/alfresco/');
 	http.auth.basic 'admin', 'admin'
 	/*def http = new HTTPBuilder('http://172.30.117.73:8080/alfresco/');
 	http.auth.basic 'admin', 'Naiany'*/
