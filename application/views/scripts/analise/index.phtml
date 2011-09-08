@@ -22,8 +22,8 @@ echo $this->pagenav()->closeList();
         echo $this->buttonlist()->button('Arquivar', 'arquivar');
         echo $this->buttonlist()->close(true); 
         
-        $headerColumns = array('', 'Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
-        echo $this->ajaxDataTable($this->simpleUrl('analise', 'tramitacao-ajax'), $headerColumns, array('searchLabel' => 'Busca por Número do Processo:'))->render();
+        $headerColumns = array('Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
+        echo $this->ajaxDataTable($this->simpleUrl('analise', 'tramitacao-ajax'), $headerColumns, array('searchLabel' => 'Busca por Número do Processo:', 'checkboxColumn' => true))->render();
         ?>
     </form>
 </div>

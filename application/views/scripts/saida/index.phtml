@@ -19,8 +19,8 @@ echo $this->pagenav()->closeList();
         echo $this->buttonlist()->button('Cancelar Envio');
         echo $this->buttonlist()->close(true); 
         
-        $headerColumns = array('', 'Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Para', 'Detalhes');
-        echo $this->ajaxDataTable($this->simpleUrl('saida', 'tramitacao-ajax'), $headerColumns, array('searchLabel' => 'Busca por Número do Processo:'))->render();
+        $headerColumns = array('Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Para', 'Detalhes');
+        echo $this->ajaxDataTable($this->simpleUrl('saida', 'tramitacao-ajax'), $headerColumns, array('searchLabel' => 'Busca por Número do Processo:', 'checkboxColumn' => true))->render();
         ?>
     </form>
 </div>

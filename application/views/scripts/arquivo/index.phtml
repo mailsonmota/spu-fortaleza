@@ -18,8 +18,8 @@ echo $this->pagenav()->closeList();
         echo $this->buttonlist()->button('Reabrir');
         echo $this->buttonlist()->close(true); 
         
-        $headerColumns = array('', 'Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
-        echo $this->ajaxDataTable($this->simpleUrl('arquivo', 'tramitacao-ajax'), $headerColumns, array('searchLabel' => 'Busca por Número do Processo:'))->render();
+        $headerColumns = array('Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
+        echo $this->ajaxDataTable($this->simpleUrl('arquivo', 'tramitacao-ajax'), $headerColumns, array('searchLabel' => 'Busca por Número do Processo:', 'checkboxColumn' => true))->render();
         ?>
     </form>
 </div>
