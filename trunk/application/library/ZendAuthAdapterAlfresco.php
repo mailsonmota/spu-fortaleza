@@ -242,8 +242,6 @@ class ZendAuthAdapterAlfresco implements Zend_Auth_Adapter_Interface
     
     protected function _getLoginApi()
     {
-        Loader::loadAlfrescoApiClass('Login');
-        
         return new Alfresco_Rest_Login($this->_getAlfrescoBaseUrl());
     }
     
