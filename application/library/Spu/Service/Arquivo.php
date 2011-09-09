@@ -1,8 +1,5 @@
 <?php
-require_once('BaseService.php');
-Loader::loadEntity('Arquivo');
-Loader::loadEntity('RespostasFormulario');
-class ArquivoService extends BaseService
+class Spu_Service_Arquivo extends Spu_Service_Abstract
 {
     private $_processoBaseUrl = 'spu/processo';
 
@@ -53,7 +50,6 @@ class ArquivoService extends BaseService
         $result = $curlObj->doPostRequest($url, $postData);
         
         if ($this->isAlfrescoError($result)) {
-            echo '<pre>'; var_dump($result); echo '</pre>'; exit;
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
 
@@ -106,7 +102,7 @@ class ArquivoService extends BaseService
             throw new Exception($e->getMessage());
         }
         
-        $respostasFormulario = new RespostasFormulario();
+        $respostasFormulario = new Spu_Entity_RespostasFormulario();
         if ($this->_isValidRespostasXML($result)) {
             $respostasFormulario->loadFromXML($result);
         }
@@ -121,7 +117,7 @@ class ArquivoService extends BaseService
     
     public function loadFromHash($hash)
     {
-        $arquivo = new Arquivo();
+        $arquivo = new Spu_Entity_Arquivo();
         $arquivo->setId($this->_getHashValue($hash, 'id'));
         $arquivo->setNome($this->_getHashValue($hash, 'nome'));
         

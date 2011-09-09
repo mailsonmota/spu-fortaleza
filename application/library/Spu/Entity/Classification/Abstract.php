@@ -1,6 +1,5 @@
 <?php
-Loader::loadBaseAlfrescoClass();
-class BaseClassification extends BaseAlfrescoClass
+class Spu_Entity_Classification_Abstract extends Spu_Entity_Abstract
 {
     protected $_nodeRef;
     protected $_nome;

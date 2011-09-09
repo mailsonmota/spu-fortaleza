@@ -1,7 +1,5 @@
 <?php
-require_once('BaseService.php');
-Loader::loadEntity('Usuario');
-class UsuarioService extends BaseService
+class Spu_Service_Usuario extends Spu_Service_Abstract
 {
     public function fetchAll($filter = null)
     {
@@ -28,7 +26,7 @@ class UsuarioService extends BaseService
     }
     
     public function loadFromHash($hash) {
-        $usuario = new Usuario();
+        $usuario = new Spu_Entity_Usuario();
         
         $usuario->setNome($this->_getHashValue($hash, 'firstName'));
         $usuario->setSobrenome($this->_getHashValue($hash, 'lastName'));
@@ -43,7 +41,7 @@ class UsuarioService extends BaseService
         $grupos = array();
         if (count($hash) > 0) {
             foreach ($hash as $hashGrupo) {
-                $grupo = new Grupo();
+                $grupo = new Spu_Entity_Grupo();
                 $grupo->setNome($hashGrupo['item']);
                 $grupos[] = $grupo;
             }

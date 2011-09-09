@@ -1,11 +1,9 @@
 <?php
-Loader::loadAspect('Arquivamento');
-Loader::loadService('StatusArquivamentoService');
-class ArquivamentoService extends BaseService
+class Spu_Service_Arquivamento extends Spu_Service_Abstract
 {
     public function loadFromHash($hash)
     {
-        $arquivamento = new Arquivamento();
+        $arquivamento = new Spu_Entity_Aspect_Arquivamento();
         
         $arquivamento->setStatus($this->loadStatusFromHash($this->_getHashValue($hash, 'status')));
         $arquivamento->setMotivo($this->_getHashValue($hash, 'motivo'));
@@ -18,7 +16,7 @@ class ArquivamentoService extends BaseService
     public function loadStatusFromHash($hash)
     {
         $hash = array_pop($hash);
-        $statusArquivamentoService = new StatusArquivamentoService();
+        $statusArquivamentoService = new Spu_Service_StatusArquivamento();
         $status = $statusArquivamentoService->loadFromHash($hash);
         
         return $status;

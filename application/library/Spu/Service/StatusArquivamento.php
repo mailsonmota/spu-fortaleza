@@ -1,7 +1,5 @@
 <?php
-require_once('BaseService.php');
-Loader::loadEntity('StatusArquivamento');
-class StatusArquivamentoService extends BaseService
+class Spu_Service_StatusArquivamento extends Spu_Service_Abstract
 {
     private $_baseUrl = 'spu/processo';
     private $_ticketUrl = 'ticket';
@@ -23,7 +21,7 @@ class StatusArquivamentoService extends BaseService
     
     public function loadFromHash($hash)
     {
-        $statusArquivamento = new StatusArquivamento();
+        $statusArquivamento = new Spu_Entity_Classification_StatusArquivamento();
         
         $statusArquivamento->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $statusArquivamento->setNome($this->_getHashValue($hash, 'nome'));

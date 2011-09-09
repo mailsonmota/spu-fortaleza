@@ -1,5 +1,5 @@
 <?php
-class BaseService
+class Spu_Service_Abstract
 {
     protected $_service;
         

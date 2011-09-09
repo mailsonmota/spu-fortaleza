@@ -1,7 +1,5 @@
 <?php
-require_once('BaseService.php');
-Loader::loadEntity('Protocolo');
-class ProtocoloService extends BaseService
+class Spu_Service_Protocolo extends Spu_Service_Abstract
 {
     private $_protocoloBaseUrl = 'spu/protocolo';
     private $_protocoloTicketUrl = 'ticket';
@@ -98,7 +96,7 @@ class ProtocoloService extends BaseService
 
     public function loadFromHash($hash)
     {
-        $protocolo = new Protocolo();
+        $protocolo = new Spu_Entity_Protocolo();
         
         $protocolo->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $protocolo->setNome($this->_getHashValue($hash, 'nome'));
@@ -112,7 +110,7 @@ class ProtocoloService extends BaseService
     
     protected function _loadParentFromHash($id)
     {
-        $parent = new Protocolo();
+        $parent = new Spu_Entity_Protocolo();
         $parent->setNodeRef($id);
         return $parent;
     }
