@@ -1,5 +1,4 @@
 <?php
-require_once('BaseClassification.php');
-class TipoManifestante extends BaseClassification
+class Spu_Entity_Classification_TipoManifestante extends Spu_Entity_Classification_Abstract
 {
 }

@@ -1,6 +1,5 @@
 <?php
-require_once('BaseEntity.php');
-class Arquivo extends BaseEntity
+class Spu_Entity_Arquivo extends Spu_Entity_Abstract
 {
     protected $_id;
     protected $_nome;

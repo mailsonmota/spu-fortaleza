@@ -1,10 +1,8 @@
 <?php
 /**
- * BaseController: Controlador base para as telas do SGC
+ * BaseController: Controlador base para as telas do SPU
  * @author bruno
- * @package SGC
  */
-Loader::loadService('ProcessoService');
 require_once 'BaseAuthenticatedController.php';
 abstract class BaseController extends BaseAuthenticatedController
 {
@@ -90,39 +88,6 @@ abstract class BaseController extends BaseAuthenticatedController
             
             $this->setMessageForTheView($mensagem, 'success');
         }
-    }
-    
-    protected function _getListaUfs()
-    {
-        return array(
-           'CE' => 'CE',
-           'AC' => 'AC',
-           'AL' => 'AL',
-           'AM' => 'AM',
-           'AP' => 'AP',
-           'BA' => 'BA',
-           'DF' => 'DF',
-           'ES' => 'ES',
-           'GO' => 'GO',
-           'MA' => 'MA',
-           'MG' => 'MG',
-           'MS' => 'MS',
-           'MT' => 'MT',
-           'PA' => 'PA',
-           'PB' => 'PB',
-           'PE' => 'PE',
-           'PI' => 'PI',
-           'PR' => 'PR',
-           'RJ' => 'RJ',
-           'RN' => 'RN',
-           'RO' => 'RO',
-           'RR' => 'RR',
-           'RS' => 'RS',
-           'SC' => 'SC',
-           'SE' => 'SE',
-           'SP' => 'SP',
-           'TO' => 'TO'
-        );
     }
     
     protected function _uploadFilePathConverter($fileName, $fileTmpName) {

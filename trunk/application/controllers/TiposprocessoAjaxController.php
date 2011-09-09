@@ -15,7 +15,7 @@ class TiposprocessoAjaxController extends BaseController
 	
 	protected function _getTiposProcessoPorProtocolo($protocoloId)
 	{
-		$tiposProcessoService = new TipoProcessoService($this->getTicket());
+		$tiposProcessoService = new Spu_Service_TipoProcesso($this->getTicket());
 		return $tiposProcessoService->getTiposProcesso($protocoloId);
 	}
 }

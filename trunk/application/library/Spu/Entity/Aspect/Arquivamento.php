@@ -1,7 +1,5 @@
 <?php
-require_once('Base.php');
-Loader::loadClassification('StatusArquivamento');
-class Arquivamento extends Spu_Aspect_Base
+class Spu_Entity_Aspect_Arquivamento extends Spu_Entity_Aspect_Abstract
 {
     protected $_status;
     protected $_motivo;

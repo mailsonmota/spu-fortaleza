@@ -1,6 +1,5 @@
 <?php
-require_once('BaseEntity.php');
-class Grupo extends BaseEntity
+class Spu_Entity_Grupo extends Spu_Entity_Abstract
 {
     protected $_nome;
     

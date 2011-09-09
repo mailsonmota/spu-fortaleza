@@ -1,14 +1,9 @@
 <?php
-Loader::loadService('TipoProcessoService');
-Loader::loadService('TipoTramitacaoService');
-Loader::loadService('TipoAbrangenciaService');
-Loader::loadService('TipoManifestanteService');
-Loader::loadService('AssuntoService');
 class TiposprocessoController extends BaseController
 {
     public function indexAction()
     {
-        $tipoProcessoService = new TipoProcessoService($this->getTicket());
+        $tipoProcessoService = new Spu_Service_TipoProcesso($this->getTicket());
         $this->view->lista = $tipoProcessoService->getTiposProcesso();
     }
     
@@ -17,7 +12,7 @@ class TiposprocessoController extends BaseController
         $id = $this->_getIdFromUrl();
         
         try {
-            $tipoProcessoService = new TipoProcessoService($this->getTicket());
+            $tipoProcessoService = new Spu_Service_TipoProcesso($this->getTicket());
             $tipoProcesso = $tipoProcessoService->getTipoProcesso($id);
             $listaTiposManifestante = $this->_getListaTiposManifestante();
             $listaTiposTramitacao = $this->_getListaTiposTramitacao();
@@ -43,7 +38,7 @@ class TiposprocessoController extends BaseController
     
     protected function _getListaTiposTramitacao()
     {
-        $tipoTramitacaoService = new TipoTramitacaoService($this->getTicket());
+        $tipoTramitacaoService = new Spu_Service_TipoTramitacao($this->getTicket());
         $tiposTramitacao = $tipoTramitacaoService->fetchAll();
         $listaTiposTramitacao = array();
         foreach ($tiposTramitacao as $tipoTramitacao) {
@@ -62,7 +57,7 @@ class TiposprocessoController extends BaseController
     
     protected function _getListaTiposAbrangencia()
     {
-        $tipoAbrangenciaService = new TipoAbrangenciaService($this->getTicket());
+        $tipoAbrangenciaService = new Spu_Service_TipoAbrangencia($this->getTicket());
         $tiposAbrangencia = $tipoAbrangenciaService->fetchAll();
         $listaTiposAbrangencia = array();
         foreach ($tiposAbrangencia as $tipoAbrangencia) {
@@ -81,7 +76,7 @@ class TiposprocessoController extends BaseController
     
     protected function _getListaTiposManifestante()
     {
-        $tipoManifestanteService = new TipoManifestanteService($this->getTicket());
+        $tipoManifestanteService = new Spu_Service_TipoManifestante($this->getTicket());
         $tiposManifestante = $tipoManifestanteService->fetchAll();
         $listaTiposManifestante = array();
         foreach ($tiposManifestante as $tipoManifestante) {
@@ -117,7 +112,7 @@ class TiposprocessoController extends BaseController
     {
         $id = $this->_getIdFromUrl();
         
-        $tipoProcessoService = new TipoProcessoService($this->getTicket());
+        $tipoProcessoService = new Spu_Service_TipoProcesso($this->getTicket());
         $tipoProcesso = $tipoProcessoService->getTipoProcesso($id);
         $assuntos = $this->_getAssuntos($id);
         
@@ -129,7 +124,7 @@ class TiposprocessoController extends BaseController
     
     protected function _getAssuntos($tipoProcessoId)
     {
-    	$assuntoService = new AssuntoService($this->getTicket());
+    	$assuntoService = new Spu_Service_Assunto($this->getTicket());
         $assuntos = $assuntoService->getAssuntosPorTipoProcesso($tipoProcessoId);
         
         return $assuntos;

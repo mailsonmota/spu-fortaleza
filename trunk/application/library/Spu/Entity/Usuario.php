@@ -1,7 +1,5 @@
 <?php
-require_once('BaseEntity.php');
-require_once('Grupo.php');
-class Usuario extends BaseEntity
+class Spu_Entity_Usuario extends Spu_Entity_Abstract
 {
     protected $_nome;
     protected $_sobrenome;

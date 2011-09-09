@@ -1,6 +1,5 @@
 <?php
-require_once('BaseEntity.php');
-class RespostasFormulario extends BaseEntity
+class Spu_Entity_RespostasFormulario extends Spu_Entity_Abstract
 {
     protected $_data;
     

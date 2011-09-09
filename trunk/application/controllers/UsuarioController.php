@@ -7,7 +7,7 @@ class UsuarioController extends BaseController
     
     protected function _getNomeProtocolosUsuario()
     {
-    	$service = new ProtocoloService($this->getTicket());
+    	$service = new Spu_Service_Protocolo($this->getTicket());
     	$nomeProtocolos = array();
     	foreach ($service->getProtocolos() as $p) {
     		$nomeProtocolos[] = $p->path;

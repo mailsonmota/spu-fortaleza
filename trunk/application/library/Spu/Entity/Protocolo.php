@@ -1,6 +1,5 @@
 <?php
-require_once('BaseEntity.php');
-class Protocolo extends BaseEntity
+class Spu_Entity_Protocolo extends Spu_Entity_Abstract
 {
     protected $_nodeRef;
     protected $_nome;
@@ -108,7 +107,7 @@ class Protocolo extends BaseEntity
         return $this->_parent;
     }
 
-    public function setParent(Protocolo $value)
+    public function setParent(Spu_Entity_Protocolo $value)
     {
         $this->_parent = $value;
     }

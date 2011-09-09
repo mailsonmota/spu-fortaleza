@@ -1,7 +1,5 @@
 <?php
-require_once('BaseEntity.php');
-require_once('Processo.php');
-abstract class LinkProcesso extends BaseEntity
+abstract class Spu_Entity_LinkProcesso extends Spu_Entity_Abstract
 {
     protected $_nodeRef;
     protected $_nome;

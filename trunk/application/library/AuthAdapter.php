@@ -1,5 +1,4 @@
 <?php
-Loader::loadService('UsuarioService');
 Zend_Loader::loadClass('ZendAuthAdapterAlfresco');
 class AuthAdapter extends ZendAuthAdapterAlfresco
 {
@@ -8,7 +7,7 @@ class AuthAdapter extends ZendAuthAdapterAlfresco
         $username = $this->getUsername();
         $ticket = $this->getTicket();
         
-        $usuarioService = new UsuarioService($ticket);
+        $usuarioService = new Spu_Service_Usuario($ticket);
         $usuario = $usuarioService->find($username);
         
         $identity = array();
@@ -21,6 +20,6 @@ class AuthAdapter extends ZendAuthAdapterAlfresco
     
     protected function _getAlfrescoBaseUrl()
     {
-        return BaseService::getBaseUrl();
+        return Spu_Service_Abstract::getBaseUrl();
     }
 }

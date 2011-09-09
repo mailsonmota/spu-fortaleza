@@ -14,10 +14,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $autoloader = new Zend_Application_Module_Autoloader(
             array(
                 'namespace' => '',
-                'basePath'  => dirname(__FILE__),
+                'basePath'  => APPLICATION_PATH,
                 'resourceTypes' => array(
                     'alfresco'   => array('path' => 'library/Alfresco/', 'namespace' => 'Alfresco'),
-                    'curlclient' => array('path' => 'library/Alfresco/Rest/CurlClient/', 'namespace' => 'CurlClient')
+                    'curlclient' => array('path' => 'library/Alfresco/Rest/CurlClient/', 'namespace' => 'CurlClient'), 
+        			'spu' => array('path' => 'library/Spu/', 'namespace' => 'Spu')
             	)
             )
         );

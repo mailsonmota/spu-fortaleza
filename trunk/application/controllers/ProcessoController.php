@@ -1,15 +1,11 @@
 <?php
-Loader::loadEntity('Processo');
-Loader::loadService('ProcessoService');
-Loader::loadService('ArquivoService');
-Loader::loadEntity('Arquivo');
 class ProcessoController extends BaseController
 {
     public function detalhesAction()
     {
         try {
             $idProcesso = $this->_getIdProcessoUrl();
-            $processoService = new ProcessoService($this->getTicket());
+            $processoService = new Spu_Service_Processo($this->getTicket());
             $processo = $processoService->getProcesso($idProcesso);
             $processosParalelos = $processoService->getProcessosParalelos($processo->id);
         } catch (Exception $e) {
@@ -28,7 +24,7 @@ class ProcessoController extends BaseController
     {
         try {
                 $idProcesso = $this->_getIdProcessoUrl();
-                $processoService = new ProcessoService($this->getTicket());
+                $processoService = new Spu_Service_Processo($this->getTicket());
                 if ($idProcesso) {
                     $processo = $processoService->getProcesso($idProcesso);
                 }
@@ -54,7 +50,7 @@ class ProcessoController extends BaseController
         try {
             $arquivoHash['id'] = $this->getRequest()->getParam('id');
             $arquivoHash['nome'] = $this->getRequest()->getParam('nome');
-            $arquivoService = new ArquivoService($this->getTicket());
+            $arquivoService = new Spu_Service_Arquivo($this->getTicket());
             $url = $arquivoService->getArquivoDownloadUrl($arquivoHash);
             $this->getResponse()->setRedirect($url);
         } catch (Exception $e) {
@@ -70,7 +66,7 @@ class ProcessoController extends BaseController
     
     protected function _getListaPrioridades()
     {
-        $prioridadeService = new PrioridadeService($this->getTicket());
+        $prioridadeService = new Spu_Service_Prioridade($this->getTicket());
         $prioridades = $prioridadeService->fetchAll();
         $listaPrioridades = array();
         foreach ($prioridades as $prioridade) {
@@ -89,7 +85,7 @@ class ProcessoController extends BaseController
     
     protected function _getListaProtocolos()
     {
-        $protocoloService = new ProtocoloService($this->getTicket());
+        $protocoloService = new Spu_Service_Protocolo($this->getTicket());
         $protocolos = $protocoloService->getTodosProtocolos();
         $listaProtocolos = array();
         foreach ($protocolos as $protocolo) {
@@ -118,10 +114,10 @@ class ProcessoController extends BaseController
     
     public function etiquetaAction()
     {
-        $processo = new Processo();
+        $processo = new Spu_Entity_Processo();
         try {
             $idProcesso = $this->_getIdProcessoUrl();
-            $processoService = new ProcessoService($this->getTicket());
+            $processoService = new Spu_Service_Processo($this->getTicket());
             $processo = $processoService->getProcesso($idProcesso);
         } catch (Exception $e) {
             $this->setMessageForTheView('Não foi possível carregar o processo', 'error');

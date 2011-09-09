@@ -1,5 +1,5 @@
 <?php
-class Formulario extends BaseEntity
+class Spu_Entity_Formulario extends Spu_Entity_Abstract
 {
     protected $_data;
     

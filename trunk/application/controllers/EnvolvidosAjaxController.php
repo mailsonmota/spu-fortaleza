@@ -1,6 +1,5 @@
 <?php
 require_once 'BaseDataTablesController.php';
-Loader::loadService('ManifestanteService');
 class EnvolvidosAjaxController extends BaseDataTablesController
 {
 	public function listarAction()
@@ -12,7 +11,7 @@ class EnvolvidosAjaxController extends BaseDataTablesController
 	
 	protected function _getManifestantes()
 	{
-		$manifestanteService = new ManifestanteService($this->getTicket());
+		$manifestanteService = new Spu_Service_Manifestante($this->getTicket());
 		return $manifestanteService->getManifestantes($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
 	}
 	
@@ -25,7 +24,7 @@ class EnvolvidosAjaxController extends BaseDataTablesController
 	
 	protected function _getManifestante($cpfCnpj)
 	{
-		$manifestanteService = new ManifestanteService($this->getTicket());
+		$manifestanteService = new Spu_Service_Manifestante($this->getTicket());
 		return $manifestanteService->getManifestante($cpfCnpj);
 	}
 	
