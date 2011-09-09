@@ -1,7 +1,5 @@
 <?php
-require_once('BaseService.php');
-Loader::loadEntity('CopiaProcesso');
-class CopiaProcessoService extends BaseService
+class Spu_Service_CopiaProcesso extends Spu_Service_Abstract
 {
     private $_processoBaseUrl = 'spu/processo';
     private $_processoTicketUrl = 'ticket';
@@ -38,7 +36,7 @@ class CopiaProcessoService extends BaseService
     
     public function loadFromHash($hash)
     {
-        $copia = new CopiaProcesso($this->getTicket());
+        $copia = new Spu_Entity_CopiaProcesso($this->getTicket());
         
         $copia->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $copia->setNome($this->_getHashValue($hash, 'nome'));
@@ -52,7 +50,7 @@ class CopiaProcessoService extends BaseService
         $hashProcesso = array_pop($hash);
         $hashProcesso = array_pop($hashProcesso);
         $hashDadosProcesso = array_pop($hashProcesso);
-        $processoService = new ProcessoService();
+        $processoService = new Spu_Service_Processo();
         $processo = $processoService->loadFromHash($hashDadosProcesso);
         return $processo;
     }

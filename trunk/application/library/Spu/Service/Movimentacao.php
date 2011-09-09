@@ -1,6 +1,5 @@
 <?php
-Loader::loadAspect('Movimentacao');
-class MovimentacaoService extends BaseService
+class Spu_Service_Movimentacao extends Spu_Service_Abstract
 {
     public function loadManyFromHash($hash)
     {
@@ -17,7 +16,7 @@ class MovimentacaoService extends BaseService
     
     public function loadFromHash($hash)
     {
-        $movimentacao = new Movimentacao();
+        $movimentacao = new Spu_Entity_Aspect_Movimentacao();
         
         $movimentacao->setData($this->_getHashValue($hash, 'data'));
         $movimentacao->setHora($this->_getHashValue($hash, 'hora'));
@@ -34,7 +33,7 @@ class MovimentacaoService extends BaseService
     
     protected function _loadUsuarioFromHash($hash)
     {
-        $usuario = new Usuario();
+        $usuario = new Spu_Entity_Usuario();
         if ($hash) {
             $hash = array_pop($hash);
             $usuario->setNome($this->_getHashValue($hash, 'nome'));
@@ -50,10 +49,10 @@ class MovimentacaoService extends BaseService
     {
         if ($hash) {
             $hash = array_pop($hash);
-            $protocoloService = new ProtocoloService($this->getTicket());
+            $protocoloService = new Spu_Service_Protocolo($this->getTicket());
             $protocolo = $protocoloService->loadFromHash($hash);
         } else {
-            $protocolo = new Protocolo();
+            $protocolo = new Spu_Entity_Protocolo();
         }
         
         return $protocolo;
@@ -62,7 +61,7 @@ class MovimentacaoService extends BaseService
     protected function _loadPrioridadeFromHash($hash)
     {
         $hash = array_pop($hash);
-        $prioridadeService = new PrioridadeService($this->getTicket());
+        $prioridadeService = new Spu_Service_Prioridade($this->getTicket());
         $prioridade = $prioridadeService->loadFromHash($hash);
         
         return $prioridade;

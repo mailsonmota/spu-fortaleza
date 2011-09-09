@@ -1,7 +1,5 @@
 <?php
-require_once('BaseService.php');
-Loader::loadService('BairroService');
-class ManifestanteService extends BaseService
+class Spu_Service_Manifestante extends Spu_Service_Abstract
 {
     private $_manifestantesBaseUrl = 'spu/manifestantes';
     private $_manifestantesTicketUrl = 'ticket';
@@ -30,7 +28,7 @@ class ManifestanteService extends BaseService
     
     public function loadFromHash($hash)
     {
-        $manifestante = new Manifestante();
+        $manifestante = new Spu_Entity_Aspect_Manifestante();
         
         $manifestante->setCpf($this->_getHashValue($hash, 'cpfCnpj'));
         $manifestante->setNome($this->_getHashValue($hash, 'nome'));
@@ -52,7 +50,7 @@ class ManifestanteService extends BaseService
     protected function _loadBairroFromHash($hash)
     {
         $hash = array_pop($hash);
-        $bairroService = new BairroService($this->getTicket());
+        $bairroService = new Spu_Service_Bairro($this->getTicket());
         $bairro = $bairroService->loadFromHash($hash);
         
         return $bairro;

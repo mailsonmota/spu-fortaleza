@@ -1,7 +1,5 @@
 <?php
-require_once('BaseService.php');
-Loader::loadEntity('TipoProcesso');
-class TipoProcessoService extends BaseService
+class Spu_Service_TipoProcesso extends Spu_Service_Abstract
 {
     private $_tiposProcessoBaseUrl = 'spu/tiposprocesso';
     private $_tiposProcessoTicketUrl = 'ticket';
@@ -37,7 +35,7 @@ class TipoProcessoService extends BaseService
     
     public function loadFromHash($hash)
     {
-        $tipoProcesso = new TipoProcesso();
+        $tipoProcesso = new Spu_Entity_TipoProcesso();
         
         $tipoProcesso->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $tipoProcesso->setNome($this->_getHashValue($hash, 'nome'));
@@ -57,7 +55,7 @@ class TipoProcessoService extends BaseService
     protected function _loadTipoTramitacaoFromHash($hash)
     {
         $hashTramitacao = $this->_getHashValue($hash, 'tramitacao');
-        $tramitacao = new TipoTramitacao($this->getTicket());
+        $tramitacao = new Spu_Entity_Classification_TipoTramitacao($this->getTicket());
         if ($hashTramitacao) {
             $hashTramitacao = array_pop($hashTramitacao);
             $tramitacao->setNodeRef($this->_getHashValue($hashTramitacao, 'noderef'));
@@ -70,7 +68,7 @@ class TipoProcessoService extends BaseService
     protected function _loadTipoAbrangenciaFromHash($hash)
     {
         $hashAbrangencia = $this->_getHashValue($hash, 'abrangencia');
-        $abrangencia = new TipoTramitacao($this->getTicket());
+        $abrangencia = new Spu_Entity_Classification_TipoAbrangencia($this->getTicket());
         if ($hashAbrangencia) {
             $hashAbrangencia = array_pop($hashAbrangencia);
             $abrangencia->setNodeRef($this->_getHashValue($hashAbrangencia, 'noderef'));
@@ -88,7 +86,7 @@ class TipoProcessoService extends BaseService
             $hashTiposManifestante = array_pop($hashTiposManifestante);
             foreach ($hashTiposManifestante as $hashTipoManifestante) {
                 $hashTipoManifestante = array_pop($hashTipoManifestante);
-                $tipoManifestante = new TipoManifestante($this->getTicket());
+                $tipoManifestante = new Spu_Entity_Classification_TipoManifestante($this->getTicket());
                 $tipoManifestante->setNodeRef($this->_getHashValue($hashTipoManifestante, 'noderef'));
                 $tipoManifestante->setNome($this->_getHashValue($hashTipoManifestante, 'nome'));
                 $tipoManifestante->setDescricao($this->_getHashValue($hashTipoManifestante, 'descricao'));

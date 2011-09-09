@@ -1,7 +1,5 @@
 <?php
-require_once('BaseService.php');
-Loader::loadClassification('Prioridade');
-class PrioridadeService extends BaseService
+class Spu_Service_Prioridade extends Spu_Service_Abstract
 {
     private $_baseUrl = 'spu/processo';
     private $_ticketUrl = 'ticket';
@@ -19,7 +17,7 @@ class PrioridadeService extends BaseService
     
     public function loadFromHash($hash)
     {
-        $prioridade = new Prioridade();
+        $prioridade = new Spu_Entity_Classification_Prioridade();
         
         $prioridade->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $prioridade->setNome($this->_getHashValue($hash, 'nome'));

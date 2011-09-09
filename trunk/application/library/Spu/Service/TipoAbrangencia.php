@@ -1,7 +1,5 @@
 <?php
-require_once('BaseService.php');
-Loader::loadEntity('TipoAbrangencia');
-class TipoAbrangenciaService extends BaseService
+class Spu_Service_TipoAbrangencia extends Spu_Service_Abstract
 {
     private $_baseUrl = 'spu/tiposprocesso';
     private $_ticketUrl = 'ticket';
@@ -19,7 +17,7 @@ class TipoAbrangenciaService extends BaseService
     
     public function loadFromHash($hash)
     {
-        $tipoAbrangencia = new TipoAbrangencia();
+        $tipoAbrangencia = new Spu_Entity_Classification_TipoAbrangencia();
         
         $tipoAbrangencia->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $tipoAbrangencia->setNome($this->_getHashValue($hash, 'nome'));

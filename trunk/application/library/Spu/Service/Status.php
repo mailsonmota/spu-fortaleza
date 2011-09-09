@@ -1,6 +1,5 @@
 <?php
-require_once('BaseService.php');
-class StatusService extends BaseService
+class Spu_Service_Status extends Spu_Service_Abstract
 {
     private $_baseUrl = 'spu/processo';
     private $_ticketUrl = 'ticket';
@@ -32,7 +31,7 @@ class StatusService extends BaseService
     
     public function loadFromHash($hash)
     {
-        $status = new Status();
+        $status = new Spu_Entity_Classification_Status();
         
         $status->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $status->setNome($this->_getHashValue($hash, 'nome'));

@@ -1,7 +1,5 @@
 <?php
-require_once('BaseService.php');
-Loader::loadEntity('TipoTramitacao');
-class TipoTramitacaoService extends BaseService
+class Spu_Service_TipoTramitacao extends Spu_Service_Abstract
 {
     private $_baseUrl = 'spu/tiposprocesso';
     private $_ticketUrl = 'ticket';
@@ -19,7 +17,7 @@ class TipoTramitacaoService extends BaseService
     
     public function loadFromHash($hash)
     {
-        $tipoTramitacao = new TipoTramitacao();
+        $tipoTramitacao = new Spu_Entity_Classification_TipoTramitacao();
         
         $tipoTramitacao->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $tipoTramitacao->setNome($this->_getHashValue($hash, 'nome'));

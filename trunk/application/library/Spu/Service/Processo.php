@@ -1,18 +1,5 @@
 <?php
-require_once('BaseService.php');
-Loader::loadEntity('Processo');
-Loader::loadEntity('Folhas');
-Loader::loadEntity('Volume');
-Loader::loadEntity('Anexo');
-Loader::loadService('TipoProcessoService');
-Loader::loadService('PrioridadeService');
-Loader::loadService('StatusService');
-Loader::loadService('ProtocoloService');
-Loader::loadService('TipoManifestanteService');
-Loader::loadService('ArquivamentoService');
-Loader::loadService('MovimentacaoService');
-Loader::loadService('AssuntoService');
-class ProcessoService extends BaseService
+class Spu_Service_Processo extends Spu_Service_Abstract
 {
     protected $_processoBaseUrl = 'spu/processo';
     protected $_processoTicketUrl = 'ticket';
@@ -61,13 +48,13 @@ class ProcessoService extends BaseService
     }
 
     protected function _getProcessoDetalhado($processo) {
-        $arquivoService = new ArquivoService($this->getTicket());
+        $arquivoService = new Spu_Service_Arquivo($this->getTicket());
         $processo->setRespostasFormulario($arquivoService->getRespostasFormulario($processo->id));
 
-        $assuntoService = new AssuntoService($this->getTicket());
+        $assuntoService = new Spu_Service_Assunto($this->getTicket());
         $processo->setAssunto($assuntoService->getAssunto($processo->assunto->id));
 
-        $tipoProcessoService = new TipoProcessoService($this->getTicket());
+        $tipoProcessoService = new Spu_Service_TipoProcesso($this->getTicket());
         $processo->setTipoProcesso($tipoProcessoService->getTipoProcesso($processo->tipoProcesso->id));
 
         $processo->setArquivos($arquivoService->getArquivos($processo->id));
@@ -173,7 +160,7 @@ class ProcessoService extends BaseService
 
     public function loadFromHash($hash)
     {
-        $processo = new Processo();
+        $processo = new Spu_Entity_Processo();
         $processo->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $processo->setNome($this->_getHashValue($hash, 'nome'));
         $processo->setCorpo($this->_getHashValue($hash, 'corpo'));
@@ -201,12 +188,12 @@ class ProcessoService extends BaseService
 
     protected function _loadFolhasFromHash($hash)
     {
-        $folhas = new Folhas();
+        $folhas = new Spu_Entity_Folhas();
         $folhas->setQuantidade($hash['quantidade']);
 
         $volumesObjectArray = array();
         foreach ($hash['volumes'] as $volumeHash) {
-            $volume = new Volume();
+            $volume = new Spu_Entity_Volume();
             $volume->setNome($volumeHash['nome']);
             $volume->setInicio($volumeHash['inicio']);
             $volume->setFim($volumeHash['fim']);
@@ -221,7 +208,7 @@ class ProcessoService extends BaseService
     protected function _loadPrioridadeFromHash($hash)
     {
         $hash = array_pop($hash);
-        $prioridadeService = new PrioridadeService($this->getTicket());
+        $prioridadeService = new Spu_Service_Prioridade($this->getTicket());
         $prioridade = $prioridadeService->loadFromHash($hash);
 
         return $prioridade;
@@ -230,7 +217,7 @@ class ProcessoService extends BaseService
     protected function _loadStatusFromHash($hash)
     {
         $hash = array_pop($hash);
-        $statusService = new StatusService($this->getTicket());
+        $statusService = new Spu_Service_Status($this->getTicket());
         $status = $statusService->loadFromHash($hash);
 
         return $status;
@@ -239,7 +226,7 @@ class ProcessoService extends BaseService
     protected function _loadProtocoloFromHash($hash)
     {
         $hash = array_pop($hash);
-        $protocoloService = new ProtocoloService($this->getTicket());
+        $protocoloService = new Spu_Service_Protocolo($this->getTicket());
         $protocolo = $protocoloService->loadFromHash($hash);
 
         return $protocolo;
@@ -248,7 +235,7 @@ class ProcessoService extends BaseService
     protected function _loadTipoProcessoFromHash($hash)
     {
         $hash = array_pop($hash);
-        $tipoProcesso = new TipoProcesso($this->getTicket());
+        $tipoProcesso = new Spu_Entity_TipoProcesso($this->getTicket());
         $tipoProcesso->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $tipoProcesso->setNome($this->_getHashValue($hash, 'nome'));
 
@@ -263,7 +250,7 @@ class ProcessoService extends BaseService
     protected function _loadAssuntoFromHash($hash)
     {
         $hash = array_pop($hash);
-        $assuntoService = new AssuntoService($this->getTicket());
+        $assuntoService = new Spu_Service_Assunto($this->getTicket());
         $assunto = $assuntoService->loadFromHash($hash);
 
         return $assunto;
@@ -272,7 +259,7 @@ class ProcessoService extends BaseService
     protected function _loadManifestanteFromHash($hash)
     {
         $hash = array_pop($hash);
-        $manifestanteService = new ManifestanteService($this->getTicket());
+        $manifestanteService = new Spu_Service_Manifestante($this->getTicket());
         $manifestante = $manifestanteService->loadFromHash($hash);
 
         return $manifestante;
@@ -281,7 +268,7 @@ class ProcessoService extends BaseService
     protected function _loadTipoManifestanteFromHash($hash)
     {
         $hash = array_pop($hash);
-        $tipoManifestanteService = new TipoManifestanteService($this->getTicket());
+        $tipoManifestanteService = new Spu_Service_TipoManifestante($this->getTicket());
         $tipoManifestante = $tipoManifestanteService->loadFromHash($hash);
 
         return $tipoManifestante;
@@ -290,7 +277,7 @@ class ProcessoService extends BaseService
     protected function _loadArquivamentoFromHash($hash)
     {
         $hash = array_pop($hash);
-        $arquivamentoService = new ArquivamentoService();
+        $arquivamentoService = new Spu_Service_Arquivamento();
         $arquivamento = $arquivamentoService->loadFromHash($hash);
 
         return $arquivamento;
@@ -298,7 +285,7 @@ class ProcessoService extends BaseService
 
     protected function _loadMovimentacoesFromHash($hash)
     {
-        $movimentacaoService = new MovimentacaoService();
+        $movimentacaoService = new Spu_Service_Movimentacao();
         return $movimentacaoService->loadManyFromHash($hash);
     }
 

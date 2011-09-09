@@ -1,6 +1,5 @@
 <?php
-require_once('BaseService.php');
-class TipoManifestanteService extends BaseService
+class Spu_Service_TipoManifestante extends Spu_Service_Abstract
 {
     private $_baseUrl = 'spu/tiposprocesso';
     private $_ticketUrl = 'ticket';
@@ -18,7 +17,7 @@ class TipoManifestanteService extends BaseService
     
     public function loadFromHash($hash)
     {
-        $tipoManifestante = new TipoManifestante();
+        $tipoManifestante = new Spu_Entity_Classification_TipoManifestante();
         
         $tipoManifestante->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $tipoManifestante->setNome($this->_getHashValue($hash, 'nome'));

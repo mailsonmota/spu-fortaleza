@@ -1,8 +1,5 @@
 <?php
-require_once('BaseService.php');
-Loader::loadEntity('Assunto');
-Loader::loadService('ArquivoService');
-class AssuntoService extends BaseService
+class Spu_Service_Assunto extends Spu_Service_Abstract
 {
     private $_assuntosBaseUrl = 'spu/assuntos';
     private $_assuntosTicketUrl = 'ticket';
@@ -20,7 +17,6 @@ class AssuntoService extends BaseService
 
     public function getAssuntosPorTipoProcesso($idTipoProcesso, $origem = null)
     {
-        // era: $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listarportipoprocesso?tipoprocessoid=$idTipoProcesso";
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listarportipoprocesso/$idTipoProcesso";
         
         if ($origem) {
@@ -86,7 +82,7 @@ class AssuntoService extends BaseService
 
     public function loadFromHash($hash, $carregarDetalhes = false)
     {
-        $assunto = new Assunto();
+        $assunto = new Spu_Entity_Assunto();
             
         $assunto->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $assunto->setNome($this->_getHashValue($hash, 'nome'));
@@ -101,7 +97,7 @@ class AssuntoService extends BaseService
     }
 
     protected function _loadTipoProcessoFromHash($hash){
-        $tipoProcesso = new TipoProcesso();
+        $tipoProcesso = new Spu_Entity_TipoProcesso();
         if ($hash AND is_array($hash)) {
             $hash = array_pop($hash);
             $tipoProcesso->setNodeRef($this->_getHashValue($hash, 'noderef'));
@@ -112,8 +108,8 @@ class AssuntoService extends BaseService
 
     protected function _loadFormulario($assuntoId)
     {
-        $arquivoService = new ArquivoService($this->getTicket());
-        $formulario = new Formulario();
+        $arquivoService = new Spu_Service_Arquivo($this->getTicket());
+        $formulario = new Spu_Entity_Formulario();
         try {
             $formularioData = $arquivoService->getContentFromUrl(array('id' => $assuntoId));
             $formulario->setData($formularioData);

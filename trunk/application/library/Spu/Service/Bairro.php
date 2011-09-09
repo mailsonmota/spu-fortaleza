@@ -1,7 +1,5 @@
 <?php
-require_once('BaseService.php');
-Loader::loadClassification('Bairro');
-class BairroService extends BaseService
+class Spu_Service_Bairro extends Spu_Service_Abstract
 {
     private $_bairrosBaseUrl = 'spu/bairros';
     private $_bairrosTicketUrl = 'ticket';
@@ -19,7 +17,7 @@ class BairroService extends BaseService
     
     public function loadFromHash($hash)
     {
-        $bairro = new Bairro();
+        $bairro = new Spu_Entity_Classification_Bairro();
         
         $bairro->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $bairro->setNome($this->_getHashValue($hash, 'nome'));
