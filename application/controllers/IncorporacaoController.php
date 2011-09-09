@@ -1,5 +1,4 @@
 <?php
-Loader::loadService('TramitacaoService');
 class IncorporacaoController extends BaseController
 {
     public function indexAction()
@@ -12,7 +11,7 @@ class IncorporacaoController extends BaseController
             $session->processoPrincipalId = $postData['processos'][0];
             $this->_redirectEscolherIncorporado();
         }
-        $tramitacaoService = new TramitacaoService($this->getTicket());
+        $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
         $this->view->lista = $tramitacaoService->getCaixaAnalise(0, 10000, null);
     }
 
@@ -25,7 +24,7 @@ class IncorporacaoController extends BaseController
             $session->processoIncorporadoId = $postData['processos'][0];
             $this->_redirectConfirmacao();
         }
-        $processoService = new ProcessoService($this->getTicket());
+        $processoService = new Spu_Service_Processo($this->getTicket());
         $processo = $processoService->getProcesso($session->processoPrincipalId);
 
         $caixaAnaliseIncorporacao = $processoService->getCaixaAnaliseIncorporacao($processo);
@@ -44,7 +43,7 @@ class IncorporacaoController extends BaseController
     public function confirmacaoAction()
     {
         $session = new Zend_Session_Namespace('incorporacaoSession');
-        $processoService = new ProcessoService($this->getTicket());
+        $processoService = new Spu_Service_Processo($this->getTicket());
 
         if ($this->getRequest()->isPost()) {
             $data['principal'] = $session->processoPrincipalId;
@@ -62,29 +61,17 @@ class IncorporacaoController extends BaseController
             $this->_redirectConclusao();
         }
 
-        $processoPrincipal = new Processo();
-        $processoPrincipal = $processoService->getProcesso($session->processoPrincipalId);
-
-        $processoIncorporado = new Processo();
-        $processoIncorporado = $processoService->getProcesso($session->processoIncorporadoId);
-
-        $this->view->principal = $processoPrincipal;
-        $this->view->incorporado = $processoIncorporado;
+        $this->view->principal = $processoService->getProcesso($session->processoPrincipalId);
+        $this->view->incorporado = $processoService->getProcesso($session->processoIncorporadoId);
     }
 
     public function conclusaoAction()
     {
         $session = new Zend_Session_Namespace('incorporacaoSession');
-        $processoService = new ProcessoService($this->getTicket());
+        $processoService = new Spu_Service_Processo($this->getTicket());
 
-        $processoPrincipal = new Processo();
-        $processoPrincipal = $processoService->getProcesso($session->processoPrincipalId);
-
-        $processoIncorporado = new Processo();
-        $processoIncorporado = $processoService->getProcesso($session->processoIncorporadoId);
-
-        $this->view->principal = $processoPrincipal;
-        $this->view->incorporado = $processoIncorporado;
+        $this->view->principal = $processoService->getProcesso($session->processoPrincipalId);
+        $this->view->incorporado = $processoService->getProcesso($session->processoIncorporadoId);
     }
 
     protected function _checarEscolhaDeProcesso($postData, $action)
