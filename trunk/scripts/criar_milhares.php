@@ -5,52 +5,58 @@ $alfresco_spu = 'spu/';
 $login = 'gilsam';
 $password = 'gilsam';
 
-const PRIORIDADE_ID = 'fb12ce97-c50a-4df8-8a36-d7380f4a5c7f';
 const PROTOCOLO_ORIGEM = '63c08421-ef1a-4f17-9cdf-571569ba3985'; // SAM 172.30.41.28
+const PRIORIDADE_ID = 'fb12ce97-c50a-4df8-8a36-d7380f4a5c7f';
 
 $protocolos_destino = get_protocolos_destino();
 $tipos_processo = get_tipos_processo();
 
 $counter = 0;
+$processos_quantidade = 0;
 
-while ($counter < 2) {
-    $counter++; print "\n" . $counter . "\n\n";
+while ($counter < 20000) {
+    $counter++; print "\nCounter " . $counter . " / 10 mil \n\n";
+
     foreach ($protocolos_destino as $protocolo_destino) {
         foreach ($tipos_processo as $tipo_processo => $assuntos) {
             foreach ($assuntos as $assunto) {
-                print "protocolo_destino \t\t\t tipo processo \t\t\t\t assunto \n";
-                print "$protocolo_destino \t $tipo_processo \t $assunto \n";
                 $pre_processo = get_pre_processo(array('destino' => $protocolo_destino,
                                                        'tipo_processo' => $tipo_processo,
                                                        'assunto' => $assunto));
 
                 try {
+                    $time_begin = microtime(true);
                     $abertura_resposta = curl_request($alfresco_url . $alfresco_spu . 'processo/abrir',
                                                       'POST',
                                                       array(CURLOPT_USERPWD => "$login:$password",
                                                             CURLOPT_POSTFIELDS => json_encode($pre_processo)));
+                    $processos_quantidade++;
                 } catch (Exception $e) {
-                    print "Exception: $e->getMessage()"; exit;
+                    print "Exception: $e->getMessage()";
                 }
 
                 $processo_tmp = array_pop(array_pop(array_pop(array_pop(json_decode($abertura_resposta, true)))));
 
                 $processo = get_processo(array('processo_id' => substr($processo_tmp['noderef'], 24),
                                                'destino_id' => $protocolo_destino,
-                                               'prioridade_id' => PRIORIDADE_ID
-                                               ));
+                                               'prioridade_id' => PRIORIDADE_ID));
 
                 try {
                     $tramitacao_resposta = curl_request($alfresco_url . $alfresco_spu . 'processo/tramitar',
                                                         'POST',
                                                         array(CURLOPT_USERPWD => "$login:$password",
                                                               CURLOPT_POSTFIELDS => json_encode($processo)));
+                    $time_result = microtime(true) - $time_begin;
                 } catch (Exception $e) {
                     print "Exception: $e->getMessage()";
                 }
 
                 $tramitacao_tmp = array_pop(array_pop(array_pop(array_pop(json_decode($tramitacao_resposta, true)))));
-                print 'Processo criado: ' . $tramitacao_tmp['nome'] . "\n\n";
+
+                print "Protocolo Destino \t\t\t Tipo Processo \t\t\t\t Assunto \n"
+                    . "$protocolo_destino \t $tipo_processo \t $assunto \n"
+                    . 'Processo criado e tramitado. Quantidade: ' . $processos_quantidade . '. Criado em ' . $time_result . ' segundos.'
+                    . ' Número do processo ' . $tramitacao_tmp['nome'] . ".\n\n";
             }
         }
     }
@@ -61,16 +67,15 @@ while ($counter < 2) {
 function get_protocolos_destino() {
     return array(
                  //'63c08421-ef1a-4f17-9cdf-571569ba3985', // SAM 172.30.41.28
-                 '50a5562c-36c3-43b9-8d5b-67cfdb70eb87' // SME 172.30.41.28
-                 //'6707cebc-8371-4e2b-a58f-cda52a8c9968' // SMS 172.30.41.28
+                 '50a5562c-36c3-43b9-8d5b-67cfdb70eb87', // SME 172.30.41.28
+                 '6707cebc-8371-4e2b-a58f-cda52a8c9968', // SMS 172.30.41.28
+                 '80aa5ec3-9424-4bf8-a097-bf31aade3d2c' // AMC 172.30.41.28
                  );
 }
 
 function get_tipos_processo() {
-    return array('ac1453fa-4ce8-4dea-86be-13aec970f1ce' => array('4bb1ff4c-68c4-4207-9411-63b4f4e5a60b', //// Aposentadoria // Voluntária, Magistér
-                                                                 '2ebf1675-77ed-4f56-82de-560f4609f2c9' // Compulsória
-                                                                 )
-                 );
+    return array('ac1453fa-4ce8-4dea-86be-13aec970f1ce' => array('4bb1ff4c-68c4-4207-9411-63b4f4e5a60b', // Aposentadoria // Voluntária, Magistér
+                                                                 '2ebf1675-77ed-4f56-82de-560f4609f2c9')); // Compulsória
 }
 
 function get_pre_processo(array $ops = array()) {
@@ -80,11 +85,11 @@ function get_pre_processo(array $ops = array()) {
                                  "data" => "09/09/2011",
                                  "hora" => "11:41",
                                  "numeroOrigem" => "",
-                                 "observacao" => "Criação automática. Script.",
+                                 "observacao" => "Criação automática.",
                                  "destino" => $ops['destino'],
                                  "prioridadeId" => PRIORIDADE_ID,
                                  "dataPrazo" => "01/02/2003",
-                                 "corpo" => "Criação automática. Script.",
+                                 "corpo" => "Criação automática.",
                                  "folhas_quantidade" => "",
                                  "proprietarioId" => PROTOCOLO_ORIGEM,
                                  "manifestanteCpfCnpj" => "1234",
@@ -111,7 +116,7 @@ function get_processo(array $ops = array()) {
                  "destinoId" => $ops['destino_id'],
                  "prioridadeId" => $ops['prioridade_id'],
                  "prazo" => "01/02/2003",
-                 'despacho' => 'Criado automaticamente. Script.');
+                 'despacho' => 'Criado automaticamente.');
 }
 
 function curl_request($url, $method, array $ops = array()) {
