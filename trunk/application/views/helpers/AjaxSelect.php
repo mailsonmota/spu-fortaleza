@@ -106,7 +106,8 @@ class Zend_View_Helper_AjaxSelect extends Zend_View_Helper_Abstract
 
                            return false;
                        }
-                   });" . $this->_getAdditionalScript() . "
+                   });
+                   " . $this->_getAdditionalScript() . "
                });";
         
         $this->view->headScript()->appendScript($js, 'text/javascript');

@@ -94,7 +94,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $view->headScript()->appendScript('var baseUrl="' . $baseUrl . '"');
         $view->headScript()->appendFile($pluginsPath . 'jquery-1.4.4.min.js');
-        $view->headScript()->appendFile($pluginsPath . 'jquery.meio.mask-1.1.3.js');
         $view->headScript()->appendFile($pluginsPath . 'jquery.validate.min.js');
         $view->headScript()->appendFile($pluginsPath . 'date.js');
         $view->headScript()->appendFile($pluginsPath . 'date_pt-br.js');

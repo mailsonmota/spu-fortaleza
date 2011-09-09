@@ -3,11 +3,13 @@ jQuery(document).ready(function() {
 	createUncheckedSelector();
 	triggerEnterButton();
 	
+	//Máscaras
 	$('.mascaraData').setMask('date');
 	$('.mascaraHora').setMask('time');
 	$('.mascaraCep').setMask('cep');
 	$('.fone').setMask('phone');
 	
+	//DatePicker
 	$.dpText = {
 		TEXT_PREV_YEAR		:	'Ano anterior',
 		TEXT_PREV_MONTH		:	'Mês anterior',
@@ -18,32 +20,27 @@ jQuery(document).ready(function() {
 	};
 	$('.mascaraData').datePicker().trigger('change');
 	
-	//$('a[rel*=facebox]').facebox();
-	
-	//tableRowCheckboxToggle();
-	//tableRowRadioToggle();
-	
+	//Modal
 	$('a[rel=modal]').click(function() {
 		$($(this).attr('href')).modal();
 	});
 	
+	//Textarea
 	$('textarea').elastic();
 	
-	// Todos as table com classe .grid dentre de #article que não sejam um .relatorio
+	//Todos as table com classe .grid dentre de #article que não sejam um .relatorio
 	$('table:not(.no-datatable).grid').dataTable({
-		"oLanguage": {
+		oLanguage: {
 			"sUrl": baseUrl + "/js/plugins/dataTables/jquery.dataTables.pt-br.txt"
 		},
 		iDisplayLength: 50, 
 		sPaginationType: "text_only", 
-		"bLengthChange": false, 
-		"bSort": false/*, 
-		"fnDrawCallback": function() {
-			updateTable($(this));
-		}*/
+		bLengthChange: false, 
+		bSort: false, 
 	});
 	$('.grid tfoot').hide();
 	
+	//Form Validation
 	$('#article form').validate();
 	$.extend($.validator.messages, {
         	required: "Este campo é requerido.",
@@ -51,6 +48,7 @@ jQuery(document).ready(function() {
         }
 	);
 	
+	//Autocomplete
 	$('.autocomplete').val('Digite para buscar...').addClass('autocomplete-wait');
 	$('.autocomplete').focus(function() {$(this).val('').removeClass('autocomplete-wait');});
 	$('.autocomplete').blur(function() {
@@ -63,6 +61,7 @@ jQuery(document).ready(function() {
 		return false;
 	});
 	
+	//TableRowCheckboxToggle
 	$('tbody tr').live('click', function(event) {
 		$(this).toggleClass('marked')
 		if (event.target.type !== 'checkbox') {
@@ -71,16 +70,6 @@ jQuery(document).ready(function() {
 		}
 	});
 });
-
-/*function updateTable(table) {
-	$(table).find("tr").each(function(i,row) {
-		hasRadio = ($(row).find(':radio').size() > 0) ? true : false;
-		hasCheckedRadio = ($(row).find('input[type=radio]:checked').size() > 0) ? true : false;
-		if($(row).hasClass(tableRowRadioCheckedClass) && hasRadio && !hasCheckedRadio) {
-			$(row).removeClass(tableRowRadioCheckedClass);
-		}
-	});
-}*/
 
 function triggerEnterButton() {
 	// Botão Default - Enter
@@ -140,9 +129,11 @@ function addListAndInputItem(selectId, listId, itemId, itemLabel) {
 function removeListAndInputItem(listItem, selectId, itemValue) {
 	$(listItem).parent().remove();
     $("#" + selectId).val('');
+    return false;
 }
 
 function removeListAndSelectItem(listItem, selectId, itemValue) {
     $(listItem).parent().remove();
     $("#" + selectId + " option[value='" + itemValue + "']").remove();
+    return false;
 }
