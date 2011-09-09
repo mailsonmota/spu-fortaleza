@@ -1,5 +1,4 @@
 <?php
-Loader::loadService('TipoProcessoService');
 class TiposprocessoAjaxController extends BaseController
 {
 	public function listarPorProtocoloAction()
