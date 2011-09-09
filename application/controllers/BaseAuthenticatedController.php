@@ -15,7 +15,7 @@ class BaseAuthenticatedController extends Zend_Controller_Action
             throw new Exception("Sua sessão está corrompida. Por favor, autentique-se novamente.");
         } else {
             Loader::loadAlfrescoApiClass('AlfrescoLogin');
-            $alfrescoLogin = new AlfrescoLogin(BaseService::getBaseUrl());
+            $alfrescoLogin = new AlfrescoLogin(Spu_Service_Abstract::getBaseUrl());
             $alfrescoLogin->setTicket($this->getTicket());
             if (!$alfrescoLogin->validate()) {
                 throw new Exception("Sua sessão expirou. Por favor, autentique-se novamente.");

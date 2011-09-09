@@ -1,5 +1,4 @@
 <?php
-require_once('BaseClassification.php');
-class StatusArquivamento extends BaseClassification
+class Spu_Entity_Classification_StatusArquivamento extends Spu_Entity_Classification_Abstract
 {
 }

@@ -1,11 +1,9 @@
 <?php
-Loader::loadService('AssuntoService');
 class AssuntosController extends BaseController
 {
-
     public function indexAction()
     {
-        $assuntoService = new AssuntoService($this->getTicket());
+        $assuntoService = new Spu_Service_Assunto($this->getTicket());
         $listaAssuntos = $assuntoService->getAssuntos();
         $this->view->lista = $listaAssuntos;
     }
@@ -14,7 +12,7 @@ class AssuntosController extends BaseController
     {
         $id = $this->_getIdFromUrl();
 
-        $assuntoService = new AssuntoService($this->getTicket());
+        $assuntoService = new Spu_Service_Assunto($this->getTicket());
         $assunto = $assuntoService->getAssunto($id);
         if ($this->getRequest()->isPost()) {
             try {
@@ -37,7 +35,7 @@ class AssuntosController extends BaseController
         $assunto = new Assunto();
         if ($this->getRequest()->isPost()) {
             try {
-                $assuntoService = new AssuntoService($this->getTicket());
+                $assuntoService = new Spu_Service_Assunto($this->getTicket());
                 $assunto = $assuntoService->inserir($this->getRequest()->getPost());
                 $this->setMessageForTheView('Assunto salvo com sucesso.', 'success');
             } catch (Exception $e) {
@@ -61,7 +59,7 @@ class AssuntosController extends BaseController
     {
         $id = $this->_getIdFromUrl();
 
-        $assuntoService = new AssuntoService($this->getTicket());
+        $assuntoService = new Spu_Service_Assunto($this->getTicket());
         $assunto = $assuntoService->getAssunto($id);
 
         $this->view->assunto = $assunto;
@@ -81,7 +79,7 @@ class AssuntosController extends BaseController
             if (!$this->getRequest()->isPost() OR !$this->getRequest()->getParam('assuntos')) {
                 throw new Exception("Por favor, selecione pelo menos um assunto para remover.");
             }
-            $assuntoService = new AssuntoService($this->getTicket());
+            $assuntoService = new Spu_Service_Assunto($this->getTicket());
             $assuntoService->removerVarios($this->getRequest()->getPost());
             $this->setSuccessMessage('Assuntos removidos com sucesso.');
         } catch (Exception $e) {

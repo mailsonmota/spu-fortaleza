@@ -1,5 +1,4 @@
 <?php
-require_once('BaseClassification.php');
-class Bairro extends BaseClassification
+class Spu_Entity_Classification_Bairro extends Spu_Entity_Classification_Abstract
 {
 }

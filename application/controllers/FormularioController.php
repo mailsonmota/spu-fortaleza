@@ -1,12 +1,11 @@
 <?php
-Loader::loadService("AssuntoService");
 class FormularioController extends BaseController
 {
     public function contentAction()
     {
         $this->_helper->layout()->disableLayout();
         $id = $this->getRequest()->getParam('id');
-        $arquivoService = new ArquivoService($this->getTicket());
+        $arquivoService = new Spu_Service_Arquivo($this->getTicket());
         $this->view->result = $arquivoService->getContentFromUrl(array('id' => $id));
     }
 

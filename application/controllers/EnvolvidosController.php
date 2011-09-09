@@ -1,5 +1,4 @@
 <?php
-Loader::loadService('ManifestanteService');
 class EnvolvidosController extends BaseController
 {
     public function indexAction()
@@ -10,7 +9,7 @@ class EnvolvidosController extends BaseController
     {
         $cpf = $this->_getCpfFromUrl();
         
-        $manifestanteService = new ManifestanteService($this->getTicket());
+        $manifestanteService = new Spu_Service_Manifestante($this->getTicket());
         $manifestante = $manifestanteService->getManifestante($cpf);
         
         $this->view->manifestante = $manifestante;

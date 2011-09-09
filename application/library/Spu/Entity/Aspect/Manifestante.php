@@ -1,8 +1,5 @@
 <?php
-require_once('Base.php');
-Loader::loadService('ManifestanteService');
-Loader::loadClassification('Bairro');
-class Manifestante extends Spu_Aspect_Base
+class Spu_Entity_Aspect_Manifestante extends Spu_Entity_Aspect_Abstract
 {
     protected $_cpf;
     protected $_nome;

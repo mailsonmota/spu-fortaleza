@@ -4,7 +4,7 @@ class ExternosController extends BaseTramitacaoController
 {
     public function indexAction()
     {
-        $tramitacaoService = new TramitacaoService($this->getTicket());
+        $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
         
         if ($this->getRequest()->isPost()) {
             try {

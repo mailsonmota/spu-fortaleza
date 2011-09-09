@@ -1,6 +1,5 @@
 <?php
 require_once 'BaseDataTablesController.php';
-Loader::loadService('ProtocoloService');
 class ProtocolosAjaxController extends BaseDataTablesController
 {
     public function listarTodosAction()
@@ -14,7 +13,7 @@ class ProtocolosAjaxController extends BaseDataTablesController
     
     protected function _getTodosProtocolos()
     {
-        $service = new ProtocoloService($this->getTicket());
+        $service = new Spu_Service_Protocolo($this->getTicket());
         return $service->getTodosProtocolosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
     }
     
@@ -30,7 +29,7 @@ class ProtocolosAjaxController extends BaseDataTablesController
     
     protected function _getListaProtocolosDestino($protocoloOrigemId, $tipoProcessoId = null, $offset = 0)
     {
-        $service = new ProtocoloService($this->getTicket());
+        $service = new Spu_Service_Protocolo($this->getTicket());
         return $service->getProtocolosDestino($protocoloOrigemId,
                                               $tipoProcessoId,
                                               $this->_getSearchTerm(),
@@ -61,7 +60,7 @@ class ProtocolosAjaxController extends BaseDataTablesController
     
     protected function _getProtocolosAutocomplete()
     {
-        $service = new ProtocoloService($this->getTicket());
+        $service = new Spu_Service_Protocolo($this->getTicket());
         return $service->getTodosProtocolosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearchTerm());
     }
 }

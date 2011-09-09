@@ -1,5 +1,4 @@
 <?php
-Loader::loadService('StatusService');
 class ConsultarController extends BaseController
 {
 	public function indexAction()
@@ -20,7 +19,7 @@ class ConsultarController extends BaseController
     
     protected function _getListaTiposProcesso()
     {
-        $tipoProcessoService = new TipoProcessoService($this->getTicket());
+        $tipoProcessoService = new Spu_Service_TipoProcesso($this->getTicket());
         $tiposProcesso = $tipoProcessoService->getTiposProcesso();
         $listaTiposProcesso = array();
         $listaTiposProcesso = array_merge($listaTiposProcesso, $this->_getOpcaoVazia());
@@ -33,7 +32,7 @@ class ConsultarController extends BaseController
     
     protected function _getListaStatus()
     {
-    	$statusService = new StatusService($this->getTicket());
+    	$statusService = new Spu_Service_Status($this->getTicket());
     	$status = $statusService->listar();
     	$listaStatus = array();
     	$listaStatus = array_merge($listaStatus, $this->_getOpcaoVazia());
@@ -66,7 +65,7 @@ class ConsultarController extends BaseController
             $postData[$field] = $globalSearch;
         }
         
-        $processoService = new ProcessoService($this->getTicket());
+        $processoService = new Spu_Service_Processo($this->getTicket());
         
         $processos = $processoService->consultar($postData);
         

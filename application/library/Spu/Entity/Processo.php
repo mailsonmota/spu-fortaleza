@@ -1,15 +1,5 @@
 <?php
-require_once('BaseEntity.php');
-require_once('TipoProcesso.php');
-require_once('Protocolo.php');
-require_once('Arquivo.php');
-require_once('RespostasFormulario.php');
-Loader::loadAspect('Movimentacao');
-Loader::loadAspect('Manifestante');
-Loader::loadAspect('Arquivamento');
-Loader::loadClassification('Prioridade');
-Loader::loadClassification('Status');
-class Processo extends BaseEntity
+class Spu_Entity_Processo extends Spu_Entity_Abstract
 {
     protected $_nodeRef;
     protected $_nome;
@@ -203,7 +193,7 @@ class Processo extends BaseEntity
     }
     
     /**
-     * @return Arquivamento
+     * @return Spu_Aspect_Arquivamento
      */
     public function getArquivamento() {
         return $this->_arquivamento;
@@ -273,7 +263,7 @@ class Processo extends BaseEntity
     
     public function isArquivado()
     {
-        return ($this->getStatus()->nome == Status::ARQUIVADO);
+        return ($this->getStatus()->nome == Spu_Entity_Classification_Status::ARQUIVADO);
     }
     
     public function hasArquivos()

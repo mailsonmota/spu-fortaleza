@@ -1,5 +1,4 @@
 <?php
-require_once('BaseClassification.php');
-class Prioridade extends BaseClassification
+class Spu_Entity_Classification_Prioridade extends Spu_Entity_Classification_Abstract
 {
 }

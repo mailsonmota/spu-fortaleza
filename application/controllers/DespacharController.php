@@ -30,10 +30,10 @@ class DespacharController extends BaseTramitacaoController
                 try {
                     $postData = $this->getRequest()->getPost();
                     
-                    $tramitacaoService = new TramitacaoService($this->getTicket());
+                    $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
                     $tramitacaoService->comentarVarios($this->getRequest()->getPost());
                     
-                    $arquivoService = new ArquivoService($this->getTicket());
+                    $arquivoService = new Spu_Service_Arquivo($this->getTicket());
                     
                     foreach ($postData['processos'] as $processoId) {
                         $postData['destNodeUuid'] = $processoId;

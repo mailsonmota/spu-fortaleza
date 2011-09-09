@@ -1,5 +1,4 @@
 <?php
-Loader::loadService('TramitacaoService');
 class BaseTramitacaoController extends BaseController
 {
     public function init()
@@ -32,7 +31,7 @@ class BaseTramitacaoController extends BaseController
     {
         $processos = array();
         foreach ($listaComIdsProcessos as $processoId) {
-            $processoService = new ProcessoService($this->getTicket());
+            $processoService = new Spu_Service_Processo($this->getTicket());
             $processos[] = $processoService->getProcesso($processoId);
         }
         

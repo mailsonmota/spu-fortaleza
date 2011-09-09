@@ -1,6 +1,5 @@
 <?php
-require_once('Arquivo.php');
-class Anexo extends Arquivo
+class Spu_Entity_Anexo extends Spu_Entity_Arquivo
 {
 	protected $_processo;
 	

@@ -1,5 +1,4 @@
 <?php
-require_once('LinkProcesso.php');
-class CopiaProcesso extends LinkProcesso
+class Spu_Entity_CopiaProcesso extends Spu_Entity_LinkProcesso
 {
 }

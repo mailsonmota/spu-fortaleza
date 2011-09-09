@@ -1,9 +1,5 @@
 <?php
-require_once('Base.php');
-Loader::loadEntity('Protocolo');
-Loader::loadEntity('Usuario');
-Loader::loadClassification('Prioridade');
-class Movimentacao extends Spu_Aspect_Base
+class Spu_Entity_Aspect_Movimentacao extends Spu_Entity_Aspect_Abstract
 {
     protected $_data;
     protected $_hora;
@@ -226,7 +222,7 @@ class Movimentacao extends Spu_Aspect_Base
         return $this->_getNomeProtocoloParaDescricao($destino);
     }
     
-    protected function _getNomeProtocoloParaDescricao(Protocolo $protocolo)
+    protected function _getNomeProtocoloParaDescricao(Spu_Entity_Protocolo $protocolo)
     {
         $nome = '<b>' . $protocolo->getPath() . '</b>';
         return $nome;

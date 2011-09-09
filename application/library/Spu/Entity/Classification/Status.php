@@ -1,6 +1,5 @@
 <?php
-require_once('BaseClassification.php');
-class Status extends BaseClassification
+class Spu_Entity_Classification_Status extends Spu_Entity_Classification_Abstract
 {
     const ARQUIVADO = 'Arquivado';
 }

@@ -1,5 +1,4 @@
 <?php
-Loader::loadService('ProtocoloService');
 class ProtocolosController extends BaseController
 {
     public function indexAction() {
@@ -9,7 +8,7 @@ class ProtocolosController extends BaseController
     {
         $id = $this->_getIdFromUrl();
 
-        $protocoloService = new ProtocoloService($this->getTicket());
+        $protocoloService = new Spu_Service_Protocolo($this->getTicket());
         $protocolo = $protocoloService->getProtocolo($id);
         
         $this->view->protocolo = $protocolo;

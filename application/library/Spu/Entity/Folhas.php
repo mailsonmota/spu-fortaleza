@@ -1,6 +1,5 @@
 <?php
-require_once('BaseEntity.php');
-class Folhas extends BaseEntity
+class Spu_Entity_Folhas extends Spu_Entity_Abstract
 {
     protected $_quantidade;
     protected $_volumes;

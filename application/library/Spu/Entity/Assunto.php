@@ -1,8 +1,5 @@
 <?php
-require_once('BaseEntity.php');
-Loader::loadEntity('TipoProcesso');
-Loader::loadEntity('Formulario');
-class Assunto extends BaseEntity
+class Spu_Entity_Assunto extends Spu_Entity_Abstract
 {
     protected $_nodeRef;
     protected $_nome;

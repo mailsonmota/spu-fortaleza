@@ -1,10 +1,5 @@
 <?php
-require_once('BaseEntity.php');
-require_once('Assunto.php');
-Loader::loadClassification('TipoTramitacao');
-Loader::loadClassification('TipoAbrangencia');
-Loader::loadClassification('TipoManifestante');
-class TipoProcesso extends BaseEntity
+class Spu_Entity_TipoProcesso extends Spu_Entity_Abstract
 {
     protected $_nodeRef;
     protected $_nome;

@@ -1,7 +1,5 @@
 <?php
 require_once 'BaseDataTablesController.php';
-Loader::loadService('TramitacaoService');
-Loader::loadService('CopiaProcessoService');
 class ConsultarAjaxController extends BaseDataTablesController
 {
     public function anexoResultadosAction()
@@ -15,7 +13,7 @@ class ConsultarAjaxController extends BaseDataTablesController
     protected function _getAnexoResultados()
     {
         try {
-        	$processoService = new ProcessoService($this->getTicket());
+        	$processoService = new Spu_Service_Processo($this->getTicket());
         	return $processoService->consultarAnexos($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
         } catch (Exception $e) {
             return $this->_getJsonErrorRow($e);

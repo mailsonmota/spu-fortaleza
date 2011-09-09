@@ -1,6 +1,5 @@
 <?php
 require_once('BaseTramitacaoController.php');
-Loader::loadService('StatusArquivamentoService');
 class ArquivoController extends BaseTramitacaoController
 {
     public function indexAction()
@@ -26,7 +25,7 @@ class ArquivoController extends BaseTramitacaoController
     {
         if ($this->getRequest()->isPost()) {
             try {
-                $tramitacaoService = new TramitacaoService($this->getTicket());
+                $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
                 $tramitacaoService->arquivarVarios($this->getRequest()->getPost());
                 $this->setSuccessMessage('Processos arquivados com sucesso.');
                 $this->_redirectArquivo();
@@ -53,7 +52,7 @@ class ArquivoController extends BaseTramitacaoController
     
     protected function _getListaStatusArquivamento()
     {
-        $statusArquivamentoService = new StatusArquivamentoService($this->getTicket());
+        $statusArquivamentoService = new Spu_Service_StatusArquivamento($this->getTicket());
         $opcoes = $statusArquivamentoService->fetchAll();
         $listaStatusArquivamento = array();
         foreach ($opcoes as $opcao) {
@@ -74,7 +73,7 @@ class ArquivoController extends BaseTramitacaoController
     {
         if ($this->getRequest()->isPost()) {
             try {
-                $tramitacaoService = new TramitacaoService($this->getTicket());
+                $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
                 $tramitacaoService->reabrirVarios($this->getRequest()->getPost());
                 $this->setSuccessMessage('Processos reabertos com sucesso.');
                 $this->_redirectEmAnalise();

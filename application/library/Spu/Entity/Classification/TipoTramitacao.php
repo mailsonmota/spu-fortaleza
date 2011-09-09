@@ -1,6 +1,5 @@
 <?php
-require_once('BaseClassification.php');
-class TipoTramitacao extends BaseClassification
+class Spu_Entity_Classification_TipoTramitacao extends Spu_Entity_Classification_Abstract
 {
     const PARALELA = 'Paralelo';
     

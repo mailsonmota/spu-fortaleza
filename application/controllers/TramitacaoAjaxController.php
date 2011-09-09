@@ -1,7 +1,5 @@
 <?php
 require_once 'BaseDataTablesController.php';
-Loader::loadService('TramitacaoService');
-Loader::loadService('CopiaProcessoService');
 class TramitacaoAjaxController extends BaseDataTablesController
 {
     public function entradaAction()
@@ -15,7 +13,7 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaEntrada()
     {
         try {
-            $tramitacaoService = new TramitacaoService($this->getTicket());
+            $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
             return $tramitacaoService->getCaixaEntrada($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
         } catch (Exception $e) {
             return $this->_getJsonErrorRow($e);
@@ -33,7 +31,7 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaAnalise()
     {
         try {
-            $tramitacaoService = new TramitacaoService($this->getTicket());
+            $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
             return $tramitacaoService->getCaixaAnalise($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
         } catch (Exception $e) {
             return $this->_getJsonErrorRow($e);
@@ -51,7 +49,7 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCopias()
     {
         try {
-            $copiaService = new CopiaProcessoService($this->getTicket());
+            $copiaService = new Spu_Service_CopiaProcesso($this->getTicket());
             return $copiaService->getCopias($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
         } catch (Exception $e) {
             return $this->_getJsonErrorRow($e);
@@ -69,7 +67,7 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaArquivo()
     {
         try {
-            $tramitacaoService = new TramitacaoService($this->getTicket());
+            $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
             return $tramitacaoService->getCaixaArquivo($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
         } catch (Exception $e) {
             return $this->_getJsonErrorRow($e);
@@ -87,7 +85,7 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaSaida()
     {
         try {
-            $tramitacaoService = new TramitacaoService($this->getTicket());
+            $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
             return $tramitacaoService->getCaixaSaida($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
         } catch (Exception $e) {
             return $this->_getJsonErrorRow($e);
@@ -105,7 +103,7 @@ class TramitacaoAjaxController extends BaseDataTablesController
     protected function _getCaixaEnviados()
     {
         try {
-            $tramitacaoService = new TramitacaoService($this->getTicket());
+            $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
             return $tramitacaoService->getCaixaEnviados($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
         } catch (Exception $e) {
             return $this->_getJsonErrorRow($e);
