@@ -1,21 +1,25 @@
 <?php
-$alfresco_url = 'http://172.30.41.28:8080/alfresco/service/';
-$alfresco_api = 'api/';
-$alfresco_spu = 'spu/';
-$login = 'gilsam';
-$password = 'gilsam';
+const ALFRESCO_URL = 'http://172.30.41.28:8080/alfresco/service/';
+const ALFRESCO_API = 'api/';
+const ALFRESCO_SPU = 'spu/';
+const LOGIN = 'gilsam';
+const PASSWORD = 'gilsam';
 
 const PROTOCOLO_ORIGEM = '63c08421-ef1a-4f17-9cdf-571569ba3985'; // SAM 172.30.41.28
 const PRIORIDADE_ID = 'fb12ce97-c50a-4df8-8a36-d7380f4a5c7f';
 
 $protocolos_destino = get_protocolos_destino();
+
 $tipos_processo = get_tipos_processo();
 
 $counter = 0;
+$counter_max = 20000;
+
 $processos_quantidade = 0;
 
-while ($counter < 20000) {
-    $counter++; print "\nCounter " . $counter . " / 10 mil \n\n";
+while ($counter < $counter_max) {
+    $counter++;
+    print "\nCounter " . $counter . " / $counter_max \n\n";
 
     foreach ($protocolos_destino as $protocolo_destino) {
         foreach ($tipos_processo as $tipo_processo => $assuntos) {
@@ -24,12 +28,14 @@ while ($counter < 20000) {
                                                        'tipo_processo' => $tipo_processo,
                                                        'assunto' => $assunto));
 
+                // Abertura de Processo
                 try {
                     $time_begin = microtime(true);
-                    $abertura_resposta = curl_request($alfresco_url . $alfresco_spu . 'processo/abrir',
+                    $abertura_resposta = curl_request(ALFRESCO_URL . ALFRESCO_SPU . 'processo/abrir',
                                                       'POST',
-                                                      array(CURLOPT_USERPWD => "$login:$password",
+                                                      array(CURLOPT_USERPWD => LOGIN . ':' . PASSWORD,
                                                             CURLOPT_POSTFIELDS => json_encode($pre_processo)));
+                    $time_open = microtime(true) - $time_begin;
                     $processos_quantidade++;
                 } catch (Exception $e) {
                     print "Exception: $e->getMessage()";
@@ -41,11 +47,14 @@ while ($counter < 20000) {
                                                'destino_id' => $protocolo_destino,
                                                'prioridade_id' => PRIORIDADE_ID));
 
+                // Tramitação de Processo
                 try {
-                    $tramitacao_resposta = curl_request($alfresco_url . $alfresco_spu . 'processo/tramitar',
+                    $time_begin_move = microtime(true);
+                    $tramitacao_resposta = curl_request(ALFRESCO_URL . ALFRESCO_SPU . 'processo/tramitar',
                                                         'POST',
-                                                        array(CURLOPT_USERPWD => "$login:$password",
+                                                        array(CURLOPT_USERPWD => LOGIN . ':' . PASSWORD,
                                                               CURLOPT_POSTFIELDS => json_encode($processo)));
+                    $time_move = microtime(true) - $time_begin_move;
                     $time_result = microtime(true) - $time_begin;
                 } catch (Exception $e) {
                     print "Exception: $e->getMessage()";
@@ -55,8 +64,11 @@ while ($counter < 20000) {
 
                 print "Protocolo Destino \t\t\t Tipo Processo \t\t\t\t Assunto \n"
                     . "$protocolo_destino \t $tipo_processo \t $assunto \n"
-                    . 'Processo criado e tramitado. Quantidade: ' . $processos_quantidade . '. Criado em ' . $time_result . ' segundos.'
-                    . ' Número do processo ' . $tramitacao_tmp['nome'] . ".\n\n";
+                    . 'Processo criado e tramitado. Quantidade: ' . $processos_quantidade . '. '
+                    . ' Número do processo ' . $tramitacao_tmp['nome'] . ".\n"
+                    . 'Aberto em ' . $time_open . ' segundos. Tramitado em ' . $time_move . '. Geral: ' . $time_result . '.'
+                    . "\n\n";
+                    
             }
         }
     }
@@ -140,5 +152,5 @@ function curl_request($url, $method, array $ops = array()) {
 
 // tests
 
-/*$resposta = curl_request($alfresco_url . $alfresco_spu . 'processo/abrir', 'GET', array(CURLOPT_USERPWD => "$login:$password"));
+/*$resposta = curl_request(ALFRESCO_URL . ALFRESCO_SPU . 'processo/abrir', 'GET', array(CURLOPT_USERPWD => "LOGIN:$password"));
   var_dump($resposta);exit;*/
