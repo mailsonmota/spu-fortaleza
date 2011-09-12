@@ -33,9 +33,9 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
     
-    public function getCaixaExternos()
+    public function getCaixaExternos($offset = 0, $pageSize = 20, $filter = '')
     {
-        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/externos";
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/externos/$offset/$pageSize/$filter";
         $url = $this->addAlfTicketUrl($url);
         
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
