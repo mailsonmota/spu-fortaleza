@@ -38,6 +38,24 @@ class TramitacaoAjaxController extends BaseDataTablesController
         }
     }
     
+    public function externosAction()
+    {
+    	$this->_total = 1000;
+    
+    	$this->_helper->layout()->disableLayout();
+    	$this->view->processos = $this->_getCaixaExternos();
+    }
+    
+    protected function _getCaixaExternos()
+    {
+    	try {
+    		$tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
+    		return $tramitacaoService->getCaixaExternos($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
+    	} catch (Exception $e) {
+    		return $this->_getJsonErrorRow($e);
+    	}
+    }
+    
     public function copiasAction()
     {
         $this->_total = 1000;
