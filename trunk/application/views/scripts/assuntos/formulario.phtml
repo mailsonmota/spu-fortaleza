@@ -7,10 +7,10 @@ $this->breadcrumbs()->addPage((($this->isEdit) ? 'Editar' : 'Inserir') . ' Formu
 echo $this->breadcrumbs()->render();
 
 if ($this->isEdit) {
-	echo $this->tabs()->openList();
-	echo $this->tabs()->addTab($this->simpleUrl('editar', null, array('id' => $this->id)), 'Dados Gerais');
-	echo $this->tabs()->addTab($this->simpleUrl('formulario', null, array('id' => $this->id)), 'Formulários', true);
-	echo $this->tabs()->closeList();
+    echo $this->tabs()->openList();
+    echo $this->tabs()->addTab($this->simpleUrl('editar', null, array('id' => $this->id)), 'Dados Gerais');
+    echo $this->tabs()->addTab($this->simpleUrl('formulario', null, array('id' => $this->id)), 'Formulários', true);
+    echo $this->tabs()->closeList();
 }
 
 echo $this->pagenav()->openList();
@@ -18,11 +18,54 @@ echo $this->pagenav()->defaultHelperLinks('formulario.html');
 echo $this->pagenav()->closeList();
 ?>
 
+<!--<div id="article">
+        <form id="target" action="post">
+                <div id="xsdform_container"></div>
+                <input type="submit" />
+                <input name="processed_xml" type="hidden"/>
+        </form>
+    <?php //$this->xsdForms($this->id, "processed_xml", "target") ?>
+</div>-->
+
 <div id="article">
-	<form id="target" action="post">
-		<div id="xsdform_container"></div>
-		<input type="submit" />
-		<input name="processed_xml" type="hidden"/>
-	</form>
-<?php $this->xsdForms($this->id, "processed_xml", "target") ?>
+  <dl>
+    <dt><a href="#" id="xsdformfield_add">Adicionar item</a></dt>
+    <dd>&nbsp;</dd>
+  </dl>
+  <form method="post">
+    <div id="xsdformfield_group"></div>
+    <input type="submit" value="Enviar" />
+  </form>
 </div>
+
+<div id="xsdformfield_model">
+  <dl class="xsdformfield">
+    <dt>Nome</dt>
+    <dd><input type="text" name="xsdcreator_label[]"></dd>
+    <dt>Tipo</dt>
+    <dd>
+      <select name="xsdcreator_type[]">
+        <option value="string">String</option>
+        <option value="date">Date</option>
+        <option value="textarea">Textarea</option>
+        <option value="select">Select</option>
+      </select>
+    </dd>
+    <dt>&nbsp;</dt>
+    <dd><a href="#" class="xsdformfield_del">Remover este item</a></dd>
+  </dl>
+</div>
+
+<?php
+$js = <<<VAR
+$(document).ready(function() {
+    $("#xsdformfield_add").click(function() {
+        $("#xsdformfield_group").append($("#xsdformfield_model dl.xsdformfield").clone());
+        $("a.xsdformfield_del").click(function() {
+            $(this).parent().parent().remove();
+        });
+    });
+});
+VAR;
+
+$this->headScript()->appendScript($js, 'text/javascript');

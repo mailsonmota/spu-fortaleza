@@ -62,6 +62,10 @@ class AssuntosController extends BaseController
         $assuntoService = new Spu_Service_Assunto($this->getTicket());
         $assunto = $assuntoService->getAssunto($id);
 
+        if ($this->getRequest()->isPost()) {
+            print '<pre>';var_dump($this->_getAllParams());exit;
+        }
+
         $this->view->assunto = $assunto;
         $this->view->id = $assunto->getId();
         $this->view->isEdit = true;
