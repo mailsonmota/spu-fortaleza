@@ -19,6 +19,6 @@ echo $this->pagenav()->closeList();
         $columns = array('numero', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
         ?>
         
-        <?php echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator, 'exibirDestino' => true)) ?>
+        <?php echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator, 'exibirDestino' => true, 'exibirCheckbox' => true)) ?>
     </form>
 </div>

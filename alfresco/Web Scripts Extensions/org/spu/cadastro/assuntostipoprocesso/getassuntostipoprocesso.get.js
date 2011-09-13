@@ -1,4 +1,4 @@
 <import resource="/Company Home/Data Dictionary/Scripts/SPU/tipoprocesso.js">
-var nomeTipoProcesso = url.extension
-var assuntos = getAssuntosPorTipoProcesso(nomeTipoProcesso)
+var idTipoProcesso = url.extension
+var assuntos = getAssuntosPorTipoProcesso(idTipoProcesso)
 model.assuntos = assuntos
