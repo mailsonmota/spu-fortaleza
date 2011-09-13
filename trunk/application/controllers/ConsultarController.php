@@ -3,6 +3,9 @@ class ConsultarController extends BaseController
 {
 	public function indexAction()
     {
+    	$session = $this->_getSession();
+    	$session->unsetAll();
+    	
     	$tiposProcesso = array();
     	$listaStatus = array();
     	try {
@@ -52,12 +55,18 @@ class ConsultarController extends BaseController
 
     public function resultadosAction()
     {
-        if (!$this->getRequest()->isPost()) {
+    	$session = $this->_getSession();
+    	
+    	if (!$this->getRequest()->isPost() && !isset($session->filtrosConsulta)) {
             $this->setErrorMessage('Busca inválida.');
             $this->_redirectToConsulta();
         }
         
-        $postData = $this->getRequest()->getPost();
+        if (!isset($session->filtrosConsulta)) {
+        	$session->filtrosConsulta = $this->getRequest()->getPost();
+        }
+        
+		$postData = $session->filtrosConsulta;
         
         if (isset($postData['globalSearch'])) {
             $globalSearch = $postData['globalSearch'];
@@ -67,7 +76,11 @@ class ConsultarController extends BaseController
         
         $processoService = new Spu_Service_Processo($this->getTicket());
         $this->view->paginator = $this->_helper->paginator()->paginate(
-        	$processoService->consultar($postData)
+        	$processoService->consultar(
+        		$postData, 
+		        $this->_helper->paginator()->getOffset(),
+		        $this->_helper->paginator()->getPageSize()
+        	)
         );
         
         if (count($this->view->processos) == 1) {
@@ -76,6 +89,14 @@ class ConsultarController extends BaseController
         }
         
         $this->view->abaAtiva = 'dadosGerais';
+    }
+    
+    /**
+     * @return Zend_Session_Namespace
+     */
+    protected function _getSession()
+    {
+    	return new Zend_Session_Namespace('spu-consultar');
     }
     
     private function _getFieldFromFilter($filter)
