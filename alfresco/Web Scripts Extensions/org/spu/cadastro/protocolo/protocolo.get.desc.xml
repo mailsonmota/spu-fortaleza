@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Get Protocolo</shortname>
+	<description>Retorna um Registro do Protocolo</description>
+	<url>/spu/protocolo/get/{noderef}</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition xmlns="urn:jbpm.org:jpdl-3.1" name="spu:criarCopia">
+   <swimlane name="initiator"/>
+   <start-state name="start">
+      <task name="bpm:startTask" swimlane="initiator"/>
+      <transition name="" to="end">
+         <action class="org.alfresco.repo.workflow.jbpm.AlfrescoJavaScript">
+            <runas>admin</runas>
+            <script>
+                var copia = bpm_package.children[0];
+                criarCopiaProtocolo(copia);
+
+                function criarCopiaProtocolo(copia) {
+                    var protocolo = getNode(copia.properties['spu:copiaprocesso.Protocolo']);
+                    var caixaEntradaProtocolo = getCaixaEntradaDestino(protocolo);
+
+                    if (!copiaJaExiste(copia, caixaEntradaProtocolo)) {
+                        copia.move(caixaEntradaProtocolo);
+                        adicionarPermissoesCopia(copia);
+                    }
+
+                    processo = getNode(copia.properties['spu:linkprocesso.Processo']);
+                    adicionarPermissoesProcesso(processo, caixaEntradaProtocolo);
+                }
+
+                function getNode(nodeId) {
+	                var node = search.luceneSearch('ID:"workspace://SpacesStore/' + nodeId + '"');
+	                if (node != undefined &amp;&amp; node.length &gt; 0) {
+		                node = node[0];
+	                }
+	                return node;
+                }
+
+                function getCaixaEntradaDestino(destino) {
+                    var caixasEntrada = search.luceneSearch("workspace://SpacesStore", 'PATH:"' + destino.getQnamePath() + '/*" AND TYPE:"spu:caixaentrada"');
+	                var caixaEntrada = caixasEntrada[0];
+
+                    return caixaEntrada;
+                }
+
+                function copiaJaExiste(copia, caixaEntrada) {
+                    copia = caixaEntrada.childByNamePath(copia.name);
+                    return (copia != undefined) ? true : false;
+                }
+
+                function adicionarPermissoesCopia(copia) {
+                    /* Permissões - Adiciona as permissoes da Cx. Entrada origem ao processo */
+	                var caixaEntradaOrigem = copia.parent;
+	                var permissoesCaixaEntradaOrigem = caixaEntradaOrigem.getPermissions();
+	                for (var i=0; i &lt; permissoesCaixaEntradaOrigem.length; i++) {
+		                permissao = getPermissaoComoHash(permissoesCaixaEntradaOrigem[i]);
+		                role = 'Coordinator';
+		                group = permissao['group'];
+		                copia.setPermission(role, group);
+	                }
+
+                    return copia;
+                }
+
+                function getPermissaoComoHash(permissionString) {
+	                var hash = new Array();
+	                var allow = permissionString.substring(0, permissionString.indexOf(';'));
+	                var group = permissionString.substring(permissionString.indexOf(';')+1, permissionString.lastIndexOf(';'));
+	                var role = permissionString.substring(permissionString.lastIndexOf(';')+1);
+	                hash['allow'] = allow;
+	                hash['group'] = group;
+	                hash['role'] = role;
+
+	                return hash;
+                }
+
+                function adicionarPermissoesProcesso(processo, caixaEntradaOrigem) {
+                    /* Permissões - Adiciona as permissoes da Cx. Entrada origem ao processo */
+	                var permissoesCaixaEntradaOrigem = caixaEntradaOrigem.getPermissions();
+	                for (var i=0; i &lt; permissoesCaixaEntradaOrigem.length; i++) {
+		                permissao = getPermissaoComoHash(permissoesCaixaEntradaOrigem[i]);
+		                role = 'Consumer';
+		                group = permissao['group'];
+		                processo.setPermission(role, group);
+	                }
+
+                    return processo;
+                }
+            </script>
+         </action>
+      </transition>
+   </start-state>
+   <end-state name="end"/>
+</process-definition>

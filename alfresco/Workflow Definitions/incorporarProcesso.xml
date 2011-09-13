@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition xmlns="urn:jbpm.org:jpdl-3.1" name="spu:incorporarProcesso">
+   <swimlane name="initiator"/>
+   <start-state name="start">
+      <task name="bpm:startTask" swimlane="initiator"/>
+      <transition name="" to="end">
+         <action class="org.alfresco.repo.workflow.jbpm.AlfrescoJavaScript">
+            <runas>admin</runas>
+            <script>
+                var incorporado = bpm_package.children[0];
+                var principalId = incorporado.properties['spu:processo.Destino'];
+                var principal = getNode(principalId);
+                
+                var permissoesIncorporado = incorporado.getPermissions();
+
+                for (var i = 0; i &lt; permissoesIncorporado.length; i++) {
+	                permissao = getPermissaoComoHash(permissoesIncorporado[i]);
+	                role = permissao['role'];
+	                group = permissao['group'];
+	                principal.setPermission(role, group);
+                }
+                
+                removerTodasPermissoes(incorporado);
+                
+                incorporado.move(principal);
+                
+                function getNode(nodeId) {
+	                var node = search.luceneSearch('ID:"workspace://SpacesStore/' + nodeId + '"');
+	                if (node != undefined &amp;&amp; node.length &gt; 0) {
+		                node = node[0];
+	                }
+	                return node;
+                }
+
+                function getPermissaoComoHash(permissionString) {
+	                var hash = new Array();
+	                var allow = permissionString.substring(0, permissionString.indexOf(';'));
+	                var group = permissionString.substring(permissionString.indexOf(';')+1, permissionString.lastIndexOf(';'));
+	                var role = permissionString.substring(permissionString.lastIndexOf(';')+1);
+	                hash['allow'] = allow;
+	                hash['group'] = group;
+	                hash['role'] = role;
+
+	                return hash;
+                }
+                
+                function removerTodasPermissoes(processo) {
+                    var permissoes = processo.getPermissions();
+	                for (var i=0; i &lt; permissoes.length; i++) {
+		                permissao = getPermissaoComoHash(permissoes[i]);
+                        role = permissao['role'];
+                        group = permissao['group'];
+                        processo.removePermission(role, group);
+                    }
+                }
+            </script>
+         </action>
+      </transition>
+   </start-state>
+   <end-state name="end"/>
+</process-definition>
