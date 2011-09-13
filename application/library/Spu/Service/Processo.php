@@ -103,10 +103,13 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $result;
     }
 
-    public function consultar($postData)
+    public function consultar($postData, $offset = 0, $pageSize = 20)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/consultar";
 
+        $postData['offset'] = $offset;
+        $postData['pageSize'] = $pageSize;
+        
         $result = $this->_doAuthenticatedPostRequest($url, $postData);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
