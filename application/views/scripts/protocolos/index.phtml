@@ -7,5 +7,39 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <?php echo $this->ajaxDataTable($this->simpleUrl('listar-todos', 'protocolos-ajax'), array('Nome', 'Ações'))->render() ?>
+	<form action="" method="post">
+		<fieldset>
+			<legend>Pesquisa</legend>
+			<?php
+			echo $this->fieldList()->open();
+	        echo $this->fieldList()->textbox('Nome', 'q', $this->q);
+	        echo $this->buttonlist()->open();
+	        echo $this->buttonlist()->button('Buscar');
+	        echo $this->buttonlist()->close(true);
+	        ?>
+	    </fieldset>
+	</form>
+
+	<table class="grid">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Detalhes</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<td colspan="2"><?php echo $this->partial('pagination.phtml', array('paginator' => $this->paginator)) ?></td>
+			</tr>
+		</tfoot>
+		<tbody>
+			<?php $i = 0 ?>
+			<?php foreach ($this->paginator as $p): ?>
+			<tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?>">
+				<td><?php echo $p->path ?></td>
+				<td><a href="<?php echo $this->url(array('action' => 'editar', 'id' => $p->id)) ?>">Detalhes</a></td>
+			</tr>
+			<?php endforeach ?>
+		</tbody>
+	</table>
 </div>

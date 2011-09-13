@@ -29,7 +29,7 @@ jQuery(document).ready(function() {
 	$('textarea').elastic();
 	
 	//Todos as table com classe .grid dentre de #article que não sejam um .relatorio
-	$('table:not(.no-datatable).grid').dataTable({
+	/*$('table:not(.no-datatable).grid').dataTable({
 		oLanguage: {
 			"sUrl": baseUrl + "/js/plugins/dataTables/jquery.dataTables.pt-br.txt"
 		},
@@ -38,7 +38,7 @@ jQuery(document).ready(function() {
 		bLengthChange: false, 
 		bSort: false, 
 	});
-	$('.grid tfoot').hide();
+	$('.grid tfoot').hide();*/
 	
 	//Form Validation
 	$('#article form').validate();
@@ -69,6 +69,9 @@ jQuery(document).ready(function() {
 			$(':checkbox', this).attr('checked', checked)
 		}
 	});
+	
+	//Check all das tables
+	enableTableCheckAll();
 });
 
 function triggerEnterButton() {
@@ -136,4 +139,18 @@ function removeListAndSelectItem(listItem, selectId, itemValue) {
     $(listItem).parent().remove();
     $("#" + selectId + " option[value='" + itemValue + "']").remove();
     return false;
+}
+
+function enableTableCheckAll() {
+	$("#checkbox_checkAll").click(function() {
+        checked = $(this).attr("checked");
+        $(this).parent().parent().parent().parent().find('tbody tr td input').each(function() {
+            $(this).attr("checked", checked)
+            if (checked) {
+                $(this).parent().parent().addClass("marked")
+            } else {
+                $(this).parent().parent().removeClass("marked")
+            }
+        });
+    });
 }

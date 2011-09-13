@@ -1,0 +1,10 @@
+<?php if ($this->paginator->hasPages()): ?>
+<!-- Previous page link -->
+<?php if ($this->paginator->previous()): ?>
+<a href="<?php echo $this->url(array('page' => $this->paginator->previous())); ?>">&larr; Página Anterior</a>
+<?php endif ?>
+<!-- Next page link -->
+<?php if ($this->paginator->next()): ?>
+<a href="<?php echo $this->url(array('page' => $this->paginator->next())); ?>">Próxima Página &rarr;</a>
+<?php endif ?>
+<?php endif ?>

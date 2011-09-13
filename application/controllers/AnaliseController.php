@@ -43,6 +43,17 @@ class AnaliseController extends BaseTramitacaoController
 	            $this->setMessageForTheView($e->getMessage(), 'error');
 	        }
         }
+        
+        $this->view->q = urldecode($this->_getParam('q'));
+         
+        $service = new Spu_Service_Tramitacao($this->getTicket());
+        $this->view->paginator = $this->_helper->paginator()->paginate(
+	        $service->getCaixaAnalise(
+		        $this->_helper->paginator()->getOffset(),
+		        $this->_helper->paginator()->getPageSize(),
+		        $this->view->q
+	        )
+        );
     }
     
     protected function _isPostComprovanteRecebimento()

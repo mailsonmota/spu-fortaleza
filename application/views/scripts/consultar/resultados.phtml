@@ -9,12 +9,5 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-	<?php 
-	$headerColumns = array('Nome', 'Data', 'Envolvido', 'Tipo de Processo', 'Assunto', 'Ações');
-	$columns = array('numero', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
-        
-	$grid = new SimpleDataTable($this->processos, array('headerColumns' => $headerColumns, 'columns' => $columns));
-	$grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', 'processo') . '/id/', 'id');
-	echo $grid->render();
-	?>
+	<?php echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator)) ?> 
 </div>

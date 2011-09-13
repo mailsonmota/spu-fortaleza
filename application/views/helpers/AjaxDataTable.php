@@ -7,7 +7,7 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
     protected $_ajaxUrl;
     protected $_columns;
     protected $_options;
-    protected $_pageSize = 50;
+    protected $_pageSize = 10;
     protected $_html;
     
     public function ajaxDataTable($ajaxUrl = '', array $columns = array(), array $options = array())
@@ -56,8 +56,8 @@ class Zend_View_Helper_AjaxDataTable extends Zend_View_Helper_Proxy
 								}
                             },
                             "bAutoWidth": false, 
-                            iDisplayLength: ' . $this->_pageSize . ', 
-                            sPaginationType: "text_only", 
+                            "iDisplayLength": ' . $this->_pageSize . ', 
+                            "sPaginationType": "text_only", 
                             "bLengthChange": false, 
                             "bSort": false, 
                             "bProcessing": true,

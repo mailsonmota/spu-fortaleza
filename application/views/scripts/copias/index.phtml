@@ -11,15 +11,16 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
+	<?php echo $this->partial('snippets/formularioPesquisaRapidaProcesso.phtml', array('q' => $this->q)) ?>
+	
     <form action="" method="post">
         <?php 
         echo $this->buttonlist()->open();
         echo $this->buttonlist()->defaultBlockActionsDescription();
         echo $this->buttonlist()->button('Excluir');
-        echo $this->buttonlist()->close(true); 
-        
-        $headerColumns = array('Nome', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
-        echo $this->ajaxDataTable($this->simpleUrl('copias', 'tramitacao-ajax'), $headerColumns, array('searchLabel' => 'Busca por Número do Processo:', 'checkboxColumn' => true))->render();
+        echo $this->buttonlist()->close(true);
         ?>
+        
+        <?php echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator)) ?>
     </form>
 </div>

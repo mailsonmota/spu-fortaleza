@@ -7,10 +7,41 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <form action="" method="post">
-        <?php 
-        $headerColumns = array('CPF', 'Nome', 'Ações');
-        echo $this->ajaxDataTable($this->simpleUrl('listar', 'envolvidos-ajax'), $headerColumns)->render();
-        ?>
-    </form>
+	<form action="" method="post">
+		<fieldset>
+			<legend>Pesquisa</legend>
+			<?php
+			echo $this->fieldList()->open();
+	        echo $this->fieldList()->textbox('Nome/CPF', 'q', $this->q);
+	        echo $this->buttonlist()->open();
+	        echo $this->buttonlist()->button('Buscar');
+	        echo $this->buttonlist()->close(true);
+	        ?>
+	    </fieldset>
+	</form>
+
+	<table class="grid">
+		<thead>
+			<tr>
+				<th>CPF</th>
+				<th>Nome</th>
+				<th>Detalhes</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<td colspan="2"><?php echo $this->partial('pagination.phtml', array('paginator' => $this->paginator)) ?></td>
+			</tr>
+		</tfoot>
+		<tbody>
+			<?php $i = 0 ?>
+			<?php foreach ($this->paginator as $p): ?>
+			<tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?>">
+				<td><?php echo $p->cpf ?></td>
+				<td><?php echo $p->nome ?></td>
+				<td><a href="<?php echo $this->url(array('action' => 'detalhes', 'cpf' => $p->cpfDesformatado)) ?>">Detalhes</a></td>
+			</tr>
+			<?php endforeach ?>
+		</tbody>
+	</table>
 </div>

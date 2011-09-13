@@ -9,12 +9,32 @@ echo $this->pagenav()->defaultHelperLinks();
 echo $this->pagenav()->closeList();
 ?>
 <div id="article">
-	<?php
-	$headerColumns = array('Nome', 'Processo', 'Detalhes');
-    echo $this->ajaxDataTable(
-    	$this->simpleUrl('anexo-resultados', 'consultar-ajax', array('sSearch' => $this->conteudo)), 
-    	$headerColumns, 
-    	array('searchable' => false)
-    )->render();
-    ?>
+	<table class="grid">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Número</th>
+				<th>Detalhes</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<td colspan="3"><?php echo $this->partial('pagination.phtml', array('paginator' => $this->paginator)) ?></td>
+			</tr>
+		</tfoot>
+		<tbody>
+			<?php $i = 0 ?>
+			<?php foreach ($this->paginator as $p): ?>
+			<tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?>">
+				<td><?php echo $p->nome ?></td>
+				<td><?php echo $p->processo->numero ?></td>
+				<td>
+					<a href="<?php echo $this->url(array('action' => 'detalhes', 'controller' => 'processo', 'id' => $p->processo->id)) ?>">
+						Detalhes
+					</a>
+				</td>
+			</tr>
+			<?php endforeach ?>
+		</tbody>
+	</table>
 </div>

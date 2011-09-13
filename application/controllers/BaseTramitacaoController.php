@@ -37,4 +37,11 @@ class BaseTramitacaoController extends BaseController
         
         return $processos;
     }
+    
+    public function pesquisarAction()
+    {
+    	if ($this->getRequest()->isPost()) {
+    		$this->_helper->redirector(null, null, null, array('q' => urlencode($_POST['q'])));
+    	}
+    }
 }
