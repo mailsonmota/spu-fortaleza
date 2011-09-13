@@ -58,6 +58,20 @@
 					<#if tipoManifestante_index+1 < tipoProcesso.properties['spu:tipoprocesso.TipoManifestante']?size>,</#if>
 				</#list>
 			}]
+			<#else>
+			,"tiposManifestante":[{}]
+			</#if>
+			<#if tipoProcesso.assocs['spu:tipoprocesso.Protocolos']?exists>
+			,"protocolos":[{
+				<#list tipoProcesso.assocs['spu:tipoprocesso.Protocolos'] as protocolo>
+					"${protocolo.properties.name}":[{
+					<#include "../../snippet/snippet_protocolo.get.json.ftl" />
+					}]
+					<#if protocolo_index+1 < tipoProcesso.assocs['spu:tipoprocesso.Protocolos']?size>,</#if>
+				</#list>
+			}]
+			<#else>
+			,"protocolos":[{}]			
 			</#if>
 		}]
 }]

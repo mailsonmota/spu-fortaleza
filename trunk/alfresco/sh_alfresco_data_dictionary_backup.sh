@@ -3,7 +3,7 @@
 clear
 echo "Script de backup do Data Dictionary do Alfresco\n"
 
-ALFRESCO_WEBDAV_ADDRESS="http://172.30.116.21:8080/alfresco/webdav"
+ALFRESCO_WEBDAV_ADDRESS="http://172.30.41.28:8080/alfresco/webdav"
 ALFRESCO_WEBDAV_MOUNT_POINT="/mnt/alfrescowebdav"
 
 date_now=`date +%Y-%m-%d_%H-%M-%S`

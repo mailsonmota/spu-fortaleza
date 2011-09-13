@@ -1,7 +1,9 @@
 <table class="grid">
 	<thead>
 		<tr>
+			<?php if (isset($this->exibirCheckbox) && $this->exibirCheckbox == true): ?>
 			<th><input type="checkbox" id="checkbox_checkAll" /></th>
+			<?php endif ?>
 			<th>Número</th>
 			<th>Data</th>
 			<th>Envolvido</th>
@@ -22,7 +24,9 @@
 		<?php $i = 0 ?>
 		<?php foreach ($this->paginator as $p): ?>
 		<tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?>">
+			<?php if (isset($this->exibirCheckbox) && $this->exibirCheckbox == true): ?>
 			<td><input type="checkbox" name="processos[]" value="<?php echo $p->id ?>" /></td>
+			<?php endif ?>
 			<td><?php echo $p->numero ?></td>
 			<td><?php echo $p->data ?></td>
 			<td><?php echo $p->nomeManifestante ?></td>

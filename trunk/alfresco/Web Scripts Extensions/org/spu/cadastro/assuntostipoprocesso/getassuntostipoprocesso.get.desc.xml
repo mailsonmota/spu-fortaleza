@@ -5,4 +5,8 @@
 	<authentication>guest</authentication>
 	<transaction>required</transaction>
 	<format default="json">any</format>
+	<cache>
+		<never>false</never>
+		<mustrevalidate/>
+	</cache>
 </webscript>

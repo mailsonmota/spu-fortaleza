@@ -25,6 +25,6 @@ echo $this->pagenav()->closeList();
         echo $this->buttonlist()->close(true);
         ?>
         
-        <?php echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator)) ?>
+        <?php echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator, 'exibirCheckbox' => true)) ?>
     </form>
 </div>

@@ -8,17 +8,57 @@
          <action class="org.alfresco.repo.workflow.jbpm.AlfrescoJavaScript">
             <runas>admin</runas>
             <script>
-                var processo = bpm_package.children[0];                
+                var processo = bpm_package.children[0];
+
+                if (processoJaExisteNoDestino(processo)) {
+                    throw 'Este processo ja existe no destino';
+                }
+
                 moverParaDestino(processo);
+                
+                function processoJaExisteNoDestino(processo) {
+                    var destino = getNode(processo.properties['spu:processo.Destino']);
+                    var caixaEntradaDestino = getCaixaEntradaDestino(destino);                    
+
+                    var numero = processo.properties['spu:processo.Numero'];
+                    processosMesmoNumeroDestino = search.luceneSearch(
+		                "workspace://SpacesStore", 
+                        'PATH:"' + caixaEntradaDestino.getQnamePath() + '/*" AND @spu\\:processo.Numero:"' + numero + '"'
+                    );
+
+                    if (processosMesmoNumeroDestino.length > 0) {
+                        return true;
+                    }
+
+                    return false;
+                }
 
                 function moverParaDestino(processo) {
-                    /* Permissões */
-                    adicionarPermissoesDestino(processo);	
+                    /* Status */
+	                var statusTramitando = getStatusTramitando();
+        
+                    /* Properties */
+                    processo.properties['spu:processo.Externo'] = false;
+                	processo.properties['spu:processo.EmAnalise'] = false;
+                    processo.properties['spu:processo.Status'] = 'workspace://SpacesStore/' + statusTramitando.properties['sys:node-uuid'];
+                    processo.save();
 
+                    /* Destino */
                     var destino = getNode(processo.properties['spu:processo.Destino']);
 
-                    var caixaEntrada = getCaixaEntradaDestino(destino);
-	                processo.move(caixaEntrada);
+                    /* Caixa de Entrada Destino */
+                    var caixaEntradaDestino = getCaixaEntradaDestino(destino);
+
+                    /* Move */
+	                processo.move(caixaEntradaDestino);
+
+                    /* Permissões */
+                    adicionarPermissoesDestino(processo);
+                }
+
+                function getStatusTramitando() {
+	                var statusTramitando = search.luceneSearch('PATH:\"/cm:generalclassifiable//cm:SPU//cm:Status//cm:Tramitando\"');
+	                return statusTramitando[0];
                 }
 
                 function getNode(nodeId) {
@@ -37,7 +77,15 @@
 	                var permissoesCaixaEntradaOrigem = caixaEntradaOrigem.getPermissions();
 	                for (var i=0; i &lt; permissoesCaixaEntradaOrigem.length; i++) {
 		                permissao = getPermissaoComoHash(permissoesCaixaEntradaOrigem[i]);
-		                role = permissao['role'];
+		                role = 'Editor';
+		                group = permissao['group'];
+		                processo.setPermission(role, group);
+	                }
+	                
+	                var permissoesCaixaAnalise = processo.parent.getPermissions();
+	                for (var i=0; i &lt; permissoesCaixaAnalise.length; i++) {
+		                permissao = getPermissaoComoHash(permissoesCaixaAnalise[i]);
+		                role = 'Collaborator';
 		                group = permissao['group'];
 		                processo.setPermission(role, group);
 	                }
@@ -58,7 +106,7 @@
                 }
 
                 function getCaixaEntradaDestino(destino) {
-                    var caixasEntrada = search.luceneSearch("workspace://SpacesStore", 'PATH:"' + destino.getQnamePath() + '/*" AND TYPE:"spu:CaixaEntrada"');
+                    var caixasEntrada = search.luceneSearch("workspace://SpacesStore", 'PATH:"' + destino.getQnamePath() + '/*" AND TYPE:"spu:caixaentrada"');
 	                var caixaEntrada = caixasEntrada[0];
 
                     return caixaEntrada;
