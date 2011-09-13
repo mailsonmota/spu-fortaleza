@@ -186,7 +186,7 @@ class AbrirprocessoController extends BaseController
 
             if (!empty($_FILES)) {
                 if (empty($_FILES['fileToUpload']['tmp_name'])) {
-                    $this->setErrorMessage('Não foi possível enviar o arquivo. Talvez o tamanho é maior que o máximo permitido.');
+                    $this->setErrorMessage('Não foi possível enviar o arquivo. Talvez o tamanho seja maior que o máximo permitido.');
                     $this->_redirectUploadArquivo();
                 }
 
