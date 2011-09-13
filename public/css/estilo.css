@@ -280,3 +280,6 @@ ol.historico li {margin-bottom:1em}
 /* Autocomplete */
 .autocomplete {background: url(../img/icons/search.png) no-repeat 6px 50%; padding-left: 2em; width: 28em}
 .autocomplete-wait {color: #AAA; font-style: italic}
+
+/* Formulários de Assunto de Tipo de Processo */
+#xsdformfield_model {display:none;}
