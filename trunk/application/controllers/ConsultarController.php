@@ -66,15 +66,15 @@ class ConsultarController extends BaseController
         }
         
         $processoService = new Spu_Service_Processo($this->getTicket());
+        $this->view->paginator = $this->_helper->paginator()->paginate(
+        	$processoService->consultar($postData)
+        );
         
-        $processos = $processoService->consultar($postData);
-        
-        if (count($processos) == 1) {
+        if (count($this->view->processos) == 1) {
             $processoId = $processos[0]->id;
             $this->_redirectToProcesso($processoId);
         }
         
-        $this->view->processos = $processos;
         $this->view->abaAtiva = 'dadosGerais';
     }
     
@@ -110,6 +110,15 @@ class ConsultarController extends BaseController
     
     public function anexoResultadosAction()
     {
+    	$service = new Spu_Service_Processo($this->getTicket());
+    	$this->view->paginator = $this->_helper->paginator()->paginate(
+	    	$service->consultarAnexos(
+		    	$this->_helper->paginator()->getOffset(),
+		    	$this->_helper->paginator()->getPageSize(),
+		    	$this->view->q
+	    	)
+    	);
+    	
     	$this->view->conteudo = $this->_getParam('conteudo');
     	$this->view->abaAtiva = 'anexos';
     }

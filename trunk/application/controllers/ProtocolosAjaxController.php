@@ -1,23 +1,7 @@
 <?php
-require_once 'BaseDataTablesController.php';
-class ProtocolosAjaxController extends BaseDataTablesController
+class ProtocolosAjaxController extends BaseAuthenticatedController
 {
-    public function listarTodosAction()
-    {
-        $this->_rows = $this->_getTodosProtocolos();
-        $this->_total = 1000;
-        
-        $this->_helper->layout()->disableLayout();
-        $this->view->protocolos = $this->_getTodosProtocolos();
-    }
-    
-    protected function _getTodosProtocolos()
-    {
-        $service = new Spu_Service_Protocolo($this->getTicket());
-        return $service->getTodosProtocolosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
-    }
-    
-    public function listarDestinosAction()
+	public function listarDestinosAction()
     {
         $this->_helper->layout()->disableLayout();
         
@@ -34,7 +18,7 @@ class ProtocolosAjaxController extends BaseDataTablesController
                                               $tipoProcessoId,
                                               $this->_getSearchTerm(),
                                               $offset,
-                                              $this->_getPageSize());
+                                              $this->_helper->paginator()->getPageSize());
     }
     
     protected function _getSearchTerm()

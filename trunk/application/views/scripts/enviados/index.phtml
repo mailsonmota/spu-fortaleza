@@ -11,13 +11,14 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
+	<?php echo $this->partial('snippets/formularioPesquisaRapidaProcesso.phtml', array('q' => $this->q)) ?>
+	
     <form action="" method="post">
         <?php 
         $headerColumns = array('Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
         $columns = array('numero', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
-        
-        $headerColumns = array('Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Para', 'Detalhes');
-        echo $this->ajaxDataTable($this->simpleUrl('enviados', 'tramitacao-ajax'), $headerColumns, array('searchLabel' => 'Busca por Número do Processo:'))->render();
         ?>
+        
+        <?php echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator, 'exibirDestino' => true)) ?>
     </form>
 </div>

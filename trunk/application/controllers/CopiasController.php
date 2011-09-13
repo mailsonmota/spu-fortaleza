@@ -13,5 +13,14 @@ class CopiasController extends BaseTramitacaoController
                 $this->setMessageForTheView($e->getMessage(), 'error');
             }
         }
+        
+        $service = new Spu_Service_CopiaProcesso($this->getTicket());
+        $this->view->paginator = $this->_helper->paginator()->paginate(
+	        $service->getCopias(
+		        $this->_helper->paginator()->getOffset(),
+		        $this->_helper->paginator()->getPageSize(),
+		        $this->view->q
+	        )
+        );
     }
 }

@@ -11,6 +11,8 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
+	<?php echo $this->partial('snippets/formularioPesquisaRapidaProcesso.phtml', array('q' => $this->q)) ?>
+	
     <form action="" method="post">
         <?php 
         echo $this->buttonlist()->open();
@@ -20,10 +22,9 @@ echo $this->pagenav()->closeList();
         echo $this->buttonlist()->button('Criar Despacho', 'comentar');
         echo $this->buttonlist()->button('Tramit. Externa', 'externo');
         echo $this->buttonlist()->button('Arquivar', 'arquivar');
-        echo $this->buttonlist()->close(true); 
-        
-        $headerColumns = array('Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
-        echo $this->ajaxDataTable($this->simpleUrl('analise', 'tramitacao-ajax'), $headerColumns, array('searchLabel' => 'Busca por Número do Processo:', 'checkboxColumn' => true))->render();
+        echo $this->buttonlist()->close(true);
         ?>
+        
+        <?php echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator)) ?>
     </form>
 </div>

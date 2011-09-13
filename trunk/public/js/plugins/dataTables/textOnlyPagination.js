@@ -56,7 +56,7 @@ $.fn.dataTableExt.oPagination.text_only = {
 		{
 			var buttons = an[i].getElementsByTagName('span');
 			
-			if ( oSettings.iNextId < 50 )
+			if ( oSettings.iNextId < 10 )
 			{
 				buttons[0].className = "paginate_button previous disabled";
 				buttons[1].className = "paginate_button next disabled";

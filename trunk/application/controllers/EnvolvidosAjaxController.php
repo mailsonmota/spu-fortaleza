@@ -1,20 +1,6 @@
 <?php
-require_once 'BaseDataTablesController.php';
-class EnvolvidosAjaxController extends BaseDataTablesController
+class EnvolvidosAjaxController extends BaseAuthenticatedController
 {
-	public function listarAction()
-	{
-		$this->_helper->layout()->disableLayout();
-		$this->_total = 1000;
-		$this->view->manifestantes = $this->_getManifestantes();
-	}
-	
-	protected function _getManifestantes()
-	{
-		$manifestanteService = new Spu_Service_Manifestante($this->getTicket());
-		return $manifestanteService->getManifestantes($this->_getOffset(), $this->_getPageSize(), $this->_getSearch());
-	}
-	
 	public function envolvidoAction()
 	{
 		$this->_helper->layout()->disableLayout();

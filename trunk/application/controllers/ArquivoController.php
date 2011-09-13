@@ -14,6 +14,15 @@ class ArquivoController extends BaseTramitacaoController
                 $this->setMessageForTheView($e->getMessage(), 'error');
             }
         }
+        
+        $service = new Spu_Service_Tramitacao($this->getTicket());
+        $this->view->paginator = $this->_helper->paginator()->paginate(
+	        $service->getCaixaArquivo(
+		        $this->_helper->paginator()->getOffset(),
+		        $this->_helper->paginator()->getPageSize(),
+		        $this->view->q
+	        )
+        );
     }
     
     protected function _redirectReabrir()
