@@ -7,14 +7,18 @@ class ProtocolosController extends BaseController
     		$this->_helper->redirector(null, null, null, array('q' => $_POST['q']));
     	}
     	
-    	$service = new Spu_Service_Protocolo($this->getTicket());
-    	$this->view->paginator = $this->_helper->paginator()->paginate(
-    		$service->getTodosProtocolosPaginado(
-    			$this->_helper->paginator()->getOffset(), 
-    			$this->_helper->paginator()->getPageSize(), 
-    			$this->_getParam('q')
-    		)
-    	);
+    	if ($this->_getParam('q')) {
+	    	$service = new Spu_Service_Protocolo($this->getTicket());
+	    	$this->view->paginator = $this->_helper->paginator()->paginate(
+	    		$service->getTodosProtocolosPaginado(
+	    			$this->_helper->paginator()->getOffset(), 
+	    			$this->_helper->paginator()->getPageSize(), 
+	    			$this->_getParam('q')
+	    		)
+	    	);
+    	} else {
+    		$this->setMessageForTheView('Por favor, busque pelo nome da lotação.');
+    	}
     	
     	$this->view->q = $this->_getParam('q');
     }

@@ -20,6 +20,7 @@ echo $this->pagenav()->closeList();
 	    </fieldset>
 	</form>
 
+	<?php if ($this->paginator): ?>
 	<table class="grid">
 		<thead>
 			<tr>
@@ -34,12 +35,17 @@ echo $this->pagenav()->closeList();
 		</tfoot>
 		<tbody>
 			<?php $i = 0 ?>
-			<?php foreach ($this->paginator as $p): ?>
+			<?php if (count($this->paginator) > 0): foreach ($this->paginator as $p): ?>
 			<tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?>">
 				<td><?php echo $p->path ?></td>
 				<td><a href="<?php echo $this->url(array('action' => 'editar', 'id' => $p->id)) ?>">Detalhes</a></td>
 			</tr>
-			<?php endforeach ?>
+			<?php endforeach; else: ?>
+			<tr>
+				<td colspan="2">Nenhum resultado encontrado.</td>
+			</tr>
+			<?php endif ?>
 		</tbody>
 	</table>
+	<?php endif ?>
 </div>
