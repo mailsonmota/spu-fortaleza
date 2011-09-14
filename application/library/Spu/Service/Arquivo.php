@@ -11,7 +11,6 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
         $curlObj = new CurlClient();
         $result = $curlObj->doGetRequest($url);
 
-
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }

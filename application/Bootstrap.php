@@ -76,10 +76,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $view->headLink()->appendStylesheet($baseUrl . '/css/reset.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/forms.css');
-        //$view->headLink()->appendStylesheet($baseUrl . '/css/facebox.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/simple-modal.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/datePicker.css');
-        $view->headLink()->appendStylesheet($baseUrl . '/css/plupload.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/dataTables.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/jquery-ui-1.8.9.custom.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/estilo.css');
@@ -113,7 +111,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headScript()->appendFile($pluginsPath . 'jquery-simulate.js');
         $view->headScript()->appendFile($pluginsPath . 'regex-mask-plugin.js');
         $view->headScript()->appendFile($jsPath . 'xsdFormSpu.js');
-        //$view->headScript()->appendFile($pluginsPath . 'facebox.js');
     }
 
     protected function _initNavigation()
