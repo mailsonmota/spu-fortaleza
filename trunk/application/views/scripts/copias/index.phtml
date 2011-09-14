@@ -21,6 +21,45 @@ echo $this->pagenav()->closeList();
         echo $this->buttonlist()->close(true);
         ?>
         
-        <?php echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator, 'exibirCheckbox' => true)) ?>
+        <table class="grid">
+	        <thead>
+	        	<tr>
+	        		<th><input type="checkbox" id="checkbox_checkAll" /></th>
+        			<th>Número</th>
+        			<th>Data</th>
+        			<th>Envolvido</th>
+        			<th>Tipo</th>
+        			<th>Assunto</th>
+        			<th>Detalhes</th>
+        		</tr>
+        	</thead>
+        	<tfoot>
+        		<tr>
+        			<td colspan="7"><?php echo $this->partial('pagination.phtml', array('paginator' => $this->paginator)) ?></td>
+        		</tr>
+        	</tfoot>
+        	<tbody>
+        		<?php $i = 0 ?>
+        		<?php if (count($this->paginator) > 0): foreach ($this->paginator as $p): ?>
+        		<tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?>">
+        			<td><input type="checkbox" name="processos[]" value="<?php echo $p->id ?>" /></td>
+        			<td><?php echo $p->processo->numero ?></td>
+        			<td><?php echo $p->processo->data ?></td>
+        			<td><?php echo $p->processo->nomeManifestante ?></td>
+        			<td><?php echo $p->processo->nomeTipoProcesso ?></td>
+        			<td><?php echo $p->processo->nomeAssunto ?></td>
+        			<td>
+        				<a href="<?php echo $this->url(array('action' => 'detalhes', 'controller' => 'processo', 'id' => $p->processo->id)) ?>">
+        					Detalhes
+        				</a>
+        			</td>
+        		</tr>
+        		<?php endforeach; else: ?>
+        		<tr>
+        			<td colspan="8">Nenhuma cópia encontrada.</td>
+        		</tr>
+        		<?php endif ?>
+        	</tbody>
+        </table>
     </form>
 </div>
