@@ -8,7 +8,7 @@ echo $this->pagenav()->closeList();
 
 <div id="article">
 	<form action="" method="post">
-		<fieldset>
+		<fieldset class="search">
 			<legend>Pesquisa</legend>
 			<?php
 			echo $this->fieldList()->open();
@@ -20,6 +20,7 @@ echo $this->pagenav()->closeList();
 	    </fieldset>
 	</form>
 
+	<?php if ($this->paginator): ?>
 	<table class="grid">
 		<thead>
 			<tr>
@@ -35,13 +36,18 @@ echo $this->pagenav()->closeList();
 		</tfoot>
 		<tbody>
 			<?php $i = 0 ?>
-			<?php foreach ($this->paginator as $p): ?>
+			<?php if (count($this->paginator) > 0): foreach ($this->paginator as $p): ?>
 			<tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?>">
 				<td><?php echo $p->cpf ?></td>
 				<td><?php echo $p->nome ?></td>
 				<td><a href="<?php echo $this->url(array('action' => 'detalhes', 'cpf' => $p->cpfDesformatado)) ?>">Detalhes</a></td>
 			</tr>
-			<?php endforeach ?>
+			<?php endforeach; else: ?>
+			<tr>
+				<td colspan="3">Nenhum envolvido encontrado.</td>
+			</tr>
+			<?php endif ?>
 		</tbody>
 	</table>
+	<?php endif ?>
 </div>
