@@ -49,21 +49,25 @@ dd label.error {margin: 0; border: 0; background: none; padding: 0; display: blo
 input.error, textarea.error, input.xsd__validationfailed, select.xsd__validationfailed, textarea.xsd__validationfailed {margin: 0.5em 0; padding: 0.25em 0;border-width: 1px; border-color: #8a1f11;background: #FBE3E4}
 dd a.dp-choose-date, dd a.adicionar-volume {margin-left: 0.5em}
 textarea {height: 5.5em}
+fieldset.search {background: #F5F4EF}
 
 /* Botões */
 .buttons {border-top: 1px solid #DDD;padding: 1%;margin: 1% 0;background: #FAFAFA;clear: left}
 .buttons li {float: left;margin-right: 0.5em}
 .buttons .description {padding-top: 0.70em}
 .buttons.grid {margin-bottom: 0}
-button, input[type=button], input[type=submit] {padding: 0.5em 1.5em;font-size: 1em}
+button, input[type=button], input[type=submit] {padding: 0.5em 1em;font-size: 1em}
 
 /* Tabelas */
 table.grid {width: 100%;margin-top: 1%;border-collapse:collapse}
-.grid tr th {background: #777;border-color: #666;border-width: 1px 0;border-style: solid;color: white;font-weight: normal;text-shadow: 1px 1px #444}
+/*.grid tr th {background: #777;border-color: #666;border-width: 1px 0;border-style: solid;color: white;font-weight: normal;text-shadow: 1px 1px #444}
 .grid .tableFilter th {background: #888;border-color: #777}
-.grid .tableFilter th * {margin: 0;border: 0}
+.grid .tableFilter th * {margin: 0;border: 0}*/
 .grid tr td {border-color: #E1E1E3; border-style: solid; border-width: 1px 0}
-.grid .odd {background: #F5F5F5}
+/*.grid .odd {background: #F5F5F5}*/
+.grid tr th {text-transform: uppercase; font-size: 0.8em; border-bottom: 1px solid #BBB}
+.grid .even {background: #F5F5F5}
+.grid .odd {background: none}
 .grid tbody a {margin-right: 12px}
 .grid tfoot tr td {border: 0}
 .grid .marked td {background: #FBEE99;border-color: #ded388}
@@ -145,7 +149,7 @@ ol.orderedList {list-style-type: decimal; margin-left: 3em; margin-bottom: 1.5em
     float: left;
     line-height: 32px;
     background: #E5E4DF;
-    padding: 0 1em;
+    padding: 0 0.8em;
     margin: 0 1em 0 0;
     position: relative;
     bottom: -1px;
@@ -221,8 +225,8 @@ body.basic #message {border-top: 0}
 blockquote {background: #DDD; color: #333; padding: 0.5em 0.75em; margin: 0 0 0.5em 0;float: left}
 .comentario {background: url(../img/commentArrow.png) no-repeat 0.5em 0px; padding-top: 5px; margin-top: 0.1em}
 ol.historico li {margin-bottom:1em}
-.dataMovimentacao, .descricaoMovimentacao {float: left}
-.dataMovimentacao {margin-right: 1em}
+/*.dataMovimentacao, .descricaoMovimentacao {float: left}*/
+.dataMovimentacao {margin-right: 1em; white-space: nowrap;}
 
 /* File Upload */
 #fileUpload {margin-bottom: 2%}

@@ -1,9 +1,11 @@
 <form action="<?php echo $this->url(array('action' => 'pesquisar')) ?>" method="post">
-	<fieldset>
+	<fieldset class="search">
 		<legend>Pesquisa</legend>
 		<?php
 		echo $this->fieldList()->open();
         echo $this->fieldList()->textbox('Número/Envolvido', 'q', $this->q);
+        echo $this->fieldList()->close();
+        
         echo $this->buttonlist()->open();
         echo $this->buttonlist()->button('Buscar');
         echo $this->buttonlist()->close(true);

@@ -23,20 +23,20 @@ class ProcessoController extends BaseController
     public function encaminharAction()
     {
         try {
-                $idProcesso = $this->_getIdProcessoUrl();
-                $processoService = new Spu_Service_Processo($this->getTicket());
-                if ($idProcesso) {
-                    $processo = $processoService->getProcesso($idProcesso);
-                }
+			$idProcesso = $this->_getIdProcessoUrl();
+			$processoService = new Spu_Service_Processo($this->getTicket());
+			if ($idProcesso) {
+				$processo = $processoService->getProcesso($idProcesso);
+			}
                 
-                $listaPrioridades = $this->_getListaPrioridades();
-                $listaProtocolos = $this->_getListaProtocolos();
+			$listaPrioridades = $this->_getListaPrioridades();
+			$listaProtocolos = $this->_getListaProtocolos();
             
-                if ($this->getRequest()->isPost()) {
-                        $processo->tramitar($this->getRequest()->getPost());
-                        $this->setSuccessMessage('Processo tramitado com sucesso.');
-                        $this->_redirectDetalhesProcesso($idProcesso);
-                }
+			if ($this->getRequest()->isPost()) {
+				$processo->tramitar($this->getRequest()->getPost());
+				$this->setSuccessMessage('Processo tramitado com sucesso.');
+				$this->_redirectDetalhesProcesso($idProcesso);
+			}
         } catch (Exception $e) {
                 $this->setMessageForTheView($e->getMessage(), 'error');
         }
