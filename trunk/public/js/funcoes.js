@@ -18,7 +18,7 @@ jQuery(document).ready(function() {
 		TEXT_CLOSE			:	'Fechar',
 		TEXT_CHOOSE_DATE	:	'Escolher'
 	};
-	$('.mascaraData').datePicker().trigger('change');
+	$('.mascaraData').datePicker({startDate: '01-01-2000'}).trigger('change');
 	
 	//Modal
 	$('a[rel=modal]').click(function() {
