@@ -1,13 +1,6 @@
 <?php
 class AssuntosController extends BaseController
 {
-    public function indexAction()
-    {
-        $assuntoService = new Spu_Service_Assunto($this->getTicket());
-        $listaAssuntos = $assuntoService->getAssuntos();
-        $this->view->lista = $listaAssuntos;
-    }
-
     public function editarAction()
     {
         $id = $this->_getIdFromUrl();

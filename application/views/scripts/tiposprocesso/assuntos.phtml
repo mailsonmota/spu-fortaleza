@@ -23,19 +23,40 @@ echo $this->pagenav()->closeList();
 
 <div id="article">
     <form action="<?php echo $this->simpleUrl('remover', 'assuntos') ?>" method="post">
-    <input type="hidden" name="tipoProcessoId" value="<?php echo $this->id ?>">
-    <?php
-    echo $this->buttonlist()->open();
-    echo $this->buttonlist()->defaultBlockActionsDescription();
-    echo $this->buttonlist()->button('Remover');
-    echo $this->buttonlist()->close(true);
+	    <input type="hidden" name="tipoProcessoId" value="<?php echo $this->id ?>">
+	    <?php
+	    echo $this->buttonlist()->open();
+	    echo $this->buttonlist()->defaultBlockActionsDescription();
+	    echo $this->buttonlist()->button('Remover');
+	    echo $this->buttonlist()->close(true);
+	    ?>
     
-    $headerColumns = array('', 'Nome', 'Ações');
-    $columns = array('nome');
-    $grid = new SimpleDataTable($this->assuntos, array('headerColumns' => $headerColumns, 'columns' => $columns));
-    $grid->addCheckboxColumn('assuntos', 'id');
-    $grid->addActionColumn('Editar', $this->simpleUrl('editar', $this->action) . '/id/', 'id');
-    echo $grid->render();
-    ?>
+    	<table class="grid">
+	        <thead>
+	        	<tr>
+	        		<th><input type="checkbox" id="checkbox_checkAll" /></th>
+        			<th>Nome</th>
+        			<th>Ações</th>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		<?php $i = 0 ?>
+        		<?php if (count($this->assuntos) > 0): foreach ($this->assuntos as $a): ?>
+        		<tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?>">
+        			<td><input type="checkbox" name="assuntos[]" value="<?php echo $p->id ?>" /></td>
+        			<td><?php echo $a->nome ?></td>
+        			<td>
+        				<a href="<?php echo $this->url(array('action' => 'editar', 'controller' => 'assuntos', 'id' => $a->id)) ?>">
+        					Editar
+        				</a>
+        			</td>
+        		</tr>
+        		<?php endforeach; else: ?>
+        		<tr>
+        			<td colspan="3">Nenhum assunto encontrado.</td>
+        		</tr>
+        		<?php endif ?>
+        	</tbody>
+        </table>
     </form>
 </div>
