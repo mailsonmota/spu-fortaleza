@@ -28,11 +28,21 @@ echo $this->pagenav()->closeList();
 </div>-->
 
 <div id="article">
-  <dl>
-    <dt><a href="#" id="xsdformfield_add">Adicionar item</a></dt>
-    <dd>&nbsp;</dd>
-  </dl>
   <form method="post">
+    <dl>
+      <dt>Tipo de Processo:</dt>
+      <dd><?php echo $this->assunto->tipoProcesso->nome ?></dd>
+      <dt>Assunto:</dt>
+      <dd><?php echo $this->assunto->nome ?></dd>
+    </dl>
+    <dl>
+      <dt>Nome do Formulário:</dt>
+      <dd><input type="text" name="xsdcreator_name" /></dd>
+    </dl>
+    <dl>
+      <dt><a href="#" id="xsdformfield_add">Adicionar item</a></dt>
+      <dd>&nbsp;</dd>
+    </dl>
     <div id="xsdformfield_group"></div>
     <input type="submit" value="Enviar" />
   </form>
@@ -45,10 +55,11 @@ echo $this->pagenav()->closeList();
     <dt>Tipo</dt>
     <dd>
       <select name="xsdcreator_type[]">
-        <option value="string">String</option>
-        <option value="date">Date</option>
-        <option value="textarea">Textarea</option>
-        <option value="select">Select</option>
+        <option value="string">Texto</option>
+        <option value="textarea">Área de Texto (texto grande)</option>
+        <option value="integer">Número (somente número)</option>
+        <option value="date">Data</option>
+        <option value="select">Select (múltiplas opções)</option>
       </select>
     </dd>
     <dt>&nbsp;</dt>

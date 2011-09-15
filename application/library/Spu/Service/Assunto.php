@@ -11,23 +11,23 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
 
         $curlObj = new CurlClient();
         $resultJson = $curlObj->doGetRequest($url);
-        
+
         return $this->_loadManyFromHash($resultJson['assuntos']);
     }
 
     public function getAssuntosPorTipoProcesso($idTipoProcesso, $origem = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listarportipoprocesso/$idTipoProcesso";
-        
+
         if ($origem) {
             //$url .= "&protocoloorigemid=$origem";
         }
 
         $url = $this->addAlfTicketUrl($url);
-        
+
         $curlObj = new CurlClient();
         $resultJson = $curlObj->doGetRequest($url);
-        
+
         return $this->_loadManyFromHash($resultJson['assuntos']);
     }
 
@@ -44,7 +44,7 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
 
         $curlObj = new CurlClient();
         $resultJson = $curlObj->doGetRequest($url);
-        
+
         return $this->loadFromHash(array_pop(array_pop($resultJson['Assunto'][0])), true);
     }
 
@@ -62,6 +62,36 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
         }
 
         return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])), true);
+    }
+
+    public function inserirFormularioModelo(array $dados)
+    {
+        try {
+            require_once('xsdcreator.php'); // ZendLoader - Vale? Não carrega toda vez?
+
+            $xsd = xsdcreator::create($dados);
+
+            $fileName = self::_getXsdFileName($xsd);
+            $filePath = sys_get_temp_dir() . '/' . $fileName;
+
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+
+            $fh = fopen($filePath, 'w');
+            fwrite($fh, $xsd);
+            fclose($fh);
+
+            $arquivoService = new Spu_Service_Arquivo($this->getTicket());
+            $arquivoService->uploadArquivo(array('destNodeUuid' => $dados['id'],
+                                                 'fileToUpload' => '@' . $filePath));
+            
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     public function editar($id, $postData)
@@ -83,7 +113,7 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
     public function loadFromHash($hash, $carregarDetalhes = false)
     {
         $assunto = new Spu_Entity_Assunto();
-            
+
         $assunto->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $assunto->setNome($this->_getHashValue($hash, 'nome'));
         $assunto->setCorpo($this->_getHashValue($hash, 'corpo'));
@@ -116,7 +146,7 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
         } catch (Exception $e) {
 
         }
-            
+
         return $formulario;
     }
 
@@ -145,5 +175,13 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
         }
         return (true);
     }
-    
+
+    protected static function _getXsdFileName($xsd)
+    {
+        $simpleXmlObject = simplexml_load_string($xsd);
+
+        preg_match("/^.+:(.+)/", $simpleXmlObject['targetNamespace'], $pregMatchResult);
+
+        return $pregMatchResult[1] . '.xsd';
+    }
 }
