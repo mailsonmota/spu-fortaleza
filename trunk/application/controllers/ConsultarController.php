@@ -62,7 +62,7 @@ class ConsultarController extends BaseController
             $this->_redirectToConsulta();
         }
         
-        if (!isset($session->filtrosConsulta)) {
+        if ($this->getRequest()->getPost()) {
         	$session->filtrosConsulta = $this->getRequest()->getPost();
         }
         
