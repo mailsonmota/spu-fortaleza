@@ -1,4 +1,10 @@
 <?php
+/**
+ * Spu_Entity_Arquivo
+ * Representa um arquivo do SPU
+ * @author bruno <brunofcavalcante@gmail.com>
+ * @package SPU
+ */
 class Spu_Entity_Arquivo extends Spu_Entity_Abstract
 {
     protected $_id;
