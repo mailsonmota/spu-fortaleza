@@ -136,7 +136,7 @@ class ConsultarController extends BaseController
 	    	$service->consultarAnexos(
 		    	$this->_helper->paginator()->getOffset(),
 		    	$this->_helper->paginator()->getPageSize(),
-		    	$this->view->q
+		    	$this->_getParam('conteudo')
 	    	)
     	);
     	

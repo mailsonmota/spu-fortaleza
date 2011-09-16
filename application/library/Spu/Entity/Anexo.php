@@ -8,7 +8,7 @@ class Spu_Entity_Anexo extends Spu_Entity_Arquivo
 		return $this->_processo;
 	}
 	
-	public function setProcesso(Processo $processo)
+	public function setProcesso(Spu_Entity_Processo $processo)
 	{
 		$this->_processo = $processo;
 	}
