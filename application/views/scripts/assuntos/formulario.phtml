@@ -39,11 +39,11 @@ echo $this->pagenav()->closeList();
       <dt>Nome do Formulário:</dt>
       <dd><input type="text" name="xsdcreator_name" /></dd>
     </dl>
+    <div id="xsdformfield_group"></div>
     <dl>
       <dt><a href="#" id="xsdformfield_add">Adicionar item</a></dt>
       <dd>&nbsp;</dd>
     </dl>
-    <div id="xsdformfield_group"></div>
     <input type="submit" value="Enviar" />
   </form>
 </div>
@@ -59,7 +59,7 @@ echo $this->pagenav()->closeList();
         <option value="textarea">Área de Texto (texto grande)</option>
         <option value="integer">Número (somente número)</option>
         <option value="date">Data</option>
-        <option value="select">Select (múltiplas opções)</option>
+        <option value="select">Seletor (múltiplas opções)</option>
       </select>
     </dd>
     <dt>&nbsp;</dt>
@@ -68,14 +68,14 @@ echo $this->pagenav()->closeList();
 
   <dl class="xsdformfield_select">
     <dt>&nbsp;</dt>
-    <dd><a href="#" class="xsdformfield_select_add">Adicionar option a este select</a></dd>
+    <dd><a href="#" class="xsdformfield_select_add">Adicionar opção</a></dd>
   </dl>
 
   <dl>
     <dt class="xsdformfield_select_option">Valor</dt>
     <dd>
       <input type="text" name="xsdcreator_select_options[][]">
-      <a href="#" class="xsdformfield_select_del">Remover esta option</a>
+      <a href="#" class="xsdformfield_select_del">Remover esta opção</a>
     </dd>
   </dl>
 </div>
@@ -119,6 +119,7 @@ $(document).ready(function() {
                     $(this).parent().parent().find("a.xsdformfield_select_del:last").click(function() {
                         $(this).parent().prev().remove();
                         $(this).parent().remove();
+                        return false;
                     });
 
                     return false;
