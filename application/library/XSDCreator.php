@@ -1,7 +1,7 @@
 <?php
-class xsdcreator {
+class XSDCreator {
     public static function create(array $data) {
-        $data['xsdcreator_name'] = xsdcreator::adapt_form_name($data['xsdcreator_name']);
+        $data['xsdcreator_name'] = self::adapt_form_name($data['xsdcreator_name']);
 
         $xsd = self::_get_head_string($data);
 
