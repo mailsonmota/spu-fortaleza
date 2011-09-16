@@ -120,13 +120,15 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
     public function consultarAnexos($offset = 0, $pageSize = 20, $filter)
     {
+    	$filter = urlencode($filter);
+    	
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/consultar-conteudo/$offset/$pageSize/$filter";
 
         $result = $this->_doAuthenticatedGetRequest($url);
         if ($this->isAlfrescoError($result)) {
             throw new Exception($this->getAlfrescoErrorMessage($result));
         }
-
+        
         return $this->_loadManyAnexosFromHash($result['Anexos'][0]);
     }
 
@@ -145,7 +147,7 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
     protected function _loadAnexoFromHash($hash)
     {
-        $anexo = new Anexo();
+        $anexo = new Spu_Entity_Anexo();
         $anexo->setId($this->_getHashValue($hash, 'noderef'));
         $anexo->setNome($this->_getHashValue($hash, 'nome'));
         $anexo->setMimetype($this->_getHashValue($hash, 'mimetype'));
@@ -177,11 +179,13 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         $processo->setProprietario($this->_loadProprietarioFromHash($this->_getHashValue($hash, 'proprietario')));
         $processo->setAssunto($this->_loadAssuntoFromHash($this->_getHashValue($hash, 'assunto')));
         $processo->setManifestante($this->_loadManifestanteFromHash($this->_getHashValue($hash, 'manifestante')));
-        $processo->setTipoManifestante($this->_loadTipoManifestanteFromHash($this->_getHashValue($hash,
-                                                                                                 'tipoManifestante')));
+        $processo->setTipoManifestante(
+        	$this->_loadTipoManifestanteFromHash($this->_getHashValue($hash, 'tipoManifestante'))
+        );
         $processo->setArquivamento($this->_loadArquivamentoFromHash($this->_getHashValue($hash, 'arquivamento')));
-        $processo->setMovimentacoes($this->_loadMovimentacoesFromHash($this->_getHashValue($hash,
-                                                                                           'ultimaMovimentacao')));
+        $processo->setMovimentacoes(
+        	$this->_loadMovimentacoesFromHash($this->_getHashValue($hash, 'ultimaMovimentacao'))
+        );
         if (!empty($hash['folhas'])) {
             $processo->setFolhas($this->_loadFolhasFromHash($hash['folhas']));
         }

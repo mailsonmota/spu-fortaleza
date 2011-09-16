@@ -1,4 +1,10 @@
 <?php
+/**
+ * Processo
+ * Representa um processo do SPU
+ * @author bruno <brunofcavalcante@gmail.com>
+ * @package SPU
+ */
 class Spu_Entity_Processo extends Spu_Entity_Abstract
 {
     protected $_nodeRef;
