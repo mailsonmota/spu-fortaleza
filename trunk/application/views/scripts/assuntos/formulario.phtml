@@ -75,7 +75,7 @@ echo $this->pagenav()->closeList();
   <dl>
     <dt class="xsdformfield_select_option">Valor</dt>
     <dd>
-      <input type="text" name="">
+      <input type="text" name="xsdformfield_select_options[]">
       <a href="#" class="xsdformfield_select_del">Remover esta option</a>
     </dd>
   </dl>
@@ -84,12 +84,12 @@ echo $this->pagenav()->closeList();
 <?php
 $js = <<<VAR
 $(document).ready(function() {
-    var xsdformfield_select = 0; // TODO mudar forma de contar itens dos selects
     $("#xsdformfield_add").click(function() {
         $("#xsdformfield_group").append($("#xsdformfield_model dl.xsdformfield").clone());
 
         $("#xsdformfield_group a.xsdformfield_del:last").click(function() {
             $(this).parent().parent().remove();
+            return false;
         });
 
         $("#xsdformfield_group select:last").change(function() {
@@ -104,13 +104,14 @@ $(document).ready(function() {
                     $(this).parent().parent().find("a.xsdformfield_select_del:last").click(function() {
                         $(this).parent().prev().remove();
                         $(this).parent().remove();
-
                     });
                     $(this).parent().parent()
                         .find("input[name='xsdformfield_select_options_counter[]']")
                         .val(function(index, value) {
                             return ++value;
                         });
+
+                    return false;
                 });
             } else {
                 $(this).parent().find("dl.xsdformfield_select").remove();
