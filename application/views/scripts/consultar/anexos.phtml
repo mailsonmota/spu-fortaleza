@@ -14,7 +14,7 @@ echo $this->pagenav()->closeList();
     <form action="<?php echo $this->simpleUrl('anexo-resultados') ?>" method="get">
         <?php 
         echo $this->fieldList()->open();
-        echo $this->fieldList()->textarea('Conteúdo', 'conteudo', null, array('required' => true));
+        echo $this->fieldList()->textbox('Conteúdo', 'conteudo', null, array('required' => true, 'length' => 50));
         echo $this->fieldList()->close();
         
         echo $this->buttonlist()->open();
