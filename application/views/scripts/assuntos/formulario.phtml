@@ -67,7 +67,6 @@ echo $this->pagenav()->closeList();
   </dl>
 
   <dl class="xsdformfield_select">
-    <input type="hidden" name="xsdformfield_select_options_counter[]" value="0">
     <dt>&nbsp;</dt>
     <dd><a href="#" class="xsdformfield_select_add">Adicionar option a este select</a></dd>
   </dl>
@@ -75,7 +74,7 @@ echo $this->pagenav()->closeList();
   <dl>
     <dt class="xsdformfield_select_option">Valor</dt>
     <dd>
-      <input type="text" name="xsdformfield_select_options[]">
+      <input type="text" name="xsdcreator_select_options[][]">
       <a href="#" class="xsdformfield_select_del">Remover esta option</a>
     </dd>
   </dl>
@@ -84,8 +83,15 @@ echo $this->pagenav()->closeList();
 <?php
 $js = <<<VAR
 $(document).ready(function() {
+    var xsdformfield_select_counter = 0;
     $("#xsdformfield_add").click(function() {
         $("#xsdformfield_group").append($("#xsdformfield_model dl.xsdformfield").clone());
+
+        $("#xsdformfield_group input[name='xsdcreator_label[]']").attr('name',
+                                                                       'xsdcreator_label[' + xsdformfield_select_counter  + ']');
+        $("#xsdformfield_group select[name='xsdcreator_type[]']").attr('name',
+                                                                      'xsdcreator_type[' + xsdformfield_select_counter  + ']');
+        xsdformfield_select_counter++;
 
         $("#xsdformfield_group a.xsdformfield_del:last").click(function() {
             $(this).parent().parent().remove();
@@ -101,15 +107,19 @@ $(document).ready(function() {
                         $("#xsdformfield_model dt.xsdformfield_select_option").clone(),
                         $("#xsdformfield_model dt.xsdformfield_select_option + dd").clone()
                     );
+                    
+                    var counter = $(this).parent().parent().parent()
+                        .find("select[name^='xsdcreator_type']").attr('name').match(/\[(\d+)\]/)[1];
+
+                    $(this).parent().parent()
+                        .find("input[name='xsdcreator_select_options[][]']")
+                        .attr('name',
+                              "xsdcreator_select_options[" + counter + "][]");
+
                     $(this).parent().parent().find("a.xsdformfield_select_del:last").click(function() {
                         $(this).parent().prev().remove();
                         $(this).parent().remove();
                     });
-                    $(this).parent().parent()
-                        .find("input[name='xsdformfield_select_options_counter[]']")
-                        .val(function(index, value) {
-                            return ++value;
-                        });
 
                     return false;
                 });
@@ -117,6 +127,8 @@ $(document).ready(function() {
                 $(this).parent().find("dl.xsdformfield_select").remove();
             }
         });
+
+        return false;
     });
 });
 VAR;
