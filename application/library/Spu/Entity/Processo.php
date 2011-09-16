@@ -1,6 +1,6 @@
 <?php
 /**
- * Processo
+ * Spu_Entity_Processo
  * Representa um processo do SPU
  * @author bruno <brunofcavalcante@gmail.com>
  * @package SPU
@@ -158,6 +158,9 @@ class Spu_Entity_Processo extends Spu_Entity_Abstract
         $this->_proprietario = $value;
     }
     
+    /**
+     * @return Spu_Entity_Assunto
+     */
     public function getAssunto()
     {
         return $this->_assunto;
@@ -178,6 +181,9 @@ class Spu_Entity_Processo extends Spu_Entity_Abstract
         $this->_movimentacoes = $value;
     }
     
+    /**
+     * @return Spu_Entity_Classification_Status
+     */
     public function getStatus()
     {
         return $this->_status;
@@ -228,8 +234,7 @@ class Spu_Entity_Processo extends Spu_Entity_Abstract
     
     public function getNumero()
     {
-        $nome = $this->getNome();
-        return str_ireplace('_', '/', $nome);
+        return str_ireplace('_', '/', $this->getNome());
     }
     
     public function getNomeTipoProcesso()
@@ -267,18 +272,29 @@ class Spu_Entity_Processo extends Spu_Entity_Abstract
         $this->_folhas = $data;
     }
     
+    /**
+     * @return boolean
+     */
     public function isArquivado()
     {
         return ($this->getStatus()->nome == Spu_Entity_Classification_Status::ARQUIVADO);
     }
     
+    /**
+     * @return boolean
+     */
     public function hasArquivos()
     {
         if (count($this->getArquivos())) {
             return true;
         }
+        
+        return false;
     }
     
+    /**
+     * @return boolean
+     */
     public function hasRespostasFormulario()
     {
         return $this->_respostasFormulario->hasData();
