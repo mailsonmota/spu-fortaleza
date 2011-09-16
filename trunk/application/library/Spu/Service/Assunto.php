@@ -67,9 +67,7 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
     public function inserirFormularioModelo(array $dados)
     {
         try {
-            require_once('xsdcreator.php'); // ZendLoader - Vale? Não carrega toda vez?
-
-            $xsd = xsdcreator::create($dados);
+            $xsd = XSDCreator::create($dados);
 
             $fileName = self::_getXsdFileName($xsd);
             $filePath = sys_get_temp_dir() . '/' . $fileName;
