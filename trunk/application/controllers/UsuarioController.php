@@ -7,6 +7,10 @@ class UsuarioController extends BaseController
     
     protected function _getNomeProtocolosUsuario()
     {
+    	if ($this->view->pessoa->isAdministrador()) {
+    		return array('Administrador');
+    	}
+    	
     	$service = new Spu_Service_Protocolo($this->getTicket());
     	$nomeProtocolos = array();
     	foreach ($service->getProtocolos() as $p) {

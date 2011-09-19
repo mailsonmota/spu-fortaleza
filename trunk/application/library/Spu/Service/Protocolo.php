@@ -7,25 +7,15 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
     public function getProtocolo($nodeUuid)
     {
         $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/get/$nodeUuid";
-        $url = $this->addAlfTicketUrl($url);
+        $result = $this->_doAuthenticatedGetRequest($url);
 
-        $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url);
-
-        if ($this->isAlfrescoError($result)) {
-            throw new Exception($this->getAlfrescoErrorMessage($result));
-        } 
-        
         return $this->loadFromHash(array_pop(array_pop($result['Protocolo'][0])));
     }
 
     public function getProtocolos()
     {
         $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl .  "/listar";
-        $url = $this->addAlfTicketUrl($url);
-
-        $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url);
+        $result = $this->_doAuthenticatedGetRequest($url);
 
         return $this->_loadManyFromHash($result['Protocolos'][0]);
     }
@@ -33,27 +23,16 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
     public function getTodosProtocolos()
     {
         $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listarTodos";
-        $url = $this->addAlfTicketUrl($url);
-
-        $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url);
-
+        $result = $this->_doAuthenticatedGetRequest($url);
+        
         return $this->_loadManyFromHash($result['Protocolos'][0]);
     }
 
     public function alterar($id, $postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/editar/$id";
-        $url = $this->addAlfTicketUrl($url);
-
-        $curlObj = new CurlClient();
-
-        $result = $curlObj->doPostRequest($url, $postData);
-
-        if ($this->isAlfrescoError($result)) {
-            throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
-
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
+        
         return $this->loadFromHash($result['Protocolo'][0]);
     }
     
@@ -73,17 +52,10 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
     
     public function getProtocolosDestino($protocoloOrigemId, $tipoProcessoId, $filter, $offset, $pageSize)
     {
-//        $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listardestinos/";
-//        $url .= "{$protocoloOrigemId}/{$tipoProcessoId}/{$filter}/{$offset}/{$pageSize}";
-        
         $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listardestinos?";
         $url .= "protocoloRaizId={$protocoloOrigemId}&tipoProcessoId={$tipoProcessoId}&filter={$filter}&offset={$offset}&pageSize={$pageSize}";
-        
-        $url = $this->addAlfTicketUrl($url);
-
-        $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url);
-        
+        $result = $this->_doAuthenticatedGetRequest($url);
+                
         return $this->_loadManyFromHash($result['Protocolos'][0]);
     }
 
