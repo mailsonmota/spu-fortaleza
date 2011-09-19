@@ -7,10 +7,7 @@ class Spu_Service_Manifestante extends Spu_Service_Abstract
     public function getManifestantes($offset, $pageSize, $filter)
     {
         $url = $this->getBaseUrl() . "/" . $this->_manifestantesBaseUrl . "/listar/$offset/$pageSize/?s=$filter";
-        $url = $this->addAlfTicketUrl($url);
-        
-        $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url);
+        $result = $this->_doAuthenticatedGetRequest($url);
         
         return $this->loadManyFromHash($result['Manifestantes']);
     }
@@ -18,10 +15,7 @@ class Spu_Service_Manifestante extends Spu_Service_Abstract
     public function getManifestante($cpf)
     {
         $url = $this->getBaseUrl() . "/" . $this->_manifestantesBaseUrl . "/get/$cpf";
-        $url = $this->addAlfTicketUrl($url);
-        
-        $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url);
+        $result = $this->_doAuthenticatedGetRequest($url);
         
         return $this->loadFromHash(array_pop(array_pop(array_pop($result['Manifestante']))));
     }

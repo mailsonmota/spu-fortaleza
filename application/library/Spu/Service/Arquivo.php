@@ -6,15 +6,8 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     public function getArquivos($nodeUuid)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/arquivos/get/$nodeUuid";
-        $url = $this->addAlfTicketUrl($url);
-
-        $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url);
-
-        if ($this->isAlfrescoError($result)) {
-            throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
-
+        $result = $this->_doAuthenticatedGetRequest($url);
+        
         return $this->loadManyFromHash($result);
     }
 
@@ -42,16 +35,8 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     public function salvarFormulario($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/formulario/salvar";
-        $url = $this->addAlfTicketUrl($url);
-
-        $curlObj = new CurlClient();
-
-        $result = $curlObj->doPostRequest($url, $postData);
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
         
-        if ($this->isAlfrescoError($result)) {
-            throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
-
         return $result;
     }
     

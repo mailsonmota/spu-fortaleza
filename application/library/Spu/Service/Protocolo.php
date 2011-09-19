@@ -52,8 +52,8 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
     
     public function getProtocolosDestino($protocoloOrigemId, $tipoProcessoId, $filter, $offset, $pageSize)
     {
-        $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listardestinos?";
-        $url .= "protocoloRaizId={$protocoloOrigemId}&tipoProcessoId={$tipoProcessoId}&filter={$filter}&offset={$offset}&pageSize={$pageSize}";
+        $url = "{$this->getBaseUrl()}/{$this->_protocoloBaseUrl}/listardestinos?protocoloRaizId={$protocoloOrigemId}";
+        $url .= "&tipoProcessoId={$tipoProcessoId}&filter={$filter}&offset={$offset}&pageSize={$pageSize}";
         $result = $this->_doAuthenticatedGetRequest($url);
                 
         return $this->_loadManyFromHash($result['Protocolos'][0]);

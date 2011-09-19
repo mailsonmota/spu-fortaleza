@@ -56,7 +56,7 @@ class Zend_View_Helper_Pagenav extends Zend_View_Helper_Abstract
     
     public function helpLink($url)
     {
-        $html = ($url) ? "<li class=\"help\"><a href=\"$url\" rel=\"facebox\">Ajuda</a></li>" : "";
+        $html = ($url) ? "<li class=\"help\"><a href=\"$url\" rel=\"modal\">Ajuda</a></li>" : "";
         return $html;
     }
     

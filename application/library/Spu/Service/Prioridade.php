@@ -7,10 +7,7 @@ class Spu_Service_Prioridade extends Spu_Service_Abstract
     public function fetchAll()
     {
         $url = $this->getBaseUrl() . "/" . $this->_baseUrl . "/prioridades/listar";
-        $url = $this->addAlfTicketUrl($url);
-        
-        $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url);
+        $result = $this->_doAuthenticatedGetRequest($url);
         
         return $this->_loadManyFromHash($result['Prioridades'][0]);
     }
