@@ -1,8 +1,7 @@
 <?php
 /**
  * Verifica se o controlador/action existe
- * @author bruno
- *
+ * @package SPU
  */
 class ErrorPlugin extends Zend_Controller_Plugin_Abstract
 {

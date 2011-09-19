@@ -7,14 +7,27 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <form action="" method="post">
-        <?php 
-        $headerColumns = array('Nome', 'Ações');
-        $columns = array('titulo');
-        
-        $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
-        $grid->addActionColumn('Editar', $this->simpleUrl('editar', $this->controller) . '/id/', 'id');
-        echo $grid->render();
-        ?>
-    </form>
+	<?php if ($this->tiposprocesso): ?>
+	<table class="grid">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Ações</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $i = 0 ?>
+			<?php if (count($this->tiposprocesso) > 0): foreach ($this->tiposprocesso as $p): ?>
+			<tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?>">
+				<td><?php echo $p->titulo ?></td>
+				<td><a href="<?php echo $this->url(array('action' => 'editar', 'id' => $p->id)) ?>">Editar</a></td>
+			</tr>
+			<?php endforeach; else: ?>
+			<tr>
+				<td colspan="2">Nenhum resultado encontrado.</td>
+			</tr>
+			<?php endif ?>
+		</tbody>
+	</table>
+	<?php endif ?>
 </div>

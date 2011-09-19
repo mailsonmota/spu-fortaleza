@@ -1,19 +1,19 @@
 <?php
 /**
  * AuthPlugin - Plugin de Autorização do SPU para o Zend Framework
- * @author bruno
+ * @author bruno <brunofcavalcante@gmail.com>
  * @package SPU
  */
 class AuthPlugin extends Zend_Controller_Plugin_Abstract
 {
     private $_auth;
     
-    //Ausencia de autenticacao redirecinar para:
+    //Ausencia de autenticacao redirecionar para:
     const FAIL_AUTH_MODULE     = '';
     const FAIL_AUTH_CONTROLLER = 'auth';
     const FAIL_AUTH_ACTION     = 'login';
     
-    //Ausencia de autorizacao redirecinar para:
+    //Ausencia de autorizacao redirecionar para:
     const FAIL_ACL_MODULE     = '';
     const FAIL_ACL_CONTROLLER = 'error';
     const FAIL_ACL_ACTION     = 'unauthorized';
@@ -44,6 +44,10 @@ class AuthPlugin extends Zend_Controller_Plugin_Abstract
         $request->setActionName($action);
     }
     
+    /**
+     * Verifica a validade do Ticket
+     * @return boolean
+     */
     protected function _isValidTicket()
     {
     	$alfrescoLogin = new Alfresco_Rest_Login(Spu_Service_Abstract::getBaseUrl());
@@ -56,6 +60,10 @@ class AuthPlugin extends Zend_Controller_Plugin_Abstract
         return $alfrescoLogin->validate();
     }
     
+    /**
+     * Verifica a validade de Identity
+     * @return boolean
+     */
     protected function _isIdentityValid()
     {
         $isValid = false;

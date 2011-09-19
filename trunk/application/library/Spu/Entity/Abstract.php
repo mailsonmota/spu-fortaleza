@@ -1,6 +1,5 @@
 <?php
 /**
- * Spu_Entity_Abstract
  * Abstração para as Entidades do SPU
  * @author bruno <brunofcavalcante@gmail.com>
  * @package SPU

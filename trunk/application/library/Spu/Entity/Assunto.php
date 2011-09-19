@@ -1,4 +1,9 @@
 <?php
+/**
+ * Representa um assunto do SPU
+ * @author bruno <brunofcavalcante@gmail.com>
+ * @package SPU
+ */
 class Spu_Entity_Assunto extends Spu_Entity_Abstract
 {
     protected $_nodeRef;
@@ -8,6 +13,10 @@ class Spu_Entity_Assunto extends Spu_Entity_Abstract
     protected $_tipoProcesso;
     protected $_formulario;
     
+    /**
+     * Retorna o Tipo de Processo à qual o assunto pertence
+     * @return Spu_Entity_TipoProcesso
+     */
     public function getTipoProcesso()
     {
         return $this->_tipoProcesso;
@@ -58,6 +67,10 @@ class Spu_Entity_Assunto extends Spu_Entity_Abstract
         $this->_notificarNaAbertura = $value;
     }
 
+    /**
+     * Retorna o formulário do assunto
+     * @return Spu_Entity_Formulario
+     */
     public function getFormulario() {
         return $this->_formulario;
     }
@@ -73,7 +86,9 @@ class Spu_Entity_Assunto extends Spu_Entity_Abstract
         return substr($nodeRef, strrpos($nodeRef, '/') + 1);
     }
     
-    //FIXME: Implementar Assunto::hasFormulario
+    /**
+     * @return boolean
+     */
     public function hasFormulario()
     {
     	if ($this->_formulario) {

@@ -1,6 +1,5 @@
 <?php
 /**
- * Spu_Entity_Anexo
  * Representa os Anexos dos Processos do SPU
  * @author bruno <brunofcavalcante@gmail.com>
  * @package SPU
