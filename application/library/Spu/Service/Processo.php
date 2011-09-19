@@ -25,9 +25,7 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
     protected function _getResultFromUrl($url)
     {
-        $result = $this->_doAuthenticatedGetRequest($url);
-        
-        return $result;
+        return $this->_doAuthenticatedGetRequest($url);
     }
 
     public function abrirProcesso($postData)
