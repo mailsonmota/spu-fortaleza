@@ -5,9 +5,17 @@ class XSDCreator {
 
         $xsd = self::_get_head_string($data);
 
-        for ($i = 0; $i < count($data['xsdcreator_type']); $i++) {
+        foreach (array_keys($data['xsdcreator_type']) as $i) {
+            if (empty($data['xsdcreator_type'][$i])) {
+                continue;
+            }
+
             switch ($data['xsdcreator_type'][$i]) {
             case 'string':
+                $xsd .= self::_make_element(array('label' => $data['xsdcreator_label'][$i],
+                                                  'type' => 'xs:string'));
+                break;
+            case 'textarea':
                 $xsd .= self::_make_element(array('label' => $data['xsdcreator_label'][$i],
                                                   'type' => 'xs:string'));
                 break;
@@ -15,11 +23,14 @@ class XSDCreator {
                 $xsd .= self::_make_element(array('label' => $data['xsdcreator_label'][$i],
                                                   'type' => 'xs:integer'));
                 break;
-            case 'textarea':
-                $xsd .= self::_make_element(array('label' => $data['xsdcreator_label'][$i],
-                                                  'type' => 'xs:string'));
-                break;
             case 'date':
+                $xsd .= self::_make_element(array('label' => $data['xsdcreator_label'][$i],
+                                                  'type' => 'xs:date'));
+                break;
+            case 'select':
+                $xsd .= self::_make_element_select(array('label' => $data['xsdcreator_label'][$i],
+                                                          'options' => $data['xsdcreator_select_options'][$i]));
+                break;
             }
         }
 
@@ -29,20 +40,44 @@ class XSDCreator {
     }
 
     private static function _make_element(array $data) {
-        $minOccurs = $data['type'] == 'xs:integer' ? '' : "minOccurs='0' ";
+        $xsd = "<xs:element name='" . $data['label'] . "' ";
+        $xsd .= "type='" . $data['type'] . "' ";
+        $xsd .= $data['type'] == 'xs:integer' ? '' : "minOccurs='0' ";
+        $xsd .= ">";
+        $xsd .= self::_make_element_annotation($data['label']);
+        $xsd .= "</xs:element>\n";
 
-        return "<xs:element "
-            . "name='" . $data['label'] . "' "
-            . "type='" . $data['type'] . "' "
-            . $minOccurs
-            . ">
-              <xs:annotation>
-                <xs:appinfo>
-                  <xhtml:label>" . $data['label'] . "</xhtml:label>
-                </xs:appinfo>
-              </xs:annotation>
-            </xs:element>\n";
+        return $xsd;
     }
+
+    private static function _make_element_select(array $data) {
+        $xsd_select = "<xs:element name='" . $data['label'] . "'>";
+        $xsd_select .= self::_make_element_annotation($data['label']);
+        $xsd_select .= "
+              <xs:simpleType>
+                <xs:restriction base='xs:string'>";
+
+        foreach ($data['options'] as $option) {
+            $xsd_select .= "<xs:enumeration value='" . $option  . "' />";
+        }
+
+        $xsd_select .= "
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>";
+
+        return $xsd_select;
+    }
+
+    private static function _make_element_annotation($label) {
+        return "
+            <xs:annotation>
+              <xs:appinfo>
+                <xhtml:label>" . $label . "</xhtml:label>
+              </xs:appinfo>
+            </xs:annotation>";
+    }
+
 
     private static function _get_head_string(array $data) {
         return "
@@ -67,12 +102,11 @@ class XSDCreator {
       <xs:element name='identificacao'>
         <xs:annotation>
           <xs:appinfo>
-            <xhtml:label>Elogio</xhtml:label>
+            <xhtml:label>" . $data['xsdcreator_name'] . "</xhtml:label>
           </xs:appinfo>
         </xs:annotation>
         <xs:complexType>
-          <xs:sequence>
-";
+          <xs:sequence>";
     }
 
     private static function _get_bottom_string() {
@@ -82,12 +116,11 @@ class XSDCreator {
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-</xs:schema>
-";
+</xs:schema>";
     }
 
     public static function adapt_form_name($name) {
         // TODO
-        return 'adapt_form_name__' . $name;
+        return 'adapted_form_name___' . $name;
     }
 }
