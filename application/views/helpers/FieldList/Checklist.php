@@ -22,7 +22,7 @@ class Zend_View_Helper_FieldList_Checklist extends Zend_View_Helper_FieldList_In
                 $liClass = ((++$i % 2) == 0) ? 'class="odd"' : 'class="even"';
                 $checked = (in_array($key, $checkedValues)) ? 'checked="checked"' : null;
                 $html .= "<li $liClass>";
-                $html .= "<input type=\"checkbox\" name=\"$name\" id=\"$id\" value=\"$key\" $checked/>$value</li>";
+                $html .= "<input type=\"checkbox\" name=\"$name\" id=\"$id\" value=\"$key\" $checked/>$value";
                 $html .= "</li>";
             }
             $html .= "</ul>";

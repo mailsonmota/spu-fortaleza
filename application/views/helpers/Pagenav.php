@@ -38,7 +38,7 @@ class Zend_View_Helper_Pagenav extends Zend_View_Helper_Abstract
     
     public function printLink()
     {
-        $html = '<li class="print"><a href="#" onClick="window.print();">Imprimir</a>';
+        $html = '<li class="print"><a href="#" onclick="window.print();">Imprimir</a></li>';
         return $html;
     }
     
@@ -56,7 +56,7 @@ class Zend_View_Helper_Pagenav extends Zend_View_Helper_Abstract
     
     public function helpLink($url)
     {
-        $html = ($url) ? "<li class=\"help\"><a href=\"$url\" rel=\"facebox\">Ajuda</a>" : "";
+        $html = ($url) ? "<li class=\"help\"><a href=\"$url\" rel=\"facebox\">Ajuda</a></li>" : "";
         return $html;
     }
     
