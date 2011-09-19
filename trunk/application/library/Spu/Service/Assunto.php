@@ -7,42 +7,31 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
     public function getAssuntos()
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listar";
-        
         $result = $this->_doAuthenticatedGetRequest($url);
-
+        
         return $this->_loadManyFromHash($result['assuntos']);
     }
 
     public function getAssuntosPorTipoProcesso($idTipoProcesso, $origem = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listarportipoprocesso/$idTipoProcesso";
-
         $result = $this->_doAuthenticatedGetRequest($url);
-
+        
         return $this->_loadManyFromHash($result['assuntos']);
     }
 
     public function getAssunto($nodeUuid)
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/get/$nodeUuid";
-
         $result = $this->_doAuthenticatedGetRequest($url);
-
+        
         return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])), true);
     }
 
     public function inserir($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/inserir";
-        $url = $this->addAlfTicketUrl($url);
-
-        $curlObj = new CurlClient();
-
-        $result = $curlObj->doPostRequest($url, $postData);
-
-        if ($this->isAlfrescoError($result)) {
-            throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
 
         return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])), true);
     }
@@ -77,15 +66,7 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
     public function editar($id, $postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/editar/$id";
-        $url = $this->addAlfTicketUrl($url);
-
-        $curlObj = new CurlClient();
-
-        $result = $curlObj->doPostRequest($url, $postData);
-
-        if ($this->isAlfrescoError($result)) {
-            throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
 
         return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])), true);
     }
@@ -145,15 +126,9 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
     public function removerVarios($hash)
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/remover";
-        $url = $this->addAlfTicketUrl($url);
+        $result = $this->_doAuthenticatedPostRequest($url, $hash);
 
-        $curlObj = new CurlClient();
-        $result = $curlObj->doPostRequest($url, $hash);
-
-        if ($this->isAlfrescoError($result)) {
-            throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
-        return (true);
+        return true;
     }
 
     protected static function _getXsdFileName($xsd)

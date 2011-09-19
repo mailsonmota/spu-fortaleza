@@ -25,7 +25,7 @@ class AssuntosController extends BaseController
     {
         $id = $this->_getTipoProcessoFromUrl();
 
-        $assunto = new Assunto();
+        $assunto = new Spu_Entity_Assunto();
         if ($this->getRequest()->isPost()) {
             try {
                 $assuntoService = new Spu_Service_Assunto($this->getTicket());
