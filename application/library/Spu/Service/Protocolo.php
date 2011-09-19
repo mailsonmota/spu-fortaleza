@@ -60,16 +60,9 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
     public function getTodosProtocolosPaginado($offset = 0, $pageSize = 20, $filter = null)
     {
         $filter = urlencode($filter);
-        $url = $this->getBaseUrl() . "/" 
-                                    . $this->_protocoloBaseUrl 
-                                    . "/listarTodosPaginado" 
-                                    . "/$offset" 
-                                    . "/$pageSize"  
-                                    . "/?s=$filter";
-        $url = $this->addAlfTicketUrl($url);
-
-        $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url);
+        $url = "{$this->getBaseUrl()}/{$this->_protocoloBaseUrl}/listarTodosPaginado/$offset/$pageSize/?s=$filter";
+        
+        $result = $this->_doAuthenticatedGetRequest($url);
 
         if (!isset($result['Protocolos'])) {
         	return false;

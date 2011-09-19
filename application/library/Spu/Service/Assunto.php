@@ -7,45 +7,28 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
     public function getAssuntos()
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listar";
-        $url = $this->addAlfTicketUrl($url);
+        
+        $result = $this->_doAuthenticatedGetRequest($url);
 
-        $curlObj = new CurlClient();
-        $resultJson = $curlObj->doGetRequest($url);
-
-        return $this->_loadManyFromHash($resultJson['assuntos']);
+        return $this->_loadManyFromHash($result['assuntos']);
     }
 
     public function getAssuntosPorTipoProcesso($idTipoProcesso, $origem = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listarportipoprocesso/$idTipoProcesso";
 
-        if ($origem) {
-            //$url .= "&protocoloorigemid=$origem";
-        }
+        $result = $this->_doAuthenticatedGetRequest($url);
 
-        $url = $this->addAlfTicketUrl($url);
-
-        $curlObj = new CurlClient();
-        $resultJson = $curlObj->doGetRequest($url);
-
-        return $this->_loadManyFromHash($resultJson['assuntos']);
-    }
-
-    protected function _getNomeAjustadoNomeParaUrl($nome)
-    {
-        $nome = str_replace(' ', '%20', $nome);
-        return $nome;
+        return $this->_loadManyFromHash($result['assuntos']);
     }
 
     public function getAssunto($nodeUuid)
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/get/$nodeUuid";
-        $url = $this->addAlfTicketUrl($url);
 
-        $curlObj = new CurlClient();
-        $resultJson = $curlObj->doGetRequest($url);
+        $result = $this->_doAuthenticatedGetRequest($url);
 
-        return $this->loadFromHash(array_pop(array_pop($resultJson['Assunto'][0])), true);
+        return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])), true);
     }
 
     public function inserir($postData)
@@ -81,8 +64,7 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
             fclose($fh);
 
             $arquivoService = new Spu_Service_Arquivo($this->getTicket());
-            $arquivoService->uploadArquivo(array('destNodeUuid' => $dados['id'],
-                                                 'fileToUpload' => '@' . $filePath));
+            $arquivoService->uploadArquivo(array('destNodeUuid' => $dados['id'], 'fileToUpload' => '@' . $filePath));
             
             if (file_exists($filePath)) {
                 unlink($filePath);
