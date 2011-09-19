@@ -4,7 +4,7 @@ class TiposprocessoController extends BaseController
     public function indexAction()
     {
         $tipoProcessoService = new Spu_Service_TipoProcesso($this->getTicket());
-        $this->view->lista = $tipoProcessoService->getTiposProcesso();
+        $this->view->tiposprocesso = $tipoProcessoService->getTiposProcesso();
     }
     
     public function editarAction()

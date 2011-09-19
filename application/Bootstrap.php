@@ -3,9 +3,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     protected function _initAutoload()
     {
-        $libraryPath = '../application/library';
         Zend_Loader::loadClass('BaseController', '../application/controllers');
-        Zend_Loader::loadClass('SimpleDataTable', "$libraryPath/SimpleDataTable");
+        Zend_Loader::loadClass('SimpleDataTable', '../application/library/SimpleDataTable');
         Zend_Loader::loadClass('ErrorPlugin');
         Zend_Loader::loadClass('AuthPlugin');
         Zend_Loader::loadClass('AuthAdapter');
@@ -78,7 +77,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headLink()->appendStylesheet($baseUrl . '/css/forms.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/simple-modal.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/datePicker.css');
-        $view->headLink()->appendStylesheet($baseUrl . '/css/dataTables.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/jquery-ui-1.8.9.custom.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/estilo.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/print.css', array('media' => 'print'));
@@ -98,18 +96,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headScript()->appendFile($pluginsPath . 'jquery.datePicker.js');
         $view->headScript()->appendFile($pluginsPath . 'jquery.simplemodal.1.4.1.min.js');
         $view->headScript()->appendFile($pluginsPath . 'jquery.elastic.js');
-        $view->headScript()->appendFile($pluginsPath . '/dataTables/jquery.dataTables.min.js');
-        $view->headScript()->appendFile($pluginsPath . '/dataTables/textOnlyPagination.js');
-        $view->headScript()->appendFile($pluginsPath . '/dataTables/jquery.dataTables.pipeline.js');
-        $view->headScript()->appendFile($pluginsPath . '/dataTables/jquery.dataTables.setFilteringDelay.js');
         $view->headScript()->appendFile($pluginsPath . 'input.deflate.plugin.js');
         $view->headScript()->appendFile($pluginsPath . 'jquery.meio.mask.js');
         $view->headScript()->appendFile($pluginsPath . 'xsdForm.js');
         $view->headScript()->appendFile($pluginsPath . 'xsdForm-ui.js');
         $view->headScript()->appendFile($pluginsPath . 'jquery-ui-1.8.9.custom.min.js');
-        $view->headScript()->appendFile($jsPath . 'funcoes.js');
         $view->headScript()->appendFile($pluginsPath . 'jquery-simulate.js');
         $view->headScript()->appendFile($pluginsPath . 'regex-mask-plugin.js');
+        $view->headScript()->appendFile($jsPath . 'funcoes.js');
         $view->headScript()->appendFile($jsPath . 'xsdFormSpu.js');
     }
 
