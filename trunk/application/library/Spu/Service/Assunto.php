@@ -133,7 +133,11 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
 
     protected static function _getXsdFileName($xsd)
     {
-        $simpleXmlObject = simplexml_load_string($xsd);
+        try {
+            $simpleXmlObject = simplexml_load_string($xsd);
+        } catch (Exception $e) {
+            throw $e;
+        }
 
         preg_match("/^.+:(.+)/", $simpleXmlObject['targetNamespace'], $pregMatchResult);
 
