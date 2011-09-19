@@ -23,6 +23,7 @@ jQuery(document).ready(function() {
 	//Modal
 	$('a[rel=modal]').click(function() {
 		$($(this).attr('href')).modal();
+		return false;
 	});
 	
 	//Textarea

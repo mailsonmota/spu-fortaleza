@@ -7,7 +7,6 @@ class Spu_Service_TipoAbrangencia extends Spu_Service_Abstract
     public function fetchAll()
     {
         $url = $this->getBaseUrl() . "/" . $this->_baseUrl . "/abrangencias/listar";
-        
         $result = $this->_doAuthenticatedGetRequest($url);
         
         return $this->_loadManyFromHash($result['Abrangencias'][0]);

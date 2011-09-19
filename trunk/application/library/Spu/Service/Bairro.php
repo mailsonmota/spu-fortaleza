@@ -7,9 +7,7 @@ class Spu_Service_Bairro extends Spu_Service_Abstract
     public function getBairros()
     {
         $url = $this->getBaseUrl() . "/" . $this->_bairrosBaseUrl . "/listar";
-        $url = $this->addAlfTicketUrl($url);
-        
-        $result = $this->_doGetRequest($url);
+        $result = $this->_doAuthenticatedGetRequest($url);
         
         return $this->_loadManyFromHash($result['Bairros']);
     }

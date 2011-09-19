@@ -7,14 +7,7 @@ class Spu_Service_Status extends Spu_Service_Abstract
     public function listar()
     {
     	$url = $this->getBaseUrl() . "/" . $this->_baseUrl . "/status/listar";
-        $url = $this->addAlfTicketUrl($url);
-        
-        $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url);
-        
-        if ($this->isAlfrescoError($result)) {
-            throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
+    	$result = $this->_doAuthenticatedGetRequest($url);
         
         return $this->_loadManyFromHash($result['Status'][0]);
     }
