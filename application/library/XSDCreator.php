@@ -42,7 +42,6 @@ class XSDCreator {
     private static function _make_element(array $data) {
         $xsd = "<xs:element name='" . $data['label'] . "' ";
         $xsd .= "type='" . $data['type'] . "' ";
-        $xsd .= $data['type'] == 'xs:integer' ? '' : "minOccurs='0' ";
         $xsd .= ">";
         $xsd .= self::_make_element_annotation($data['label']);
         $xsd .= "</xs:element>\n";
@@ -120,7 +119,19 @@ class XSDCreator {
     }
 
     public static function adapt_form_name($name) {
-        // TODO
-        return 'adapted_form_name___' . $name;
+        return strtr($name,
+                     array('Á' => 'A',
+                           'á' => 'a',
+                           'ã' => 'a',
+                           'É' => 'e',
+                           'é' => 'e',
+                           'Í' => 'i',
+                           'í' => 'i',
+                           'Ó' => 'O',
+                           'ó' => 'o',
+                           'Ú' => 'u',
+                           'ú' => 'u',
+                           'Ç' => 'C',
+                           'ç' => 'c'));
     }
 }
