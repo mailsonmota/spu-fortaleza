@@ -5,8 +5,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         Zend_Loader::loadClass('BaseController', '../application/controllers');
         Zend_Loader::loadClass('SimpleDataTable', '../application/library/SimpleDataTable');
-        Zend_Loader::loadClass('ErrorPlugin');
-        Zend_Loader::loadClass('AuthPlugin');
         Zend_Loader::loadClass('AuthAdapter');
 
         $autoloader = new Zend_Application_Module_Autoloader(
@@ -28,17 +26,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('FrontController');
         $front = $this->getResource('FrontController');
 
-        // Timezone
-        date_default_timezone_set('America/Fortaleza');
-        setlocale(LC_TIME, 'pt_BR.UTF-8');
-
-        $front->registerPlugin(new ErrorPlugin());
+        $front->registerPlugin(new Plugin_Error());
         $front->throwExceptions(false);
 
         $auth = Zend_Auth::getInstance();
         $auth->setStorage(new Zend_Auth_Storage_Session('Zend_Auth_SPU'));
         $front->setParam('auth', $auth);
-        $front->registerPlugin(new AuthPlugin($auth));
+        $front->registerPlugin(new Plugin_Auth($auth));
+    }
+    
+    protected function _initTimezone()
+    {
+    	// Timezone
+    	date_default_timezone_set('America/Fortaleza');
+    	setlocale(LC_TIME, 'pt_BR.UTF-8');
     }
 
     protected function _initDoctype()

@@ -4,7 +4,7 @@
  * @author bruno <brunofcavalcante@gmail.com>
  * @package SPU
  */
-class AuthPlugin extends Zend_Controller_Plugin_Abstract
+class Plugin_Auth extends Zend_Controller_Plugin_Abstract
 {
     private $_auth;
     

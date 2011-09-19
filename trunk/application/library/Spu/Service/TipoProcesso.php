@@ -12,10 +12,7 @@ class Spu_Service_TipoProcesso extends Spu_Service_Abstract
     		$url .= "/$origem";
     	}
     	
-    	$url = $this->addAlfTicketUrl($url);
-        
-        $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url);
+    	$result = $this->_doAuthenticatedGetRequest($url);
         
         return $this->_loadManyFromHash($result['Tipos de Processo'][0]);
     }
@@ -23,14 +20,10 @@ class Spu_Service_TipoProcesso extends Spu_Service_Abstract
     public function getTipoProcesso($nodeUuid)
     {
         $url = $this->getBaseUrl() . "/" . $this->_tiposProcessoBaseUrl . "/get/$nodeUuid";
-        $url = $this->addAlfTicketUrl($url);
         
-        $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url);
+        $result = $this->_doAuthenticatedGetRequest($url);
         
-        $hashTipoProcesso = $result['Tipo de Processo'][0];
-        
-        return $this->loadFromHash(array_pop(array_pop($hashTipoProcesso)));
+        return $this->loadFromHash(array_pop(array_pop($result['Tipo de Processo'][0])));
     }
     
     public function loadFromHash($hash)
@@ -57,10 +50,8 @@ class Spu_Service_TipoProcesso extends Spu_Service_Abstract
         $hashTramitacao = $this->_getHashValue($hash, 'tramitacao');
         $tramitacao = new Spu_Entity_Classification_TipoTramitacao($this->getTicket());
         if ($hashTramitacao) {
-            $hashTramitacao = array_pop($hashTramitacao);
-            $tramitacao->setNodeRef($this->_getHashValue($hashTramitacao, 'noderef'));
-            $tramitacao->setNome($this->_getHashValue($hashTramitacao, 'nome'));
-            $tramitacao->setDescricao($this->_getHashValue($hashTramitacao, 'descricao'));            
+        	$service = new Spu_Service_TipoTramitacao();
+        	$tramitacao = $service->loadFromHash(array_pop($hashTramitacao));
         }
         return $tramitacao;
     }
@@ -70,10 +61,8 @@ class Spu_Service_TipoProcesso extends Spu_Service_Abstract
         $hashAbrangencia = $this->_getHashValue($hash, 'abrangencia');
         $abrangencia = new Spu_Entity_Classification_TipoAbrangencia($this->getTicket());
         if ($hashAbrangencia) {
-            $hashAbrangencia = array_pop($hashAbrangencia);
-            $abrangencia->setNodeRef($this->_getHashValue($hashAbrangencia, 'noderef'));
-            $abrangencia->setNome($this->_getHashValue($hashAbrangencia, 'nome'));
-            $abrangencia->setDescricao($this->_getHashValue($hashAbrangencia, 'descricao'));            
+        	$service = new Spu_Service_TipoAbrangencia();
+        	$abrangencia = $service->loadFromHash(array_pop($hashAbrangencia));
         }
         return $abrangencia;
     }
@@ -85,12 +74,8 @@ class Spu_Service_TipoProcesso extends Spu_Service_Abstract
         if ($hashTiposManifestante) {
             $hashTiposManifestante = array_pop($hashTiposManifestante);
             foreach ($hashTiposManifestante as $hashTipoManifestante) {
-                $hashTipoManifestante = array_pop($hashTipoManifestante);
-                $tipoManifestante = new Spu_Entity_Classification_TipoManifestante($this->getTicket());
-                $tipoManifestante->setNodeRef($this->_getHashValue($hashTipoManifestante, 'noderef'));
-                $tipoManifestante->setNome($this->_getHashValue($hashTipoManifestante, 'nome'));
-                $tipoManifestante->setDescricao($this->_getHashValue($hashTipoManifestante, 'descricao'));
-                $tiposManifestante[] = $tipoManifestante;
+            	$service = new Spu_Service_TipoManifestante();
+            	$tiposManifestante[] = $service->loadFromHash(array_pop($hashTipoManifestante));
             }         
         }
         return $tiposManifestante;

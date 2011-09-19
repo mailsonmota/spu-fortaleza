@@ -71,14 +71,12 @@ class Spu_Service_Abstract
     
     protected function _doPostRequest($url, $postData)
     {
-    	$curlClient = $this->_getCurlClient();
-    	return $curlClient->doPostRequest($url, $postData);
+    	return $this->_service->doPostRequest($url, $postData);
     }
     
     protected function _doGetRequest($url)
     {
-    	$curlClient = $this->_getCurlClient();
-    	return $curlClient->doGetRequest($url);
+    	return $this->_service->doGetRequest($url);
     }
     
     protected function _getCurlClient()

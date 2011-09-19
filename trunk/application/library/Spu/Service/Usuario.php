@@ -3,8 +3,7 @@ class Spu_Service_Usuario extends Spu_Service_Abstract
 {
     public function fetchAll($filter = null)
     {
-        $api = $this->_getApi();
-        return $api->listPeople(filter);
+        return $this->_getApi()->listPeople($filter);
     }
     
     public function find($username)
@@ -15,8 +14,12 @@ class Spu_Service_Usuario extends Spu_Service_Abstract
     
     public function fetchGroups($username)
     {
-        $api = $this->_getApi();
-        return $this->_loadGruposFromHash($api->getGroups($username));
+        $url = $this->getBaseUrl() . "/getGroups";
+        
+        $result = $this->_doAuthenticatedGetRequest($url);
+        $hash = (isset($result['groups'])) ? $result['groups'] : array();
+        
+        return $this->_loadGruposFromHash($hash);
     }
     
     protected function _getApi()
@@ -25,7 +28,8 @@ class Spu_Service_Usuario extends Spu_Service_Abstract
         return $api;
     }
     
-    public function loadFromHash($hash) {
+    public function loadFromHash($hash)
+    {
         $usuario = new Spu_Entity_Usuario();
         
         $usuario->setNome($this->_getHashValue($hash, 'firstName'));
@@ -37,7 +41,8 @@ class Spu_Service_Usuario extends Spu_Service_Abstract
         return $usuario;
     }
     
-    protected function _loadGruposFromHash($hash) {
+    protected function _loadGruposFromHash($hash)
+    {
         $grupos = array();
         if (count($hash) > 0) {
             foreach ($hash as $hashGrupo) {

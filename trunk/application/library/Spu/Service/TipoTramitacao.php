@@ -7,10 +7,8 @@ class Spu_Service_TipoTramitacao extends Spu_Service_Abstract
     public function fetchAll()
     {
         $url = $this->getBaseUrl() . "/" . $this->_baseUrl . "/tramitacoes/listar";
-        $url = $this->addAlfTicketUrl($url);
         
-        $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url);
+        $result = $this->_doAuthenticatedGetRequest($url);
         
         return $this->_loadManyFromHash($result['Tramitacoes'][0]);
     }

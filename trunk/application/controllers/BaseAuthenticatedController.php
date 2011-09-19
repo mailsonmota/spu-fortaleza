@@ -3,7 +3,7 @@ class BaseAuthenticatedController extends Zend_Controller_Action
 {
     protected function getTicket()
     {
-        $user = AuthPlugin::getIdentity();
+        $user = Plugin_Auth::getIdentity();
         return $user['ticket'];
     }
     
