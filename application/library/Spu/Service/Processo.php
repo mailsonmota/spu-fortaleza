@@ -26,22 +26,15 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     protected function _getResultFromUrl($url)
     {
         $result = $this->_doAuthenticatedGetRequest($url);
-        if ($this->isAlfrescoError($result)) {
-            throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
-
+        
         return $result;
     }
 
     public function abrirProcesso($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/abrir";
-
         $result = $this->_doAuthenticatedPostRequest($url, $postData);
-        if ($this->isAlfrescoError($result)) {
-            throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
-
+        
         $processo = $this->loadFromHash(array_pop(array_pop($result['Processo'][0])));
         
         return $this->_getProcessoDetalhado($processo);
@@ -67,7 +60,6 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     public function getProcesso($nodeUuid)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/get/$nodeUuid";
-
         $result = $this->_doAuthenticatedGetRequest($url);
 
         $processoHash = array_pop(array_pop($result['Processo'][0]));
@@ -78,14 +70,9 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     public function getHistorico($nodeUuid)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/historico/get/$nodeUuid";
-
         $result = $this->_doAuthenticatedGetRequest($url);
-        if ($this->isAlfrescoError($result)) {
-            throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
-
+        
         $hashProcesso = array_pop(array_pop($result['Processo'][0]));
-
         $hashMovimentacao = $this->_getHashValue($hashProcesso, 'movimentacoes');
 
         return $this->_loadMovimentacoesFromHash($hashMovimentacao);
@@ -94,12 +81,8 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     public function incorporar($data)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/incorporar";
-
         $result = $this->_doAuthenticatedPostRequest($url, $data);
-        if ($this->isAlfrescoError($result)) {
-            throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
-
+        
         return $result;
     }
 
@@ -111,23 +94,15 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         $postData['pageSize'] = $pageSize;
         
         $result = $this->_doAuthenticatedPostRequest($url, $postData);
-        if ($this->isAlfrescoError($result)) {
-            throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
-
+        
         return $this->_loadManyFromHash($result['Processos'][0]);
     }
 
     public function consultarAnexos($offset = 0, $pageSize = 20, $filter)
     {
     	$filter = urlencode($filter);
-    	
-        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/consultar-conteudo/$offset/$pageSize/$filter";
-
+    	$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/consultar-conteudo/$offset/$pageSize/$filter";
         $result = $this->_doAuthenticatedGetRequest($url);
-        if ($this->isAlfrescoError($result)) {
-            throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
         
         return $this->_loadManyAnexosFromHash($result['Anexos'][0]);
     }
