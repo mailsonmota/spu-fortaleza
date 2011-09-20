@@ -54,7 +54,6 @@ class Spu_Service_Manifestante extends Spu_Service_Abstract
     {
         $manifestantes = array();
         foreach ($hash[0] as $hashManifestante) {
-            
             if ($hashManifestante) {
                 $hashDadosManifestante = array_pop($hashManifestante);
                 $manifestantes[] = $this->loadFromHash($hashDadosManifestante);

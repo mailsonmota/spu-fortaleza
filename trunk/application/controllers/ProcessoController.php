@@ -9,7 +9,8 @@ class ProcessoController extends BaseController
             $processo = $processoService->getProcesso($idProcesso);
             $processosParalelos = $processoService->getProcessosParalelos($processo->id);
         } catch (Exception $e) {
-            $this->setMessageForTheView('Não foi possível carregar o processo', 'error');
+        	echo $e->getMessage(); exit;
+        	$this->setMessageForTheView('Não foi possível carregar o processo', 'error');
         }
         
         if ($this->getRequest()->getParam('etiqueta', false) !== false) {
