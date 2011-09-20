@@ -115,8 +115,6 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
     {
         $hashAssuntos = array();
         foreach ($hash as $hashAssunto) {
-            //FIXME: Esse service nao esta respondendo coforme o padrão
-            //$hashAssunto = array_pop($hashAssunto);
             $hashAssuntos[] = $this->loadFromHash($hashAssunto);
         }
 

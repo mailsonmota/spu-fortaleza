@@ -18,17 +18,9 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
      */
     public function uploadArquivo($postData)
     {
-        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/uploadarquivo";
-        $url = $this->addAlfTicketUrl($url);
-
-        $curlObj = new CurlClient();
-
-        $result = $curlObj->doPostRequest($url, $postData, 'formdata');
-
-        if ($this->isAlfrescoError($result)) {
-            throw new Exception($this->getAlfrescoErrorMessage($result));
-        }
-
+    	$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/uploadarquivo";
+        $result = $this->_doAuthenticatedPostFormDataRequest($url, $postData);
+        
         return $result;
     }
 
@@ -40,19 +32,19 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
         return $result;
     }
     
-    public function getArquivoDownloadUrl($arquivoHash)
+    public function getArquivoDownloadUrl($hash)
     {
-        $url = $this->getBaseUrl() . "/api/node/workspace/SpacesStore/"
-             . $arquivoHash['id'] . "/content/" . $arquivoHash['nome'];
+        $url = "{$this->getBaseUrl()}/api/node/workspace/SpacesStore/{$hash['id']}/content/{$hash['nome']}";
         $url = $this->addAlfTicketUrl($url);
+        
         return $url;
     }
     
     public function getArquivoFormularioDownloadUrl($arquivoHash)
     {
-        $url = $this->getBaseUrl() . "/spu/formulario/get/assunto/"
-        . $arquivoHash['id'];
+        $url = $this->getBaseUrl() . "/spu/formulario/get/assunto/" . $arquivoHash['id'];
         $url = $this->addAlfTicketUrl($url);
+        
         return $url;
     }
 
@@ -63,9 +55,8 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
      */
     public function getContentFromUrl($getData)
     {
-        $url = $this->getArquivoFormularioDownloadUrl($getData);
-        $curlObj = new CurlClient();
-        $result = $curlObj->doGetRequest($url, CurlClient::FORMAT_STRING);
+    	$url = $this->getArquivoFormularioDownloadUrl($getData);
+        $result = $this->_doAuthenticatedGetStringRequest($url);
         
         if (strpos($result, 'Internal Error') > -1) {
             throw new Exception('Erro ao capturar o formulario');
@@ -76,15 +67,8 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     
     public function getRespostasFormulario($processoId)
     {
-        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/formulario/get/$processoId";
-        $url = $this->addAlfTicketUrl($url);
-        
-        $curlObj = new CurlClient();
-        try {
-            $result = $curlObj->doGetRequest($url, CurlClient::FORMAT_STRING);
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
+    	$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/formulario/get/$processoId";
+        $result = $this->_doAuthenticatedGetStringRequest($url);
         
         $respostasFormulario = new Spu_Entity_RespostasFormulario();
         if ($this->_isValidRespostasXML($result)) {
