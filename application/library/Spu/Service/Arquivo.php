@@ -1,4 +1,11 @@
 <?php
+/**
+ * Classe para acessar os serviços de acesso à arquivo do SPU
+ * 
+ * @author bruno <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Service_Abstract
+ */
 class Spu_Service_Arquivo extends Spu_Service_Abstract
 {
     private $_processoBaseUrl = 'spu/processo';

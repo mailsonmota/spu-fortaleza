@@ -1,14 +1,20 @@
 <?php
-Zend_Loader::loadClass('ZendAuthAdapterAlfresco');
+/** @see ZendAuthAdapterAlfresco */
+require_once 'ZendAuthAdapterAlfresco.php';
+
+/**
+ * Adaptador do ZendAuthAdapterAlfresco para o SPU
+ * 
+ * @author bruno <brunofcavalcante@gmail.com>
+ * @package SPU
+ */
 class AuthAdapter extends ZendAuthAdapterAlfresco
 {
     protected function getIdentityFromResponse()
     {
-        $username = $this->getUsername();
         $ticket = $this->getTicket();
-        
         $usuarioService = new Spu_Service_Usuario($ticket);
-        $usuario = $usuarioService->find($username);
+        $usuario = $usuarioService->find($this->getUsername());
         
         $identity = array();
         $identity['user'] = $usuario;
