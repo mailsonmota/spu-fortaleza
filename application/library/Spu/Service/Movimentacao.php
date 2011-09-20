@@ -1,6 +1,19 @@
 <?php
+/**
+ * Classe para acessar os serviços de Movimentação de Processo do SPU
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Service_Abstract
+ */
 class Spu_Service_Movimentacao extends Spu_Service_Abstract
 {
+	/**
+	 * Carrega várias Movimentações à partir de um hash
+	 * 
+	 * @param array $hash
+	 * @return Spu_Entity_Aspect_Movimentacao[]
+	 */
     public function loadManyFromHash($hash)
     {
         $movimentacoes = array();
@@ -14,6 +27,12 @@ class Spu_Service_Movimentacao extends Spu_Service_Abstract
         return $movimentacoes;
     }
     
+    /**
+     * Carrega uma Movimentação à partir de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Aspect_Movimentacao
+     */
     public function loadFromHash($hash)
     {
         $movimentacao = new Spu_Entity_Aspect_Movimentacao();
@@ -31,6 +50,12 @@ class Spu_Service_Movimentacao extends Spu_Service_Abstract
         return $movimentacao;
     }
     
+    /**
+     * Carrega o usuário da Movimentação à partir de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Usuario
+     */
     protected function _loadUsuarioFromHash($hash)
     {
         $usuario = new Spu_Entity_Usuario();
@@ -45,6 +70,12 @@ class Spu_Service_Movimentacao extends Spu_Service_Abstract
         return $usuario;
     }
     
+    /**
+     * Carrega o Protocolo da Movimentação à partir de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Protocolo
+     */
     protected function _loadProtocoloFromHash($hash)
     {
         if ($hash) {
@@ -58,6 +89,12 @@ class Spu_Service_Movimentacao extends Spu_Service_Abstract
         return $protocolo;
     }
     
+    /**
+     * Carrega a Prioridade da Movimentação à partir de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Classification_Prioridade
+     */
     protected function _loadPrioridadeFromHash($hash)
     {
         $hash = array_pop($hash);
