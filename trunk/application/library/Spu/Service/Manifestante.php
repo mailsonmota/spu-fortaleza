@@ -1,9 +1,27 @@
 <?php
+/**
+ * Classe para acessar os serviços de Manifestante do SPU
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Service_Abstract
+ */
 class Spu_Service_Manifestante extends Spu_Service_Abstract
 {
+	/**
+	 * URL Base dos serviços (a ser acrescentada à url dos serviços do Alfresco)
+	 * @var string
+	 */
     private $_manifestantesBaseUrl = 'spu/manifestantes';
-    private $_manifestantesTicketUrl = 'ticket';
     
+    /**
+     * Retorna os Manifestantes de todos os processos que o usuário tem acesso
+     * 
+     * @param integer $offset
+     * @param integer $pageSize
+     * @param string $filter
+     * @return Spu_Entity_Aspect_Manifestante[]
+     */
     public function getManifestantes($offset, $pageSize, $filter)
     {
         $url = $this->getBaseUrl() . "/" . $this->_manifestantesBaseUrl . "/listar/$offset/$pageSize/?s=$filter";
@@ -12,6 +30,12 @@ class Spu_Service_Manifestante extends Spu_Service_Abstract
         return $this->loadManyFromHash($result['Manifestantes']);
     }
     
+    /**
+     * Retorna os dados de um Manifestante à partir do CPF/CNPJ
+     * 
+     * @param string $cpf
+     * @return Spu_Entity_Aspect_Manifestante
+     */
     public function getManifestante($cpf)
     {
         $url = $this->getBaseUrl() . "/" . $this->_manifestantesBaseUrl . "/get/$cpf";
@@ -20,6 +44,12 @@ class Spu_Service_Manifestante extends Spu_Service_Abstract
         return $this->loadFromHash(array_pop(array_pop(array_pop($result['Manifestante']))));
     }
     
+    /**
+     * Carrega o Manifestante à partir de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Aspect_Manifestante
+     */
     public function loadFromHash($hash)
     {
         $manifestante = new Spu_Entity_Aspect_Manifestante();
@@ -41,6 +71,12 @@ class Spu_Service_Manifestante extends Spu_Service_Abstract
         return $manifestante;
     }
     
+    /**
+     * Carrega o Bairro do manifestante à partir de um hash
+     * 
+     * @param unknown_type $hash
+     * @return Spu_Entity_Classification_Bairro
+     */
     protected function _loadBairroFromHash($hash)
     {
         $hash = array_pop($hash);
@@ -50,6 +86,12 @@ class Spu_Service_Manifestante extends Spu_Service_Abstract
         return $bairro;
     }
     
+    /**
+     * Carrega vários Manifestantes à partir de um hash
+     * 
+     * @param unknown_type $hash
+     * @return Spu_Entity_Aspect_Manifestante[]
+     */
     public function loadManyFromHash($hash)
     {
         $manifestantes = array();

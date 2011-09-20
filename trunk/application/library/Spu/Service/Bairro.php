@@ -14,12 +14,10 @@ class Spu_Service_Bairro extends Spu_Service_Abstract
 	 */
     private $_bairrosBaseUrl = 'spu/bairros';
     
-    private $_bairrosTicketUrl = 'ticket';
-    
     /**
      * Retorna os Bairros cadastrados no SPU
      * 
-     * @return multitype:Spu_Entity_Classification_Bairro
+     * @return Spu_Entity_Classification_Bairro[]
      */
     public function getBairros()
     {
