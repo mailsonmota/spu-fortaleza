@@ -2,7 +2,7 @@
 /**
  * Classe para acessar os serviços de Arquivamento do SPU
  * 
- * @author bruno <brunofcavalcante@gmail.com>
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
  * @package SPU
  * @see Spu_Service_Abstract
  */
