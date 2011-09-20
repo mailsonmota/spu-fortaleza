@@ -2,7 +2,6 @@
 class Spu_Service_Prioridade extends Spu_Service_Abstract
 {
     private $_baseUrl = 'spu/processo';
-    private $_ticketUrl = 'ticket';
     
     public function fetchAll()
     {
