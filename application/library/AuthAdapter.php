@@ -5,7 +5,7 @@ require_once 'ZendAuthAdapterAlfresco.php';
 /**
  * Adaptador do ZendAuthAdapterAlfresco para o SPU
  * 
- * @author bruno <brunofcavalcante@gmail.com>
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
  * @package SPU
  */
 class AuthAdapter extends ZendAuthAdapterAlfresco

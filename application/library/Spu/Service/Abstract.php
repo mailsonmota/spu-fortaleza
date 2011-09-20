@@ -2,7 +2,7 @@
 /**
  * Modelo para as classes de serviço do SPU
  * 
- * @author bruno <brunofcavalcante@gmail.com>
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
  * @package SPU
  * @see Alfresco_Rest_Abstract
  */

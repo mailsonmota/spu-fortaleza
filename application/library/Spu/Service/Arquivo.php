@@ -2,14 +2,25 @@
 /**
  * Classe para acessar os serviços de acesso à arquivo do SPU
  * 
- * @author bruno <brunofcavalcante@gmail.com>
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @author Gil Magno <gilmagno@gmail.com>
  * @package SPU
  * @see Spu_Service_Abstract
  */
 class Spu_Service_Arquivo extends Spu_Service_Abstract
 {
+	/**
+	 * URL Base dos serviços (a ser acrescentada à url dos serviços do Alfresco)
+	 * @var string
+	 */
     private $_processoBaseUrl = 'spu/processo';
 
+    /**
+     * Retorna os arquivos anexos de um processo
+     * 
+     * @param string $nodeUuid
+     * @return Spu_Entity_Arquivo[]
+     */
     public function getArquivos($nodeUuid)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/arquivos/get/$nodeUuid";
@@ -19,9 +30,12 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     }
 
     /**
-     * $postData
-     *   $postData['destNodeUuid'] - an alfresco node id
-     *   $postData['fileToUpload'] - file address on local filesystem. ex.: @/tmp/filename.txt
+     * Anexa um arquivo em um processo
+     * 
+     * @param array $postData
+     *              $postData['destNodeUuid'] - an alfresco node id
+     *              $postData['fileToUpload'] - file address on local filesystem. ex.: @/tmp/filename.txt
+     * @return array
      */
     public function uploadArquivo($postData)
     {
@@ -31,6 +45,12 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
         return $result;
     }
 
+    /**
+     * Salva um formulário de assunto
+     * 
+     * @param array $postData
+     * @return array
+     */
     public function salvarFormulario($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/formulario/salvar";
@@ -39,6 +59,12 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
         return $result;
     }
     
+    /**
+     * Retorna a URL de download de um arquivo
+     * 
+     * @param array $hash
+     * @return string
+     */
     public function getArquivoDownloadUrl($hash)
     {
         $url = "{$this->getBaseUrl()}/api/node/workspace/SpacesStore/{$hash['id']}/content/{$hash['nome']}";
@@ -47,6 +73,12 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
         return $url;
     }
     
+    /**
+     * Retorna a URL de download de um formulário de assunto
+     * 
+     * @param string $arquivoHash
+     * @return string
+     */
     public function getArquivoFormularioDownloadUrl($arquivoHash)
     {
         $url = $this->getBaseUrl() . "/spu/formulario/get/assunto/" . $arquivoHash['id'];
@@ -56,9 +88,9 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     }
 
     /**
-     *   Estrutura do $getData
-     *   $getData['id']
-     *   $getData['nome']
+     * Recupera o conteúdo de um arquivo
+     * @param array $getData ['id', 'nome']
+     * @return string
      */
     public function getContentFromUrl($getData)
     {
@@ -72,6 +104,12 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
         return $result;
     }
     
+    /**
+     * Retorna o XML com as respostas de um formulário de assunto
+     * 
+     * @param string $processoId
+     * @return Spu_Entity_RespostasFormulario
+     */
     public function getRespostasFormulario($processoId)
     {
     	$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/formulario/get/$processoId";
@@ -85,11 +123,23 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
         return $respostasFormulario;
     }
     
+    /**
+     * Verifica se o xml é válido
+     * 
+     * @param string $xml
+     * @return boolean
+     */
     protected function _isValidRespostasXML($xml)
     {
         return (is_string($xml) AND strpos($xml, '<title>Apache') === false) ? true : false;
     }
     
+    /**
+     * Carrega o Arquivo através do hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Arquivo
+     */
     public function loadFromHash($hash)
     {
         $arquivo = new Spu_Entity_Arquivo();
@@ -99,6 +149,12 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
         return $arquivo;
     }
     
+    /**
+     * Carrega vários arquivos através de um hash
+     * 
+     * @param array $hash
+     * @return multitype:Spu_Entity_Arquivo
+     */
     public function loadManyFromHash($hash)
     {
         $arquivos = Array();

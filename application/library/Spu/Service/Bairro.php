@@ -1,9 +1,26 @@
 <?php
+/**
+ * Classe para acessar os serviços de Bairro do SPU
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Service_Abstract
+ */
 class Spu_Service_Bairro extends Spu_Service_Abstract
 {
+	/**
+	 * URL Base dos serviços (a ser acrescentada à url dos serviços do Alfresco)
+	 * @var string
+	 */
     private $_bairrosBaseUrl = 'spu/bairros';
+    
     private $_bairrosTicketUrl = 'ticket';
     
+    /**
+     * Retorna os Bairros cadastrados no SPU
+     * 
+     * @return multitype:Spu_Entity_Classification_Bairro
+     */
     public function getBairros()
     {
         $url = $this->getBaseUrl() . "/" . $this->_bairrosBaseUrl . "/listar";
@@ -12,6 +29,12 @@ class Spu_Service_Bairro extends Spu_Service_Abstract
         return $this->_loadManyFromHash($result['Bairros']);
     }
     
+    /**
+     * Carrega o Bairro através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Classification_Bairro
+     */
     public function loadFromHash($hash)
     {
         $bairro = new Spu_Entity_Classification_Bairro();
@@ -23,6 +46,12 @@ class Spu_Service_Bairro extends Spu_Service_Abstract
         return $bairro;
     }
     
+    /**
+     * Carrega vários bairros através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Classification_Bairro[]
+     */
     protected function _loadManyFromHash($hash)
     {
         $bairros = array();
