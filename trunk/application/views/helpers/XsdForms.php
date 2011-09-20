@@ -1,4 +1,9 @@
 <?php
+/**
+ * Renderiza um formulário do XSDForms
+ * @author bruno <brunofcavalcante@gmail.com>
+ * @package SPU
+ */
 class Zend_View_Helper_XsdForms extends Zend_View_Helper_Abstract
 {
     protected $_idFormulario;

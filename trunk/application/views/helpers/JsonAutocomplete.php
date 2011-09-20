@@ -1,4 +1,9 @@
 <?php
+/**
+ * Gera um JSON pronto para o jquery-ui-autocomplete
+ * @author bruno <brunofcavalcante@gmail.com>
+ * @package SPU
+ */
 class Zend_View_Helper_JsonAutocomplete extends Zend_View_Helper_Abstract
 {
 	public function jsonAutocomplete($results = array(), $id, $label, $value = null)

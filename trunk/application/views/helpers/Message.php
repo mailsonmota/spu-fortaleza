@@ -26,23 +26,7 @@ class Zend_View_Helper_Message extends Zend_View_Helper_Abstract
     
     public function setTipo($valor)
     {
-        switch ($valor) {
-            case 'success':
-                $this->_tipo = 'success';
-                break;
-                
-            case 'error':
-                $this->_tipo = 'error';
-                break;
-                
-            case 'notice':
-                $this->_tipo = 'notice';
-                break;
-                
-            default:
-                $this->_tipo = 'notice';
-                break;
-        }
+    	$this->_tipo = $valor;
     }
     
     public function render()
@@ -51,9 +35,7 @@ class Zend_View_Helper_Message extends Zend_View_Helper_Abstract
             return NULL;
         }
         
-        $str  = '<div class="message ' . $this->_tipo . '">';
-        $str .= $this->_texto;
-        $str .= '</div>';
+        $str = "<div class='message {$this->_tipo}'>{$this->_texto}</div>";
         
         return $str;
     }
