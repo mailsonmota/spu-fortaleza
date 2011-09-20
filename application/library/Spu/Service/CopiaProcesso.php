@@ -1,22 +1,41 @@
 <?php
+/**
+ * Classe para acessar os serviços de Cópia de Processo do SPU
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Service_Abstract
+ */
 class Spu_Service_CopiaProcesso extends Spu_Service_Abstract
 {
+	/**
+	 * URL Base dos serviços (a ser acrescentada à url dos serviços do Alfresco)
+	 * @var string
+	 */
     private $_processoBaseUrl = 'spu/processo';
-    private $_processoTicketUrl = 'ticket';
     
+    /**
+     * Retorna as Cópias nos protocolos do usuário logado
+     * 
+     * @param integer $offset
+     * @param integer $pageSize
+     * @param string $filter
+     * @return Spu_Entity_CopiaProcesso[]
+     */
     public function getCopias($offset, $pageSize, $filter)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/copias/$offset/$pageSize/$filter";
-        
-        return $this->_loadManyFromHash($this->_getCopiasFromUrl($url));
-    }
-    
-    protected function _getCopiasFromUrl($url)
-    {
         $result = $this->_doAuthenticatedGetRequest($url);
-        return $result['Copias'][0];
+        
+        return $this->_loadManyFromHash($result['Copias'][0]);
     }
-    
+
+    /**
+     * Exclui as cópias informadas
+     * 
+     * @param array $postData array com os ids das cópias a excluir
+     * @return array
+     */
     public function excluirTodos($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/copias/excluir";
@@ -25,6 +44,12 @@ class Spu_Service_CopiaProcesso extends Spu_Service_Abstract
         return $result;
     }
     
+    /**
+     * Carrega a Cópia de Processo à partir de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_CopiaProcesso
+     */
     public function loadFromHash($hash)
     {
         $copia = new Spu_Entity_CopiaProcesso($this->getTicket());
@@ -36,6 +61,12 @@ class Spu_Service_CopiaProcesso extends Spu_Service_Abstract
         return $copia;
     }
     
+    /**
+     * Carrega o Processo originador da Cópia à partir de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Processo
+     */
     protected function _loadProcessoFromHash($hash)
     {
         $hashProcesso = array_pop($hash);
@@ -46,6 +77,12 @@ class Spu_Service_CopiaProcesso extends Spu_Service_Abstract
         return $processo;
     }
     
+    /**
+     * Carrega várias Cópias de Processo à partir de um hash
+     * 
+     * @param array $hashCopias
+     * @return Spu_Entity_CopiaProcesso[]
+     */
     protected function _loadManyFromHash($hashCopias)
     {
         $copias = array();
