@@ -14,8 +14,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 'basePath'  => APPLICATION_PATH,
                 'resourceTypes' => array(
                     'alfresco'   => array('path' => 'library/Alfresco/', 'namespace' => 'Alfresco'),
-                    'curlclient' => array('path' => 'library/Alfresco/Rest/CurlClient/', 'namespace' => 'CurlClient'), 
-        			'spu' => array('path' => 'library/Spu/', 'namespace' => 'Spu')
+                    'spu' => array('path' => 'library/Spu/', 'namespace' => 'Spu')
             	)
             )
         );
