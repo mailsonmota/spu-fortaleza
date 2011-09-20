@@ -13,8 +13,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 'namespace' => '',
                 'basePath'  => APPLICATION_PATH,
                 'resourceTypes' => array(
-                    'alfresco'   => array('path' => 'library/Alfresco/', 'namespace' => 'Alfresco'),
-                    'spu' => array('path' => 'library/Spu/', 'namespace' => 'Spu')
+                    'alfresco' => array('path' => 'library/Alfresco/', 'namespace' => 'Alfresco'),
+                    'spu'      => array('path' => 'library/Spu/', 'namespace' => 'Spu')
             	)
             )
         );
@@ -37,7 +37,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     
     protected function _initTimezone()
     {
-    	// Timezone
     	date_default_timezone_set('America/Fortaleza');
     	setlocale(LC_TIME, 'pt_BR.UTF-8');
     }
@@ -47,33 +46,46 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('view');
         $view = $this->getResource('view');
 
-        // Url Base da Aplicação (Pasta Public)
-        $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
-        
-        if (!$baseUrl) {
-            $baseUrl = rtrim(preg_replace('/([^\/]*)$/', '', $_SERVER['PHP_SELF']), '/\\');
-        }
-        
         $view->doctype('XHTML1_TRANSITIONAL');
-        $this->initTitle($view, $baseUrl);
-        $this->initFavicon($view, $baseUrl);
-        $this->initCss($view, $baseUrl);
-        $this->initJs($view, $baseUrl);
     }
 
-    protected function initTitle(Zend_View $view, $baseUrl)
+    protected function _initTitle()
     {
+    	$this->bootstrap('view');
+    	$view = $this->getResource('view');
+    	
         $view->headTitle('SPU - Sistema de Protocolo Único');
     }
 
-    protected function initFavicon(Zend_View $view, $baseUrl)
+    protected function _initFavicon()
     {
+    	$baseUrl = $this->_getBaseUrl();
+    	
+    	$this->bootstrap('view');
+    	$view = $this->getResource('view');
+    	
         $view->headLink(array('rel' => 'icon', 'href' => $baseUrl . '/favicon.ico'));
         $view->headLink(array('rel' => 'shortcut icon', 'href' => $baseUrl . '/favicon.ico'));
     }
-
-    protected function initCss(Zend_View $view, $baseUrl)
+    
+    protected function _getBaseUrl()
     {
+    	$baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
+    	 
+    	if (!$baseUrl) {
+    		$baseUrl = rtrim(preg_replace('/([^\/]*)$/', '', $_SERVER['PHP_SELF']), '/\\');
+    	}
+    	 
+    	return $baseUrl;
+    }
+
+    protected function _initCss()
+    {
+    	$baseUrl = $this->_getBaseUrl();
+    	 
+    	$this->bootstrap('view');
+    	$view = $this->getResource('view');
+    	
         $view->headLink()->appendStylesheet($baseUrl . '/css/reset.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/forms.css');
         $view->headLink()->appendStylesheet($baseUrl . '/css/simple-modal.css');
@@ -84,8 +96,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headLink()->appendStylesheet($baseUrl . '/css/tema.css');
     }
 
-    protected function initJs(Zend_View $view, $baseUrl)
+    protected function _initJs()
     {
+    	$baseUrl = $this->_getBaseUrl();
+    	
+    	$this->bootstrap('view');
+    	$view = $this->getResource('view');
+    	
         $jsPath = $baseUrl . '/js/';
         $pluginsPath = $jsPath . 'plugins/';
 
