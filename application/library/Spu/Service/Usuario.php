@@ -8,15 +8,14 @@ class Spu_Service_Usuario extends Spu_Service_Abstract
     
     public function find($username)
     {
-        $api = $this->_getApi();
-        return $this->loadFromHash($api->getPerson($username));
+        return $this->loadFromHash($this->_getApi()->getPerson($username));
     }
     
     public function fetchGroups($username)
     {
         $url = $this->getBaseUrl() . "/getGroups";
-        
         $result = $this->_doAuthenticatedGetRequest($url);
+        
         $hash = (isset($result['groups'])) ? $result['groups'] : array();
         
         return $this->_loadGruposFromHash($hash);
@@ -24,8 +23,7 @@ class Spu_Service_Usuario extends Spu_Service_Abstract
     
     protected function _getApi()
     {
-        $api = new Alfresco_Rest_People(self::getBaseUrl(), $this->getTicket());
-        return $api;
+        return new Alfresco_Rest_People(self::getBaseUrl(), $this->getTicket());
     }
     
     public function loadFromHash($hash)

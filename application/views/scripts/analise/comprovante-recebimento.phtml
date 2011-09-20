@@ -7,13 +7,26 @@ echo $this->breadcrumbs()->render();
 
 <p class="comprovante-textoabertura">Recebi os processos listados abaixo:</p>
 
-<?php 
-$headerColumns = array('Número', 'Envolvido', 'Tipo', 'Assunto');
-$columns = array('numero', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
-        
-$grid = new SimpleDataTable($this->processos, array('headerColumns' => $headerColumns, 'columns' => $columns));
-echo $grid->render();
-?>
+<table class="grid">
+	<thead>
+		<tr>
+			<th>Número</th>
+			<th>Envolvido</th>
+			<th>Tipo</th>
+			<th>Assunto</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($this->processos as $p): ?>
+		<tr>
+			<td><?php echo $p->numero ?></td>
+			<td><?php echo $p->nomeManifestante ?></td>
+			<td><?php echo $p->nomeTipoProcesso ?></td>
+			<td><?php echo $p->nomeAssunto ?></td>
+		</tr>
+		<?php endforeach ?>
+	</tbody>
+</table>
 
 <br/>
 <p class="comprovante-data">Fortaleza, <?php echo date('d/m/Y') ?></p>

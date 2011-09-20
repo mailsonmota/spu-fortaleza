@@ -79,7 +79,7 @@ class Zend_View_Helper_Buttonlist extends Zend_View_Helper_Abstract
             } else {
                 $textoConfirmacao = $this->_buttonOptions['confirmation'];
             }
-            $html = "onClick=\"return confirm('$textoConfirmacao');\"";
+            $html = "onclick=\"return confirm('$textoConfirmacao');\"";
         }
         
         return $html;
