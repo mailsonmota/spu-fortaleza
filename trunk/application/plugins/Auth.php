@@ -50,7 +50,7 @@ class Plugin_Auth extends Zend_Controller_Plugin_Abstract
      */
     protected function _isValidTicket()
     {
-    	$alfrescoLogin = new Alfresco_Rest_Login(Spu_Service_Abstract::getBaseUrl());
+    	$alfrescoLogin = new Alfresco_Rest_Login(Spu_Service_Abstract::getAlfrescoUrl());
         $user = $this->getIdentity();
         if (!$user) {
         	return false;
