@@ -57,7 +57,7 @@ class AuthController extends BaseController
         Zend_Auth::getInstance()->clearIdentity();
         $this->setSuccessMessage('Logout realizado com sucesso.');
         
-        $alfrescoLoginObj = new Alfresco_Rest_Login(Spu_Service_Abstract::getBaseUrl());
+        $alfrescoLoginObj = new Alfresco_Rest_Login(Spu_Service_Abstract::getAlfrescoUrl());
         $authNamespace = new Zend_Session_Namespace('Zend_Auth_SPU');
         $alfrescoLoginObj->logout($authNamespace->adminTicket);
         
