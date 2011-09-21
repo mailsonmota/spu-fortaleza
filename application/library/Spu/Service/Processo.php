@@ -70,7 +70,7 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/historico/get/$nodeUuid";
         $result = $this->_doAuthenticatedGetRequest($url);
         
-        $hashProcesso = array_pop(array_pop($result['Processo'][0]));
+        $hashProcesso = array_pop($result['Processo']);
         $hashMovimentacao = $this->_getHashValue($hashProcesso, 'movimentacoes');
 
         return $this->_loadMovimentacoesFromHash($hashMovimentacao);

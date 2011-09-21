@@ -69,8 +69,7 @@ class Spu_Service_CopiaProcesso extends Spu_Service_Abstract
      */
     protected function _loadProcessoFromHash($hash)
     {
-        $hashProcesso = array_pop($hash);
-        $hashProcesso = array_pop($hashProcesso);
+    	$hashProcesso = array_pop($hash);
         $hashDadosProcesso = array_pop($hashProcesso);
         $processoService = new Spu_Service_Processo();
         $processo = $processoService->loadFromHash($hashDadosProcesso);
@@ -87,7 +86,6 @@ class Spu_Service_CopiaProcesso extends Spu_Service_Abstract
     {
         $copias = array();
         foreach ($hashCopias as $hashCopia) {
-            $hashCopia = array_pop($hashCopia);
             $copias[] = $this->loadFromHash($hashCopia);
         }
         
