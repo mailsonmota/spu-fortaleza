@@ -1,16 +1,30 @@
 <?php
+/**
+ * Classe para acessar os serviços de usuário do SPU
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Service_Abstract
+ */
 class Spu_Service_Usuario extends Spu_Service_Abstract
 {
-    public function fetchAll($filter = null)
-    {
-        return $this->_getApi()->listPeople($filter);
-    }
-    
+	/**
+	 * Retorna o usuário através do seu username
+	 * 
+	 * @param string $username
+	 * @return Spu_Entity_Usuario
+	 */
     public function find($username)
     {
         return $this->loadFromHash($this->_getApi()->getPerson($username));
     }
     
+    /**
+     * Retorna os grupos (de permissão) do usuário através do username
+     * 
+     * @param string $username
+     * @return Spu_Entity_Grupo[]
+     */
     public function fetchGroups($username)
     {
         $url = $this->getBaseUrl() . "/getGroups";
@@ -21,11 +35,22 @@ class Spu_Service_Usuario extends Spu_Service_Abstract
         return $this->_loadGruposFromHash($hash);
     }
     
+    /**
+     * Retorna a API em PHP de People (usuarios) do Alfresco
+     * 
+     * @return Alfresco_Rest_People
+     */
     protected function _getApi()
     {
         return new Alfresco_Rest_People(self::getBaseUrl(), $this->getTicket());
     }
     
+    /**
+     * Carrega o usuário através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Usuario
+     */
     public function loadFromHash($hash)
     {
         $usuario = new Spu_Entity_Usuario();
@@ -39,6 +64,12 @@ class Spu_Service_Usuario extends Spu_Service_Abstract
         return $usuario;
     }
     
+    /**
+     * Carrega vários grupos através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Grupo[]
+     */
     protected function _loadGruposFromHash($hash)
     {
         $grupos = array();
