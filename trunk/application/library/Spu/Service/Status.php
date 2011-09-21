@@ -8,9 +8,17 @@
  */
 class Spu_Service_Status extends Spu_Service_Abstract
 {
+	/**
+	 * URL Base dos serviços (a ser acrescentada à url dos serviços do Alfresco)
+	 * @var string
+	 */
     private $_baseUrl = 'spu/processo';
-    private $_ticketUrl = 'ticket';
     
+    /**
+     * Retorna todas as opções de status de processo
+     * 
+     * @return Spu_Entity_Classification_Status[]
+     */
     public function listar()
     {
     	$url = $this->getBaseUrl() . "/" . $this->_baseUrl . "/status/listar";
@@ -19,6 +27,12 @@ class Spu_Service_Status extends Spu_Service_Abstract
         return $this->_loadManyFromHash($result['Status'][0]);
     }
     
+    /**
+     * Carrega vários status através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Classification_Status[]
+     */
     protected function _loadManyFromHash($hash)
     {
         $status = array();
@@ -29,6 +43,12 @@ class Spu_Service_Status extends Spu_Service_Abstract
         return $status;
     }
     
+    /**
+     * Carrega o status através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Classification_Status
+     */
     public function loadFromHash($hash)
     {
         $status = new Spu_Entity_Classification_Status();

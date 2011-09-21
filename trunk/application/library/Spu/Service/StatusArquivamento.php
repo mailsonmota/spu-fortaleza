@@ -1,9 +1,24 @@
 <?php
+/**
+ * Classe para acessar os serviços de Status de Arquivamento dos Processos do SPU
+ *
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Service_Abstract
+ */
 class Spu_Service_StatusArquivamento extends Spu_Service_Abstract
 {
+	/**
+	 * URL Base dos serviços (a ser acrescentada à url dos serviços do Alfresco)
+	 * @var string
+	 */
     private $_baseUrl = 'spu/processo';
-    private $_ticketUrl = 'ticket';
     
+    /**
+     * Retorna todas as opções de status de arquivamento
+     * 
+     * @return Spu_Entity_Classification_StatusArquivamento[]
+     */
     public function fetchAll()
     {
         $url = $this->getBaseUrl() . "/" . $this->_baseUrl . "/statusarquivamento/listar";
@@ -12,6 +27,12 @@ class Spu_Service_StatusArquivamento extends Spu_Service_Abstract
         return $this->_loadManyFromHash($result['Status'][0]);
     }
     
+    /**
+     * Carrega o status de arquivamento através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Classification_StatusArquivamento
+     */
     public function loadFromHash($hash)
     {
         $statusArquivamento = new Spu_Entity_Classification_StatusArquivamento();
