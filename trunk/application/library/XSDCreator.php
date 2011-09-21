@@ -10,26 +10,32 @@ class XSDCreator {
                 continue;
             }
 
+            $required = isset($data['xsdcreator_required'][$i]) ? $data['xsdcreator_required'][$i] : null;
+
             switch ($data['xsdcreator_type'][$i]) {
             case 'string':
                 $xsd .= self::_make_element(array('label' => $data['xsdcreator_label'][$i],
-                                                  'type' => 'xs:string'));
+                                                  'type' => 'xs:string',
+                                                  'required' => $required));
                 break;
             case 'textarea':
                 $xsd .= self::_make_element(array('label' => $data['xsdcreator_label'][$i],
-                                                  'type' => 'xs:string'));
+                                                  'type' => 'xs:string',
+                                                  'required' => $required));
                 break;
             case 'integer':
                 $xsd .= self::_make_element(array('label' => $data['xsdcreator_label'][$i],
-                                                  'type' => 'xs:integer'));
+                                                  'type' => 'xs:integer',
+                                                  'required' => $required));
                 break;
             case 'date':
                 $xsd .= self::_make_element(array('label' => $data['xsdcreator_label'][$i],
-                                                  'type' => 'xs:date'));
+                                                  'type' => 'xs:date',
+                                                  'required' => $required));
                 break;
             case 'select':
                 $xsd .= self::_make_element_select(array('label' => $data['xsdcreator_label'][$i],
-                                                          'options' => $data['xsdcreator_select_options'][$i]));
+                                                         'options' => $data['xsdcreator_select_options'][$i]));
                 break;
             }
         }
@@ -42,6 +48,7 @@ class XSDCreator {
     private static function _make_element(array $data) {
         $xsd = "<xs:element name='" . $data['label'] . "' ";
         $xsd .= "type='" . $data['type'] . "' ";
+        $xsd .= $data['required'] == 'on' ? "minOccurs='1' " : "minOccurs='0' ";
         $xsd .= ">";
         $xsd .= self::_make_element_annotation($data['label']);
         $xsd .= "</xs:element>\n";
