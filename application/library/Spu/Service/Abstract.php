@@ -42,8 +42,8 @@ abstract class Spu_Service_Abstract extends Alfresco_Rest_Abstract
         
         if (is_array($hash[$hashField])) {
             $value = array();
-            foreach ($hash[$hashField] as $hashValue) {
-                $value[] = $hashValue;
+            foreach ($hash[$hashField] as $hashKey => $hashValue) {
+                $value[$hashKey] = $hashValue;
             }
         } else {
             $value = $hash[$hashField];

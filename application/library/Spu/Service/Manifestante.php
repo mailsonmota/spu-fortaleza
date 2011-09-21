@@ -79,7 +79,6 @@ class Spu_Service_Manifestante extends Spu_Service_Abstract
      */
     protected function _loadBairroFromHash($hash)
     {
-        $hash = array_pop($hash);
         $bairroService = new Spu_Service_Bairro($this->getTicket());
         $bairro = $bairroService->loadFromHash($hash);
         
