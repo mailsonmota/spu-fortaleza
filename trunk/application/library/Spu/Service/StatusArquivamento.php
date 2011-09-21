@@ -44,6 +44,12 @@ class Spu_Service_StatusArquivamento extends Spu_Service_Abstract
         return $statusArquivamento;
     }
     
+    /**
+     * Carrega vários status de arquivamento através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Classification_StatusArquivamento[]
+     */
     protected function _loadManyFromHash($hash)
     {
         $statusArquivamento = array();
