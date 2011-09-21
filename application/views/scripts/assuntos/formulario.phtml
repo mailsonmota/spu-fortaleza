@@ -22,7 +22,7 @@ echo $this->pagenav()->closeList();
         <form id="target" action="post">
                 <div id="xsdform_container"></div>
                 <input type="submit" />
-                <input name="processed_xml" type="hidden"/>
+                <input name="processed_xml" type="hidden" />
         </form>
     <?php //$this->xsdForms($this->id, "processed_xml", "target") ?>
 </div>-->
@@ -51,7 +51,7 @@ echo $this->pagenav()->closeList();
 <div id="xsdformfield_model">
   <dl class="xsdformfield" style="background-color:#E5E4DF;padding-top:1em;"> <!-- pôr TODO estilo no css -->
     <dt>Nome</dt>
-    <dd><input type="text" name="xsdcreator_label[]"></dd>
+    <dd><input type="text" name="xsdcreator_label[]" /> <input type="checkbox" name="xsdcreator_required[]" />Campo Obrigatório</dd>
     <dt>Tipo</dt>
     <dd>
       <select name="xsdcreator_type[]">
@@ -74,7 +74,7 @@ echo $this->pagenav()->closeList();
   <dl>
     <dt class="xsdformfield_select_option">Valor</dt>
     <dd>
-      <input type="text" name="xsdcreator_select_options[][]">
+      <input type="text" name="xsdcreator_select_options[][]" />
       <a href="#" class="xsdformfield_select_del">Remover esta opção</a>
     </dd>
   </dl>
@@ -91,6 +91,8 @@ $(document).ready(function() {
                                                                        'xsdcreator_label[' + xsdformfield_select_counter  + ']');
         $("#xsdformfield_group select[name='xsdcreator_type[]']").attr('name',
                                                                       'xsdcreator_type[' + xsdformfield_select_counter  + ']');
+        $("#xsdformfield_group input[name='xsdcreator_required[]']").attr('name',
+                                                                          'xsdcreator_required[' + xsdformfield_select_counter  + ']');
         xsdformfield_select_counter++;
 
         $("#xsdformfield_group a.xsdformfield_del:last").click(function() {
