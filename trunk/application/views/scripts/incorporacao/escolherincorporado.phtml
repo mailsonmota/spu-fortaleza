@@ -1,34 +1,29 @@
-<?php 
+<?php
 $this->breadcrumbs()->addPage('Incorporação', 'incorporacao');
 $this->breadcrumbs()->addPage('Processo Incorporado', 'incorporacao', 'escolherincorporado');
-echo $this->breadcrumbs()->render(); 
+echo $this->breadcrumbs()->render();
 
-echo $this->pagenav()->openList(); 
+echo $this->pagenav()->openList();
 echo $this->pagenav()->defaultHelperLinks();
 echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <h4>2. Revise o Processo Principal selecionado e escolha o processo a ser incorporado</h4>
-	<?php
-	if ($this->processo->id) {
-	    echo $this->render('snippets/detalhesProcesso.phtml');
-	}
-	?>
+  <h4>2. Revise o Processo Principal selecionado e escolha o processo a ser incorporado</h4>
+  <?php
+  if ($this->processo->id) {
+      echo $this->render('snippets/detalhesProcesso.phtml');
+  }
+  ?>
 
-    <form action="" method="post">
-        <?php 
-        echo $this->buttonlist()->open();
-        echo $this->buttonlist()->button('Escolher Processo Incorporado', 'incorporacao');
-        echo $this->buttonlist()->close(true); 
-        
-        $headerColumns = array('', 'Número', 'Data', 'Envolvido', 'Tipo', 'Assunto', 'Detalhes');
-        $columns = array('numero', 'data', 'nomeManifestante', 'nomeTipoProcesso', 'nomeAssunto');
-        
-        $grid = new SimpleDataTable($this->lista, array('headerColumns' => $headerColumns, 'columns' => $columns));
-        $grid->addCheckboxColumn('processos', 'id');
-        $grid->addActionColumn('Detalhes', $this->simpleUrl('detalhes', 'processo') . '/id/', 'id');
-        echo $grid->render();
-        ?>
-    </form>
+  <?php echo $this->partial('snippets/formularioPesquisaRapidaProcesso.phtml', array('q' => $this->q)) ?>
+  <form action="" method="post">
+    <?php
+    echo $this->buttonlist()->open();
+    echo $this->buttonlist()->button('Escolher Processo Incorporado', 'incorporacao');
+    echo $this->buttonlist()->close(true);
+    ?>
+    <?php echo $this->partial('snippets/gridProcessos.phtml',
+                              array('paginator' => $this->paginator, 'exibirCheckbox' => true)) ?>
+  </form>
 </div>
