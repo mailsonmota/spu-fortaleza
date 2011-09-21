@@ -183,7 +183,6 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
     protected function _loadPrioridadeFromHash($hash)
     {
-        $hash = array_pop($hash);
         $prioridadeService = new Spu_Service_Prioridade($this->getTicket());
         $prioridade = $prioridadeService->loadFromHash($hash);
 
@@ -192,7 +191,6 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
     protected function _loadStatusFromHash($hash)
     {
-        $hash = array_pop($hash);
         $statusService = new Spu_Service_Status($this->getTicket());
         $status = $statusService->loadFromHash($hash);
 
@@ -201,7 +199,6 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
     protected function _loadProtocoloFromHash($hash)
     {
-        $hash = array_pop($hash);
         $protocoloService = new Spu_Service_Protocolo($this->getTicket());
         $protocolo = $protocoloService->loadFromHash($hash);
 
@@ -210,7 +207,6 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
     protected function _loadTipoProcessoFromHash($hash)
     {
-        $hash = array_pop($hash);
         $tipoProcesso = new Spu_Entity_TipoProcesso($this->getTicket());
         $tipoProcesso->setNodeRef($this->_getHashValue($hash, 'noderef'));
         $tipoProcesso->setNome($this->_getHashValue($hash, 'nome'));
@@ -225,7 +221,6 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
     protected function _loadAssuntoFromHash($hash)
     {
-        $hash = array_pop($hash);
         $assuntoService = new Spu_Service_Assunto($this->getTicket());
         $assunto = $assuntoService->loadFromHash($hash);
 
@@ -234,7 +229,6 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
     protected function _loadManifestanteFromHash($hash)
     {
-        $hash = array_pop($hash);
         $manifestanteService = new Spu_Service_Manifestante($this->getTicket());
         $manifestante = $manifestanteService->loadFromHash($hash);
 
@@ -243,7 +237,6 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
     protected function _loadTipoManifestanteFromHash($hash)
     {
-        $hash = array_pop($hash);
         $tipoManifestanteService = new Spu_Service_TipoManifestante($this->getTicket());
         $tipoManifestante = $tipoManifestanteService->loadFromHash($hash);
 
@@ -252,7 +245,6 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
     protected function _loadArquivamentoFromHash($hash)
     {
-        $hash = array_pop($hash);
         $arquivamentoService = new Spu_Service_Arquivamento();
         $arquivamento = $arquivamentoService->loadFromHash($hash);
 
@@ -262,6 +254,7 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     protected function _loadMovimentacoesFromHash($hash)
     {
         $movimentacaoService = new Spu_Service_Movimentacao();
+        
         return $movimentacaoService->loadManyFromHash($hash);
     }
 

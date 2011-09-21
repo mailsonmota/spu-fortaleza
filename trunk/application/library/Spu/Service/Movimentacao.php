@@ -16,10 +16,10 @@ class Spu_Service_Movimentacao extends Spu_Service_Abstract
 	 */
     public function loadManyFromHash($hash)
     {
-        $movimentacoes = array();
+    	$movimentacoes = array();
         if ($hash) {
-            foreach ($hash[0] as $hashMovimentacao) {
-                $hashMovimentacao = array_pop($hashMovimentacao);
+            foreach ($hash as $hashMovimentacao) {
+            	$hashMovimentacao = array_pop($hashMovimentacao);
                 $movimentacoes[] = $this->loadFromHash($hashMovimentacao);
             }
         }
@@ -35,7 +35,7 @@ class Spu_Service_Movimentacao extends Spu_Service_Abstract
      */
     public function loadFromHash($hash)
     {
-        $movimentacao = new Spu_Entity_Aspect_Movimentacao();
+    	$movimentacao = new Spu_Entity_Aspect_Movimentacao();
         
         $movimentacao->setData($this->_getHashValue($hash, 'data'));
         $movimentacao->setHora($this->_getHashValue($hash, 'hora'));
@@ -59,13 +59,10 @@ class Spu_Service_Movimentacao extends Spu_Service_Abstract
     protected function _loadUsuarioFromHash($hash)
     {
         $usuario = new Spu_Entity_Usuario();
-        if ($hash) {
-            $hash = array_pop($hash);
-            $usuario->setNome($this->_getHashValue($hash, 'nome'));
-            $usuario->setSobrenome($this->_getHashValue($hash, 'sobrenome'));
-            $usuario->setEmail($this->_getHashValue($hash, 'email'));
-            $usuario->setLogin($this->_getHashValue($hash, 'usuario'));
-        }
+        $usuario->setNome($this->_getHashValue($hash, 'nome'));
+        $usuario->setSobrenome($this->_getHashValue($hash, 'sobrenome'));
+        $usuario->setEmail($this->_getHashValue($hash, 'email'));
+        $usuario->setLogin($this->_getHashValue($hash, 'usuario'));
         
         return $usuario;
     }
@@ -78,14 +75,9 @@ class Spu_Service_Movimentacao extends Spu_Service_Abstract
      */
     protected function _loadProtocoloFromHash($hash)
     {
-        if ($hash) {
-            $hash = array_pop($hash);
-            $protocoloService = new Spu_Service_Protocolo($this->getTicket());
-            $protocolo = $protocoloService->loadFromHash($hash);
-        } else {
-            $protocolo = new Spu_Entity_Protocolo();
-        }
-        
+    	$protocoloService = new Spu_Service_Protocolo($this->getTicket());
+    	$protocolo = $protocoloService->loadFromHash($hash);
+    	
         return $protocolo;
     }
     
@@ -97,7 +89,6 @@ class Spu_Service_Movimentacao extends Spu_Service_Abstract
      */
     protected function _loadPrioridadeFromHash($hash)
     {
-        $hash = array_pop($hash);
         $prioridadeService = new Spu_Service_Prioridade($this->getTicket());
         $prioridade = $prioridadeService->loadFromHash($hash);
         
