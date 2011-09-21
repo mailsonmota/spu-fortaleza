@@ -13,9 +13,8 @@ echo $this->pagenav()->closeList();
     <form action="" method="post">
         <?php
         echo $this->fieldList()->open();
-        echo $this->fieldList()->text('Nome', $this->protocolo->nome);
-        echo $this->fieldList()->text('Protocolo Pai', $this->protocolo->parent->nome);
-        echo  $this->fieldList()->text('Descrição', $this->protocolo->descricao);
+        echo $this->fieldList()->text('Nome', $this->protocolo->path);
+        echo $this->fieldList()->text('Descrição', $this->protocolo->descricao);
         echo $this->fieldList()->close();
         ?>
     </form>

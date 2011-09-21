@@ -2,14 +2,13 @@
 class Spu_Service_Protocolo extends Spu_Service_Abstract
 {
     private $_protocoloBaseUrl = 'spu/protocolo';
-    private $_protocoloTicketUrl = 'ticket';
-
+    
     public function getProtocolo($nodeUuid)
     {
         $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/get/$nodeUuid";
         $result = $this->_doAuthenticatedGetRequest($url);
 
-        return $this->loadFromHash(array_pop(array_pop($result['Protocolo'][0])));
+        return $this->loadFromHash(array_pop($result['Protocolo']));
     }
 
     public function getProtocolos()
@@ -17,15 +16,7 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
         $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl .  "/listar";
         $result = $this->_doAuthenticatedGetRequest($url);
 
-        return $this->_loadManyFromHash($result['Protocolos'][0]);
-    }
-
-    public function getTodosProtocolos()
-    {
-        $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listarTodos";
-        $result = $this->_doAuthenticatedGetRequest($url);
-        
-        return $this->_loadManyFromHash($result['Protocolos'][0]);
+        return $this->_loadManyFromHash($result['Protocolos']);
     }
 
     public function alterar($id, $postData)
@@ -42,10 +33,6 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
         $url = "{$this->getBaseUrl()}/{$this->_protocoloBaseUrl}/listarTodosPaginado/$offset/$pageSize/?s=$filter";
         
         $result = $this->_doAuthenticatedGetRequest($url);
-
-        if (!isset($result['Protocolos'])) {
-        	return false;
-        }
         
         return $this->_loadManyFromHash($result['Protocolos'][0]);
     }
@@ -54,6 +41,7 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
     {
         $url = "{$this->getBaseUrl()}/{$this->_protocoloBaseUrl}/listardestinos?protocoloRaizId={$protocoloOrigemId}";
         $url .= "&tipoProcessoId={$tipoProcessoId}&filter={$filter}&offset={$offset}&pageSize={$pageSize}";
+        
         $result = $this->_doAuthenticatedGetRequest($url);
                 
         return $this->_loadManyFromHash($result['Protocolos'][0]);
@@ -77,6 +65,7 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
     {
         $parent = new Spu_Entity_Protocolo();
         $parent->setNodeRef($id);
+        
         return $parent;
     }
     

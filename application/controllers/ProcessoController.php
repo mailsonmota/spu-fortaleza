@@ -31,8 +31,7 @@ class ProcessoController extends BaseController
 			}
                 
 			$listaPrioridades = $this->_getListaPrioridades();
-			$listaProtocolos = $this->_getListaProtocolos();
-            
+			
 			if ($this->getRequest()->isPost()) {
 				$processo->tramitar($this->getRequest()->getPost());
 				$this->setSuccessMessage('Processo tramitado com sucesso.');
@@ -43,7 +42,6 @@ class ProcessoController extends BaseController
         }
         $this->view->processo = $processo;
         $this->view->listaPrioridades = $listaPrioridades;
-        $this->view->listaProtocolos = $listaProtocolos;
     }
     
     public function arquivoAction()
@@ -82,25 +80,6 @@ class ProcessoController extends BaseController
         }
         
         return $listaPrioridades;
-    }
-    
-    protected function _getListaProtocolos()
-    {
-        $protocoloService = new Spu_Service_Protocolo($this->getTicket());
-        $protocolos = $protocoloService->getTodosProtocolos();
-        $listaProtocolos = array();
-        foreach ($protocolos as $protocolo) {
-            $listaProtocolos[$protocolo->id] = $protocolo->descricao;
-        }
-        
-        if (count($listaProtocolos) == 0) {
-            throw new Exception(
-                'Não existe nenhum protocolo cadastrado no sistema. 
-                Por favor, entre em contato com a administração do sistema.'
-            );
-        }
-        
-        return $listaProtocolos;
     }
     
     protected function _redirectDetalhesProcesso($idProcesso)
