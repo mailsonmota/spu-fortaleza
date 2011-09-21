@@ -1,4 +1,11 @@
 <?php
+/**
+ * Classe para acessar os serviços de Status dos Processos do SPU
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Service_Abstract
+ */
 class Spu_Service_Status extends Spu_Service_Abstract
 {
     private $_baseUrl = 'spu/processo';

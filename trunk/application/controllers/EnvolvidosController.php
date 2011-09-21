@@ -25,10 +25,8 @@ class EnvolvidosController extends BaseController
     
     public function detalhesAction()
     {
-        $cpf = $this->_getCpfFromUrl();
-        
-        $manifestanteService = new Spu_Service_Manifestante($this->getTicket());
-        $manifestante = $manifestanteService->getManifestante($cpf);
+		$manifestanteService = new Spu_Service_Manifestante($this->getTicket());
+        $manifestante = $manifestanteService->getManifestante($this->_getCpfFromUrl());
         
         $this->view->manifestante = $manifestante;
         $this->view->id = $manifestante->getCpf();

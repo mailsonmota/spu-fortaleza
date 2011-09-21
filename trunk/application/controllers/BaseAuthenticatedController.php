@@ -1,5 +1,12 @@
 <?php
-class BaseAuthenticatedController extends Zend_Controller_Action
+/**
+ * Controlador base para os controladores que exigem autenticação
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Zend_Controller_Action
+ */
+abstract class BaseAuthenticatedController extends Zend_Controller_Action
 {
     protected function getTicket()
     {

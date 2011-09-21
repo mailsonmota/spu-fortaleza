@@ -41,7 +41,7 @@ class Spu_Service_Manifestante extends Spu_Service_Abstract
         $url = $this->getBaseUrl() . "/" . $this->_manifestantesBaseUrl . "/get/$cpf";
         $result = $this->_doAuthenticatedGetRequest($url);
         
-        return $this->loadFromHash(array_pop(array_pop(array_pop($result['Manifestante']))));
+        return $this->loadFromHash(array_pop($result['Manifestante']));
     }
     
     /**
@@ -94,8 +94,8 @@ class Spu_Service_Manifestante extends Spu_Service_Abstract
      */
     public function loadManyFromHash($hash)
     {
-        $manifestantes = array();
-        foreach ($hash[0] as $hashManifestante) {
+    	$manifestantes = array();
+        foreach ($hash as $hashManifestante) {
             if ($hashManifestante) {
                 $hashDadosManifestante = array_pop($hashManifestante);
                 $manifestantes[] = $this->loadFromHash($hashDadosManifestante);
