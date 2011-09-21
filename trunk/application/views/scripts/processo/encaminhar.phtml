@@ -18,7 +18,7 @@ echo $this->pagenav()->closeList();
         <?php
         echo $this->fieldList()->open();
         echo $this->fieldList()->select('Prioridade', 'prioridadeId', $this->listaPrioridades, null, array('required' => true));
-    	echo $this->fieldList()->select('Destino', 'destinoId', $this->listaProtocolos, null, array('required' => true));
+    	echo $this->ajaxSelect('Destino', 'destinoId', $this->simpleUrl('listar-destinos', 'protocolos-ajax'), array('required' => true));
         echo $this->fieldList()->textbox('Prazo', 'prazo', null, array('required' => true, 'class' => 'mascaraData'));
         echo $this->fieldList()->textarea('Despacho', 'despacho', null, array('required' => true));
         echo $this->fieldList()->close();
