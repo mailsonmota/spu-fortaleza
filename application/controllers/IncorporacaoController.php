@@ -3,31 +3,50 @@ class IncorporacaoController extends BaseController
 {
     public function indexAction()
     {
-        // TODO Verificar possibilidades de quebrar a incorporação indo do passo 2 ao 1 e depois confirmando etc.
+        // TODO Verificar possibilidade de quebrar a incorporação indo do passo 2 ao 1 e depois confirmando etc.
+
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
+
             $this->_checarEscolhaDeProcesso($postData, $this->getAction());
             $session = new Zend_Session_Namespace('incorporacaoSession');
             $session->processoPrincipalId = $postData['processos'][0];
+
             $this->_redirectEscolherIncorporado();
         }
+
+        $this->view->q = urlencode($this->_getParam('q'));
+
         $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
-        $this->view->lista = $tramitacaoService->getCaixaAnalise(0, 10000, null);
+
+        $this->view->paginator = $this->_helper->paginator()->paginate($tramitacaoService->getCaixaAnalise(
+            $this->_helper->paginator()->getOffset(),
+            $this->_helper->paginator()->getPageSize(),
+            $this->view->q));
     }
 
     public function escolherincorporadoAction()
     {
         $session = new Zend_Session_Namespace('incorporacaoSession');
+
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
+
             $this->_checarEscolhaDeProcesso($postData, $this->getAction());
             $session->processoIncorporadoId = $postData['processos'][0];
+
             $this->_redirectConfirmacao();
         }
+
+        $this->view->q = urlencode($this->_getParam('q'));
+
         $processoService = new Spu_Service_Processo($this->getTicket());
         $processo = $processoService->getProcesso($session->processoPrincipalId);
 
-        $caixaAnaliseIncorporacao = $processoService->getCaixaAnaliseIncorporacao($processo);
+        $caixaAnaliseIncorporacao = $processoService->getCaixaAnaliseIncorporacao($processo,
+                                                                                  $this->_helper->paginator()->getOffset(),
+                                                                                  $this->_helper->paginator()->getPageSize(),
+                                                                                  $this->view->q);
 
         for ($i = 0; $i < count($caixaAnaliseIncorporacao); $i++) {
             if ($caixaAnaliseIncorporacao[$i]->id == $processo->id) {
@@ -37,7 +56,7 @@ class IncorporacaoController extends BaseController
         }
 
         $this->view->processo = $processo;
-        $this->view->lista = $caixaAnaliseIncorporacao;
+        $this->view->paginator = $this->_helper->paginator()->paginate($caixaAnaliseIncorporacao);
     }
 
     public function confirmacaoAction()
@@ -72,6 +91,13 @@ class IncorporacaoController extends BaseController
 
         $this->view->principal = $processoService->getProcesso($session->processoPrincipalId);
         $this->view->incorporado = $processoService->getProcesso($session->processoIncorporadoId);
+    }
+
+    public function pesquisarAction()
+    {
+        if ($this->getRequest()->isPost()) {
+            $this->_helper->redirector(null, null, null, array('q' => urlencode($_POST['q'])));
+        }
     }
 
     protected function _checarEscolhaDeProcesso($postData, $action)

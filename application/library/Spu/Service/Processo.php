@@ -4,14 +4,10 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     protected $_processoBaseUrl = 'spu/processo';
     protected $_processoTicketUrl = 'ticket';
 
-    public function getCaixaAnaliseIncorporacao($processo)
+    public function getCaixaAnaliseIncorporacao($processo, $offset, $pageSize, $filter)
     {
-        $url = $this->getBaseUrl() . "/"
-            . $this->_processoBaseUrl
-            . "/incorporacaocaixaanalise"
-            . "/{$processo->id}"
-            . "/{$processo->assunto->id}"
-            . "/{$processo->manifestante->cpf}";
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/incorporacaocaixaanalise"
+            . "/{$processo->id}/{$processo->assunto->id}/{$processo->manifestante->cpf}/$offset/$pageSize/$filter";
 
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
