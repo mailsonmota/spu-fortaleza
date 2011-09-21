@@ -4,7 +4,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initAutoload()
     {
         Zend_Loader::loadClass('BaseController', '../application/controllers');
-        Zend_Loader::loadClass('SimpleDataTable', '../application/library/SimpleDataTable');
         Zend_Loader::loadClass('AuthAdapter');
         Zend_Loader::loadClass('XSDCreator');
 
