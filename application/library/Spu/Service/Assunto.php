@@ -114,6 +114,12 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
         return $assunto;
     }
 
+    /**
+     * Insere assunto em tipo de processo
+     *
+     * @var array $postData Dados vindos do formulário de inserção de assunto
+     * @return Spu_Entity_Assunto
+     */
     public function inserir($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/inserir";
@@ -122,6 +128,13 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
         return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])), true);
     }
 
+    /**
+     * Edita um assunto de um tipo de processo
+     *
+     * @var string $id Id do assunto
+     * @var array $postData Dados vindos do formulário de edição de assunto
+     * @return Spu_Entity_Assunto
+     */
     public function editar($id, $postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/editar/$id";
