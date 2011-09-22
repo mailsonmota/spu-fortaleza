@@ -1,9 +1,27 @@
 <?php
-class XSDCreator {
-    public static function create(array $data) {
-        $data['xsdcreator_name'] = self::adapt_form_name($data['xsdcreator_name']);
+/**
+ * Classe para criar XSD a partir de um array PHP. O XSD é criado com alguns
+ * formatos definidos, pois o objetivo é que seja lido pelo xsdform.js
+ * (especificar/referenciar detalhes do xsdforms.js)
+ *
+ * O array tem a seguinte estrutura:
+ * TODO Documentar aqui a estrutura do array
+ */
+class XSDCreator
+{
+    /**
+     * Cria o XSD
+     *
+     * @var array $data Array com as informações que gerarão o XSD. Ver
+     * comentário da classe para informações sobre a estrutura do array.
+     *
+     * @return string Conteúdo do XSD
+     */
+    public static function create(array $data)
+    {
+        $data['xsdcreator_name'] = self::_adaptFormName($data['xsdcreator_name']);
 
-        $xsd = self::_get_head_string($data);
+        $xsd = self::_getHeadString($data);
 
         foreach (array_keys($data['xsdcreator_type']) as $i) {
             if (empty($data['xsdcreator_type'][$i])) {
@@ -14,68 +32,81 @@ class XSDCreator {
 
             switch ($data['xsdcreator_type'][$i]) {
             case 'string':
-                $xsd .= self::_make_element(array('label' => $data['xsdcreator_label'][$i],
+                $xsd .= self::_makeElement(array('label' => $data['xsdcreator_label'][$i],
                                                   'type' => 'xs:string',
                                                   'required' => $required));
                 break;
             case 'textarea':
-                $xsd .= self::_make_element(array('label' => $data['xsdcreator_label'][$i],
+                $xsd .= self::_makeElement(array('label' => $data['xsdcreator_label'][$i],
                                                   'type' => 'xs:string',
                                                   'required' => $required));
                 break;
             case 'integer':
-                $xsd .= self::_make_element(array('label' => $data['xsdcreator_label'][$i],
+                $xsd .= self::_makeElement(array('label' => $data['xsdcreator_label'][$i],
                                                   'type' => 'xs:integer',
                                                   'required' => $required));
                 break;
             case 'date':
-                $xsd .= self::_make_element(array('label' => $data['xsdcreator_label'][$i],
+                $xsd .= self::_makeElement(array('label' => $data['xsdcreator_label'][$i],
                                                   'type' => 'xs:date',
                                                   'required' => $required));
                 break;
             case 'select':
-                $xsd .= self::_make_element_select(array('label' => $data['xsdcreator_label'][$i],
+                $xsd .= self::_makeElementSelect(array('label' => $data['xsdcreator_label'][$i],
                                                          'options' => $data['xsdcreator_select_options'][$i]));
                 break;
             }
         }
 
-        $xsd .= self::_get_bottom_string();
+        $xsd .= self::_getBottomString();
 
         return $xsd;
     }
 
-    private static function _make_element(array $data) {
+    /**
+     * Cria elementos que gerarão campos numéricos, de texto, de textarea
+     * e de data
+     */
+    private static function _makeElement(array $data)
+    {
         $xsd = "<xs:element name='" . $data['label'] . "' ";
         $xsd .= "type='" . $data['type'] . "' ";
         $xsd .= $data['required'] == 'on' ? "minOccurs='1' " : "minOccurs='0' ";
         $xsd .= ">";
-        $xsd .= self::_make_element_annotation($data['label']);
+        $xsd .= self::_makeElementAnnotation($data['label']);
         $xsd .= "</xs:element>\n";
 
         return $xsd;
     }
 
-    private static function _make_element_select(array $data) {
-        $xsd_select = "<xs:element name='" . $data['label'] . "'>";
-        $xsd_select .= self::_make_element_annotation($data['label']);
-        $xsd_select .= "
+    /**
+     * Cria elementos que gerarão elementos do tipo select
+     */
+    private static function _makeElementSelect(array $data)
+    {
+        $xsdSelect = "<xs:element name='" . $data['label'] . "'>";
+        $xsdSelect .= self::_makeElementAnnotation($data['label']);
+        $xsdSelect .= "
               <xs:simpleType>
                 <xs:restriction base='xs:string'>";
 
         foreach ($data['options'] as $option) {
-            $xsd_select .= "<xs:enumeration value='" . $option  . "' />";
+            $xsdSelect .= "<xs:enumeration value='" . $option  . "' />";
         }
 
-        $xsd_select .= "
+        $xsdSelect .= "
                 </xs:restriction>
               </xs:simpleType>
             </xs:element>";
 
-        return $xsd_select;
+        return $xsdSelect;
     }
 
-    private static function _make_element_annotation($label) {
+    /**
+     * Cria a tag annotation que cada elemento deve ter
+     */
+    private static function _makeElementAnnotation($label)
+    {
         return "
             <xs:annotation>
               <xs:appinfo>
@@ -84,8 +115,11 @@ class XSDCreator {
             </xs:annotation>";
     }
 
-
-    private static function _get_head_string(array $data) {
+    /**
+     * Retorna o cabeçalho do XSD
+     */
+    private static function _getHeadString(array $data)
+    {
         return "
 <xs:schema
    xmlns:xs='http://www.w3.org/2001/XMLSchema'
@@ -115,7 +149,11 @@ class XSDCreator {
           <xs:sequence>";
     }
 
-    private static function _get_bottom_string() {
+    /**
+     * Retorna o rodapé do XSD
+     */
+    private static function _getBottomString()
+    {
         return "
           </xs:sequence>
         </xs:complexType>
@@ -125,7 +163,11 @@ class XSDCreator {
 </xs:schema>";
     }
 
-    public static function adapt_form_name($name) {
+    /**
+     * Adapta o nome do formulário
+     */
+    private static function _adaptFormName($name)
+    {
         return strtr($name,
                      array('Á' => 'A',
                            'á' => 'a',
