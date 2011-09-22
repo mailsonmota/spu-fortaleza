@@ -71,6 +71,8 @@ class AssuntosController extends BaseController
         return $tipoProcesso;
     }
 
+    /* TODO FIXME Funcionalidade quebrada. Testar/corrigir.
+       Testar/corrigir também o $assuntoService->removerVarios */
     public function removerAction()
     {
         try {
@@ -92,5 +94,4 @@ class AssuntosController extends BaseController
     {
         $this->_helper->redirector('assuntos', 'tiposprocesso', 'default', array('id' => $idTipoProcesso));
     }
-
 }
