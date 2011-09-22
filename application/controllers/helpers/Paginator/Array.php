@@ -1,4 +1,10 @@
 <?php
+/**
+ * Paginador dos arrays de entidades do SPU
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ */
 class Zend_Controller_Action_Helper_Paginator_Array implements Countable, IteratorAggregate
 {
 	protected $_currentPageNumber = 1;
@@ -36,10 +42,10 @@ class Zend_Controller_Action_Helper_Paginator_Array implements Countable, Iterat
 	}
 	
 	/**
-	* Returns a foreach-compatible iterator.
-	*
-	* @return Traversable
-	*/
+	 * Returns a foreach-compatible iterator.
+	 *
+	 * @return Traversable
+	 */
 	public function getIterator()
 	{
 		return new ArrayIterator($this->_items);
