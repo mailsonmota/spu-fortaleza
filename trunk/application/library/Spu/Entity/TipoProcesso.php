@@ -1,4 +1,11 @@
 <?php
+/**
+ * Representa um tipo de processo do SPU
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Entity_Abstract
+ */
 class Spu_Entity_TipoProcesso extends Spu_Entity_Abstract
 {
     protected $_nodeRef;
@@ -102,11 +109,17 @@ class Spu_Entity_TipoProcesso extends Spu_Entity_Abstract
         $this->_envolvidoSigiloso = $value;
     }
     
+    /**
+     * @return Spu_Entity_Classification_TipoManifestante[]
+     */
     public function getTiposManifestante()
     {
         return $this->_tiposManifestante;
     }
     
+    /**
+     * @param array $value
+     */
     public function setTiposManifestante($value)
     {
         $this->_tiposManifestante = $value;

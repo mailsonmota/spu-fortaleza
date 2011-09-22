@@ -1,4 +1,11 @@
 <?php
+/**
+ * Representa um usuário do SPU
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Entity_Abstract
+ */
 class Spu_Entity_Usuario extends Spu_Entity_Abstract
 {
     protected $_nome;
@@ -7,39 +14,51 @@ class Spu_Entity_Usuario extends Spu_Entity_Abstract
     protected $_login;
     protected $_grupos;
     
-    public function getNome() {
+    public function getNome()
+    {
         return $this->_nome;
     }
     
-    public function setNome($nome) {
+    public function setNome($nome)
+    {
         $this->_nome = $nome;
     }
     
-    public function getSobrenome() {
+    public function getSobrenome()
+    {
         return $this->_sobrenome;
     }
     
-    public function setSobrenome($sobrenome) {
+    public function setSobrenome($sobrenome)
+    {
         $this->_sobrenome = $sobrenome;
     }
     
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->_email;
     }
     
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->_email = $email;
     }
     
-    public function getLogin() {
+    public function getLogin()
+    {
         return $this->_login;
     }
     
-    public function setLogin($login) {
+    public function setLogin($login)
+    {
         $this->_login = $login;
     }
     
-    public function getGrupos() {
+    /**
+     * @return Spu_Entity_Grupo[]
+     */
+    public function getGrupos()
+    {
         return $this->_grupos;
     }
     
@@ -58,6 +77,9 @@ class Spu_Entity_Usuario extends Spu_Entity_Abstract
     	return ($this->_nome) ? $this->_nome : $this->_sobrenome;
     } 
     
+    /**
+     * @return boolean
+     */
     public function isAdministrador()
     {
         if (!isset($this->_grupos)) {
@@ -73,6 +95,9 @@ class Spu_Entity_Usuario extends Spu_Entity_Abstract
         return false;
     }
     
+    /**
+     * @return boolean
+     */
     public function isGuest()
     {
         if (!isset($this->_grupos)) {
