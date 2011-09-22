@@ -1,9 +1,28 @@
 <?php
+/**
+ * Classe para acessar os serviços de Processo do SPU
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Service_Abstract
+ */
 class Spu_Service_Processo extends Spu_Service_Abstract
 {
+    /**
+     * URL Base dos serviços (a ser acrescentada à url dos serviços do Alfresco)
+     * @var string
+     */
     protected $_processoBaseUrl = 'spu/processo';
-    protected $_processoTicketUrl = 'ticket';
 
+    /**
+     * Retorna a caixa análise da Incorporação de processos
+     * 
+     * @param Spu_Entity_Processo $processo
+     * @param integer $offset
+     * @param integer $pageSize
+     * @param string $filter
+     * @return Spu_Entity_Processo[]
+     */
     public function getCaixaAnaliseIncorporacao($processo, $offset, $pageSize, $filter)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/incorporacaocaixaanalise"
@@ -12,6 +31,15 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
 
+    /**
+     * Método auxiliar para retornar os processos à partir de uma URL
+     * 
+     * Existem vários serviços que retornam JSONs de Processos no SPU, e esses JSONs estão no mesmo formato. 
+     * Este método existe para encapsular a lógica de captura desses JSONs.
+     * 
+     * @param string $url
+     * @return array
+     */
     protected function _getProcessosFromUrl($url)
     {
         $result = $this->_getResultFromUrl($url);
@@ -19,11 +47,23 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $result['Processos'][0];
     }
 
+    /**
+     * Faz uma requisição GET e retorna o seu resultado
+     * 
+     * @param string $url
+     * @return array
+     */
     protected function _getResultFromUrl($url)
     {
         return $this->_doAuthenticatedGetRequest($url);
     }
 
+    /**
+     * Abre um processo no SPU
+     * 
+     * @param array $postData array com os parâmetros do serviço (podem ser verificados no webscript)
+     * @return Spu_Entity_Processo o processo recém-aberto
+     */
     public function abrirProcesso($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/abrir";
@@ -34,6 +74,14 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $this->_getProcessoDetalhado($processo);
     }
 
+    /**
+     * Retorna o processo com todas as informações possíveis
+     * 
+     * Popula anexos, assunto, tipo de processo e movimentações
+     * 
+     * @param Spu_Entity_Processo $processo
+     * @return Spu_Entity_Processo
+     */
     protected function _getProcessoDetalhado($processo) {
         $arquivoService = new Spu_Service_Arquivo($this->getTicket());
         $processo->setRespostasFormulario($arquivoService->getRespostasFormulario($processo->id));
@@ -51,6 +99,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $processo;
     }
 
+    /**
+     * Retorna um processo através de seu ID
+     * 
+     * @param string $nodeUuid
+     * @return Spu_Entity_Processo
+     */
     public function getProcesso($nodeUuid)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/get/$nodeUuid";
@@ -61,6 +115,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $this->_getProcessoDetalhado($this->loadFromHash($processoHash));
     }
 
+    /**
+     * Retorna o histórico de movimentações de um processo através de seu ID
+     * 
+     * @param string $nodeUuid
+     * @return Spu_Entity_Aspect_Movimentacao[]
+     */
     public function getHistorico($nodeUuid)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/historico/get/$nodeUuid";
@@ -72,6 +132,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $this->_loadMovimentacoesFromHash($hashMovimentacao);
     }
 
+    /**
+     * Incorpora um processo à outro
+     * 
+     * @param array $data postData com os parametros necessarios (podem ser conferidos no webscript)
+     * @return array
+     */
     public function incorporar($data)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/incorporar";
@@ -80,6 +146,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $result;
     }
 
+    /**
+     * Retorna todos os processos que atendem os critérios de pesquisa
+     * 
+     * @param array $postData array com os parametros de pesquisa (podem ser conferidos no webscript)
+     * @return Spu_Entity_Processo[]
+     */
     public function consultar($postData, $offset = 0, $pageSize = 20)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/consultar";
@@ -92,15 +164,28 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $this->_loadManyFromHash($result['Processos'][0]);
     }
 
+    /**
+     * Retorna todos os anexos de processos que possuem o filtro em seu conteúdo
+     * 
+     * @param integer $offset
+     * @param integer $pageSize
+     * @param string $filter conteudo a se buscar
+     */
     public function consultarAnexos($offset = 0, $pageSize = 20, $filter)
     {
-    	$filter = urlencode($filter);
-    	$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/consultar-conteudo/$offset/$pageSize/$filter";
+        $filter = urlencode($filter);
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/consultar-conteudo/$offset/$pageSize/$filter";
         $result = $this->_doAuthenticatedGetRequest($url);
         
         return $this->_loadManyAnexosFromHash($result['Anexos'][0]);
     }
 
+    /**
+     * Carrega vários processos através de um hash
+     * 
+     * @param array $hashAnexos
+     * @return Spu_Entity_Anexo[]
+     */
     protected function _loadManyAnexosFromHash($hashAnexos)
     {
         $anexos = array();
@@ -114,6 +199,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $anexos;
     }
 
+    /**
+     * Carrega um anexo através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Anexo
+     */
     protected function _loadAnexoFromHash($hash)
     {
         $anexo = new Spu_Entity_Anexo();
@@ -125,6 +216,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $anexo;
     }
 
+    /**
+     * Retorna todos os processos paralelos à um determinado processo
+     * 
+     * @param string $processoId
+     * @return Spu_Entity_Processo[]
+     */
     public function getProcessosParalelos($processoId)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/paralelos/$processoId";
@@ -132,6 +229,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
 
+    /**
+     * Carrega um processo através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Processo
+     */
     public function loadFromHash($hash)
     {
         $processo = new Spu_Entity_Processo();
@@ -162,6 +265,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $processo;
     }
 
+    /**
+     * Carrega as folhas do processo através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Folhas
+     */
     protected function _loadFolhasFromHash($hash)
     {
         $folhas = new Spu_Entity_Folhas();
@@ -181,6 +290,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $folhas;
     }
 
+    /**
+     * Carrega a prioridade do processo através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Classification_Prioridade
+     */
     protected function _loadPrioridadeFromHash($hash)
     {
         $prioridadeService = new Spu_Service_Prioridade($this->getTicket());
@@ -189,6 +304,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $prioridade;
     }
 
+    /**
+     * Carrega o status do processo através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Classification_Status
+     */
     protected function _loadStatusFromHash($hash)
     {
         $statusService = new Spu_Service_Status($this->getTicket());
@@ -197,6 +318,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $status;
     }
 
+    /**
+     * Carrega o protocolo atual do processo através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Protocolo
+     */
     protected function _loadProtocoloFromHash($hash)
     {
         $protocoloService = new Spu_Service_Protocolo($this->getTicket());
@@ -205,6 +332,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $protocolo;
     }
 
+    /**
+     * Carrega o tipo do processo através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_TipoProcesso
+     */
     protected function _loadTipoProcessoFromHash($hash)
     {
         $tipoProcesso = new Spu_Entity_TipoProcesso($this->getTicket());
@@ -214,11 +347,23 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $tipoProcesso;
     }
 
+    /**
+     * Carrega o protocolo proprietário do processo através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Protocolo
+     */
     protected function _loadProprietarioFromHash($hash)
     {
         return $this->_loadProtocoloFromHash($hash);
     }
 
+    /**
+     * Carrega o assunto do processo através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Assunto
+     */
     protected function _loadAssuntoFromHash($hash)
     {
         $assuntoService = new Spu_Service_Assunto($this->getTicket());
@@ -227,6 +372,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $assunto;
     }
 
+    /**
+     * Carrega o manifestatne do processo através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Aspect_Manifestante
+     */
     protected function _loadManifestanteFromHash($hash)
     {
         $manifestanteService = new Spu_Service_Manifestante($this->getTicket());
@@ -235,6 +386,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $manifestante;
     }
 
+    /**
+     * Carrega o tipo de manifestante do processo através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Classification_TipoManifestante
+     */
     protected function _loadTipoManifestanteFromHash($hash)
     {
         $tipoManifestanteService = new Spu_Service_TipoManifestante($this->getTicket());
@@ -243,6 +400,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $tipoManifestante;
     }
 
+    /**
+     * Carrega o arquivamento de um processo através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Aspect_Arquivamento
+     */
     protected function _loadArquivamentoFromHash($hash)
     {
         $arquivamentoService = new Spu_Service_Arquivamento();
@@ -251,6 +414,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $arquivamento;
     }
 
+    /**
+     * Carrega as movimentações de um processo através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Aspect_Movimentacao[]
+     */
     protected function _loadMovimentacoesFromHash($hash)
     {
         $movimentacaoService = new Spu_Service_Movimentacao();
@@ -258,6 +427,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $movimentacaoService->loadManyFromHash($hash);
     }
 
+    /**
+     * Carrega vários processos através de um hash
+     * 
+     * @param array $hash
+     * @return Spu_Entity_Processo[]
+     */
     protected function _loadManyFromHash($hashProcessos)
     {
         $processos = array();
