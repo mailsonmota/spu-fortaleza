@@ -108,7 +108,6 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
         $protocolo->setNome($this->_getHashValue($hash, 'nome'));
         $protocolo->setParent($this->_loadParentFromHash($this->_getHashValue($hash, 'parentId')));
         $protocolo->setDescricao($this->_getHashValue($hash, 'descricao'));
-        $protocolo->setNivel($this->_getHashValue($hash, 'nivel'));
         $protocolo->setPath($this->_getHashValue($hash, 'path'));
 
         return $protocolo;

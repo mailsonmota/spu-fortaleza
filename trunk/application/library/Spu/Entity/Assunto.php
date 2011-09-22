@@ -1,8 +1,10 @@
 <?php
 /**
  * Representa um assunto do SPU
- * @author bruno <brunofcavalcante@gmail.com>
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
  * @package SPU
+ * @see Spu_Entity_Abstract
  */
 class Spu_Entity_Assunto extends Spu_Entity_Abstract
 {
@@ -15,6 +17,7 @@ class Spu_Entity_Assunto extends Spu_Entity_Abstract
     
     /**
      * Retorna o Tipo de Processo à qual o assunto pertence
+     * 
      * @return Spu_Entity_TipoProcesso
      */
     public function getTipoProcesso()
@@ -57,6 +60,9 @@ class Spu_Entity_Assunto extends Spu_Entity_Abstract
         $this->_corpo = $value;
     }
 
+    /**
+     * @return boolean
+     */
     public function getNotificarNaAbertura()
     {
         return $this->_notificarNaAbertura;
@@ -69,6 +75,7 @@ class Spu_Entity_Assunto extends Spu_Entity_Abstract
 
     /**
      * Retorna o formulário do assunto
+     * 
      * @return Spu_Entity_Formulario
      */
     public function getFormulario() {

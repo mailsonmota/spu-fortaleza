@@ -1,4 +1,13 @@
 <?php
+/**
+ * Representa um protocolo do SPU
+ * 
+ * Um Protocolo é um setor que tramita processos, usualmente é uma lotação. Ex.: SAM, AMC, ETUFOR, etc...
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Entity_Abstract
+ */
 class Spu_Entity_Protocolo extends Spu_Entity_Abstract
 {
     protected $_nodeRef;
@@ -6,10 +15,7 @@ class Spu_Entity_Protocolo extends Spu_Entity_Abstract
     protected $_descricao;
     protected $_orgao;
     protected $_lotacao;
-    protected $_recebePelosSubsetores;
-    protected $_recebeMalotes;
     protected $_parent;
-    protected $_nivel;
     protected $_path;
     
     public function getNodeRef()
@@ -62,36 +68,13 @@ class Spu_Entity_Protocolo extends Spu_Entity_Abstract
         $this->_lotacao = $data;
     }
 
-    public function getRecebePelosSubsetores()
-    {
-        return $this->_recebePelosSubsetores;
-    }
-
-    public function setRecebePelosSubsetores($value)
-    {
-        $this->_recebePelosSubsetores = $value;
-    }
-
-    public function getRecebeMalotes()
-    {
-        return $this->_recebeMalotes;
-    }
-
-    public function setRecebeMalotes($value)
-    {
-        $this->_recebeMalotes = $value;
-    } 
-    
-    public function getNivel()
-    {
-        return $this->_nivel;
-    }
-
-    public function setNivel($value)
-    {
-        $this->_nivel = $value;
-    }
-    
+    /**
+     * Retorna o caminho completo do protocolo
+     * 
+     * Exemplo: SAM/GABS/DAF/PROT
+     * 
+     * @return string
+     */
     public function getPath()
     {
         return ($this->_path) ? $this->_path : $this->getNome();
@@ -102,22 +85,38 @@ class Spu_Entity_Protocolo extends Spu_Entity_Abstract
         $this->_path = $value;
     }
 
+    /**
+     * @return Spu_Entity_Protocolo | null
+     */
     public function getParent()
     {
         return $this->_parent;
     }
 
+    /**
+     * @param Spu_Entity_Protocolo $value
+     */
     public function setParent(Spu_Entity_Protocolo $value)
     {
         $this->_parent = $value;
     }
 
+    /**
+     * Retorna o nodeUuid do processo (é o final do nodeRef)
+     * 
+     * @return string
+     */
     public function getId()
     {
         $nodeRef = $this->getNodeRef();
         return substr($nodeRef, strrpos($nodeRef, '/') + 1);
     }
     
+    /**
+     * Retorna o nome descritivo do protocolo, no formato Órgão - Lotação
+     * 
+     * @return string
+     */
     public function getOrgaoLotacao()
     {
         if ($this->getLotacao()) {
@@ -131,6 +130,13 @@ class Spu_Entity_Protocolo extends Spu_Entity_Abstract
         return $orgaoLotacao;
     }
     
+    /**
+     * Retorna a sigla do Protocolo, seguido de sua descrição.
+     * 
+     * Exemplo: SMS - Secretaria Municipal de Saúde
+     * 
+     * @return string
+     */
     public function getSiglaDescricao()
     {
         $siglaDescricao = $this->_nome;

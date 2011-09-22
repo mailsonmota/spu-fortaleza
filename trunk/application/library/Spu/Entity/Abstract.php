@@ -1,14 +1,15 @@
 <?php
 /**
  * Abstração para as Entidades do SPU
- * @author bruno <brunofcavalcante@gmail.com>
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
  * @package SPU
  */
-class Spu_Entity_Abstract
+abstract class Spu_Entity_Abstract
 {
 	/**
 	 * Método mágico
-	 * @param unknown_type $property
+	 * @param string $property
 	 */
 	public function __get($property) {
 		$methodName = 'get' . ucwords($property);

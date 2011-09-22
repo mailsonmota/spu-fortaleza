@@ -1,4 +1,11 @@
 <?php
+/**
+ * Representa uma resposta de formulário do assunto de um processo do SPU
+ * 
+ * @author Gil Magno <gilmagno@gmail.com>
+ * @package SPU
+ * @see Spu_Entity_Abstract
+ */
 class Spu_Entity_RespostasFormulario extends Spu_Entity_Abstract
 {
     protected $_data;
@@ -13,6 +20,10 @@ class Spu_Entity_RespostasFormulario extends Spu_Entity_Abstract
         $this->_data = $data;
     }
     
+    /**
+     * @param SimpleXMLElement $xml
+     * @return array
+     */
     protected function _XMLToArray($xml)
     { 
         if ($xml instanceof SimpleXMLElement) { 
@@ -47,6 +58,9 @@ class Spu_Entity_RespostasFormulario extends Spu_Entity_Abstract
         } 
     } 
     
+    /**
+     * @return boolean
+     */
     public function hasData()
     {
         return (is_array($this->_data));
@@ -61,6 +75,11 @@ class Spu_Entity_RespostasFormulario extends Spu_Entity_Abstract
         $this->_data = $value;
     }
     
+    /**
+     * Retorna a string ajustada para remover símbolos que não alfanuméricos e a capitaliza
+     * 
+     * @return string
+     */
     public function getAdjustedKeyName($key)
     {
         $key = preg_replace('/([^\s])([A-Z])/', '\1 \2', $key);
