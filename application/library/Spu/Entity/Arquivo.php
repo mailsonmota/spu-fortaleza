@@ -1,8 +1,10 @@
 <?php
 /**
  * Representa um arquivo do SPU
- * @author bruno <brunofcavalcante@gmail.com>
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
  * @package SPU
+ * @see Spu_Entity_Abstract
  */
 class Spu_Entity_Arquivo extends Spu_Entity_Abstract
 {

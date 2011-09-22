@@ -1,4 +1,11 @@
 <?php
+/**
+ * Representa as folhas de um processo do SPU
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Entity_Abstract
+ */
 class Spu_Entity_Folhas extends Spu_Entity_Abstract
 {
     protected $_quantidade;
@@ -14,6 +21,9 @@ class Spu_Entity_Folhas extends Spu_Entity_Abstract
         $this->_quantidade = $data;
     }
     
+    /**
+     * @return Spu_Entity_Volume[]
+     */
     public function getVolumes()
     {
         return $this->_volumes;

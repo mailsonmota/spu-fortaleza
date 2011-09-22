@@ -1,9 +1,10 @@
 <?php
 /**
- * Spu_Entity_Processo
  * Representa um processo do SPU
- * @author bruno <brunofcavalcante@gmail.com>
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
  * @package SPU
+ * @see Spu_Entity_Abstract
  */
 class Spu_Entity_Processo extends Spu_Entity_Abstract
 {
@@ -58,6 +59,9 @@ class Spu_Entity_Processo extends Spu_Entity_Abstract
         $this->_data = $data;
     }
     
+    /**
+     * @return Spu_Entity_Aspect_Manifestante
+     */
     public function getManifestante()
     {
         return $this->_manifestante;
@@ -68,6 +72,9 @@ class Spu_Entity_Processo extends Spu_Entity_Abstract
         $this->_manifestante = $value;
     }
     
+    /**
+     * @return Spu_Entity_Classification_TipoManifestante
+     */
     public function getTipoManifestante()
     {
         return $this->_tipoManifestante;
@@ -78,6 +85,9 @@ class Spu_Entity_Processo extends Spu_Entity_Abstract
         $this->_tipoManifestante = $value;
     }
     
+    /**
+     * @return Spu_Entity_Classification_Prioridade
+     */
     public function getPrioridade()
     {
         return $this->_prioridade;
@@ -128,6 +138,11 @@ class Spu_Entity_Processo extends Spu_Entity_Abstract
         $this->_dataPrazo = $value;
     }
     
+    /**
+     * Local atual do protocolo
+     * 
+     * @return Spu_Entity_Protocolo
+     */
     public function getProtocolo()
     {
         return $this->_protocolo;
@@ -138,6 +153,9 @@ class Spu_Entity_Processo extends Spu_Entity_Abstract
         $this->_protocolo = $value;
     }
     
+    /**
+     * @return Spu_Entity_TipoProcesso
+     */
     public function getTipoProcesso()
     {
         return $this->_tipoProcesso;
@@ -148,6 +166,11 @@ class Spu_Entity_Processo extends Spu_Entity_Abstract
         $this->_tipoProcesso = $value;
     }
     
+    /**
+     * Retorna o protocolo proprietário do processo, ou seja, o protocolo de origem.
+     *  
+     * @return Spu_Entity_Protocolo
+     */
     public function getProprietario()
     {
         return $this->_proprietario;
@@ -171,6 +194,11 @@ class Spu_Entity_Processo extends Spu_Entity_Abstract
         $this->_assunto = $value;
     }
     
+    /**
+     * Retorna o histórico de movimentações do processo
+     * 
+     * @return Spu_Entity_Aspect_Movimentacao[]
+     */
     public function getMovimentacoes()
     {
         return $this->_movimentacoes;
@@ -194,6 +222,11 @@ class Spu_Entity_Processo extends Spu_Entity_Abstract
         $this->_status = $value;
     }
     
+    /**
+     * Retorna os anexos do processo
+     * 
+     * @return Spu_Entity_Anexo[]
+     */
     public function getArquivos()
     {
         return $this->_arquivos;
@@ -216,6 +249,11 @@ class Spu_Entity_Processo extends Spu_Entity_Abstract
         $this->_arquivamento = $value;
     }
     
+    /**
+     * Retorna as respostas do formulário do assunto do processo
+     * 
+     * @return Spu_Entity_RespostasFormulario
+     */
     public function getRespostasFormulario()
     {
         return $this->_respostasFormulario;
@@ -262,6 +300,9 @@ class Spu_Entity_Processo extends Spu_Entity_Abstract
         return $this->getProtocolo()->getPath();
     }
     
+    /**
+     * @return Spu_Entity_Folhas
+     */
     public function getFolhas()
     {
         return $this->_folhas;

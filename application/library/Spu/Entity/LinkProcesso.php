@@ -1,4 +1,11 @@
 <?php
+/**
+ * Representa um modelo de Link de Processo do SPU
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Entity_Abstract
+ */
 abstract class Spu_Entity_LinkProcesso extends Spu_Entity_Abstract
 {
     protected $_nodeRef;
@@ -25,7 +32,11 @@ abstract class Spu_Entity_LinkProcesso extends Spu_Entity_Abstract
         $this->_nome = $nome;
     }
     
-    public function getProcesso() {
+    /**
+     * @return Spu_Entity_Processo
+     */
+    public function getProcesso()
+    {
         return $this->_processo;
     }
     
@@ -50,19 +61,23 @@ abstract class Spu_Entity_LinkProcesso extends Spu_Entity_Abstract
         return $this->getProcesso()->getData();
     }
     
-    public function getNomeManifestanteProcesso() {
+    public function getNomeManifestanteProcesso()
+    {
         return $this->getProcesso()->getManifestante()->getNome();
     }
     
-    public function getNomeTipoProcesso() {
+    public function getNomeTipoProcesso()
+    {
         return $this->getProcesso()->getNomeTipoProcesso();
     }
     
-    public function getNomeAssuntoProcesso() {
+    public function getNomeAssuntoProcesso()
+    {
         return $this->getProcesso()->getNomeAssunto();
     }
     
-    public function getIdProcesso() {
+    public function getIdProcesso()
+    {
         return $this->getProcesso()->getId();
     }
 }
