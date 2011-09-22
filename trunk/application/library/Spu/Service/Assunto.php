@@ -143,6 +143,14 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
         return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])), true);
     }
 
+    /**
+     * TODO FIXME Testar/corrigir essa funcionalidade
+     *
+     * Remove vários assuntos
+     *
+     * @var hash $hash
+     * @return boolean
+     */
     public function removerVarios($hash)
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/remover";
@@ -151,6 +159,13 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
         return true;
     }
 
+    /**
+     * Carrega um tipo de processo a partir de um hash. Esse hash é um assunto,
+     * retornado pelo Alfresco
+     *
+     * @var array $hash Informações sobre um assunto
+     * @return Spu_Entity_TipoProcesso
+     */
     protected function _loadTipoProcessoFromHash($hash) {
         $tipoProcesso = new Spu_Entity_TipoProcesso();
         if ($hash AND is_array($hash)) {
@@ -161,6 +176,12 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
         return $tipoProcesso;
     }
 
+    /**
+     * Carrega o formulário de um assunto
+     *
+     * @var string $assuntoId
+     * @return string $formulario
+     */
     protected function _loadFormulario($assuntoId)
     {
         $arquivoService = new Spu_Service_Arquivo($this->getTicket());
