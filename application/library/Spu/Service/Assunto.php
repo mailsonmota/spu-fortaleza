@@ -192,6 +192,13 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
         return $hashAssuntos;
     }
 
+    /**
+     * Extrai um valor determinado do conteúdo XSD. Esse valor será
+     * o nome do arquivo que conterá seu conteúdo.
+     *
+     * @var string $xsd Conteúdo do XSD
+     * @return string
+     */
     protected static function _getXsdFileName($xsd)
     {
         try {
