@@ -1,41 +1,68 @@
 <?php
+/**
+ * Classe para acessar os serviços de Assunto do SPU
+ *
+ * @author Prefeitura de Fortaleza <fortaleza.ce.gov.br>
+ * @author Gil Magno <gilmagno@gmail.com>
+ * @package SPU
+ * @see Spu_Service_Abstract
+ */
 class Spu_Service_Assunto extends Spu_Service_Abstract
 {
+    /**
+     * URL Base dos serviços (a ser acrescentada à url dos serviços do Alfresco)
+     * @var string
+     */
     private $_assuntosBaseUrl = 'spu/assuntos';
-    private $_assuntosTicketUrl = 'ticket';
 
+    /**
+     * Lista todos os assuntos
+     *
+     * @return array de objetos Spu_Entity_Assunto
+     */
     public function getAssuntos()
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listar";
         $result = $this->_doAuthenticatedGetRequest($url);
-        
+
         return $this->_loadManyFromHash($result['assuntos']);
     }
 
+    /**
+     * Lista todos os assuntos de um tipo de processo
+     *
+     * @var string $idTipoProcesso Id do tipo de processo
+     * @var string $origem Id do protocolo de origem
+     * @return array de Spu_Entity_Assunto
+     */
     public function getAssuntosPorTipoProcesso($idTipoProcesso, $origem = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listarportipoprocesso/$idTipoProcesso";
         $result = $this->_doAuthenticatedGetRequest($url);
-        
+
         return $this->_loadManyFromHash($result['assuntos']);
     }
 
+    /**
+     * Retorna o assunto de um determinado id
+     *
+     * @param string $nodeUuid Id do assunto
+     * @return Spu_Entity_Protocolo
+     */
     public function getAssunto($nodeUuid)
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/get/$nodeUuid";
         $result = $this->_doAuthenticatedGetRequest($url);
-        
-        return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])), true);
-    }
-
-    public function inserir($postData)
-    {
-        $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/inserir";
-        $result = $this->_doAuthenticatedPostRequest($url, $postData);
 
         return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])), true);
     }
 
+    /**
+     * Insere um modelo de formulário, que é um arquivo .xsd, em um assunto
+     *
+     * @var array $dados Dados que serão usados para gerar o arquivo .xsd
+     * @return void
+     */
     public function inserirFormularioModelo(array $dados)
     {
         try {
@@ -54,7 +81,7 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
 
             $arquivoService = new Spu_Service_Arquivo($this->getTicket());
             $arquivoService->uploadArquivo(array('destNodeUuid' => $dados['id'], 'fileToUpload' => '@' . $filePath));
-            
+
             if (file_exists($filePath)) {
                 unlink($filePath);
             }
@@ -63,14 +90,14 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
         }
     }
 
-    public function editar($id, $postData)
-    {
-        $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/editar/$id";
-        $result = $this->_doAuthenticatedPostRequest($url, $postData);
-
-        return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])), true);
-    }
-
+    /**
+     * Carrega um assunto a partir de um hash. Esse hash é um array feito a partir
+     * do json retornado pelo Alfresco, usando a função json_decode().
+     *
+     * @param array $hash
+     * @param boolean $carregarDetalhes
+     * @return Spu_Entity_Assunto
+     */
     public function loadFromHash($hash, $carregarDetalhes = false)
     {
         $assunto = new Spu_Entity_Assunto();
@@ -87,7 +114,31 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
         return $assunto;
     }
 
-    protected function _loadTipoProcessoFromHash($hash){
+    public function inserir($postData)
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/inserir";
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
+
+        return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])), true);
+    }
+
+    public function editar($id, $postData)
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/editar/$id";
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
+
+        return $this->loadFromHash(array_pop(array_pop($result['Assunto'][0])), true);
+    }
+
+    public function removerVarios($hash)
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/remover";
+        $result = $this->_doAuthenticatedPostRequest($url, $hash);
+
+        return true;
+    }
+
+    protected function _loadTipoProcessoFromHash($hash) {
         $tipoProcesso = new Spu_Entity_TipoProcesso();
         if ($hash AND is_array($hash)) {
             $hash = array_pop($hash);
@@ -111,6 +162,13 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
         return $formulario;
     }
 
+    /**
+     * Carrega vários assuntos a partir de um hash. Esse hash é um array feito a partir
+     * do json retornado pelo Alfresco, usando a função json_decode().
+     *
+     * @param array $hash
+     * @return array de Spu_Entity_Assunto
+     */
     protected function _loadManyFromHash($hash)
     {
         $hashAssuntos = array();
@@ -119,14 +177,6 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
         }
 
         return $hashAssuntos;
-    }
-
-    public function removerVarios($hash)
-    {
-        $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/remover";
-        $result = $this->_doAuthenticatedPostRequest($url, $hash);
-
-        return true;
     }
 
     protected static function _getXsdFileName($xsd)
