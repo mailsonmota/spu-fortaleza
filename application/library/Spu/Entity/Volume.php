@@ -1,4 +1,11 @@
 <?php
+/**
+ * Representa um volume de folhas de um processo do SPU
+ * 
+ * @author Gil Magno <gilmagno@gmail.com>
+ * @package SPU
+ * @see Spu_Entity_Abstract
+ */
 class Spu_Entity_Volume extends Spu_Entity_Abstract
 {
     protected $_nome;
