@@ -1,5 +1,16 @@
 <?php
+/**
+ * @see Zend_Controller_Action_Helper_Paginator_Array
+ */
 require_once 'Paginator/Array.php';
+
+/**
+ * Action Helper para realizar a paginação dos registros do SPU
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Zend_Controller_Action_Helper_Abstract
+ */
 class Zend_Controller_Action_Helper_Paginator extends Zend_Controller_Action_Helper_Abstract
 {
 	public function getFromArray($array)
