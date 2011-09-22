@@ -39,7 +39,6 @@ class Zend_Controller_Action_Helper_Paginator extends Zend_Controller_Action_Hel
 	public function getOffset()
 	{
 		return ($this->getRequest()->getParam('page')) ? 
-			(($this->getRequest()->getParam('page') - 1) * $this->getPageSize()) : 
-			0;
+			(($this->getRequest()->getParam('page') - 1) * $this->getPageSize()) : 0;
 	}
 }
