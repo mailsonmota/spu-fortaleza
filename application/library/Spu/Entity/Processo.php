@@ -120,7 +120,7 @@ class Spu_Entity_Processo extends Spu_Entity_Abstract
     
     public function getCorpo()
     {
-    	return $this->_corpo;
+        return $this->_corpo;
     }
     
     public function setCorpo($value)

@@ -98,10 +98,10 @@ class Spu_Entity_Assunto extends Spu_Entity_Abstract
      */
     public function hasFormulario()
     {
-    	if ($this->_formulario) {
-    		return $this->_formulario->hasData();
-    	}
-    	
+        if ($this->_formulario) {
+            return $this->_formulario->hasData();
+        }
+
         return false;
     }
 }

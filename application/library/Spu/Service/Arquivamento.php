@@ -8,7 +8,7 @@
  */
 class Spu_Service_Arquivamento extends Spu_Service_Abstract
 {
-	/**
+    /**
 	 * Carrega o Aspect de Arquivamento à partir de um hash
 	 * 
 	 * @param array $hash

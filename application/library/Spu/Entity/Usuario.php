@@ -74,7 +74,7 @@ class Spu_Entity_Usuario extends Spu_Entity_Abstract
     
     public function getNomeOuSobrenome()
     {
-    	return ($this->_nome) ? $this->_nome : $this->_sobrenome;
+        return ($this->_nome) ? $this->_nome : $this->_sobrenome;
     } 
     
     /**
