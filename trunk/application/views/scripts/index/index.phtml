@@ -10,4 +10,9 @@ echo $this->pagenav()->closeList();
     <p>
     	Bem-vindo, <b><?php echo $this->pessoa->nomeOuSobrenome ?></b>!
     </p>
+    
+    <?php
+    //FIXME: Debug Select de Protocolos
+    echo $this->protocoloSelect('Label', 'name', $this->protocolos, 1, 2);
+    ?>
 </div>

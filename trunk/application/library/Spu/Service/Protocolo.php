@@ -145,4 +145,17 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
 
         return $protocolos;
     }
+    
+    /**
+     * Retorna todos os protocolos do usuário logado
+     *
+     * @return Spu_Entity_Protocolo[]
+     */
+    public function getProtocolosRaiz($protocoloOrigemId, $tipoProcessoId)
+    {
+        $url = "{$this->getBaseUrl()}/{$this->_protocoloBaseUrl}/listar-raizes/$protocoloOrigemId/$tipoProcessoId";
+        $result = $this->_doAuthenticatedGetRequest($url);
+
+        return $this->_loadManyFromHash($result['Protocolos']);
+    }
 }

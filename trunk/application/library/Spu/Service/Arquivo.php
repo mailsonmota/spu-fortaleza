@@ -9,7 +9,7 @@
  */
 class Spu_Service_Arquivo extends Spu_Service_Abstract
 {
-	/**
+    /**
 	 * URL Base dos serviços (a ser acrescentada à url dos serviços do Alfresco)
 	 * @var string
 	 */
@@ -39,7 +39,7 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
      */
     public function uploadArquivo($postData)
     {
-    	$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/uploadarquivo";
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/uploadarquivo";
         $result = $this->_doAuthenticatedPostFormDataRequest($url, $postData);
         
         return $result;
@@ -94,7 +94,7 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
      */
     public function getContentFromUrl($getData)
     {
-    	$url = $this->getArquivoFormularioDownloadUrl($getData);
+        $url = $this->getArquivoFormularioDownloadUrl($getData);
         $result = $this->_doAuthenticatedGetStringRequest($url);
         
         if (strpos($result, 'Internal Error') > -1) {
@@ -112,7 +112,7 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
      */
     public function getRespostasFormulario($processoId)
     {
-    	$url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/formulario/get/$processoId";
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/formulario/get/$processoId";
         $result = $this->_doAuthenticatedGetStringRequest($url);
         
         $respostasFormulario = new Spu_Entity_RespostasFormulario();

@@ -8,7 +8,7 @@
  */
 class Spu_Service_Manifestante extends Spu_Service_Abstract
 {
-	/**
+    /**
 	 * URL Base dos serviços (a ser acrescentada à url dos serviços do Alfresco)
 	 * @var string
 	 */
@@ -93,7 +93,7 @@ class Spu_Service_Manifestante extends Spu_Service_Abstract
      */
     public function loadManyFromHash($hash)
     {
-    	$manifestantes = array();
+        $manifestantes = array();
         foreach ($hash as $hashManifestante) {
             if ($hashManifestante) {
                 $hashDadosManifestante = array_pop($hashManifestante);
