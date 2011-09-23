@@ -7,12 +7,12 @@
  */
 abstract class Spu_Entity_Abstract
 {
-	/**
+    /**
 	 * Método mágico
 	 * @param string $property
 	 */
-	public function __get($property) {
-		$methodName = 'get' . ucwords($property);
-		return $this->$methodName();
-	}
+    public function __get($property) {
+        $methodName = 'get' . ucwords($property);
+        return $this->$methodName();
+    }
 }

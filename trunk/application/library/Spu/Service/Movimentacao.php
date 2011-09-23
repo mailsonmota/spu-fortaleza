@@ -8,7 +8,7 @@
  */
 class Spu_Service_Movimentacao extends Spu_Service_Abstract
 {
-	/**
+    /**
 	 * Carrega várias Movimentações à partir de um hash
 	 * 
 	 * @param array $hash
@@ -16,10 +16,10 @@ class Spu_Service_Movimentacao extends Spu_Service_Abstract
 	 */
     public function loadManyFromHash($hash)
     {
-    	$movimentacoes = array();
+        $movimentacoes = array();
         if ($hash) {
             foreach ($hash as $hashMovimentacao) {
-            	$hashMovimentacao = array_pop($hashMovimentacao);
+                $hashMovimentacao = array_pop($hashMovimentacao);
                 $movimentacoes[] = $this->loadFromHash($hashMovimentacao);
             }
         }
@@ -35,7 +35,7 @@ class Spu_Service_Movimentacao extends Spu_Service_Abstract
      */
     public function loadFromHash($hash)
     {
-    	$movimentacao = new Spu_Entity_Aspect_Movimentacao();
+        $movimentacao = new Spu_Entity_Aspect_Movimentacao();
         
         $movimentacao->setData($this->_getHashValue($hash, 'data'));
         $movimentacao->setHora($this->_getHashValue($hash, 'hora'));
@@ -75,9 +75,9 @@ class Spu_Service_Movimentacao extends Spu_Service_Abstract
      */
     protected function _loadProtocoloFromHash($hash)
     {
-    	$protocoloService = new Spu_Service_Protocolo($this->getTicket());
-    	$protocolo = $protocoloService->loadFromHash($hash);
-    	
+        $protocoloService = new Spu_Service_Protocolo($this->getTicket());
+        $protocolo = $protocoloService->loadFromHash($hash);
+
         return $protocolo;
     }
     

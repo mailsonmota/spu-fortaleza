@@ -1,4 +1,11 @@
 <?php
+/**
+ * Classe para representar o aspect de Arquivamento do SPU
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Entity_Aspect_Abstract
+ */
 class Spu_Entity_Aspect_Arquivamento extends Spu_Entity_Aspect_Abstract
 {
     protected $_status;
@@ -6,7 +13,13 @@ class Spu_Entity_Aspect_Arquivamento extends Spu_Entity_Aspect_Abstract
     protected $_local;
     protected $_pasta;
     
-    public function getStatus() {
+    /**
+     * Retorna o Status do Arquivamento
+     *  
+     * @return Spu_Entity_Classification_StatusArquivamento
+     */
+    public function getStatus()
+    {
         return $this->_status;
     }
     
@@ -15,7 +28,8 @@ class Spu_Entity_Aspect_Arquivamento extends Spu_Entity_Aspect_Abstract
         $this->_status = $value;
     }
     
-    public function getMotivo() {
+    public function getMotivo()
+    {
         return $this->_motivo;
     }
     
@@ -24,7 +38,8 @@ class Spu_Entity_Aspect_Arquivamento extends Spu_Entity_Aspect_Abstract
         $this->_motivo = $value;
     }
     
-    public function getLocal() {
+    public function getLocal()
+    {
         return $this->_local;
     }
     
@@ -33,7 +48,8 @@ class Spu_Entity_Aspect_Arquivamento extends Spu_Entity_Aspect_Abstract
         $this->_local = $value;
     }
     
-    public function getPasta() {
+    public function getPasta()
+    {
         return $this->_pasta;
     }
     

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Classe para representar o aspect de Movimentação do SPU
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Entity_Aspect_Abstract
+ */
 class Spu_Entity_Aspect_Movimentacao extends Spu_Entity_Aspect_Abstract
 {
     protected $_data;

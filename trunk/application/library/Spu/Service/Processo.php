@@ -252,11 +252,11 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         $processo->setAssunto($this->_loadAssuntoFromHash($this->_getHashValue($hash, 'assunto')));
         $processo->setManifestante($this->_loadManifestanteFromHash($this->_getHashValue($hash, 'manifestante')));
         $processo->setTipoManifestante(
-        	$this->_loadTipoManifestanteFromHash($this->_getHashValue($hash, 'tipoManifestante'))
+            $this->_loadTipoManifestanteFromHash($this->_getHashValue($hash, 'tipoManifestante'))
         );
         $processo->setArquivamento($this->_loadArquivamentoFromHash($this->_getHashValue($hash, 'arquivamento')));
         $processo->setMovimentacoes(
-        	$this->_loadMovimentacoesFromHash($this->_getHashValue($hash, 'ultimaMovimentacao'))
+            $this->_loadMovimentacoesFromHash($this->_getHashValue($hash, 'ultimaMovimentacao'))
         );
         if (!empty($hash['folhas'])) {
             $processo->setFolhas($this->_loadFolhasFromHash($hash['folhas']));

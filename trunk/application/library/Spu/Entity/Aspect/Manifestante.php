@@ -1,4 +1,11 @@
 <?php
+/**
+ * Classe para representar o aspect de Manifestante do SPU
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Entity_Aspect_Abstract
+ */
 class Spu_Entity_Aspect_Manifestante extends Spu_Entity_Aspect_Abstract
 {
     protected $_cpf;
@@ -75,6 +82,9 @@ class Spu_Entity_Aspect_Manifestante extends Spu_Entity_Aspect_Abstract
         $this->_cep = $value;
     }
     
+    /**
+     * @return Spu_Entity_Classification_Bairro
+     */
     public function getBairro()
     {
         return $this->_bairro;
@@ -193,32 +203,38 @@ class Spu_Entity_Aspect_Manifestante extends Spu_Entity_Aspect_Abstract
     
     public function getCpfDesformatado()
     {
-    	return $this->_desmascararCpfCnpj($this->_cpf);
+        return $this->_desmascararCpfCnpj($this->_cpf);
     }
     
     protected function _mascararCpfCnpj($cpfCnpj)
     {
-    	if ($this->_isCpf($cpfCnpj)) {
-    		$cpfCnpj = $this->_mascararCpf($cpfCnpj);
-    	} elseif ($this->_isCnpj($cpfCnpj)) {
-    		$cpfCnpj = $this->_mascararCnpj($cpfCnpj);
-    	}
-    	return $cpfCnpj;
+        if ($this->_isCpf($cpfCnpj)) {
+            $cpfCnpj = $this->_mascararCpf($cpfCnpj);
+        } elseif ($this->_isCnpj($cpfCnpj)) {
+            $cpfCnpj = $this->_mascararCnpj($cpfCnpj);
+        }
+        return $cpfCnpj;
     }
     
+    /**
+     * @return boolean
+     */
     protected function _isCpf($string)
     {
-    	return ((is_numeric($string) AND strlen($string) == 11) OR (!is_numeric($string) AND strlen($string) == 14));
+        return ((is_numeric($string) AND strlen($string) == 11) OR (!is_numeric($string) AND strlen($string) == 14));
     }
     
-	protected function _isCnpj($string)
+    /**
+     * @return boolean
+     */
+    protected function _isCnpj($string)
     {
-    	return ((is_numeric($string) AND strlen($string) == 14) OR (!is_numeric($string) AND strlen($string) == 18));
+        return ((is_numeric($string) AND strlen($string) == 14) OR (!is_numeric($string) AND strlen($string) == 18));
     }
     
     protected function _mascararCpf($cpf)
     {
-    	return (is_numeric($cpf)) ? preg_replace('/(\d{3})(\d{3})(\d{3})(\d{2})/', '${1}.${2}.${3}-${4}', $cpf) : $cpf;
+        return (is_numeric($cpf)) ? preg_replace('/(\d{3})(\d{3})(\d{3})(\d{2})/', '${1}.${2}.${3}-${4}', $cpf) : $cpf;
     }
     
     protected function _desmascararCpfCnpj($cpfCnpj)

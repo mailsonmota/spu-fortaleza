@@ -2,8 +2,8 @@
 /**
  * Representa um formulário de assunto do SPU
  * 
- * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
  * @package SPU
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
  * @see Spu_Entity_Abstract
  */
 class Spu_Entity_Formulario extends Spu_Entity_Abstract
@@ -18,7 +18,8 @@ class Spu_Entity_Formulario extends Spu_Entity_Abstract
         return (isset($this->_data));
     }
     
-    public function getData() {
+    public function getData()
+    {
         return $this->_data;
     }
     

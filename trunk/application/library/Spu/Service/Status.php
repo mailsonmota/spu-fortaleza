@@ -8,7 +8,7 @@
  */
 class Spu_Service_Status extends Spu_Service_Abstract
 {
-	/**
+    /**
 	 * URL Base dos serviços (a ser acrescentada à url dos serviços do Alfresco)
 	 * @var string
 	 */
@@ -21,8 +21,8 @@ class Spu_Service_Status extends Spu_Service_Abstract
      */
     public function listar()
     {
-    	$url = $this->getBaseUrl() . "/" . $this->_baseUrl . "/status/listar";
-    	$result = $this->_doAuthenticatedGetRequest($url);
+        $url = $this->getBaseUrl() . "/" . $this->_baseUrl . "/status/listar";
+        $result = $this->_doAuthenticatedGetRequest($url);
         
         return $this->_loadManyFromHash($result['Status'][0]);
     }
