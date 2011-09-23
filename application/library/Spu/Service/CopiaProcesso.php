@@ -8,7 +8,7 @@
  */
 class Spu_Service_CopiaProcesso extends Spu_Service_Abstract
 {
-	/**
+    /**
 	 * URL Base dos serviços (a ser acrescentada à url dos serviços do Alfresco)
 	 * @var string
 	 */
@@ -69,7 +69,7 @@ class Spu_Service_CopiaProcesso extends Spu_Service_Abstract
      */
     protected function _loadProcessoFromHash($hash)
     {
-    	$hashProcesso = array_pop($hash);
+        $hashProcesso = array_pop($hash);
         $hashDadosProcesso = array_pop($hashProcesso);
         $processoService = new Spu_Service_Processo();
         $processo = $processoService->loadFromHash($hashDadosProcesso);

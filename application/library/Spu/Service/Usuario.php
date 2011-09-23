@@ -8,7 +8,7 @@
  */
 class Spu_Service_Usuario extends Spu_Service_Abstract
 {
-	/**
+    /**
 	 * Retorna o usuário através do seu username
 	 * 
 	 * @param string $username

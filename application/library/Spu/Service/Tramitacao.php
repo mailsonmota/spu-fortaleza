@@ -16,7 +16,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
      * @param string filter
      * @return Spu_Entity_Processo[]
      */
-	public function getCaixaEntrada($offset, $pageSize, $filter)
+    public function getCaixaEntrada($offset, $pageSize, $filter)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/entrada/$offset/$pageSize/$filter";
         
@@ -61,7 +61,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
      * @param string filter
      * @return Spu_Entity_Processo[]
      */
-	public function getCaixaEnviados($offset, $pageSize, $filter)
+    public function getCaixaEnviados($offset, $pageSize, $filter)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/enviados/$offset/$pageSize/$filter";
         
@@ -104,7 +104,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
      * @param array $postData parametros podem ser conferidos no webscript
      * @return array
      */
-	public function tramitar($postData)
+    public function tramitar($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/tramitar";
         $result = $this->_doAuthenticatedPostRequest($url, $postData);
@@ -174,7 +174,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
      * @param array $postData parametros podem ser conferidos no webscript
      * @return array
      */
-	public function cancelarEnvios($postData)
+    public function cancelarEnvios($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/cancelarEnvios";
         $result = $this->_doAuthenticatedPostRequest($url, $postData);
@@ -188,7 +188,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
      * @param array $postData parametros podem ser conferidos no webscript
      * @return array
      */
-	public function arquivarVarios($postData)
+    public function arquivarVarios($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/arquivar";
         $result = $this->_doAuthenticatedPostRequest($url, $postData);

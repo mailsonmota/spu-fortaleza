@@ -10,8 +10,8 @@ abstract class Spu_Service_Abstract extends Alfresco_Rest_Abstract
 {
     public function __construct($ticket = null)
     {
-    	$this->setBaseUrl(self::getAlfrescoUrl());
-    	if (isset($ticket)) {
+        $this->setBaseUrl(self::getAlfrescoUrl());
+        if (isset($ticket)) {
             $this->setTicket($ticket);
         }
     }
@@ -23,8 +23,8 @@ abstract class Spu_Service_Abstract extends Alfresco_Rest_Abstract
      */
     public static function getAlfrescoUrl()
     {
-    	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
-    	return $config->get('alfresco')->get('url') . '/service';
+        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+        return $config->get('alfresco')->get('url') . '/service';
     }
     
     /**
