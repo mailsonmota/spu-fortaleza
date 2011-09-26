@@ -85,46 +85,50 @@ class Zend_View_Helper_ProtocoloSelectMultiple extends Zend_View_Helper_Protocol
                                 //Texto a ser exibido na lista (caso seja filho, exibir o nome do pai antes)
                                 text = (val != rootSelectValue) ? rootSelectText + '/' + text : rootSelectText
                                 
-                                //Verifica se já nao foi adicionado
-                                if (val == '*' && $('#{$this->_getListId()} li:contains(\'' + text + '\')').size()) {
-                                    return false;
-                                } else if ($('#{$this->_getId()} option[value=\'' + val + '\']').size()) {
-                                    return false;
-                                }
-                                
-                                //Conteúdo da LI
+                                //HTML para armazenar o conteúdo da LI
                                 var html = '<li>' + text + ' {$this->_getRemoveLink()} ';
+                                
                                 if (val == '*') {
+                                    //Verifica se já foi adicionado
+                                    if ($('#{$this->_getListId()} li:contains(\'' + text + '\')').size()) {
+                                        return false;
+                                    }
+                                    
+                                    //Adiciona um hidden à li com todas as opcoes
                                     $('#{$childrenSelectName} option[value!=\'*\']').each(function() {
-                                        html += '<input type=\"hidden\" value=\"' + $(this).val() + '\" />';
+                                        //Verifica se o item ja foi adicionado
+                                        if (!$('#{$this->_getId()} option[value=\'' + $(this).val() + '\']').size()) {
+                                            //Cria um hidden para indicar na hora da remoção
+                                            html += '<input type=\"hidden\" value=\"' + $(this).val() + '\" />';
+                                            
+                                            //Adiciona ao select multiplo
+                                            $('#{$this->_getId()}').append(
+                                                '<option selected=\"selected\" value=\"' + $(this).val() + '\">' + 
+                                                $(this).val() + '</option>'
+                                            );
+                                        }
                                     });
                                 } else {
+                                    //Verifica se já nao foi adicionado
+                                    if ($('#{$this->_getId()} option[value=\'' + val + '\']').size()) {
+                                        return false;
+                                    }
+                                    
+                                    //Cria um hidden para indicar na hora da remoção
                                     html += '<input type=\"hidden\" value=\"' + val + '\" />';
+                                        
+                                    //Adiciona ao select multiplo
+                                    $('#{$this->_getId()}').append(
+                                        '<option selected=\"selected\" value=\"' + val + '\">' + val + '</option>'
+                                    );
                                 }
+                                
                                 html += '</li>';
                                 
                                 //Insere na lista a opcao escolhida
                                 $('#{$this->_getListId()}').append(html);
                                  
-                                 //Adiciona a option no select multiplo hidden
-                                 if (val == '*') {
-                                     $('#{$childrenSelectName} option[value!=\'*\']').each(function() {
-                                         if (!$('#{$this->_getId()} option[value=\'' + $(this).val() + '\']').size()) {
-                                             $('#{$this->_getId()}').append(
-                                                 '<option selected=\"selected\" value=\"' + $(this).val() + '\">' + 
-                                                 $(this).val() + '</option>'
-                                             );
-                                         }
-                                     });
-                                 } else {
-                                     if (!$('#{$this->_getId()} option[value=\'' + val + '\']').size()) {
-                                         $('#{$this->_getId()}').append(
-                                            '<option selected=\"selected\" value=\"' + val + '\">' + val + '</option>'
-                                         );
-                                     }
-                                 }
-                                 
-                                 return false;
+                                return false;
                             });
                             
                             //Define o comportamento do link Remover
