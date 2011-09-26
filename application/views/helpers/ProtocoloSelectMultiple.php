@@ -2,7 +2,12 @@
 require_once 'ProtocoloSelect.php';
 class Zend_View_Helper_ProtocoloSelectMultiple extends Zend_View_Helper_ProtocoloSelect
 {
-    public function protocoloSelectMultiple($label, $name, $protocolos, $origemId, $tipoProcessoId, $options = array())
+    public function protocoloSelectMultiple($label, 
+                                            $name, 
+                                            $protocolos, 
+                                            $origemId = null, 
+                                            $tipoProcessoId = null, 
+                                            $options = array())
     {
         return parent::protocoloSelect($label, $name, $protocolos, $origemId, $tipoProcessoId, $options);
     }
@@ -57,22 +62,18 @@ class Zend_View_Helper_ProtocoloSelectMultiple extends Zend_View_Helper_Protocol
                             
                             //Adiciona a opcao selecionar todos
                             $('#{$childrenSelectName}').append(
-                                '<option value=\"' + $(select).val() + '_*\">Todos</option>'
+                                '<option value=\"*\">Todos</option>'
                             );
                             
                             //Adiciona os protocolos filhos ao select filho
-                            $(data).each(function(i, value) {
-                                $('#{$childrenSelectName}').append(
-                                    '<option value=\"' + value.id + '\">' + value.name + '</option>'
-                                );
-                            });
+                            {$this->_getOptionsChildrenSelect()}
                             
                             //Insere o link Adicionar
                             $('#{$childrenSelectName}').after(' {$this->_getAddAnotherLink()}');
                             
                             //Define o comportamento do link Adicionar
                             $('.{$this->_getAddAnotherLinkClass()}').click(function() {
-                                    
+                                        
                                 //Valor selecionado do select filho
                                 var val = $('#{$childrenSelectName}').val();
                                 
@@ -88,29 +89,62 @@ class Zend_View_Helper_ProtocoloSelectMultiple extends Zend_View_Helper_Protocol
                                 //Texto a ser exibido na lista (caso seja filho, exibir o nome do pai antes)
                                 text = (val != rootSelectValue) ? rootSelectText + '/' + text : rootSelectText
                                 
+                                //Verifica se já nao foi adicionado
+                                if (val == '*') {
+                                    if ($('#{$this->_getListId()} li:contains(\'' + text + '\')').size() > 0) {
+                                        return false;
+                                    }
+                                } else {
+                                    if ($('#{$this->_getId()} option[value=\'' + val + '\']').size() > 0) {
+                                        return false;
+                                    }
+                                }
+                                
+                                //Conteúdo da LI
+                                var html = '<li>' + text + ' {$this->_getRemoveLink()} ';
+                                if (val == '*') {
+                                    $('#{$childrenSelectName} option[value!=\'*\']').each(function() {
+                                        html += '<input type=\"hidden\" value=\"' + $(this).val() + '\" />';
+                                    });
+                                } else {
+                                    html += '<input type=\"hidden\" value=\"' + val + '\" />';
+                                }
+                                html += '</li>';
+                                
                                 //Insere na lista a opcao escolhida
-                                $('#{$this->_getListId()}').append(
-                                    '<li>' + text + ' {$this->_getRemoveLink()} ' + 
-                                    '<input type=\"hidden\" value=\"' + val + '\" /></li>'
-                                 );
+                                $('#{$this->_getListId()}').append(html);
                                  
                                  //Adiciona a option no select multiplo hidden
-                                 $('#{$this->_getId()}').append(
-                                    '<option selected=\"selected\" value=\"' + val + '\">' + val + '</option>'
-                                 );
+                                 if (val == '*') {
+                                     $('#{$childrenSelectName} option[value!=\'*\']').each(function() {
+                                         $('#{$this->_getId()}').append(
+                                             '<option selected=\"selected\" value=\"' + $(this).val() + '\">' + val + '</option>'
+                                         );
+                                     });
+                                 } else {
+                                     $('#{$this->_getId()}').append(
+                                        '<option selected=\"selected\" value=\"' + val + '\">' + val + '</option>'
+                                     );
+                                 }
+                                 
+                                 return false;
                             });
                             
                             //Define o comportamento do link Remover
                             $('.{$this->_getRemoveLinkClass()}').live('click', function() {
                                     
                                 //Value do item a remover
-                                val = $(this).parent().find('input').val();
+                                $(this).parent().find('input').each(function () {
+                                    val = $(this).val();
                                 
-                                //Remove do select multiplo
-                                $('#{$this->_getId()} option[value=\'' + val + '\']').remove();
+                                    //Remove do select multiplo
+                                    $('#{$this->_getId()} option[value=\'' + val + '\']').remove();
+                                })
                                 
                                 //Remove da lista
                                 $(this).parent().remove();
+                                
+                                return false;
                             });
                         }, 
                         error: function(data) {
