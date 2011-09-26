@@ -117,14 +117,18 @@ class Zend_View_Helper_ProtocoloSelectMultiple extends Zend_View_Helper_Protocol
                                  //Adiciona a option no select multiplo hidden
                                  if (val == '*') {
                                      $('#{$childrenSelectName} option[value!=\'*\']').each(function() {
-                                         $('#{$this->_getId()}').append(
-                                             '<option selected=\"selected\" value=\"' + $(this).val() + '\">' + val + '</option>'
-                                         );
+                                         if ($('#{$this->_getId()} option[value=\'' + $(this).val() + '\']').size() == 0) {
+                                             $('#{$this->_getId()}').append(
+                                                 '<option selected=\"selected\" value=\"' + $(this).val() + '\">' + val + '</option>'
+                                             );
+                                         }
                                      });
                                  } else {
-                                     $('#{$this->_getId()}').append(
-                                        '<option selected=\"selected\" value=\"' + val + '\">' + val + '</option>'
-                                     );
+                                     if ($('#{$this->_getId()} option[value=\'' + val + '\']').size() == 0) {
+                                         $('#{$this->_getId()}').append(
+                                            '<option selected=\"selected\" value=\"' + val + '\">' + val + '</option>'
+                                         );
+                                     }
                                  }
                                  
                                  return false;
