@@ -10,6 +10,6 @@ class IndexController extends BaseController
         
         //FIXME: Debug Select de Protocolos
         $service = new Spu_Service_Protocolo($this->getTicket());
-        $this->view->protocolos = $service->getProtocolosRaiz(1, 1);
+        $this->view->protocolos = $service->getProtocolosRaiz();
     }
 }

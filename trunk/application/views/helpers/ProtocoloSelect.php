@@ -9,11 +9,16 @@ class Zend_View_Helper_ProtocoloSelect extends Zend_View_Helper_Abstract
     protected $_options = array();
     protected $_html = '';
     
-    public function protocoloSelect($label, $name, $protocolosRaiz, $origemId, $tipoProcessoId, $options = array())
+    public function protocoloSelect($label, 
+                                    $name, 
+                                    $protocolos, 
+                                    $origemId = null, 
+                                    $tipoProcessoId = null, 
+                                    $options = array())
     {
         $this->_label = $label;
         $this->_name = $name;
-        $this->_protocolosRaiz = $protocolosRaiz;
+        $this->_protocolosRaiz = $protocolos;
         $this->_origemId = $origemId;
         $this->_tipoProcessoId = $tipoProcessoId;
         $this->_options = $options;
@@ -86,15 +91,23 @@ class Zend_View_Helper_ProtocoloSelect extends Zend_View_Helper_Abstract
                         dataType: 'json',
                         url: '{$this->_getBaseServiceListarDestinosFilhosUrl()}/parentId/' + $(select).val(),
                         success: function(data) {
+                                
+                            //Define, como padrão, o valor selecionado para o valor do select pai
                             $('#{$this->_getId()}').val($(select).val());
+                            
+                            //Remove o select filho
                             $('#{$childrenSelectName}').remove();
+                            
+                            //Insere o select filho
                             $(select).after(' {$this->_getSelectFilhos()}');
+                            
+                            //Insere a opcao vazia no select filho (escolher o proprio pai)
                             $('#{$childrenSelectName}').append('<option value=\"' + $(select).val() + '\"></option>');
-                            $(data).each(function(i, value) {
-                                $('#{$childrenSelectName}').append(
-                                    '<option value=\"' + value.id + '\">' + value.name + '</option>'
-                                );
-                            });
+                            
+                            //Adiciona as options para o select filho
+                            {$this->_getOptionsChildrenSelect()}
+                            
+                            //Comportamento ao alterar o valor selecionado do select filho
                             $('#{$childrenSelectName}').change(function() {
                                 $('#{$this->_getId()}').val($(this).val());
                             });
@@ -129,5 +142,15 @@ class Zend_View_Helper_ProtocoloSelect extends Zend_View_Helper_Abstract
     protected function _getChildrenSelectName()
     {
         return $this->_name . '_children';
+    }
+    
+    protected function _getOptionsChildrenSelect()
+    {
+        return "
+            $(data).each(function(i, value) {
+                $('#{$this->_getChildrenSelectName()}').append(
+                    '<option value=\"' + value.id + '\">' + value.name + '</option>'
+                );
+            });";
     }
 }

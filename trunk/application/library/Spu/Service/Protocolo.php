@@ -151,9 +151,46 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
      *
      * @return Spu_Entity_Protocolo[]
      */
-    public function getProtocolosRaiz($protocoloOrigemId, $tipoProcessoId)
+    public function getProtocolosRaiz($protocoloOrigemId = null, $tipoProcessoId = null)
     {
-        $url = "{$this->getBaseUrl()}/{$this->_protocoloBaseUrl}/listar-raizes/$protocoloOrigemId/$tipoProcessoId";
+        $url = "{$this->getBaseUrl()}/{$this->_protocoloBaseUrl}/listar-raizes";
+        $url .= $this->_getParametrosAdicionarListagemProtocolos($protocoloOrigemId, $tipoProcessoId);
+        
+        $result = $this->_doAuthenticatedGetRequest($url);
+
+        return $this->_loadManyFromHash($result['Protocolos']);
+    }
+    
+    protected function _getParametrosAdicionarListagemProtocolos($protocoloOrigemId = null, $tipoProcessoId = null)
+    {
+        $url = '';
+        if ($protocoloOrigemId && $tipoProcessoId) {
+            $url .= "?";
+            if ($protocoloOrigemId) {
+                $url .= "origem-id=$protocoloOrigemId";
+                if ($tipoProcessoId) {
+                    $url .= "&";
+                }
+            }
+            
+            if ($tipoProcessoId) {
+                $url .= "tipo-processo-id=$tipoProcessoId";
+            }
+        }
+        
+        return $url;
+    }
+    
+    /**
+     * Retorna todos os protocolos do usuário logado
+     *
+     * @return Spu_Entity_Protocolo[]
+     */
+    public function getProtocolosFilhos($parentId, $protocoloOrigemId = null, $tipoProcessoId = null)
+    {
+        $url = "{$this->getBaseUrl()}/{$this->_protocoloBaseUrl}/listar-filhos/$parentId";
+        $url .= $this->_getParametrosAdicionarListagemProtocolos($protocoloOrigemId, $tipoProcessoId);
+        
         $result = $this->_doAuthenticatedGetRequest($url);
 
         return $this->_loadManyFromHash($result['Protocolos']);
