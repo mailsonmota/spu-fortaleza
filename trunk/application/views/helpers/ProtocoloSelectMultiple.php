@@ -56,14 +56,10 @@ class Zend_View_Helper_ProtocoloSelectMultiple extends Zend_View_Helper_Protocol
                             $(select).after(' {$this->_getSelectFilhos()}');
                             
                             //Adiciona a opção vazia (escolher o proprio pai)
-                            $('#{$childrenSelectName}').append(
-                                '<option value=\"' + $(select).val() + '\"></option>'
-                            );
+                            $('#{$childrenSelectName}').append('<option value=\"' + $(select).val() + '\"></option>');
                             
                             //Adiciona a opcao selecionar todos
-                            $('#{$childrenSelectName}').append(
-                                '<option value=\"*\">Todos</option>'
-                            );
+                            $('#{$childrenSelectName}').append('<option value=\"*\">Todos</option>');
                             
                             //Adiciona os protocolos filhos ao select filho
                             {$this->_getOptionsChildrenSelect()}
@@ -90,14 +86,10 @@ class Zend_View_Helper_ProtocoloSelectMultiple extends Zend_View_Helper_Protocol
                                 text = (val != rootSelectValue) ? rootSelectText + '/' + text : rootSelectText
                                 
                                 //Verifica se já nao foi adicionado
-                                if (val == '*') {
-                                    if ($('#{$this->_getListId()} li:contains(\'' + text + '\')').size() > 0) {
-                                        return false;
-                                    }
-                                } else {
-                                    if ($('#{$this->_getId()} option[value=\'' + val + '\']').size() > 0) {
-                                        return false;
-                                    }
+                                if (val == '*' && $('#{$this->_getListId()} li:contains(\'' + text + '\')').size()) {
+                                    return false;
+                                } else if ($('#{$this->_getId()} option[value=\'' + val + '\']').size()) {
+                                    return false;
                                 }
                                 
                                 //Conteúdo da LI
@@ -117,14 +109,15 @@ class Zend_View_Helper_ProtocoloSelectMultiple extends Zend_View_Helper_Protocol
                                  //Adiciona a option no select multiplo hidden
                                  if (val == '*') {
                                      $('#{$childrenSelectName} option[value!=\'*\']').each(function() {
-                                         if ($('#{$this->_getId()} option[value=\'' + $(this).val() + '\']').size() == 0) {
+                                         if (!$('#{$this->_getId()} option[value=\'' + $(this).val() + '\']').size()) {
                                              $('#{$this->_getId()}').append(
-                                                 '<option selected=\"selected\" value=\"' + $(this).val() + '\">' + val + '</option>'
+                                                 '<option selected=\"selected\" value=\"' + $(this).val() + '\">' + 
+                                                 $(this).val() + '</option>'
                                              );
                                          }
                                      });
                                  } else {
-                                     if ($('#{$this->_getId()} option[value=\'' + val + '\']').size() == 0) {
+                                     if (!$('#{$this->_getId()} option[value=\'' + val + '\']').size()) {
                                          $('#{$this->_getId()}').append(
                                             '<option selected=\"selected\" value=\"' + val + '\">' + val + '</option>'
                                          );
