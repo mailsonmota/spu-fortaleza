@@ -69,7 +69,6 @@ class Zend_View_Helper_ProtocoloSelectMultiple extends Zend_View_Helper_Protocol
                             
                             //Define o comportamento do link Adicionar
                             $('.{$this->_getAddAnotherLinkClass()}').click(function() {
-                                        
                                 //Valor selecionado do select filho
                                 var val = $('#{$childrenSelectName}').val();
                                 
@@ -133,7 +132,6 @@ class Zend_View_Helper_ProtocoloSelectMultiple extends Zend_View_Helper_Protocol
                             
                             //Define o comportamento do link Remover
                             $('.{$this->_getRemoveLinkClass()}').live('click', function() {
-                                    
                                 //Value do item a remover
                                 $(this).parent().find('input').each(function () {
                                     val = $(this).val();
