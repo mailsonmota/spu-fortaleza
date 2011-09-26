@@ -26,18 +26,13 @@ class Zend_View_Helper_ProtocoloSelect extends Zend_View_Helper_Abstract
     
     protected function _prepareHtml()
     {
-        $label = $this->_label;
         $labelClass = $this->_getLabelClass();
-        $name = $this->_name;
         $id = $this->_getId();
-        $listId = $this->_getListId();
         $rootSelectName = $this->_getRootSelectName();
         
-        $html  = "";
-        $html .= "<dt><label for=\"$id\" class=\"$labelClass\">$label:</label></dt>";
+        $html  = "<dt><label for=\"$id\" class=\"$labelClass\">{$this->_label}:</label></dt>";
         $html .= "<dd>
-                      <ul id=\"$listId\"></ul>
-                      <input type=\"hidden\" name=\"$name\" id=\"$id\" class=\"$labelClass\" />
+                      <input type=\"hidden\" name=\"{$this->_name}\" id=\"$id\" class=\"$labelClass\" />
                       <select name=\"{$rootSelectName}\" id=\"{$rootSelectName}\">{$this->_getRootOptions()}</select>
                   </dd>";
         
@@ -52,11 +47,6 @@ class Zend_View_Helper_ProtocoloSelect extends Zend_View_Helper_Abstract
         }
         
         return $id;
-    }
-    
-    protected function _getListId()
-    {
-        return $this->_name . '_list';
     }
     
     protected function _getLabelClass()
@@ -78,7 +68,7 @@ class Zend_View_Helper_ProtocoloSelect extends Zend_View_Helper_Abstract
     {
         $html = '<option value="0"></option>';
         foreach ($this->_protocolosRaiz as $protocolo) {
-            $html .= "<option value='{$protocolo->getId()}'>{$protocolo->path}</option>";
+            $html .= "<option value='{$protocolo->getId()}'>{$protocolo->nome}</option>";
         }
         
         return $html;
@@ -86,40 +76,39 @@ class Zend_View_Helper_ProtocoloSelect extends Zend_View_Helper_Abstract
     
     protected function _prepareJs()
     {
-        $rootSelectName = $this->_getRootSelectName();
-        $baseServiceUrl = $this->_getBaseServiceListarDestinosFilhosUrl();
         $childrenSelectName = $this->_getChildrenSelectName();
         
         $js = "
             $(document).ready(function() {
-                $('#{$rootSelectName}').change(function() {
+                $('#{$this->_getRootSelectName()}').change(function() {
                     var select = this
                     $.ajax({
                         dataType: 'json',
-                        url: '{$baseServiceUrl}/parentId/' + $(select).val(),
+                        url: '{$this->_getBaseServiceListarDestinosFilhosUrl()}/parentId/' + $(select).val(),
                         success: function(data) {
+                            $('#{$this->_getId()}').val($(select).val());
                             $('#{$childrenSelectName}').remove();
                             $(select).after(' {$this->_getSelectFilhos()}');
-                            $('#{$childrenSelectName}').append('<option value=\"0\"></option>');
-                            $('#{$childrenSelectName}').append('<option value=\"-1\">Todos os Subsetores</option>');
+                            $('#{$childrenSelectName}').append('<option value=\"' + $(select).val() + '\"></option>');
                             $(data).each(function(i, value) {
                                 $('#{$childrenSelectName}').append(
                                     '<option value=\"' + value.id + '\">' + value.name + '</option>'
                                 );
                             });
+                            $('#{$childrenSelectName}').change(function() {
+                                $('#{$this->_getId()}').val($(this).val());
+                            });
                         }, 
                         error: function(data) {
                             alert('erro');
-                            //$('#assunto option').remove();
                         }
                    });
                });
-            });
-        ";
+            });";
         
         $this->view->headScript()->appendScript($js, 'text/javascript');
     }
-
+    
     protected function _getBaseServiceListarDestinosFilhosUrl()
     {
         return $this->view->url(

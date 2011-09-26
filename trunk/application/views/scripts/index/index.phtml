@@ -13,6 +13,7 @@ echo $this->pagenav()->closeList();
     
     <?php
     //FIXME: Debug Select de Protocolos
-    echo $this->protocoloSelect('Label', 'name', $this->protocolos, 1, 2);
+    
+    echo $this->protocoloSelectMultiple('Label', 'name', $this->protocolos, 1, 2);
     ?>
 </div>
