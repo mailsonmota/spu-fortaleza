@@ -17,9 +17,13 @@ class AnaliseController extends BaseTramitacaoController
 	                $session->processos = $processosSelecionados;
 	                $this->_redirectComprovanteRecebimento();
 	            } elseif ($this->_isPostEncaminhamento()) {
-	                $session = new Zend_Session_Namespace('encaminhar');
-	                $session->processos = $processosSelecionados;
-	                $this->_redirectEncaminhar();
+	                if (count($processosSelecionados) == 1) {
+	                    $this->_redirectEncaminharProcesso($processosSelecionados[0]);
+	                } else {
+    	                $session = new Zend_Session_Namespace('encaminhar');
+    	                $session->processos = $processosSelecionados;
+    	                $this->_redirectEncaminhar();
+                    }
 	            } elseif ($this->_isPostArquivamento()) {
 	                $session = new Zend_Session_Namespace('arquivar');
 	                $session->processos = $processosSelecionados;
@@ -54,6 +58,11 @@ class AnaliseController extends BaseTramitacaoController
 		        $this->view->q
 	        )
         );
+    }
+    
+    protected function _redirectEncaminharProcesso($processoId)
+    {
+        $this->_helper->redirector('encaminhar', 'processo', null, array('id' => $processoId));
     }
     
     protected function _isPostComprovanteRecebimento()

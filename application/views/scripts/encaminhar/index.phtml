@@ -23,9 +23,19 @@ echo $this->pagenav()->closeList();
         
         echo $this->fieldList()->open();
         echo $this->fieldList()->text('Processos', $htmlProcessos);
-        echo $this->ajaxSelect('Destino', 'destinoId', $this->simpleUrl('listar-destinos', 'protocolos-ajax'), array('required' => true));
+        echo $this->protocoloSelect('Destino', 
+                                    'destinoId', 
+                                    $this->listaProtocolos, 
+                                    $this->origemId, 
+                                    null, 
+                                    array('required' => true));
         echo $this->fieldList()->textarea('Despacho', 'despacho', null, array('required' => true));
-        echo $this->ajaxSelectMultiple('Com Cópia', 'copias', $this->simpleUrl('listar-destinos', 'protocolos-ajax'), array('id' => 'copias'));
+        echo $this->protocoloSelectMultiple('Com Cópia', 
+                                            'copias', 
+                                            $this->listaProtocolos, 
+                                            $this->origemId, 
+                                            null, 
+                                            array('required' => true));
         echo $this->fieldList()->close();
         
         echo $this->buttonlist()->open();

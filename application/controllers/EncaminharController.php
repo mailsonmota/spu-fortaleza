@@ -26,12 +26,24 @@ class EncaminharController extends BaseTramitacaoController
             $processosSelecionados = $session->processos;
             $processos = $this->_getListaCarregadaProcessos($processosSelecionados);
             
+            $origemId = null;
+            foreach ($processos as $processo) {
+                if ($origemId && $processo->protocolo->id != $origemId) {
+                    throw new Exception('Por favor, selecione processos que estejam no mesmo protocolo.');
+                }
+                $origemId = $processo->protocolo->id;
+            }
+            
+            $service = new Spu_Service_Protocolo($this->getTicket());
+            $listaProtocolos = $service->getProtocolosRaiz();
         } catch (Exception $e) {
             $this->setErrorMessage($e->getMessage());
             $this->_redirectEmAnalise();
         }
         
         $this->view->processos = $processos;
+        $this->view->listaProtocolos = $listaProtocolos;
+        $this->view->origemId = $origemId;
     }
     
     protected function _getListaCarregadaProcessos($listaComIdsProcessos)
