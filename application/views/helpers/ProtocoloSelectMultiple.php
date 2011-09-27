@@ -44,7 +44,7 @@ class Zend_View_Helper_ProtocoloSelectMultiple extends Zend_View_Helper_Protocol
                     var select = this
                     $.ajax({
                         dataType: 'json',
-                        url: '{$this->_getBaseServiceListarDestinosFilhosUrl()}/parentId/' + $(select).val(),
+                        url: '{$this->_getBaseServiceListarDestinosFilhosUrl()}/parent-id/' + $(select).val(),
                         success: function(data) {
                             //Remove o select filho
                             $('#{$childrenSelectName}').remove();
