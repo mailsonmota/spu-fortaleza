@@ -30,14 +30,16 @@
                                             $this->tipoProcesso->id, 
                                             array('required' => true));
     }
+
     echo $this->fieldList()->select('Prioridade', 'prioridadeId', $this->listaPrioridades, null, array('required' => true));
     echo $this->fieldList()->textbox('Data Prazo', 'dataPrazo', null, array('class' => 'mascaraData'));
     
     if (!$this->tipoProcesso->tramitacao->isParalela()) {
-        echo $this->ajaxSelectMultiple('Com Cópia', 
-                                       'copias', 
-                                       $this->simpleUrl('listar-destinos', 'protocolos-ajax'), 
-                                       array('id' => 'copias'));
+        echo $this->protocoloSelectMultiple('Com Cópia', 
+                                            'copias', 
+                                            $this->listaProtocolos, 
+                                            $this->protocoloOrigemId, 
+                                            $this->tipoProcesso->id);
     }
     echo $this->fieldList()->textarea('Corpo', 'corpo', null, array('required' => true, 'length' => 5000));
     echo $this->fieldList()->close();
