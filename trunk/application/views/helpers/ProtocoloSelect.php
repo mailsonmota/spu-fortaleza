@@ -89,7 +89,7 @@ class Zend_View_Helper_ProtocoloSelect extends Zend_View_Helper_Abstract
                     var select = this
                     $.ajax({
                         dataType: 'json',
-                        url: '{$this->_getBaseServiceListarDestinosFilhosUrl()}/parentId/' + $(select).val(),
+                        url: '{$this->_getBaseServiceListarDestinosFilhosUrl()}/parent-id/' + $(select).val(),
                         success: function(data) {
                                 
                             //Define, como padrão, o valor selecionado para o valor do select pai
