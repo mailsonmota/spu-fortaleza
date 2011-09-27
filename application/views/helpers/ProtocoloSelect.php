@@ -91,7 +91,6 @@ class Zend_View_Helper_ProtocoloSelect extends Zend_View_Helper_Abstract
                         dataType: 'json',
                         url: '{$this->_getBaseServiceListarDestinosFilhosUrl()}/parent-id/' + $(select).val(),
                         success: function(data) {
-                                
                             //Define, como padrão, o valor selecionado para o valor do select pai
                             $('#{$this->_getId()}').val($(select).val());
                             
@@ -102,7 +101,7 @@ class Zend_View_Helper_ProtocoloSelect extends Zend_View_Helper_Abstract
                             $(select).after(' {$this->_getSelectFilhos()}');
                             
                             //Insere a opcao vazia no select filho (escolher o proprio pai)
-                            $('#{$childrenSelectName}').append('<option value=\"' + $(select).val() + '\"></option>');
+                            //$('#{$childrenSelectName}').append('<option value=\"' + $(select).val() + '\"></option>');
                             
                             //Adiciona as options para o select filho
                             {$this->_getOptionsChildrenSelect()}
@@ -148,8 +147,9 @@ class Zend_View_Helper_ProtocoloSelect extends Zend_View_Helper_Abstract
     {
         return "
             $(data).each(function(i, value) {
+                var name = (value.id != $('#{$this->_getRootSelectName()} option:selected').val()) ? value.name : '';
                 $('#{$this->_getChildrenSelectName()}').append(
-                    '<option value=\"' + value.id + '\">' + value.name + '</option>'
+                    '<option value=\"' + value.id + '\">' + name + '</option>'
                 );
             });";
     }

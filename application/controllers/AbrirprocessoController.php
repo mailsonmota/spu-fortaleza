@@ -41,6 +41,8 @@ class AbrirprocessoController extends BaseController
             $listaBairros = $this->_getListaBairros();
             $listaTiposManifestante = $this->_getListaTiposManifestante($tipoProcesso);
             $listaPrioridades = $this->_getListaPrioridades();
+            $service = new Spu_Service_Protocolo($this->getTicket());
+            $listaProtocolos = $service->getProtocolosRaiz();
         } catch (Exception $e) {
             $this->setErrorMessage($e->getMessage());
             $this->_redirectEscolhaTipoProcesso();
@@ -70,6 +72,7 @@ class AbrirprocessoController extends BaseController
         $this->view->listaTiposManifestante = $listaTiposManifestante;
         $this->view->listaPrioridades = $listaPrioridades;
         $this->view->protocoloOrigemId = $protocoloOrigemId;
+        $this->view->listaProtocolos = $listaProtocolos;
     }
 
     public function formularioenvolvidoAction()

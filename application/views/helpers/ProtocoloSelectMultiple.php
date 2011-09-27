@@ -20,7 +20,7 @@ class Zend_View_Helper_ProtocoloSelectMultiple extends Zend_View_Helper_Protocol
         
         $html  = "<dt><label for=\"$id\" class=\"$labelClass\">{$this->_label}:</label></dt>";
         $html .= "<dd>
-                      <select name=\"{$this->_name}\" id=\"$id\" class=\"$labelClass\" multiple=\"multiple\"></select>
+                      <select name=\"{$this->_name}[]\" id=\"$id\" class=\"$labelClass\" multiple=\"multiple\"></select>
                       <ul id=\"{$this->_getListId()}\"></ul>
                       <select name=\"{$rootSelectName}\" id=\"{$rootSelectName}\">{$this->_getRootOptions()}</select>
                   </dd>";
@@ -56,10 +56,12 @@ class Zend_View_Helper_ProtocoloSelectMultiple extends Zend_View_Helper_Protocol
                             $(select).after(' {$this->_getSelectFilhos()}');
                             
                             //Adiciona a opção vazia (escolher o proprio pai)
-                            $('#{$childrenSelectName}').append('<option value=\"' + $(select).val() + '\"></option>');
+                            //$('#{$childrenSelectName}').append('<option value=\"' + $(select).val() + '\"></option>');
                             
-                            //Adiciona a opcao selecionar todos
-                            $('#{$childrenSelectName}').append('<option value=\"*\">Todos</option>');
+                            //Adiciona a opcao selecionar todos, caso tenha mais de um resultado
+                            if ($(data).length > 1) {
+                                $('#{$childrenSelectName}').append('<option value=\"*\">Todos</option>');
+                            }
                             
                             //Adiciona os protocolos filhos ao select filho
                             {$this->_getOptionsChildrenSelect()}
