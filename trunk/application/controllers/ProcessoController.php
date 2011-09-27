@@ -32,8 +32,12 @@ class ProcessoController extends BaseController
                 
 			$listaPrioridades = $this->_getListaPrioridades();
 			
+            $service = new Spu_Service_Protocolo($this->getTicket());
+            $listaProtocolos = $service->getProtocolosRaiz();
+            
 			if ($this->getRequest()->isPost()) {
-				$processo->tramitar($this->getRequest()->getPost());
+			    $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
+				$tramitacaoService->tramitar($this->getRequest()->getPost());
 				$this->setSuccessMessage('Processo tramitado com sucesso.');
 				$this->_redirectDetalhesProcesso($idProcesso);
 			}
@@ -42,6 +46,7 @@ class ProcessoController extends BaseController
         }
         $this->view->processo = $processo;
         $this->view->listaPrioridades = $listaPrioridades;
+        $this->view->listaProtocolos = $listaProtocolos;
     }
     
     public function arquivoAction()

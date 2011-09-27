@@ -8,19 +8,26 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-	<?php 
-    if ($this->processo->id) {
-        echo $this->render('snippets/detalhesProcesso.phtml');
-    }
-    ?>
-    <form action="" method="post">
+	<form action="" method="post">
     	<input type="hidden" name="processoId" value="<?php echo $this->processo->id ?>"/>
         <?php
         echo $this->fieldList()->open();
+        echo $this->fieldList()->text('Processo', $this->processo->nomeDescritivo);
         echo $this->fieldList()->select('Prioridade', 'prioridadeId', $this->listaPrioridades, null, array('required' => true));
-    	echo $this->ajaxSelect('Destino', 'destinoId', $this->simpleUrl('listar-destinos', 'protocolos-ajax'), array('required' => true));
-        echo $this->fieldList()->textbox('Prazo', 'prazo', null, array('required' => true, 'class' => 'mascaraData'));
+    	echo $this->protocoloSelect('Destino', 
+                                    'destinoId', 
+                                    $this->listaProtocolos, 
+                                    $this->processo->protocolo->id, 
+                                    null, 
+                                    array('required' => true));
+    	echo $this->fieldList()->textbox('Prazo', 'prazo', null, array('required' => true, 'class' => 'mascaraData'));
         echo $this->fieldList()->textarea('Despacho', 'despacho', null, array('required' => true));
+        echo $this->protocoloSelectMultiple('Com Cópia', 
+                                            'copias', 
+                                            $this->listaProtocolos, 
+                                            $this->processo->protocolo->id, 
+                                            null, 
+                                            array('required' => true));
         echo $this->fieldList()->close();
         
         echo $this->buttonlist()->open();
