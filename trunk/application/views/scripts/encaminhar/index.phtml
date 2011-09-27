@@ -33,9 +33,7 @@ echo $this->pagenav()->closeList();
         echo $this->protocoloSelectMultiple('Com Cópia', 
                                             'copias', 
                                             $this->listaProtocolos, 
-                                            $this->origemId, 
-                                            null, 
-                                            array('required' => true));
+                                            $this->origemId);
         echo $this->fieldList()->close();
         
         echo $this->buttonlist()->open();

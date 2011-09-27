@@ -42,7 +42,7 @@ class AbrirprocessoController extends BaseController
             $listaTiposManifestante = $this->_getListaTiposManifestante($tipoProcesso);
             $listaPrioridades = $this->_getListaPrioridades();
             $service = new Spu_Service_Protocolo($this->getTicket());
-            $listaProtocolos = $service->getProtocolosRaiz();
+            $listaProtocolos = $service->getProtocolosRaiz($protocoloOrigemId, $tipoProcesso->id);
         } catch (Exception $e) {
             $this->setErrorMessage($e->getMessage());
             $this->_redirectEscolhaTipoProcesso();

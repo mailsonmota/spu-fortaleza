@@ -167,7 +167,7 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
         if ($protocoloOrigemId && $tipoProcessoId) {
             $url .= "?";
             if ($protocoloOrigemId) {
-                $url .= "origem-id=$protocoloOrigemId";
+                $url .= "protocolo-origem-id=$protocoloOrigemId";
                 if ($tipoProcessoId) {
                     $url .= "&";
                 }
