@@ -16,18 +16,19 @@
     echo $this->fieldList()->open();
     
     if (!$this->tipoProcesso->tramitacao->isParalela()) {
-        echo $this->ajaxSelect('Destino', 
-                               'destino', 
-                               $this->simpleUrl('listar-destinos', 
-                                                'protocolos-ajax', 
-                               				     array('protocoloOrigem' => $this->protocoloOrigemId, 
-                               				          'tipoprocesso' => $this->tipoProcesso->id)),
-							   array('required' => true));
+        echo $this->protocoloSelect('Destino', 
+                                    'destino', 
+                                    $this->listaProtocolos, 
+                                    $this->protocoloOrigemId, 
+                                    $this->tipoProcesso->id, 
+                                    array('required' => true));
     } else {
-    	echo $this->ajaxSelectMultiple('Destinos', 
-    	                               'destino', 
-    	                               $this->simpleUrl('listar-destinos', 'protocolos-ajax'), 
-    	                               array('required' => true));
+    	echo $this->protocoloSelectMultiple('Destinos', 
+                                            'destino', 
+                                            $this->listaProtocolos, 
+                                            $this->protocoloOrigemId, 
+                                            $this->tipoProcesso->id, 
+                                            array('required' => true));
     }
     echo $this->fieldList()->select('Prioridade', 'prioridadeId', $this->listaPrioridades, null, array('required' => true));
     echo $this->fieldList()->textbox('Data Prazo', 'dataPrazo', null, array('class' => 'mascaraData'));
