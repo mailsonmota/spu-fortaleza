@@ -1,4 +1,13 @@
 <?php
+/**
+ * Helper para selecionar um protocolo (usualmente um destino de um processo)
+ * 
+ * Renderiza um Select com os protocolos raízes, e exibe um outro select com os protocolos filhos do escolhido. 
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Zend_View_Helper_Abstract
+ */
 class Zend_View_Helper_ProtocoloSelect extends Zend_View_Helper_Abstract
 {
     protected $_label;
