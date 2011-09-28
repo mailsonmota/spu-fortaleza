@@ -91,9 +91,6 @@ class Zend_View_Helper_ProtocoloSelect extends Zend_View_Helper_Abstract
                         dataType: 'json',
                         url: '{$this->_getBaseServiceListarDestinosFilhosUrl()}/parent-id/' + $(select).val(),
                         success: function(data) {
-                            //Define, como padrão, o valor selecionado para o valor do select pai
-                            $('#{$this->_getId()}').val($(select).val());
-                            
                             //Remove o select filho
                             $('#{$childrenSelectName}').remove();
                             
@@ -110,6 +107,9 @@ class Zend_View_Helper_ProtocoloSelect extends Zend_View_Helper_Abstract
                             $('#{$childrenSelectName}').change(function() {
                                 $('#{$this->_getId()}').val($(this).val());
                             });
+                            
+                            //Define, como padrão, o valor selecionado para o valor do select pai
+                            $('#{$this->_getId()}').val($('#{$childrenSelectName} option:first').val());
                         }, 
                         error: function(data) {
                             $('#{$this->_getId()}').val('');

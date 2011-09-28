@@ -28,7 +28,7 @@
 		<dt>Local Atual:</dt>
         <dd>
           <?php if (!$this->processo->protocolo->path): ?>
-          <b><?php echo $this->origemNome ?></b>
+          <b><?php echo $this->processo->proprietario->path ?></b>
           <?php else: ?>
           <b><?php echo $this->processo->protocolo->path ?></b>
           <?php endif; ?>
