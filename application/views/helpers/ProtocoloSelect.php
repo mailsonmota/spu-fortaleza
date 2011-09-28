@@ -112,7 +112,8 @@ class Zend_View_Helper_ProtocoloSelect extends Zend_View_Helper_Abstract
                             });
                         }, 
                         error: function(data) {
-                            alert('erro');
+                            $('#{$this->_getId()}').val('');
+                            $('#{$childrenSelectName}').remove();
                         }
                    });
                });
