@@ -17,13 +17,15 @@
 	</thead>
 	<tfoot>
 		<tr>
-			<td colspan="8"><?php echo $this->partial('pagination.phtml', array('paginator' => $this->paginator)) ?></td>
+			<td colspan="8">
+			    <?php echo $this->partial('pagination.phtml', array('paginator' => $this->paginator)) ?>
+			</td>
 		</tr>
 	</tfoot>
 	<tbody>
 		<?php $i = 0 ?>
 		<?php if (count($this->paginator) > 0): foreach ($this->paginator as $p): ?>
-		<tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?>">
+		<tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?> <?php if ($this->indicarPrioritarios): echo $this->classePrioridade($p); endif ?>">
 			<?php if (isset($this->exibirCheckbox) && $this->exibirCheckbox == true): ?>
 			<td><input type="checkbox" name="processos[]" value="<?php echo $p->id ?>" /></td>
 			<?php endif ?>
