@@ -11,11 +11,11 @@ class EncaminharController extends BaseTramitacaoController
                 $this->setSuccessMessage('Processos tramitados com sucesso.');
                 $this->_redirectEmAnalise();
             } catch (Exception $e) {
-            	$errorMessage = $e->getMessage();
-            	if (strpos($errorMessage, 'Este processo ja existe no destino') > -1) {
-            		$errorMessage = 'Um dos processos selecionados já existe no destino.';
-            	}
-            	$this->setMessageForTheView($errorMessage, 'error');
+                $errorMessage = $e->getMessage();
+                if (strpos($errorMessage, 'Este processo ja existe no destino') > -1) {
+                    $errorMessage = 'Um dos processos selecionados já existe no destino.';
+                }
+                $this->setMessageForTheView($errorMessage, 'error');
             }
         }
         
