@@ -56,16 +56,13 @@ fieldset.search {background: #F5F4EF}
 .buttons li {float: left;margin-right: 0.5em}
 .buttons .description {padding-top: 0.70em}
 .buttons.grid {margin-bottom: 0}
-button, input[type=button], input[type=submit] {padding: 0.5em 1em;font-size: 1em}
+button, input[type=button], input[type=submit] {padding: 0.45em 0.75em; color: #333; font-size: 1em}
 
 /* Tabelas */
 table.grid {width: 100%;margin-top: 1%;border-collapse:collapse}
-/*.grid tr th {background: #777;border-color: #666;border-width: 1px 0;border-style: solid;color: white;font-weight: normal;text-shadow: 1px 1px #444}
-.grid .tableFilter th {background: #888;border-color: #777}
-.grid .tableFilter th * {margin: 0;border: 0}*/
+.grid tr th {background: #777;border-color: #666;border-width: 1px 0;border-style: solid;font-weight: normal;color: white;text-shadow: 1px 1px #444}
 .grid tr td {border-color: #E1E1E3; border-style: solid; border-width: 1px 0}
-/*.grid .odd {background: #F5F5F5}*/
-.grid tr th {text-transform: uppercase; font-size: 0.8em; border-bottom: 1px solid #BBB;}
+/*.grid tr th {text-transform: uppercase; font-size: 0.8em; border-bottom: 1px solid #BBB;}*/
 .grid .even {background: #F5F5F5}
 .grid .odd {background: none}
 .grid tbody a {margin-right: 12px}
@@ -161,7 +158,7 @@ ol.orderedList {list-style-type: decimal; margin-left: 3em; margin-bottom: 1.5em
     z-index: 0;
 }
 .tabs li.active {background: #F5F4EF !important;border-bottom-color: #F5F4FF}
-.tabs li.active a {text-decoration: none;color: black}
+.tabs li.active a {text-decoration: none;color: #333}
 .tabs .active a:hover {background: none}
 
 /* Widgets */
@@ -213,9 +210,6 @@ body.basic {background: url(../img/degrade.jpg) repeat-x 0% 0% white}
 #password {background-image: url(../img/icons/password.png)}
 body.basic #message {border-top: 0}
 
-/* Botão Pesquisar */
-.pesquisar {display: none}
-
 /* Ajuda */
 .item-ajuda h3 {border-bottom-width: 1px; border-color: #DDD; margin-bottom: 0.75em}
 .item-ajuda dt {float: none; font-weight: bold; width: auto; text-align: left}
@@ -252,7 +246,5 @@ ol.historico li {margin-bottom:1em}
 /* Formulários de Assunto de Tipo de Processo */
 #xsdformfield_model {display:none;}
 
-/* Processos */
-.prioridade-urgente td {
-    font-weight: bold;
-}
+/* Prioridades */
+.prioridade-urgente td {font-weight: bold}

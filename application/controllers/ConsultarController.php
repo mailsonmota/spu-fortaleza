@@ -11,12 +11,15 @@ class ConsultarController extends BaseController
     	try {
     		$tiposProcesso = $this->_getListaTiposProcesso();
     		$listaStatus = $this->_getListaStatus();
+            $service = new Spu_Service_Protocolo($this->getTicket());
+            $listaProtocolos = $service->getProtocolosRaiz();
     	} catch (Exception $e) {
     		$this->setMessageForTheView($e->getMessage());
     	}
     	
     	$this->view->tiposProcesso = $tiposProcesso;
     	$this->view->listaStatus = $listaStatus;
+        $this->view->listaProtocolos = $listaProtocolos;
     	$this->view->abaAtiva = 'dadosGerais';
     }
     
