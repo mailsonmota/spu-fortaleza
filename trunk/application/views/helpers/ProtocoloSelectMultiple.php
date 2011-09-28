@@ -149,7 +149,7 @@ class Zend_View_Helper_ProtocoloSelectMultiple extends Zend_View_Helper_Protocol
                             });
                         }, 
                         error: function(data) {
-                            alert('erro');
+                            $('#{$childrenSelectName}').remove();
                         }
                    });
                });
