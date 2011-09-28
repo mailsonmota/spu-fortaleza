@@ -41,7 +41,9 @@ class ProtocolosAjaxController extends BaseAuthenticatedController
     protected function _getProtocolosAutocomplete()
     {
         $service = new Spu_Service_Protocolo($this->getTicket());
-        return $service->getTodosProtocolosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearchTerm());
+        return $service->getTodosProtocolosPaginado($this->_getOffset(), 
+                                                    $this->_getPageSize(), 
+                                                    $this->_getSearchTerm());
     }
     
     public function listarDestinosFilhosAction()

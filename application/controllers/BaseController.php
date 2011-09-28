@@ -12,7 +12,7 @@ require_once 'BaseAuthenticatedController.php';
  */
 abstract class BaseController extends BaseAuthenticatedController
 {
-	/**
+    /**
 	 * Alias para retornar controller corrent
 	 * 
 	 * @return string
