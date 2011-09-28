@@ -1,5 +1,19 @@
 <?php
+
+/**
+ * @see Zend_View_Helper_ProtocoloSelect
+ */
 require_once 'ProtocoloSelect.php';
+
+/**
+ * Helper para selecionar vários protocolos (usualmente destinos de um processo)
+ * 
+ * Renderiza um Select com os protocolos raízes, e exibe um outro select com os protocolos filhos do escolhido. 
+ * O usuário pode escolher e adicionar esse protocolo clicando no link "Adicionar", exibido ao lado do segundo select.
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ */
 class Zend_View_Helper_ProtocoloSelectMultiple extends Zend_View_Helper_ProtocoloSelect
 {
     public function protocoloSelectMultiple($label, 
