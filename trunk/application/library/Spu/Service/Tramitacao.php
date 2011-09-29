@@ -35,9 +35,13 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
      * @param string filter
      * @return Spu_Entity_Processo[]
      */
-    public function getCaixaSaida($offset, $pageSize, $filter)
+    public function getCaixaSaida($offset, $pageSize, $filter, $assuntoId = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/saida/$offset/$pageSize/$filter";
+        
+        if ($assuntoId) {
+            $url .= "?assunto-id=$assuntoId";
+        }
         
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
@@ -69,9 +73,13 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
      * @param string filter
      * @return Spu_Entity_Processo[]
      */
-    public function getCaixaEnviados($offset, $pageSize, $filter)
+    public function getCaixaEnviados($offset, $pageSize, $filter, $assuntoId = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/enviados/$offset/$pageSize/$filter";
+        
+        if ($assuntoId) {
+            $url .= "?assunto-id=$assuntoId";
+        }
         
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
@@ -103,9 +111,13 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
      * @param string filter
      * @return Spu_Entity_Processo[]
      */
-    public function getCaixaArquivo($offset, $pageSize, $filter)
+    public function getCaixaArquivo($offset, $pageSize, $filter, $assuntoId = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/arquivo/$offset/$pageSize/$filter";
+        
+        if ($assuntoId) {
+            $url .= "?assunto-id=$assuntoId";
+        }
         
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }

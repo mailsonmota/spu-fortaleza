@@ -11,7 +11,7 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-	<?php echo $this->partial('snippets/formularioPesquisaRapidaProcesso.phtml', array('q' => $this->q)) ?>
+    <?php echo $this->render('snippets/formularioPesquisaRapidaProcesso.phtml') ?>
 	
     <form action="" method="post">
         <?php 

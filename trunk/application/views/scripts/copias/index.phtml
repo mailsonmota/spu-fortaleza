@@ -11,7 +11,20 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-	<?php echo $this->partial('snippets/formularioPesquisaRapidaProcesso.phtml', array('q' => $this->q)) ?>
+    <form action="<?php echo $this->url(array('action' => 'pesquisar')) ?>" method="post">
+        <fieldset class="search">
+            <legend>Pesquisa</legend>
+            <?php
+            echo $this->fieldList()->open();
+            echo $this->fieldList()->textbox('Número/Envolvido', 'q', $this->q);
+            echo $this->fieldList()->close();
+            
+            echo $this->buttonlist()->open();
+            echo $this->buttonlist()->button('Buscar');
+            echo $this->buttonlist()->close(true);
+            ?>
+        </fieldset>
+    </form>
 	
     <form action="" method="post">
         <?php 
