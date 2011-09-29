@@ -49,7 +49,7 @@ class ProtocolosAjaxController extends BaseAuthenticatedController
     public function listarDestinosFilhosAction()
     {
         $service = new Spu_Service_Protocolo($this->getTicket());
-        $protocolos = $service->getProtocolosFilhos($this->_getParam('parent-id'));
+        $protocolos = $service->getProtocolosFilhos($this->_getParam('parent-id'), $this->_getParam('origem'));
         
         $protocolosJson = array();
         foreach ($protocolos as $protocolo) {
