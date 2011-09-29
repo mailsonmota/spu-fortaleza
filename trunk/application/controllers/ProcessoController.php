@@ -13,8 +13,12 @@ class ProcessoController extends BaseController
             $this->setMessageForTheView('Não foi possível carregar o processo', 'error');
         }
 
-        if ($this->getRequest()->getParam('etiqueta', false) !== false) {
+        if (array_key_exists('etiqueta', $this->_getAllParams())) {
             $this->_redirectEtiqueta($idProcesso);
+        }
+
+        if (array_key_exists('oficio', $this->_getAllParams())) {
+            $this->_redirectOficio($idProcesso);
         }
 
         $this->view->processo = $processo;
@@ -97,6 +101,11 @@ class ProcessoController extends BaseController
         $this->_helper->redirector('etiqueta', $this->getController(), 'default', array('id' => $idProcesso));
     }
 
+    protected function _redirectOficio($idProcesso)
+    {
+        $this->_helper->redirector('oficio', $this->getController(), 'default', array('id' => $idProcesso));
+    }
+
     public function etiquetaAction()
     {
         $processo = new Spu_Entity_Processo();
@@ -111,5 +120,13 @@ class ProcessoController extends BaseController
         $this->_helper->layout()->setLayout('relatorio');
 
         $this->view->processo = $processo;
+    }
+
+    public function oficioAction()
+    {
+        $processoService = new Spu_Service_Processo($this->getTicket());
+        $processo = $processoService->getProcesso($this->_getIdProcessoUrl());
+
+        exit;
     }
 }

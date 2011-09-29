@@ -187,7 +187,8 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
         $arquivoService = new Spu_Service_Arquivo($this->getTicket());
         $formulario = new Spu_Entity_Formulario();
         try {
-            $formularioData = $arquivoService->getContentFromUrl(array('id' => $assuntoId));
+            $url = $arquivoService->getArquivoFormularioDownloadUrl($assuntoId);
+            $formularioData = $arquivoService->getContentFromUrl($url);
             $formulario->setData($formularioData);
         } catch (Exception $e) {
 
