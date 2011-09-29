@@ -65,9 +65,9 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
      * @param array $hash
      * @return string
      */
-    public function getArquivoDownloadUrl($hash)
+    public function getArquivoDownloadUrl($arquivoInfos)
     {
-        $url = "{$this->getBaseUrl()}/api/node/workspace/SpacesStore/{$hash['id']}/content/{$hash['nome']}";
+        $url = "{$this->getBaseUrl()}/api/node/workspace/SpacesStore/{$arquivoInfos['id']}/content/{$arquivoInfos['nome']}";
         $url = $this->addAlfTicketUrl($url);
         
         return $url;
@@ -79,9 +79,9 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
      * @param string $arquivoHash
      * @return string
      */
-    public function getArquivoFormularioDownloadUrl($arquivoHash)
+    public function getArquivoFormularioDownloadUrl($assuntoId)
     {
-        $url = $this->getBaseUrl() . "/spu/formulario/get/assunto/" . $arquivoHash['id'];
+        $url = $this->getBaseUrl() . "/spu/formulario/get/assunto/" . $assuntoId;
         $url = $this->addAlfTicketUrl($url);
         
         return $url;
@@ -92,9 +92,8 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
      * @param array $getData ['id', 'nome']
      * @return string
      */
-    public function getContentFromUrl($getData)
+    public function getContentFromUrl($url)
     {
-        $url = $this->getArquivoFormularioDownloadUrl($getData);
         $result = $this->_doAuthenticatedGetStringRequest($url);
         
         if (strpos($result, 'Internal Error') > -1) {
