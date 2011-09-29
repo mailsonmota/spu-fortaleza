@@ -35,8 +35,6 @@ class Zend_View_Helper_Message extends Zend_View_Helper_Abstract
             return NULL;
         }
         
-        $str = "<div class='message {$this->_tipo}'>{$this->_texto}</div>";
-        
-        return $str;
+        return "<div class='message {$this->_tipo}'>{$this->_texto}</div>";
     }
 }

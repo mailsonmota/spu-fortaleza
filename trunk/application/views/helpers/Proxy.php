@@ -1,6 +1,6 @@
 <?php
 /**
- * Proxy helper for retrieving protocolo helpers and forwarding calls
+ * Proxy helper for retrieving FieldList helpers and forwarding calls
  *
  * @category   Zend
  * @package    Zend_View

@@ -71,14 +71,12 @@ class Zend_View_Helper_AjaxSelect extends Zend_View_Helper_Abstract
 
     protected function _getAutoCompleteId()
     {
-        $id = $this->_getId();
-        return $id . '_autocomplete';
+        return $this->_getId() . '_autocomplete';
     }
     
     protected function _getListId()
     {
-        $id = $this->_getId();
-        return $id . '_list';
+        return $this->_getId() . '_list';
     }
     
     protected function _getHtmlAfterInput()

@@ -4,7 +4,6 @@
         <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
         <?php echo $this->headTitle() ?>
         <?php echo $this->headLink() ?>
-        <?php echo $this->headScript() ?>
     </head>
     <?php //flush(); ?>
     <body>
@@ -19,7 +18,8 @@
                 Bem-vindo, <strong><?php echo $this->pessoa->nomeCompleto ?></strong> | 
                 <a href="<?php echo $this->simpleUrl('cadastro', 'usuario') ?>">Cadastro</a> | 
                 <a href="<?php echo $this->simpleUrl('logout', 'auth') ?>">Sair</a><br />
-                Data: <strong id="current-date"><?php echo date('d/m/Y h:i') ?></strong> | Versão: <strong><?php echo $this->versao ?></strong>
+                Data: <strong id="current-date"><?php echo date('d/m/Y h:i') ?></strong> | 
+                Versão: <strong><?php echo $this->versao ?></strong>
             </div>
         </div>
         
@@ -83,5 +83,6 @@
                 <li><a href="#">Manual do Usuário</a></li>
             </ul>
         </div>
+        <?php echo $this->headScript() ?>
     </body>
 </html>

@@ -47,33 +47,18 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
         }
         
         $html = '<ul>';
-        foreach ($this->_items as $key=>$value) {
+        foreach ($this->_items as $key => $value) {
             if ($key) {
-                // Verifica se o usuario tem acesso à pelo menos um item
-                $acesso = FALSE;
-                foreach ($this->_items[$key] as $item) {
-                    if ($this->isAllowed($item)) {
-                        $acesso = TRUE;
-                    }
-                }
-                
-                if ($acesso) {
-                    $spanClass = $this->getSpanClass($key);
-                    $html .= "<li><span class='$spanClass'>$key</span><ul>";
-                }
+                $html .= "<li><span class=\"{$this->getSpanClass($key)}\">$key</span><ul>";
             }
             
             foreach ($this->_items[$key] as $item) {
-                if ($this->isAllowed($item)) {
-                    $url = $item['url'];
-                    $name = $item['name'];
-                    $target = $this->_getTarget($item['options']);
-                    $targetHtml = ($target) ? "target=\"$target\"" : '';
-                    $html .= "<li><a href='$url' $targetHtml>$name</a></li>";
-                }
+                $target = $this->_getTarget($item['options']);
+                $targetHtml = ($target) ? "target=\"$target\"" : '';
+                $html .= "<li><a href=\"{$item['url']}\" $targetHtml>{$item['name']}</a></li>";
             }
             
-            if ($key AND $acesso) {
+            if ($key) {
                 $html .= '</ul></li>';
             }
         }
@@ -84,48 +69,6 @@ class Zend_View_Helper_Mainmenu extends Zend_View_Helper_Abstract
     
     protected function getSpanClass($key) {
         return strtr(strtolower($key), array('á'=>'a'));
-    }
-    
-    protected function isAllowed($item)
-    {
-        if (!$item['resource']) {
-            return true;
-        } else {
-            $authPlugin = $this->_getAuthPlugin();
-            return $authPlugin->isAllowed($item['resource']);
-        }
-        
-        return false;
-    }
-    
-    protected function _renderMenu(Zend_Navigation_Container $container, $ulClass,
-                                   $indent,
-                                   $minDepth,
-                                   $maxDepth,
-                                   $onlyActive)
-    {
-        // create iterator
-        $iterator = new RecursiveIteratorIterator($container, RecursiveIteratorIterator::SELF_FIRST);
-        if (is_int($maxDepth)) {
-            $iterator->setMaxDepth($maxDepth);
-        }
-        
-        $authPlugin = $this->_getAuthPlugin();
-        
-        foreach ($iterator as $page) {
-            if (!$authPlugin->isAuthorized($page->getController(), $page->getAction())) {
-                $page->setVisible(FALSE);
-            }
-        }
-        
-        return parent::_renderMenu($container, $ulClass, $indent, $minDepth, $maxDepth, $onlyActive);
-    }
-    
-    private function _getAuthPlugin()
-    {
-        $authPlugin = Zend_Controller_Front::getInstance()->getPlugin('AuthPlugin');
-
-        return $authPlugin;
     }
     
     protected function _getTarget($options)
