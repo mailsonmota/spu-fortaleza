@@ -10,6 +10,7 @@
 class Zend_View_Helper_Pagenav extends Zend_View_Helper_Abstract
 {
     const BASE_HELP_URL = '../docs/';
+    
     protected $_options = array();
     
     public function pagenav()
@@ -19,8 +20,7 @@ class Zend_View_Helper_Pagenav extends Zend_View_Helper_Abstract
     
     public function openList()
     {
-        $html  = '<ul class="nav">';
-        return $html;
+        return '<ul class="nav">';
     }
     
     public function link($url, $name, array $options = array())
@@ -32,14 +32,12 @@ class Zend_View_Helper_Pagenav extends Zend_View_Helper_Abstract
     
     public function addLink($url, $name)
     {
-        $html = "<li class=\"insert\"><a href=\"$url\">$name</a></li>";
-        return $html;
+        return "<li class=\"insert\"><a href=\"$url\">$name</a></li>";
     }
     
     public function printLink()
     {
-        $html = '<li class="print"><a href="#" onclick="window.print();">Imprimir</a></li>';
-        return $html;
+        return '<li class="print"><a href="#" onclick="window.print();">Imprimir</a></li>';
     }
     
     public function defaultHelperLinks($helpUrl = null)
@@ -56,13 +54,11 @@ class Zend_View_Helper_Pagenav extends Zend_View_Helper_Abstract
     
     public function helpLink($url)
     {
-        $html = ($url) ? "<li class=\"help\"><a href=\"$url\" rel=\"modal\">Ajuda</a></li>" : "";
-        return $html;
+        return ($url) ? "<li class=\"help\"><a href=\"$url\" rel=\"modal\">Ajuda</a></li>" : "";
     }
     
     public function closeList()
     {
-        $html  = '</ul>';
-        return $html;
+        return '</ul>';
     }
 }

@@ -30,7 +30,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $auth = Zend_Auth::getInstance();
         $auth->setStorage(new Zend_Auth_Storage_Session('Zend_Auth_SPU'));
-        $front->setParam('auth', $auth);
         $front->registerPlugin(new Plugin_Auth($auth));
     }
     

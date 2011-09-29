@@ -29,16 +29,12 @@ class Zend_View_Helper_Buttonlist extends Zend_View_Helper_Abstract
     
     public function close()
     {
-        $html = '</ul>';
-        
-        return $html;
+        return '</ul>';
     }
     
     public function description($text)
     {
-        $html = "<li class=\"description\">$text</li>";
-        
-        return $html;
+        return "<li class=\"description\">$text</li>";
     }
     
     public function defaultBlockActionsDescription()
@@ -64,9 +60,7 @@ class Zend_View_Helper_Buttonlist extends Zend_View_Helper_Abstract
     
     protected function getButtonType()
     {
-        $type = (isset($this->_buttonOptions['type'])) ? $this->_buttonOptions['type'] : 'submit';
-        
-        return $type;
+        return (isset($this->_buttonOptions['type'])) ? $this->_buttonOptions['type'] : 'submit';
     }
     
     protected function getConfirmation()
@@ -87,8 +81,6 @@ class Zend_View_Helper_Buttonlist extends Zend_View_Helper_Abstract
     
     public function resetbutton()
     {
-        $html = "<li><button type=\"reset\">Limpar</button></li>";
-        
-        return $html;
+        return "<li><button type=\"reset\">Limpar</button></li>";
     }
 }
