@@ -9,46 +9,46 @@ class ProcessoController extends BaseController
             $processo = $processoService->getProcesso($idProcesso);
             $processosParalelos = $processoService->getProcessosParalelos($processo->id);
         } catch (Exception $e) {
-        	echo $e->getMessage(); exit;
-        	$this->setMessageForTheView('Não foi possível carregar o processo', 'error');
+            echo $e->getMessage(); exit;
+            $this->setMessageForTheView('Não foi possível carregar o processo', 'error');
         }
-        
+
         if ($this->getRequest()->getParam('etiqueta', false) !== false) {
             $this->_redirectEtiqueta($idProcesso);
         }
-        
+
         $this->view->processo = $processo;
         $this->view->processosParalelos = $processosParalelos;
     }
-        
+
     public function encaminharAction()
     {
         try {
-			$idProcesso = $this->_getIdProcessoUrl();
-			$processoService = new Spu_Service_Processo($this->getTicket());
-			if ($idProcesso) {
-				$processo = $processoService->getProcesso($idProcesso);
-			}
-                
-			$listaPrioridades = $this->_getListaPrioridades();
-			
+            $idProcesso = $this->_getIdProcessoUrl();
+            $processoService = new Spu_Service_Processo($this->getTicket());
+            if ($idProcesso) {
+                $processo = $processoService->getProcesso($idProcesso);
+            }
+
+            $listaPrioridades = $this->_getListaPrioridades();
+
             $service = new Spu_Service_Protocolo($this->getTicket());
             $listaProtocolos = $service->getProtocolosRaiz();
-            
-			if ($this->getRequest()->isPost()) {
-			    $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
-				$tramitacaoService->tramitar($this->getRequest()->getPost());
-				$this->setSuccessMessage('Processo tramitado com sucesso.');
-				$this->_redirectDetalhesProcesso($idProcesso);
-			}
+
+            if ($this->getRequest()->isPost()) {
+                $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
+                $tramitacaoService->tramitar($this->getRequest()->getPost());
+                $this->setSuccessMessage('Processo tramitado com sucesso.');
+                $this->_redirectDetalhesProcesso($idProcesso);
+            }
         } catch (Exception $e) {
-                $this->setMessageForTheView($e->getMessage(), 'error');
+            $this->setMessageForTheView($e->getMessage(), 'error');
         }
         $this->view->processo = $processo;
         $this->view->listaPrioridades = $listaPrioridades;
         $this->view->listaProtocolos = $listaProtocolos;
     }
-    
+
     public function arquivoAction()
     {
         try {
@@ -61,13 +61,13 @@ class ProcessoController extends BaseController
             $this->setMessageForTheView($e->getMessage(), 'error');
         }
     }
-    
+
     protected function _getIdProcessoUrl()
     {
         $idProcesso = $this->getRequest()->getParam('id');
         return $idProcesso;
     }
-    
+
     protected function _getListaPrioridades()
     {
         $prioridadeService = new Spu_Service_Prioridade($this->getTicket());
@@ -76,27 +76,27 @@ class ProcessoController extends BaseController
         foreach ($prioridades as $prioridade) {
             $listaPrioridades[$prioridade->id] = $prioridade->descricao;
         }
-        
+
         if (count($listaPrioridades) == 0) {
             throw new Exception(
-                'Não existe nenhuma prioridade de processo cadastrada no sistema. 
+                                'Não existe nenhuma prioridade de processo cadastrada no sistema.
                 Por favor, entre em contato com a administração do sistema.'
-            );
+                                );
         }
-        
+
         return $listaPrioridades;
     }
-    
+
     protected function _redirectDetalhesProcesso($idProcesso)
     {
         $this->_helper->redirector('detalhes', $this->getController(), 'default', array('id' => $idProcesso));
     }
-    
+
     protected function _redirectEtiqueta($idProcesso)
     {
         $this->_helper->redirector('etiqueta', $this->getController(), 'default', array('id' => $idProcesso));
     }
-    
+
     public function etiquetaAction()
     {
         $processo = new Spu_Entity_Processo();
@@ -107,9 +107,9 @@ class ProcessoController extends BaseController
         } catch (Exception $e) {
             $this->setMessageForTheView('Não foi possível carregar o processo', 'error');
         }
-        
+
         $this->_helper->layout()->setLayout('relatorio');
-        
+
         $this->view->processo = $processo;
     }
 }
