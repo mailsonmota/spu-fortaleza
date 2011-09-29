@@ -41,7 +41,32 @@ class BaseTramitacaoController extends BaseController
     public function pesquisarAction()
     {
     	if ($this->getRequest()->isPost()) {
-    		$this->_helper->redirector(null, null, null, array('q' => urlencode($_POST['q'])));
+    		$this->_helper->redirector(null, 
+    		                           null, 
+    		                           null, 
+    		                           array('q' => urlencode($_POST['q']), 
+    		                                 'tipo-processo' => urlencode($_POST['tipoprocesso']), 
+                                             'assunto' => urlencode($_POST['assunto'])));
     	}
+    }
+    
+    protected function _getListaTiposProcesso()
+    {
+        $tipoProcessoService = new Spu_Service_TipoProcesso($this->getTicket());
+        $tiposProcesso = $tipoProcessoService->getTiposProcesso();
+        $listaTiposProcesso = array();
+        $listaTiposProcesso = array_merge($listaTiposProcesso, $this->_getOpcaoVazia());
+        foreach ($tiposProcesso as $tipoProcesso) {
+            $listaTiposProcesso[$tipoProcesso->id] = $tipoProcesso->nome;
+        }
+
+        return $listaTiposProcesso;
+    }
+    
+    protected function _getOpcaoVazia()
+    {
+        $opcaoVazia = array();
+        $opcaoVazia[''] = '';
+        return $opcaoVazia;
     }
 }
