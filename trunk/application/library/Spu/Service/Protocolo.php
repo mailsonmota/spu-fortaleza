@@ -164,7 +164,7 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
     protected function _getParametrosAdicionarListagemProtocolos($protocoloOrigemId = null, $tipoProcessoId = null)
     {
         $url = '';
-        if ($protocoloOrigemId && $tipoProcessoId) {
+        if ($protocoloOrigemId || $tipoProcessoId) {
             $url .= "?";
             if ($protocoloOrigemId) {
                 $url .= "protocolo-origem-id=$protocoloOrigemId";
@@ -190,7 +190,7 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
     {
         $url = "{$this->getBaseUrl()}/{$this->_protocoloBaseUrl}/listar-filhos/$parentId";
         $url .= $this->_getParametrosAdicionarListagemProtocolos($protocoloOrigemId, $tipoProcessoId);
-        
+
         $result = $this->_doAuthenticatedGetRequest($url);
 
         return $this->_loadManyFromHash($result['Protocolos']);
