@@ -15,12 +15,18 @@ class ArquivoController extends BaseTramitacaoController
             }
         }
         
+        $this->view->q = urldecode($this->_getParam('q'));
+        $this->view->tipoProcessoId = urldecode($this->_getParam('tipo-processo'));
+        $this->view->assuntoId = urldecode($this->_getParam('assunto'));
+        $this->view->tiposProcesso = $this->_getListaTiposProcesso();
+        
         $service = new Spu_Service_Tramitacao($this->getTicket());
         $this->view->paginator = $this->_helper->paginator()->paginate(
             $service->getCaixaArquivo(
                 $this->_helper->paginator()->getOffset(),
                 $this->_helper->paginator()->getPageSize(),
-                $this->view->q
+                $this->view->q, 
+                $this->view->assuntoId
             )
         );
     }

@@ -54,6 +54,7 @@ class BaseTramitacaoController extends BaseController
     {
         $tipoProcessoService = new Spu_Service_TipoProcesso($this->getTicket());
         $tiposProcesso = $tipoProcessoService->getTiposProcesso();
+        
         $listaTiposProcesso = array();
         $listaTiposProcesso = array_merge($listaTiposProcesso, $this->_getOpcaoVazia());
         foreach ($tiposProcesso as $tipoProcesso) {
