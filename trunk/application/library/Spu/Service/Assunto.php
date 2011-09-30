@@ -189,7 +189,10 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
         try {
             $url = $arquivoService->getArquivoFormularioDownloadUrl($assuntoId);
             $formularioData = $arquivoService->getContentFromUrl($url);
-            $formulario->setData($formularioData);
+            
+            if (strpos($formularioData, '<xs:schema') > -1) {
+                $formulario->setData($formularioData);
+            }
         } catch (Exception $e) {
 
         }
