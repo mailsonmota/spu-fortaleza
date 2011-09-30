@@ -20,21 +20,20 @@ if (fileName == undefined || fileContent == undefined) {
     status.redirect = true
 } else {
     node = getNode(nodeId)
-    uploadedFile = node.createFile(fileName)
+    
+    var existingNode = node.childByNamePath(fileName);
+   
+    if (existingNode != undefined) {
+        existingNode.createVersion('Update', true);
+        existingNode.content = fileContent;
+        existingNode.save()
+    } else {
+        uploadedFile = node.createFile(fileName)
 
-    uploadedFile.content = fileContent;
-    uploadedFile.properties.content.write(fileContent);
-    uploadedFile.properties.content.guessMimetype(fileName);
-
-    /*fileExtension = /\.([^\.]+)$/.exec(fileName)
-    if (fileExtension.length > 0) {
-        if (fileExtension[0] == '.pdf') {
-            uploadedFile.mimetype = 'application/pdf'
-        }   
-    }*/
-
-    /*uploadedFile.properties.encoding = "UTF-8"
-    uploadedFile.save()*/
+        uploadedFile.content = fileContent;
+        uploadedFile.properties.content.write(fileContent);
+        uploadedFile.properties.content.guessMimetype(fileName);
+    }
 }
 
 model.fileName = fileName
