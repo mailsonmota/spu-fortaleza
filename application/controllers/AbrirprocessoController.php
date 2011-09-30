@@ -173,6 +173,10 @@ class AbrirprocessoController extends BaseController
         $processoService = new Spu_Service_Processo($this->getTicket());
         $session->processo = $processoService->getProcesso($processo->id);
         
+        if (!$processo->assunto->hasFormulario()) {
+            $this->_helper->redirector('uploadarquivo');
+        }
+        
         $this->view->processoId = $processo->id;
         $this->view->assuntoId = $processo->assunto->id;
     }
