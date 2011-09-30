@@ -1,0 +1,9 @@
+<webscript>
+  <shortname>Lista os Protocolos Raiz do SPU</shortname>
+  <description>Lista os protocolos do sistema de protocolo unico</description>
+  <url>/spu/protocolo/listar-raizes</url>
+  <!-- /spu/protocolo/listar-raizes?protocolo-origem-id=1234&tipo-processo-id=1234 -->
+  <authentication>guest</authentication>
+  <transaction>required</transaction>
+  <format default="json">any</format>
+</webscript>

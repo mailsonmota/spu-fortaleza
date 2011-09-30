@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Retorna respostas do formulario</shortname>
+	<description>Retorna o XML com as respostas do formulario de determinado processo</description>
+	<url>/spu/processo/formulario/get/{noderef}</url>
+	<authentication>guest</authentication>
+	<transaction>required</transaction>
+	<format default="xml">any</format>
+</webscript>

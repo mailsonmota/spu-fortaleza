@@ -1,0 +1,9 @@
+<webscript>
+  <shortname>Lista todos os setores sob um órgão</shortname>
+  <description>Lista todos os setores abaixo de um órgão</description>
+  <url>/spu/protocolo/listar-filhos/{protocoloraizid}</url>
+  <authentication>user</authentication>
+  <transaction>required</transaction>
+  <format default="json">any</format>
+</webscript>
+

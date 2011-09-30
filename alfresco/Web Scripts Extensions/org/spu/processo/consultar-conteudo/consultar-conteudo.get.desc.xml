@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Consultar Conteudo de Processos</shortname>
+	<description>Consultar Conteudo de Processos</description>
+	<url>/spu/processo/consultar-conteudo/{offset}/{pageSize}/{search}</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>
+

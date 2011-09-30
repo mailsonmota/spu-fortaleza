@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Remover Assunto</shortname>
+	<description>Remocao do Assunto do Tipo de Processo</description>
+	<url>/spu/assuntos/remover</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>

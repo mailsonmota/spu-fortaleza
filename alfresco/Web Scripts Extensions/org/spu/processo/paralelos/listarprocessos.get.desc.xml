@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Listar Processos Paralelos</shortname>
+	<description>Lista todos os Processos Paralelos ao processo informado</description>
+	<url>/spu/processo/paralelos/{noderef}</url>
+	<authentication>guest</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>

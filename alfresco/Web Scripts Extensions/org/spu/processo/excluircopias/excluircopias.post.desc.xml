@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Exclui copias</shortname>
+	<description>Exclui cópias</description>
+	<url>/spu/processo/copias/excluir</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>
+
