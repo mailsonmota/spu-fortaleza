@@ -1,9 +1,0 @@
-<webscript>
-	<shortname>Retorna as opções de Status de Arquivamento dos Processos</shortname>
-	<description>RRetorna as opções de Status de Arquivamento dos Processos</description>
-	<url>/spu/processo/statusarquivamento/listar</url>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>
-

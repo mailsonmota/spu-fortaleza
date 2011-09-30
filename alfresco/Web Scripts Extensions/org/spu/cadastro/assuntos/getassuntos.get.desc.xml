@@ -1,8 +1,0 @@
-<webscript>
-	<shortname>Lista os Assuntos do SPU</shortname>
-	<description>Lista todos os assuntos do sistema de protocolo unico</description>
-	<url>/spu/assuntos/listar</url>
-	<authentication>guest</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>
