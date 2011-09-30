@@ -1,0 +1,13 @@
+<webscript>
+
+<shortname>Adicionar folhas a um processo</shortname>
+<description>Adicionar folhas a um processo</description>
+
+<url>/spu/processo/folhasadicionar</url>
+
+<format default="json">any</format>
+<authentication>user</authentication>
+<transaction>required</transaction>
+
+</webscript>
+

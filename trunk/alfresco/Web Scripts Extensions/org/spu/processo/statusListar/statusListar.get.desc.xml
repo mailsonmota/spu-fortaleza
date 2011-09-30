@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Retorna as opções de Status dos Processos</shortname>
+	<description>Retorna as opções de Status dos Processos</description>
+	<url>/spu/processo/status/listar</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>
+

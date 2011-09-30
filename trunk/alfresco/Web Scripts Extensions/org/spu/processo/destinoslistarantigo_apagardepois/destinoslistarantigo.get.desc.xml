@@ -1,0 +1,10 @@
+<webscript>
+	<shortname>Lista de protocolos para preenchimento do campo 'destino' em uma abertura de processo</shortname>
+	<description>Lista protocolos que podem servir de destino para uma abertura de processo</description>
+	<!-- <url>/spu/protocolo/listardestinos/{protocoloRaizId}/{tipoProcessoId}/{filter}/{offset}/{pageSize}</url> -->
+    <url>/spu/protocolo/listardestinosantigo</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>
+

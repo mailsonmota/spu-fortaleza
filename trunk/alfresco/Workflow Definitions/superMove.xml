@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition xmlns="urn:jbpm.org:jpdl-3.1" name="spu:moveFiles">
+   <swimlane name="initiator"/>
+   <start-state name="start">
+      <task name="bpm:startTask" swimlane="initiator"/>
+      <transition name="" to="end">
+         <action class="org.alfresco.repo.workflow.jbpm.AlfrescoJavaScript">
+            <runas>admin</runas>
+            <script>
+                var processo = bpm_package.children[0];
+
+                if (processoJaExisteNoDestino(processo)) {
+                    throw 'Este processo ja existe no destino';
+                }
+
+                moverParaDestino(processo);
+                
+                function processoJaExisteNoDestino(processo) {
+                    var destino = getNode(processo.properties['spu:processo.Destino']);
+                    var caixaEntradaDestino = getCaixaEntradaDestino(destino);                    
+
+                    var numero = processo.properties['spu:processo.Numero'];
+                    processosMesmoNumeroDestino = search.luceneSearch(
+		                "workspace://SpacesStore", 
+                        'PATH:"' + caixaEntradaDestino.getQnamePath() + '/*" AND @spu\\:processo.Numero:"' + numero + '"'
+                    );
+
+                    if (processosMesmoNumeroDestino.length > 0) {
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                function moverParaDestino(processo) {
+                    /* Status */
+	                var statusTramitando = getStatusTramitando();
+        
+                    /* Properties */
+                    processo.properties['spu:processo.Externo'] = false;
+                	processo.properties['spu:processo.EmAnalise'] = false;
+                    processo.properties['spu:processo.Status'] = 'workspace://SpacesStore/' + statusTramitando.properties['sys:node-uuid'];
+                    processo.save();
+
+                    /* Destino */
+                    var destino = getNode(processo.properties['spu:processo.Destino']);
+
+                    /* Caixa de Entrada Destino */
+                    var caixaEntradaDestino = getCaixaEntradaDestino(destino);
+
+                    /* Move */
+	                processo.move(caixaEntradaDestino);
+
+                    /* Permissões */
+                    adicionarPermissoesDestino(processo);
+                }
+
+                function getStatusTramitando() {
+	                var statusTramitando = search.luceneSearch('PATH:\"/cm:generalclassifiable//cm:SPU//cm:Status//cm:Tramitando\"');
+	                return statusTramitando[0];
+                }
+
+                function getNode(nodeId) {
+	                var node = search.luceneSearch('ID:"workspace://SpacesStore/' + nodeId + '"');
+	                if (node != undefined &amp;&amp; node.length &gt; 0) {
+		                node = node[0];
+	                }
+	                return node;
+                }
+
+                function adicionarPermissoesDestino(processo) {
+                    /* Permissões - Adiciona as permissoes da Cx. Entrada origem ao processo */
+	                var protocoloOrigem = getNode(processo.properties['spu:processo.Origem']);
+	                var caixasEntradaOrigem = search.luceneSearch("workspace://SpacesStore", 'PATH:"' + protocoloOrigem.getQnamePath() + '/*" AND TYPE:"spu:CaixaEntrada"');
+	                var caixaEntradaOrigem = caixasEntradaOrigem[0];
+	                var permissoesCaixaEntradaOrigem = caixaEntradaOrigem.getPermissions();
+	                for (var i=0; i &lt; permissoesCaixaEntradaOrigem.length; i++) {
+		                permissao = getPermissaoComoHash(permissoesCaixaEntradaOrigem[i]);
+		                role = 'Editor';
+		                group = permissao['group'];
+		                processo.setPermission(role, group);
+	                }
+	                
+	                var permissoesCaixaAnalise = processo.parent.getPermissions();
+	                for (var i=0; i &lt; permissoesCaixaAnalise.length; i++) {
+		                permissao = getPermissaoComoHash(permissoesCaixaAnalise[i]);
+		                role = 'Collaborator';
+		                group = permissao['group'];
+		                processo.setPermission(role, group);
+	                }
+
+                    return processo;
+                }
+
+                function getPermissaoComoHash(permissionString) {
+	                var hash = new Array();
+	                var allow = permissionString.substring(0, permissionString.indexOf(';'));
+	                var group = permissionString.substring(permissionString.indexOf(';')+1, permissionString.lastIndexOf(';'));
+	                var role = permissionString.substring(permissionString.lastIndexOf(';')+1);
+	                hash['allow'] = allow;
+	                hash['group'] = group;
+	                hash['role'] = role;
+
+	                return hash;
+                }
+
+                function getCaixaEntradaDestino(destino) {
+                    var caixasEntrada = search.luceneSearch("workspace://SpacesStore", 'PATH:"' + destino.getQnamePath() + '/*" AND TYPE:"spu:caixaentrada"');
+	                var caixaEntrada = caixasEntrada[0];
+
+                    return caixaEntrada;
+                }
+            </script>
+         </action>
+      </transition>
+   </start-state>
+   <end-state name="end"/>
+</process-definition>

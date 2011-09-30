@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Lista as copias de processos</shortname>
+	<description>Lista todas as Cópias do Usuário</description>
+	<url>/spu/processo/copias/{offset}/{pageSize}/{search}</url>
+	<authentication>guest</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>

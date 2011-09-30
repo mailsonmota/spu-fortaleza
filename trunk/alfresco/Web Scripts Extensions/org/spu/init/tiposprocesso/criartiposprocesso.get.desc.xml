@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Cria os Tipos de Processo Iniciais do SPU</shortname>
+	<description>Cria Tipos de Processo Iniciais utilizados pelo Sistema de Protocolo Unico</description>
+	<url>/spu/criar/tiposprocesso</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>
+

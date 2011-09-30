@@ -1,0 +1,13 @@
+<webscript>
+	<shortname>Retorna as opções de Prioridade de Processo</shortname>
+	<description>Retorna as opções de Prioridade de Processo</description>
+	<url>/spu/processo/prioridades/listar</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+	<cache>
+		<never>false</never>
+		<mustrevalidate/>
+	</cache>
+</webscript>
+

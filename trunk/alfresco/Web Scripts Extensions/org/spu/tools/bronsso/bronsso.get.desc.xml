@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Delete grupos SPU_*</shortname>
+	<description>Delete grupos SPU_*</description>
+	<url>/spu/bronsso</url>
+	<authentication>admin</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>

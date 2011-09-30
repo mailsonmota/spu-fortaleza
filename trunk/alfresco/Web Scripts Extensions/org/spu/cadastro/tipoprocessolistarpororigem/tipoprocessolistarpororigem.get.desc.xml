@@ -1,0 +1,13 @@
+<webscript>
+	<shortname>Tipos de Processo</shortname>
+	<description>Tipos de Processo</description>
+	<url>/spu/tiposprocesso/listar/{id}</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+	<cache>
+		<never>false</never>
+		<mustrevalidate/>
+	</cache>
+</webscript>
+

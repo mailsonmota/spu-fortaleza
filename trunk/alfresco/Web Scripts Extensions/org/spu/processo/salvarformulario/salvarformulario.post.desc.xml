@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Salvar respostas</shortname>
+	<description>Salva respostas dos formularios em determinado processo</description>
+	<url>/spu/processo/formulario/salvar</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>
+

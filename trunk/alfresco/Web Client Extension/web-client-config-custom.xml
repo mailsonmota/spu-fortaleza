@@ -1,0 +1,126 @@
+<alfresco-config>
+
+	<!-- Sistema de Protocolo Unico - Inicio -->
+
+	<!-- Assunto -->
+	<config evaluator="node-type" condition="spu:assunto">
+		<property-sheet>
+			<show-property name="spu:assunto.Corpo" />
+			<show-property name="spu:assunto.NotificarNaAbertura" />
+		</property-sheet>
+	</config>
+
+	<!-- Tipo de Processo -->
+   	<config evaluator="node-type" condition="spu:tipoprocesso">
+      	<property-sheet>
+         	<show-property name="spu:tipoprocesso.Simples" />
+			<show-property name="spu:tipoprocesso.Observacao" />
+			<show-property name="spu:tipoprocesso.Letra" />
+			<show-property name="spu:tipoprocesso.EnvolvidoSigiloso" />
+			<show-property name="spu:tipoprocesso.Tramitacao" />
+			<show-property name="spu:tipoprocesso.Abrangencia" />
+			<show-property name="spu:tipoprocesso.TipoManifestante" />
+			<show-property name="spu:tipoprocesso.NomeTipoManifestante" />
+			<show-association name="spu:tipoprocesso.Protocolos" />
+		</property-sheet>
+	</config>
+
+	<!-- Model para o tipo de Space "Protocolo" -->
+	<config evaluator="node-type" condition="spu:protocolo">
+		<property-sheet>
+			<show-property name="spu:protocolo.Path" />
+			<show-association name="spu:protocolo.SetorProtocolo" />
+		</property-sheet>
+	</config>
+
+	<!-- Model para o tipo de space "Processo" -->
+	<config evaluator="node-type" condition="spu:processo">
+		<property-sheet>
+			<show-property name="spu:processo.Data" />
+			<show-property name="spu:processo.Observacao" />
+			<show-property name="spu:processo.NumeroOrigem" />
+			<show-property name="spu:processo.DataPrazo" />
+			<show-property name="spu:processo.Prioridade" />
+			<show-property name="spu:processo.Status" />
+			<show-property name="spu:processo.EmAnalise" />		
+			<show-property name="spu:processo.Despacho" />
+			<show-property name="spu:processo.Externo" />
+            <show-property name="spu:processo.Origem" />
+			<show-property name="spu:processo.Destino" />
+            <show-property name="spu:processo.Proprietario" />
+            <show-property name="spu:processo.Assunto" />
+		</property-sheet>
+	</config>
+
+    <!-- Manifestante -->
+    <config evaluator="aspect-name" condition="spu:manifestante">
+        <property-sheet>
+            <show-property name="spu:manifestante.Nome" />
+			<show-property name="spu:manifestante.Cpf" />
+            <show-property name="spu:manifestante.Sexo" />
+			<show-property name="spu:manifestante.Bairro" />
+			<show-property name="spu:manifestante.Tipo" />
+        </property-sheet>    
+    </config>
+
+    <!-- Arquivamento -->
+	<config evaluator="aspect-name" condition="spu:arquivamento">
+		<property-sheet>
+			<show-property name="spu:arquivamento.Status" />
+			<show-property name="spu:arquivamento.Motivo" />
+		</property-sheet>
+	</config>
+
+	<!-- Model para o tipo de space "Caixa de Saída" -->
+	<config evaluator="node-type" condition="spu:caixasaida">
+		<property-sheet>
+		</property-sheet>
+	</config>
+
+	<!-- Model para o tipo de Space "Malote" -->
+	<config evaluator="node-type" condition="spu:malote">
+		<property-sheet>
+			<show-property name="spu:malote.Despacho" />
+			<show-property name="spu:malote.DataEnvio" />
+			<show-property name="spu:malote.DataRecebimento" />
+			<show-property name="spu:malote.TipoMalote" />
+		</property-sheet>
+	</config>
+
+	<!-- Sistema de Protocolo Unico - Fim -->
+
+	<config evaluator="string-compare" condition="Space Wizards">
+		<folder-types>
+			<!-- Sistema de Protocolo Unico - Inicio -->
+			<type name="spu:tipoprocesso" 
+				description="Tipo de Processo do SPU" 
+				display-label="Tipo de Processo" />
+			<type name="spu:assunto" 
+				description="Assunto do Sistema de Protocolo Unico" 
+				display-label="Assunto" />
+			<type name="spu:processo" 
+				description="Processo do Sistema de Protocolo Unico" 
+				display-label="Processo" />
+			<type name="spu:protocolo" 
+				description="Protocolo do Sistema de Protocolo Unico" 
+				display-label="Protocolo" />
+			<type name="spu:caixaentrada" 
+				description="Caixa de Entrada de Processos do Sistema de Protocolo Unico" 
+				display-label="Caixa de Entrada de Processos" />
+			<type name="spu:caixaanalise" 
+				description="Caixa de Análise de Processos do Sistema de Protocolo Unico" 
+				display-label="Caixa de Análise de Processos" />
+			<type name="spu:caixaarquivo" 
+				description="Caixa de Arquivo de Processos do Sistema de Protocolo Unico" 
+				display-label="Caixa de Arquivo de Processos" />
+            		<type name="spu:rascunho" 
+				description="Rascunho de Processos do Sistema de Protocolo Unico" 
+				display-label="Rascunho de Processos" />
+			<type name="spu:malote" 
+				description="Malote" 
+				display-label="Malote" />
+			<!-- Sistema de Protocolo Unico - Fim -->
+		</folder-types>
+	</config>
+
+</alfresco-config>

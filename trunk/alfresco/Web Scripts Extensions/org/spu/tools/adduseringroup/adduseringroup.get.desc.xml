@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>qwe</shortname>
+	<description>qwe</description>
+	<url>/spu/adduseringroup</url>
+	<authentication>admin</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>

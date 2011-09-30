@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Delete todos os spu:processo</shortname>
+	<description>Delete todos os spu:processo</description>
+	<url>/spu/procbronsso</url>
+	<authentication>admin</authentication>
+	<transaction>required</transaction>
+	<format default="json">any</format>
+</webscript>
