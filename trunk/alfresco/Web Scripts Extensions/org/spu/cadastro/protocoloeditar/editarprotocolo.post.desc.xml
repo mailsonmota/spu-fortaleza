@@ -1,8 +1,0 @@
-<webscript>
-	<shortname>Editar Protocolo</shortname>
-	<description>Edicao do Registro do Protocolo</description>
-	<url>/spu/protocolo/editar/{noderef}</url>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>

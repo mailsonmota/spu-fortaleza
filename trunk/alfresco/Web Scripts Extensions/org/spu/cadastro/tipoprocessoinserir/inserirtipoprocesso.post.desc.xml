@@ -1,8 +1,0 @@
-<webscript>
-	<shortname>Inserir Tipo de Processo</shortname>
-	<description>Insercao do Tipo de Processo</description>
-	<url>/spu/tipoprocesso/inserir</url>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>

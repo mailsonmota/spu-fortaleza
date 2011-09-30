@@ -1,8 +1,0 @@
-<webscript>
-	<shortname>Editar Tipo Processo</shortname>
-	<description>Edicao do Tipo de Processo</description>
-	<url>/spu/tipoprocesso/editar/{noderef}</url>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>
