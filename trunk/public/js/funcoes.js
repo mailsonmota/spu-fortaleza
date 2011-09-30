@@ -29,18 +29,6 @@ jQuery(document).ready(function() {
 	//Textarea
 	$('textarea').elastic();
 	
-	//Todos as table com classe .grid dentre de #article que não sejam um .relatorio
-	/*$('table:not(.no-datatable).grid').dataTable({
-		oLanguage: {
-			"sUrl": baseUrl + "/js/plugins/dataTables/jquery.dataTables.pt-br.txt"
-		},
-		iDisplayLength: 50, 
-		sPaginationType: "text_only", 
-		bLengthChange: false, 
-		bSort: false, 
-	});
-	$('.grid tfoot').hide();*/
-	
 	//Form Validation
 	$('#article form').validate();
 	$.extend($.validator.messages, {
@@ -58,7 +46,10 @@ jQuery(document).ready(function() {
 	
 	//Retrocompatibilidade
 	$('a[href=http://spu.fortaleza.ce.gov.br/spu/estrutura/index.php]').click(function() {
-		window.open($(this).attr('href'), '', 'toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=yes,width=785,height=520,left=0,top=0');
+		window.open($(this).attr('href'), 
+		            '', 
+		            'toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=yes,width=785,height=520,left=0,top=0'
+);
 		return false;
 	});
 	
