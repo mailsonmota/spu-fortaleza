@@ -6,6 +6,6 @@
  * @package SPU
  * @see Spu_Entity_Abstract
  */
-class Spu_Entity_Aspect_Abstract extends Spu_Entity_Abstract
+abstract class Spu_Entity_Aspect_Abstract extends Spu_Entity_Abstract
 {
 }
