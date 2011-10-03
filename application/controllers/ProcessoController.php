@@ -124,9 +124,24 @@ class ProcessoController extends BaseController
 
     public function oficioAction()
     {
+        $this->_helper->layout()->disableLayout();
+
         $processoService = new Spu_Service_Processo($this->getTicket());
         $processo = $processoService->getProcesso($this->_getIdProcessoUrl());
 
-        exit;
+        $arquivoService = new Spu_Service_Arquivo($this->getTicket());
+        $oficioString = $arquivoService->getOficioModelo($processo->assunto->nodeRef,
+                                                         $processo->assunto->nome);
+
+        try {
+            $arquivoService->substituiVariaveisEmOdt($oficioString,
+                                                     array('manifestante' => $processo->manifestante->nome,
+                                                           'corpo' => $processo->corpo));
+        } catch (Exception $e) {
+            print $e->getMessage();exit;
+        }
+
+        $this->view->oficio = $oficioString;
     }
 }
+
