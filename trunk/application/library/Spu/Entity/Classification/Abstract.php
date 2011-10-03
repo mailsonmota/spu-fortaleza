@@ -1,5 +1,12 @@
 <?php
-class Spu_Entity_Classification_Abstract extends Spu_Entity_Abstract
+/**
+ * Classe base para as classifications do SPU
+ * 
+ * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
+ * @package SPU
+ * @see Spu_Entity_Abstract
+ */
+abstract class Spu_Entity_Classification_Abstract extends Spu_Entity_Abstract
 {
     protected $_nodeRef;
     protected $_nome;
@@ -35,6 +42,11 @@ class Spu_Entity_Classification_Abstract extends Spu_Entity_Abstract
         $this->_descricao = $value;
     }
     
+    /**
+     * Retorna o nodeUuid da classification
+     * 
+     * @return string
+     */
     public function getId()
     {
         $nodeRef = $this->getNodeRef();
