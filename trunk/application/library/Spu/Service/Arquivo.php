@@ -65,11 +65,14 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
      * @param array $hash
      * @return string
      */
-    public function getArquivoDownloadUrl($arquivoInfos)
+    public function getArquivoDownloadUrl($arquivoInfos, $addAlfTicket = true)
     {
         $url = "{$this->getBaseUrl()}/api/node/workspace/SpacesStore/{$arquivoInfos['id']}/content/{$arquivoInfos['nome']}";
-        $url = $this->addAlfTicketUrl($url);
-        
+
+        if ($addAlfTicket) {
+            $url = $this->addAlfTicketUrl($url);
+        }
+
         return $url;
     }
     
@@ -85,6 +88,25 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
         $url = $this->addAlfTicketUrl($url);
         
         return $url;
+    }
+
+    /**
+     * TODO $oficioInfo como objeto "ofício", que extends "arquivo"
+     *
+     * Dado um nodeRef de um assunto, retorna nodeRef do arquivo
+     * modelo de ofício contido naquele assunto.
+     * 
+     * @param string $assuntoNodeRef
+     * @return string
+     */
+    public function getOficioModelo($assuntoNodeRef)
+    {
+        $urlService = $this->getBaseUrl() . "/spu/assunto/" . substr($assuntoNodeRef, 24) . "/oficio";
+        $oficioInfo = $this->_doAuthenticatedGetRequest($urlService);
+
+        $urlArquivo = $this->getArquivoDownloadUrl(array('id' => $oficioInfo['OficioNodeRef']), false);
+
+        return $this->getContentFromUrl($urlArquivo);
     }
 
     /**
@@ -121,7 +143,64 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
         
         return $respostasFormulario;
     }
-    
+
+    /**
+     * Recebe um arquivo odt em formato de string e substitui nele variáveis.
+     * O corpo do texto do arquivo odt deve conter marcadores no formato.
+     *
+     * {nomedomarcador}
+     *
+     * Esses marcadores serão substituídos de acordo com o hash informado ao
+     * método.
+     *
+     * Retorna uma string, que é o arquivo odt modificado.
+     *
+     * @param string $odtString Arquivo odt
+     * @param array $replaceHash
+     * @return string Arquivo odt
+     */
+    public function substituiVariaveisEmOdt($odtString, array $replaceHash)
+    {
+        $fileName = tempnam(sys_get_temp_dir(), 'odtFile');
+
+        if (file_exists($fileName)) {
+            unlink($fileName);
+        }
+        
+        file_put_contents($fileName, $odtString);
+
+        $zip = new ZipArchive;
+        
+        if (!$zip->open($fileName)) {
+            throw new Exception('Erro ao abrir arquivo .odt');
+        }
+        
+        $index = $zip->locateName('content.xml');
+        $contentXml = $zip->getFromIndex($index);
+
+        foreach ($replaceHash as $key => $value) {
+            $contentXml = str_replace('{' . $key . '}', $value, $contentXml);
+        }
+
+        if (!$zip->deleteIndex($index)) {
+            throw new Exception('Erro ao deletar arquivo de dentro do arquivo .odt');
+        }
+
+        if (!$zip->addFromString('content.xml', $contentXml)) {
+            throw new Exception('Erro ao adicionar arquivo dentro do arquivo .odt');
+        }
+
+        if (!$zip->close()) {
+            throw new Exception('Erro ao fechar arquivo .odt');
+        }
+
+        $odtContent = readfile($fileName);
+
+        unlink($fileName);
+        
+        return $odtContent;
+    }
+
     /**
      * Verifica se o xml é válido
      * 
