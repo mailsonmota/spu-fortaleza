@@ -16,7 +16,7 @@ class Spu_Service_Usuario extends Spu_Service_Abstract
 	 */
     public function find($username)
     {
-        return $this->loadFromHash($this->_getApi()->getPerson($username));
+        return $this->loadFromObject($this->_getApi()->getPerson($username));
     }
     
     /**
@@ -51,14 +51,14 @@ class Spu_Service_Usuario extends Spu_Service_Abstract
      * @param array $hash
      * @return Spu_Entity_Usuario
      */
-    public function loadFromHash($hash)
+    public function loadFromObject($object)
     {
         $usuario = new Spu_Entity_Usuario();
         
-        $usuario->setNome($this->_getHashValue($hash, 'firstName'));
-        $usuario->setSobrenome($this->_getHashValue($hash, 'lastName'));
-        $usuario->setEmail($this->_getHashValue($hash, 'email'));
-        $usuario->setLogin($this->_getHashValue($hash, 'userName'));
+        $usuario->setNome($object->firstName);
+        $usuario->setSobrenome($object->lastName);
+        $usuario->setEmail($object->email);
+        $usuario->setLogin($object->userName);
         $usuario->setGrupos($this->fetchGroups($usuario->getLogin()));
         
         return $usuario;

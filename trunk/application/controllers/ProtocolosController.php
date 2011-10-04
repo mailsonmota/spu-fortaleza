@@ -19,7 +19,7 @@ class ProtocolosController extends BaseController
     	} else {
     		$this->setMessageForTheView('Por favor, busque pelo nome da lotação.');
     	}
-    	
+        
     	$this->view->q = $this->_getParam('q');
     }
     
