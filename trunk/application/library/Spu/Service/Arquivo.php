@@ -91,6 +91,16 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     }
 
     /**
+     * Dado o nodeRef de um assunto, retorna o nodeRef de seu ofício.
+     */
+    public function getOficioNodeRef($assuntoNodeRef)
+    {
+        $urlService = $this->getBaseUrl() . "/spu/assunto/" . substr($assuntoNodeRef, 24) . "/oficio";
+
+        return trim($this->_doAuthenticatedGetStringRequest($urlService));
+    }
+
+    /**
      * TODO $oficioInfo como objeto "ofício", que extends "arquivo"
      *
      * Dado um nodeRef de um assunto, retorna nodeRef do arquivo
@@ -101,10 +111,9 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
      */
     public function getOficioModelo($assuntoNodeRef)
     {
-        $urlService = $this->getBaseUrl() . "/spu/assunto/" . substr($assuntoNodeRef, 24) . "/oficio";
-        $oficioInfo = $this->_doAuthenticatedGetRequest($urlService);
+        $oficioUuid = $this->getOficioNodeRef($assuntoNodeRef);
 
-        $urlArquivo = $this->getArquivoDownloadUrl(array('id' => $oficioInfo['OficioNodeRef']), false);
+        $urlArquivo = $this->getArquivoDownloadUrl(array('id' => $oficioUuid), false);
 
         return $this->getContentFromUrl($urlArquivo);
     }
