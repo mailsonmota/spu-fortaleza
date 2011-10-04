@@ -17,8 +17,10 @@ echo $this->pagenav()->closeList();
         <?php 
         echo $this->buttonlist()->open();
         echo $this->buttonlist()->button('Etiqueta', 'etiqueta');
-        echo $this->buttonlist()->button('Ofício', 'oficio');
-        echo $this->buttonlist()->close();
+        if ($this->oficioMarker) {
+            echo $this->buttonlist()->button('Ofício', 'oficio');
+            echo $this->buttonlist()->close();
+        }
         ?>
     </form>
     <?php endif ?>
