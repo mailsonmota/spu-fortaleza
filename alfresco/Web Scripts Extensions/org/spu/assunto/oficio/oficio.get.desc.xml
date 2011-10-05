@@ -1,0 +1,8 @@
+<webscript>
+  <shortname>Retorna o nodeRef do arquivo do Modelo de Ofício de um Assunto</shortname>
+  <description>Retorna o nodeRef do arquivo do Modelo de Ofício de um Assunto</description>
+  <url>/spu/assunto/{uuid}/oficio</url>
+  <authentication>user</authentication>
+  <transaction>required</transaction>
+</webscript>
+
