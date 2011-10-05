@@ -163,7 +163,8 @@ function getProtocolosRaiz(protocoloOrigemId, tipoProcessoId) {
         var tipoProcesso = getNode(tipoProcessoId)
         var abrangencia = getAbrangenciaInterna()
 
-        if (String(tipoProcesso.properties['spu:tipoprocesso.Abrangencia'].nodeRef) == String(abrangencia.nodeRef)) {
+        if (tipoProcesso.properties['spu:tipoprocesso.Abrangencia'] &&
+            String(tipoProcesso.properties['spu:tipoprocesso.Abrangencia'].nodeRef) == String(abrangencia.nodeRef)) {
             var protocolo = getNode(protocoloOrigemId)
             var protocoloRaiz = getProtocoloRaizFromProtocolo(protocolo)
 
