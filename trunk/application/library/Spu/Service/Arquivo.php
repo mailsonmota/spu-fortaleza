@@ -91,9 +91,9 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     }
 
     /**
-     * Dado o nodeRef de um assunto, retorna o nodeRef de seu ofício.
+     * Dado o nodeRef de um assunto, retorna o uuid de seu ofício.
      */
-    public function getOficioNodeRef($assuntoNodeRef)
+    public function getOficioUuid($assuntoNodeRef)
     {
         $urlService = $this->getBaseUrl() . "/spu/assunto/" . substr($assuntoNodeRef, 24) . "/oficio";
 
@@ -101,17 +101,15 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     }
 
     /**
-     * TODO $oficioInfo como objeto "ofício", que extends "arquivo"
-     *
      * Dado um nodeRef de um assunto, retorna nodeRef do arquivo
      * modelo de ofício contido naquele assunto.
      * 
-     * @param string $assuntoNodeRef
+     * @param string $assuntoUuid
      * @return string
      */
-    public function getOficioModelo($assuntoNodeRef)
+    public function getOficioModelo($assuntoUuid)
     {
-        $oficioUuid = $this->getOficioNodeRef($assuntoNodeRef);
+        $oficioUuid = $this->getOficioUuid($assuntoUuid);
 
         $urlArquivo = $this->getArquivoDownloadUrl(array('id' => $oficioUuid), false);
 

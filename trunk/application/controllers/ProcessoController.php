@@ -9,7 +9,7 @@ class ProcessoController extends BaseController
             $processo = $processoService->getProcesso($idProcesso);
             $processosParalelos = $processoService->getProcessosParalelos($processo->id);
             $arquivoService = new Spu_Service_Arquivo($this->getTicket());
-            $this->view->oficioMarker = $arquivoService->getOficioNodeRef($processo->assunto->nodeRef);
+            $this->view->oficioMarker = $arquivoService->getOficioUuid($processo->assunto->nodeRef);
         } catch (Exception $e) {
             echo $e->getMessage(); exit;
             $this->setMessageForTheView('Não foi possível carregar o processo', 'error');
