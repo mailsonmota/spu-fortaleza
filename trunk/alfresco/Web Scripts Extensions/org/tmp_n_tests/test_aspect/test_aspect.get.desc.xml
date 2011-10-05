@@ -1,8 +1,0 @@
-<webscript>
-	<shortname>Test Aspect</shortname>
-	<description>Test Aspect</description>
-	<url>/spu/testaspect</url>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-	<format default="json">any</format>
-</webscript>
