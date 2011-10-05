@@ -54,7 +54,7 @@ class ProtocolosAjaxController extends BaseAuthenticatedController
         $protocolosJson = array();
         foreach ($protocolos as $protocolo) {
             $name = substr($protocolo->path, strpos($protocolo->path, '/') + 1);
-            $protocolosJson[] = array('id' => $protocolo->id, 'name' => $name);
+            $protocolosJson[] = array('id' => $protocolo->id, 'name' => $name, 'description' => $protocolo->descricao);
         }
                 
         $this->_helper->json($protocolosJson, true);

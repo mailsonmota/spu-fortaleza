@@ -159,7 +159,7 @@ class Zend_View_Helper_ProtocoloSelect extends Zend_View_Helper_Abstract
             $(data).each(function(i, value) {
                 var name = (value.id != $('#{$this->_getRootSelectName()} option:selected').val()) ? value.name : '';
                 $('#{$this->_getChildrenSelectName()}').append(
-                    '<option value=\"' + value.id + '\">' + name + '</option>'
+                    '<option value=\"' + value.id + '\" title=\"' + value.description + '\">' + name + '</option>'
                 );
             });";
     }
