@@ -237,6 +237,11 @@ class Spu_Entity_Aspect_Manifestante extends Spu_Entity_Aspect_Abstract
         return (is_numeric($cpf)) ? preg_replace('/(\d{3})(\d{3})(\d{3})(\d{2})/', '${1}.${2}.${3}-${4}', $cpf) : $cpf;
     }
     
+    protected function _mascararCnpj($cnpj)
+    {
+        return (is_numeric($cnpj)) ? preg_replace('/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/', '${1}.${2}.${3}/${4}-${5}', $cnpj) : $cnpj;
+    }
+    
     protected function _desmascararCpfCnpj($cpfCnpj)
     {
         return preg_replace("'[.,-]'", '', $cpfCnpj);
