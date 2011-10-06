@@ -20,8 +20,9 @@ class Alfresco_Rest_People extends Alfresco_Rest_Abstract
     /**
      * List users
      * 
-     * @param $filter
+     * GET /alfresco/service/api/people?filter={filter}
      * 
+     * @param string $filter
      * @return Alfresco_Person[]
      */
     public function listPeople($filter = null)
@@ -29,21 +30,33 @@ class Alfresco_Rest_People extends Alfresco_Rest_Abstract
         $url = $this->getBaseUrl() . "/api/" . $this->_peopleBaseUrl;
         
         if (isset($filter)) {
-            $url .= "&filter=" . $filter;
+            $url .= "?filter=" . $filter;
         }
         
         $result = $this->_doAuthenticatedGetRequest($url);
 
         $people = array();
         foreach ($result['people'] as $personResult) {
-            $person = new Alfresco_Person();
-            foreach ($personResult as $key => $value) {
-                $person->$key = $value;
-            }
-            $people[] = $person;
+            $people[] = $this->_getPersonFromJson($personResult);
         }
 
         return $people;
+    }
+    
+    /**
+     * Get Person from JSON
+     * 
+     * @param array $json
+     * @return Alfresco_Person
+     */
+    protected function _getPersonFromJson($json)
+    {
+        $person = new Alfresco_Person();
+        foreach ($json as $key => $value) {
+            $person->$key = $value;
+        }
+        
+        return $person;
     }
     
     /**
@@ -58,11 +71,6 @@ class Alfresco_Rest_People extends Alfresco_Rest_Abstract
         $url = $this->getBaseUrl() . "/api/" . $this->_peopleBaseUrl . "/" . $userName;
         $result = $this->_doAuthenticatedGetRequest($url);
         
-        $person = new Alfresco_Person();
-        foreach ($result as $key => $value) {
-            $person->$key = $value;
-        }
-        
-        return $person;
+        return $this->_getPersonFromJson($result);
     }
 }
