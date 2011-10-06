@@ -138,7 +138,11 @@ class ProcessoController extends BaseController
         try {
             $arquivoService->substituiVariaveisEmOdt($oficioString,
                                                      array('manifestante' => $processo->manifestante->nome,
-                                                           'corpo' => $processo->corpo));
+                                                           'corpo' => $processo->corpo,
+                                                           'data' => $processo->data,
+                                                           'observacao' => $processo->observacao,
+                                                           'tipo-processo' => $processo->tipoProcesso->nome,
+                                                           'assunto' => $processo->assunto->nome));
         } catch (Exception $e) {
             print $e->getMessage();exit;
         }
