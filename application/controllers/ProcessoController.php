@@ -136,13 +136,15 @@ class ProcessoController extends BaseController
                                                          $processo->assunto->nome);
 
         try {
+            $dataAtual = new Zend_Date();
             $arquivoService->substituiVariaveisEmOdt($oficioString,
                                                      array('manifestante' => $processo->manifestante->nome,
                                                            'corpo' => $processo->corpo,
                                                            'data' => $processo->data,
                                                            'observacao' => $processo->observacao,
                                                            'tipo-processo' => $processo->tipoProcesso->nome,
-                                                           'assunto' => $processo->assunto->nome));
+                                                           'assunto' => $processo->assunto->nome,
+                                                           'data-atual' => $dataAtual->toString('dd/MM/YYYY')));
         } catch (Exception $e) {
             print $e->getMessage();exit;
         }
