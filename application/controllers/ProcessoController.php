@@ -140,7 +140,7 @@ class ProcessoController extends BaseController
             $arquivoService->substituiVariaveisEmOdt($oficioString,
                                                      array('manifestante' => $processo->manifestante->nome,
                                                            'corpo' => $processo->corpo,
-                                                           'data' => $processo->data,
+                                                           'data-abertura' => $processo->data,
                                                            'observacao' => $processo->observacao,
                                                            'tipo-processo' => $processo->tipoProcesso->nome,
                                                            'assunto' => $processo->assunto->nome,
