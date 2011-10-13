@@ -1,9 +1,11 @@
 <fieldset>
     <legend>Dados Gerais</legend>
+    <input type='hidden' name='data' value="<?php echo date('d/m/Y') ?>" />
+    <input type='hidden' name='hora' value="<?php echo date('H:i') ?>" />
     <?php 
     echo $this->fieldList()->open();
-    echo $this->fieldList()->textbox('Data', 'data', date('d/m/Y'), array('required' => true, 'class' => 'mascaraData'));
-    echo $this->fieldList()->textbox('Hora', 'hora', date('H:i'), array('required' => true, 'class' => 'mascaraHora'));
+    echo $this->fieldList()->text('Data', date('d/m/Y'));
+    echo $this->fieldList()->text('Hora', date('H:i'));
     echo $this->fieldList()->textbox('N&ordm; Origem', 'numeroOrigem');
     echo $this->fieldList()->textbox('Observa&ccedil;&atilde;o', 'observacao', null, array('length' => 60));
     echo $this->fieldList()->close();
