@@ -4,7 +4,7 @@ class EnvolvidosController extends BaseController
     public function indexAction()
     {
     	if ($this->getRequest()->isPost()) {
-    		$this->_helper->redirector(null, null, null, array('q' => $_POST['q']));
+    		$this->_helper->redirector(null, null, null, array('q' => trim($_POST['q'])));
     	}
     	
     	if ($this->_getParam('q')) {
