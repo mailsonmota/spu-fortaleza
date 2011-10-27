@@ -1,8 +1,9 @@
 
 <fieldset>
     <legend>Manifestante</legend>
-    <?php 
+    <?php
     echo $this->fieldList()->open();
+    echo $this->fieldList()->select('Tipo', 'manifestanteTipoId', $this->listaTiposManifestante, null, array('required' => true, 'id' => 'mani-tipo'));
     echo $this->fieldList()->textbox('CPF/CNPJ', 'manifestanteCpfCnpj', null, array('required' => true, 'length' => 38));
     echo $this->fieldList()->textbox('Nome', 'manifestanteNome', null, array('required' => true, 'length' => 60));
     echo $this->fieldList()->select(
@@ -12,12 +13,11 @@
         null,
         array('required' => true, 'length')
     );
-    
-    echo $this->fieldList()->select('Tipo', 'manifestanteTipoId', $this->listaTiposManifestante, null, array('required' => true));
+
     echo $this->fieldList()->textbox('Responsável', 'responsavel', null, array('length' => 60));
-    
+
     echo $this->fieldList()->textbox('Organização', 'manifestanteOrganizacao', null, array('length' => 60));
-    
+
     echo $this->fieldList()->textbox('Logradouro', 'manifestanteLogradouro', null, array('length' => 60));
     echo $this->fieldList()->textbox('Número', 'manifestanteNumero', null, array('length' => 10));
     echo $this->fieldList()->textbox('Complemento', 'manifestanteComplemento', null, array('length' => 60));
@@ -25,13 +25,13 @@
     echo $this->fieldList()->textbox('CEP', 'manifestanteCep', null, array('length' => 12, 'class' => 'mascaraCep'));
     echo $this->fieldList()->textbox('Cidade', 'manifestanteCidade', null, array('length' => 60));
     echo $this->fieldList()->select('UF', 'manifestanteUf', $this->listaUfs, null, array('required' => true));
-    
+
     echo $this->fieldList()->textbox('Telefone Residencial', 'manifestanteFoneResidencial', null, array('length' => 30, 'class' => 'fone'));
     echo $this->fieldList()->textbox('Telefone Comercial', 'manifestanteFoneComercial', null, array('length' => 30, 'class' => 'fone'));
     echo $this->fieldList()->textbox('Telefone Celular', 'manifestanteFoneCelular', null, array('length' => 30, 'class' => 'fone'));
-    
+
     echo $this->fieldList()->textbox('Observação', 'manifestanteObs', null, array('length' => 60));
-    
+
     echo $this->fieldList()->close();
     ?>
 </fieldset>
