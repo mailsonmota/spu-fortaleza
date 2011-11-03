@@ -18,8 +18,9 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
      */
     public function getCaixaEntrada($offset, $pageSize, $filter, $assuntoId = null)
     {
-        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/entrada/$offset/$pageSize/$filter";
-        
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl
+             . "/entrada/$offset/$pageSize/" . str_replace(' ', '', $filter);
+
         if ($assuntoId) {
             $url .= "?assunto-id=$assuntoId";
         }
@@ -248,3 +249,4 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
         return $result;
     }
 }
+
