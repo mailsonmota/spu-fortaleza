@@ -24,7 +24,9 @@ class Spu_Service_CopiaProcesso extends Spu_Service_Abstract
      */
     public function getCopias($offset, $pageSize, $filter)
     {
-        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/copias/$offset/$pageSize/$filter";
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl
+             . "/copias/$offset/$pageSize/" . str_replace(' ', '', $filter);
+
         $result = $this->_doAuthenticatedGetRequest($url);
         
         return $this->_loadManyFromHash($result['Copias'][0]);

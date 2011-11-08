@@ -19,7 +19,7 @@ class CopiasController extends BaseTramitacaoController
 	        $service->getCopias(
 		        $this->_helper->paginator()->getOffset(),
 		        $this->_helper->paginator()->getPageSize(),
-		        $this->view->q
+		        urldecode($this->_getParam('q'))
 	        )
         );
     }
