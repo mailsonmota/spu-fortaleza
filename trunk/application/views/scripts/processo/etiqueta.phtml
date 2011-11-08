@@ -1,10 +1,10 @@
-<?php 
+<?php
 $this->breadcrumbs()->addPage('Detalhes', 'processo', 'detalhes');
 $this->breadcrumbs()->addPage($this->processo->numero);
-echo $this->breadcrumbs()->render(); 
+echo $this->breadcrumbs()->render();
 ?>
 
-<?php 
+<?php
 echo $this->fieldList()->open();
 echo $this->fieldList()->text('Processo', $this->processo->numero);
 echo $this->fieldList()->text('Abertura', $this->processo->data);
@@ -22,19 +22,21 @@ echo $this->fieldList()->text('Folha', "1");
 
 if (is_array($this->processo->arquivos)):
     $htmlAnexos = '<ul>';
-    foreach ($this->processo->arquivos as $arquivo): 
+    foreach ($this->processo->arquivos as $arquivo):
         $htmlAnexos .= '<li>' . $arquivo->nome . '</li>';
     endforeach;
     $htmlAnexos .= '</ul>';
-    echo $this->fieldList()->text('Anexos', $htmlAnexos);    
-endif; 
+    echo $this->fieldList()->text('Anexos', $htmlAnexos);
+endif;
 
 echo $this->fieldList()->close();
 ?>
 
-<?php 
-echo $this->pagenav()->openList(); 
-echo $this->pagenav()->addLink($this->simpleUrl('detalhes', 'processo', array('id' => $this->processo->id)), 'Voltar');
-echo $this->pagenav()->defaultHelperLinks();
-echo $this->pagenav()->closeList();
-?>
+<div id="detalhes">
+    <?php
+    echo $this->pagenav()->openList();
+    echo $this->pagenav()->addLink($this->simpleUrl('detalhes', 'processo', array('id' => $this->processo->id)), 'Voltar');
+    echo $this->pagenav()->defaultHelperLinks();
+    echo $this->pagenav()->closeList();
+    ?>
+</div>

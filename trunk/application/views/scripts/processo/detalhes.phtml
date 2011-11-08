@@ -1,22 +1,23 @@
-<?php 
+<?php
 $this->breadcrumbs()->addPage('Detalhes do Processo');
-echo $this->breadcrumbs()->render(); 
+echo $this->breadcrumbs()->render();
 
-echo $this->pagenav()->openList(); 
+echo $this->pagenav()->openList();
 echo $this->pagenav()->defaultHelperLinks();
 echo $this->pagenav()->closeList();
 ?>
 <div id="article">
-	<?php 
+	<?php
     if ($this->processo->id):
-        echo $this->partial('snippets/detalhesProcesso.phtml', array('processo' => $this->processo, 
+        echo $this->partial('snippets/detalhesProcesso.phtml', array('processo' => $this->processo,
         															 'processosParalelos' => $this->processosParalelos));
         echo $this->partial('snippets/movimentacoes.phtml', array('movimentacoes' => $this->processo->movimentacoes));
     ?>
     <form action="" method="get">
-        <?php 
+        <?php
         echo $this->buttonlist()->open();
-        echo $this->buttonlist()->button('Etiqueta', 'etiqueta');
+        echo $this->buttonlist()->button('Etiqueta Única', 'etiqueta');
+        echo $this->buttonlist()->button('Etiqueta Dupla', 'etiqueta1');
         if ($this->oficioMarker) {
             echo $this->buttonlist()->button('Ofício', 'oficio');
             echo $this->buttonlist()->close();

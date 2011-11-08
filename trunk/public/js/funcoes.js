@@ -235,7 +235,7 @@ function valida_cnpj(cnpj)
 }
 
 $(function(){
-    ord_tipo = ['CNPJ','CPF', 'CPF', 'CPF', 'CPF', 'CNPJ'];
+    ord_tipo = ['CNPJ','CPF', 'CPF', 'CPF', 'CPF', 'CNPJ', 'ANONIMO'];
     tipo = ord_tipo[0];
     $("dd select#mani-tipo option").each(function(e){
         if (e == 0) {
@@ -249,14 +249,18 @@ $(function(){
 
     $("dd select#mani-tipo").live("change", function(){
         tipo = $(this).find("option:selected").attr('tipo');
-        $("dd #manifestanteCpfCnpj").parent().prev().find('label').html(tipo);
+        $("dd #manifestanteCpfCnpj").val("").show().addClass('middleText  required');
+        $("dd #manifestanteCpfCnpj").parent().prev().find('label').show().html(tipo);
 
         if(tipo == ord_tipo[1]) {
             $("dd #manifestanteCpfCnpj").val("").setMask({
                 mask:"999.999.999-99",
                 autoTab: false
             });
-        } else {
+        } else if(tipo == ord_tipo[6]) {
+            $("dd #manifestanteCpfCnpj").parent().prev().find('label').hide();
+            $("dd #manifestanteCpfCnpj").val("").hide().removeClass();
+        }else {
             $("dd #manifestanteCpfCnpj").val("").setMask({
                 mask:"99.999.999/9999-99",
                 autoTab: false
@@ -274,7 +278,7 @@ $(function(){
                     alert("CPF inválido")
                     $(this).val("")
                 }
-            } else {
+            } else if(tipo == ord_tipo[0]){
                 if(!valida_cnpj(str)){
                     alert("CNPJ inválido")
                     $(this).val("")

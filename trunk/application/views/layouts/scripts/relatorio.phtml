@@ -6,15 +6,31 @@
         <link rel="stylesheet" media="screen" href="<?php echo $this->baseUrl() ?>/css/reset.css" type="text/css"/>
         <link rel="stylesheet" media="screen" href="<?php echo $this->baseUrl() ?>/css/relatorios.css" type="text/css"/>
         <link rel="stylesheet" media="print" href="<?php echo $this->baseUrl() ?>/css/print.css" type="text/css"/>
+        <script src="/js/plugins/jquery-1.4.4.min.js" type="text/javascript"></script>
     </head>
     <?php flush(); ?>
     <body>
-        <div id="header">
+        <div class="header">
            	<img src="<?php echo $this->baseUrl() ?>/img/logoFortalezaP&B.png" alt="Brasão da Prefeitura Municipal de Fortaleza" />
             <h1>Sistema de Protocolo Único<span>Prefeitura Municipal de Fortaleza</span></h1>
         </div>
-        <div id="section">
+        <div class="section">
             <?php echo $this->layout()->content ?>
-        </div> 
-	</body>
+        </div>
+        <?php if ($this->layout === 'duplo') : ?>
+        <div class="header">
+                <img src="<?php echo $this->baseUrl() ?>/img/logoFortalezaP&B.png" alt="Brasão da Prefeitura Municipal de Fortaleza" />
+                <h1>Sistema de Protocolo Único<span>Prefeitura Municipal de Fortaleza</span></h1>
+            </div>
+            <div class="section">
+                <?php echo $this->layout()->content ?>
+            </div>
+            <script type="text/javascript">
+                $(function(){
+                    $("#detalhes").first().remove();
+                    $("#breadcrumbs").remove();
+                });
+            </script>
+        <?php endif; ?>
+    </body>
 </html>

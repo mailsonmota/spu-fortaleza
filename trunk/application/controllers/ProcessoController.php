@@ -19,6 +19,10 @@ class ProcessoController extends BaseController
             $this->_redirectEtiqueta($idProcesso);
         }
 
+        if (array_key_exists('etiqueta1', $this->_getAllParams())) {
+            $this->_redirectEtiqueta($idProcesso, array('layout' => 'duplo'));
+        }
+
         if (array_key_exists('oficio', $this->_getAllParams())) {
             $this->_redirectOficio($idProcesso);
         }
@@ -98,9 +102,9 @@ class ProcessoController extends BaseController
         $this->_helper->redirector('detalhes', $this->getController(), 'default', array('id' => $idProcesso));
     }
 
-    protected function _redirectEtiqueta($idProcesso)
+    protected function _redirectEtiqueta($idProcesso, array $params = array())
     {
-        $this->_helper->redirector('etiqueta', $this->getController(), 'default', array('id' => $idProcesso));
+        $this->_helper->redirector('etiqueta', $this->getController(), 'default', array('id' => $idProcesso, 'layout' => $params));
     }
 
     protected function _redirectOficio($idProcesso)
@@ -122,6 +126,10 @@ class ProcessoController extends BaseController
         $this->_helper->layout()->setLayout('relatorio');
 
         $this->view->processo = $processo;
+
+        if($this->_request->getParam('layout')) {
+            $this->view->layout = $this->_request->getParam('layout');
+        }
     }
 
     public function oficioAction()
