@@ -13,4 +13,3 @@ for each (child in assunto.children) {
 }
 
 model.resultado = resultado
-

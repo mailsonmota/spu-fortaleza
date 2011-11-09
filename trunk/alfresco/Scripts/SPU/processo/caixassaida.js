@@ -1,8 +1,21 @@
 function getCaixaSaida(offset, pageSize, filter, assuntoId) {
     var statusTramitando = getStatusTramitando()
 	searchQuery = 'TYPE:"spu:Processo" AND @spu\\:processo.Status:"' + statusTramitando.nodeRef + '"' + getCriterioCaixasSaidaEnviados() + ' AND NOT (@spu\\:processo.EmAnalise:true)';
+	
     if (filter && filter != '') {
-        searchQuery += ' AND ALL:"*' + filter + '*"';
+        //searchQuery += ' AND ALL:"*' + filter + '*"';
+        searchQuery += ' AND ';
+
+        if (filter instanceof Array && filter.length > 0) {
+            searchQuery += ' (';
+            for (var i = 0; i < filter.length; i++) {
+                if (i > 0) searchQuery += ' OR ';
+                searchQuery += ' ALL:"*' + filter[i] + '*" ';
+            }
+            searchQuery += ') ';
+        } else {
+            searchQuery += ' ALL:"*' + filter + '*" ';
+        }
     }
 
     if (assuntoId) {
@@ -56,8 +69,21 @@ function getCriterioCaixasSaidaEnviados() {
 function getCaixaEnviados(offset, pageSize, filter, assuntoId) {
     var statusTramitando = getStatusTramitando()
 	searchQuery = 'TYPE:"spu:Processo" AND @spu\\:processo.Status:"' + statusTramitando.nodeRef + '"' + getCriterioCaixasSaidaEnviados() + ' AND @spu\\:processo.EmAnalise:true';
+
     if (filter && filter != '') {
-        searchQuery += ' AND ALL:"*' + filter + '*"';
+        //searchQuery += ' AND ALL:"*' + filter + '*"';
+        searchQuery += ' AND ';
+
+        if (filter instanceof Array && filter.length > 0) {
+            searchQuery += ' (';
+            for (var i = 0; i < filter.length; i++) {
+                if (i > 0) searchQuery += ' OR ';
+                searchQuery += ' ALL:"*' + filter[i] + '*" ';
+            }
+            searchQuery += ') ';
+        } else {
+            searchQuery += ' ALL:"*' + filter + '*" ';
+        }
     }
 
     if (assuntoId) {

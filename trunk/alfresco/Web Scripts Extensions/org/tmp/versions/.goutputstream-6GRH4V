@@ -1,0 +1,8 @@
+<webscript>
+  <shortname>Mostra histórico de um nó</shortname>
+  <description>Mostra todas as versões de um nó</description>
+  <url>/apiext/node-version/{id}</url>
+  <authentication>user</authentication>
+  <format default="html">any</format>
+</webscript>
+

@@ -6,4 +6,6 @@ var pageSize = params[1]
 var filter = params[2]
 var assuntoId = args['assunto-id']
 
+if (filter) var filter = filter.split(',')
+
 model.processos = getCaixaEnviados(offset, pageSize, filter, assuntoId)

@@ -1,0 +1,8 @@
+<webscript>
+    <shortname>apiext: versions</shortname>
+    <description>apiext: versions</description>
+    <url>/apiext/versions/{id}</url>
+    <authentication>user</authentication>
+    <format default="html">any</format>
+</webscript>
+
