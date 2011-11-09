@@ -4,7 +4,7 @@ header('Content-type: application/vnd.oasis.opendocument.text');
 if (isset($this->arquivoNome)) {
     header('Content-Disposition: filename="' . $this->arquivoNome . '.odt"');
 } else {
-    header('Content-Disposition: filename="oficio.odt"');
+    header('Content-Disposition: filename="comunicacao-interna.odt"');
 }
 
 echo $this->arquivoString;

@@ -1,0 +1,8 @@
+<webscript>
+  <shortname>Retorna o nodeRef do arquivo do Modelo de Diário de um Assunto</shortname>
+  <description>Retorna o nodeRef do arquivo do Modelo de Diário de um Assunto</description>
+  <url>/spu/assunto/{uuid}/diario</url>
+  <authentication>user</authentication>
+  <transaction>required</transaction>
+</webscript>
+

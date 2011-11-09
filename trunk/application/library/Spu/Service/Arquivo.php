@@ -62,7 +62,9 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     /**
      * Retorna a URL de download de um arquivo
      * 
-     * @param array $hash
+     * @param array $hash. formato:
+     *     $hash['id']   (obrigatório)
+     *     $hash['nome'] (opcional)
      * @return string
      */
     public function getArquivoDownloadUrl($arquivoInfos, $addAlfTicket = true)
@@ -91,18 +93,21 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     }
 
     /**
-     * Dado o nodeRef de um assunto, retorna o uuid de seu ofício.
+     * OFÍCIO:
+     * Dado o nodeRef de um assunto, retorna o uuid de seu arquivo de
+     * modelo de ofício.
      */
     public function getOficioUuid($assuntoNodeRef)
     {
-        $urlService = $this->getBaseUrl() . "/spu/assunto/" . substr($assuntoNodeRef, 24) . "/oficio";
+        $urlService = $this->getBaseUrl() . "/spu/assunto/"
+            . substr($assuntoNodeRef, 24) . "/oficio";
 
         return trim($this->_doAuthenticatedGetStringRequest($urlService));
     }
 
     /**
-     * Dado um nodeRef de um assunto, retorna nodeRef do arquivo
-     * modelo de ofício contido naquele assunto.
+     * Dado um nodeRef de um assunto, retorna seu arquivo de
+     * modelo de ofício.
      * 
      * @param string $assuntoUuid
      * @return string
@@ -110,6 +115,64 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     public function getOficioModelo($assuntoUuid)
     {
         $oficioUuid = $this->getOficioUuid($assuntoUuid);
+
+        $urlArquivo = $this->getArquivoDownloadUrl(array('id' => $oficioUuid), false);
+
+        return $this->getContentFromUrl($urlArquivo);
+    }
+
+    /**
+     * DIÁRIO:
+     * Dado o nodeRef de um assunto, retorna o uuid de seu arquivo de
+     * modelo do diário oficial.
+     */
+    public function getDiarioUuid($assuntoNodeRef)
+    {
+        $urlService = $this->getBaseUrl() . "/spu/assunto/"
+            . substr($assuntoNodeRef, 24) . "/diario";
+
+        return trim($this->_doAuthenticatedGetStringRequest($urlService));
+    }
+
+    /**
+     * Dado um nodeRef de um assunto, retorna seu arquivo de
+     * modelo do diário oficial.
+     * 
+     * @param string $assuntoUuid
+     * @return string
+     */
+    public function getDiarioModelo($assuntoUuid)
+    {
+        $oficioUuid = $this->getDiarioUuid($assuntoUuid);
+
+        $urlArquivo = $this->getArquivoDownloadUrl(array('id' => $oficioUuid, 'nome' => 'diario.odt'), false);
+
+        return $this->getContentFromUrl($urlArquivo);
+    }
+    
+    /**
+     * COMUNICAÇÃO INTERNA:
+     * Dado o nodeRef de um assunto, retorna o uuid de seu arquivo de
+     * modelo de comunicação interna.
+     */
+    public function getComunicacaoInternaUuid($assuntoNodeRef)
+    {
+        $urlService = $this->getBaseUrl() . "/spu/assunto/"
+            . substr($assuntoNodeRef, 24) . "/comunicacao-interna";
+
+        return trim($this->_doAuthenticatedGetStringRequest($urlService));
+    }
+
+    /**
+     * Dado um nodeRef de um assunto, retorna seu arquivo de
+     * modelo de comunicação interna.
+     * 
+     * @param string $assuntoUuid
+     * @return string
+     */
+    public function getComunicacaoInternaModelo($assuntoUuid)
+    {
+        $oficioUuid = $this->getComunicacaoInternaUuid($assuntoUuid);
 
         $urlArquivo = $this->getArquivoDownloadUrl(array('id' => $oficioUuid), false);
 

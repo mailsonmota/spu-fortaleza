@@ -20,8 +20,14 @@ echo $this->pagenav()->closeList();
         echo $this->buttonlist()->button('Etiqueta Dupla', 'etiqueta1');
         if ($this->oficioMarker) {
             echo $this->buttonlist()->button('Ofício', 'oficio');
-            echo $this->buttonlist()->close();
         }
+        if ($this->diarioMarker) {
+            echo $this->buttonlist()->button('Diário', 'diario');
+        }
+        if ($this->comunicacaoInternaMarker) {
+            echo $this->buttonlist()->button('Comunicação Interna', 'comunicacao-interna');
+        }
+        echo $this->buttonlist()->close();
         ?>
     </form>
     <?php endif ?>
