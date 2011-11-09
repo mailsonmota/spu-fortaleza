@@ -1,0 +1,8 @@
+<webscript>
+  <shortname>Retorna o nodeRef do arquivo do Modelo de Comunicação Interna de um Assunto</shortname>
+  <description>Retorna o nodeRef do arquivo do Modelo de Comunicação Interna de um Assunto</description>
+  <url>/spu/assunto/{uuid}/comunicacao-interna</url>
+  <authentication>user</authentication>
+  <transaction>required</transaction>
+</webscript>
+

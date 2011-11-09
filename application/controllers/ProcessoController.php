@@ -10,6 +10,8 @@ class ProcessoController extends BaseController
             $processosParalelos = $processoService->getProcessosParalelos($processo->id);
             $arquivoService = new Spu_Service_Arquivo($this->getTicket());
             $this->view->oficioMarker = $arquivoService->getOficioUuid($processo->assunto->nodeRef);
+            $this->view->diarioMarker = $arquivoService->getDiarioUuid($processo->assunto->nodeRef);
+            $this->view->comunicacaoInternaMarker = $arquivoService->getComunicacaoInternaUuid($processo->assunto->nodeRef);
         } catch (Exception $e) {
             echo $e->getMessage(); exit;
             $this->setMessageForTheView('Não foi possível carregar o processo', 'error');
@@ -24,7 +26,15 @@ class ProcessoController extends BaseController
         }
 
         if (array_key_exists('oficio', $this->_getAllParams())) {
-            $this->_redirectOficio($idProcesso);
+            $this->_helper->redirector('oficio', $this->getController(), 'default', array('id' => $idProcesso));
+        }
+
+        if (array_key_exists('diario', $this->_getAllParams())) {
+            $this->_helper->redirector('diario', $this->getController(), 'default', array('id' => $idProcesso));
+        }
+
+        if (array_key_exists('comunicacao-interna', $this->_getAllParams())) {
+            $this->_helper->redirector('comunicacao-interna', $this->getController(), 'default', array('id' => $idProcesso));
         }
 
         $this->view->processo = $processo;
@@ -107,10 +117,10 @@ class ProcessoController extends BaseController
         $this->_helper->redirector('etiqueta', $this->getController(), 'default', array('id' => $idProcesso, 'layout' => $params));
     }
 
-    protected function _redirectOficio($idProcesso)
+    /*protected function _redirectOficio($idProcesso)
     {
         $this->_helper->redirector('oficio', $this->getController(), 'default', array('id' => $idProcesso));
-    }
+    }*/
 
     public function etiquetaAction()
     {
@@ -140,12 +150,11 @@ class ProcessoController extends BaseController
         $processo = $processoService->getProcesso($this->_getIdProcessoUrl());
 
         $arquivoService = new Spu_Service_Arquivo($this->getTicket());
-        $oficioString = $arquivoService->getOficioModelo($processo->assunto->nodeRef,
-                                                         $processo->assunto->nome);
+        $arquivoString = $arquivoService->getOficioModelo($processo->assunto->nodeRef);
 
         try {
             $dataAtual = new Zend_Date();
-            $arquivoService->substituiVariaveisEmOdt($oficioString,
+            $arquivoService->substituiVariaveisEmOdt($arquivoString,
                                                      array('manifestante' => $processo->manifestante->nome,
                                                            'corpo' => $processo->corpo,
                                                            'data-abertura' => $processo->data,
@@ -154,10 +163,34 @@ class ProcessoController extends BaseController
                                                            'assunto' => $processo->assunto->nome,
                                                            'data-atual' => $dataAtual->toString('dd/MM/YYYY')));
         } catch (Exception $e) {
-            print $e->getMessage();exit;
+            print $e->getMessage();exit; // TODO FIXME
         }
 
-        $this->view->oficio = $oficioString;
+        $this->view->arquivoString = $arquivoString;
+    }
+
+    public function diarioAction() {
+        $this->_helper->layout()->disableLayout();
+        
+        $processoService = new Spu_Service_Processo($this->getTicket());
+        $processo = $processoService->getProcesso($this->_getIdProcessoUrl());
+
+        $arquivoService = new Spu_Service_Arquivo($this->getTicket());
+        $arquivoString = $arquivoService->getDiarioModelo($processo->assunto->nodeRef);
+        
+        $this->view->arquivoString = $arquivoString;
+    }
+
+    public function comunicacaoInternaAction() {
+        $this->_helper->layout()->disableLayout();
+        
+        $processoService = new Spu_Service_Processo($this->getTicket());
+        $processo = $processoService->getProcesso($this->_getIdProcessoUrl());
+
+        $arquivoService = new Spu_Service_Arquivo($this->getTicket());
+        $arquivoString = $arquivoService->getComunicacaoInternaModelo($processo->assunto->nodeRef);
+        
+        $this->view->arquivoString = $arquivoString;
     }
 }
 
