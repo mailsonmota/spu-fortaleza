@@ -76,5 +76,6 @@ function getDataPtEn(data) {
     var ano = data.substring(6)
     var mes = data.substring(3, 5)
     var dia = data.substring(0, 2)
-    return ano + '/' + mes + '/' + dia
+
+    return ano + '-' + mes + '-' + dia
 }
