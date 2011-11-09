@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Retorna as opções de Abrangência de Tipos de Processo</shortname>
+	<description>Retorna as opções de Abrangência de Tipos de Processo</description>
+	<url>/spu/totem/vincular-grupo-protocolos</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+	<format default="html">any</format>
+</webscript>

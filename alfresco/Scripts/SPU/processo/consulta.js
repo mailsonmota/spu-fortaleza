@@ -23,7 +23,7 @@ function consultar(params, offset, pageSize) {
             }
         }
     }
-
+    
     if (queryAdicional == '') {
         return new Array
     } else {
@@ -32,6 +32,7 @@ function consultar(params, offset, pageSize) {
 
     var paging = {maxItems: pageSize, skipCount: offset};
     var def = {query: searchQuery, language: "lucene", page: paging};
+
     var processos = search.query(def);
 
     return processos;
@@ -62,6 +63,7 @@ function getFilterParamValue(paramKey, paramValue) {
 	if (paramKey == 'spu:processo.Status') {
 		paramValue = 'workspace://SpacesStore/' + paramValue
 	} else if(paramKey == 'spu:processo.Data') {
+
         paramValue = getDataPtEn(paramValue)
     } else if (paramKey == 'spu:folhas.Volumes') {
         paramValue = '*'
@@ -74,5 +76,5 @@ function getDataPtEn(data) {
     var ano = data.substring(6)
     var mes = data.substring(3, 5)
     var dia = data.substring(0, 2)
-    return ano + '-' + mes + '-' + dia
+    return ano + '/' + mes + '/' + dia
 }

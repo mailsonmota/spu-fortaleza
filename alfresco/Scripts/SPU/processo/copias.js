@@ -12,7 +12,9 @@
  * Retorna as copias que o usuário tem acesso
 */
 function getCopias(offset, pageSize, filter) {
-    filter = (filter) ? encodeForAttributeQuery(filter) : null;
+    // encode feito mais abaixo, agora que filter pode ser uma array
+    //filter = (filter) ? encodeForAttributeQuery(filter) : null;
+
 	var caixasEntrada = getCaixasEntrada()
 	var caixaEntrada
 	var processosCaixaEntrada
@@ -20,6 +22,7 @@ function getCopias(offset, pageSize, filter) {
 	var path
 
     searchQuery = '+TYPE:"spu:copiaprocesso" AND (';
+
     for (var i=0; i < caixasEntrada.length;i++) {
 		caixaEntrada = caixasEntrada[i]
 		path = caixaEntrada.getQnamePath()
@@ -29,9 +32,26 @@ function getCopias(offset, pageSize, filter) {
         }
         searchQuery += 'PATH:"' + path + '/*"'
 	}
+
     searchQuery += ')'
-    if (filter) {
+
+    /*if (filter) {
         searchQuery += ' +ALL:"*' + filter + '*"';
+    }*/
+
+    if (filter && filter != '') {
+        searchQuery += ' AND ';
+
+        if (filter instanceof Array && filter.length > 0) {
+            searchQuery += ' (';
+            for (var i = 0; i < filter.length; i++) {
+                if (i > 0) searchQuery += ' OR ';
+                searchQuery += ' ALL:"*' + filter[i] + '*" ';
+            }
+            searchQuery += ') ';
+        } else {
+            searchQuery += ' ALL:"*' + filter + '*" ';
+        }
     }
 
     var paging = {maxItems: pageSize, skipCount: offset};

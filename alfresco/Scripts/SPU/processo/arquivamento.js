@@ -24,8 +24,21 @@ function getCaixaArquivo(offset, pageSize, filter, assuntoId) {
         searchQuery += 'PATH:"' + path + '//*"'
 	}
     searchQuery += ')'
+    
     if (filter && filter != '') {
-        searchQuery += ' +ALL:"*' + filter + '*"';
+        //searchQuery += ' +ALL:"*' + filter + '*"';
+        searchQuery += ' AND ';
+
+        if (filter instanceof Array && filter.length > 0) {
+            searchQuery += ' (';
+            for (var i = 0; i < filter.length; i++) {
+                if (i > 0) searchQuery += ' OR ';
+                searchQuery += ' ALL:"*' + filter[i] + '*" ';
+            }
+            searchQuery += ') ';
+        } else {
+            searchQuery += ' ALL:"*' + filter + '*" ';
+        }
     }
 
     if (assuntoId) {
