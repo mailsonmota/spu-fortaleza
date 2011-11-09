@@ -12,6 +12,7 @@
 			<?php if (isset($this->exibirDestino) && $this->exibirDestino == true): ?>
 			<th>Destino</th>
 			<?php endif ?>
+            <th>Despacho</th>
 			<th>Detalhes</th>
 		</tr>
 	</thead>
@@ -37,6 +38,7 @@
 			<?php if (isset($this->exibirDestino) && $this->exibirDestino == true): ?>
 			<td><?php echo $p->nomeProtocolo ?></td>
 			<?php endif ?>
+            <td><?php $des = $p->movimentacoes; $des = $des[0]->despacho; if($des): echo $des; else: echo 'sem despachante'; endif; ?></td>
 			<td>
 				<a href="<?php echo $this->url(array('action' => 'detalhes', 'controller' => 'processo', 'id' => $p->id)) ?>">
 					Detalhes

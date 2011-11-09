@@ -41,22 +41,24 @@ class ProtocolosAjaxController extends BaseAuthenticatedController
     protected function _getProtocolosAutocomplete()
     {
         $service = new Spu_Service_Protocolo($this->getTicket());
-        return $service->getTodosProtocolosPaginado($this->_getOffset(), 
-                                                    $this->_getPageSize(), 
+        return $service->getTodosProtocolosPaginado($this->_getOffset(),
+                                                    $this->_getPageSize(),
                                                     $this->_getSearchTerm());
     }
-    
+
     public function listarDestinosFilhosAction()
     {
         $service = new Spu_Service_Protocolo($this->getTicket());
         $protocolos = $service->getProtocolosFilhos($this->_getParam('parent-id'), $this->_getParam('origem'));
-        
+
         $protocolosJson = array();
         foreach ($protocolos as $protocolo) {
             $name = substr($protocolo->path, strpos($protocolo->path, '/') + 1);
-            $protocolosJson[] = array('id' => $protocolo->id, 'name' => $name, 'description' => $protocolo->descricao);
+            $shortname = explode("/", $name);
+            $shortname = array_pop($shortname) . " - " . $protocolo->descricao;
+            $protocolosJson[] = array('id' => $protocolo->id, 'name' => $shortname, 'description' => $name);
         }
-                
+
         $this->_helper->json($protocolosJson, true);
     }
 }
