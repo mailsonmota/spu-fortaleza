@@ -178,6 +178,20 @@ class ProcessoController extends BaseController
         $arquivoService = new Spu_Service_Arquivo($this->getTicket());
         $arquivoString = $arquivoService->getDiarioModelo($processo->assunto->nodeRef);
         
+        try {
+            $dataAtual = new Zend_Date();
+            $arquivoService->substituiVariaveisEmOdt($arquivoString,
+                                                     array('manifestante' => $processo->manifestante->nome,
+                                                           'corpo' => $processo->corpo,
+                                                           'data-abertura' => $processo->data,
+                                                           'observacao' => $processo->observacao,
+                                                           'tipo-processo' => $processo->tipoProcesso->nome,
+                                                           'assunto' => $processo->assunto->nome,
+                                                           'data-atual' => $dataAtual->toString('dd/MM/YYYY')));
+        } catch (Exception $e) {
+            print $e->getMessage();exit; // TODO FIXME
+        }
+        
         $this->view->arquivoString = $arquivoString;
     }
 
@@ -189,6 +203,20 @@ class ProcessoController extends BaseController
 
         $arquivoService = new Spu_Service_Arquivo($this->getTicket());
         $arquivoString = $arquivoService->getComunicacaoInternaModelo($processo->assunto->nodeRef);
+        
+        try {
+            $dataAtual = new Zend_Date();
+            $arquivoService->substituiVariaveisEmOdt($arquivoString,
+                                                     array('manifestante' => $processo->manifestante->nome,
+                                                           'corpo' => $processo->corpo,
+                                                           'data-abertura' => $processo->data,
+                                                           'observacao' => $processo->observacao,
+                                                           'tipo-processo' => $processo->tipoProcesso->nome,
+                                                           'assunto' => $processo->assunto->nome,
+                                                           'data-atual' => $dataAtual->toString('dd/MM/YYYY')));
+        } catch (Exception $e) {
+            print $e->getMessage();exit; // TODO FIXME
+        }
         
         $this->view->arquivoString = $arquivoString;
     }
