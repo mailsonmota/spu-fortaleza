@@ -1,0 +1,9 @@
+<webscript>
+    <shortname>Busca Tipos de Documento do SPU</shortname>
+    <description>Busca Tipos de Documento do SPU</description>
+    <url>/spu/tipos-documentos/buscar/{termo}</url>
+    <authentication>guest</authentication>
+    <transaction>required</transaction>
+    <format default="json">any</format>
+</webscript>
+
