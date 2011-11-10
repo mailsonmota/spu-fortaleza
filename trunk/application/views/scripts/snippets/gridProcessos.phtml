@@ -4,6 +4,7 @@
 			<?php if (isset($this->exibirCheckbox) && $this->exibirCheckbox == true): ?>
 			<th><input type="checkbox" id="checkbox_checkAll" /></th>
 			<?php endif ?>
+            <th>Virtual</th>
 			<th>Número</th>
 			<th>Data</th>
 			<th>Envolvido</th>
@@ -12,7 +13,7 @@
 			<?php if (isset($this->exibirDestino) && $this->exibirDestino == true): ?>
 			<th>Destino</th>
 			<?php endif ?>
-            <th>Despacho</th>
+            <th>Observação</th>
 			<th>Detalhes</th>
 		</tr>
 	</thead>
@@ -27,9 +28,10 @@
 		<?php $i = 0 ?>
 		<?php if (count($this->paginator) > 0): foreach ($this->paginator as $p): ?>
 		<tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?> <?php if ($this->indicarPrioritarios): echo $this->classePrioridade($p); endif ?>">
-			<?php if (isset($this->exibirCheckbox) && $this->exibirCheckbox == true): ?>
-			<td><input type="checkbox" name="processos[]" value="<?php echo $p->id ?>" /></td>
+            <?php if (isset($this->exibirCheckbox) && $this->exibirCheckbox == true): ?>
+            <td><input type="checkbox" name="processos[]" value="<?php echo $p->id ?>" /></td>
 			<?php endif ?>
+            <td><?php if ($p->folhas) : ?><div id="virtual-no">&nbsp;</div><?php else : ?><div id="virtual-ok">&nbsp;</div><?php endif;?></td>
 			<td><?php echo $p->numero ?></td>
 			<td><?php echo $p->data ?></td>
 			<td><?php echo $p->nomeManifestante ?></td>
@@ -38,8 +40,8 @@
 			<?php if (isset($this->exibirDestino) && $this->exibirDestino == true): ?>
 			<td><?php echo $p->nomeProtocolo ?></td>
 			<?php endif ?>
-            <td><?php $des = $p->movimentacoes; $des = $des[0]->despacho; if($des): echo $des; else: echo 'sem despachante'; endif; ?></td>
-			<td>
+            <td><?php echo $p->observacao ? $p->observacao : ' - ' ?></td>
+            <td>
 				<a href="<?php echo $this->url(array('action' => 'detalhes', 'controller' => 'processo', 'id' => $p->id)) ?>">
 					Detalhes
 				</a>
