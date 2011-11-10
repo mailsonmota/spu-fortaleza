@@ -8,7 +8,7 @@
 */
 
 /* Float Fix */
-#menu ul:after, .nav:after, #section:after, dl:after, #footer:after, .buttons:after, .tabs:after, #container:after, ol.historico li:after 
+#menu ul:after, .nav:after, #section:after, dl:after, #footer:after, .buttons:after, .tabs:after, #container:after, ol.historico li:after
 {content:".";clear:both;display:block;overflow:hidden;visibility:hidden;height:0}
 
 /* Básico */
@@ -23,7 +23,7 @@ h3 {font-size:2em;line-height:1;margin-bottom:1em}
 h4 {font-size:1.7em;line-height:1.25;margin-bottom:1.25em}
 h5 {font-size:1em;font-weight:bold;margin-bottom:1.5em}
 h6 {font-size:1em;font-weight:bold}
-    
+
 /* Links */
 a {outline: 0; font-weight: bold}
 a img {border: 0px; text-decoration: none}
@@ -69,6 +69,9 @@ table.grid {width: 100%;margin-top: 1%;border-collapse:collapse}
 .grid tfoot tr td {border: 0}
 .grid .marked td {background: #FBEE99;border-color: #ded388}
 .grid .colunaFixa input {margin: 0 auto;display: block}
+#virtual-no {background: url(../img/no.png) no-repeat;}
+#virtual-ok {background: url(../img/ok.png) no-repeat;}
+td #virtual-no, #virtual-ok {height: 12px; width: 12px; margin: -10px 0 0 10px;}
 
 /* Páragrafos */
 p {margin-bottom: 1.143em}
@@ -198,9 +201,9 @@ body.basic {background: url(../img/degrade.jpg) repeat-x 0% 0% white}
 #login dt, #login dd {width: auto; clear: left; float: none; text-align: left; padding: 0; margin-right: 0}
 #login dd {margin-bottom: 1em}
 #username, #password {
-	padding: 1em 1em 1em 2.75em; 
-	background-color: #FBFBFB; 
-	background-position: 1em 50%; 
+	padding: 1em 1em 1em 2.75em;
+	background-color: #FBFBFB;
+	background-position: 1em 50%;
 	background-repeat: no-repeat;
 	border: 1px solid #E5E5E5;
 	width: 23em;
