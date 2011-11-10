@@ -50,7 +50,7 @@ props["spu:manifestante.Uf"] = json.get("manifestanteUf")
 props["spu:manifestante.FoneResidencial"] = json.get("manifestanteFoneResidencial")
 props["spu:manifestante.FoneComercial"] = json.get("manifestanteFoneComercial")
 props["spu:manifestante.Celular"] = json.get("manifestanteFoneCelular")
-props["spu:manifestante.Obs"] = json.get("manifestanteObs")
+props["spu:manifestante.Observacao"] = json.get("manifestanteObs")
 
 /* END Dados do Manifestantes */
 

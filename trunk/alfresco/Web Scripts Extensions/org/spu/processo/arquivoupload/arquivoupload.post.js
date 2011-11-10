@@ -29,7 +29,14 @@ if (fileName == undefined || fileContent == undefined) {
         existingNode.save()
     } else {
         uploadedFile = node.createFile(fileName)
-
+        //uploadedFile.addAspect('cm:versionable') // pensar sobre versionable
+        
+        /*var props = new Array();
+        props['spu:tipoDocumento.nivel1'] = 'nodeRef de category';
+        props['spu:tipoDocumento.nivel2'] = 'nodeRef de category';
+        props['spu:tipoDocumento.nivel3'] = 'nodeRef de category';
+        uploadedFile.addAspect('spu:tipoDocumento', props);*/
+        
         uploadedFile.content = fileContent;
         uploadedFile.properties.content.write(fileContent);
         uploadedFile.properties.content.guessMimetype(fileName);
@@ -38,3 +45,4 @@ if (fileName == undefined || fileContent == undefined) {
 
 model.fileName = fileName
 model.nodeId = nodeId
+

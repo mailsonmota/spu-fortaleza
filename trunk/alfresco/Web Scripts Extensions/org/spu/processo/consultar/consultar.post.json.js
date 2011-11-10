@@ -20,6 +20,7 @@ addFilterParam('data', 'spu:processo.Data', params)
 addFilterParam('envolvido', 'spu:manifestante.Nome', params)
 addFilterParam('corpo', 'spu:processo.Corpo', params)
 addFilterParam('status', 'spu:processo.Status', params)
+addFilterParam('observacao', 'spu:processo.Observacao', params)
 
 /* Special Filters */
 addFilterParam('any', 'any', params)

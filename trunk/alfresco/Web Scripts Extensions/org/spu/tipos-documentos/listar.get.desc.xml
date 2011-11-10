@@ -1,0 +1,9 @@
+<webscript>
+    <shortname>Retorna os Tipos de Documento do SPU</shortname>
+    <description>Retorna os Tipos de Documento do SPU. Para pegar Tipos de Documento sob um Tipo de Documento específico, usar /spu/bairros/listar?parent_noderef=workspace://SpacesStore/123-123-123-123. Usando apenas /spu/bairros/listar apenas os Tipos de Documento de primeiro nível serão retornados.</description>
+    <url>/spu/tipos-documentos/listar</url>
+    <authentication>guest</authentication>
+    <transaction>required</transaction>
+    <format default="json">any</format>
+</webscript>
+
