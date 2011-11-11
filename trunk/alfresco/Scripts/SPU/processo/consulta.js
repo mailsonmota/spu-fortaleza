@@ -10,11 +10,17 @@
 function consultar(params, offset, pageSize) {
     var searchQuery = 'TYPE:"spu:processo" AND NOT(ISNULL:"spu:processo.Destino")'
     var queryAdicional = ''
+    var dataArray = new Array
+
     for (var i=0; i < params.length; i++) {
-        if (params[i]['value'] != '') {
+
+    	if (params[i]['value'] != '') {
     		campo = getFilterParamField(params[i]['key'])
     		value = getFilterParamValue(params[i]['key'], params[i]['value'])
-    		if (campo) {
+    		if (params[i]['key'] == 'spu:processo.Data') {
+    			params[i]['value'] = getDataPtEn(params[i]['value']);
+    			dataArray.push(params[i]['value']);	
+    		}else if (campo) {
         		queryAdicional += ' AND ' + campo + ':"' + value + '"'
         	}
 
@@ -23,6 +29,10 @@ function consultar(params, offset, pageSize) {
             }
         }
     }
+    
+    if (dataArray.length > 0) {
+    	queryAdicional += ' AND ' +campo+ ': ['+dataArray[0]+ ' TO ' +dataArray[1]+ ']';
+    };
 
     if (queryAdicional == '') {
         return new Array
@@ -62,6 +72,7 @@ function getFilterParamValue(paramKey, paramValue) {
 	if (paramKey == 'spu:processo.Status') {
 		paramValue = 'workspace://SpacesStore/' + paramValue
 	} else if(paramKey == 'spu:processo.Data') {
+
         paramValue = getDataPtEn(paramValue)
     } else if (paramKey == 'spu:folhas.Volumes') {
         paramValue = '*'
@@ -74,6 +85,6 @@ function getDataPtEn(data) {
     var ano = data.substring(6)
     var mes = data.substring(3, 5)
     var dia = data.substring(0, 2)
-    
+
     return ano + '-' + mes + '-' + dia
 }
