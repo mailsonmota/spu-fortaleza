@@ -20,7 +20,7 @@ echo $this->pagenav()->closeList();
                                     $this->processo->protocolo->id, 
                                     null, 
                                     array('required' => true));
-    	echo $this->fieldList()->textbox('Prazo', 'prazo', null, array('required' => true, 'class' => 'mascaraData'));
+    	echo $this->fieldList()->textbox('Prazo', 'prazo', null, array('class' => 'mascaraData'));
         echo $this->fieldList()->textarea('Despacho', 'despacho', null, array('required' => true));
         echo $this->protocoloSelectMultiple('Com Cópia', 
                                             'copias', 
