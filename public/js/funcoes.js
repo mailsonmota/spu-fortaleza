@@ -235,29 +235,41 @@ function valida_cnpj(cnpj)
 }
 
 $(function(){
-    ord_tipo = ['CNPJ','CPF', 'CPF', 'CPF', 'CPF', 'CNPJ', 'ANONIMO'];
-    tipo = ord_tipo[0];
+
+    tipo = null;
+    tipos = {
+        'Pessoa Juridica (Sem Ser Orgao)'   : 'CNPJ',
+        'Pessoa Fisica (Sem Ser Servidor)'  : 'CPF',
+        'Servidor Efetivo'                  : 'CPF',
+        'Servidor Comissionado'             : 'CPF',
+        'Órgão da PMF'                      : 'CNPJ',
+        'Outros (Estagiario. Terceirizado)' : 'CPF',
+        'Anonimo'                           : 'ANONIMO'
+    };
+
     $("dd select#mani-tipo option").each(function(e){
+        $(this).attr('tipo', tipos[$(this).html()]);
         if (e == 0) {
+            tipo = $(this).attr('tipo');
             $("dd #manifestanteCpfCnpj").setMask({
-                mask:"99.999.999/9999-99",
+                mask:( tipo === 'CNPJ' ? "99.999.999/9999-99" : "999.999.999-99"),
                 autoTab: false
-            }).parent().prev().find('label').html(ord_tipo[e]);
+            }).parent().prev().find('label').html(tipo);
         }
-        $(this).attr('tipo', ord_tipo[e]);
     });
 
     $("dd select#mani-tipo").live("change", function(){
         tipo = $(this).find("option:selected").attr('tipo');
+
         $("dd #manifestanteCpfCnpj").val("").show().addClass('middleText  required');
         $("dd #manifestanteCpfCnpj").parent().prev().find('label').show().html(tipo);
 
-        if(tipo == ord_tipo[1]) {
+        if(tipo === 'CPF') {
             $("dd #manifestanteCpfCnpj").val("").setMask({
                 mask:"999.999.999-99",
                 autoTab: false
             });
-        } else if(tipo == ord_tipo[6]) {
+        } else if(tipo === 'ANONIMO') {
             $("dd #manifestanteCpfCnpj").parent().prev().find('label').hide();
             $("dd #manifestanteCpfCnpj").val("").hide().removeClass();
         }else {
@@ -268,17 +280,16 @@ $(function(){
         }
     });
 
-    //023.845.193-38
     $("dd #manifestanteCpfCnpj").focusout(function(){
         var str = $(this).val().replace(/[^\w\s]/g, "");
 
         if(str !== "") {
-            if(tipo == ord_tipo[1]) {
+            if(tipo === 'CPF') {
                 if(!valida_cpf(str)){
                     alert("CPF inválido")
                     $(this).val("")
                 }
-            } else if(tipo == ord_tipo[0]){
+            } else if(tipo === 'CNPJ'){
                 if(!valida_cnpj(str)){
                     alert("CNPJ inválido")
                     $(this).val("")
