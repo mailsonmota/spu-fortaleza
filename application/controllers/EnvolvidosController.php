@@ -17,7 +17,7 @@ class EnvolvidosController extends BaseController
 	    		)
     		);
     	} else {
-    		$this->setMessageForTheView('Por favor, busque pelo Nome ou CPF.');
+    		$this->setMessageForTheView('Por favor, busque pelo Nome, CPF ou CNPJ.');
     	}
 
     	$this->view->q = str_replace("%2F", "/", $this->_getParam('q'));
