@@ -151,7 +151,7 @@ function enableTableCheckAll() {
     });
 }
 
-// função para verificar o cpf
+
 function valida_cpf(cpf)
 {
     var numeros, digitos, soma, i, resultado, digitos_iguais;
@@ -234,6 +234,7 @@ function valida_cnpj(cnpj)
         return false;
 }
 
+
 $(function(){
 
     tipo = null;
@@ -300,54 +301,63 @@ $(function(){
 });
 
 // 30.092.252/0001-59
+// logica mascara page envolvidos
 $(function(){
-    $('#article fieldset dl dt:last').remove();
+    var envolvidos = window.location.toString().indexOf("/envolvidos") != -1;
+    if (envolvidos) {
+        $('#article fieldset dl dt:last').remove();
 
-    $('#article fieldset dl dt').css({
-        'margin' : '0 45px 0 -8px'
-    });
-
-    $('#article fieldset dl dt input:radio').click(function() {
-        $('input#q').val('');
-        var regra = null;
-        switch ($(this).val()) {
-            case 'nome':
-                regra = false;
-                break;
-            case 'cpf':
-                regra = "999.999.999-99";
-                break;
-            case 'cnpj':
-                regra = "99.999.999/9999-99";
-                break;
-        }
-
-        $('input#q').setMask({
-            mask: regra,
-            autoTab: false
+        $('#article fieldset dl dt').css({
+            'margin' : '0 45px 0 -8px'
         });
-    })
+
+        $('#article fieldset dl dt input:radio').click(function() {
+            $('input#q').val('');
+            var regra = false;
+            switch ($(this).val()) {
+                case 'cpf':
+                    regra = "999.999.999-99";
+                    break;
+                case 'cnpj':
+                    regra = "99.999.999/9999-99";
+                    break;
+                default :
+                    regra = false;
+                    break;
+            }
+
+            $('input#q').setMask({
+                mask: regra,
+                autoTab: false
+            });
+        })
+    }
 });
 
-//$(function(){
-//    function isNumeric(str)
-//    {
-//        var er = /^[0-9]+$/;
-//        return (er.test(str));
-//    }
-//
-//    $("input#q").bind('keyup', function(e){
-//        if ($(this).val().length > 0) {
-//            if (isNumeric($(this).val())) {
-//                $(this).setMask({
-//                    mask:"999.999.999-99",
-//                    autoTab: false
-//                });
-//            }
-//        } else {
-//            $(this).setMask({
-//                mask: false
-//            });
-//        }
-//    });
-//});
+// logica mascara page consultar
+$(function(){
+    var consultar = window.location.toString().indexOf("/consultar") != -1;
+    if (consultar) {
+        $html = '<input type="radio" name="tipo" value="cpf" checked="checked" /> CPF <input type="radio" name="tipo" value="cnpj" /> CNPJ';
+        $('#article dl dt:eq(6)').html($html);
+        $('#article dl dt:eq(6) input:radio').live('click',function(){
+            $('input#cpf').val('');
+            if($(this).val() === 'cnpj') {
+                $('#article dl dd:eq(6) input#cpf').setMask({
+                    mask: "99.999.999/9999-99",
+                    autoTab: false
+                });
+            }
+            else{
+                $('#article dl dd:eq(6) input#cpf').setMask({
+                    mask: "999.999.999-99",
+                    autoTab: false
+                });
+            }
+        });
+        $('#article dl dd:eq(6) input#cpf').setMask({
+            mask: "999.999.999-99",
+            autoTab: false
+        });
+    }
+});
