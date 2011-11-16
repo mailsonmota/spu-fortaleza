@@ -197,6 +197,7 @@ class AbrirprocessoController extends BaseController
                     $this->_redirectUploadArquivo();
                 }
 
+                // Rotina de adição de arquivo
                 $fileTmp = $this->_uploadFilePathConverter($_FILES['fileToUpload']['name'],
                                                            $_FILES['fileToUpload']['tmp_name']);
                 if (!empty($session->filesToUpload)) {
@@ -211,11 +212,14 @@ class AbrirprocessoController extends BaseController
             } else {
                 
                 try {
+                    // Itera arquivos escolhidos, adicionando-os ao processo
                     foreach ($session->filesToUpload as $fileToUpload) {
                         $postData['fileToUpload'] = $fileToUpload;
                         $arquivoService = new Spu_Service_Arquivo($this->getTicket());
+                        // TODO Pesquisar sobre unlink($arquivo)
                         $arquivoService->uploadArquivo($postData);
                     }
+
                     // Limpeza da lista de arquivos
                     unset($session->filesToUpload);
                 } catch (Exception $e) {
