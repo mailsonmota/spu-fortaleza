@@ -298,3 +298,56 @@ $(function(){
         }
     });
 });
+
+// 30.092.252/0001-59
+$(function(){
+    $('#article fieldset dl dt:last').remove();
+
+    $('#article fieldset dl dt').css({
+        'margin' : '0 45px 0 -8px'
+    });
+
+    $('#article fieldset dl dt input:radio').click(function() {
+        $('input#q').val('');
+        var regra = null;
+        switch ($(this).val()) {
+            case 'nome':
+                regra = false;
+                break;
+            case 'cpf':
+                regra = "999.999.999-99";
+                break;
+            case 'cnpj':
+                regra = "99.999.999/9999-99";
+                break;
+        }
+
+        $('input#q').setMask({
+            mask: regra,
+            autoTab: false
+        });
+    })
+});
+
+//$(function(){
+//    function isNumeric(str)
+//    {
+//        var er = /^[0-9]+$/;
+//        return (er.test(str));
+//    }
+//
+//    $("input#q").bind('keyup', function(e){
+//        if ($(this).val().length > 0) {
+//            if (isNumeric($(this).val())) {
+//                $(this).setMask({
+//                    mask:"999.999.999-99",
+//                    autoTab: false
+//                });
+//            }
+//        } else {
+//            $(this).setMask({
+//                mask: false
+//            });
+//        }
+//    });
+//});
