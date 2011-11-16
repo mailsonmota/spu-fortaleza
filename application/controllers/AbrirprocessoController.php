@@ -198,11 +198,14 @@ class AbrirprocessoController extends BaseController
                 }
 
                 // Rotina de adição de arquivo
-                $fileTmp = $this->_uploadFilePathConverter($_FILES['fileToUpload']['name'],
-                                                           $_FILES['fileToUpload']['tmp_name']);
+                $fileTmp = array('filePath' => $this->_uploadFilePathConverter($_FILES['fileToUpload']['name'],
+                                                                               $_FILES['fileToUpload']['tmp_name']),
+                                 'fileType' => $_FILES['fileToUpload']['type'],
+                                 'tipoDocumento' => $this->_getParam('tipo-documento'));
+
                 if (!empty($session->filesToUpload)) {
                     foreach ($session->filesToUpload as $fileToUpload) {
-                        if ($fileToUpload == $fileTmp) {
+                        if ($fileToUpload['filePath'] == $fileTmp['filePath']) {
                             $this->setErrorMessage('Este arquivo já se encontra na lista de arquivos a ser submetida.');
                             $this->_redirectUploadArquivo();
                         }
@@ -216,7 +219,9 @@ class AbrirprocessoController extends BaseController
                 try {
                     // Itera arquivos escolhidos, adicionando-os ao processo
                     foreach ($session->filesToUpload as $fileToUpload) {
-                        $postData['fileToUpload'] = $fileToUpload;
+                        $postData['fileToUpload'] = $fileToUpload['filePath'];
+                        $postData = array_merge($postData, $fileToUpload);
+
                         $arquivoService = new Spu_Service_Arquivo($this->getTicket());
                         // TODO Pesquisar sobre unlink($arquivo)
                         $arquivoService->uploadArquivo($postData);
@@ -242,7 +247,7 @@ class AbrirprocessoController extends BaseController
 
         $tipoDocumentoService = new Spu_Service_TipoDocumento($this->getTicket());
 
-        $selectOptions[] = 'Selecione um tipo';
+        $selectOptions[''] = 'Selecione um tipo';
         foreach ($tipoDocumentoService->getTiposDocumentos() as $tipoDocumento) {
             $selectOptions[$tipoDocumento->nodeRef] = $tipoDocumento->nome;
         }
