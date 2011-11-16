@@ -14,13 +14,20 @@ class Spu_Service_TipoDocumento extends Spu_Service_Abstract
     private $_tiposDocumentosBaseUrl = 'spu/tipos-documentos';
     
     /**
-     * Retorna os Tipos de Documentos cadastrados no SPU
+     * Por padrão, retorna os Tipos de Documentos de primeiro nível cadastrados no SPU.
+     * Pode receber um nodeRef ("workspace://SpacesStore/123-123-123-123"). Nesse caso, retorna
+     * os Tipos de Documentos imediatamente abaixo daquele nodeRef.
      * 
      * @return Spu_Entity_Classification_TipoDocumento[]
      */
-    public function getTiposDocumentos()
+    public function getTiposDocumentos($parentNodeRef = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_tiposDocumentosBaseUrl . "/listar";
+
+        if ($parentNodeRef) {
+            $url .= '?parent-noderef=' . $parentNodeRef;
+        }
+
         $result = $this->_doAuthenticatedGetRequest($url);
         
         return $this->_loadManyFromHash($result['Tipos de Documentos']);
