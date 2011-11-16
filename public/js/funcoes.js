@@ -321,7 +321,7 @@ $(function(){
                 case 'cnpj':
                     regra = "99.999.999/9999-99";
                     break;
-                default :
+                case 'nome' :
                     regra = false;
                     break;
             }
