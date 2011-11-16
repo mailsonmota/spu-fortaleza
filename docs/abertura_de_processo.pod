@@ -1,0 +1,34 @@
+=head1 nome
+
+documentacao de abertura de processo no spu (criacao do processo e tramitacao)
+
+=head1 criacao
+json com infos do processo eh passado para web script "abrirprocesso".
+
+um array eh preenchido para ser usando na criacao do processo. priedade "processo.Origem" do array eh setada para "protocoloOrigem", que eh o protocolo onde estah o usuario que estah abrindo o processo. por exemplo, "sam".
+
+processo eh criado na folder "home" do usuario logado. por exemplo: /users/usuario_sam
+
+enquanto o processo ainda estah na "home" do usuario, ele tem "origem", mas nao tem ainda "destino"
+
+essa criacao acontece nos primeiros passos do passo-a-passo da abertura de processo. depois que o processo eh criado, nos primeiros passos, ateh o ultimo passo, de confirmacao da tramitacao, o processo ainda estah na "home" do usuario.
+
+apenas depois da confirmacao de tramitacao, no ultimo passo do passo-a-passo da abertura de processo, o processo eh efetivamente tramitado, ou seja, sai do "home" do usuario e vai para seu destino.
+
+=head1 tramitacao
+
+no ultimo passo do passo-a-passo da abertura de processo, usuario confirma os dados da abertura de processo. o 'webscript' tramitarprocesso acionado. para ele eh passado, entre outras coisas, o 'destino' do processo. ele roda o script 'tramitacao'.
+
+script 'tramitacao' seta propriedade 'destino' (e às vezes 'origem', quando nao for a primeira tarmitacao) do processo.
+
+depois do processo ter setado em si 'origem' e 'destino', script 'tramitacao' roda o workflow 'moveFiles' no processo em questao.
+
+=head2 workflow 'moveFiles'
+
+em geral, workflow modifica algumas propriedades, move o processo e configura suas permissoes.
+
+faz algumas modificacoes de propriedades, como, por exemplo, colocar 'status' como tramitando.
+
+considera o 'destino' do processo para pegar uma 'caixa de entrada'. move o processo para esta 'caixa de entrada'.
+
+modifica permissoes. adiciona ao processo, como editor, o grupo da caixa de entrada da origem. adiciona ao processo, como collaborator, o grupo da caixa de análise do parent do processo.
