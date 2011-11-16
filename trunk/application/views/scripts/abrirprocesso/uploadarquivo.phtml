@@ -24,6 +24,7 @@ echo $this->pagenav()->closeList();
             echo $this->fieldList()->open();
             echo $this->fieldList()->file('Arquivo', 'fileToUpload');
             echo $this->fieldList()->select('Tipo de Documento', 'tipo-documento', $this->tiposDocumentosSelectOptions);
+            echo $this->fieldList()->select('Tipo de Documento', 'tipo-documento2', $this->tiposDocumentosSelectOptions);
             echo $this->fieldList()->close();
             echo $this->buttonlist()->open();
             echo $this->buttonlist()->button('Adicionar Arquivo');
@@ -40,7 +41,7 @@ echo $this->pagenav()->closeList();
                 echo '<li>Nenhum arquivo enviado.</li>';
             } else {
                 for ($i = 0; $i < count($this->filesToUpload); $i++) {
-                    $nomeArquivo = substr(strrchr($this->filesToUpload[$i], '/'), 1);
+                    $nomeArquivo = substr(strrchr($this->filesToUpload[$i]['filePath'], '/'), 1);
                     $fileDelUrl = $this->simpleUrl('removerarquivo', 'abrirprocesso', array('removerarquivo' => $i));
                     
                     print "<li>$nomeArquivo (<a href={$fileDelUrl}>Remover</a>)</li>";
