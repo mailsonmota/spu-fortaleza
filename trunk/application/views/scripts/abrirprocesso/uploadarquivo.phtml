@@ -23,6 +23,7 @@ echo $this->pagenav()->closeList();
             <?php
             echo $this->fieldList()->open();
             echo $this->fieldList()->file('Arquivo', 'fileToUpload');
+            echo $this->fieldList()->select('Tipo de Documento', 'tipo-documento', $this->tiposDocumentosSelectOptions);
             echo $this->fieldList()->close();
             echo $this->buttonlist()->open();
             echo $this->buttonlist()->button('Adicionar Arquivo');

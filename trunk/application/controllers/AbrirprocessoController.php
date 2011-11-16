@@ -208,6 +208,8 @@ class AbrirprocessoController extends BaseController
                         }
                     }
                 }
+                /* filesToUpload[] vai receber array, e nao mais string.
+                   array(file => $fileTmp, tipo-documento => node_ref de tipo de documento, como 'comprovante de pagamento') */
                 $session->filesToUpload[] = $fileTmp;
             } else {
                 
@@ -237,6 +239,14 @@ class AbrirprocessoController extends BaseController
         $this->view->hasFormulario = $processo->assunto->hasFormulario();
         $this->view->uploadedFiles = $processo->getArquivos();
         $this->view->filesToUpload = $session->filesToUpload;
+
+        $tipoDocumentoService = new Spu_Service_TipoDocumento($this->getTicket());
+
+        $selectOptions[] = 'Selecione um tipo';
+        foreach ($tipoDocumentoService->getTiposDocumentos() as $tipoDocumento) {
+            $selectOptions[$tipoDocumento->nodeRef] = $tipoDocumento->nome;
+        }
+        $this->view->tiposDocumentosSelectOptions = $selectOptions;
     }
     
     public function removerarquivoAction()
