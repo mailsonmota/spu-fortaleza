@@ -10,9 +10,9 @@
 class Spu_Service_Arquivo extends Spu_Service_Abstract
 {
     /**
-	 * URL Base dos serviços (a ser acrescentada à url dos serviços do Alfresco)
-	 * @var string
-	 */
+     * URL Base dos serviços (a ser acrescentada à url dos serviços do Alfresco)
+     * @var string
+     */
     private $_processoBaseUrl = 'spu/processo';
 
     /**
