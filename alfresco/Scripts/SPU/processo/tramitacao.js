@@ -7,10 +7,11 @@
  * @author Prefeitura Municipal de Fortaleza <http://www.fortaleza.ce.gov.br>
  * @since 16/11/2010
 */
-function tramitar(nodeId, destinoId, prioridadeId, prazo, despacho) {
+function tramitar(nodeId, destinoId, prioridadeId, prazo, despacho, acao) {
     if (destinoId.toString().indexOf('[') == -1) { //Tramitacao Simples
-        return tramitarProcesso(nodeId, destinoId, prioridadeId, prazo, despacho)
+        return tramitarProcesso(nodeId, destinoId, prioridadeId, prazo, despacho, acao)
     } else {
+    	
         destino = eval('(' + destinoId + ')')
 
         var processoOriginal = getNode(nodeId)
@@ -22,20 +23,21 @@ function tramitar(nodeId, destinoId, prioridadeId, prazo, despacho) {
             } else {
                 processo = processoOriginal.copy(userhome, true)
             }
-            tramitarProcesso(processo.properties['sys:node-uuid'], destino[i], prioridadeId, prazo, despacho)
+            tramitarProcesso(processo.properties['sys:node-uuid'], destino[i], prioridadeId, prazo, despacho, acao)
         }
 
         return processoOriginal
     }
 }
 
-function tramitarProcesso(nodeId, destinoId, prioridadeId, prazo, despacho) {
+function tramitarProcesso(nodeId, destinoId, prioridadeId, prazo, despacho, acao) {
     var processo = getNode(nodeId)
 
     despacho = (!despacho) ? null : despacho    
 
     /* Origem */
     var origemId;
+    
     if (processo.properties['spu:processo.Destino']) {
         origemId = processo.properties['spu:processo.Destino']
     } else {
@@ -62,7 +64,12 @@ function tramitarProcesso(nodeId, destinoId, prioridadeId, prazo, despacho) {
 
     /* Executa o Workflow */
     var workflow = actions.create("start-workflow");
-    workflow.parameters.workflowName = "jbpm$spu:moveFiles"; 
+    if (acao == 'cancelarEnvio') {
+    	workflow.parameters.workflowName = "jbpm$spu:cancelarEnvio";
+    }else{
+    	workflow.parameters.workflowName = "jbpm$spu:moveFiles";	
+    }
+     
     workflow.execute(processo);
     
 	return processo
@@ -83,31 +90,34 @@ function getCaixaSaidaOrigem(processoId) {
 
     return caixaSaida
 }
-
-/*function moverParaDestino(processo) {
+/*
+function moverParaDestino(processo) {
     adicionarPermissoesDestino(processo)	
 
     var caixaEntrada = getCaixaEntradaDestino(destinoId)
 	processo.move(caixaEntrada)
-}
+}*/
 
 function adicionarPermissoesDestino(processo) {
     // Permissões - Adiciona as permissoes da Cx. Entrada origem ao processo
 	var protocoloOrigem = getNode(processo.properties['spu:processo.Origem'])
+	
 	var caixasEntradaOrigem = search.luceneSearch(
 		"workspace://SpacesStore", 'PATH:"' + protocoloOrigem.getQnamePath() + '/*" AND TYPE:"spu:caixaentrada"'
 	);
+	
 	var caixaEntradaOrigem = caixasEntradaOrigem[0]
 	var permissoesCaixaEntradaOrigem = caixaEntradaOrigem.getPermissions()
+	
 	for (var i=0; i < permissoesCaixaEntradaOrigem.length; i++) {
 		permissao = getPermissaoComoHash(permissoesCaixaEntradaOrigem[i])
 		role = permissao['role']
 		group = permissao['group']
 		processo.setPermission(role, group)
 	}
-
+	
     return processo
-}*/
+}
 
 function getCaixaEntradaDestino(destinoId) {
     var protocolo = getNode(destinoId)
@@ -151,12 +161,11 @@ function cancelarEnvios(processosId) {
     var processos = new Array()
 	processosId = eval('(' + processosId + ')');
     var versaoPenultimoLocal, origemId, destinoId, despacho, dataPrazo, prioridadeId
-
     for (i=0; i < processosId.length; i++) {
         processo = getNode(processosId[i])
         destinoId = processo.properties['spu:processo.Origem']
         
-        tramitar(processosId[i], destinoId)
+        tramitar(processosId[i], destinoId, null, null, null, 'cancelarEnvio');
 		
         /*versaoPenultimoLocal = getVersaoPenultimoLocal(processo)
         
@@ -181,9 +190,11 @@ function cancelarEnvios(processosId) {
 
         /* Move de volta para a caixa de análise */
         /*var caixaEntrada = getCaixaEntradaDestino(destinoId)
+        
         processo.move(caixaEntrada)*/
-    
+        
         processos.push(processo)
+        
     }
     
     return processos
