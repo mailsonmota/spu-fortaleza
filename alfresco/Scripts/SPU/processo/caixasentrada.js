@@ -39,9 +39,9 @@ function getCaixaEntrada(offset, pageSize, filter, assuntoId) {
     if (assuntoId) {
         searchQuery += ' AND @spu\\:processo.Assunto:"' + assuntoId + '"'
     }
-
+	
     var paging = {maxItems: pageSize, skipCount: offset, sort:sort1};
-    var sort1 = getDefaultSortProcessos()
+    var sort1 = getSortProcessosByDate()
     var def = {query: searchQuery, language: "lucene", page: paging, sort:[sort1]};
     var processos = search.query(def);
 
@@ -89,7 +89,8 @@ function getCaixaAnalise(offset, pageSize, filter, assuntoId) {
     }
 
     var paging = {maxItems: pageSize, skipCount: offset};
-    var def = {query: searchQuery, language: "lucene", page: paging};
+    var sort1 = getSortProcessosByDate()
+    var def = {query: searchQuery, language: "lucene", page: paging, sort:[sort1]};
     var processos = search.query(def);
 
     return processos
@@ -137,7 +138,8 @@ function getCaixaAnaliseIncorporacao(processoId, assuntoId, manifestanteCpf, off
     //var processos = search.luceneSearch(searchQuery);
 
     var paging = {maxItems: pageSize, skipCount: offset};
-    var def = {query: searchQuery, language: "lucene", page: paging};
+    var sort1 = getSortProcessosByDate()
+    var def = {query: searchQuery, language: "lucene", page: paging, sort:[sort1]};
     var processos = search.query(def);
 
     return processos;
@@ -184,7 +186,8 @@ function getCaixaExternos(offset, pageSize, filter, assuntoId) {
     }
 
     var paging = {maxItems: pageSize, skipCount: offset};
-    var def = {query: searchQuery, language: "lucene", page: paging};
+    var sort1 = getSortProcessosByDate()
+    var def = {query: searchQuery, language: "lucene", page: paging, sort:[sort1]};
     var processos = search.query(def);
 
 	return processos

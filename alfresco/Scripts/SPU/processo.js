@@ -74,3 +74,8 @@ function getDefaultSortProcessos() {
 	var sort1 = {column: "@{extension.spu}processo.Numero", ascending: true}
 	return sort1
 }
+
+function getSortProcessosByDate() {
+	var sort1 = {column: "@{extension.spu}processo.Data", descending: true}
+	return sort1
+}
