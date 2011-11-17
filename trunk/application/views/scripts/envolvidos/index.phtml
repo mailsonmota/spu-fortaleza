@@ -35,7 +35,8 @@ echo $this->pagenav()->closeList();
                 <tr>
                     <th>CPF</th>
                     <th>Nome</th>
-                    <th>Detalhes</th>
+                    <th>Bairro</th>
+<!--                    <th>Detalhes</th>-->
                 </tr>
             </thead>
             <tfoot>
@@ -47,9 +48,10 @@ echo $this->pagenav()->closeList();
                 <?php $i = 0 ?>
                 <?php if (count($this->paginator) > 0): foreach ($this->paginator as $p): ?>
                         <tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?>">
-                            <td><?php echo $p->cpf ?></td>
+                            <td><?php echo $p->cpf ? $p->cpf : "anônimo";  ?></td>
                             <td><?php echo $p->nome ?></td>
-                            <td><a href="<?php echo $this->url(array('action' => 'detalhes', 'cpf' => $p->cpfDesformatado)) ?>">Detalhes</a></td>
+                            <td><?php echo $p->bairro->nome ?></td>
+<!--                            <td><a href="<?php echo $this->url(array('action' => 'detalhes', 'cpf' => str_replace(array("-","/","."), "", $p->cpfDesformatado))) ?>">Detalhes</a></td>-->
                         </tr>
                     <?php endforeach;
                 else: ?>
