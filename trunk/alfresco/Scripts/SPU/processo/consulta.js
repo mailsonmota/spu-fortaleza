@@ -71,10 +71,7 @@ function getAdjustedPropertyParamToField(paramKey) {
 function getFilterParamValue(paramKey, paramValue) {
 	if (paramKey == 'spu:processo.Status') {
 		paramValue = 'workspace://SpacesStore/' + paramValue
-	} else if(paramKey == 'spu:processo.Data') {
-
-        paramValue = getDataPtEn(paramValue)
-    } else if (paramKey == 'spu:folhas.Volumes') {
+	} else if (paramKey == 'spu:folhas.Volumes') {
         paramValue = '*'
     }
     

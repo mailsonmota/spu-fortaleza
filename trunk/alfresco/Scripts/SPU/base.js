@@ -2,10 +2,13 @@ var pastaRaizProtocolos = 'SPU';
 var limiteCaixas = 100;
 
 function getNode(nodeId) {
+	
 	var node = search.luceneSearch('ID:"workspace://SpacesStore/' + nodeId + '"');
+	
 	if (node != undefined && node.length > 0) {
 		node = node[0];
 	}
+	
 	return node;
 }
 

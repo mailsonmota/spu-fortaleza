@@ -64,32 +64,33 @@
     </dl>
 </fieldset>
 
+<?php foreach ($this->incorporados as $incorporado): ?>
 <fieldset>
     <legend>Dados Gerais do Processo Incorporado</legend>
     <dl>
         <dt>Número:</dt>
-        <dd><b><?php echo $this->incorporado->numero ?></b></dd>
+        <dd><b><?php echo $incorporado->numero ?></b></dd>
         
         <dt>Proprietário:</dt>
-        <dd><b><?php echo $this->incorporado->proprietario->orgaoLotacao ?></b></dd>
+        <dd><b><?php echo $incorporado->proprietario->orgaoLotacao ?></b></dd>
         
         <dt>Status:</dt>
-        <dd><b><?php echo $this->incorporado->status->nome ?></b></dd>
+        <dd><b><?php echo $incorporado->status->nome ?></b></dd>
         
         <dt>Abertura:</dt>
-        <dd><?php echo $this->incorporado->data ?></dd>
+        <dd><?php echo $incorporado->data ?></dd>
         
         <dt>Tipo:</dt>
-        <dd><?php echo $this->incorporado->tipoProcesso->nome ?></dd>
+        <dd><?php echo $incorporado->tipoProcesso->nome ?></dd>
         
         <dt>Assunto:</dt>
-        <dd><?php echo $this->incorporado->assunto->nome ?></dd>
+        <dd><?php echo $incorporado->assunto->nome ?></dd>
         
         <dt>Local Atual:</dt>
-        <dd><?php echo $this->incorporado->protocolo->orgaoLotacao ?></dd>
+        <dd><?php echo $incorporado->protocolo->orgaoLotacao ?></dd>
         
         <dt>Corpo:</dt>
-        <dd><?php echo $this->incorporado->corpo ?></dd>
+        <dd><?php echo $incorporado->corpo ?></dd>
     </dl>
 </fieldset>
 
@@ -97,35 +98,36 @@
     <legend>Manifestante</legend>
     <dl>
         <dt>Tipo:</dt>
-        <dd><?php echo $this->incorporado->tipoManifestante->descricao ?></dd>
+        <dd><?php echo $incorporado->tipoManifestante->descricao ?></dd>
     
         <dt>CPF/CNPJ:</dt>
-        <dd><?php echo $this->incorporado->manifestante->cpf ?></dd>
+        <dd><?php echo $incorporado->manifestante->cpf ?></dd>
         
         <dt>Nome:</dt>
-        <dd><?php echo $this->incorporado->manifestante->nome ?></dd>
+        <dd><?php echo $incorporado->manifestante->nome ?></dd>
         
-        <?php if ($this->incorporado->manifestante->sexo): ?>
+        <?php if ($incorporado->manifestante->sexo): ?>
         <dt>Sexo:</dt>
-        <dd><?php echo ($this->incorporado->manifestante->sexo == 'M') ? 'Masculino' : 'Feminino' ?></dd>
+        <dd><?php echo ($incorporado->manifestante->sexo == 'M') ? 'Masculino' : 'Feminino' ?></dd>
         <?php endif ?>
         
-        <?php if ($this->incorporado->manifestante->endereco): ?>
+        <?php if ($incorporado->manifestante->endereco): ?>
         <dt>Endereço:</dt>
-        <dd><?php echo $this->incorporado->manifestante->endereco ?></dd>
+        <dd><?php echo $incorporado->manifestante->endereco ?></dd>
         <?php endif ?>
         
         <dt>Bairro:</dt>
-        <dd><?php echo $this->incorporado->manifestante->nomeBairro ?></dd>
+        <dd><?php echo $incorporado->manifestante->nomeBairro ?></dd>
         
-        <?php if ($this->incorporado->manifestante->contato): ?>
+        <?php if ($incorporado->manifestante->contato): ?>
         <dt>Contato:</dt>
-        <dd><?php echo $this->incorporado->manifestante->contato ?></dd>
+        <dd><?php echo $incorporado->manifestante->contato ?></dd>
         <?php endif ?>
         
-        <?php if ($this->incorporado->manifestante->observacao): ?>
+        <?php if ($incorporado->manifestante->observacao): ?>
         <dt>Obs:</dt>
-        <dd><?php echo $this->incorporado->manifestante->observacao ?></dd>
+        <dd><?php echo $incorporado->manifestante->observacao ?></dd>
         <?php endif ?>
     </dl>
 </fieldset>
+<?php endforeach ?>

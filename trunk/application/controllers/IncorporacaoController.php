@@ -33,7 +33,9 @@ class IncorporacaoController extends BaseController
             $postData = $this->getRequest()->getPost();
 
             $this->_checarEscolhaDeProcesso($postData, $this->getAction());
-            $session->processoIncorporadoId = $postData['processos'][0];
+
+            //$session->processoIncorporadoId = $postData['processos'][0];
+            $session->processosIncorporados = $postData['processos'];
 
             $this->_redirectConfirmacao();
         }
@@ -66,7 +68,8 @@ class IncorporacaoController extends BaseController
 
         if ($this->getRequest()->isPost()) {
             $data['principal'] = $session->processoPrincipalId;
-            $data['incorporado'] =  $session->processoIncorporadoId;
+            //$data['incorporado'] =  $session->processoIncorporadoId;
+            $data['incorporados'] =  $session->processosIncorporados;
 
             try {
                 $processoService->incorporar($data);
@@ -81,7 +84,12 @@ class IncorporacaoController extends BaseController
         }
 
         $this->view->principal = $processoService->getProcesso($session->processoPrincipalId);
-        $this->view->incorporado = $processoService->getProcesso($session->processoIncorporadoId);
+
+        foreach ($session->processosIncorporados as $processoIncorporado) {
+            $incorporados[] = $processoService->getProcesso($processoIncorporado);
+        }
+
+        $this->view->incorporados = $incorporados;
     }
 
     public function conclusaoAction()
@@ -90,7 +98,12 @@ class IncorporacaoController extends BaseController
         $processoService = new Spu_Service_Processo($this->getTicket());
 
         $this->view->principal = $processoService->getProcesso($session->processoPrincipalId);
-        $this->view->incorporado = $processoService->getProcesso($session->processoIncorporadoId);
+
+        foreach ($session->processosIncorporados as $processoIncorporado) {
+            $incorporados[] = $processoService->getProcesso($processoIncorporado);
+        }
+
+        $this->view->incorporados = $incorporados;
     }
 
     public function pesquisarAction()
@@ -102,10 +115,11 @@ class IncorporacaoController extends BaseController
 
     protected function _checarEscolhaDeProcesso($postData, $action)
     {
-        if (isset($postData['processos'][1])) {
+        /*if (isset($postData['processos'][1])) {
             $this->setErrorMessage('Não é possível escolher mais de um processo na Incorporação. Por favor, escolha apenas um.');
             $this->_helper->redirector($action);
-        } else if (empty($postData['processos'][0])) {
+            } else*/
+        if (empty($postData['processos'][0])) {
             $this->setErrorMessage('Nenhum processo foi escolhido.');
             $this->_helper->redirector($action);
         }

@@ -13,7 +13,7 @@ echo $this->pagenav()->closeList();
 <div id="article">
     <h4>4. Incorporação realizada</h4>
     <?php
-    if ($this->principal->id AND $this->incorporado->id) {
+    if ($this->principal->id AND $this->incorporados) {
     	// "conclusão" usa o snippet de "confirmação" porque são iguais
         echo $this->render('snippets/incorporacaoDetalhesProcessos.phtml');
     }
