@@ -13,7 +13,7 @@ echo $this->pagenav()->closeList();
     <h4>3. Revise os processos selecionados e confirme a incorporação</h4>
     <form action="" method="post">
 	    <?php
-	    if ($this->principal->id AND $this->incorporado->id) {
+	    if ($this->principal->id AND $this->incorporados) {
 	        echo $this->render('snippets/incorporacaoDetalhesProcessos.phtml');
 	    }
 		echo $this->buttonlist()->open();

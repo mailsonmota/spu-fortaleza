@@ -201,7 +201,7 @@ class AbrirprocessoController extends BaseController
                 $fileTmp = array('filePath' => $this->_uploadFilePathConverter($_FILES['fileToUpload']['name'],
                                                                                $_FILES['fileToUpload']['tmp_name']),
                                  'fileType' => $_FILES['fileToUpload']['type'],
-                                 'tipoDocumento' => $this->_getParam('tipo-documento'));
+                                 'tipoDocumento' => $this->_getParam('tipo_documento'));
 
                 if (!empty($session->filesToUpload)) {
                     foreach ($session->filesToUpload as $fileToUpload) {
@@ -252,6 +252,8 @@ class AbrirprocessoController extends BaseController
             $selectOptions[$tipoDocumento->nodeRef] = $tipoDocumento->nome;
         }
         $this->view->tiposDocumentosSelectOptions = $selectOptions;
+
+        $this->view->serviceTipoDocumento = new Spu_Service_TipoDocumento($this->getTicket());
     }
     
     public function removerarquivoAction()
