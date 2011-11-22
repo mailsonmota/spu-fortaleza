@@ -1,0 +1,95 @@
+<?php
+$this->breadcrumbs()->addPage('Usuario', 'usuario', 'cadastro');
+$this->breadcrumbs()->addPage('Edição de Cadastro');
+echo $this->breadcrumbs()->render();
+
+echo $this->pagenav()->openList();
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+    <form action="" id="change_password" method="post">
+        <fieldset class="search">
+            <legend>Entre com a nova senha do usuário</legend>
+            <dl class="form">
+                <dt>
+                <label>Username:</label>
+                </dt>
+                <dd>
+                    <input value="<?php echo $this->pessoa->nomeCompleto; ?>" disabled="true">
+                </dd>
+
+                <dt>
+                <label for="current">Senha Atual:</label>
+                </dt>
+                <dd>
+                    <input type="password" id="current" name="q[current]" value=""> *
+                </dd>
+
+                <dt>
+                <label for="new"><strong>Nova Senha:</strong></label>
+                </dt>
+                <dd>
+                    <input type="password" id="new" name="q[new]" maxlength="20"> *
+                </dd>
+
+                <dt>
+                <label for="confirm"><strong>Confirmar Senha:</strong></label>
+                </dt>
+                <dd>
+                    <input type="password" id="confirm" name="q[confirm]" maxlength="20"> *
+                </dd>
+
+                <ul class="buttons ">
+                    <li><button type="submit">Alterar</button></li>
+                </ul>
+            </dl>
+        </fieldset>
+    </form>
+</div>
+<?php
+$js = '$("#change_password").validate({
+        rules:{
+            "q[new]": {
+                required:true,
+                minlength: 3,
+                maxlength: 20,
+                alphanumeric:true
+            },
+            "q[confirm]" : {
+                required:true,
+                equalTo: "#new"
+            },
+            "q[current]" : {
+                required:true
+            }
+        },
+        messages:{
+            "q[new]": {
+                required: "Campo obrigatório.",
+                minlength: "O campo deve conter no mínimo 3 caracteres.",
+                maxlength: "O campo deve conter no máximo 20 caracteres.",
+                alphanumeric:"O campo deve conter apenas números e letras."
+            },
+            "q[confirm]" : {
+                required: "Campo obrigatório.",
+                equalTo: "Atenção, as senhas não estão iguais."
+            },
+            "q[current]" : {
+                required: "Campo obrigatório."
+            }
+        },
+        errorPlacement: function(error, element) {
+            offset = element.offset();
+            error.insertBefore(element)
+            error.css("float", "right");
+            error.css("left", offset.left + element.outerWidth());
+            error.css("top", offset.top);
+            error.css("font-size", "11px");
+            error.css("margin", "4px 0 0 4px");
+        }
+    });';
+
+$this->headScript()->appendScript($js);
+?>

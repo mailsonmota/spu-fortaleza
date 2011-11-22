@@ -13,16 +13,17 @@ echo $this->pagenav()->closeList();
 <div id="article">
     <?php
     echo $this->fieldList()->open();
-	echo $this->fieldList()->text('Usuário', $this->pessoa->login);
-	echo $this->fieldList()->text('Nome', $this->pessoa->nome);
-	echo $this->fieldList()->text('Sobrenome', $this->pessoa->sobrenome);
-	echo $this->fieldList()->text('Email', $this->pessoa->email);
-	echo $this->fieldList()->text('Protocolos', implode(', ', $this->nomeProtocolos));
-	echo $this->fieldList()->close();
-	?>
-	
-	<p>
-        Caso deseje <b>alterar</b> seus dados, incluindo a sua <b>senha</b>, por favor utilize o 
-        <a href="http://usuario.cti.fortaleza.ce.gov.br" target="blank" >Sistema de Cadastro &rArr;</a>.
+    echo $this->fieldList()->text('Usuário', $this->pessoa->login);
+    echo $this->fieldList()->text('Nome', $this->pessoa->nome);
+    echo $this->fieldList()->text('Sobrenome', $this->pessoa->sobrenome);
+    echo $this->fieldList()->text('Email', $this->pessoa->email);
+    echo $this->fieldList()->text('Protocolos', implode(', ', $this->nomeProtocolos));
+    echo $this->fieldList()->close();
+    ?>
+
+    <p>
+        Caso deseje <b>alterar</b> seus dados, incluindo a sua <b>senha</b>, por favor utilize o
+        <!--        <a href="http://usuario.cti.fortaleza.ce.gov.br" target="blank" >Sistema de Cadastro &rArr;</a>.-->
+        <a href="<?php echo $this->url(array('action' => 'edit')) ?>" >Edição de Cadastro &rArr;</a>.
     </p>
 </div>
