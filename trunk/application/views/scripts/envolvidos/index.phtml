@@ -50,7 +50,7 @@ echo $this->pagenav()->closeList();
                         <tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?>">
                             <td><?php echo $p->cpf ? $p->cpf : "anônimo";  ?></td>
                             <td><?php echo $p->nome ?></td>
-                            <td><?php echo $p->bairro->nome ?></td>
+                            <td><?php echo $p->bairro->nome ? $p->bairro->nome : ' - ' ?></td>
 <!--                            <td><a href="<?php echo $this->url(array('action' => 'detalhes', 'cpf' => str_replace(array("-","/","."), "", $p->cpfDesformatado))) ?>">Detalhes</a></td>-->
                         </tr>
                     <?php endforeach;
