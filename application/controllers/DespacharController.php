@@ -9,15 +9,21 @@ class DespacharController extends BaseTramitacaoController
         if ($this->getRequest()->isPost()) {
             if (!empty($_FILES)) {
             	if ($_FILES['fileToUpload']['name']) {
-	            	$fileTmp = $this->_uploadFilePathConverter($_FILES['fileToUpload']['name'],
-	                                                           $_FILES['fileToUpload']['tmp_name']);
+                        /*$fileTmp = $this->_uploadFilePathConverter($_FILES['fileToUpload']['name'],
+                          $_FILES['fileToUpload']['tmp_name']);*/
 	                
+                        $fileTmp = array('filePath' => $this->_uploadFilePathConverter($_FILES['fileToUpload']['name'],
+                                                                               $_FILES['fileToUpload']['tmp_name']),
+                                         'fileType' => $_FILES['fileToUpload']['type'],
+                                         'tipoDocumento' => $this->_getParam('tipo_documento'));
+
 	                if (!$sessionDespachar->filesToUpload) {
 	                	$sessionDespachar->filesToUpload = array();
 	                }
 	                
 	                foreach ($sessionDespachar->filesToUpload as $fileToUpload) {
-	                    if ($fileToUpload == $fileTmp) {
+	                    //if ($fileToUpload == $fileTmp) {
+                            if ($fileToUpload['filePath'] == $fileTmp['filePath']) {
 	                        $this->setErrorMessage('Este arquivo já se encontra na lista de arquivos a ser submetida.');
 	                        $this->_redirectIndex();
 	                    }
@@ -64,6 +70,7 @@ class DespacharController extends BaseTramitacaoController
         
         $this->view->processos = $processos;
         $this->view->filesToUpload = $sessionDespachar->filesToUpload;
+        $this->view->serviceTipoDocumento = new Spu_Service_TipoDocumento($this->getTicket());
     }
     
     public function removerarquivoAction()
