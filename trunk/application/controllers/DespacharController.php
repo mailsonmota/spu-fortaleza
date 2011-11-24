@@ -40,11 +40,13 @@ class DespacharController extends BaseTramitacaoController
                     $tramitacaoService->comentarVarios($this->getRequest()->getPost());
                     
                     $arquivoService = new Spu_Service_Arquivo($this->getTicket());
-                    
+
                     foreach ($postData['processos'] as $processoId) {
                         $postData['destNodeUuid'] = $processoId;
                         foreach ($sessionDespachar->filesToUpload as $fileToUpload) {
-                            $postData['fileToUpload'] = $fileToUpload['filePath'];
+			    $postData['fileToUpload'] = $fileToUpload['filePath'];
+			    $postData = array_merge($postData, $fileToUpload);
+
                             $arquivoService->uploadArquivo($postData);
                         }
                     }
