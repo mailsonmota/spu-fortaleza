@@ -43,9 +43,12 @@ echo $this->pagenav()->closeList();
                 for ($i = 0; $i < count($this->filesToUpload); $i++) {
                     $nomeArquivo = substr(strrchr($this->filesToUpload[$i]['filePath'], '/'), 1);
                     $fileDelUrl = $this->simpleUrl('removerarquivo', 'abrirprocesso', array('removerarquivo' => $i));
-                    $tipoDocumento = $this->serviceTipoDocumento->getTipoDocumento($this->filesToUpload[$i]['tipoDocumento']);
-
-                    print "<li>$nomeArquivo -- Tipo de Documento: " . $tipoDocumento->parentRaiz . ' / '. $tipoDocumento->parent . ' / ' . $tipoDocumento->nome . " (<a href={$fileDelUrl}>Remover</a>)</li>";
+                    if ($this->filesToUpload[$i]['tipoDocumento']) {
+                        $tipoDocumento = $this->serviceTipoDocumento->getTipoDocumento($this->filesToUpload[$i]['tipoDocumento']);
+                        print "<li>$nomeArquivo -- Tipo de Documento: " . $tipoDocumento->parentRaiz . ' / '. $tipoDocumento->parent . ' / ' . $tipoDocumento->nome . " (<a href={$fileDelUrl}>Remover</a>)</li>";
+                    } else {
+                        print "<li>$nomeArquivo (<a href={$fileDelUrl}>Remover</a>)</li>";
+                    }
                 }
             }
             ?>
