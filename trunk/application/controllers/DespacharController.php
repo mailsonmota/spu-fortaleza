@@ -44,7 +44,7 @@ class DespacharController extends BaseTramitacaoController
                     foreach ($postData['processos'] as $processoId) {
                         $postData['destNodeUuid'] = $processoId;
                         foreach ($sessionDespachar->filesToUpload as $fileToUpload) {
-                            $postData['fileToUpload'] = $fileToUpload;
+                            $postData['fileToUpload'] = $fileToUpload['filePath'];
                             $arquivoService->uploadArquivo($postData);
                         }
                     }
