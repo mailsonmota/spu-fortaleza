@@ -1,7 +1,7 @@
 <?php
 /**
  * Controlador base para os controladores que exigem autenticação
- * 
+ *
  * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
  * @package SPU
  * @see Zend_Controller_Action
@@ -13,7 +13,13 @@ abstract class BaseAuthenticatedController extends Zend_Controller_Action
         $user = Plugin_Auth::getIdentity();
         return $user['ticket'];
     }
-    
+
+    protected function getUser()
+    {
+        $user = Plugin_Auth::getIdentity();
+        return $user['user'];
+    }
+
     protected function _validateAuthInstance($authInstance = null)
     {
         if (!isset($authInstance)) {
