@@ -1,0 +1,9 @@
+<webscript>
+    <shortname>Retorna um Tipo de Documento do SPU</shortname>
+    <description>Retorna um Tipo de Documento do SPU.</description>
+    <url>/spu/tipos-documentos/get/{noderef}</url>
+    <authentication>guest</authentication>
+    <transaction>required</transaction>
+    <format default="json">any</format>
+</webscript>
+

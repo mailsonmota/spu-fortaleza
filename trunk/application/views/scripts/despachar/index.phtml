@@ -17,11 +17,13 @@ echo $this->pagenav()->closeList();
             <?php
             echo $this->fieldList()->open();
             echo $this->fieldList()->file('Arquivo', 'fileToUpload');
+            echo $this->fieldList()->textbox('Tipo de Documento', 'tipo_documento_autocomplete');
             echo $this->fieldList()->close();
             echo $this->buttonlist()->open();
             echo $this->buttonlist()->button('Adicionar Arquivo');
             echo $this->buttonlist()->close(true); 
             ?>
+            <input type='hidden' name='tipo_documento' id='tipo_documento' />
         </fieldset>
     </form>
 
@@ -33,10 +35,12 @@ echo $this->pagenav()->closeList();
                 echo '<li>Nenhum arquivo enviado.</li>';
             } else {
                 for ($i = 0; $i < count($this->filesToUpload); $i++) {
-                    $nomeArquivo = substr(strrchr($this->filesToUpload[$i], '/'), 1);
+                    //$nomeArquivo = substr(strrchr($this->filesToUpload[$i], '/'), 1);
+                    $nomeArquivo = substr(strrchr($this->filesToUpload[$i]['filePath'], '/'), 1);
                     $fileDelUrl = $this->simpleUrl('removerarquivo', 'despachar', array('removerarquivo' => $i));
-                    
-                    print "<li>$nomeArquivo (<a href={$fileDelUrl}>Remover</a>)</li>";
+                    $tipoDocumento = $this->serviceTipoDocumento->getTipoDocumento($this->filesToUpload[$i]['tipoDocumento']);
+                    //print "<li>$nomeArquivo (<a href={$fileDelUrl}>Remover</a>)</li>";
+                    print "<li>$nomeArquivo -- Tipo de Documento: " . $tipoDocumento->parentRaiz . ' / '. $tipoDocumento->parent . ' / ' . $tipoDocumento->nome . " (<a href={$fileDelUrl}>Remover</a>)</li>";
                 }
             }
             ?>
@@ -67,3 +71,26 @@ echo $this->pagenav()->closeList();
         </fieldset>
     </form>
 </div>
+
+<?php
+$js = "
+$(document).ready(function() {
+    $('#tipo_documento_autocomplete').autocomplete({
+        source: '" . $this->simpleUrl('buscar', 'tipos-documentos-ajax') . "',
+        select: function(event, ui) {
+            $('#tipo_documento').val(ui.item.id);
+        },
+        change: function(event, ui) {
+            //TODO checar
+        }
+    });
+
+    $('#tipo_documento_autocomplete').blur(function() {
+        if ($('#tipo_documento_autocomplete').val() == '') {
+            $('#tipo_documento').val('');
+        }
+    });
+});
+";
+$this->headScript()->appendScript($js, 'text/javascript');
+?>
