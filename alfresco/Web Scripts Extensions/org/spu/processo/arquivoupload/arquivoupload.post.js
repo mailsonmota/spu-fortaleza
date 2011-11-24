@@ -1,9 +1,10 @@
-<import resource="/Company Home/Data Dictionary/Scripts/SPU/processo.js">
+//<import resource="/Company Home/Data Dictionary/Scripts/SPU/processo.js">
 
 var fileName = null;
 var fileContent = null;
 var node = null;
 var nodeId = null;
+var tipoDocumentoNodeRef;
 
 for each (field in formdata.fields) {
     if (field.name == "fileToUpload" && field.isFile) {
@@ -21,8 +22,9 @@ if (fileName == undefined || fileContent == undefined) {
     status.message = "Arquivo do upload não pode ser encontrado"
     status.redirect = true
 } else {
-    node = getNode(nodeId)
-    
+    //node = getNode(nodeId)
+    node = search.findNode('workspace://SpacesStore/' + nodeId)
+
     var existingNode = node.childByNamePath(fileName);
    
     if (existingNode != undefined) {
