@@ -25,10 +25,11 @@ echo $this->pagenav()->closeList();
 </div>
 <?php
 $js = '$(document).ready(function() {
-	       $("#manifestanteCpfCnpj").blur(function() {
+	       $("#manifestanteCpfCnpj").live("blur",function() {
 	           if ($(this).val()) {
 	               $.getJSON("' . $this->simpleUrl('envolvido', 'envolvidos-ajax') . '?term=" + $(this).val(), function(data) {
 	                   if (data) {
+                           $("#manifestanteBairroId option[value="+data.bairro+"]").attr("selected", true);
 		               	   $("#manifestanteNome").val(data.nome)
 		                   $("#manifestanteSexo").val(data.sexo)
 		                   $("#manifestanteLogradouro").val(data.logradouro)
