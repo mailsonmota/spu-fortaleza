@@ -3,10 +3,10 @@
 	<dl>
 		<dt>Número:</dt>
 		<dd><b><?php echo $this->processo->numero ?></b></dd>
-		
+
 		<dt>Proprietário:</dt>
 		<dd><b><?php echo $this->processo->proprietario->path ?></b></dd>
-		
+
 		<dt>Status:</dt>
 		<dd>
 		  <?php if (!$this->processo->status->nome): ?>
@@ -15,16 +15,16 @@
 		  <b><?php echo $this->processo->status->nome ?></b>
 		  <?php endif; ?>
 		</dd>
-		
+
 		<dt>Abertura:</dt>
 		<dd><?php echo $this->processo->data ?></dd>
-		
+
 		<dt>Tipo:</dt>
 		<dd><?php echo $this->processo->tipoProcesso->nome ?></dd>
-		
+
 		<dt>Assunto:</dt>
 		<dd><?php echo $this->processo->assunto->nome ?></dd>
-		
+
 		<dt>Local Atual:</dt>
         <dd>
           <?php if (!$this->processo->protocolo->path): ?>
@@ -33,9 +33,14 @@
           <b><?php echo $this->processo->protocolo->path ?></b>
           <?php endif; ?>
         </dd>
-		
+
+        <?php if ($this->processo->numeroOrigem) :?>
+		<dt>Nº Origem:</dt>
+        <dd><?php echo $this->processo->numeroOrigem; ?></dd>
+        <?php endif;?>
+
 		<dt>Corpo:</dt>
-		<dd><?php echo nl2br($this->processo->corpo) ?></dd>
+        <dd style="float: left; width: 60%;"><?php echo nl2br($this->processo->corpo) ?></dd>
 	</dl>
 </fieldset>
 
@@ -47,17 +52,17 @@
 		<dt>Status:</dt>
 		<dd><?php echo $this->processo->arquivamento->status->nome ?></dd>
 		<?php endif ?>
-		
+
 		<?php if ($this->processo->arquivamento->motivo): ?>
 		<dt>Motivo:</dt>
 		<dd><?php echo $this->processo->arquivamento->motivo ?></dd>
 		<?php endif ?>
-		
+
 		<?php if ($this->processo->arquivamento->local): ?>
 		<dt>Local:</dt>
 		<dd><?php echo $this->processo->arquivamento->local ?></dd>
 		<?php endif ?>
-		
+
 		<?php if ($this->processo->arquivamento->pasta): ?>
 		<dt>Pasta:</dt>
 		<dd><?php echo $this->processo->arquivamento->pasta ?></dd>
@@ -71,31 +76,33 @@
     <dl>
     	<dt>Tipo:</dt>
 		<dd><?php echo $this->processo->tipoManifestante->descricao ?></dd>
-    
+
+        <?php if ($this->processo->manifestante->cpf) :?>
     	<dt>CPF/CNPJ:</dt>
 		<dd><?php echo $this->processo->manifestante->cpf ?></dd>
-		
+        <?php endif;?>
+
 		<dt>Nome:</dt>
 		<dd><?php echo $this->processo->manifestante->nome ?></dd>
-		
+
 		<?php if ($this->processo->manifestante->sexo): ?>
 		<dt>Sexo:</dt>
 		<dd><?php echo ($this->processo->manifestante->sexo == 'M') ? 'Masculino' : 'Feminino' ?></dd>
 		<?php endif ?>
-		
+
 		<?php if ($this->processo->manifestante->endereco): ?>
 		<dt>Endereço:</dt>
 		<dd><?php echo $this->processo->manifestante->endereco ?></dd>
 		<?php endif ?>
-		
+
 		<dt>Bairro:</dt>
 		<dd><?php echo $this->processo->manifestante->nomeBairro ?></dd>
-		
+
 		<?php if ($this->processo->manifestante->contato): ?>
 		<dt>Contato:</dt>
 		<dd><?php echo $this->processo->manifestante->contato ?></dd>
 		<?php endif ?>
-		
+
 		<?php if ($this->processo->manifestante->observacao): ?>
 		<dt>Obs:</dt>
 		<dd><?php echo $this->processo->manifestante->observacao ?></dd>
@@ -121,7 +128,7 @@
                 <dt>Fim:</dt>
                 <dd><?php echo $volume->fim ?></dd>
                 <dt>Observação:</dt>
-                <dd><?php echo $volume->observacao ?></dd>                
+                <dd><?php echo $volume->observacao ?></dd>
             </dl>
         </dd>
         <?php endforeach ?>
@@ -151,7 +158,7 @@
         <dt>Nome:</dt>
         <dd><?php echo $arquivo->nome; ?></dd>
         <?php endif ?>
-        
+
         <?php if ($arquivo->id): ?>
         <dt>Download:</dt>
         <dd>
