@@ -1,5 +1,6 @@
 <?php
-class IncorporacaoController extends BaseController
+require_once('BaseTramitacaoController.php');
+class IncorporacaoController extends BaseTramitacaoController
 {
     public function indexAction()
     {
@@ -8,21 +9,28 @@ class IncorporacaoController extends BaseController
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
 
-            $this->_checarEscolhaDeProcesso($postData, $this->getAction());
-            $session = new Zend_Session_Namespace('incorporacaoSession');
-            $session->processoPrincipalId = $postData['processos'][0];
+            if (array_key_exists('incorporacao', $postData)) {
+                $this->_checarEscolhaDeProcesso($postData, $this->getAction());
+                $session = new Zend_Session_Namespace('incorporacaoSession');
+                $session->processoPrincipalId = $postData['processos'][0];
 
-            $this->_redirectEscolherIncorporado();
+                $this->_redirectEscolherIncorporado();
+            }
         }
 
         $this->view->q = urlencode($this->_getParam('q'));
+        $this->view->assuntoId = urldecode($this->_getParam('assunto'));
+        $this->view->tipoProcessoId = urldecode($this->_getParam('tipoprocesso'));
+        $this->view->tiposProcesso = $this->_getListaTiposProcesso();
 
         $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
 
-        $this->view->paginator = $this->_helper->paginator()->paginate($tramitacaoService->getCaixaAnalise(
-            $this->_helper->paginator()->getOffset(),
-            $this->_helper->paginator()->getPageSize(),
-            $this->view->q));
+        $this->view->paginator = $this->_helper->paginator()->paginate(
+            $tramitacaoService->getCaixaAnalise(
+                $this->_helper->paginator()->getOffset(),
+                $this->_helper->paginator()->getPageSize(),
+                $this->view->q,
+                $this->view->assuntoId));
     }
 
     public function escolherincorporadoAction()
@@ -32,15 +40,20 @@ class IncorporacaoController extends BaseController
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
 
-            $this->_checarEscolhaDeProcesso($postData, $this->getAction());
+            if (array_key_exists('incorporacao', $postData)) {
+                $this->_checarEscolhaDeProcesso($postData, $this->getAction());
 
-            //$session->processoIncorporadoId = $postData['processos'][0];
-            $session->processosIncorporados = $postData['processos'];
+                //$session->processoIncorporadoId = $postData['processos'][0];
+                $session->processosIncorporados = $postData['processos'];
 
-            $this->_redirectConfirmacao();
+                $this->_redirectConfirmacao();
+            }
         }
 
         $this->view->q = urlencode($this->_getParam('q'));
+        $this->view->assuntoId = urldecode($this->_getParam('assunto'));
+        $this->view->tipoProcessoId = urldecode($this->_getParam('tipoprocesso'));
+        $this->view->tiposProcesso = $this->_getListaTiposProcesso();
 
         $processoService = new Spu_Service_Processo($this->getTicket());
         $processo = $processoService->getProcesso($session->processoPrincipalId);

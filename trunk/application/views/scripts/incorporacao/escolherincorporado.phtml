@@ -16,7 +16,13 @@ echo $this->pagenav()->closeList();
   }
   ?>
 
-  <?php echo $this->partial('snippets/formularioPesquisaRapidaProcesso.phtml', array('q' => $this->q)) ?>
+  <?php //echo $this->partial('snippets/formularioPesquisaRapidaProcesso.phtml', array('q' => $this->q)) ?>
+  <?php
+  echo $this->partial('snippets/formularioPesquisaRapidaProcessoIncorporacao.phtml',
+                      array('q' => $this->q,
+                            'tiposProcesso' => $this->tiposProcesso,
+                            'tipoProcessoId' => $this->tipoProcessoId))
+  ?>
   <form action="" method="post">
     <?php
     echo $this->buttonlist()->open();
