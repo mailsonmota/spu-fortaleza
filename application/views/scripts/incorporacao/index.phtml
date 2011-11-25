@@ -9,7 +9,12 @@ echo $this->pagenav()->closeList();
 
 <div id="article">
   <h4>1. Escolha o Processo Principal (incorporador)</h4>
-  <?php echo $this->partial('snippets/formularioPesquisaRapidaProcesso.phtml', array('q' => $this->q)) ?>
+  <?php
+  echo $this->partial('snippets/formularioPesquisaRapidaProcessoIncorporacao.phtml',
+                      array('q' => $this->q,
+                            'tiposProcesso' => $this->tiposProcesso,
+                            'tipoProcessoId' => $this->tipoProcessoId))
+  ?>
   <form action="" method="post">
     <?php
     echo $this->buttonlist()->open();

@@ -1,0 +1,45 @@
+<form action="" method="post">
+	<fieldset class="search">
+		<legend>Pesquisa</legend>
+		<?php
+		echo $this->fieldList()->open();
+        echo $this->fieldList()->textbox('Número/Envolvido', 'q', $this->q);
+        echo $this->fieldList()->select('Tipo de Processo', 'tipoprocesso', $this->tiposProcesso, $this->tipoProcessoId);
+        echo $this->fieldList()->select('Assunto', 'assunto', array());
+        echo $this->fieldList()->close();
+        
+        echo $this->buttonlist()->open();
+        echo $this->buttonlist()->button('Buscar', 'incorporacao_busca');
+        echo $this->buttonlist()->close(true);
+        ?>
+    </fieldset>
+</form>
+
+<?php 
+$js = 'jQuery(document).ready(function() {
+           carregarAssuntos($("#tipoprocesso").val())
+               
+           $("#tipoprocesso").change(function() {
+               carregarAssuntos($(this).val())
+           });
+           
+           function carregarAssuntos(tipoProcessoId) {
+               $.ajax({
+                   dataType: "json",
+                   url:"' . $this->simpleUrl('assuntos-ajax', 'tiposprocesso') . '/id/" + tipoProcessoId,
+                   success: function(data) {
+                       $("#assunto option").remove();
+                       $(data).each(function(i, value) {
+                           $("#assunto").append("<option value=\"" + value.id + "\">" + value.name + "</option>");
+                       });
+                       
+                       $("#assunto").val("' . $this->assuntoId . '")
+                   }, 
+                   error: function(data) {
+                       $("#assunto option").remove();
+                   }
+               });
+           }
+       });';
+$this->headScript()->appendScript($js);
+?>
