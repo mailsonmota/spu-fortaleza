@@ -27,6 +27,27 @@ function getOrCreateSubCategory(categoryFather, categoryName) {
 	return desiredCategory
 }
 
+function criarTiposDocumentos(estrutura){
+	var spu
+	var busca
+	busca = getChildCategoryByName(classification.getRootCategories("cm:generalclassifiable"), "SPU");
+	spu = (!busca) ? classification.createRootCategory("cm:generalclassifiable", "SPU") : busca;
+	nivel1 = new Array();
+	var tiposDeDocumentos = getOrCreateSubCategory(spu, "Tipo de Documento");
+	
+	for(var i = 0; i < estrutura.length(); i++){
+		doc = estrutura.get(i);
+		if (doc.get('nivel') == '1'){
+			var nivel1 = getOrCreateSubCategory(tiposDeDocumentos, doc.get('nome').replace("/","_"));
+		}else if (doc.get('nivel') == '2') {
+			var nivel2 = getOrCreateSubCategory(nivel1, doc.get('nome').replace("/","_"));
+		}else if (doc.get('nivel') == '3'){
+			var nivel3 = getOrCreateSubCategory(nivel2, doc.get('nome').replace("/","_"));
+		}
+	}
+	return true
+}
+
 /**
  * criarTodasAsCategories
  * Cria as categories basicas necessarias para o SPU
