@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Cria os Tipos de Documentos do SPU</shortname>
+	<description>Cria Tipos de Documentos utilizados pelo Sistema de Protocolo Unico</description>
+	<url>/spu/gerar/tiposdocumentos</url>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>
+
