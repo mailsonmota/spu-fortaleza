@@ -9,8 +9,10 @@ echo $this->pagenav()->closeList();
 <div id="article">
 	<?php
     if ($this->processo->id):
-        echo $this->partial('snippets/detalhesProcesso.phtml', array('processo' => $this->processo,
-        															 'processosParalelos' => $this->processosParalelos));
+        echo $this->partial('snippets/detalhesProcesso.phtml',
+                            array('processo' => $this->processo,
+                                  'processosParalelos' => $this->processosParalelos,
+                                  'processosIncorporados' => $this->processosIncorporados));
         echo $this->partial('snippets/movimentacoes.phtml', array('movimentacoes' => $this->processo->movimentacoes));
     ?>
     <form action="" method="get">

@@ -133,6 +133,18 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     }
 
     /**
+     * Retorna array de Spu_Entity_Processo, que são os processos incorporados ao
+     * processo cujo $uuid foi dado
+     */
+    public function getIncorporados($uuid)
+    {
+        $url = $this->getBaseUrl() . '/' . $this->_processoBaseUrl . '/' . $uuid . '/incorporados';
+        $result = $this->_doAuthenticatedGetRequest($url);
+
+        return $this->_loadManyFromHash($result['Processos'][0]);
+    }
+
+    /**
      * Incorpora um processo à outro
      * 
      * @param array $data postData com os parametros necessarios (podem ser conferidos no webscript)

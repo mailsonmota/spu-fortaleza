@@ -39,6 +39,7 @@ class ProcessoController extends BaseController
 
         $this->view->processo = $processo;
         $this->view->processosParalelos = $processosParalelos;
+        $this->view->processosIncorporados = $processoService->getIncorporados($idProcesso);
     }
 
     public function encaminharAction()
