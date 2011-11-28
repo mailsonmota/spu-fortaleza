@@ -76,7 +76,8 @@ class ProcessoController extends BaseController
             $arquivoHash['id'] = $this->getRequest()->getParam('id');
             $arquivoHash['nome'] = $this->getRequest()->getParam('nome');
             $arquivoService = new Spu_Service_Arquivo($this->getTicket());
-            $url = $arquivoService->getArquivoDownloadUrl($arquivoHash);
+            $url = $arquivoService->getArquivoDownloadUrl($arquivoHash, true, Zend_Registry::get('baseDownload'));
+            
             $this->getResponse()->setRedirect($url);
         } catch (Exception $e) {
             $this->setMessageForTheView($e->getMessage(), 'error');
@@ -172,13 +173,13 @@ class ProcessoController extends BaseController
 
     public function diarioAction() {
         $this->_helper->layout()->disableLayout();
-        
+
         $processoService = new Spu_Service_Processo($this->getTicket());
         $processo = $processoService->getProcesso($this->_getIdProcessoUrl());
 
         $arquivoService = new Spu_Service_Arquivo($this->getTicket());
         $arquivoString = $arquivoService->getDiarioModelo($processo->assunto->nodeRef);
-        
+
         try {
             $dataAtual = new Zend_Date();
             $arquivoService->substituiVariaveisEmOdt($arquivoString,
@@ -192,19 +193,19 @@ class ProcessoController extends BaseController
         } catch (Exception $e) {
             print $e->getMessage();exit; // TODO FIXME
         }
-        
+
         $this->view->arquivoString = $arquivoString;
     }
 
     public function comunicacaoInternaAction() {
         $this->_helper->layout()->disableLayout();
-        
+
         $processoService = new Spu_Service_Processo($this->getTicket());
         $processo = $processoService->getProcesso($this->_getIdProcessoUrl());
 
         $arquivoService = new Spu_Service_Arquivo($this->getTicket());
         $arquivoString = $arquivoService->getComunicacaoInternaModelo($processo->assunto->nodeRef);
-        
+
         try {
             $dataAtual = new Zend_Date();
             $arquivoService->substituiVariaveisEmOdt($arquivoString,
@@ -218,7 +219,7 @@ class ProcessoController extends BaseController
         } catch (Exception $e) {
             print $e->getMessage();exit; // TODO FIXME
         }
-        
+
         $this->view->arquivoString = $arquivoString;
     }
 }
