@@ -1,7 +1,7 @@
 <?php
 /**
  * Classe para acessar os serviços de acesso à arquivo do SPU
- * 
+ *
  * @author Bruno Cavalcante <brunofcavalcante@gmail.com>
  * @author Gil Magno <gilmagno@gmail.com>
  * @package SPU
@@ -17,7 +17,7 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
 
     /**
      * Retorna os arquivos anexos de um processo
-     * 
+     *
      * @param string $nodeUuid
      * @return Spu_Entity_Arquivo[]
      */
@@ -25,13 +25,13 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/arquivos/get/$nodeUuid";
         $result = $this->_doAuthenticatedGetRequest($url);
-        
+
         return $this->loadManyFromHash($result);
     }
 
     /**
      * Anexa um arquivo em um processo
-     * 
+     *
      * @param array $postData
      *              $postData['destNodeUuid'] - an alfresco node id
      *              $postData['fileToUpload'] - file address on local filesystem. ex.: @/tmp/filename.txt
@@ -41,13 +41,13 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/uploadarquivo";
         $result = $this->_doAuthenticatedPostFormDataRequest($url, $postData);
-        
+
         return $result;
     }
 
     /**
      * Salva um formulário de assunto
-     * 
+     *
      * @param array $postData
      * @return array
      */
@@ -55,21 +55,21 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/formulario/salvar";
         $result = $this->_doAuthenticatedPostRequest($url, $postData);
-        
+
         return $result;
     }
-    
+
     /**
      * Retorna a URL de download de um arquivo
-     * 
+     *
      * @param array $hash. formato:
      *     $hash['id']   (obrigatório)
      *     $hash['nome'] (opcional)
      * @return string
      */
-    public function getArquivoDownloadUrl($arquivoInfos, $addAlfTicket = true)
+    public function getArquivoDownloadUrl($arquivoInfos, $addAlfTicket = true, $baseUrl = false)
     {
-        $url = "{$this->getBaseUrl()}/api/node/workspace/SpacesStore/{$arquivoInfos['id']}/content/{$arquivoInfos['nome']}";
+        $url = ($baseUrl ? $baseUrl : $this->getBaseUrl()). "/api/node/workspace/SpacesStore/{$arquivoInfos['id']}/content/{$arquivoInfos['nome']}";
 
         if ($addAlfTicket) {
             $url = $this->addAlfTicketUrl($url);
@@ -77,10 +77,10 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
 
         return $url;
     }
-    
+
     /**
      * Retorna a URL de download de um formulário de assunto
-     * 
+     *
      * @param string $arquivoHash
      * @return string
      */
@@ -88,7 +88,7 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     {
         $url = $this->getBaseUrl() . "/spu/formulario/get/assunto/" . $assuntoId;
         $url = $this->addAlfTicketUrl($url);
-        
+
         return $url;
     }
 
@@ -108,7 +108,7 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     /**
      * Dado um nodeRef de um assunto, retorna seu arquivo de
      * modelo de ofício.
-     * 
+     *
      * @param string $assuntoUuid
      * @return string
      */
@@ -137,7 +137,7 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     /**
      * Dado um nodeRef de um assunto, retorna seu arquivo de
      * modelo do diário oficial.
-     * 
+     *
      * @param string $assuntoUuid
      * @return string
      */
@@ -149,7 +149,7 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
 
         return $this->getContentFromUrl($urlArquivo);
     }
-    
+
     /**
      * COMUNICAÇÃO INTERNA:
      * Dado o nodeRef de um assunto, retorna o uuid de seu arquivo de
@@ -166,7 +166,7 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     /**
      * Dado um nodeRef de um assunto, retorna seu arquivo de
      * modelo de comunicação interna.
-     * 
+     *
      * @param string $assuntoUuid
      * @return string
      */
@@ -187,17 +187,17 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     public function getContentFromUrl($url)
     {
         $result = $this->_doAuthenticatedGetStringRequest($url);
-        
+
         if (strpos($result, 'Internal Error') > -1) {
             throw new Exception('Erro ao capturar o formulario');
         }
-        
+
         return $result;
     }
-    
+
     /**
      * Retorna o XML com as respostas de um formulário de assunto
-     * 
+     *
      * @param string $processoId
      * @return Spu_Entity_RespostasFormulario
      */
@@ -205,12 +205,12 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/formulario/get/$processoId";
         $result = $this->_doAuthenticatedGetStringRequest($url);
-        
+
         $respostasFormulario = new Spu_Entity_RespostasFormulario();
         if ($this->_isValidRespostasXML($result)) {
             $respostasFormulario->loadFromXML($result);
         }
-        
+
         return $respostasFormulario;
     }
 
@@ -236,15 +236,15 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
         if (file_exists($fileName)) {
             unlink($fileName);
         }
-        
+
         file_put_contents($fileName, $odtString);
 
         $zip = new ZipArchive;
-        
+
         if (!$zip->open($fileName)) {
             throw new Exception('Erro ao abrir arquivo .odt');
         }
-        
+
         $index = $zip->locateName('content.xml');
         $contentXml = $zip->getFromIndex($index);
 
@@ -267,13 +267,13 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
         $odtContent = readfile($fileName);
 
         unlink($fileName);
-        
+
         return $odtContent;
     }
 
     /**
      * Verifica se o xml é válido
-     * 
+     *
      * @param string $xml
      * @return boolean
      */
@@ -281,10 +281,10 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
     {
         return (is_string($xml) AND strpos($xml, '<title>Apache') === false) ? true : false;
     }
-    
+
     /**
      * Carrega o Arquivo através do hash
-     * 
+     *
      * @param array $hash
      * @return Spu_Entity_Arquivo
      */
@@ -293,13 +293,13 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
         $arquivo = new Spu_Entity_Arquivo();
         $arquivo->setId($this->_getHashValue($hash, 'id'));
         $arquivo->setNome($this->_getHashValue($hash, 'nome'));
-        
+
         return $arquivo;
     }
-    
+
     /**
      * Carrega vários arquivos através de um hash
-     * 
+     *
      * @param array $hash
      * @return multitype:Spu_Entity_Arquivo
      */
@@ -309,7 +309,7 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
         foreach ($hash as $hashArquivo) {
             $arquivos[] = $this->loadFromHash($hashArquivo);
         }
-        
+
         return $arquivos;
     }
 }
