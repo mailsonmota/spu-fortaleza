@@ -7,4 +7,6 @@ var offset = (url.templateArgs['offset']) ? url.templateArgs['offset'] : null;
 var pageSize = (url.templateArgs['pageSize']) ? url.templateArgs['pageSize'] : null;
 var filter = url.templateArgs['filter'];
 
+if (filter) var filter = filter.split(',')
+
 model.processos = getCaixaAnaliseIncorporacao(processoId, assuntoId, manifestanteCpf, offset, pageSize, filter);
