@@ -50,7 +50,7 @@ class IncorporacaoController extends BaseTramitacaoController
             }
         }
 
-        $this->view->q = urlencode($this->_getParam('q'));
+        $this->view->q = urldecode($this->_getParam('q'));
         $this->view->assuntoId = urldecode($this->_getParam('assunto'));
         $this->view->tipoProcessoId = urldecode($this->_getParam('tipoprocesso'));
         $this->view->tiposProcesso = $this->_getListaTiposProcesso();
