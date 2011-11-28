@@ -120,7 +120,7 @@ function getCaixaAnaliseIncorporacao(processoId, assuntoId, manifestanteCpf, off
 
     if (filter && filter != '') {
         //searchQuery += ' +ALL:"*' + filter + '*"';
-        hQuery += ' AND ';
+        searchQuery += ' AND ';
 
         if (filter instanceof Array && filter.length > 0) {
             searchQuery += ' (';
