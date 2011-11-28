@@ -238,7 +238,7 @@ ol.historico li {margin-bottom:1em}
 .indentedName {padding-left: 16px; background: url(../img/icons/child.png) no-repeat 0% 50%}
 
 /* jQueryUI */
-.ui-widget { font-family: inherit }
+.ui-widget { font-family: inherit; height: 200px; overflow: auto; }
 .ui-widget .ui-widget { font-size: inherit }
 .ui-widget-content a {text-decoration: underline; font-weight: normal; font-size: 0.85em}
 
