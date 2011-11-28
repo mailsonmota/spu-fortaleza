@@ -1,0 +1,9 @@
+<webscript>
+    <shortname>Listagem de processos incorporados</shortname>
+    <description>Recebe uuid de um processo e lista os seus incorporados</description>
+    <url>/spu/processo/{uuid}/incorporados</url>
+    <format default="json">any</format>
+    <authentication>user</authentication>
+    <transaction>required</transaction>
+</webscript>
+
