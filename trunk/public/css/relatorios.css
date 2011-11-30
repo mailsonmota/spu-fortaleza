@@ -4,7 +4,7 @@
 dl:after {content:".";clear:both;display:block;overflow:hidden;visibility:hidden;height:0}
 
 /* Basic */
-body {font-family: sans-serif; font-size: 13px}
+body {font-family: sans-serif; font-size: 13px; margin: 0; padding: 0;}
 h1 {font-size: 1.75em; margin-bottom: 2em}
 h2 {font-size: 1.5em; margin-bottom: 2em; text-align: left;margin-left: 3em;}
 p, table, ul li, ol li, dt, dd {margin-bottom: 1em}
@@ -23,11 +23,16 @@ dd ul li, dd ol li {margin-bottom: 0.5em}
 /* Structrue */
 #usuario, #menu, #breadcrumbs, #footer {display: none}
 
+/*#corpo{width: 900px; margin: 0 auto; text-align: left;}*/
+
 .header, .section {margin: 2em}
 .header a {text-decoration: none; color: black}
 .header img {float: left; margin-right: 1em}
 .header h1 {padding: 0.1em 0}
 .header h1 span {display: block; font-size: 0.5em; margin-top: 0.2em}
+
+#layou-esq{float:left; width: 420px;}
+#layou-dir{float: left; width: 420px;}
 
 .comprovante-assinatura {text-align: center; margin-top: 3em}
 ul.buttons {list-style-type: none}

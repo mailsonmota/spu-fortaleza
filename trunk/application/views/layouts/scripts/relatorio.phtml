@@ -10,27 +10,31 @@
     </head>
     <?php flush(); ?>
     <body>
-        <div class="header">
-           	<img src="<?php echo $this->baseUrl() ?>/img/logoFortalezaP&B.png" alt="Brasão da Prefeitura Municipal de Fortaleza" />
-            <h1>Sistema de Protocolo Único<span>Prefeitura Municipal de Fortaleza</span></h1>
-        </div>
-        <div class="section">
-            <?php echo $this->layout()->content ?>
-        </div>
-        <?php if ($this->layout === 'duplo') : ?>
-        <div class="header">
+        <div id="layou-esq">
+            <div class="header">
                 <img src="<?php echo $this->baseUrl() ?>/img/logoFortalezaP&B.png" alt="Brasão da Prefeitura Municipal de Fortaleza" />
                 <h1>Sistema de Protocolo Único<span>Prefeitura Municipal de Fortaleza</span></h1>
             </div>
             <div class="section">
                 <?php echo $this->layout()->content ?>
             </div>
-            <script type="text/javascript">
-                $(function(){
-                    $("#detalhes").first().remove();
-                    $("#breadcrumbs").remove();
-                });
-            </script>
+        </div>
+        <?php if ($this->layout === 'duplo') : ?>
+            <div id="layou-dir">
+                <div class="header">
+                    <img src="<?php echo $this->baseUrl() ?>/img/logoFortalezaP&B.png" alt="Brasão da Prefeitura Municipal de Fortaleza" />
+                    <h1>Sistema de Protocolo Único<span>Prefeitura Municipal de Fortaleza</span></h1>
+                </div>
+                <div class="section">
+                    <?php echo $this->layout()->content ?>
+                </div>
+                <script type="text/javascript">
+                    $(function(){
+                        $("#detalhes").first().remove();
+                        $("#breadcrumbs").remove();
+                    });
+                </script>
+            </div>
         <?php endif; ?>
     </body>
 </html>
