@@ -16,9 +16,15 @@ if ($this->processo->observacao):
     echo $this->fieldList()->text('Observação', $this->processo->observacao);
 endif;
 
-echo $this->fieldList()->text('Descrição', $this->processo->corpo);
-echo $this->fieldList()->text('Destino', $this->processo->protocolo->descricao);
-echo $this->fieldList()->text('Folha', "1");
+?>
+<dt>Descrição:</dt>
+<dd style="float: left; width: 55%;"><?php echo nl2br($this->processo->corpo) ?></dd>
+<?php
+$destino  = explode("/",$this->processo->protocolo->path);
+$destino  = $destino[0] . "/" . $destino[count($destino) - 1];
+$destino .= " ({$this->processo->protocolo->descricao})";
+echo $this->fieldList()->text('Destino', $destino);
+echo $this->fieldList()->text('Folhas', $this->processo->folhas ? $this->processo->folhas->quantidade : 'sem');
 
 if (is_array($this->processo->arquivos)):
     $htmlAnexos = '<ul>';
@@ -26,6 +32,7 @@ if (is_array($this->processo->arquivos)):
         $htmlAnexos .= '<li>' . $arquivo->nome . '</li>';
     endforeach;
     $htmlAnexos .= '</ul>';
+    if (!isset ($this->processo->arquivos)) $htmlAnexos = 'sem';
     echo $this->fieldList()->text('Anexos', $htmlAnexos);
 endif;
 
