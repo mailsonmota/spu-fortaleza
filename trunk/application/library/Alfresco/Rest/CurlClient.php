@@ -34,6 +34,9 @@ class Alfresco_Rest_CurlClient
         
         if ($returnFormat == self::FORMAT_JSON) {
             $getAdapterObj = $this->getGetAdapter(self::FORMAT_JSON);
+            $result = preg_replace(array('/\n*/', '/\r*/'),
+                                   array(     '',      ''),
+                                   $result);
             $result = $getAdapterObj->decode($result, true);
         } elseif ($returnFormat == self::FORMAT_ATOM) {
             $getAdapterObj = $this->getGetAdapter(self::FORMAT_ATOM);
