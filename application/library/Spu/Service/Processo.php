@@ -287,6 +287,11 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     protected function _loadFolhasFromHash($hash)
     {
         $folhas = new Spu_Entity_Folhas();
+
+        if (empty($hash['volumes'])) {
+            return $folhas;
+        }
+
         $folhas->setQuantidade($hash['quantidade']);
 
         $volumesObjectArray = array();
