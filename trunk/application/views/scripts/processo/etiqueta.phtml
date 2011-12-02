@@ -5,10 +5,13 @@ echo $this->breadcrumbs()->render();
 ?>
 
 <?php
+$data = explode('/', $this->processo->numero);
+$data = str_split($data[0], 2);
+
 echo $this->fieldList()->open();
 echo $this->fieldList()->text('Processo', $this->processo->numero);
-echo $this->fieldList()->text('Abertura', $this->processo->data);
-echo $this->fieldList()->text('Origem', $this->processo->proprietario->descricao);
+echo $this->fieldList()->text('Abertura', "{$this->processo->data} - " . $data[count($data)-3] . ":" . $data[count($data)-2] );
+echo $this->fieldList()->text('Origem', "{$this->processo->proprietario->nome} ({$this->processo->proprietario->descricao})");
 echo $this->fieldList()->text('Assunto', $this->processo->assunto->nome);
 echo $this->fieldList()->text('Envolvido', $this->processo->manifestante->nome);
 
@@ -32,7 +35,7 @@ if (is_array($this->processo->arquivos)):
         $htmlAnexos .= '<li>' . $arquivo->nome . '</li>';
     endforeach;
     $htmlAnexos .= '</ul>';
-    if (!isset ($this->processo->arquivos)) $htmlAnexos = 'sem';
+    if (count ($this->processo->arquivos) == 0) $htmlAnexos = 'sem';
     echo $this->fieldList()->text('Anexos', $htmlAnexos);
 endif;
 
