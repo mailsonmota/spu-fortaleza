@@ -115,7 +115,7 @@
     <legend>Folhas e Volumes</legend>
     <dl>
         <dt>Quantidade de Folhas:</dt>
-        <dd><?php echo $this->processo->folhas->quantidade ?></dd>
+        <dd><?php echo $this->processo->folhas->quantidade ? $this->processo->folhas->quantidade : 'sem' ?></dd>
         <?php if ($this->processo->folhas->volumes): ?>
         <?php foreach ($this->processo->folhas->volumes as $volume): ?>
         <dt>Volume:</dt>

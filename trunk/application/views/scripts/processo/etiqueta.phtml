@@ -27,7 +27,7 @@ $destino  = explode("/",$this->processo->protocolo->path);
 $destino  = $destino[0] . "/" . $destino[count($destino) - 1];
 $destino .= " ({$this->processo->protocolo->descricao})";
 echo $this->fieldList()->text('Destino', $destino);
-echo $this->fieldList()->text('Folhas', $this->processo->folhas ? $this->processo->folhas->quantidade : 'sem');
+echo $this->fieldList()->text('Folhas', $this->processo->folhas->quantidade ? $this->processo->folhas->quantidade : 'sem');
 
 if (is_array($this->processo->arquivos)):
     $htmlAnexos = '<ul>';
