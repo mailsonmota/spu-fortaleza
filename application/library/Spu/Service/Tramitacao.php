@@ -19,7 +19,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     public function getCaixaEntrada($offset, $pageSize, $filter, $assuntoId = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl
-             . "/entrada/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), $filter);
+             . "/entrada/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), str_replace(" ", "+", $filter));
 
         if ($assuntoId) {
             $url .= "?assunto-id=$assuntoId";
@@ -40,7 +40,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     public function getCaixaSaida($offset, $pageSize, $filter, $assuntoId = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl
-            . "/saida/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), $filter);
+            . "/saida/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), str_replace(" ", "+", $filter));
 		
         if ($assuntoId) {
             $url .= "?assunto-id=$assuntoId";
@@ -60,7 +60,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     public function getCaixaAnalise($offset, $pageSize, $filter, $assuntoId = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl
-             . "/analise/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), $filter);
+             . "/analise/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), str_replace(" ", "+", str_replace(" ", "+", $filter)));
 
         if ($assuntoId) {
             $url .= "?assunto-id=$assuntoId";
@@ -80,7 +80,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     public function getCaixaEnviados($offset, $pageSize, $filter, $assuntoId = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl
-             . "/enviados/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), $filter);
+             . "/enviados/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), str_replace(" ", "+", $filter));
 
         if ($assuntoId) {
             $url .= "?assunto-id=$assuntoId";
@@ -100,7 +100,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     public function getCaixaExternos($offset = 0, $pageSize = 20, $filter = '', $assuntoId = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl
-             . "/externos/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), $filter);
+             . "/externos/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), str_replace(" ", "+", $filter));
 		
 
         if ($assuntoId) {
@@ -121,7 +121,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     public function getCaixaArquivo($offset, $pageSize, $filter, $assuntoId = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl
-             . "/arquivo/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), $filter);
+             . "/arquivo/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), str_replace(" ", "+", $filter));
 
         if ($assuntoId) {
             $url .= "?assunto-id=$assuntoId";

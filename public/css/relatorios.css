@@ -15,7 +15,7 @@ table td {border-bottom: 1px solid #D1D1D1}
 table tfoot td {display: none}
 
 /* Lists */
-dt, dd {float: left}
+dt, dd {float: left; width: 55%;}
 dt {width: 10em; clear: both; text-align: right}
 dd {font-weight: bold; margin-left: 0.5em}
 dd ul li, dd ol li {margin-bottom: 0.5em}
@@ -32,7 +32,7 @@ dd ul li, dd ol li {margin-bottom: 0.5em}
 .header h1 span {display: block; font-size: 0.5em; margin-top: 0.2em}
 
 #layou-esq{float:left; width: 420px;}
-#layou-dir{float: left; width: 420px;}
+#layou-dir{float: left; width: 420px;margin-left:40px;}
 
 .comprovante-assinatura {text-align: center; margin-top: 3em}
 ul.buttons {list-style-type: none}
