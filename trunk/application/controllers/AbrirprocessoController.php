@@ -65,7 +65,7 @@ class AbrirprocessoController extends BaseController
                 throw $e;
             }
         }
-
+        asort($listaAssuntos);
         $this->view->tipoProcesso = $tipoProcesso;
         $this->view->listaAssuntos = $listaAssuntos;
         $this->view->listaBairros = $listaBairros;
