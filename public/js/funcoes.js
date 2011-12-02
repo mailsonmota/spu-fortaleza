@@ -245,7 +245,7 @@ $(function(){
         'Servidor Comissionado'             : 'CPF',
         'Órgão da PMF'                      : 'CNPJ',
         'Outros (Estagiario. Terceirizado)' : 'CPF',
-        'Anonimo'                           : 'ANONIMO'
+        'Anônimo'                           : 'ANONIMO'
     };
 
     $("dd select#mani-tipo option").each(function(e){

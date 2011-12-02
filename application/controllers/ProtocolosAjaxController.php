@@ -1,6 +1,8 @@
 <?php
+
 class ProtocolosAjaxController extends BaseAuthenticatedController
 {
+
     public function listarDestinosAction()
     {
         $this->_helper->layout()->disableLayout();
@@ -13,8 +15,7 @@ class ProtocolosAjaxController extends BaseAuthenticatedController
     protected function _getListaProtocolosDestino($protocoloOrigemId, $tipoProcessoId = null, $offset = 0)
     {
         $service = new Spu_Service_Protocolo($this->getTicket());
-        return $service->getProtocolosDestino($protocoloOrigemId, $tipoProcessoId, $this->_getSearchTerm(),
-                                              $offset, $this->_helper->paginator()->getPageSize());
+        return $service->getProtocolosDestino($protocoloOrigemId, $tipoProcessoId, $this->_getSearchTerm(), $offset, $this->_helper->paginator()->getPageSize());
     }
 
     protected function _getSearchTerm()
@@ -41,9 +42,7 @@ class ProtocolosAjaxController extends BaseAuthenticatedController
     protected function _getProtocolosAutocomplete()
     {
         $service = new Spu_Service_Protocolo($this->getTicket());
-        return $service->getTodosProtocolosPaginado($this->_getOffset(),
-                                                    $this->_getPageSize(),
-                                                    $this->_getSearchTerm());
+        return $service->getTodosProtocolosPaginado($this->_getOffset(), $this->_getPageSize(), $this->_getSearchTerm());
     }
 
     public function listarDestinosFilhosAction()
@@ -52,13 +51,21 @@ class ProtocolosAjaxController extends BaseAuthenticatedController
         $protocolos = $service->getProtocolosFilhos($this->_getParam('parent-id'), $this->_getParam('origem'));
 
         $protocolosJson = array();
+        $this->_mySort($protocolos, 'descricao');
         foreach ($protocolos as $protocolo) {
-            $name = substr($protocolo->path, strpos($protocolo->path, '/') + 1);
+            $name = strpos($protocolo->path, '/') ? substr($protocolo->path, strpos($protocolo->path, '/') + 1) : $protocolo->path ;
             $shortname = explode("/", $name);
             $shortname = array_pop($shortname) . " - " . $protocolo->descricao;
             $protocolosJson[] = array('id' => $protocolo->id, 'name' => $shortname, 'description' => $name);
         }
-
         $this->_helper->json($protocolosJson, true);
     }
+
+    private function _mySort(&$obj, $prop)
+    {
+        uasort($obj, function($a, $b) use ($prop) {
+                return $a->$prop > $b->$prop ? 1 : -1;
+            });
+    }
+
 }
