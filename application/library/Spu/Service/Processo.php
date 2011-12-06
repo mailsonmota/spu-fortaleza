@@ -26,9 +26,9 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     public function getCaixaAnaliseIncorporacao($processo, $offset, $pageSize, $filter)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/incorporacaocaixaanalise"
-            . "/{$processo->id}/{$processo->assunto->id}/{$processo->manifestante->cpf}/$offset/$pageSize/"
+            . "/{$processo->id}/{$processo->assunto->id}/" . str_replace('/', '_', $processo->manifestante->cpf) . "/$offset/$pageSize/"
             . str_replace(array('/', ' '), array('_', ''), $filter);
-
+        
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
 
