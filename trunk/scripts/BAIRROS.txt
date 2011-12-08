@@ -1,93 +1,93 @@
-"MESSEJANA"
-"COCÓ"
-"ALAGADIÇO NOVO"
-"SIQUEIRA"
-"ITAPERI"
-"CIDADE DOS FUNCIONÁRIOS"
-"ALAGADIÇO"
-"CAJAZEIRAS"
-"PRESIDENTE KENNEDY"
-"DIONISIO TORRES"
-"TAUAPE"
-"CAMBEBA"
-"FÁTIMA"
-"ALDEOTA"
-"AMADEU FURTADO"
-"CACHOEIRINHA"
-"CASTELÃO"
-"PARQUELÂNDIA"
-"MARAPONGA"
-"AUTRAN NUNES"
-"BELA VISTA"
-"ANTÔNIO DIOGO"
-"VILA VELHA"
-"JÓQUEI CLUBE"
-"HENRIQUE JORGE"
-"MEIRELES"
-"BARROSO"
-"DIAS MACEDO"
-"GENIBAÚ"
-"ALTO ALEGRE"
-"FLORESTA"
-"BOM FUTURO"
-"PREFEITO JOSÉ WALTER"
-"CENTRO"
-"VILA PERI"
-"PASSARÉ"
-"PARQUE SÃO JOSÉ"
-"SÃO GERARDO"
-"JOAQUIM TÁVORA"
-"DAMAS"
-"PADRE ANDRADE"
-"PRAIA DE IRACEMA"
-"DOM LUSTOSA"
-"CONJUNTO CEARÁ"
-"EDSON QUEIROZ"
-"SALINAS"
-"MANUEL SÁTIRO"
-"BENFICA"
-"DEMOCRITO ROCHA"
-"ENGENHEIRO LUCIANO CAVALCANTE"
-"PARQUE PRESIDENTE VARGAS"
-"FARIAS BRITO"
-"CRISTO REDENTOR"
-"MONDUBIM"
-"LAGOA REDONDA"
-"JARDIM DAS OLIVEIRAS"
-"ANTÔNIO BEZERRA"
-"JARDIM AMÉRICA"
-"MONTE CASTELO"
-"PARANGABA"
-"ÁLVARO WEYNE"
-"BOM JARDIM"
-"PAUPINA"
-"VILA UNIÃO"
-"VILA ELLERY"
-"ALTO DA BALANÇA"
-"CANINDEZINHO"
-"CIDADE 2000"
-"AEROLÂNDIA"
-"GRANJA PORTUGAL"
-"JARDIM IRACEMA"
-"COAÇU"
-"MOURA BRASIL"
-"VICENTE PINZON"
-"PAPICU"
-"MUCURIPE"
-"MONTESE"
-"GUARARAPES"
-"SERRINHA"
-"QUINTINO CUNHA"
-"JOSÉ BONIFÁCIO"
-"CONJUNTO ESPERANÇA"
-"BONSUCESSO"
-"JANGURUSSU"
-"DUNAS"
-"BARRA DO CEARÁ"
-"PICI"
-"VARJOTA"
-"JARDIM GUANABARA"
-"CAIS DO PORTO"
-"JACARECANGA"
-"PARQUE MANIBURA"
-"RODOLFO TEÓFILO"
+Messejana
+Cocó
+Alagadiço Novo
+Siqueira
+Itaperi
+Cidade Dos Funcionários
+Alagadiço
+Cajazeiras
+Presidente Kennedy
+Dionísio Torres
+Tauape
+Cambeba
+Fátima
+Aldeota
+Amadeu Furtado
+Cachoeirinha
+Castelão
+Parquelândia
+Maraponga
+Autran Nunes
+Bela Vista
+Antônio Diogo
+Vila Velha
+Jóquei Clube
+Henrique Jorge
+Meireles
+Barroso
+Dias Macedo
+Genibaú
+Alto Alegre
+Floresta
+Bom Futuro
+Prefeito José Walter
+Centro
+Vila Peri
+Passaré
+Parque São José
+São Gerardo
+Joaquim Távora
+Damas
+Padre Andrade
+Praia de Iracema
+Dom Lustosa
+Conjunto Ceará
+Edson Queiroz
+Salinas
+Manuel Sátiro
+Benfica
+Democrito Rocha
+Engenheiro Luciano Cavalcante
+Parque Presidente Vargas
+Farias Brito
+Cristo Redentor
+Mondubim
+Lagoa Redonda
+Jardim Das Oliveiras
+Antônio Bezerra
+Jardim América
+Monte Castelo
+Parangaba
+Álvaro Weyne
+Bom Jardim
+Paupina
+Vila União
+Vila Ellery
+Alto da Balança
+Canindezinho
+Cidade 2000
+Aerolândia
+Granja Portugal
+Jardim Iracema
+Coaçu
+Moura Brasil
+Vicente Pinzon
+Papicu
+Mucuripe
+Montese
+Guararapes
+Serrinha
+Quintino Cunha
+José Bonifácio
+Conjunto Esperança
+Bonsucesso
+Jangurussu
+Dunas
+Barra do Ceará
+Pici
+Varjota
+Jardim Guanabara
+Cais do Porto
+Jacarecanga
+Parque Manibura
+Rodolfo Teófilo
