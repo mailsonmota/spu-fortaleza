@@ -1,50 +1,50 @@
 Messejana
-CocÛ
-AlagadiÁo Novo
+Coc√≥
+Alagadi√ßo Novo
 Siqueira
 Itaperi
-Cidade Dos Funcion·rios
-AlagadiÁo
+Cidade Dos Funcion√°rios
+Alagadi√ßo
 Cajazeiras
 Presidente Kennedy
-DionÌsio Torres
+Dion√≠sio Torres
 Tauape
 Cambeba
-F·tima
+F√°tima
 Aldeota
 Amadeu Furtado
 Cachoeirinha
-Castel„o
-Parquel‚ndia
+Castel√£o
+Parquel√¢ndia
 Maraponga
 Autran Nunes
 Bela Vista
-AntÙnio Diogo
+Ant√¥nio Diogo
 Vila Velha
-JÛquei Clube
+J√≥quei Clube
 Henrique Jorge
 Meireles
 Barroso
 Dias Macedo
-Geniba˙
+Geniba√∫
 Alto Alegre
 Floresta
 Bom Futuro
-Prefeito JosÈ Walter
+Prefeito Jos√© Walter
 Centro
 Vila Peri
-PassarÈ
-Parque S„o JosÈ
-S„o Gerardo
-Joaquim T·vora
+Passar√©
+Parque S√£o Jos√©
+S√£o Gerardo
+Joaquim T√°vora
 Damas
 Padre Andrade
 Praia de Iracema
 Dom Lustosa
-Conjunto Cear·
+Conjunto Cear√°
 Edson Queiroz
 Salinas
-Manuel S·tiro
+Manuel S√°tiro
 Benfica
 Democrito Rocha
 Engenheiro Luciano Cavalcante
@@ -54,22 +54,22 @@ Cristo Redentor
 Mondubim
 Lagoa Redonda
 Jardim Das Oliveiras
-AntÙnio Bezerra
-Jardim AmÈrica
+Ant√¥nio Bezerra
+Jardim Am√©rica
 Monte Castelo
 Parangaba
-¡lvaro Weyne
+√Ålvaro Weyne
 Bom Jardim
 Paupina
-Vila Uni„o
+Vila Uni√£o
 Vila Ellery
-Alto da BalanÁa
+Alto da Balan√ßa
 Canindezinho
 Cidade 2000
-Aerol‚ndia
+Aerol√¢ndia
 Granja Portugal
 Jardim Iracema
-CoaÁu
+Coa√ßu
 Moura Brasil
 Vicente Pinzon
 Papicu
@@ -78,16 +78,16 @@ Montese
 Guararapes
 Serrinha
 Quintino Cunha
-JosÈ Bonif·cio
-Conjunto EsperanÁa
+Jos√© Bonif√°cio
+Conjunto Esperan√ßa
 Bonsucesso
 Jangurussu
 Dunas
-Barra do Cear·
+Barra do Cear√°
 Pici
 Varjota
 Jardim Guanabara
 Cais do Porto
 Jacarecanga
 Parque Manibura
-Rodolfo TeÛfilo
+Rodolfo Te√≥filo
