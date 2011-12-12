@@ -30,6 +30,8 @@
     echo $this->fieldList()->textbox('Telefone Comercial', 'manifestanteFoneComercial', null, array('length' => 30, 'class' => 'fone'));
     echo $this->fieldList()->textbox('Telefone Celular', 'manifestanteFoneCelular', null, array('length' => 30, 'class' => 'fone'));
 
+    echo $this->fieldList()->textbox('Endereço Eletrônico', 'manifestanteEmail', null, array('length' => 30));
+
     echo $this->fieldList()->textbox('Observação', 'manifestanteObs', null, array('length' => 60));
 
     echo $this->fieldList()->close();
