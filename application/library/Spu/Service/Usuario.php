@@ -27,7 +27,7 @@ class Spu_Service_Usuario extends Spu_Service_Abstract
      */
     public function fetchGroups($username)
     {
-        $url = $this->getBaseUrl() . "/getGroups";
+        $url = $this->getBaseUrl() . "/usuario/grupos/get";
         $result = $this->_doAuthenticatedGetRequest($url);
         
         $hash = (isset($result['groups'])) ? $result['groups'] : array();
