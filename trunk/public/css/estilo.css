@@ -251,3 +251,10 @@ ol.historico li {margin-bottom:1em}
 
 /* Prioridades */
 .prioridade-urgente td {font-weight: bold}
+
+.total_documents {
+    float: left;
+    width: auto;
+    font-size: 14px;
+    padding: 9px 0 0 5px;
+}
