@@ -1,13 +1,21 @@
-<?php 
+<?php
 $this->breadcrumbs()->addPage('Consulta', 'consultar');
 $this->breadcrumbs()->addPage('Resultados');
-echo $this->breadcrumbs()->render(); 
+echo $this->breadcrumbs()->render();
 
-echo $this->pagenav()->openList(); 
-echo $this->pagenav()->defaultHelperLinks();
-echo $this->pagenav()->closeList();
+if ($this->totalDocumentos) {
+    $html = '<div class="total_documents">Total de itens: <strong>' . $this->totalDocumentos . '</strong></div>';
+    echo $this->pagenav()->openList();
+    echo $this->pagenav()->customHelperLinks($html);
+    echo $this->pagenav()->closeList();
+}
+else {
+    echo $this->pagenav()->openList();
+    echo $this->pagenav()->defaultHelperLinks();
+    echo $this->pagenav()->closeList();
+}
 ?>
 
 <div id="article">
-	<?php echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator)) ?> 
+    <?php echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator)) ?> 
 </div>

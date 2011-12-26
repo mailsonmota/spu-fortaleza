@@ -61,4 +61,10 @@ class Zend_View_Helper_Pagenav extends Zend_View_Helper_Abstract
     {
         return '</ul>';
     }
+    
+    public function customHelperLinks($html)
+    {
+        $html .= $this->printLink();
+        return $html;
+    }
 }
