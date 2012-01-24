@@ -4,7 +4,7 @@ class ProtocolosController extends BaseController
     public function indexAction()
     {
     	if ($this->getRequest()->isPost()) {
-    		$this->_helper->redirector(null, null, null, array('q' => $_POST['q']));
+    		$this->_helper->redirector(null, null, null, array('q' => str_replace("/", "_", $_POST['q'])));
     	}
     	
     	if ($this->_getParam('q')) {
@@ -20,7 +20,7 @@ class ProtocolosController extends BaseController
     		$this->setMessageForTheView('Por favor, busque pelo nome da lotação.');
     	}
         
-    	$this->view->q = $this->_getParam('q');
+    	$this->view->q = str_replace("_", "/", $this->_getParam('q'));
     }
     
     public function editarAction()
