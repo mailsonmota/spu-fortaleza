@@ -119,8 +119,8 @@ class ConsultarController extends BaseController
 
     private function _isNumeroProcesso($filter)
     {
-        // Modelo: AP0712095609/2010
-        return (strlen($filter) == 17);
+        // Modelo: AP0712095609___/2010
+        return (strlen($filter) == 20);
     }
 
     private function _redirectToConsulta()
