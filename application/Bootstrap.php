@@ -13,6 +13,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 'basePath'  => APPLICATION_PATH,
                 'resourceTypes' => array(
                     'alfresco' => array('path' => 'library/Alfresco/', 'namespace' => 'Alfresco'),
+                    'models' => array('path' => 'models/', 'namespace' => 'Application_Model'),
                     'spu'      => array('path' => 'library/Spu/', 'namespace' => 'Spu')
             	)
             )
@@ -26,6 +27,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $registry = Zend_Registry::getInstance();
         $registry->set("baseDownload", $init->alfresco->basedownload);
+        $registry->set("aposentadorias", $init->alfresco->aposentadorias);
     }
 
     protected function _initControllers(array $options = array())

@@ -1,6 +1,25 @@
 <?php
 class AbrirprocessoController extends BaseController
 {
+    
+    private function dados()
+    {
+        $a = array();
+        $a['STATUS'] = 'TRAMITANDO';
+        $a['NMASSUNTOPROCESSO'] = 'Abandono De Incapaz';
+        $a['NOMETPPROCESSO'] = 'Aposentadoria';
+        $a['LOTACAO_ATUAL'] = 'SAM - PROT';
+        $a['DTABERTURA'] = '31/01/2012';
+        $a['CPF_CNPJ'] = '07331290304';
+        $a['NOMEREQUERENTE'] = 'igor rocha';
+        $a['NUMPROCESSO'] = 'AP3101122529/2012';
+        $a['DTADMISSAO'] = '22/05/2012';
+        $a['CARGO'] = 'cargo 4';
+        $a['PRONTUARIO'] = '459401';
+        
+        return $a;
+    }
+    
     public function indexAction()
     {
         if ($this->getRequest()->isPost()) {
@@ -32,6 +51,10 @@ class AbrirprocessoController extends BaseController
     public function formularioAction()
     {
         try {
+//            if($this->_isTipoAposentadoria($this->_getIdTipoProcessoUrl())) {
+//                $db_apo = new Application_Model_Aposentadoria();
+//                $db_apo->inserir($this->dados());
+//            }
             $protocoloOrigemId = $this->_getIdProtocoloOrigemUrl();
             
             $protocoloOrigem = $this->_getProtocolo($protocoloOrigemId);
@@ -493,5 +516,14 @@ class AbrirprocessoController extends BaseController
                                    $this->getController(),
                                    'default',
                                    array('tipoprocesso' => $this->_getIdTipoProcessoUrl()));
+    }
+    
+    private function _isTipoAposentadoria($id = null)
+    {
+        $a = array();
+        $apos = Zend_Registry::get('aposentadorias');
+        foreach ($apos as $value) $a[] = $value;
+        
+        return in_array($id, $a);
     }
 }
