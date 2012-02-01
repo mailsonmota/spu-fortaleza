@@ -1,64 +1,39 @@
 <?php
+
 class AbrirprocessoController extends BaseController
 {
-    
-    private function dados()
-    {
-        $a = array();
-        $a['STATUS'] = 'TRAMITANDO';
-        $a['NMASSUNTOPROCESSO'] = 'Abandono De Incapaz';
-        $a['NOMETPPROCESSO'] = 'Aposentadoria';
-        $a['LOTACAO_ATUAL'] = 'SAM - PROT';
-        $a['DTABERTURA'] = '31/01/2012';
-        $a['CPF_CNPJ'] = '07331290304';
-        $a['NOMEREQUERENTE'] = 'igor rocha';
-        $a['NUMPROCESSO'] = 'AP3101122529/2012';
-        $a['DTADMISSAO'] = '22/05/2012';
-        $a['CARGO'] = 'cargo 4';
-        $a['PRONTUARIO'] = '459401';
-        
-        return $a;
-    }
-    
     public function indexAction()
     {
         if ($this->getRequest()->isPost()) {
-            $this->_helper->redirector('formulario',
-                                       $this->getController(),
-                                       'default',
-                                       array('protocoloOrigem' => $this->_getIdProtocoloOrigemRequestParam(),
-                                             'tipoprocesso' => $this->_getIdTipoProcessoPost()));
+            $this->_helper->redirector('formulario', $this->getController(), 'default', array('protocoloOrigem' => $this->_getIdProtocoloOrigemRequestParam(),
+                'tipoprocesso' => $this->_getIdTipoProcessoPost()));
         }
 
         $listaOrigens = $this->_getListaOrigens();
-        
-    	$listaTiposProcesso = $this->_getListaTiposProcesso($this->_getIdOrigemPreferencial($listaOrigens));
-        
-    	if (!$listaTiposProcesso) {
-        	$this->setMessageForTheView('Não será possível abrir nenhum processo, pois você não tem 
+
+        $listaTiposProcesso = $this->_getListaTiposProcesso($this->_getIdOrigemPreferencial($listaOrigens));
+
+        if (!$listaTiposProcesso) {
+            $this->setMessageForTheView('Não será possível abrir nenhum processo, pois você não tem 
         	                              acesso à nenhum Tipo de Processo.');
         }
-        
+
         $this->view->listaTiposProcesso = $listaTiposProcesso;
         $this->view->listaOrigens = $listaOrigens;
     }
-    
+
     protected function _getIdOrigemPreferencial($listaOrigens)
     {
-    	return (is_array($listaOrigens)) ? key($listaOrigens) : null;
+        return (is_array($listaOrigens)) ? key($listaOrigens) : null;
     }
 
     public function formularioAction()
     {
         try {
-//            if($this->_isTipoAposentadoria($this->_getIdTipoProcessoUrl())) {
-//                $db_apo = new Application_Model_Aposentadoria();
-//                $db_apo->inserir($this->dados());
-//            }
             $protocoloOrigemId = $this->_getIdProtocoloOrigemUrl();
-            
+
             $protocoloOrigem = $this->_getProtocolo($protocoloOrigemId);
-            
+
             $tipoProcesso = $this->_getTipoProcesso($this->_getIdTipoProcessoUrl());
             $listaAssuntos = $this->_getListaAssuntos($tipoProcesso, $protocoloOrigem);
             $listaBairros = $this->_getListaBairros();
@@ -70,9 +45,9 @@ class AbrirprocessoController extends BaseController
             $this->setErrorMessage($e->getMessage());
             $this->_redirectEscolhaTipoProcesso();
         }
-        
+
         if ($this->getRequest()->isPost()) {
-            
+
             $postData = $this->getRequest()->getParams();
 
             try {
@@ -80,11 +55,9 @@ class AbrirprocessoController extends BaseController
                 $postData['proprietarioId'] = $postData['protocoloOrigem'];
                 $session->formDadosGeraisProcesso = $postData;
                 $this->_redirectFormularioEnvolvido($this->_getIdTipoProcessoUrl());
-            }
-            catch (AlfrescoApiException $e) {
+            } catch (AlfrescoApiException $e) {
                 throw $e;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 throw $e;
             }
         }
@@ -105,30 +78,30 @@ class AbrirprocessoController extends BaseController
         $listaTiposManifestante = $this->_getListaTiposManifestante($tipoProcesso);
         $listaUfs = $this->_getListaUfs();
         if ($this->getRequest()->isPost()) {
-                $session = new Zend_Session_Namespace('aberturaProcesso');
-                
-                // Limpeza da lista de arquivos utilizada pelo próximo passo na Abertura de Processo
-                unset($session->filesToUpload);
+            $session = new Zend_Session_Namespace('aberturaProcesso');
 
-                $formDadosGeraisProcesso = $session->formDadosGeraisProcesso;
-                $postData = $this->getRequest()->getPost();
-                $dataMerged = array_merge($formDadosGeraisProcesso, $postData);
-                $processoService = new Spu_Service_Processo($this->getTicket());
-                
-                try {
-                    $processo = $processoService->abrirProcesso($dataMerged);
-                } catch (Exception $e) {
-                    $this->setErrorMessage('Erro ao abrir o processo. Informação técnica: ' . $e->getMessage());
-                    $this->_redirectFormularioEnvolvido();
-                }
-                
-                $session->processo = $processo;
-                
-                if ($processo->assunto->hasFormulario()) {
-                    $this->_redirectFormularioAssunto();
-                } else {
-                    $this->_redirectUploadArquivo();
-                }
+            // Limpeza da lista de arquivos utilizada pelo próximo passo na Abertura de Processo
+            unset($session->filesToUpload);
+
+            $formDadosGeraisProcesso = $session->formDadosGeraisProcesso;
+            $postData = $this->getRequest()->getPost();
+            $dataMerged = array_merge($formDadosGeraisProcesso, $postData);
+            $processoService = new Spu_Service_Processo($this->getTicket());
+
+            try {
+                $processo = $processoService->abrirProcesso($dataMerged);
+            } catch (Exception $e) {
+                $this->setErrorMessage('Erro ao abrir o processo. Informação técnica: ' . $e->getMessage());
+                $this->_redirectFormularioEnvolvido();
+            }
+
+            $session->processo = $processo;
+
+            if ($processo->assunto->hasFormulario()) {
+                $this->_redirectFormularioAssunto();
+            } else {
+                $this->_redirectUploadArquivo();
+            }
         }
 
         $this->view->tipoProcesso = $tipoProcesso;
@@ -139,71 +112,70 @@ class AbrirprocessoController extends BaseController
 
     protected function _getListaUfs()
     {
-    	return array(
-               'CE' => 'CE',
-               'AC' => 'AC',
-               'AL' => 'AL',
-               'AM' => 'AM',
-               'AP' => 'AP',
-               'BA' => 'BA',
-               'DF' => 'DF',
-               'ES' => 'ES',
-               'GO' => 'GO',
-               'MA' => 'MA',
-               'MG' => 'MG',
-               'MS' => 'MS',
-               'MT' => 'MT',
-               'PA' => 'PA',
-               'PB' => 'PB',
-               'PE' => 'PE',
-               'PI' => 'PI',
-               'PR' => 'PR',
-               'RJ' => 'RJ',
-               'RN' => 'RN',
-               'RO' => 'RO',
-               'RR' => 'RR',
-               'RS' => 'RS',
-               'SC' => 'SC',
-               'SE' => 'SE',
-               'SP' => 'SP',
-               'TO' => 'TO'
-    	);
+        return array(
+            'CE' => 'CE',
+            'AC' => 'AC',
+            'AL' => 'AL',
+            'AM' => 'AM',
+            'AP' => 'AP',
+            'BA' => 'BA',
+            'DF' => 'DF',
+            'ES' => 'ES',
+            'GO' => 'GO',
+            'MA' => 'MA',
+            'MG' => 'MG',
+            'MS' => 'MS',
+            'MT' => 'MT',
+            'PA' => 'PA',
+            'PB' => 'PB',
+            'PE' => 'PE',
+            'PI' => 'PI',
+            'PR' => 'PR',
+            'RJ' => 'RJ',
+            'RN' => 'RN',
+            'RO' => 'RO',
+            'RR' => 'RR',
+            'RS' => 'RS',
+            'SC' => 'SC',
+            'SE' => 'SE',
+            'SP' => 'SP',
+            'TO' => 'TO'
+        );
     }
-    
+
     public function formularioAssuntoAction()
     {
         $session = new Zend_Session_Namespace('aberturaProcesso');
         $processo = $session->processo;
-        
+
         if ($this->getRequest()->isPost()) {
             // Limpeza da lista de arquivos utilizada pelo próximo passo na Abertura de Processo
             unset($session->filesToUpload);
-            
             $postData = $this->getRequest()->getPost();
+            //$session->prontuario = is_numeric($postData["processedXml"]) ? $postData["processedXml"] : false;
+            $session->prontuario = reset($this->getRequest()->getPost());
             try {
                 $arquivoService = new Spu_Service_Arquivo($this->getTicket());
                 $arquivoService->salvarFormulario($postData);
                 $this->_redirectUploadArquivo();
-            }
-            catch (AlfrescoApiException $e) {
+            } catch (AlfrescoApiException $e) {
                 throw $e;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 throw $e;
             }
         }
-        
+
         $processoService = new Spu_Service_Processo($this->getTicket());
         $session->processo = $processoService->getProcesso($processo->id);
-        
+
         if (!$processo->assunto->hasFormulario()) {
             $this->_helper->redirector('uploadarquivo');
         }
-        
+
         $this->view->processoId = $processo->id;
         $this->view->assuntoId = $processo->assunto->id;
     }
-    
+
     public function uploadarquivoAction()
     {
         $session = new Zend_Session_Namespace('aberturaProcesso');
@@ -221,10 +193,9 @@ class AbrirprocessoController extends BaseController
                 }
 
                 // Rotina de adição de arquivo
-                $fileTmp = array('filePath' => $this->_uploadFilePathConverter($_FILES['fileToUpload']['name'],
-                                                                               $_FILES['fileToUpload']['tmp_name']),
-                                 'fileType' => $_FILES['fileToUpload']['type'],
-                                 'tipoDocumento' => $this->_getParam('tipo_documento'));
+                $fileTmp = array('filePath' => $this->_uploadFilePathConverter($_FILES['fileToUpload']['name'], $_FILES['fileToUpload']['tmp_name']),
+                    'fileType' => $_FILES['fileToUpload']['type'],
+                    'tipoDocumento' => $this->_getParam('tipo_documento'));
 
                 if (!empty($session->filesToUpload)) {
                     foreach ($session->filesToUpload as $fileToUpload) {
@@ -235,10 +206,10 @@ class AbrirprocessoController extends BaseController
                     }
                 }
                 /* filesToUpload[] vai receber array, e nao mais string.
-                   array(file => $fileTmp, tipo-documento => node_ref de tipo de documento, como 'comprovante de pagamento') */
+                  array(file => $fileTmp, tipo-documento => node_ref de tipo de documento, como 'comprovante de pagamento') */
                 $session->filesToUpload[] = $fileTmp;
             } else {
-                
+
                 try {
                     // Itera arquivos escolhidos, adicionando-os ao processo
                     foreach ($session->filesToUpload as $fileToUpload) {
@@ -255,7 +226,7 @@ class AbrirprocessoController extends BaseController
                 } catch (Exception $e) {
                     throw new Exception('Erro no upload de arquivo. Mensagem: ' . $e->getMessage());
                 }
-                
+
                 $this->_redirectConfirmacaoCriacao();
             }
         }
@@ -263,7 +234,7 @@ class AbrirprocessoController extends BaseController
         // Recarregando o processo para pegar os arquivos recém-anexados
         $processoService = new Spu_Service_Processo($this->getTicket());
         $processo = $processoService->getProcesso($processo->id);
-        
+
         $this->view->hasFormulario = $processo->assunto->hasFormulario();
         $this->view->uploadedFiles = $processo->getArquivos();
         $this->view->filesToUpload = $session->filesToUpload;
@@ -278,7 +249,7 @@ class AbrirprocessoController extends BaseController
 
         $this->view->serviceTipoDocumento = new Spu_Service_TipoDocumento($this->getTicket());
     }
-    
+
     public function removerarquivoAction()
     {
         $session = new Zend_Session_Namespace('aberturaProcesso');
@@ -292,11 +263,11 @@ class AbrirprocessoController extends BaseController
     public function confirmacaocriacaoAction()
     {
         $session = new Zend_Session_Namespace('aberturaProcesso');
-        
+
         $protocoloService = new Spu_Service_Protocolo($this->getTicket());
         $protocoloOrigem = $protocoloService->getProtocolo($session->formDadosGeraisProcesso['protocoloOrigem']);
         $this->view->origemNome = $protocoloOrigem->nome;
-        
+
         if ($this->getRequest()->isPost()) {
             $session = new Zend_Session_Namespace('aberturaProcesso');
             $processo = $session->processo;
@@ -306,14 +277,15 @@ class AbrirprocessoController extends BaseController
             $postData['prazo'] = $processo->data;
             $postData['despacho'] = "";
             $postData['copias'] = $session->formDadosGeraisProcesso['copias'];
+            $this->_enviarDadosAposentadoria($processo);
 
             try {
                 $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
                 $tramitacaoService->tramitar($postData);
             } catch (AlfrescoApiException $e) {
-                    throw $e;
+                throw $e;
             } catch (Exception $e) {
-                    throw $e;
+                throw $e;
             }
 
             $this->_redirectProcessoDetalhes($processo->id);
@@ -326,6 +298,60 @@ class AbrirprocessoController extends BaseController
         $this->view->processo = $defaultNamespaceSession->processo;
     }
 
+    private function _enviarDadosAposentadoria($processo)
+    {
+        $dados = $this->_filtrarDadosAposentadoria($processo);
+        if (!$dados)
+            die();
+        
+        $db_aposentatoria = new Application_Model_Aposentadoria();
+        
+        try {
+            $db_aposentatoria->inserir($dados);
+        } catch (Zend_Db_Adapter_Exception $e) {
+            echo '<pre>';var_dump($e);echo '</pre>';
+        } catch (Zend_Exception $e) {
+            echo '<pre>';var_dump($e);echo '</pre>';
+        }
+        
+        
+    }
+
+    private function _filtrarDadosAposentadoria(&$processo)
+    {
+        $a = array();
+
+        $session = new Zend_Session_Namespace('aberturaProcesso');
+        $a['PRONTUARIO'] = $session->prontuario;
+        unset($session->prontuario);
+        
+        if (!is_numeric($a['PRONTUARIO']))
+            return false;
+        
+        $id = substr($processo->assunto->tipoProcesso->nodeRef, 24);
+        if (!$this->_isTipoAposentadoria($id))
+            return false;
+
+        $a['STATUS'] = 'TRAMITANDO';
+        $a['NMASSUNTOPROCESSO'] = strtoupper($processo->assunto->nome);
+        $a['NOMETPPROCESSO'] = strtoupper($processo->assunto->tipoProcesso->nome);
+
+        $path = explode("/", $processo->proprietario->path);
+        $a['LOTACAO_ATUAL'] = $path[0] . " - " . $path[count($path) - 1];
+
+        $data = new DateTime(implode("/", array_reverse(explode("/", $processo->data))));
+        $a['DTABERTURA'] = $data->format('d/m/y');
+
+        $a['CPF_CNPJ'] = str_replace(array('.', '-', '/'), "", $processo->manifestante->cpf);
+        $a['NOMEREQUERENTE'] = strtoupper($processo->manifestante->nome);
+        $a['NUMPROCESSO'] = str_replace("_", "/", $processo->nome);
+        $a['DTADMISSAO'] = '';
+        $a['CARGO'] = '';
+        $a['PRONTUARIO'] = (int) $a['PRONTUARIO'];
+
+        return $a;
+    }
+
     protected function _getIdTipoProcessoPost()
     {
         return ($this->getRequest()->getParam('tipoprocesso')) ? $this->getRequest()->getParam('tipoprocesso') : null;
@@ -335,7 +361,7 @@ class AbrirprocessoController extends BaseController
     {
         return ($this->getRequest()->getParam('origem')) ? $this->getRequest()->getParam('origem') : null;
     }
-    
+
     protected function _getListaTiposProcesso($origemId)
     {
         $tipoProcessoService = new Spu_Service_TipoProcesso($this->getTicket());
@@ -358,10 +384,10 @@ class AbrirprocessoController extends BaseController
         $idTipoProcesso = $this->getRequest()->getParam('tipoprocesso');
         return $idTipoProcesso;
     }
-    
+
     protected function _getIdProtocoloOrigemUrl()
     {
-    	return $this->getRequest()->getParam('protocoloOrigem', null);
+        return $this->getRequest()->getParam('protocoloOrigem', null);
     }
 
     protected function _getTipoProcesso($idTipoProcesso = null)
@@ -370,7 +396,7 @@ class AbrirprocessoController extends BaseController
         if ($idTipoProcesso) {
             $tipoProcesso = $tipoProcessoService->getTipoProcesso($idTipoProcesso);
         } else {
-        	$tipoProcesso = new Spu_Entity_TipoProcesso();
+            $tipoProcesso = new Spu_Entity_TipoProcesso();
         }
 
         return $tipoProcesso;
@@ -386,7 +412,7 @@ class AbrirprocessoController extends BaseController
         }
         return $protocolo;
     }
-    
+
     protected function _getListaAssuntos(Spu_Entity_TipoProcesso $tipoProcesso, Spu_Entity_Protocolo $protocoloOrigem)
     {
         $assuntoService = new Spu_Service_Assunto($this->getTicket());
@@ -410,10 +436,10 @@ class AbrirprocessoController extends BaseController
         $tiposManifestante = $tipoProcesso->getTiposManifestante();
 
         if (!$tiposManifestante) {
-        	$serviceTiposManifestante = new Spu_Service_TipoManifestante($this->getTicket());
-        	$tiposManifestante = $serviceTiposManifestante->fetchAll();
+            $serviceTiposManifestante = new Spu_Service_TipoManifestante($this->getTicket());
+            $tiposManifestante = $serviceTiposManifestante->fetchAll();
         }
-        
+
         $listaTiposManifestante = array();
         foreach ($tiposManifestante as $tipoManifestante) {
             $listaTiposManifestante[$tipoManifestante->id] = $tipoManifestante->descricao;
@@ -499,7 +525,7 @@ class AbrirprocessoController extends BaseController
     {
         $this->_helper->redirector('formulario-assunto', $this->getController(), 'default');
     }
-    
+
     protected function _redirectUploadArquivo()
     {
         $this->_helper->redirector('uploadarquivo', $this->getController(), 'default');
@@ -512,18 +538,17 @@ class AbrirprocessoController extends BaseController
 
     protected function _redirectFormularioEnvolvido()
     {
-        $this->_helper->redirector('formularioenvolvido',
-                                   $this->getController(),
-                                   'default',
-                                   array('tipoprocesso' => $this->_getIdTipoProcessoUrl()));
+        $this->_helper->redirector('formularioenvolvido', $this->getController(), 'default', array('tipoprocesso' => $this->_getIdTipoProcessoUrl()));
     }
-    
+
     private function _isTipoAposentadoria($id = null)
     {
         $a = array();
         $apos = Zend_Registry::get('aposentadorias');
-        foreach ($apos as $value) $a[] = $value;
-        
+        foreach ($apos as $value)
+            $a[] = $value;
+
         return in_array($id, $a);
     }
+
 }
