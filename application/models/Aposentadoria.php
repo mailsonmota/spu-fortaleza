@@ -19,19 +19,7 @@ class Application_Model_Aposentadoria
 
     public function inserir($dados)
     {
-        try {
-            var_dump($this->_db->insert($dados));
-        } catch (Zend_Db_Adapter_Exception $e) {
-            echo '<pre>';
-            var_dump($e);
-            echo '</pre>';
-            die();
-        } catch (Zend_Exception $e) {
-            echo '<pre>';
-            var_dump($e);
-            echo '</pre>';
-            die();
-        }
+        $this->_db->insert($dados);
     }
     
     public function last()
