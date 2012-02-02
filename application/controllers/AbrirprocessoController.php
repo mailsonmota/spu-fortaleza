@@ -2,6 +2,7 @@
 
 class AbrirprocessoController extends BaseController
 {
+
     public function indexAction()
     {
         if ($this->getRequest()->isPost()) {
@@ -303,22 +304,26 @@ class AbrirprocessoController extends BaseController
         $dados = $this->_filtrarDadosAposentadoria($processo);
         if (!$dados)
             die();
-        
-        $db_aposentatoria = new Application_Model_AposentadoriaProcesso();
-        echo '<pre>';
-        var_dump($db_aposentatoria->count());
-        echo '</pre>';
-        die();
-        
+
+
         try {
-            $db_aposentatoria->inserir($dados);
+            $db_aap = new Application_Model_Aposentadoria();
+            $aposentado = $db_aap->encontrar($dados['PRONTUARIO']);
+
+            $dados['DTADMISSAO'] = $aposentado->DTADMISSAO;
+            $dados['CARGO'] = $aposentado->CARGO;
+
+            $db_aap_processo = new Application_Model_AposentadoriaProcesso();
+            $db_aap_processo->inserir($dados);
         } catch (Zend_Db_Adapter_Exception $e) {
-            echo '<pre>';var_dump($e);echo '</pre>';
+            echo '<pre>';
+            var_dump($e);
+            echo '</pre>';
         } catch (Zend_Exception $e) {
-            echo '<pre>';var_dump($e);echo '</pre>';
+            echo '<pre>';
+            var_dump($e);
+            echo '</pre>';
         }
-        
-        
     }
 
     private function _filtrarDadosAposentadoria(&$processo)
@@ -328,10 +333,10 @@ class AbrirprocessoController extends BaseController
         $session = new Zend_Session_Namespace('aberturaProcesso');
         $a['PRONTUARIO'] = $session->prontuario;
         unset($session->prontuario);
-        
+
         if (!is_numeric($a['PRONTUARIO']))
             return false;
-        
+
         $id = substr($processo->assunto->tipoProcesso->nodeRef, 24);
         if (!$this->_isTipoAposentadoria($id))
             return false;
@@ -349,8 +354,6 @@ class AbrirprocessoController extends BaseController
         $a['CPF_CNPJ'] = str_replace(array('.', '-', '/'), "", $processo->manifestante->cpf);
         $a['NOMEREQUERENTE'] = strtoupper($processo->manifestante->nome);
         $a['NUMPROCESSO'] = str_replace("_", "/", $processo->nome);
-        $a['DTADMISSAO'] = '';
-        $a['CARGO'] = '';
         $a['PRONTUARIO'] = (int) $a['PRONTUARIO'];
 
         return $a;
