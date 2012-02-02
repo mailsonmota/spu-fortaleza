@@ -302,28 +302,35 @@ class AbrirprocessoController extends BaseController
     private function _enviarDadosAposentadoria($processo)
     {
         $dados = $this->_filtrarDadosAposentadoria($processo);
+        
         if (!$dados)
             die();
-
-
+        
         try {
             $db_aap = new Application_Model_Aposentadoria();
             $aposentado = $db_aap->encontrar($dados['PRONTUARIO']);
-
             $dados['DTADMISSAO'] = $aposentado->DTADMISSAO;
             $dados['CARGO'] = $aposentado->CARGO;
 
             $db_aap_processo = new Application_Model_AposentadoriaProcesso();
             $db_aap_processo->inserir($dados);
-        } catch (Zend_Db_Adapter_Exception $e) {
-            echo '<pre>';
-            var_dump($e);
-            echo '</pre>';
-        } catch (Zend_Exception $e) {
-            echo '<pre>';
-            var_dump($e);
-            echo '</pre>';
+        } catch (Zend_Db_Exception $e) {
+            $dados['erro'] = "Exception:({$e->getCode()}; {$e->getFile()}; {$e->getMessage()})";
+            $this->_gerarLog($dados);
         }
+    }
+    
+    private function _gerarLog($array = array())
+    {
+        $stream = @fopen('../data/logs/aposentadoria.txt', 'a', false);
+        
+        if (!$stream) {
+            throw new Exception('Failed to open stream');
+        }
+        
+        $logger = new Zend_Log(new Zend_Log_Writer_Stream($stream));
+        $logger->addPriority('APOSENTADORIA', 10)
+               ->log(implode(" | ", $array), 10);
     }
 
     private function _filtrarDadosAposentadoria(&$processo)
