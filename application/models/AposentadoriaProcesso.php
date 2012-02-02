@@ -1,13 +1,13 @@
 <?php
 
-class Application_Model_Aposentadoria
+class Application_Model_AposentadoriaProcesso
 {
 
     protected $_db = null;
 
     public function __construct()
     {
-        $this->_db = new Application_Model_DbTable_Aposentadoria();
+        $this->_db = new Application_Model_DbTable_AposentadoriaProcesso();
     }
 
     public function count()

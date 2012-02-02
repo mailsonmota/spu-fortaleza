@@ -304,7 +304,11 @@ class AbrirprocessoController extends BaseController
         if (!$dados)
             die();
         
-        $db_aposentatoria = new Application_Model_Aposentadoria();
+        $db_aposentatoria = new Application_Model_AposentadoriaProcesso();
+        echo '<pre>';
+        var_dump($db_aposentatoria->count());
+        echo '</pre>';
+        die();
         
         try {
             $db_aposentatoria->inserir($dados);
