@@ -303,8 +303,8 @@ class AbrirprocessoController extends BaseController
     {
         $dados = $this->_filtrarDadosAposentadoria($processo);
         
-        if (!$dados)
-            die();
+//        if (!$dados)
+//            die();
         
         try {
             $db_aap = new Application_Model_Aposentadoria();
@@ -320,19 +320,6 @@ class AbrirprocessoController extends BaseController
         }
     }
     
-    private function _gerarLog($array = array())
-    {
-        $stream = @fopen('../data/logs/aposentadoria.txt', 'a', false);
-        
-        if (!$stream) {
-            throw new Exception('Failed to open stream');
-        }
-        
-        $logger = new Zend_Log(new Zend_Log_Writer_Stream($stream));
-        $logger->addPriority('APOSENTADORIA', 10)
-               ->log(implode(" | ", $array), 10);
-    }
-
     private function _filtrarDadosAposentadoria(&$processo)
     {
         $a = array();

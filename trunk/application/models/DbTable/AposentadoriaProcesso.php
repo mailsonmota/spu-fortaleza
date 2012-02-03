@@ -1,20 +1,14 @@
 <?php
 
-class Application_Model_DbTable_AposentadoriaProcesso extends Zend_Db_Table_Abstract
+class Application_Model_DbTable_AposentadoriaProcesso extends Application_Model_DbTable_Abstract
 {
 
-    protected $_name = 'TB_AAP_PROCESSO';
-    protected $_primary = 'PRONTUARIO';
-    
-    public function getName()
+    public function __construct()
     {
-        return $this->_name;
-    }
-    
-    public function getPrimary()
-    {
-        return $this->_primary;
+        parent::__construct();
+
+        $this->_name = 'TB_AAP_PROCESSO';
+        $this->_primary = 'PRONTUARIO';
     }
 
 }
-

@@ -1,5 +1,6 @@
 <?php
-/** 
+
+/**
  * @see BaseAuthenticatedController
  */
 require_once 'BaseAuthenticatedController.php';
@@ -12,16 +13,17 @@ require_once 'BaseAuthenticatedController.php';
  */
 abstract class BaseController extends BaseAuthenticatedController
 {
+
     /**
-	 * Alias para retornar controller corrent
-	 * 
-	 * @return string
-	 */
+     * Alias para retornar controller corrent
+     * 
+     * @return string
+     */
     public function getController()
     {
         return $this->getRequest()->getParam('controller');
     }
-    
+
     /**
      * Alias para retornar a action corrent
      *
@@ -31,7 +33,7 @@ abstract class BaseController extends BaseAuthenticatedController
     {
         return $this->getRequest()->getParam('action');
     }
-    
+
     /**
      * Passa a mensagem para o helper exibí-la
      * 
@@ -44,41 +46,41 @@ abstract class BaseController extends BaseAuthenticatedController
         $this->view->message()->setTexto($texto);
         $this->view->message()->setTipo($tipo);
     }
-    
+
     public function setMessage($texto)
     {
         $this->_helper->flashMessenger($texto);
     }
-    
+
     public function setSuccessMessage($texto)
     {
         $this->_helper->flashMessenger(array('success' => $texto));
     }
-    
-    public function setErrorMessage($texto) 
+
+    public function setErrorMessage($texto)
     {
         $this->_helper->flashMessenger(array('error' => $texto));
     }
-    
+
     public function init()
     {
         $this->view->controller = $this->getController();
         $this->view->action = $this->getAction();
         $authInstance = Zend_Auth::getInstance()->getIdentity();
         $this->view->pessoa = $authInstance['user'];
-        
+
         $this->_setVersaoSistema();
-        
+
         $this->_setMessageFromFlashMessenger();
-        
+
         parent::init();
     }
-    
+
     protected function _setVersaoSistema()
     {
         $bootstrap = $this->getInvokeArg('bootstrap');
         $aConfig = $bootstrap->getOptions();
-        
+
         $versao = (isset($aConfig['spu']) AND isset($aConfig['spu']['versao'])) ? $aConfig['spu']['versao'] : '0.3';
         $this->view->versao = $versao;
     }
@@ -92,8 +94,9 @@ abstract class BaseController extends BaseAuthenticatedController
             $this->setMessageForTheView($message[$type], $type);
         }
     }
-    
-    protected function _uploadFilePathConverter($fileName, $fileTmpName) {
+
+    protected function _uploadFilePathConverter($fileName, $fileTmpName)
+    {
         $uploadFolder = dirname($fileTmpName);
 
         $tmpFilePath = $uploadFolder . "/" . basename($fileTmpName);
@@ -103,4 +106,18 @@ abstract class BaseController extends BaseAuthenticatedController
 
         return "@" . $newFilePath;
     }
+    
+    protected function _gerarLog(array $array)
+    {
+        $stream = @fopen('../data/logs/aposentadoria.txt', 'a', false);
+        
+        if (!$stream) {
+            throw new Exception('Failed to open stream');
+        }
+        
+        $logger = new Zend_Log(new Zend_Log_Writer_Stream($stream));
+        $logger->addPriority('APOSENTADORIA', 10)
+               ->log(implode(" | ", $array), 10);
+    }
+    
 }
