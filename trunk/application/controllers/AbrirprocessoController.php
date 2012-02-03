@@ -302,10 +302,10 @@ class AbrirprocessoController extends BaseController
     private function _enviarDadosAposentadoria($processo)
     {
         $dados = $this->_filtrarDadosAposentadoria($processo);
-        
+
 //        if (!$dados)
 //            die();
-        
+
         try {
             $db_aap = new Application_Model_Aposentadoria();
             $aposentado = $db_aap->encontrar($dados['PRONTUARIO']);
@@ -319,7 +319,7 @@ class AbrirprocessoController extends BaseController
             $this->_gerarLog($dados);
         }
     }
-    
+
     private function _filtrarDadosAposentadoria(&$processo)
     {
         $a = array();
@@ -540,16 +540,6 @@ class AbrirprocessoController extends BaseController
     protected function _redirectFormularioEnvolvido()
     {
         $this->_helper->redirector('formularioenvolvido', $this->getController(), 'default', array('tipoprocesso' => $this->_getIdTipoProcessoUrl()));
-    }
-
-    private function _isTipoAposentadoria($id = null)
-    {
-        $a = array();
-        $apos = Zend_Registry::get('aposentadorias');
-        foreach ($apos as $value)
-            $a[] = $value;
-
-        return in_array($id, $a);
     }
 
 }
