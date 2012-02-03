@@ -1,20 +1,13 @@
 <?php
 
-class Application_Model_DbTable_Aposentadoria extends Zend_Db_Table_Abstract
+class Application_Model_DbTable_Aposentadoria extends Application_Model_DbTable_Abstract
 {
-
-    protected $_name = 'TB_AAP';
-    protected $_primary = 'PRONTUARIO';
-    
-    public function getName()
+    public function __construct()
     {
-        return $this->_name;
-    }
-    
-    public function getPrimary()
-    {
-        return $this->_primary;
+        parent::__construct();
+        
+        $this->_name = 'TB_AAP';
+        $this->_primary = 'PRONTUARIO';
     }
 
 }
-
