@@ -1,9 +1,15 @@
 <?php
+
 require_once('BaseTramitacaoController.php');
+
 class ArquivoController extends BaseTramitacaoController
 {
+
     public function indexAction()
     {
+        echo '<pre>';
+        var_dump('oi');
+        echo '</pre>';
         if ($this->getRequest()->isPost()) {
             try {
                 $processosSelecionados = $this->getRequest()->getParam('processos');
@@ -14,43 +20,41 @@ class ArquivoController extends BaseTramitacaoController
                 $this->setMessageForTheView($e->getMessage(), 'error');
             }
         }
-        
+
         $this->view->q = urldecode($this->_getParam('q'));
         $this->view->tipoProcessoId = urldecode($this->_getParam('tipo-processo'));
         $this->view->assuntoId = urldecode($this->_getParam('assunto'));
         $this->view->tiposProcesso = $this->_getListaTiposProcesso();
-        
+
         $service = new Spu_Service_Tramitacao($this->getTicket());
         $this->view->paginator = $this->_helper->paginator()->paginate(
             $service->getCaixaArquivo(
-                $this->_helper->paginator()->getOffset(),
-                $this->_helper->paginator()->getPageSize(),
-                $this->view->q, 
-                $this->view->assuntoId
+                $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize(), $this->view->q, $this->view->assuntoId
             )
         );
     }
-    
+
     protected function _redirectReabrir()
     {
         $this->_helper->redirector('reabrir', $this->getController(), 'default');
     }
-    
+
     public function arquivarAction()
     {
         if ($this->getRequest()->isPost()) {
             try {
-                $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
-                $tramitacaoService->arquivarVarios($this->getRequest()->getPost());
-                $this->setSuccessMessage('Processos arquivados com sucesso.');
+//                $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
+//                $tramitacaoService->arquivarVarios($this->getRequest()->getPost());
+//                $this->setSuccessMessage('Processos arquivados com sucesso.');
+                $this->_atualizarAposentadoria($this->_getParam('processos'));
                 $this->_redirectArquivo();
             } catch (Exception $e) {
                 $this->setMessageForTheView($e->getMessage(), 'error');
             }
         }
-        
+
         $processos = array();
-        
+
         try {
             $session = new Zend_Session_Namespace('arquivar');
             $processosSelecionados = $session->processos;
@@ -60,11 +64,27 @@ class ArquivoController extends BaseTramitacaoController
             $this->setErrorMessage($e->getMessage());
             $this->_redirectEmAnalise();
         }
-        
+
         $this->view->processos = $processos;
         $this->view->listaStatusArquivamento = $listaStatusArquivamento;
     }
-    
+
+    private function _atualizarAposentadoria(array $dados)
+    {
+
+        $processoService = new Spu_Service_Processo($this->getTicket());
+
+        foreach ($dados as $value) {
+            $processo = $processoService->getProcesso($value);
+            $id = substr($processo->tipoProcesso->nodeRef, 24);
+            echo '<pre>';
+            var_dump($this->_isTipoAposentadoria($id));
+            echo '</pre>';
+        }
+
+        die();
+    }
+
     protected function _getListaStatusArquivamento()
     {
         $statusArquivamentoService = new Spu_Service_StatusArquivamento($this->getTicket());
@@ -73,17 +93,17 @@ class ArquivoController extends BaseTramitacaoController
         foreach ($opcoes as $opcao) {
             $listaStatusArquivamento[$opcao->id] = $opcao->descricao;
         }
-        
+
         if (count($listaStatusArquivamento) == 0) {
             throw new Exception(
                 'Não existe nenhum status de arquivamento cadastrado no sistema. 
                 Por favor, entre em contato com a administração do sistema.'
             );
         }
-        
+
         return $listaStatusArquivamento;
     }
-    
+
     public function reabrirAction()
     {
         if ($this->getRequest()->isPost()) {
@@ -96,9 +116,9 @@ class ArquivoController extends BaseTramitacaoController
                 $this->setMessageForTheView($e->getMessage(), 'error');
             }
         }
-        
+
         $processos = array();
-        
+
         try {
             $session = new Zend_Session_Namespace('reabrir');
             $processosSelecionados = $session->processos;
@@ -107,7 +127,8 @@ class ArquivoController extends BaseTramitacaoController
             $this->setErrorMessage($e->getMessage());
             $this->_redirectArquivo();
         }
-        
+
         $this->view->processos = $processos;
     }
+
 }

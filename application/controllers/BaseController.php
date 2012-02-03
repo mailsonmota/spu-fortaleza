@@ -120,4 +120,14 @@ abstract class BaseController extends BaseAuthenticatedController
                ->log(implode(" | ", $array), 10);
     }
     
+    protected function _isTipoAposentadoria($id = null)
+    {
+        $a = array();
+        $apos = Zend_Registry::get('aposentadorias');
+        foreach ($apos as $value)
+            $a[] = $value;
+
+        return in_array($id, $a);
+    }
+    
 }
