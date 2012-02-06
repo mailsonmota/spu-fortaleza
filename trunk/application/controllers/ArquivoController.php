@@ -7,9 +7,6 @@ class ArquivoController extends BaseTramitacaoController
 
     public function indexAction()
     {
-        echo '<pre>';
-        var_dump('oi');
-        echo '</pre>';
         if ($this->getRequest()->isPost()) {
             try {
                 $processosSelecionados = $this->getRequest()->getParam('processos');
@@ -32,6 +29,9 @@ class ArquivoController extends BaseTramitacaoController
                 $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize(), $this->view->q, $this->view->assuntoId
             )
         );
+        $session = new Zend_Session_Namespace('ap');
+        $this->view->aposentadoria = $session->aposentadoria;
+        unset($session->aposentadoria);
     }
 
     protected function _redirectReabrir()
@@ -46,7 +46,9 @@ class ArquivoController extends BaseTramitacaoController
 //                $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
 //                $tramitacaoService->arquivarVarios($this->getRequest()->getPost());
 //                $this->setSuccessMessage('Processos arquivados com sucesso.');
-                $this->_atualizarAposentadoria($this->_getParam('processos'));
+                
+                $session = new Zend_Session_Namespace('ap');
+                $session->aposentadoria = $this->_getParam('processos');
                 $this->_redirectArquivo();
             } catch (Exception $e) {
                 $this->setMessageForTheView($e->getMessage(), 'error');
@@ -68,21 +70,15 @@ class ArquivoController extends BaseTramitacaoController
         $this->view->processos = $processos;
         $this->view->listaStatusArquivamento = $listaStatusArquivamento;
     }
-
-    private function _atualizarAposentadoria(array $dados)
+    
+    public function atualizarAposentadoriaAction()
     {
-
-        $processoService = new Spu_Service_Processo($this->getTicket());
-
-        foreach ($dados as $value) {
-            $processo = $processoService->getProcesso($value);
-            $id = substr($processo->tipoProcesso->nodeRef, 24);
-            echo '<pre>';
-            var_dump($this->_isTipoAposentadoria($id));
-            echo '</pre>';
+        $this->ajaxNoRender();
+        
+        if ($this->isPostAjax()) {
+            $res = $this->_atualizarAposentadoria($this->_getParam('ids'), 'ARQUIVADO');
+            die ($res ? 'atualizado' : 'erro');
         }
-
-        die();
     }
 
     protected function _getListaStatusArquivamento()

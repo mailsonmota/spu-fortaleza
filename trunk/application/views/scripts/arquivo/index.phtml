@@ -1,26 +1,43 @@
-<?php 
+<?php
 $this->breadcrumbs()->addPage('Tramitação', 'entrada');
 $this->breadcrumbs()->addPage('Arquivo');
-echo $this->breadcrumbs()->render(); 
+echo $this->breadcrumbs()->render();
 
 echo $this->render('snippets/abasTramitacao.phtml');
 
-echo $this->pagenav()->openList(); 
+echo $this->pagenav()->openList();
 echo $this->pagenav()->defaultHelperLinks();
 echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
     <?php echo $this->render('snippets/formularioPesquisaRapidaProcesso.phtml') ?>
-	
+
     <form action="" method="post">
-        <?php 
+        <?php
         echo $this->buttonlist()->open();
         echo $this->buttonlist()->defaultBlockActionsDescription();
         echo $this->buttonlist()->button('Reabrir');
         echo $this->buttonlist()->close(true);
         ?>
-        
+
         <?php echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator, 'exibirCheckbox' => true)) ?>
     </form>
 </div>
+
+<?php
+if ($this->aposentadoria) :
+    $str = '';
+    foreach ($this->aposentadoria as $key=>$value) {
+        $str .= "ids[$key]=$value&";
+    }
+    $js = '$(function(){
+        $.ajax({
+            type: "post",
+            data: "'. $str.'",
+            url: "'. $this->simpleUrl('atualizar-aposentadoria', 'arquivo') . '"
+        });
+    });';
+    $this->headScript()->appendScript($js);
+endif;
+?>
