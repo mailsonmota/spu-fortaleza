@@ -106,20 +106,20 @@ abstract class BaseController extends BaseAuthenticatedController
 
         return "@" . $newFilePath;
     }
-    
+
     protected function _gerarLog(array $array)
     {
         $stream = @fopen('../data/logs/aposentadoria.txt', 'a', false);
-        
+
         if (!$stream) {
             throw new Exception('Failed to open stream');
         }
-        
+
         $logger = new Zend_Log(new Zend_Log_Writer_Stream($stream));
         $logger->addPriority('APOSENTADORIA', 10)
-               ->log(implode(" | ", $array), 10);
+            ->log(implode(" | ", $array), 10);
     }
-    
+
     protected function _isTipoAposentadoria($id = null)
     {
         $a = array();
@@ -129,5 +129,59 @@ abstract class BaseController extends BaseAuthenticatedController
 
         return in_array($id, $a);
     }
-    
+
+    protected function _atualizarAposentadoria(array $dados, $status = 'TRAMITANDO')
+    {
+
+        $processoService = new Spu_Service_Processo($this->getTicket());
+
+        foreach ($dados as $value) {
+            $processo = $processoService->getProcesso($value);
+            $id = substr($processo->tipoProcesso->nodeRef, 24);
+
+            if ($this->_isTipoAposentadoria($id)) {
+//                $d['id'] = (int) $id;
+                $d['id'] = 459401;
+                $d['STATUS'] = strtoupper($status);
+
+//                $numprocesso = str_replace(array('.', '_', '-'), "", $processo->nome);
+//                $cpf_cnpj = str_replace(array('.', '/', '-'), "", $processo->manifestante->cpf);
+                $numprocesso = 'AP0302140952/2012';
+                $cpf_cnpj = '90571517315';
+
+                $where = "CPF_CNPJ = '$cpf_cnpj' AND NUMPROCESSO = '$numprocesso'";
+
+                try {
+                    $db_aposentadorio = new Application_Model_AposentadoriaProcesso();
+                    $db_aposentadorio->atualizar($d, $where);
+                } catch (Zend_Db_Exception $e) {
+                    $dados['erro'] = "Exception:({$e->getCode()}; {$e->getFile()}; {$e->getMessage()})";
+                    $this->_gerarLog($dados);
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Método para nao renderizar para uma action e para desabilitar layout
+     *
+     * @return void
+     */
+    public function ajaxNoRender()
+    {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout->disableLayout();
+    }
+
+    /**
+     * Método para verificar se uma requisicao é do tipo post e ajax
+     *
+     * @return boolean
+     */
+    public function isPostAjax()
+    {
+        return $this->_request->isPost() && $this->_request->isXmlHttpRequest() ? true : false;
+    }
+
 }
