@@ -17,7 +17,11 @@ echo $this->pagenav()->closeList();
                            $this->listaTiposProcesso,
                            null,
                            array('required' => true));
-        
+        ?>
+        <dt style="width: 21%;margin: 15px 0 0 7px;">
+            <a href="/docs/listagem.pdf" target="_blank">Listagem Tipos De Processo/Assuntos</a>
+        </dt>
+        <?php
         if (count($this->listaOrigens) > 1) {
             echo $this->fieldList()->select('Origem', 'origem', $this->listaOrigens, null, array('required' => true));
         } elseif (count($this->listaOrigens) == 1) {
