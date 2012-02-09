@@ -28,3 +28,33 @@ echo $this->pagenav()->closeList();
         <?php echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator, 'exibirCheckbox' => true, 'indicarPrioritarios' => true)) ?>
     </form>
 </div>
+<?php
+if ($this->updateaposentadoria) :
+    $str = '';
+    foreach ($this->updateaposentadoria as $key=>$value) {
+        $str .= "ids[$key]=$value&";
+    }
+    $js = '$(function(){
+        $.ajax({
+            type: "post",
+            data: "'. $str.'",
+            url: "'. $this->simpleUrl('atualizar-aposentadoria', 'analise') . '"
+        });
+    });';
+    $this->headScript()->appendScript($js);
+endif;
+if ($this->updatemassa) :
+    $str = '';
+    foreach ($this->updatemassa as $key=>$value) {
+        $str .= "ids[$key]=$value&";
+    }
+    $js = '$(function(){
+        $.ajax({
+            type: "post",
+            data: "'. $str.'",
+            url: "'. $this->simpleUrl('atualizar-aposentadoria-massa', 'analise') . '"
+        });
+    });';
+    $this->headScript()->appendScript($js);
+endif;
+?>

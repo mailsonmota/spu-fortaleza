@@ -153,7 +153,7 @@ class AbrirprocessoController extends BaseController
             // Limpeza da lista de arquivos utilizada pelo próximo passo na Abertura de Processo
             unset($session->filesToUpload);
             $postData = $this->getRequest()->getPost();
-            //$session->prontuario = is_numeric($postData["processedXml"]) ? $postData["processedXml"] : false;
+            
             $session->prontuario = reset($this->getRequest()->getPost());
             try {
                 $arquivoService = new Spu_Service_Arquivo($this->getTicket());
@@ -278,8 +278,12 @@ class AbrirprocessoController extends BaseController
             $postData['prazo'] = $processo->data;
             $postData['despacho'] = "";
             $postData['copias'] = $session->formDadosGeraisProcesso['copias'];
-            $this->_enviarDadosAposentadoria($processo);
-
+            
+            $s = new Zend_Session_Namespace('ap');
+            $s->insertaposentadoria['id'] = $processo->id;
+            $s->insertaposentadoria['prontuario'] = $session->prontuario;
+            unset($session->prontuario);
+            
             try {
                 $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
                 $tramitacaoService->tramitar($postData);
@@ -297,60 +301,6 @@ class AbrirprocessoController extends BaseController
     {
         $defaultNamespaceSession = new Zend_Session_Namespace('aberturaProcesso');
         $this->view->processo = $defaultNamespaceSession->processo;
-    }
-
-    private function _enviarDadosAposentadoria($processo)
-    {
-        $dados = $this->_filtrarDadosAposentadoria($processo);
-
-//        if (!$dados)
-//            die();
-
-        try {
-            $db_aap = new Application_Model_Aposentadoria();
-            $aposentado = $db_aap->encontrar($dados['PRONTUARIO']);
-            $dados['DTADMISSAO'] = $aposentado->DTADMISSAO;
-            $dados['CARGO'] = $aposentado->CARGO;
-
-            $db_aap_processo = new Application_Model_AposentadoriaProcesso();
-            $db_aap_processo->inserir($dados);
-        } catch (Zend_Db_Exception $e) {
-            $dados['erro'] = "Exception:({$e->getCode()}; {$e->getFile()}; {$e->getMessage()})";
-            $this->_gerarLog($dados);
-        }
-    }
-
-    private function _filtrarDadosAposentadoria(&$processo)
-    {
-        $a = array();
-
-        $session = new Zend_Session_Namespace('aberturaProcesso');
-        $a['PRONTUARIO'] = $session->prontuario;
-        unset($session->prontuario);
-
-        if (!is_numeric($a['PRONTUARIO']))
-            return false;
-
-        $id = substr($processo->assunto->tipoProcesso->nodeRef, 24);
-        if (!$this->_isTipoAposentadoria($id))
-            return false;
-
-        $a['STATUS'] = 'TRAMITANDO';
-        $a['NMASSUNTOPROCESSO'] = strtoupper($processo->assunto->nome);
-        $a['NOMETPPROCESSO'] = strtoupper($processo->assunto->tipoProcesso->nome);
-
-        $path = explode("/", $processo->proprietario->path);
-        $a['LOTACAO_ATUAL'] = $path[0] . " - " . $path[count($path) - 1];
-
-        $data = new DateTime(implode("/", array_reverse(explode("/", $processo->data))));
-        $a['DTABERTURA'] = $data->format('d/m/y');
-
-        $a['CPF_CNPJ'] = str_replace(array('.', '-', '/'), "", $processo->manifestante->cpf);
-        $a['NOMEREQUERENTE'] = strtoupper($processo->manifestante->nome);
-        $a['NUMPROCESSO'] = str_replace("_", "/", $processo->nome);
-        $a['PRONTUARIO'] = (int) $a['PRONTUARIO'];
-
-        return $a;
     }
 
     protected function _getIdTipoProcessoPost()

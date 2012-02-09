@@ -130,33 +130,35 @@ abstract class BaseController extends BaseAuthenticatedController
         return in_array($id, $a);
     }
 
-    protected function _atualizarAposentadoria(array $dados, $status = 'TRAMITANDO')
+    protected function _atualizarAposentadoria(array $dados, array $onde)
     {
 
         $processoService = new Spu_Service_Processo($this->getTicket());
-
+        
         foreach ($dados as $value) {
             $processo = $processoService->getProcesso($value);
-            $id = substr($processo->tipoProcesso->nodeRef, 24);
-
+            $id = substr($processo->assunto->nodeRef, 24);
+            
             if ($this->_isTipoAposentadoria($id)) {
-//                $d['id'] = (int) $id;
-                $d['id'] = 459401;
-                $d['STATUS'] = strtoupper($status);
+                
+                foreach ($onde as $key => $value) {
+                    $d[strtoupper($key)] = strtoupper($value);
+                }
 
-//                $numprocesso = str_replace(array('.', '_', '-'), "", $processo->nome);
-//                $cpf_cnpj = str_replace(array('.', '/', '-'), "", $processo->manifestante->cpf);
-                $numprocesso = 'AP0302140952/2012';
-                $cpf_cnpj = '90571517315';
+                $numprocesso = str_replace("_", "/", $processo->nome);
+                $cpf_cnpj = str_replace(array('.', '/', '-'), "", $processo->manifestante->cpf);
+//                $numprocesso = 'AP0302140952/2012';
+//                $cpf_cnpj = '90571517315';
 
                 $where = "CPF_CNPJ = '$cpf_cnpj' AND NUMPROCESSO = '$numprocesso'";
-
+                
                 try {
                     $db_aposentadorio = new Application_Model_AposentadoriaProcesso();
                     $db_aposentadorio->atualizar($d, $where);
                 } catch (Zend_Db_Exception $e) {
                     $dados['erro'] = "Exception:({$e->getCode()}; {$e->getFile()}; {$e->getMessage()})";
                     $this->_gerarLog($dados);
+                    return false;
                 }
             }
         }

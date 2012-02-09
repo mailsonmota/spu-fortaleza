@@ -30,8 +30,10 @@ class ArquivoController extends BaseTramitacaoController
             )
         );
         $session = new Zend_Session_Namespace('ap');
-        $this->view->aposentadoria = $session->aposentadoria;
-        unset($session->aposentadoria);
+        if ($session->updateaposentadoria) {
+            $this->view->updateaposentadoria = $session->updateaposentadoria;
+            Zend_Session::namespaceUnset('ap');
+        }
     }
 
     protected function _redirectReabrir()
@@ -43,12 +45,12 @@ class ArquivoController extends BaseTramitacaoController
     {
         if ($this->getRequest()->isPost()) {
             try {
-//                $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
-//                $tramitacaoService->arquivarVarios($this->getRequest()->getPost());
-//                $this->setSuccessMessage('Processos arquivados com sucesso.');
-                
+                $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
+                $tramitacaoService->arquivarVarios($this->getRequest()->getPost());
+                $this->setSuccessMessage('Processos arquivados com sucesso.');
+
                 $session = new Zend_Session_Namespace('ap');
-                $session->aposentadoria = $this->_getParam('processos');
+                $session->updateaposentadoria = $this->_getParam('processos');
                 $this->_redirectArquivo();
             } catch (Exception $e) {
                 $this->setMessageForTheView($e->getMessage(), 'error');
@@ -70,14 +72,14 @@ class ArquivoController extends BaseTramitacaoController
         $this->view->processos = $processos;
         $this->view->listaStatusArquivamento = $listaStatusArquivamento;
     }
-    
+
     public function atualizarAposentadoriaAction()
     {
         $this->ajaxNoRender();
-        
+
         if ($this->isPostAjax()) {
-            $res = $this->_atualizarAposentadoria($this->_getParam('ids'), 'ARQUIVADO');
-            die ($res ? 'atualizado' : 'erro');
+            $res = $this->_atualizarAposentadoria($this->_getParam('ids'), array('status' => 'ARQUIVANDO'));
+            die($res ? 'atualizado' : 'erro');
         }
     }
 

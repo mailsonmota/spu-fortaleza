@@ -26,9 +26,9 @@ echo $this->pagenav()->closeList();
 </div>
 
 <?php
-if ($this->aposentadoria) :
+if ($this->updateaposentadoria) :
     $str = '';
-    foreach ($this->aposentadoria as $key=>$value) {
+    foreach ($this->updateaposentadoria as $key=>$value) {
         $str .= "ids[$key]=$value&";
     }
     $js = '$(function(){
