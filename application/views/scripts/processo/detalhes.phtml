@@ -34,3 +34,36 @@ echo $this->pagenav()->closeList();
     </form>
     <?php endif ?>
 </div>
+<?php
+if ($this->updateaposentadoria) :
+    $str = '';
+    foreach ($this->updateaposentadoria as $key=>$value) {
+        $str .= "ids[$key]=$value&";
+    }
+    $js = '$(function(){
+        $.ajax({
+            type: "post",
+            data: "'. $str.'",
+            url: "'. $this->simpleUrl('atualizar-aposentadoria', 'processo') . '"
+        });
+    });';
+    $this->headScript()->appendScript($js);
+endif;
+?>
+
+<?php
+if ($this->insertaposentadoria) :
+    $str = '';
+    foreach ($this->insertaposentadoria as $key=>$value) {
+        $str .= "dados[$key]=$value&";
+    }
+    $js = '$(function(){
+        $.ajax({
+            type: "post",
+            data: "'. $str.'",
+            url: "'. $this->simpleUrl('enviar-dados-aposentadoria', 'processo') . '"
+        });
+    });';
+    $this->headScript()->appendScript($js);
+endif;
+?>

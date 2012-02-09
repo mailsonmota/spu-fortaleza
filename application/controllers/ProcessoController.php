@@ -1,6 +1,8 @@
 <?php
+
 class ProcessoController extends BaseController
 {
+
     public function detalhesAction()
     {
         try {
@@ -13,7 +15,8 @@ class ProcessoController extends BaseController
             $this->view->diarioMarker = $arquivoService->getDiarioUuid($processo->assunto->nodeRef);
             $this->view->comunicacaoInternaMarker = $arquivoService->getComunicacaoInternaUuid($processo->assunto->nodeRef);
         } catch (Exception $e) {
-            echo $e->getMessage(); exit;
+            echo $e->getMessage();
+            exit;
             $this->setMessageForTheView('Não foi possível carregar o processo', 'error');
         }
 
@@ -40,11 +43,84 @@ class ProcessoController extends BaseController
         $this->view->processo = $processo;
         $this->view->processosParalelos = $processosParalelos;
         $this->view->processosIncorporados = $processoService->getIncorporados($idProcesso);
+
+        $session = new Zend_Session_Namespace('ap');
+        if ($session->updateaposentadoria) {
+            $this->view->updateaposentadoria = $session->updateaposentadoria;
+        } elseif ($session->insertaposentadoria) {
+            $this->view->insertaposentadoria = $session->insertaposentadoria;
+        }
+        Zend_Session::namespaceUnset('ap');
+    }
+
+    public function enviarDadosAposentadoriaAction()
+    {
+        $this->ajaxNoRender();
+
+        if ($this->isPostAjax()) {
+            $res = $this->_enviarDadosAposentadoria($this->_getParam('dados'));
+            die($res ? 'enviado' : 'erro');
+        }
+    }
+
+    private function _enviarDadosAposentadoria($dados)
+    {
+        $dados = $this->_filtrarDadosAposentadoria($dados);
+
+        if (!$dados)
+            return false;
+
+        try {
+            $db_aap = new Application_Model_Aposentadoria();
+            $aposentado = $db_aap->encontrar($dados['PRONTUARIO']);
+            $dados['DTADMISSAO'] = $aposentado->DTADMISSAO;
+            $dados['CARGO'] = $aposentado->CARGO;
+
+            $db_aap_processo = new Application_Model_AposentadoriaProcesso();
+            $db_aap_processo->inserir($dados);
+        } catch (Zend_Db_Exception $e) {
+            $dados['erro'] = "Exception:({$e->getCode()}; {$e->getFile()}; {$e->getMessage()})";
+            $this->_gerarLog($dados);
+            return false;
+        }
+        return true;
+    }
+
+    private function _filtrarDadosAposentadoria($dados)
+    {
+        $a = array();
+        $processoService = new Spu_Service_Processo($this->getTicket());
+        $processo = $processoService->getProcesso($dados['id']);
+        $a['PRONTUARIO'] = $dados['prontuario'];
+        if (!is_numeric($a['PRONTUARIO']))
+            return false;
+
+        $id = substr($processo->assunto->nodeRef, 24);
+        if (!$this->_isTipoAposentadoria($id))
+            return false;
+
+        $a['STATUS'] = 'TRAMITANDO';
+        $a['NMASSUNTOPROCESSO'] = strtoupper($processo->assunto->nome);
+        $a['NOMETPPROCESSO'] = strtoupper($processo->assunto->tipoProcesso->nome);
+
+        $path = explode("/", $processo->protocolo->path);
+        $a['LOTACAO_ATUAL'] = $path[0] . " - " . $path[count($path) - 1];
+
+        $data = new DateTime(implode("/", array_reverse(explode("/", $processo->data))));
+        $a['DTABERTURA'] = $data->format('d/m/y');
+
+        $a['CPF_CNPJ'] = str_replace(array('.', '-', '/'), "", $processo->manifestante->cpf);
+        $a['NOMEREQUERENTE'] = strtoupper($processo->manifestante->nome);
+        $a['NUMPROCESSO'] = str_replace("_", "/", $processo->nome);
+        $a['PRONTUARIO'] = (int) $a['PRONTUARIO'];
+
+        return $a;
     }
 
     public function encaminharAction()
     {
         try {
+
             $idProcesso = $this->_getIdProcessoUrl();
             $processoService = new Spu_Service_Processo($this->getTicket());
             if ($idProcesso) {
@@ -57,8 +133,17 @@ class ProcessoController extends BaseController
             $listaProtocolos = $service->getProtocolosRaiz();
 
             if ($this->getRequest()->isPost()) {
-                $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
-                $tramitacaoService->tramitar($this->getRequest()->getPost());
+//                $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
+//                $tramitacaoService->tramitar($this->getRequest()->getPost());
+
+                $tipo = new Spu_Service_TipoProcesso($this->getTicket());
+                $destino[] = $tipo->getTipoProcesso($this->_getParam('destinoId_root'))->nome;
+                $destino[] = $tipo->getTipoProcesso($this->_getParam('destinoId_children'))->nome;
+
+                $session = new Zend_Session_Namespace('ap');
+                $session->updateaposentadoria['id'] = $idProcesso;
+                $session->updateaposentadoria['destino'] = implode(" - ", $destino);
+
                 $this->setSuccessMessage('Processo tramitado com sucesso.');
                 $this->_redirectDetalhesProcesso($idProcesso);
             }
@@ -77,10 +162,21 @@ class ProcessoController extends BaseController
             $arquivoHash['nome'] = $this->getRequest()->getParam('nome');
             $arquivoService = new Spu_Service_Arquivo($this->getTicket());
             $url = $arquivoService->getArquivoDownloadUrl($arquivoHash, true, Zend_Registry::get('baseDownload'));
-            
+
             $this->getResponse()->setRedirect($url);
         } catch (Exception $e) {
             $this->setMessageForTheView($e->getMessage(), 'error');
+        }
+    }
+
+    public function atualizarAposentadoriaAction()
+    {
+        $this->ajaxNoRender();
+
+        if ($this->isPostAjax()) {
+            $ids = $this->_getParam('ids');
+            $res = $this->_atualizarAposentadoria(array($ids['id']), array('LOTACAO_ATUAL' => $ids['destino']));
+            die($res ? 'atualizado' : 'erro');
         }
     }
 
@@ -101,9 +197,9 @@ class ProcessoController extends BaseController
 
         if (count($listaPrioridades) == 0) {
             throw new Exception(
-                                'Não existe nenhuma prioridade de processo cadastrada no sistema.
+                'Não existe nenhuma prioridade de processo cadastrada no sistema.
                 Por favor, entre em contato com a administração do sistema.'
-                                );
+            );
         }
 
         return $listaPrioridades;
@@ -119,10 +215,10 @@ class ProcessoController extends BaseController
         $this->_helper->redirector('etiqueta', $this->getController(), 'default', array('id' => $idProcesso, 'layout' => $params));
     }
 
-    /*protected function _redirectOficio($idProcesso)
-    {
-        $this->_helper->redirector('oficio', $this->getController(), 'default', array('id' => $idProcesso));
-    }*/
+    /* protected function _redirectOficio($idProcesso)
+      {
+      $this->_helper->redirector('oficio', $this->getController(), 'default', array('id' => $idProcesso));
+      } */
 
     public function etiquetaAction()
     {
@@ -139,7 +235,7 @@ class ProcessoController extends BaseController
 
         $this->view->processo = $processo;
 
-        if($this->_request->getParam('layout')) {
+        if ($this->_request->getParam('layout')) {
             $this->view->layout = $this->_request->getParam('layout');
         }
     }
@@ -156,23 +252,24 @@ class ProcessoController extends BaseController
 
         try {
             $dataAtual = new Zend_Date();
-            $arquivoService->substituiVariaveisEmOdt($arquivoString,
-                                                     array('manifestante' => $processo->manifestante->nome,
-                                                           'corpo' => $processo->corpo,
-							   'nr-processo' => $processo->numero,
-                                                           'data-abertura' => $processo->data,
-                                                           'observacao' => $processo->observacao,
-                                                           'tipo-processo' => $processo->tipoProcesso->nome,
-                                                           'assunto' => $processo->assunto->nome,
-                                                           'data-atual' => $dataAtual->toString('dd/MM/YYYY')));
+            $arquivoService->substituiVariaveisEmOdt($arquivoString, array('manifestante' => $processo->manifestante->nome,
+                'corpo' => $processo->corpo,
+                'nr-processo' => $processo->numero,
+                'data-abertura' => $processo->data,
+                'observacao' => $processo->observacao,
+                'tipo-processo' => $processo->tipoProcesso->nome,
+                'assunto' => $processo->assunto->nome,
+                'data-atual' => $dataAtual->toString('dd/MM/YYYY')));
         } catch (Exception $e) {
-            print $e->getMessage();exit; // TODO FIXME
+            print $e->getMessage();
+            exit; // TODO FIXME
         }
 
         $this->view->arquivoString = $arquivoString;
     }
 
-    public function diarioAction() {
+    public function diarioAction()
+    {
         $this->_helper->layout()->disableLayout();
 
         $processoService = new Spu_Service_Processo($this->getTicket());
@@ -183,23 +280,24 @@ class ProcessoController extends BaseController
 
         try {
             $dataAtual = new Zend_Date();
-            $arquivoService->substituiVariaveisEmOdt($arquivoString,
-                                                     array('manifestante' => $processo->manifestante->nome,
-                                                           'corpo' => $processo->corpo,
-							   'nr-processo' => $processo->numero,
-                                                           'data-abertura' => $processo->data,
-                                                           'observacao' => $processo->observacao,
-                                                           'tipo-processo' => $processo->tipoProcesso->nome,
-                                                           'assunto' => $processo->assunto->nome,
-                                                           'data-atual' => $dataAtual->toString('dd/MM/YYYY')));
+            $arquivoService->substituiVariaveisEmOdt($arquivoString, array('manifestante' => $processo->manifestante->nome,
+                'corpo' => $processo->corpo,
+                'nr-processo' => $processo->numero,
+                'data-abertura' => $processo->data,
+                'observacao' => $processo->observacao,
+                'tipo-processo' => $processo->tipoProcesso->nome,
+                'assunto' => $processo->assunto->nome,
+                'data-atual' => $dataAtual->toString('dd/MM/YYYY')));
         } catch (Exception $e) {
-            print $e->getMessage();exit; // TODO FIXME
+            print $e->getMessage();
+            exit; // TODO FIXME
         }
 
         $this->view->arquivoString = $arquivoString;
     }
 
-    public function comunicacaoInternaAction() {
+    public function comunicacaoInternaAction()
+    {
         $this->_helper->layout()->disableLayout();
 
         $processoService = new Spu_Service_Processo($this->getTicket());
@@ -210,20 +308,21 @@ class ProcessoController extends BaseController
 
         try {
             $dataAtual = new Zend_Date();
-            $arquivoService->substituiVariaveisEmOdt($arquivoString,
-                                                     array('manifestante' => $processo->manifestante->nome,
-                                                           'corpo' => $processo->corpo,
-							   'nr-processo' => $processo->numero,
-                                                           'data-abertura' => $processo->data,
-                                                           'observacao' => $processo->observacao,
-                                                           'tipo-processo' => $processo->tipoProcesso->nome,
-                                                           'assunto' => $processo->assunto->nome,
-                                                           'data-atual' => $dataAtual->toString('dd/MM/YYYY')));
+            $arquivoService->substituiVariaveisEmOdt($arquivoString, array('manifestante' => $processo->manifestante->nome,
+                'corpo' => $processo->corpo,
+                'nr-processo' => $processo->numero,
+                'data-abertura' => $processo->data,
+                'observacao' => $processo->observacao,
+                'tipo-processo' => $processo->tipoProcesso->nome,
+                'assunto' => $processo->assunto->nome,
+                'data-atual' => $dataAtual->toString('dd/MM/YYYY')));
         } catch (Exception $e) {
-            print $e->getMessage();exit; // TODO FIXME
+            print $e->getMessage();
+            exit; // TODO FIXME
         }
 
         $this->view->arquivoString = $arquivoString;
     }
+
 }
 

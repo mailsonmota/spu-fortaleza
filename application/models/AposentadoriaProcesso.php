@@ -10,14 +10,7 @@ class Application_Model_AposentadoriaProcesso extends Application_Model_Abstract
 
     public function atualizar(array $dados, $where = null)
     {
-        $w = $this->_dbTable->getAdapter()
-            ->quoteInto($this->_dbTable->getPrimary() . ' = ?', $dados['id']);
-        unset($dados['id']);
-        
-        if ($where)
-            $w .= " AND $where";
-
-        return $this->_dbTable->update($dados, $w);
+        return $this->_dbTable->update($dados, $where);
     }
 
 }
