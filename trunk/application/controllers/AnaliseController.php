@@ -66,11 +66,10 @@ class AnaliseController extends BaseTramitacaoController
         $session = new Zend_Session_Namespace('ap');
         if ($session->updateaposentadoria) {
             $this->view->updateaposentadoria = $session->updateaposentadoria;
-            Zend_Session::namespaceUnset('ap');
         } elseif ($session->updatemassa) {
             $this->view->updatemassa = $session->updatemassa;
-            Zend_Session::namespaceUnset('ap');
         }
+        Zend_Session::namespaceUnset('ap');
     }
 
     public function atualizarAposentadoriaAction()
