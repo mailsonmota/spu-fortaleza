@@ -45,13 +45,12 @@ class ProcessoController extends BaseController
         $this->view->processosIncorporados = $processoService->getIncorporados($idProcesso);
 
         $session = new Zend_Session_Namespace('ap');
-        if ($session->updateaposentadoria) {
+        if (isset($session->updateaposentadoria)) {
             $this->view->updateaposentadoria = $session->updateaposentadoria;
-            Zend_Session::namespaceUnset('ap');
-        } elseif ($session->insertaposentadoria) {
+        } elseif (isset($session->insertaposentadoria)) {
             $this->view->insertaposentadoria = $session->insertaposentadoria;
-            Zend_Session::namespaceUnset('ap');
         }
+        Zend_Session::namespaceUnset('ap');
     }
 
     public function enviarDadosAposentadoriaAction()
