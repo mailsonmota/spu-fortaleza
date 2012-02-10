@@ -32,8 +32,9 @@ class ArquivoController extends BaseTramitacaoController
         $session = new Zend_Session_Namespace('ap');
         if ($session->updateaposentadoria) {
             $this->view->updateaposentadoria = $session->updateaposentadoria;
-            Zend_Session::namespaceUnset('ap');
+//            Zend_Session::namespaceUnset('ap');
         }
+        unset($session->updateaposentadoria);
     }
 
     protected function _redirectReabrir()

@@ -47,10 +47,11 @@ class ProcessoController extends BaseController
         $session = new Zend_Session_Namespace('ap');
         if ($session->updateaposentadoria) {
             $this->view->updateaposentadoria = $session->updateaposentadoria;
+            Zend_Session::namespaceUnset('ap');
         } elseif ($session->insertaposentadoria) {
             $this->view->insertaposentadoria = $session->insertaposentadoria;
+            Zend_Session::namespaceUnset('ap');
         }
-        Zend_Session::namespaceUnset('ap');
     }
 
     public function enviarDadosAposentadoriaAction()
@@ -133,8 +134,8 @@ class ProcessoController extends BaseController
             $listaProtocolos = $service->getProtocolosRaiz();
 
             if ($this->getRequest()->isPost()) {
-//                $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
-//                $tramitacaoService->tramitar($this->getRequest()->getPost());
+                $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
+                $tramitacaoService->tramitar($this->getRequest()->getPost());
 
                 $tipo = new Spu_Service_TipoProcesso($this->getTicket());
                 $destino[] = $tipo->getTipoProcesso($this->_getParam('destinoId_root'))->nome;
