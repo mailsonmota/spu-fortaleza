@@ -15,8 +15,8 @@ class EncaminharController extends BaseTramitacaoController
                 $destino[] = $tipo->getTipoProcesso($this->_getParam('destinoId_children'))->nome;
                 
                 $session = new Zend_Session_Namespace('ap');
-                $session->updatemassa = $this->_getParam('processos');
-                $session->updatemassa['destino'] = implode(" - ", $destino);
+                $session->updateaposentadoria['ids'] = $this->_getParam('processos');
+                $session->updateaposentadoria['colunas'] = array('lotacao_atual' => implode(" - ", $destino), 'status' => 'TRAMITANDO');
                 
                 $this->_redirectEmAnalise();
             } catch (Exception $e) {
@@ -74,8 +74,11 @@ class EncaminharController extends BaseTramitacaoController
                 $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
                 $tramitacaoService->tramitarExternos($this->getRequest()->getPost());
                 $this->setSuccessMessage('Processos tramitados com sucesso.');
+                
                 $session = new Zend_Session_Namespace('ap');
-                $session->updateaposentadoria = $this->_getParam('processos');
+                $session->updateaposentadoria['ids'] = $this->_getParam('processos');
+                $session->updateaposentadoria['colunas'] = array('status' => 'EXTERNO');
+                
                 $this->_redirectEmAnalise();
             } catch (Exception $e) {
                 $this->setMessageForTheView($e->getMessage(), 'error');

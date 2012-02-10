@@ -66,8 +66,6 @@ class AnaliseController extends BaseTramitacaoController
         $session = new Zend_Session_Namespace('ap');
         if ($session->updateaposentadoria) {
             $this->view->updateaposentadoria = $session->updateaposentadoria;
-        } elseif ($session->updatemassa) {
-            $this->view->updatemassa = $session->updatemassa;
         }
         Zend_Session::namespaceUnset('ap');
     }
@@ -77,20 +75,7 @@ class AnaliseController extends BaseTramitacaoController
         $this->ajaxNoRender();
         
         if ($this->isPostAjax()) {
-            $res = $this->_atualizarAposentadoria($this->_getParam('ids'), array('status' => 'EXTERNO'));
-            die($res ? 'atualizado' : 'erro');
-        }
-    }
-    
-    public function atualizarAposentadoriaMassaAction()
-    {
-        $this->ajaxNoRender();
-        
-        if ($this->isPostAjax()) {
-            $ids = $this->_getParam('ids');
-            $destino = array_pop($ids);
-            
-            $res = $this->_atualizarAposentadoria($ids, array('LOTACAO_ATUAL' => $destino));
+            $res = $this->_atualizarAposentadoria($this->_getParam('ids'), $this->_getParam('colunas'));
             die($res ? 'atualizado' : 'erro');
         }
     }

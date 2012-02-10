@@ -36,22 +36,15 @@ echo $this->pagenav()->closeList();
 </div>
 <?php
 if ($this->updateaposentadoria) :
-    $str = '';
-    foreach ($this->updateaposentadoria as $key=>$value) {
-        $str .= "ids[$key]=$value&";
-    }
     $js = '$(function(){
         $.ajax({
             type: "post",
-            data: "'. $str.'",
-            url: "'. $this->simpleUrl('atualizar-aposentadoria', 'processo') . '"
+            data: ' . json_encode($this->updateaposentadoria) . ',
+            url: "' . $this->simpleUrl('atualizar-aposentadoria', 'processo') . '"
         });
     });';
     $this->headScript()->appendScript($js);
 endif;
-?>
-
-<?php
 if ($this->insertaposentadoria) :
     $str = '';
     foreach ($this->insertaposentadoria as $key=>$value) {
