@@ -141,8 +141,8 @@ class ProcessoController extends BaseController
                 $destino[] = $tipo->getTipoProcesso($this->_getParam('destinoId_children'))->nome;
 
                 $session = new Zend_Session_Namespace('ap');
-                $session->updateaposentadoria['id'] = $idProcesso;
-                $session->updateaposentadoria['destino'] = implode(" - ", $destino);
+                $session->updateaposentadoria['ids'] = array($idProcesso);
+                $session->updateaposentadoria['colunas'] = array('lotacao_atual' => implode(" - ", $destino));
 
                 $this->setSuccessMessage('Processo tramitado com sucesso.');
                 $this->_redirectDetalhesProcesso($idProcesso);
@@ -172,10 +172,9 @@ class ProcessoController extends BaseController
     public function atualizarAposentadoriaAction()
     {
         $this->ajaxNoRender();
-
+        
         if ($this->isPostAjax()) {
-            $ids = $this->_getParam('ids');
-            $res = $this->_atualizarAposentadoria(array($ids['id']), array('LOTACAO_ATUAL' => $ids['destino']));
+            $res = $this->_atualizarAposentadoria($this->_getParam('ids'), $this->_getParam('colunas'));
             die($res ? 'atualizado' : 'erro');
         }
     }

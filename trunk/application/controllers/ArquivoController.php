@@ -50,7 +50,9 @@ class ArquivoController extends BaseTramitacaoController
                 $this->setSuccessMessage('Processos arquivados com sucesso.');
 
                 $session = new Zend_Session_Namespace('ap');
-                $session->updateaposentadoria = $this->_getParam('processos');
+                $session->updateaposentadoria['ids'] = $this->_getParam('processos');
+                $session->updateaposentadoria['colunas'] = array('status' => 'ARQUIVANDO');
+                
                 $this->_redirectArquivo();
             } catch (Exception $e) {
                 $this->setMessageForTheView($e->getMessage(), 'error');
@@ -76,9 +78,9 @@ class ArquivoController extends BaseTramitacaoController
     public function atualizarAposentadoriaAction()
     {
         $this->ajaxNoRender();
-
+        
         if ($this->isPostAjax()) {
-            $res = $this->_atualizarAposentadoria($this->_getParam('ids'), array('status' => 'ARQUIVANDO'));
+            $res = $this->_atualizarAposentadoria($this->_getParam('ids'), $this->_getParam('colunas'));
             die($res ? 'atualizado' : 'erro');
         }
     }
@@ -109,6 +111,11 @@ class ArquivoController extends BaseTramitacaoController
                 $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
                 $tramitacaoService->reabrirVarios($this->getRequest()->getPost());
                 $this->setSuccessMessage('Processos reabertos com sucesso.');
+                
+                $session = new Zend_Session_Namespace('ap');
+                $session->updateaposentadoria['ids'] = $this->_getParam('processos');
+                $session->updateaposentadoria['colunas'] = array('status' => 'TRAMITANDO');
+                
                 $this->_redirectEmAnalise();
             } catch (Exception $e) {
                 $this->setMessageForTheView($e->getMessage(), 'error');
