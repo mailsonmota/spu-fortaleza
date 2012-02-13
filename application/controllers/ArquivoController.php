@@ -75,16 +75,6 @@ class ArquivoController extends BaseTramitacaoController
         $this->view->listaStatusArquivamento = $listaStatusArquivamento;
     }
 
-    public function atualizarAposentadoriaAction()
-    {
-        $this->ajaxNoRender();
-        
-        if ($this->isPostAjax()) {
-            $res = $this->_atualizarAposentadoria($this->_getParam('ids'), $this->_getParam('colunas'));
-            die($res ? 'atualizado' : 'erro');
-        }
-    }
-
     protected function _getListaStatusArquivamento()
     {
         $statusArquivamentoService = new Spu_Service_StatusArquivamento($this->getTicket());

@@ -31,7 +31,7 @@ if ($this->updateaposentadoria) :
         $.ajax({
             type: "post",
             data: ' . json_encode($this->updateaposentadoria) . ',
-            url: "' . $this->simpleUrl('atualizar-aposentadoria', 'arquivo') . '"
+            url: "' . $this->simpleUrl('atualizar', 'aposentadoria') . '"
         });
     });';
     $this->headScript()->appendScript($js);

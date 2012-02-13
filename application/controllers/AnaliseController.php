@@ -70,16 +70,6 @@ class AnaliseController extends BaseTramitacaoController
         Zend_Session::namespaceUnset('ap');
     }
 
-    public function atualizarAposentadoriaAction()
-    {
-        $this->ajaxNoRender();
-        
-        if ($this->isPostAjax()) {
-            $res = $this->_atualizarAposentadoria($this->_getParam('ids'), $this->_getParam('colunas'));
-            die($res ? 'atualizado' : 'erro');
-        }
-    }
-
     protected function _redirectEncaminharProcesso($processoId)
     {
         $this->_helper->redirector('encaminhar', 'processo', null, array('id' => $processoId));
