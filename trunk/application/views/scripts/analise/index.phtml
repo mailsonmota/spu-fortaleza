@@ -34,7 +34,7 @@ if ($this->updateaposentadoria) :
         $.ajax({
             type: "post",
             data: ' . json_encode($this->updateaposentadoria) . ',
-            url: "' . $this->simpleUrl('atualizar-aposentadoria', 'analise') . '"
+            url: "' . $this->simpleUrl('atualizar', 'aposentadoria') . '"
         });
     });';
     $this->headScript()->appendScript($js);

@@ -59,7 +59,7 @@ class ProcessoController extends BaseController
 
         if ($this->isPostAjax()) {
             $res = $this->_enviarDadosAposentadoria($this->_getParam('dados'));
-            die($res ? 'enviado' : 'erro');
+            die($res ? 'true' : 'false');
         }
     }
 
@@ -73,11 +73,14 @@ class ProcessoController extends BaseController
         try {
             $db_aap = new Application_Model_Aposentadoria();
             $aposentado = $db_aap->encontrar($dados['PRONTUARIO']);
-            $dados['DTADMISSAO'] = $aposentado->DTADMISSAO;
-            $dados['CARGO'] = $aposentado->CARGO;
 
-            $db_aap_processo = new Application_Model_AposentadoriaProcesso();
-            $db_aap_processo->inserir($dados);
+            if ($aposentado && $aposentado->CPF == $dados['CPF_CNPJ']) {
+                $dados['DTADMISSAO'] = $aposentado->DTADMISSAO;
+                $dados['CARGO'] = $aposentado->CARGO;
+
+                $db_aap_processo = new Application_Model_AposentadoriaProcesso();
+                $db_aap_processo->inserir($dados);
+            } else return false;
         } catch (Zend_Db_Exception $e) {
             $dados['erro'] = "Exception:({$e->getCode()}; {$e->getFile()}; {$e->getMessage()})";
             $this->_gerarLog($dados);
@@ -166,16 +169,6 @@ class ProcessoController extends BaseController
             $this->getResponse()->setRedirect($url);
         } catch (Exception $e) {
             $this->setMessageForTheView($e->getMessage(), 'error');
-        }
-    }
-
-    public function atualizarAposentadoriaAction()
-    {
-        $this->ajaxNoRender();
-        
-        if ($this->isPostAjax()) {
-            $res = $this->_atualizarAposentadoria($this->_getParam('ids'), $this->_getParam('colunas'));
-            die($res ? 'atualizado' : 'erro');
         }
     }
 
