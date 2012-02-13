@@ -46,15 +46,11 @@ if ($this->updateaposentadoria) :
     $this->headScript()->appendScript($js);
 endif;
 if ($this->insertaposentadoria) :
-    $str = '';
-    foreach ($this->insertaposentadoria as $key=>$value) {
-        $str .= "dados[$key]=$value&";
-    }
     $js = '$(function(){
         $.ajax({
             type: "post",
-            data: "'. $str.'",
-            url: "'. $this->simpleUrl('enviar-dados-aposentadoria', 'processo') . '"
+            data: ' . json_encode($this->insertaposentadoria) . ',
+            url: "'. $this->simpleUrl('enviar-dados', 'aposentadoria') . '"
         });
     });';
     $this->headScript()->appendScript($js);
