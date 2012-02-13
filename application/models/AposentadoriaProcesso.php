@@ -8,7 +8,7 @@ class Application_Model_AposentadoriaProcesso extends Application_Model_Abstract
         $this->_dbTable = new Application_Model_DbTable_AposentadoriaProcesso();
     }
 
-    public function atualizar(array $dados, $where = null)
+    public function atualizar(array $dados, array $where)
     {
         return $this->_dbTable->update($dados, $where);
     }

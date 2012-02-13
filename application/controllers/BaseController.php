@@ -134,24 +134,23 @@ abstract class BaseController extends BaseAuthenticatedController
     {
 
         $processoService = new Spu_Service_Processo($this->getTicket());
-        
+
         foreach ($dados as $value) {
             $processo = $processoService->getProcesso($value);
             $id = substr($processo->assunto->nodeRef, 24);
-            
+
             if ($this->_isTipoAposentadoria($id)) {
-                
+
                 foreach ($onde as $key => $value) {
                     $d[strtoupper($key)] = strtoupper($value);
                 }
 
                 $numprocesso = str_replace("_", "/", $processo->nome);
                 $cpf_cnpj = str_replace(array('.', '/', '-'), "", $processo->manifestante->cpf);
-//                $numprocesso = 'AP0302140952/2012';
-//                $cpf_cnpj = '90571517315';
 
-                $where = "CPF_CNPJ = '$cpf_cnpj' AND NUMPROCESSO = '$numprocesso'";
-                
+                $where[] = "NUMPROCESSO = '$numprocesso'";
+                $where[] = "CPF_CNPJ = '$cpf_cnpj'";
+
                 try {
                     $db_aposentadorio = new Application_Model_AposentadoriaProcesso();
                     $db_aposentadorio->atualizar($d, $where);
