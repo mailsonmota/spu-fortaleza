@@ -280,8 +280,7 @@ class AbrirprocessoController extends BaseController
             $postData['copias'] = $session->formDadosGeraisProcesso['copias'];
             
             $session_ap = new Zend_Session_Namespace('ap');
-            $session_ap->insertaposentadoria['id'] = $processo->id;
-            $session_ap->insertaposentadoria['prontuario'] = $session->prontuario;
+            $session_ap->insertaposentadoria['dados'] = array('id' => $processo->id, 'prontuario' => $session->prontuario);
             
             try {
                 $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
