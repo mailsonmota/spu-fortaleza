@@ -150,14 +150,13 @@ abstract class BaseController extends BaseAuthenticatedController
 
                 $where[] = "NUMPROCESSO = '$numprocesso'";
                 $where[] = "CPF_CNPJ = '$cpf_cnpj'";
-
                 try {
                     $db_aposentadorio = new Application_Model_AposentadoriaProcesso();
                     $db_aposentadorio->atualizar($d, $where);
+                    unset($where);
                 } catch (Zend_Db_Exception $e) {
                     $dados['erro'] = "Exception:({$e->getCode()}; {$e->getFile()}; {$e->getMessage()})";
                     $this->_gerarLog($dados);
-                    return false;
                 }
             }
         }
