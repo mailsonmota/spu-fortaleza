@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Classe para acessar os serviços de Processo do SPU
  * 
@@ -8,6 +9,7 @@
  */
 class Spu_Service_Processo extends Spu_Service_Abstract
 {
+
     /**
      * URL Base dos serviços (a ser acrescentada à url dos serviços do Alfresco)
      * @var string
@@ -28,7 +30,7 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/incorporacaocaixaanalise"
             . "/{$processo->id}/{$processo->assunto->id}/" . str_replace('/', '_', $processo->manifestante->cpf) . "/$offset/$pageSize/"
             . str_replace(array('/', ' '), array('_', ''), $filter);
-        
+
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
 
@@ -69,9 +71,9 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/abrir";
         $result = $this->_doAuthenticatedPostRequest($url, $postData);
-        
+
         $processo = $this->loadFromHash(array_pop(array_pop($result['Processo'][0])));
-        
+
         return $this->_getProcessoDetalhado($processo);
     }
 
@@ -83,7 +85,8 @@ class Spu_Service_Processo extends Spu_Service_Abstract
      * @param Spu_Entity_Processo $processo
      * @return Spu_Entity_Processo
      */
-    protected function _getProcessoDetalhado($processo) {
+    protected function _getProcessoDetalhado($processo)
+    {
         $arquivoService = new Spu_Service_Arquivo($this->getTicket());
         $processo->setRespostasFormulario($arquivoService->getRespostasFormulario($processo->id));
 
@@ -126,7 +129,7 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/historico/get/$nodeUuid";
         $result = $this->_doAuthenticatedGetRequest($url);
-        
+
         $hashProcesso = array_pop($result['Processo']);
         $hashMovimentacao = $this->_getHashValue($hashProcesso, 'movimentacoes');
 
@@ -155,7 +158,7 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/incorporar";
         $result = $this->_doAuthenticatedPostRequest($url, $data);
-        
+
         return $result;
     }
 
@@ -171,9 +174,9 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
         $postData['offset'] = $offset;
         $postData['pageSize'] = $pageSize;
-        
+
         $result = $this->_doAuthenticatedPostRequest($url, $postData);
-        
+
         return $this->_loadManyFromHash($result['Processos'][0]);
     }
 
@@ -189,7 +192,7 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         $filter = urlencode($filter);
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/consultar-conteudo/$offset/$pageSize/$filter";
         $result = $this->_doAuthenticatedGetRequest($url);
-        
+
         return $this->_loadManyAnexosFromHash($result['Anexos'][0]);
     }
 
@@ -288,23 +291,22 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     {
         $folhas = new Spu_Entity_Folhas();
 
-        if (empty($hash['volumes'])) {
-            return $folhas;
-        }
-
         $folhas->setQuantidade($hash['quantidade']);
 
-        $volumesObjectArray = array();
-        foreach ($hash['volumes'] as $volumeHash) {
-            $volume = new Spu_Entity_Volume();
-            $volume->setNome($volumeHash['nome']);
-            $volume->setInicio($volumeHash['inicio']);
-            $volume->setFim($volumeHash['fim']);
-            $volume->setObservacao($volumeHash['observacao']);
-            $volumesObjectArray[] = $volume;
+        if (!empty($hash['volumes'])) {
+            $volumesObjectArray = array();
+            foreach ($hash['volumes'] as $volumeHash) {
+                $volume = new Spu_Entity_Volume();
+                $volume->setNome($volumeHash['nome']);
+                $volume->setInicio($volumeHash['inicio']);
+                $volume->setFim($volumeHash['fim']);
+                $volume->setObservacao($volumeHash['observacao']);
+                $volumesObjectArray[] = $volume;
+            }
+
+            $folhas->setVolumes($volumesObjectArray);
         }
 
-        $folhas->setVolumes($volumesObjectArray);
         return $folhas;
     }
 
@@ -441,7 +443,7 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     protected function _loadMovimentacoesFromHash($hash)
     {
         $movimentacaoService = new Spu_Service_Movimentacao();
-        
+
         return $movimentacaoService->loadManyFromHash($hash);
     }
 
@@ -464,4 +466,5 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
         return $processos;
     }
+
 }
