@@ -6,13 +6,15 @@
     echo $this->fieldList()->select('Tipo', 'manifestanteTipoId', $this->listaTiposManifestante, null, array('required' => true, 'id' => 'mani-tipo'));
     echo $this->fieldList()->textbox('CPF/CNPJ', 'manifestanteCpfCnpj', null, array('required' => true, 'length' => 38));
     echo $this->fieldList()->textbox('Nome', 'manifestanteNome', null, array('required' => true, 'length' => 60));
+    echo '<div class="sexo">';
     echo $this->fieldList()->select(
         'Sexo',
         'manifestanteSexo',
         array('M' => 'MASCULINO', 'F' => 'FEMININO', 'N' => 'NÃO SE APLICA'),
         null,
-        array('required' => true, 'length')
+        array('required' => true)
     );
+    echo '</div>';
 
     echo $this->fieldList()->textbox('Responsável', 'responsavel', null, array('length' => 60));
 
