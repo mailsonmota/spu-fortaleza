@@ -2,6 +2,22 @@
 
 @import "relatorios.css";
 
+@media all{
+  body{ 
+      background-color:#FFFFFF;
+      font-size:9px;
+      width: 100%;
+  }
+  #layou-esq {
+      float: left;
+      width: 290px;
+  }
+  #layou-dir {
+      float: left;
+      width: 290px;
+  }
+}
+
 .nav {display: none}
 
 .comprovante-assinatura {text-align: center; margin-top: 3em}
