@@ -19,12 +19,12 @@ if ($this->processo->observacao):
     echo $this->fieldList()->text('Observação', $this->processo->observacao);
 endif;
 
-$destino  = explode("/",$this->processo->protocolo->path);
+$destino  = explode("/",$this->processo->movimentacoes[0]->para->path);
 $destino  = $destino[0] . "/" . $destino[count($destino) - 1];
-$destino .= " ({$this->processo->protocolo->descricao})";
+$destino .= " ({$this->processo->movimentacoes[0]->para->descricao})";
 echo $this->fieldList()->text('Descrição', nl2br($this->processo->corpo));
 echo $this->fieldList()->text('Destino', $destino);
-echo $this->fieldList()->text('Folhas', $this->processo->folhas->quantidade ? $this->processo->folhas->quantidade : 'sem');
+echo $this->fieldList()->text('Folhas', $this->processo->folhas ? $this->processo->folhas->quantidade : 'sem');
 
 if (is_array($this->processo->arquivos)):
     $htmlAnexos = '<ul>';
