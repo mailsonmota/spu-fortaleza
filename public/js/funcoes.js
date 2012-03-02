@@ -247,10 +247,25 @@ $(function(){
         'Outros (Estagiario. Terceirizado)' : 'CPF',
         'Anônimo'                           : 'ANONIMO'
     };
-
+    function abilitar_sexo(res) {
+        var sexo = $(".sexo");
+        var opa = "0.5";
+        var dis = "disabled";
+        var pos = 2;
+        
+        if (res) {
+            opa = "1";
+            dis = false;
+            pos = 0;
+        }
+        
+        sexo.css('opacity', opa);
+        sexo.find("#manifestanteSexo").attr("disabled", dis).find("option").eq(pos).attr("selected", "selected");
+    }
     $("dd select#mani-tipo option").each(function(e){
         $(this).attr('tipo', tipos[$(this).html()]);
         if (e == 0) {
+            abilitar_sexo(false);
             tipo = $(this).attr('tipo');
             $("dd #manifestanteCpfCnpj").setMask({
                 mask:( tipo === 'CNPJ' ? "99.999.999/9999-99" : "999.999.999-99"),
@@ -258,7 +273,7 @@ $(function(){
             }).parent().prev().find('label').html(tipo);
         }
     });
-
+    
     $("dd select#mani-tipo").live("change", function(){
         tipo = $(this).find("option:selected").attr('tipo');
 
@@ -266,14 +281,17 @@ $(function(){
         $("dd #manifestanteCpfCnpj").parent().prev().find('label').show().html(tipo);
 
         if(tipo === 'CPF') {
+            abilitar_sexo(true);
             $("dd #manifestanteCpfCnpj").val("").setMask({
                 mask:"999.999.999-99",
                 autoTab: false
             });
         } else if(tipo === 'ANONIMO') {
+            abilitar_sexo(true);
             $("dd #manifestanteCpfCnpj").parent().prev().find('label').hide();
             $("dd #manifestanteCpfCnpj").val("").hide().removeClass();
         }else {
+            abilitar_sexo(false);
             $("dd #manifestanteCpfCnpj").val("").setMask({
                 mask:"99.999.999/9999-99",
                 autoTab: false
