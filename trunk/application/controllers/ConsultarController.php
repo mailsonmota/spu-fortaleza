@@ -80,17 +80,9 @@ class ConsultarController extends BaseController
         }
 
         $processoService = new Spu_Service_Processo($this->getTicket());
-        $this->view->totalDocumentos = count(
-            $this->view->paginator = $this->_helper->paginator()->paginate(
-            $processoService->consultar(
-                $postData, 0, 999)
-            ));
-
-        $this->view->paginator = $this->_helper->paginator()->paginate(
-            $processoService->consultar(
-                $postData, $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize()
-            )
-        );
+        $resultado = $processoService->consultar($postData, 0, 4999);
+        $this->view->totalDocumentos = count($resultado);
+        $this->view->paginator = $this->_helper->paginator()->paginate($resultado);
 
         if (count($this->view->processos) == 1) {
             $processoId = $processos[0]->id;
