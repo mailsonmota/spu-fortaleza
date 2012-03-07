@@ -65,7 +65,7 @@ class Alfresco_Rest_CurlClient
         // Decoding
         if ($returnFormat != self::FORMAT_FORMDATA) {
             $getAdapterObj = $this->getGetAdapter($returnFormat);
-            $return = $getAdapterObj->decode($result, true);
+            $return = $getAdapterObj->decode(str_replace(array("\n", "\r"), "", $result), true);
         }
         
         return $return;
