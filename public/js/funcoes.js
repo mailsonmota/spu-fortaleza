@@ -245,7 +245,8 @@ $(function(){
         'Servidor Comissionado'             : 'CPF',
         'Órgão da PMF'                      : 'CNPJ',
         'Outros (Estagiario. Terceirizado)' : 'CPF',
-        'Anônimo'                           : 'ANONIMO'
+        'Anônimo'                           : 'ANONIMO',
+        'Orgão Externo'                     : 'CNPJ'
     };
     function abilitar_sexo(res) {
         var sexo = $(".sexo");
@@ -259,6 +260,7 @@ $(function(){
             pos = 0;
         }
         
+        sexo.prepend('<input type="hidden" name="manifestanteSexo" value="N">');
         sexo.css('opacity', opa);
         sexo.find("#manifestanteSexo").attr("disabled", dis).find("option").eq(pos).attr("selected", "selected");
     }

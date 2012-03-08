@@ -12,7 +12,7 @@
 {content:".";clear:both;display:block;overflow:hidden;visibility:hidden;height:0}
 
 /* Básico */
-body {background-color: #EEE; color: #333333; line-height: 1.429; margin: 0; padding: 0; text-align: left; font-size: 75%}
+body {background-color: #EEE; color: #333333; line-height: 1.429; margin: 0; padding: 0; text-align: left; font-size: 75%; min-width: 89em}
 body, input, button, textarea {font-family: sans-serif}
 
 /* Cabeçalhos */
