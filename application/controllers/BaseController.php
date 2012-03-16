@@ -183,5 +183,28 @@ abstract class BaseController extends BaseAuthenticatedController
     {
         return $this->_request->isPost() && $this->_request->isXmlHttpRequest() ? true : false;
     }
+    
+    public function getBaseUrlAlfresco()
+    {
+        return Zend_Registry::get('baseUrlAlfresco');
+    }
+    
+    public function getTicketSearch()
+    {
+        $totem = Zend_Registry::get('totem');
+        $alfresco = new Alfresco_Rest_Login($this->getBaseUrlAlfresco() . "/service");
+        $ticket = $alfresco->login($totem->user, $totem->senha);
+        $alfresco->logout($ticket['ticket']);
+        
+        return $ticket['ticket'];
+    }
+    
+    public function isGroupSearch()
+    {
+        $groupSearch = "GROUP_" . strtoupper(Zend_Registry::get('groupSearch'));
+        $serv = new Spu_Service_Usuario($this->getTicket());
+        
+        return in_array($groupSearch, $serv->getGropus());
+    }
 
 }

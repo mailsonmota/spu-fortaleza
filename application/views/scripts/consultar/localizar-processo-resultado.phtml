@@ -1,0 +1,64 @@
+<?php
+$this->breadcrumbs()->addPage('Consulta', 'consultar');
+$this->breadcrumbs()->addPage('Resultados');
+echo $this->breadcrumbs()->render();
+
+echo $this->pagenav()->openList();
+
+$html = '<div class="total_documents">Total de itens: <strong>' . $this->totalDocumentos . '</strong></div>';
+echo $this->pagenav()->customHelperLinks($html);
+
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+    <table class="grid">
+        <thead>
+            <tr>
+                <?php if (isset($this->exibirCheckbox) && $this->exibirCheckbox == true): ?>
+                    <th><input type="checkbox" id="checkbox_checkAll" /></th>
+                <?php endif ?>
+                    <th>Local Atual</th>
+                <th>Número</th>
+                <th>Envolvido</th>
+                <th>Tipo</th>
+                <th>Assunto</th>
+                <?php if (isset($this->exibirDestino) && $this->exibirDestino == true): ?>
+                    <th>Destino</th>
+                <?php endif ?>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td colspan="8">
+                    <?php echo $this->partial('pagination.phtml', array('paginator' => $this->paginator)) ?>
+                </td>
+            </tr>
+        </tfoot>
+        <tbody>
+            <?php $i = 0 ?>
+            <?php if (count($this->paginator) > 0): foreach ($this->paginator as $p): ?>
+                    <tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?> <?php if ($this->indicarPrioritarios): echo $this->classePrioridade($p);
+            endif ?>">
+                        <?php if (isset($this->exibirCheckbox) && $this->exibirCheckbox == true): ?>
+                            <td><input type="checkbox" name="processos[]" value="<?php echo $p->id ?>" /></td>
+        <?php endif ?>
+                            <td><strong><?php echo $p->proprietario->path; ?></strong></td>
+                        <td><?php echo $p->numero ?></td>
+                        <td><?php echo $p->nomeManifestante ?></td>
+                        <td><?php echo $p->nomeTipoProcesso ?></td>
+                        <td><?php echo $p->nomeAssunto ?></td>
+                        <?php if (isset($this->exibirDestino) && $this->exibirDestino == true): ?>
+                            <td><?php echo $p->nomeProtocolo ?></td>
+        <?php endif ?>
+                        
+                    </tr>
+    <?php endforeach;
+else: ?>
+                <tr>
+                    <td colspan="8">Nenhum processo encontrado.</td>
+                </tr>
+<?php endif ?>
+        </tbody>
+    </table>
+</div>

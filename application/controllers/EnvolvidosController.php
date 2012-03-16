@@ -9,7 +9,7 @@ class EnvolvidosController extends BaseController
         }
 
         if ($this->_getParam('q')) {
-            $service = new Spu_Service_Manifestante($this->_getTicketAdmin());
+            $service = new Spu_Service_Manifestante($this->getTicket());
             $this->view->paginator = $this->_helper->paginator()->paginate(
                     $service->getManifestantes(
                             $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize(), str_replace("%2F", "/", $this->_getParam('q'))
@@ -24,7 +24,7 @@ class EnvolvidosController extends BaseController
 
     public function detalhesAction()
     {
-        $manifestanteService = new Spu_Service_Manifestante($this->getTicket());
+        $manifestanteService = new Spu_Service_Manifestante($this->getTicketSearch());
         $manifestante = $manifestanteService->getManifestante($this->_getCpfFromUrl());
 
         $this->view->manifestante = $manifestante;
@@ -36,20 +36,5 @@ class EnvolvidosController extends BaseController
     {
         $cpf = $this->getRequest()->getParam('cpf');
         return $cpf;
-    }
-
-    private function _getBaseUrl()
-    {
-        $init = new Zend_Config_Ini('../application/configs/application.ini', APPLICATION_ENV);
-        return $init->alfresco->url;
-    }
-
-    private function _getTicketAdmin()
-    {
-        $alfresco = new Alfresco_Rest_Login($this->_getBaseUrl() . "/service");
-        $ticket = $alfresco->login("login", "senha");
-        $alfresco->logout($ticket['ticket']);
-        
-        return $ticket['ticket'];
     }
 }

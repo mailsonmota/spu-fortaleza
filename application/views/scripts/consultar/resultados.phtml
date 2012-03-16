@@ -4,12 +4,10 @@ $this->breadcrumbs()->addPage('Resultados');
 echo $this->breadcrumbs()->render();
 
 echo $this->pagenav()->openList();
-if ($this->totalDocumentos) {
-    $html = '<div class="total_documents">Total de itens: <strong>' . $this->totalDocumentos . '</strong></div>';
-    echo $this->pagenav()->customHelperLinks($html);
-} else {
-    echo $this->pagenav()->openList();
-}
+
+$html = '<div class="total_documents">Total de itens: <strong>' . $this->totalDocumentos . '</strong></div>';
+echo $this->pagenav()->customHelperLinks($html);
+
 echo $this->pagenav()->closeList();
 ?>
 

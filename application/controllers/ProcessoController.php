@@ -6,11 +6,12 @@ class ProcessoController extends BaseController
     public function detalhesAction()
     {
         try {
+            $ticket = $this->isGroupSearch() ? $this->getTicketSearch() : $this->getTicket();
             $idProcesso = $this->_getIdProcessoUrl();
-            $processoService = new Spu_Service_Processo($this->getTicket());
+            $processoService = new Spu_Service_Processo($ticket);
             $processo = $processoService->getProcesso($idProcesso);
             $processosParalelos = $processoService->getProcessosParalelos($processo->id);
-            $arquivoService = new Spu_Service_Arquivo($this->getTicket());
+            $arquivoService = new Spu_Service_Arquivo($ticket);
             $this->view->oficioMarker = $arquivoService->getOficioUuid($processo->assunto->nodeRef);
             $this->view->diarioMarker = $arquivoService->getDiarioUuid($processo->assunto->nodeRef);
             $this->view->comunicacaoInternaMarker = $arquivoService->getComunicacaoInternaUuid($processo->assunto->nodeRef);
@@ -53,7 +54,23 @@ class ProcessoController extends BaseController
         Zend_Session::namespaceUnset('ap');
     }
 
+    public function antigoAction()
+    {
+        $this->view->idProcessoNovo = $this->getRequest()->getParam('id');
+    }
     
+    public function antigoBuscarAction()
+    {
+        $this->_helper->layout->disableLayout();
+//        sleep(3);
+        if ($this->isPostAjax()) {
+            $processoService = new Spu_Service_Processo($this->getTicket());
+            $processo = $processoService->getProcesso($this->getRequest()->getParam('idProcessoNovo'));
+            $this->view->processo = $processo;
+            $this->view->resultado = json_encode($this->getRequest()->getPost());
+        } else
+            die();
+    }
 
     public function encaminharAction()
     {
@@ -141,11 +158,6 @@ class ProcessoController extends BaseController
     {
         $this->_helper->redirector('etiqueta', $this->getController(), 'default', array('id' => $idProcesso, 'layout' => $params));
     }
-
-    /* protected function _redirectOficio($idProcesso)
-      {
-      $this->_helper->redirector('oficio', $this->getController(), 'default', array('id' => $idProcesso));
-      } */
 
     public function etiquetaAction()
     {

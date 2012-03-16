@@ -45,6 +45,14 @@ class AnaliseController extends BaseTramitacaoController
                     $session = new Zend_Session_Namespace('comentar');
                     $session->processos = $processosSelecionados;
                     $this->_redirectComentar();
+                } elseif ($this->_isPostProcessoAntigo()) {
+                    if (count($processosSelecionados) != 1) {
+                        $this->setErrorMessage('Você só pode manipular um processo por vez para essa opção');
+                        
+                        $this->_redirectEmAnalise();
+                    }
+                    
+                    $this->_redirectProcessoAntigo($processosSelecionados[0]);
                 }
             } catch (Exception $e) {
                 $this->setMessageForTheView($e->getMessage(), 'error');
@@ -89,6 +97,11 @@ class AnaliseController extends BaseTramitacaoController
     {
         return ($this->getRequest()->getParam('arquivar', false) !== false) ? true : false;
     }
+    
+    protected function _isPostProcessoAntigo()
+    {
+        return ($this->getRequest()->getParam('processo-antigo', false) !== false) ? true : false;
+    }
 
     protected function _isPostEncaminhamentoExterno()
     {
@@ -118,6 +131,11 @@ class AnaliseController extends BaseTramitacaoController
     protected function _redirectComentar()
     {
         $this->_helper->redirector('index', 'despachar', 'default');
+    }
+    
+    protected function _redirectProcessoAntigo($id)
+    {
+        $this->_helper->redirector('antigo', 'processo', null, array('id' => $id));
     }
 
     public function comprovanteRecebimentoAction()

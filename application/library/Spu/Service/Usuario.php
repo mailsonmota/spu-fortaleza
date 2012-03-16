@@ -25,7 +25,7 @@ class Spu_Service_Usuario extends Spu_Service_Abstract
      * @param string $username
      * @return Spu_Entity_Grupo[]
      */
-    public function fetchGroups($username)
+    public function fetchGroups($username = null)
     {
         $url = $this->getBaseUrl() . "/usuario/grupos/get";
         $result = $this->_doAuthenticatedGetRequest($url);
@@ -33,6 +33,18 @@ class Spu_Service_Usuario extends Spu_Service_Abstract
         $hash = (isset($result['groups'])) ? $result['groups'] : array();
         
         return $this->_loadGruposFromHash($hash);
+    }
+    
+    public function getGropus()
+    {
+        $groups = $this->fetchGroups();
+        $val= "";
+        
+        foreach ($groups as $key => $group) {
+            $val .= $group->nome . ($key < count($groups)-1 ? " > " :  "");
+        }
+        
+        return array_unique(explode(" > ", $val));
     }
     
     /**

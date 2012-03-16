@@ -1,0 +1,52 @@
+<?php if ($this->resultado) : ?>
+    <fieldset>
+        <legend>Processo Encontrado</legend>
+        SS0802153504557/2012 <a id="ver" style="cursor: pointer; text-decoration: underline">ver detalhes</a>
+    </fieldset>
+    <div id="corpo-busca" style="display: none">
+        <dl>
+            <dt>Número:</dt>
+            <dd><b>SS0902123926736/2012</b></dd>
+
+            <dt>Proprietário:</dt>
+            <dd><b>PGM/PG/PG-ADJUNTO/PROCASS/PROCADM/DAF/PROT</b></dd>
+
+            <dt>Status:</dt>
+            <dd>
+                <b>Tramitando</b>
+            </dd>
+
+            <dt>Abertura:</dt>
+            <dd>09/02/2012</dd>
+
+            <dt>Tipo:</dt>
+            <dd>Solicitação De Servidores</dd>
+
+            <dt>Assunto:</dt>
+            <dd>Aposentadoria</dd>
+
+            <dt>Local Atual:</dt>
+            <dd>
+                <b>PGM/PG/PG-ADJUNTO/PROCASS/PROCADM/DAF/PROT</b>
+            </dd>
+
+
+            <dt>Corpo:</dt>
+            <dd style="float: left; width: 60%;">ladsj fklajsd klf jaklsd fj</dd>
+        </dl>
+    </div>
+    <fieldset >
+        <legend>Anexar</legend>
+        <p>Deseja incorporar o processo encontrado ao processo 
+            <strong><?php echo str_replace("_", "/", $this->processo->nome); ?></strong>
+        </p>
+        <ul class="buttons ">
+            <li><button type="submit">Importar</button></li>
+            <li><button type="submit" id="cancelar">Cancelar</button></li>
+        </ul>
+    </fieldset>
+<?php else : ?>
+    <fieldset>
+        <legend>Processo Não Encontrado</legend>
+    </fieldset>
+<?php endif; ?>

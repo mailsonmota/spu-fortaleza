@@ -87,8 +87,8 @@ class AbrirprocessoController extends BaseController
             $formDadosGeraisProcesso = $session->formDadosGeraisProcesso;
             $postData = $this->getRequest()->getPost();
             
-            if (!isset($postData['manifestanteSexo']))
-                $postData['manifestanteSexo'] = "N";
+//            if (!isset($postData['manifestanteSexo']))
+//                $postData['manifestanteSexo'] = "N";
             
             $dataMerged = array_merge($formDadosGeraisProcesso, $postData);
             $processoService = new Spu_Service_Processo($this->getTicket());
