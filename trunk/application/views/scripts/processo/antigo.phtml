@@ -1,0 +1,132 @@
+<?php
+$this->breadcrumbs()->addPage('Importar Processo Antigo');
+echo $this->breadcrumbs()->render();
+
+echo $this->pagenav()->openList();
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+<div id="article">
+    <h4>Preencha os campos abaixo para encontrar o processo antingo</h4>
+
+    <form action="" id="processo-antigo" method="post" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Dados do processo antigo</legend>
+            <dl class="form-antigo">
+                <dt>
+                <label for="nr"><strong>Número Registro:</strong></label>
+                </dt>
+                <dd>
+                    <input type="input" id="nr" name="q[nr]" value=""> *
+                </dd>
+
+                <dt>
+                <label for="nm"><strong>Número Manifestante:</strong></label>
+                </dt>
+                <dd>
+                    <input type="input" id="nm" name="q[nm]" maxlength="20"> *
+                </dd>
+
+                <ul class="buttons ">
+                    <li><button type="submit" id="procurar">Procurar</button></li>
+                </ul>
+            </dl>
+        </fieldset>
+    </form>
+    <div id="processo-resultado" style="display: none">
+
+    </div>
+</div>
+<style type="text/css">
+    dl.form-antigo dt {
+        width: 15em;
+        text-align: right;
+        margin-bottom: 2.75em;
+    }
+</style>
+<?php
+$js = '
+    $("#ver").live("click",function(){
+        var corpo = $("#corpo-busca");
+        if (corpo.is(":visible")) {
+            corpo.slideUp(1500)
+        } else {
+            corpo.slideDown(1500)
+        }
+    });
+    $("#cancelar").live("click", function(e){
+        e.preventDefault();
+        $("#processo-resultado").fadeOut("slow",function(){
+            $(this).html("");
+        });
+    });
+    function buscarProcesso() {
+        var dados = {
+        "idProcessoNovo":"' . $this->idProcessoNovo . '",
+        "nr":$("#nr").val(),
+        "nm":$("#nm").val()
+        };
+        $.ajax({
+            type: "POST",
+            url: "' . $this->simpleUrl('antigo-buscar', 'processo') . '",
+            data: dados,
+            beforeSend: function() {
+                $("li button#procurar").html("Procurando...").attr("disabled","disabled")
+            },
+            success: function(retorno){
+                $("li button#procurar").html("Procurar").attr("disabled",false)
+                if (retorno) {
+                    $("#processo-resultado").html(retorno).fadeIn();
+                } else {
+                    
+                }
+            }
+        })
+    }
+    $("#processo-antigo").validate({
+        meta: "valid",
+        submitHandler: function() {
+            buscarProcesso();
+        },
+        rules:{
+            "q[nr]": {
+                required:true,
+                minlength: 3,
+                maxlength: 20,
+                alphanumeric:true
+            },
+            "q[nm]" : {
+                required:true,
+                minlength: 3,
+                maxlength: 20,
+                alphanumeric:true
+            }
+        },
+        messages:{
+            "q[nr]": {
+                required: "Campo obrigatório.",
+                minlength: "O campo deve conter no mínimo 3 caracteres.",
+                maxlength: "O campo deve conter no máximo 20 caracteres.",
+                alphanumeric:"O campo deve conter apenas números e letras."
+            },
+            "q[nm]" : {
+                required: "Campo obrigatório.",
+                minlength: "O campo deve conter no mínimo 3 caracteres.",
+                maxlength: "O campo deve conter no máximo 20 caracteres.",
+                alphanumeric:"O campo deve conter apenas números e letras."
+            }
+        },
+        errorPlacement: function(error, element) {
+            offset = element.offset();
+            error.insertBefore(element)
+            error.css("float", "right");
+            error.css("left", offset.left + element.outerWidth());
+            error.css("top", offset.top);
+            error.css("font-size", "11px");
+            error.css("margin", "4px 0 0 4px");
+        }
+    });';
+
+$this->headScript()->appendScript($js);
+?>
+

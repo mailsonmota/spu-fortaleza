@@ -79,7 +79,9 @@ class ConsultarController extends BaseController
             $postData[$field] = $globalSearch;
         }
 
-        $processoService = new Spu_Service_Processo($this->getTicket());
+        $ticket = $this->isGroupSearch() ? $this->getTicketSearch() : $this->getTicket();
+
+        $processoService = new Spu_Service_Processo($ticket);
         $resultado = $processoService->consultar($postData, 0, 4999);
         $this->view->totalDocumentos = count($resultado);
         $this->view->paginator = $this->_helper->paginator()->paginate($resultado);
@@ -141,6 +143,25 @@ class ConsultarController extends BaseController
 
         $this->view->conteudo = $this->_getParam('conteudo');
         $this->view->abaAtiva = 'anexos';
+    }
+
+    public function localizarProcessoAction()
+    {
+        $this->view->abaAtiva = 'localizar-processo';
+    }
+
+    public function localizarProcessoResultadoAction()
+    {
+        if ($this->getRequest()->isPost()) {
+            $dados = $this->getRequest()->getPost();
+            $dados["numero"] = $dados["globalSearch"];
+
+            $processoService = new Spu_Service_Processo($this->getTicketSearch());
+
+            $resultado = $processoService->consultar($dados, 0, 4999);
+            $this->view->totalDocumentos = count($resultado);
+            $this->view->paginator = $this->_helper->paginator()->paginate($resultado);
+        }
     }
 
     private function _redirectToConsultaAnexos()
