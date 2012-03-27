@@ -4,7 +4,7 @@ class EnvolvidosAjaxController extends BaseController
     public function envolvidoAction()
     {
         $this->_helper->layout()->disableLayout();
-        $this->view->manifestante = $this->_getManifestante(str_replace(array(".","-", "/"), "",$this->_getSearchTerm()));
+        $this->view->manifestante = $this->_getManifestante($this->_getSearchTerm());
     }
 
     protected function _getManifestante($cpfCnpj)
@@ -15,6 +15,11 @@ class EnvolvidosAjaxController extends BaseController
 
     protected function _getSearchTerm()
     {
-        return $this->getRequest()->getParam('term', null);
+        $cpfCnpj = $this->getRequest()->getParam('term', null);
+        
+        if (strlen($cpfCnpj) == 14)
+            return str_replace(array(".", "-"), "", $cpfCnpj);
+        
+        return  $cpfCnpj;
     }
 }

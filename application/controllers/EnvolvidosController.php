@@ -9,7 +9,7 @@ class EnvolvidosController extends BaseController
         }
 
         if ($this->_getParam('q')) {
-            $service = new Spu_Service_Manifestante($this->getTicket());
+            $service = new Spu_Service_Manifestante($this->getTicketSearch());
             $this->view->paginator = $this->_helper->paginator()->paginate(
                     $service->getManifestantes(
                             $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize(), str_replace("%2F", "/", $this->_getParam('q'))
@@ -34,7 +34,11 @@ class EnvolvidosController extends BaseController
 
     private function _getCpfFromUrl()
     {
-        $cpf = $this->getRequest()->getParam('cpf');
-        return $cpf;
+        $cpfCnpj = $this->getRequest()->getParam('term', null);
+        
+        if (strlen($cpfCnpj) == 14)
+            return str_replace(array(".", "-"), "", $cpfCnpj);
+        
+        return  $cpfCnpj;
     }
 }
