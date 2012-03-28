@@ -57,6 +57,16 @@ class ProcessoController extends BaseController
     public function antigoAction()
     {
         $this->view->idProcessoNovo = $this->getRequest()->getParam('id');
+        
+        if ($this->getRequest()->isPost()) {
+            echo '<pre>';
+            var_dump($this->getRequest()->getPost());
+            echo '</pre>';
+            die();
+            $spu = new Spu_Service_Arquivo($this->getTicket());
+            $spu->createDocument($nodeId, $postData);
+        }
+        
     }
     
     public function antigoBuscarAction()
@@ -65,11 +75,31 @@ class ProcessoController extends BaseController
 //        sleep(3);
         if ($this->isPostAjax()) {
             $processoService = new Spu_Service_Processo($this->getTicket());
-            $processo = $processoService->getProcesso($this->getRequest()->getParam('idProcessoNovo'));
-            $this->view->processo = $processo;
-            $this->view->resultado = json_encode($this->getRequest()->getPost());
+            $processoNovo = $processoService->getProcesso($this->getRequest()->getParam('idProcessoNovo'));
+            $this->view->processoNovo = $processoNovo;
+            $this->view->processoAntigo = $this->_getProcessoAntigo();
         } else
             die();
+    }
+    
+    private function _getProcessoAntigo()
+    {
+        $data['nr'] = $this->getRequest()->getParam('nr');
+        $data['nm'] = $this->getRequest()->getParam('nm');
+        
+        return $this->testDados();
+    }
+    
+    private function testDados()
+    {
+        $dados = array();
+        $dados["numero"] = "SS0902123926736/2012";
+        $dados["proprietario"] = "PGM/PG/PG-ADJUNTO/PROCASS/PROCADM/DAF/PROT";
+        $dados["abertura"] = "09/02/2012";
+        $dados["tipo"] = "Solicitação De Servidores";
+        $dados["assunto"] = "Aposentadoria";
+        
+        return (object)$dados;
     }
 
     public function encaminharAction()
@@ -115,7 +145,8 @@ class ProcessoController extends BaseController
         try {
             $arquivoHash['id'] = $this->getRequest()->getParam('id');
             $arquivoHash['nome'] = $this->getRequest()->getParam('nome');
-            $arquivoService = new Spu_Service_Arquivo($this->getTicket());
+            $ticket = $this->isGroupSearch() ? $this->getTicketSearch() : $this->getTicket();
+            $arquivoService = new Spu_Service_Arquivo($ticket);
             $url = $arquivoService->getArquivoDownloadUrl($arquivoHash, true, Zend_Registry::get('baseDownload'));
 
             $this->getResponse()->setRedirect($url);
