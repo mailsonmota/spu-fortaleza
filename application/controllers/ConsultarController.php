@@ -160,7 +160,8 @@ class ConsultarController extends BaseController
 
             $resultado = $processoService->consultar($dados);
             $this->view->totalDocumentos = count($resultado);
-            $this->view->processo = $processoService->getProcesso($resultado[0]->getId());
+            if ($resultado)
+                $this->view->processo = $processoService->getProcesso($resultado[0]->getId());
         }
     }
 
