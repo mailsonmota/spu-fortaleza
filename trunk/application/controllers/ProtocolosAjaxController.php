@@ -51,20 +51,13 @@ class ProtocolosAjaxController extends BaseAuthenticatedController
         $protocolos = $service->getProtocolosFilhos($this->_getParam('parent-id'), $this->_getParam('origem'));
 
         $protocolosJson = array();
-        
-        foreach ($protocolos as $protocolo) {
-            
-            $protocolosJson[] = array('id' => $protocolo->id, 'name' => $protocolo->nome . " - " . $protocolo->descricao, 'description' => $protocolo->path);
-        }
-        
-        $this->_helper->json($protocolosJson, true);
-    }
 
-    private function _mySort(&$obj, $prop)
-    {
-        uasort($obj, function($a, $b) use ($prop) {
-                return $a->$prop > $b->$prop ? 1 : -1;
-            });
+        foreach ($protocolos as $protocolo) {
+            if (strpbrk($protocolo->path, "/") != false)
+                $protocolosJson[] = array('id' => $protocolo->id, 'name' => $protocolo->nome . " - " . $protocolo->descricao, 'description' => $protocolo->path);
+        }
+
+        $this->_helper->json($protocolosJson, true);
     }
 
 }

@@ -35,7 +35,7 @@ dl dd input[type=text], dl dd input, dl dd select, dl dd textarea {margin-top: 0
 label {font-weight: normal}
 input, select, textarea {padding: 0.25em 0;text-indent: 3px;font-size: 1em}
 select {text-indent: 0}
-fieldset {border-width: 1px 0 0 0}
+fieldset {border-width: 1px 0 0 0; text-align: left}
 
 /* Tabelas */
 table tr td, table tr th {padding: 0.5em}

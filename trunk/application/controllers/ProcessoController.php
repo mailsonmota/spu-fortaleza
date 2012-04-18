@@ -57,18 +57,14 @@ class ProcessoController extends BaseController
     public function antigoAction()
     {
         $this->view->idProcessoNovo = $this->getRequest()->getParam('id');
-        
         if ($this->getRequest()->isPost()) {
-            echo '<pre>';
-            var_dump($this->getRequest()->getPost());
-            echo '</pre>';
-            die();
+            $processoAntigo = json_decode($this->getRequest()->getPost('processoAntigo'));
+
             $spu = new Spu_Service_Arquivo($this->getTicket());
-            $spu->createDocument($nodeId, $postData);
+            $spu->createDocument($this->view->idProcessoNovo);
         }
-        
     }
-    
+
     public function antigoBuscarAction()
     {
         $this->_helper->layout->disableLayout();
@@ -81,15 +77,15 @@ class ProcessoController extends BaseController
         } else
             die();
     }
-    
+
     private function _getProcessoAntigo()
     {
         $data['nr'] = $this->getRequest()->getParam('nr');
         $data['nm'] = $this->getRequest()->getParam('nm');
-        
+
         return $this->testDados();
     }
-    
+
     private function testDados()
     {
         $dados = array();
@@ -98,8 +94,8 @@ class ProcessoController extends BaseController
         $dados["abertura"] = "09/02/2012";
         $dados["tipo"] = "Solicitação De Servidores";
         $dados["assunto"] = "Aposentadoria";
-        
-        return (object)$dados;
+
+        return (object) $dados;
     }
 
     public function encaminharAction()
@@ -118,12 +114,21 @@ class ProcessoController extends BaseController
             $listaProtocolos = $service->getProtocolosRaiz();
 
             if ($this->getRequest()->isPost()) {
+                $dataPost = $this->getRequest()->getPost();
+                
+                if (isset($dataPost["processedXml"])) {
+                    $arquivoService = new Spu_Service_Arquivo($this->getTicket());
+                    $idDocument = $arquivoService->getIdRespostasFormulario($dataPost["processoId"]);
+
+                    $arquivoService->updateFormulario($idDocument, $dataPost["processedXml"]);
+                }
+                
                 $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
-                $tramitacaoService->tramitar($this->getRequest()->getPost());
+                $tramitacaoService->tramitar($dataPost);
 
                 $tipo = new Spu_Service_TipoProcesso($this->getTicket());
-                $destino[] = $tipo->getTipoProcesso($this->_getParam('destinoId_root'))->nome;
-                $destino[] = $tipo->getTipoProcesso($this->_getParam('destinoId_children'))->nome;
+                $destino[] = $tipo->getTipoProcesso($dataPost["destinoId_root"])->nome;
+                $destino[] = $tipo->getTipoProcesso($dataPost["destinoId_children"])->nome;
 
                 $session = new Zend_Session_Namespace('ap');
                 $session->updateaposentadoria['ids'] = array($idProcesso);
@@ -135,6 +140,7 @@ class ProcessoController extends BaseController
         } catch (Exception $e) {
             $this->setMessageForTheView($e->getMessage(), 'error');
         }
+        
         $this->view->processo = $processo;
         $this->view->listaPrioridades = $listaPrioridades;
         $this->view->listaProtocolos = $listaProtocolos;

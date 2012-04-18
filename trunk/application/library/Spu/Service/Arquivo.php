@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Classe para acessar os serviços de acesso à arquivo do SPU
  *
@@ -9,11 +10,45 @@
  */
 class Spu_Service_Arquivo extends Spu_Service_Abstract
 {
+
     /**
      * URL Base dos serviços (a ser acrescentada à url dos serviços do Alfresco)
      * @var string
      */
     private $_processoBaseUrl = 'spu/processo';
+
+    /**
+     * path para serviços do cmis
+     * @var string 
+     */
+    private $_pathCmis = 'cmis';
+
+    public function createDocument($nodeId, array $postData = array())
+    {
+
+        $url = $this->getBaseUrl() . "/{$this->_pathCmis}/i/{$nodeId}/children";
+        $postData += array('xml' => $this->_getXmlForCreateDocument());
+        echo '<pre>';
+        var_dump($this->_doAuthenticatedPostAtomRequest($url, $postData));
+        echo '</pre>';
+        die();
+    }
+
+    private function _getXmlForCreateDocument()
+    {
+        $xml  = "<?xml version='1.0' encoding='utf-8'?>";
+        $xml .= "<entry xmlns='http://www.w3.org/2005/Atom' xmlns:cmisra='http://docs.oasis-open.org/ns/cmis/restatom/200908/' xmlns:cmis='http://docs.oasis-open.org/ns/cmis/core/200908/'>";
+        $xml    .= "<title>arquivo.xml</title>";
+        $xml    .= "<name>arquivo.xml</name>";
+        $xml    .= "<summary>VERY important document</summary>";
+        $xml    .= "<content type='text'>nome: igor rocha cpf: 90571517315</content>";
+        $xml    .= "<cmisra:object><cmis:properties><cmis:propertyId propertyDefinitionId='cmis:objectTypeId'>";
+        $xml        .= "<cmis:value>cmis:document</cmis:value>";
+        $xml    .= "</cmis:propertyId></cmis:properties></cmisra:object>";
+        $xml .= "</entry>";
+        
+        return $xml;
+    }
 
     /**
      * Retorna os arquivos anexos de um processo
@@ -58,6 +93,70 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
 
         return $result;
     }
+    
+    /**
+     * Atualiza o conteúdo de um formulário do tipo Document dentro do Alfresco
+     * 
+     * @category CMIS
+     * @param string $idDocument
+     * @param array $data
+     * @return boolean
+     * @throws Alfresco_Rest_Exception 
+     */
+    public function updateFormulario($idDocument, $data)
+    {
+        $url =  "{$this->getBaseUrl()}/{$this->_pathCmis}/i/{$idDocument}/content";
+        $result = $this->_doAuthenticatedPutRequest($url, $data);
+        
+        if ($result != "") {
+            throw new Alfresco_Rest_Exception("Opss!!! Ocorreu um erro.");
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Busca o id de um formulário do tipo respostas através do id da folder ao qual o
+     * formulário está armazenado.
+     * 
+     * @category CMIS
+     * @param string $idFolder
+     * @return string
+     * @throws Alfresco_Rest_Exception 
+     */
+    public function getIdRespostasFormulario($idFolder)
+    {
+        $query  = "SELECT cmis:objectId FROM cmis:document WHERE IN_FOLDER('workspace://SpacesStore/$idFolder') AND CONTAINS('cmis:name:respostasFormulario')";
+        
+        $url =  "{$this->getBaseUrl()}/{$this->_pathCmis}/query?q=" . urlencode($query);
+        $result = $this->_doAuthenticatedGetAtomRequest($url);
+        
+        $idDocument = $result->getElementsByTagName("value")->item(0)->nodeValue;
+        
+        if (!$idDocument) {
+            return;
+        }
+        
+        $idDocument = explode("workspace://SpacesStore/", $idDocument);
+        
+        return $idDocument[1];
+    }
+    
+    public function getVersions($nodeId)
+    {
+        $url =  "{$this->getBaseUrl()}/{$this->_pathCmis}/i/{$nodeId}/versions";
+        $result = $this->_doAuthenticatedGetAtomRequest($url);
+        
+        return $this->_getEntryCmisXml($result);
+    }
+    
+    public function revertVersion($postData)
+    {
+        $url =  "{$this->getBaseUrl()}/api/revert";
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
+        
+        return $result;
+    }
 
     /**
      * Retorna a URL de download de um arquivo
@@ -69,7 +168,7 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
      */
     public function getArquivoDownloadUrl($arquivoInfos, $addAlfTicket = true, $baseUrl = false)
     {
-        $url = ($baseUrl ? $baseUrl : $this->getBaseUrl()). "/api/node/workspace/SpacesStore/{$arquivoInfos['id']}/content/{$arquivoInfos['nome']}";
+        $url = ($baseUrl ? $baseUrl : $this->getBaseUrl()) . "/api/node/workspace/SpacesStore/{$arquivoInfos['id']}/content/{$arquivoInfos['nome']}";
 
         if ($addAlfTicket) {
             $url = $this->addAlfTicketUrl($url);
@@ -312,4 +411,5 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
 
         return $arquivos;
     }
+
 }

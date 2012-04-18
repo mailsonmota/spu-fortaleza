@@ -5,13 +5,11 @@ echo $this->breadcrumbs()->render();
 ?>
 
 <?php
-$data = explode('/', $this->processo->numero);
-$data = str_split($data[0], 2);
-
 echo $this->fieldList()->open();
 echo $this->fieldList()->text('Processo', $this->processo->numero);
-echo $this->fieldList()->text('Abertura', "{$this->processo->data} - " . $data[count($data)-5] . ":" . $data[count($data)-4] );
-echo $this->fieldList()->text('Origem', "{$this->processo->proprietario->nome} ({$this->processo->proprietario->descricao})");
+echo $this->fieldList()->text('Abertura', $this->processo($this)->dataAbertura());
+
+echo $this->fieldList()->text('Origem', $this->processo($this)->proprietario());
 echo $this->fieldList()->text('Assunto', $this->processo->assunto->nome);
 echo $this->fieldList()->text('Envolvido', $this->processo->manifestante->nome);
 
@@ -19,11 +17,9 @@ if ($this->processo->observacao):
     echo $this->fieldList()->text('Observação', $this->processo->observacao);
 endif;
 
-$destino  = explode("/",$this->processo->movimentacoes[0]->para->path);
-$destino  = $destino[0] . "/" . $destino[count($destino) - 1];
-$destino .= " ({$this->processo->movimentacoes[0]->para->descricao})";
-echo $this->fieldList()->text('Descrição', nl2br($this->processo->corpo));
-echo $this->fieldList()->text('Destino', $destino);
+
+//echo $this->fieldList()->text('Descrição', nl2br($this->processo->corpo));
+echo $this->fieldList()->text('Destino', $this->processo($this)->destino());
 echo $this->fieldList()->text('Folhas', $this->processo->folhas ? $this->processo->folhas->quantidade : 'sem');
 
 if (is_array($this->processo->arquivos)):
@@ -32,11 +28,12 @@ if (is_array($this->processo->arquivos)):
         $htmlAnexos .= '<li>' . $arquivo->nome . '</li>';
     endforeach;
     $htmlAnexos .= '</ul>';
-    if (count ($this->processo->arquivos) == 0) $htmlAnexos = 'sem';
+    if (count($this->processo->arquivos) == 0)
+        $htmlAnexos = 'sem';
     echo $this->fieldList()->text('Anexos', $htmlAnexos);
 endif;
 echo '<span style="float:left;">Para consultar o processo, acesse:</span><br />';
-echo '<h6>www.fortaleza.ce.gov.br/consultaspu</h6>';
+echo '<h6><a href="http://www.fortaleza.ce.gov.br/consultaspu" target="_blank">www.fortaleza.ce.gov.br/consultaspu<a></h6>';
 echo $this->fieldList()->close();
 ?>
 
