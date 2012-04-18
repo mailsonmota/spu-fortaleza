@@ -26,13 +26,9 @@
 		<dd><?php echo $this->processo->assunto->nome ?></dd>
 
 		<dt>Local Atual:</dt>
-        <dd>
-          <?php if (!$this->processo->protocolo->path): ?>
-          <b><?php echo $this->processo->proprietario->path ?></b>
-          <?php else: ?>
-          <b><?php echo $this->processo->protocolo->path ?></b>
-          <?php endif; ?>
-        </dd>
+                <dd>
+                    <b><?php echo $this->processo($this)->destino(true) ?></b>
+                </dd>
 
         <?php if ($this->processo->numeroOrigem) :?>
 		<dt>Nº Origem:</dt>

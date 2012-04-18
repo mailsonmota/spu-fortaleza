@@ -381,3 +381,14 @@ $(function(){
         });
     }
 });
+
+$(function(){
+    $("button:submit").bind("click",function(){
+        var sub = $(this);
+        sub.hide().parent().append('<button disabled="disabled" class="aguarde">Aguarde...</button>')
+        setTimeout(function(){
+            sub.show()
+            $(".aguarde").remove()
+        }, 8000)
+    })
+})

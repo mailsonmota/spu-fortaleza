@@ -8,6 +8,7 @@ class Alfresco_Rest_CurlClient
     const FORMAT_FORMDATA = 'formdata';
     const FORMAT_JSON = 'json';
     const FORMAT_XML = 'xml';
+    const FORMAT_TEXT_XML = 'text/xml';
     const FORMAT_ATOM = 'atom';
     const DEFAULT_INPUT_FORMAT = self::FORMAT_JSON;
     const DEFAULT_RETURN_FORMAT = self::FORMAT_JSON;
@@ -77,9 +78,14 @@ class Alfresco_Rest_CurlClient
         return $result;
     }
 
-    public function doPutRequest($url, $options = array()) {
+    public function doPutRequest($url, $data, $contentType = self::FORMAT_TEXT_XML) {
+        $options = array();
         $options[CURLOPT_CUSTOMREQUEST] = 'PUT';
+        $options[CURLOPT_HTTPHEADER] = array("Content-Type: " . $contentType);
+        $options[CURLOPT_POSTFIELDS] = $data;
+        
         $result = $this->_doRequest($url, $options);
+        
         return $result;
     }
 

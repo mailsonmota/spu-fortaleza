@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Classe para acessar os serviços de tramitação de processo do SPU
  *
@@ -8,6 +9,7 @@
  */
 class Spu_Service_Tramitacao extends Spu_Service_Processo
 {
+
     /**
      * Retorna os processos nas caixas de entrada do usuário
      *
@@ -19,13 +21,13 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     public function getCaixaEntrada($offset, $pageSize, $filter, $assuntoId = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl
-             . "/entrada/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), str_replace(" ", "+", $filter));
+            . "/entrada/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), str_replace(" ", "+", $filter));
 
         if ($assuntoId) {
             $url .= "?assunto-id=$assuntoId";
         }
-		
-		
+
+
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
 
@@ -41,7 +43,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl
             . "/saida/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), str_replace(" ", "+", $filter));
-		
+
         if ($assuntoId) {
             $url .= "?assunto-id=$assuntoId";
         }
@@ -60,7 +62,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     public function getCaixaAnalise($offset, $pageSize, $filter, $assuntoId = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl
-             . "/analise/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), str_replace(" ", "+", str_replace(" ", "+", $filter)));
+            . "/analise/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), str_replace(" ", "+", str_replace(" ", "+", $filter)));
 
         if ($assuntoId) {
             $url .= "?assunto-id=$assuntoId";
@@ -80,7 +82,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     public function getCaixaEnviados($offset, $pageSize, $filter, $assuntoId = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl
-             . "/enviados/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), str_replace(" ", "+", $filter));
+            . "/enviados/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), str_replace(" ", "+", $filter));
 
         if ($assuntoId) {
             $url .= "?assunto-id=$assuntoId";
@@ -100,8 +102,8 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     public function getCaixaExternos($offset = 0, $pageSize = 20, $filter = '', $assuntoId = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl
-             . "/externos/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), str_replace(" ", "+", $filter));
-		
+            . "/externos/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), str_replace(" ", "+", $filter));
+
 
         if ($assuntoId) {
             $url .= "?assunto-id=$assuntoId";
@@ -121,7 +123,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     public function getCaixaArquivo($offset, $pageSize, $filter, $assuntoId = null)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl
-             . "/arquivo/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), str_replace(" ", "+", $filter));
+            . "/arquivo/$offset/$pageSize/" . str_replace(array('/', ' '), array('_', ''), str_replace(" ", "+", $filter));
 
         if ($assuntoId) {
             $url .= "?assunto-id=$assuntoId";
@@ -208,10 +210,64 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
      */
     public function cancelarEnvios($postData)
     {
+        $this->_cancelarRespostasFormularioAtualizados($postData["processos"]);
+
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/cancelarEnvios";
+
         $result = $this->_doAuthenticatedPostRequest($url, $postData);
 
         return $result;
+    }
+
+    private function _cancelarRespostasFormularioAtualizados($dataIdFolders)
+    {
+        $dataIdDocument = $this->_getIdsRespostasFormulario($dataIdFolders);
+        
+        if ($dataIdDocument)
+            $this->_reverterVersaoRespostasFormularioAtualizados($dataIdDocument);
+
+        return false;
+    }
+
+    private function _reverterVersaoRespostasFormularioAtualizados($dataIdDocument)
+    {
+        $arquivoService = new Spu_Service_Arquivo($this->getTicket());
+
+        foreach ($dataIdDocument as $idDocument) {
+            $versions = $arquivoService->getVersions($idDocument);
+            
+            $quantidadeVersoes = count($versions);
+            
+            if ($quantidadeVersoes == 0)
+                continue;
+            
+            $numeroVersao = $quantidadeVersoes == 1 ? 0 : 1;
+            
+            if ($versions[$numeroVersao]["cmis:isImmutable"] == "false")
+                continue;
+            
+            $dados["nodeRef"] = $versions[$numeroVersao]["cmis:versionSeriesId"];
+            $dados["version"] = $versions[$numeroVersao]["cmis:versionLabel"];
+            $dados["majorVersion"] = "";
+            $dados["description"] = "";
+            
+            $arquivoService->revertVersion($dados);
+        }
+    }
+
+    private function _getIdsRespostasFormulario($dataIdProcesso)
+    {
+        $arquivoService = new Spu_Service_Arquivo($this->getTicket());
+        $idDocuments = array();
+
+        foreach ($dataIdProcesso as $idProcesso) {
+            $idDocument = $arquivoService->getIdRespostasFormulario($idProcesso);
+
+            if ($idDocument)
+                $idDocuments[] = $idDocument;
+        }
+
+        return $idDocuments;
     }
 
     /**
@@ -255,5 +311,6 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
 
         return $result;
     }
+
 }
 

@@ -9,13 +9,15 @@ class Zend_View_Helper_XsdForms extends Zend_View_Helper_Abstract
     protected $_idFormulario;
     protected $_valorDestino;
     protected $_idContainer;
+    protected $_addScript;
     protected $_html;
     
-    public function xsdForms($idFormulario, $valorDestino, $idContainer)
+    public function xsdForms($idFormulario, $valorDestino, $idContainer, $addScript = null)
     {
         $this->_idFormulario = $idFormulario;
         $this->_valorDestino = $valorDestino;
         $this->_idContainer = $idContainer;
+        $this->_addScript = $addScript;
         
         $this->_render();
     }
@@ -40,6 +42,9 @@ class Zend_View_Helper_XsdForms extends Zend_View_Helper_Abstract
 				       		$('label[for=' + $(this).attr('name') + ']').addClass('required')
 				        });
                     });";
+        
+        if ($this->_addScript)
+            $script .= $this->_addScript;
         
         $this->view->headScript()->appendScript($script, 'text/javascript');
     }

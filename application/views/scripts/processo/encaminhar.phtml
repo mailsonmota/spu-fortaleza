@@ -1,37 +1,78 @@
-<?php 
+<?php
 $this->breadcrumbs()->addPage('Encaminhar Processo');
-echo $this->breadcrumbs()->render(); 
+echo $this->breadcrumbs()->render();
 
-echo $this->pagenav()->openList(); 
+echo $this->pagenav()->openList();
 echo $this->pagenav()->defaultHelperLinks();
 echo $this->pagenav()->closeList();
+
+function getForumalrio($val)
+{
+    $descricao = explode(" (", $val);
+    
+    return '<dt>Formulário (' . $descricao[count($descricao)-1]. ':</dt>
+            <dd id="ver" style="cursor: pointer"><strong>ABRIR</strong></dd>
+            <dt style="width: 100% !important">
+            <div id="formulario" style="display: none">
+                <div id="xsdform_container"></div>
+                <input name="processedXml" type="hidden"/>
+            </div>
+            </dt>';
+}
 ?>
 
 <div id="article">
-	<form action="" method="post">
-    	<input type="hidden" name="processoId" value="<?php echo $this->processo->id ?>"/>
+    <form action="" id="target" method="post">
+        <input type="hidden" name="processoId" value="<?php echo $this->processo->id ?>"/>
         <?php
         echo $this->fieldList()->open();
-        echo $this->fieldList()->text('Processo', $this->processo->nomeDescritivo);
+        $processo_descricao = $this->processo->nomeDescritivo;
+        echo $this->fieldList()->text('Processo', $processo_descricao);
         echo $this->fieldList()->select('Prioridade', 'prioridadeId', $this->listaPrioridades, null, array('required' => true));
-    	echo $this->protocoloSelect('Destino', 
-                                    'destinoId', 
-                                    $this->listaProtocolos, 
-                                    $this->processo->protocolo->id, 
-                                    null, 
-                                    array('required' => true));
-    	echo $this->fieldList()->textbox('Prazo', 'prazo', null, array('class' => 'mascaraData'));
+        echo $this->protocoloSelect('Destino', 'destinoId', $this->listaProtocolos, $this->processo->protocolo->id, null, array('required' => true));
+        echo $this->fieldList()->textbox('Prazo', 'prazo', null, array('class' => 'mascaraData'));
         echo $this->fieldList()->textarea('Despacho', 'despacho', null, array('required' => true));
-        echo $this->protocoloSelectMultiple('Com Cópia', 
-                                            'copias', 
-                                            $this->listaProtocolos, 
-                                            $this->processo->protocolo->id);
+        echo $this->protocoloSelectMultiple('Com Cópia', 'copias', $this->listaProtocolos, $this->processo->protocolo->id);
+        if ($this->processo->hasRespostasFormulario()) {
+            $json = json_encode($this->processo->getRespostasFormulario()->data);
+            echo getForumalrio($processo_descricao);
+        }
         echo $this->fieldList()->close();
-        
+
+
         echo $this->buttonlist()->open();
-        echo $this->buttonlist()->button('Salvar');
+        echo $this->buttonlist()->button('Encaminhar');
         echo $this->buttonlist()->resetbutton();
-        echo $this->buttonlist()->close(true); 
+        echo $this->buttonlist()->close(true);
         ?>
     </form>
+
 </div>
+<?php
+if ($this->processo->hasRespostasFormulario()) {
+    $js = '
+    $(function(){
+        disabledCampos();
+        
+        $("#ver").live("click",function(){
+            var corpo = $("#formulario");
+
+            if (corpo.is(":visible")) {
+                corpo.slideUp(1500);
+                $(this).html("<strong>ABRIR</strong>");
+            } else {
+                corpo.slideDown(1500);
+                $(this).html("<strong>FECHAR</strong>");
+            }
+        });
+
+        function disabledCampos() {
+            var json = ' . $json . ';
+            $.each(json, function(key, val) {
+                $("#xsdform_container [name*=\""+key+"\"]").val(val).attr("disabled","disabled");
+            });
+        }
+    });';
+    $this->xsdForms($this->processo->assunto->id, "processedXml", "target", /* add javascript */ $js);
+}
+?>
