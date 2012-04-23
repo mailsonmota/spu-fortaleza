@@ -9,9 +9,9 @@ echo $this->pagenav()->closeList();
 function getForumalrio($val)
 {
     $descricao = explode(" (", $val);
-    
-    return '<dt>Formulário (' . $descricao[count($descricao)-1]. ':</dt>
-            <dd id="ver" style="cursor: pointer"><strong>ABRIR</strong></dd>
+
+    return '<dt>Formulário (' . $descricao[count($descricao) - 1] . ':</dt>
+            <dd id="ver" style="cursor: pointer"><strong>CLIQUE AQUI PARA VISUALIZAR O FORMULÁRIO</strong></dd>
             <dt style="width: 100% !important">
             <div id="formulario" style="display: none">
                 <div id="xsdform_container"></div>
@@ -33,6 +33,10 @@ function getForumalrio($val)
         echo $this->fieldList()->textbox('Prazo', 'prazo', null, array('class' => 'mascaraData'));
         echo $this->fieldList()->textarea('Despacho', 'despacho', null, array('required' => true));
         echo $this->protocoloSelectMultiple('Com Cópia', 'copias', $this->listaProtocolos, $this->processo->protocolo->id);
+        if ($this->processo->folhas) {
+            $quantidadeFolhas = $this->processo->folhas->quantidade;
+            echo $this->fieldList()->textbox('Nº Folhas Atual', 'quantidadeFolhas', $quantidadeFolhas, array('id' => 'folhas'));
+        }
         if ($this->processo->hasRespostasFormulario()) {
             $json = json_encode($this->processo->getRespostasFormulario()->data);
             echo getForumalrio($processo_descricao);
@@ -49,6 +53,29 @@ function getForumalrio($val)
 
 </div>
 <?php
+$js = '$("#target").validate({
+        rules:{
+            "quantidadeFolhas": {
+                check: ' . $quantidadeFolhas . '
+            }
+        },
+        messages:{
+            "quantidadeFolhas": {
+                check: "Erro! Quantidade de folhas deve ser maior que ' . $quantidadeFolhas . '."
+            }
+        },
+        errorPlacement: function(error, element) {
+            offset = element.offset();
+            error.insertBefore(element)
+            error.css("float", "right");
+            error.css("left", offset.left + element.outerWidth());
+            error.css("top", offset.top);
+            error.css("font-size", "11px");
+            error.css("margin", "4px 0 0 4px");
+        }
+    });';
+
+$this->headScript()->appendScript($js);
 if ($this->processo->hasRespostasFormulario()) {
     $js = '
     $(function(){

@@ -7,7 +7,7 @@
     echo $this->fieldList()->text('Data', date('d/m/Y'));
     echo $this->fieldList()->text('Hora', date('H:i'));
     echo $this->fieldList()->textbox('N&ordm; Origem', 'numeroOrigem');
-    echo $this->fieldList()->textbox('Observa&ccedil;&atilde;o', 'observacao', null, array('length' => 60));
+    echo $this->fieldList()->textbox('Observa&ccedil;&atilde;o', 'observacao', null, array('length' => 90, 'class' => 'input_length_medio'));
     echo $this->fieldList()->close();
     ?>
 </fieldset>
