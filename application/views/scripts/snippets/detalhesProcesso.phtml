@@ -24,11 +24,14 @@
 
 		<dt>Assunto:</dt>
 		<dd><?php echo $this->processo->assunto->nome ?></dd>
-
+                
+                <?php $localAtual = $this->processo($this)->destino(true) ?>
+                <?php if ($localAtual) :?>
 		<dt>Local Atual:</dt>
                 <dd>
-                    <b><?php echo $this->processo($this)->destino(true) ?></b>
+                    <b><?php echo $localAtual ?></b>
                 </dd>
+                <?php endif;?>
 
         <?php if ($this->processo->numeroOrigem) :?>
 		<dt>Nº Origem:</dt>

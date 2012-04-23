@@ -43,6 +43,7 @@ table tr td, table tr th {padding: 0.5em}
 /* Forms - Classes Adicionais */
 .middleText {width: 30em}
 .largeText {width: 50em}
+.input_length_medio { width: 30em !important}
 .campoTexto {padding-top: 0.25em}
 label.required {font-weight: bold}
 dd label.error {margin: 0; border: 0; background: none; padding: 0; display: block}
