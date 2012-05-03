@@ -171,10 +171,10 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     public function consultar($postData, $offset = 0, $pageSize = 20)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/consultar";
-
+        
         $postData['offset'] = $offset;
         $postData['pageSize'] = $pageSize;
-
+        
         $result = $this->_doAuthenticatedPostRequest($url, $postData);
 
         return $this->_loadManyFromHash($result['Processos'][0]);

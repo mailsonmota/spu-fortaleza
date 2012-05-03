@@ -1,0 +1,56 @@
+
+<div id="dialog-modal" title="Basic modal dialog" style="display: none">
+    <div style="text-align: center; margin: 95px 0">
+        <p>Carregando Dados. Aguarde...</p>
+        <img src="/img/load.gif" />
+    </div>
+</div>
+<?php
+$js = '
+    $(function(){
+        $inputNome = $("#manifestanteNome");
+        $inputNome.parent().append(" <a class=\"buscar-nome\" style=\"display:none\" href=\"#\">Buscar : <div id=\"buscar-nome\"></div></a>");
+        $(".buscar-nome").click(function(e){
+            e.preventDefault();
+            if ($inputNome.val().length) {
+                $("#dialog-modal").modal({
+                    opacity:80,
+                    onOpen: function (dialog) {
+                        dialog.overlay.fadeIn("slow", function () {
+                            dialog.data.hide();
+                            dialog.container.fadeIn("slow", function () {
+                                dialog.data.fadeIn("slow");
+                            });
+                        });
+                    },
+                    onShow: function (dialog) {
+                        $.ajax({
+                            type: "post",
+                            data: {"nome":$inputNome.val()},
+                            url : "'.$this->simpleUrl('manifestantes', 'envolvidos-ajax').'",
+                            success: function(retorno){
+                                $("#dialog-modal").html(retorno).hide().fadeIn(800)
+                            }
+                        })
+                    }
+                });
+                
+                $(".grid tbody.tb tr").live("click",function(){
+                    var cpf = $(this).find("td:last").html();
+                    $("#manifestanteCpfCnpj").val(cpf)
+                    completeAllInputs(cpf);
+                    $(".buscar-nome").hide();
+                    $.modal.close();
+                })
+            }
+        });
+        
+        $inputNome.keyup(function(){
+            $(".buscar-nome").show()
+            $("#buscar-nome").css("display","inline").html($(this).val());
+        });
+        
+    });
+    ';
+$this->headScript()->appendScript($js, 'text/javascript');
+?>

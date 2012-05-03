@@ -1,0 +1,39 @@
+<style type="text/css">
+    tbody.tb tr, thead.th, .th tr { display: block; width: auto; }
+
+    tbody.tb {  width: auto; height: 200px !important; overflow-y: scroll !important; display: block; }
+
+    tbody.tb tr td, thead.th tr th{ width: 280px; }
+
+</style>
+
+<h2>Resultados</h2>
+<?php $quantidadeManifestantes = count($this->manifestantes); ?>
+<ul class="nav">
+    <div class="total_documents">Total de itens: <strong><?php echo $quantidadeManifestantes ?></strong></div>
+</ul>
+<?php if ($quantidadeManifestantes != 0): ?>
+    <div id="article">
+        <table class="grid">
+            <thead class="th">
+                <tr>
+                    <th>Manifestante</th>
+                    <th>CPF/CNPJ</th>
+                </tr>
+            </thead>
+            <tbody class="tb">
+            <?php foreach ($this->manifestantes as $key => $value) : ?>
+                <a>
+                    <tr class="<?php echo ($key % 2 == 0 ? 'even' : 'odd') ?>">
+                        <td><?php echo $value["nome"]?></td>
+                                <?php $cpfCnpj = $value["cpf"]?>
+                        <td><?php echo ($cpfCnpj ? $cpfCnpj : "Pessoa Anônima")?></td>
+                    </tr>
+                </a>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php else: ?>
+    Nenhum manifestante encontrado
+<?php endif; ?>
