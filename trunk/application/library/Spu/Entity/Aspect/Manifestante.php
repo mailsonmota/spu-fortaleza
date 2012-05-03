@@ -21,7 +21,40 @@ class Spu_Entity_Aspect_Manifestante extends Spu_Entity_Aspect_Abstract
     protected $_telefoneComercial;
     protected $_celular;
     protected $_observacao;
+    protected $_email;
+    protected $_complemento;
+    protected $_organizacao;
+
+    public function getEmail()
+    {
+        return $this->_email;
+    }
+
+    public function setEmail($value)
+    {
+        $this->_email = $value;
+    }
     
+    public function getComplemento()
+    {
+        return $this->_complemento;
+    }
+
+    public function setComplemento($value)
+    {
+        $this->_complemento = $value;
+    }
+    
+    public function getOrganizacao()
+    {
+        return $this->_organizacao;
+    }
+
+    public function setOrganizacao($value)
+    {
+        $this->_organizacao = $value;
+    }
+
     public function getCpf()
     {
         return $this->_mascararCpfCnpj($this->_cpf);

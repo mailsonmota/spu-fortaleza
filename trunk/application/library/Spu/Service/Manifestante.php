@@ -67,6 +67,9 @@ class Spu_Service_Manifestante extends Spu_Service_Abstract
         $manifestante->setTelefoneComercial($this->_getHashValue($hash, 'telefoneComercial'));
         $manifestante->setCelular($this->_getHashValue($hash, 'celular'));
         $manifestante->setObservacao($this->_getHashValue($hash, 'observacao'));
+        $manifestante->setEmail($this->_getHashValue($hash, 'email'));
+        $manifestante->setComplemento($this->_getHashValue($hash, 'complemento'));
+        $manifestante->setOrganizacao($this->_getHashValue($hash, 'organizacao'));
         
         return $manifestante;
     }

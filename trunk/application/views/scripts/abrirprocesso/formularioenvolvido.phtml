@@ -24,28 +24,39 @@ echo $this->pagenav()->closeList();
     </form>
 </div>
 <?php
-$js = '$(document).ready(function() {
-	       $("#manifestanteCpfCnpj").live("blur",function() {
-	           if ($(this).val()) {
-	               $.getJSON("' . $this->simpleUrl('envolvido', 'envolvidos-ajax') . '?term=" + $(this).val(), function(data) {
-	                   if (data) {
-                           $("#manifestanteBairroId option[value="+data.bairro+"]").attr("selected", true);
-		               	   $("#manifestanteNome").val(data.nome)
-		                   $("#manifestanteSexo").val(data.sexo)
-		                   $("#manifestanteLogradouro").val(data.logradouro)
-		                   $("#manifestanteNumero").val(data.numero)
-		                   $("#manifestanteCep").val(data.cep)
-		                   $("#manifestanteBairro").val(data.bairro)
-		                   $("#manifestanteCidade").val(data.cidade)
-		                   $("#manifestanteUf").val(data.uf)
-		                   $("#manifestanteFoneResidencial").val(data.telefone)
-		                   $("#manifestanteFoneComercial").val(data.celular)
-		                   $("#manifestanteFoneCelular").val(data.celular)
-		                   $("#manifestanteObs").val(data.observacao)
-		               }
-	               });
-	           }
-	       });
-	   });';
+echo $this->render('snippets/modalBuscarNome.phtml');
+
+
+$js = '
+    function completeAllInputs(val) {
+        $.getJSON("' . $this->simpleUrl('envolvido', 'envolvidos-ajax') . '?term=" + val, function(data) {
+            if (data) {
+                $("#manifestanteBairroId option[value="+data.bairro+"]").attr("selected", true);
+                $("#manifestanteNome").val(data.nome)
+                $("#manifestanteSexo").val(data.sexo)
+                $("#manifestanteLogradouro").val(data.logradouro)
+                $("#manifestanteNumero").val(data.numero)
+                $("#manifestanteCep").val(data.cep)
+                $("#manifestanteBairro").val(data.bairro)
+                $("#manifestanteCidade").val(data.cidade)
+                $("#manifestanteUf").val(data.uf)
+                $("#manifestanteFoneResidencial").val(data.telefone)
+                $("#manifestanteFoneComercial").val(data.celular)
+                $("#manifestanteFoneCelular").val(data.celular)
+                $("#manifestanteObs").val(data.observacao)
+                $("#manifestanteEmail").val(data.email)
+                $("#manifestanteComplemento").val(data.complemento)
+                $("#manifestanteOrganizacao").val(data.organizacao)
+            }
+        });
+    }
+    $(function() {
+        $("#manifestanteCpfCnpj").live("blur",function() {
+            if ($(this).val()) {
+                completeAllInputs($(this).val());
+            }
+        });
+    });
+    ';
 $this->headScript()->appendScript($js, 'text/javascript');
 ?>
