@@ -1,7 +1,10 @@
 <?php
+
 require_once('BaseTramitacaoController.php');
+
 class CopiasController extends BaseTramitacaoController
 {
+
     public function indexAction()
     {
         if ($this->getRequest()->isPost()) {
@@ -13,14 +16,16 @@ class CopiasController extends BaseTramitacaoController
                 $this->setMessageForTheView($e->getMessage(), 'error');
             }
         }
-        
+
         $service = new Spu_Service_CopiaProcesso($this->getTicket());
-        $this->view->paginator = $this->_helper->paginator()->paginate(
-	        $service->getCopias(
-		        $this->_helper->paginator()->getOffset(),
-		        $this->_helper->paginator()->getPageSize(),
-		        urldecode($this->_getParam('q'))
-	        )
+        $busca = $service->getCopias(
+            $this->_helper->paginator()->getOffset(), 
+            $this->_helper->paginator()->getPageSize(), 
+            urldecode($this->_getParam('q'))
         );
+        
+        $this->view->paginator = $this->_helper->paginator()->paginate($busca);
+        $this->view->totalDocumentos = count($busca);
     }
+
 }

@@ -1,7 +1,10 @@
 <?php
+
 require_once('BaseTramitacaoController.php');
+
 class SaidaController extends BaseTramitacaoController
 {
+
     public function indexAction()
     {
         if ($this->getRequest()->isPost()) {
@@ -20,33 +23,34 @@ class SaidaController extends BaseTramitacaoController
                 $this->setMessageForTheView($e->getMessage(), 'error');
             }
         }
-        
+
         $this->view->q = urldecode($this->_getParam('q'));
         $this->view->tipoProcessoId = urldecode($this->_getParam('tipo-processo'));
         $this->view->assuntoId = urldecode($this->_getParam('assunto'));
         $this->view->tiposProcesso = $this->_getListaTiposProcesso();
-         
+
         $service = new Spu_Service_Tramitacao($this->getTicket());
-        $this->view->paginator = $this->_helper->paginator()->paginate(
-            $service->getCaixaSaida(
-                $this->_helper->paginator()->getOffset(),
-                $this->_helper->paginator()->getPageSize(),
-                $this->view->q, 
-                $this->view->assuntoId
-            )
+        $busca = $service->getCaixaSaida(
+            $this->_helper->paginator()->getOffset(), 
+            $this->_helper->paginator()->getPageSize(), 
+            $this->view->q, 
+            $this->view->assuntoId
         );
+        
+        $this->view->paginator = $this->_helper->paginator()->paginate($busca);
+        $this->view->totalDocumentos = count($busca);
     }
-    
+
     protected function _isPostComprovanteEncaminhamento()
     {
-        return ($this->getRequest()->getParam('comprovanteEncaminhamento', false) !== false) ? true : false;    
+        return ($this->getRequest()->getParam('comprovanteEncaminhamento', false) !== false) ? true : false;
     }
-    
+
     protected function _redirectComprovanteEncaminhamento()
     {
         $this->_helper->redirector('comprovante-encaminhamento');
     }
-    
+
     public function comprovanteEncaminhamentoAction()
     {
         $this->_helper->layout()->setLayout('relatorio');
@@ -55,4 +59,5 @@ class SaidaController extends BaseTramitacaoController
         $processos = $this->_getListaCarregadaProcessos($processosSelecionados);
         $this->view->processos = $processos;
     }
+
 }

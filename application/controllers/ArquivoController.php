@@ -24,11 +24,16 @@ class ArquivoController extends BaseTramitacaoController
         $this->view->tiposProcesso = $this->_getListaTiposProcesso();
 
         $service = new Spu_Service_Tramitacao($this->getTicket());
-        $this->view->paginator = $this->_helper->paginator()->paginate(
-            $service->getCaixaArquivo(
-                $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize(), $this->view->q, $this->view->assuntoId
-            )
+        $busca = $service->getCaixaArquivo(
+            $this->_helper->paginator()->getOffset(), 
+            $this->_helper->paginator()->getPageSize(), 
+            $this->view->q, 
+            $this->view->assuntoId
         );
+        
+        $this->view->paginator = $this->_helper->paginator()->paginate($busca);
+        $this->view->totalDocumentos = count($busca);
+        
         $session = new Zend_Session_Namespace('ap');
         if (isset($session->updateaposentadoria)) {
             $this->view->updateaposentadoria = $session->updateaposentadoria;
@@ -52,7 +57,7 @@ class ArquivoController extends BaseTramitacaoController
                 $session = new Zend_Session_Namespace('ap');
                 $session->updateaposentadoria['ids'] = $this->_getParam('processos');
                 $session->updateaposentadoria['colunas'] = array('status' => 'ARQUIVANDO');
-                
+
                 $this->_redirectArquivo();
             } catch (Exception $e) {
                 $this->setMessageForTheView($e->getMessage(), 'error');
@@ -101,11 +106,11 @@ class ArquivoController extends BaseTramitacaoController
                 $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
                 $tramitacaoService->reabrirVarios($this->getRequest()->getPost());
                 $this->setSuccessMessage('Processos reabertos com sucesso.');
-                
+
                 $session = new Zend_Session_Namespace('ap');
                 $session->updateaposentadoria['ids'] = $this->_getParam('processos');
                 $session->updateaposentadoria['colunas'] = array('status' => 'TRAMITANDO');
-                
+
                 $this->_redirectEmAnalise();
             } catch (Exception $e) {
                 $this->setMessageForTheView($e->getMessage(), 'error');

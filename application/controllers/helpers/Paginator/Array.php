@@ -8,7 +8,7 @@
 class Zend_Controller_Action_Helper_Paginator_Array implements Countable, IteratorAggregate
 {
 	protected $_currentPageNumber = 1;
-	protected $_pageSize = 50;
+	protected $_pageSize = 500;
 	protected $_items = array();
 	
 	public function __construct(array $items)

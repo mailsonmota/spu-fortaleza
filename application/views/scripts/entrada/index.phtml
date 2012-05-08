@@ -4,8 +4,11 @@ echo $this->breadcrumbs()->render();
 
 echo $this->render('snippets/abasTramitacao.phtml');
 
-echo $this->pagenav()->openList(); 
-echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->openList();
+
+$html = '<div class="total_documents">Total de itens: <strong>' . $this->totalDocumentos . '</strong></div>';
+echo $this->pagenav()->customHelperLinks($html);
+
 echo $this->pagenav()->closeList();
 ?>
 
