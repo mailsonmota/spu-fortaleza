@@ -239,15 +239,16 @@ $(function(){
 
     tipo = null;
     tipos = {
-        'Pessoa Juridica (Sem Ser Orgao)'   : 'CNPJ',
-        'Pessoa Fisica (Sem Ser Servidor)'  : 'CPF',
-        'Servidor Efetivo'                  : 'CPF',
-        'Servidor Comissionado'             : 'CPF',
-        'Órgão da PMF'                      : 'CNPJ',
-        'Outros (Estagiario. Terceirizado)' : 'CPF',
         'Anônimo'                           : 'ANONIMO',
-        'Orgão Externo'                     : 'CNPJ'
+        'Órgão da PMF'                      : 'CNPJ',
+        'Orgão Externo'                     : 'CNPJ',
+        'Outros (Estagiario. Terceirizado)' : 'CPF',
+        'Pessoa Fisica (Sem Ser Servidor)'  : 'CPF',
+        'Pessoa Juridica (Sem Ser Orgao)'   : 'CNPJ',
+        'Servidor Comissionado'             : 'CPF',
+        'Servidor Efetivo'                  : 'CPF'
     };
+    
     function abilitar_sexo(res) {
         var sexo = $(".sexo");
         var opa = "0.5";
@@ -264,11 +265,29 @@ $(function(){
         sexo.css('opacity', opa);
         sexo.find("#manifestanteSexo").attr("disabled", dis).find("option").eq(pos).attr("selected", "selected");
     }
+    
+    function abilitar_cpf_cnpj(res, tipo) {
+        if (res) {
+            $("dd #manifestanteCpfCnpj").val("").show().addClass('middleText  required');
+            $("dd #manifestanteCpfCnpj").parent().prev().find('label').show().html(tipo);
+        } else {
+            $("dd #manifestanteCpfCnpj").parent().prev().find('label').hide();
+            $("dd #manifestanteCpfCnpj").val("").hide().removeClass();
+        }
+    }
+    
     $("dd select#mani-tipo option").each(function(e){
         $(this).attr('tipo', tipos[$(this).html()]);
+        
         if (e == 0) {
-            abilitar_sexo(false);
             tipo = $(this).attr('tipo');
+            
+            if (tipo == 'CNPJ')
+                abilitar_sexo(false);
+            
+            if (tipo === 'ANONIMO')
+                abilitar_cpf_cnpj(false)
+            
             $("dd #manifestanteCpfCnpj").setMask({
                 mask:( tipo === 'CNPJ' ? "99.999.999/9999-99" : "999.999.999-99"),
                 autoTab: false
@@ -279,21 +298,21 @@ $(function(){
     $("dd select#mani-tipo").live("change", function(){
         tipo = $(this).find("option:selected").attr('tipo');
 
-        $("dd #manifestanteCpfCnpj").val("").show().addClass('middleText  required');
-        $("dd #manifestanteCpfCnpj").parent().prev().find('label').show().html(tipo);
-
         if(tipo === 'CPF') {
+            abilitar_cpf_cnpj(true, tipo);
             abilitar_sexo(true);
+            
             $("dd #manifestanteCpfCnpj").val("").setMask({
                 mask:"999.999.999-99",
                 autoTab: false
             });
         } else if(tipo === 'ANONIMO') {
+            abilitar_cpf_cnpj(false)
             abilitar_sexo(true);
-            $("dd #manifestanteCpfCnpj").parent().prev().find('label').hide();
-            $("dd #manifestanteCpfCnpj").val("").hide().removeClass();
         }else {
+            abilitar_cpf_cnpj(true, tipo);
             abilitar_sexo(false);
+            
             $("dd #manifestanteCpfCnpj").val("").setMask({
                 mask:"99.999.999/9999-99",
                 autoTab: false

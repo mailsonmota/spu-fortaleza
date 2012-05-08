@@ -53,7 +53,8 @@ function getForumalrio($val)
 
 </div>
 <?php
-$js = '$("#target").validate({
+if (isset($quantidadeFolhas)) {
+    $js = '$("#target").validate({
         rules:{
             "quantidadeFolhas": {
                 check: ' . $quantidadeFolhas . '
@@ -75,7 +76,8 @@ $js = '$("#target").validate({
         }
     });';
 
-$this->headScript()->appendScript($js);
+    $this->headScript()->appendScript($js);
+}
 if ($this->processo->hasRespostasFormulario()) {
     $js = '
     $(function(){

@@ -48,10 +48,10 @@ class AnaliseController extends BaseTramitacaoController
                 } elseif ($this->_isPostProcessoAntigo()) {
                     if (count($processosSelecionados) != 1) {
                         $this->setErrorMessage('Você só pode manipular um processo por vez para essa opção');
-                        
+
                         $this->_redirectEmAnalise();
                     }
-                    
+
                     $this->_redirectProcessoAntigo($processosSelecionados[0]);
                 }
             } catch (Exception $e) {
@@ -65,11 +65,11 @@ class AnaliseController extends BaseTramitacaoController
         $this->view->tiposProcesso = $this->_getListaTiposProcesso();
 
         $service = new Spu_Service_Tramitacao($this->getTicket());
-        $this->view->paginator = $this->_helper->paginator()->paginate(
-            $service->getCaixaAnalise(
-                $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize(), $this->view->q, $this->view->assuntoId
-            )
+        $busca = $service->getCaixaAnalise(
+            $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize(), $this->view->q, $this->view->assuntoId
         );
+        $this->view->totalDocumentos = count($busca);
+        $this->view->paginator = $this->_helper->paginator()->paginate($busca);
 
         $session = new Zend_Session_Namespace('ap');
         if ($session->updateaposentadoria) {
@@ -97,7 +97,7 @@ class AnaliseController extends BaseTramitacaoController
     {
         return ($this->getRequest()->getParam('arquivar', false) !== false) ? true : false;
     }
-    
+
     protected function _isPostProcessoAntigo()
     {
         return ($this->getRequest()->getParam('processo-antigo', false) !== false) ? true : false;
@@ -132,7 +132,7 @@ class AnaliseController extends BaseTramitacaoController
     {
         $this->_helper->redirector('index', 'despachar', 'default');
     }
-    
+
     protected function _redirectProcessoAntigo($id)
     {
         $this->_helper->redirector('antigo', 'processo', null, array('id' => $id));
