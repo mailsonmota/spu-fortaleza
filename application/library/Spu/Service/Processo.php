@@ -176,7 +176,7 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         $postData['pageSize'] = $pageSize;
         
         $result = $this->_doAuthenticatedPostRequest($url, $postData);
-
+        
         return $this->_loadManyFromHash($result['Processos'][0]);
     }
 
