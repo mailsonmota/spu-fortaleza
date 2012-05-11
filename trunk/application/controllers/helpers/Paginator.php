@@ -33,7 +33,7 @@ class Zend_Controller_Action_Helper_Paginator extends Zend_Controller_Action_Hel
 	
 	public function getPageSize()
 	{
-		return 500;
+		return 50;
 	}
 	
 	public function getOffset()
