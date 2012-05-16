@@ -201,7 +201,8 @@ class ProcessoController extends BaseController
         $processo = new Spu_Entity_Processo();
         try {
             $idProcesso = $this->_getIdProcessoUrl();
-            $processoService = new Spu_Service_Processo($this->getTicket());
+            $ticket = $this->isGroupSearch() ? $this->getTicketSearch() : $this->getTicket();
+            $processoService = new Spu_Service_Processo($ticket);
             $processo = $processoService->getProcesso($idProcesso);
         } catch (Exception $e) {
             $this->setMessageForTheView('Não foi possível carregar o processo', 'error');
