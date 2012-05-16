@@ -14,7 +14,8 @@ echo $this->pagenav()->closeList();
     <form action="<?php echo $this->simpleUrl('localizar-processo-resultado') ?>" method="post">
         <?php 
         echo $this->fieldList()->open();
-        echo $this->fieldList()->textbox('Nº Processo', 'globalSearch', null, array('required' => true, 'length' => 50));
+        echo $this->fieldList()->textbox('Nº Processo', 'globalSearch', null, array('required' => false, 'length' => 50));
+        echo $this->fieldList()->textbox('CPF/CNPJ', 'cpf');
         echo $this->fieldList()->close();
         
         echo $this->buttonlist()->open();

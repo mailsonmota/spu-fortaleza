@@ -376,38 +376,55 @@ $(function(){
 // logica mascara page consultar
 $(function(){
     var consultar = window.location.toString().indexOf("/consultar") != -1;
-    if (consultar) {
+    var localizar_processo = window.location.toString().indexOf("/localizar-processo") != -1;
+    if (consultar || localizar_processo) {
+        var dt = 6;
+        if (localizar_processo)
+            dt = 1;
         $html = '<input type="radio" name="tipo" value="cpf" checked="checked" /> CPF <input type="radio" name="tipo" value="cnpj" /> CNPJ';
-        $('#article dl dt:eq(6)').html($html);
-        $('#article dl dt:eq(6) input:radio').live('click',function(){
+        $('#article dl dt:eq('+dt+')').html($html);
+        $('#article dl dt:eq('+dt+') input:radio').live('click',function(){
             $('input#cpf').val('');
             if($(this).val() === 'cnpj') {
-                $('#article dl dd:eq(6) input#cpf').setMask({
+                $('#article dl dd:eq('+dt+') input#cpf').setMask({
                     mask: "99.999.999/9999-99",
                     autoTab: false
                 });
             }
             else{
-                $('#article dl dd:eq(6) input#cpf').setMask({
+                $('#article dl dd:eq('+dt+') input#cpf').setMask({
                     mask: "999.999.999-99",
                     autoTab: false
                 });
             }
         });
-        $('#article dl dd:eq(6) input#cpf').setMask({
+        $('#article dl dd:eq('+dt+') input#cpf').setMask({
             mask: "999.999.999-99",
             autoTab: false
         });
     }
 });
 
+
+/**
+ * Parte responsável por desabilitar button submit para requisições
+ */
 $(function(){
     $("button:submit").bind("click",function(){
-        var sub = $(this);
-        sub.hide().parent().append('<button disabled="disabled" class="aguarde">Aguarde...</button>')
-        setTimeout(function(){
-            sub.show()
-            $(".aguarde").remove()
-        }, 8000)
+        var button_submit = $(this);
+        var button_aguarde = '<button disabled="disabled" class="aguarde">Aguarde...</button>';
+        
+        button_submit.hide().parent().append(button_aguarde);
+        
+        var intervalo = setInterval(function(){
+            var div_error = $(".required.error").length;
+            
+            if (div_error) {
+                button_submit.show();
+                $(".aguarde").remove();
+                clearInterval(intervalo);
+            }
+            
+        }, 500);
     })
 })

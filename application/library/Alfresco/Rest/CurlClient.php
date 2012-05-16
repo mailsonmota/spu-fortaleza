@@ -120,7 +120,7 @@ class Alfresco_Rest_CurlClient
         $string = preg_replace_callback(
             '/(:".*")/', create_function(
                 '$matches', '
-                    $caracteresEspeciais = array("\u", "\/", "\n", "\r", "\t", "\v", "\f", "\$", "\\\", "\\"");
+                    $caracteresEspeciais = array("\u", "\/", "\n", "\r", "\t", "\v", "\f", "\\\", "\\"");
                     $conteudo = substr($matches[0],2,-1);
                     $conteudo .= "|";
                     
