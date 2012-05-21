@@ -23,18 +23,20 @@ echo $this->pagenav()->closeList();
             </tr>
         </thead>
         <tbody>
-            <?php if ($this->processo) : ?>
-            <tr>
-                <td><strong><?php echo $this->processo->movimentacoes[0]->para->path; ?></strong></td>
-                <td><?php echo str_replace("_", "/", $this->processo->nome); ?></td>
-                <td><?php echo $this->processo->manifestante->nome; ?></td>
-                <td><?php echo $this->processo->tipoProcesso->nome; ?></td>
-                <td><?php echo $this->processo->assunto->nome; ?></td>
-            </tr>
+            <?php if ($this->processos) : ?>
+                <?php foreach ($this->processos as $key => $processo) : ?>
+                    <tr class="<?php echo ($key%2==0) ? "even" : "odd"; ?>">
+                        <td><strong><?php echo $processo->protocolo->path; ?></strong></td>
+                        <td><?php echo str_replace("_", "/", $processo->nome); ?></td>
+                        <td><?php echo $processo->manifestante->nome; ?></td>
+                        <td><?php echo $processo->tipoProcesso->nome; ?></td>
+                        <td><?php echo $processo->assunto->nome; ?></td>
+                    </tr>
+                <?php endforeach; ?>
             <?php else: ?>
-            <tr>
-                <td colspan="8">Nenhum processo encontrado.</td>
-            </tr>
+                <tr>
+                    <td colspan="8">Nenhum processo encontrado.</td>
+                </tr>
             <?php endif ?>
         </tbody>
     </table>
