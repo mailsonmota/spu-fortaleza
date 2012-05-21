@@ -158,10 +158,10 @@ class ConsultarController extends BaseController
 
             $processoService = new Spu_Service_Processo($this->getTicketSearch());
 
-            $resultado = $processoService->consultar($dados);
+            $resultado = $processoService->consultar($dados,0, 1000);
             $this->view->totalDocumentos = count($resultado);
             if ($resultado)
-                $this->view->processo = $processoService->getProcesso($resultado[0]->getId());
+                $this->view->processos = $resultado;
         }
     }
 
