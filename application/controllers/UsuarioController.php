@@ -66,7 +66,7 @@ class UsuarioController extends BaseController
             return array('Administrador');
         }
 
-        $service = new Spu_Service_Protocolo($this->getTicket());
+        $service = new Spu_Service_Protocolo($this->getTicketSearch());
         $nomeProtocolos = array();
         foreach ($service->getProtocolos() as $p) {
             $nomeProtocolos[] = $p->path;

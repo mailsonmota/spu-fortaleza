@@ -13,6 +13,8 @@ require_once 'BaseAuthenticatedController.php';
  */
 abstract class BaseController extends BaseAuthenticatedController
 {
+    
+    const LIMITE_MOVIMENTACAO = 10;
 
     /**
      * Alias para retornar controller corrent

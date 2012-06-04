@@ -26,7 +26,14 @@ class EntradaController extends BaseTramitacaoController
 
     public function receberAction()
     {
+        $processosSelecionados = $this->getRequest()->getParam('processos');
+        
         try {
+            if (count($processosSelecionados) > self::LIMITE_MOVIMENTACAO) {
+                $this->setErrorMessage("Atenção, você não pode movimentar mais do que " . self::LIMITE_MOVIMENTACAO . " processos por vez!");
+                $this->_redirectEntrada();
+            }
+            
             if (!$this->getRequest()->isPost() OR !$this->getRequest()->getParam('processos')) {
                 throw new Exception("Por favor, selecione pelo menos um processo para receber.");
             }
