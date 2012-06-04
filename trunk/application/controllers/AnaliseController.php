@@ -11,6 +11,11 @@ class AnaliseController extends BaseTramitacaoController
             try {
                 $processosSelecionados = $this->getRequest()->getParam('processos');
 
+                if (count($processosSelecionados) > self::LIMITE_MOVIMENTACAO) {
+                    $this->setErrorMessage("Atenção, você não pode movimentar mais do que " . self::LIMITE_MOVIMENTACAO . " processos por vez!");
+                    $this->_redirectAnalise();
+                }
+
                 if (!$processosSelecionados) {
                     throw new Exception('Por favor, selecione pelo menos um processo.');
                 }
@@ -66,7 +71,7 @@ class AnaliseController extends BaseTramitacaoController
 
         $service = new Spu_Service_Tramitacao($this->getTicket());
         $busca = $service->getCaixaAnalise(
-            $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize(), $this->view->q, $this->view->assuntoId
+                $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize(), $this->view->q, $this->view->assuntoId
         );
         $this->view->totalDocumentos = count($busca);
         $this->view->paginator = $this->_helper->paginator()->paginate($busca);
@@ -132,10 +137,15 @@ class AnaliseController extends BaseTramitacaoController
     {
         $this->_helper->redirector('index', 'despachar', 'default');
     }
+    
+    protected function _redirectAnalise()
+    {
+        $this->_helper->redirector('index', 'analise', 'default');
+    }
 
     protected function _redirectProcessoAntigo($id)
     {
-        $this->_helper->redirector('antigo', 'processo', null, array('id' => $id));
+        $this->_helper->redirector('antigo', 'processo');
     }
 
     public function comprovanteRecebimentoAction()

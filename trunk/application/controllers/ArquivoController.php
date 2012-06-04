@@ -10,6 +10,12 @@ class ArquivoController extends BaseTramitacaoController
         if ($this->getRequest()->isPost()) {
             try {
                 $processosSelecionados = $this->getRequest()->getParam('processos');
+
+                if (count($processosSelecionados) > self::LIMITE_MOVIMENTACAO) {
+                    $this->setErrorMessage("Atenção, você não pode movimentar mais do que " . self::LIMITE_MOVIMENTACAO . " processos por vez!");
+                    $this->_redirectArquivo();
+                }
+
                 $session = new Zend_Session_Namespace('reabrir');
                 $session->processos = $processosSelecionados;
                 $this->_redirectReabrir();
@@ -25,20 +31,22 @@ class ArquivoController extends BaseTramitacaoController
 
         $service = new Spu_Service_Tramitacao($this->getTicket());
         $busca = $service->getCaixaArquivo(
-            $this->_helper->paginator()->getOffset(), 
-            $this->_helper->paginator()->getPageSize(), 
-            $this->view->q, 
-            $this->view->assuntoId
+                $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize(), $this->view->q, $this->view->assuntoId
         );
-        
+
         $this->view->paginator = $this->_helper->paginator()->paginate($busca);
         $this->view->totalDocumentos = count($busca);
-        
+
         $session = new Zend_Session_Namespace('ap');
         if (isset($session->updateaposentadoria)) {
             $this->view->updateaposentadoria = $session->updateaposentadoria;
         }
         Zend_Session::namespaceUnset('ap');
+    }
+
+    protected function _redirectArquivo()
+    {
+        $this->_helper->redirector('index', 'arquivo');
     }
 
     protected function _redirectReabrir()
@@ -91,7 +99,7 @@ class ArquivoController extends BaseTramitacaoController
 
         if (count($listaStatusArquivamento) == 0) {
             throw new Exception(
-                'Não existe nenhum status de arquivamento cadastrado no sistema. 
+                    'Não existe nenhum status de arquivamento cadastrado no sistema. 
                 Por favor, entre em contato com a administração do sistema.'
             );
         }

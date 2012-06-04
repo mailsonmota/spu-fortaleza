@@ -9,6 +9,12 @@ class SaidaController extends BaseTramitacaoController
     {
         if ($this->getRequest()->isPost()) {
             try {
+                $processosSelecionados = $this->getRequest()->getParam('processos');
+                if (count($processosSelecionados) > self::LIMITE_MOVIMENTACAO) {
+                    $this->setErrorMessage("Atenção, você não pode movimentar mais do que " . self::LIMITE_MOVIMENTACAO . " processos por vez!");
+                    $this->_redirectSaida();
+                }
+                
                 if ($this->_isPostComprovanteEncaminhamento()) {
                     $session = new Zend_Session_Namespace('comprovanteEncaminhamento');
                     $session->processos = $this->getRequest()->getParam('processos');
@@ -58,6 +64,11 @@ class SaidaController extends BaseTramitacaoController
         $processosSelecionados = $session->processos;
         $processos = $this->_getListaCarregadaProcessos($processosSelecionados);
         $this->view->processos = $processos;
+    }
+    
+    protected function _redirectSaida()
+    {
+        $this->_helper->redirector('index', 'saida');
     }
 
 }

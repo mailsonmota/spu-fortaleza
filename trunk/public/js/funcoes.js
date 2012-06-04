@@ -428,3 +428,10 @@ $(function(){
         }, 500);
     })
 })
+
+$(function(){
+    var mensagem = $(".message")
+    
+    if (mensagem.length)
+        mensagem.hide().fadeIn(800).fadeOut(800).fadeIn(800).fadeOut(800).fadeIn(800)
+});
