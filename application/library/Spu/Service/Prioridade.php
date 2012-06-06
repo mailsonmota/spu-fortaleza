@@ -50,7 +50,7 @@ class Spu_Service_Prioridade extends Spu_Service_Abstract
      * @param array $hash
      * @return Spu_Entity_Classification_Prioridade[]
      */
-    protected function _loadManyFromHash($hash)
+    public function _loadManyFromHash($hash)
     {
         $prioridades = array();
         foreach ($hash as $hashPrioridade) {

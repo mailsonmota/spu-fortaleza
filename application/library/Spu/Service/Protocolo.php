@@ -133,7 +133,7 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
      * @param array $hash
      * @return Spu_Entity_Protocolo[]
      */
-    protected function _loadManyFromHash($hash)
+    public function _loadManyFromHash($hash)
     {
         $protocolos = array();
         if ($hash) {

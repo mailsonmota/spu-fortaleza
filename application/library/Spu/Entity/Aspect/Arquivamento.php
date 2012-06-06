@@ -12,6 +12,10 @@ class Spu_Entity_Aspect_Arquivamento extends Spu_Entity_Aspect_Abstract
     protected $_motivo;
     protected $_local;
     protected $_pasta;
+    protected $_arquivo;
+    protected $_estante;
+    protected $_prateleira;
+    protected $_caixa;
     
     /**
      * Retorna o Status do Arquivamento
@@ -56,5 +60,45 @@ class Spu_Entity_Aspect_Arquivamento extends Spu_Entity_Aspect_Abstract
     public function setPasta($value)
     {
         $this->_pasta = $value;
+    }
+    
+    public function getArquivo()
+    {
+        return $this->_arquivo;
+    }
+    
+    public function setArquivo($value)
+    {
+        $this->_arquivo = $value;
+    }
+    
+    public function getEstante()
+    {
+        return $this->_estante;
+    }
+    
+    public function setEstante($value)
+    {
+        $this->_estante = $value;
+    }
+    
+    public function getPrateleira()
+    {
+        return $this->_prateleira;
+    }
+    
+    public function setPrateleira($value)
+    {
+        $this->_prateleira = $value;
+    }
+    
+    public function getCaixa()
+    {
+        return $this->_caixa;
+    }
+    
+    public function setCaixa($value)
+    {
+        $this->_caixa = $value;
     }
 }
