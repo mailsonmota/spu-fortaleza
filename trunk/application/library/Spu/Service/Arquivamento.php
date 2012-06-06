@@ -22,6 +22,10 @@ class Spu_Service_Arquivamento extends Spu_Service_Abstract
         $arquivamento->setMotivo($this->_getHashValue($hash, 'motivo'));
         $arquivamento->setLocal($this->_getHashValue($hash, 'local'));
         $arquivamento->setPasta($this->_getHashValue($hash, 'pasta'));
+        $arquivamento->setEstante($this->_getHashValue($hash, 'estante'));
+        $arquivamento->setPrateleira($this->_getHashValue($hash, 'prateleira'));
+        $arquivamento->setCaixa($this->_getHashValue($hash, 'caixa'));
+        $arquivamento->setArquivo($this->_getHashValue($hash, 'arquivo'));
         
         return $arquivamento;
     }

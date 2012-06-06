@@ -15,6 +15,30 @@ class Spu_Service_Processo extends Spu_Service_Abstract
      * @var string
      */
     protected $_processoBaseUrl = 'spu/processo';
+    
+    
+    public function getDadosPassoDois($nodeRef)
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/abrir/passodois/" . $nodeRef;
+        $result = $this->_doAuthenticatedGetRequest($url);
+
+        $serviceProtocolos = new Spu_Service_Protocolo();
+        $dados['Protocolos'] = $serviceProtocolos->_loadManyFromHash($result['protocolos']);
+        
+        $serviceAssuntos = new Spu_Service_Assunto();
+        $dados['Assuntos'] = $serviceAssuntos->_loadManyFromHash($result['assuntos']);
+        
+        $serviceBairros = new Spu_Service_Bairro();
+        $dados['Bairros'] = $serviceBairros->_loadManyFromHash($result['bairros']);
+        
+        $serviceManifestantes = new Spu_Service_TipoManifestante();
+        $dados['Manifestantes'] = $serviceManifestantes->_loadManyFromHash($result['tiposManifestantes'][0]);
+        
+        $servicePrioridades = new Spu_Service_Prioridade();
+        $dados['Prioridades'] = $servicePrioridades->_loadManyFromHash($result['prioridades'][0]);
+        
+        return $dados;
+    }
 
     /**
      * Retorna a caixa análise da Incorporação de processos
@@ -112,6 +136,7 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     public function getProcesso($nodeUuid)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/get/$nodeUuid";
+        
         $result = $this->_doAuthenticatedGetRequest($url);
 
         $processoHash = array_pop(array_pop($result['Processo'][0]));
@@ -270,6 +295,7 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         $processo->setTipoManifestante(
             $this->_loadTipoManifestanteFromHash($this->_getHashValue($hash, 'tipoManifestante'))
         );
+        
         $processo->setArquivamento($this->_loadArquivamentoFromHash($this->_getHashValue($hash, 'arquivamento')));
         $processo->setMovimentacoes(
             $this->_loadMovimentacoesFromHash($this->_getHashValue($hash, 'ultimaMovimentacao'))

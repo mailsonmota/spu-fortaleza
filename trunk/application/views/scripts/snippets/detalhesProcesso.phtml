@@ -66,6 +66,26 @@
 		<dt>Pasta:</dt>
 		<dd><?php echo $this->processo->arquivamento->pasta ?></dd>
 		<?php endif ?>
+        
+		<?php if ($this->processo->arquivamento->arquivo): ?>
+		<dt>Arquivo:</dt>
+		<dd><?php echo $this->processo->arquivamento->arquivo ?></dd>
+		<?php endif ?>
+        
+		<?php if ($this->processo->arquivamento->estante): ?>
+		<dt>Estante:</dt>
+		<dd><?php echo $this->processo->arquivamento->estante ?></dd>
+		<?php endif ?>
+        
+		<?php if ($this->processo->arquivamento->prateleira): ?>
+		<dt>Prateleira:</dt>
+		<dd><?php echo $this->processo->arquivamento->prateleira ?></dd>
+		<?php endif ?>
+        
+		<?php if ($this->processo->arquivamento->caixa): ?>
+		<dt>Caixa:</dt>
+		<dd><?php echo $this->processo->arquivamento->caixa ?></dd>
+		<?php endif ?>
 	</dl>
 </fieldset>
 <?php endif ?>

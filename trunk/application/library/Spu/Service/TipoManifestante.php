@@ -50,7 +50,7 @@ class Spu_Service_TipoManifestante extends Spu_Service_Abstract
      * @param array $hash
      * @return Spu_Entity_Classification_TipoManifestante[]
      */
-    protected function _loadManyFromHash($hash)
+    public function _loadManyFromHash($hash)
     {
         $tiposManifestante = array();
         foreach ($hash as $hashTipoManifestante) {

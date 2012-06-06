@@ -35,7 +35,7 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
      * @var string $origem Id do protocolo de origem
      * @return array de Spu_Entity_Assunto
      */
-    public function getAssuntosPorTipoProcesso($idTipoProcesso, $origem = null)
+    public function getAssuntosPorTipoProcesso($idTipoProcesso)
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listarportipoprocesso/$idTipoProcesso";
         $result = $this->_doAuthenticatedGetRequest($url);
@@ -207,7 +207,7 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
      * @param array $hash
      * @return array de Spu_Entity_Assunto
      */
-    protected function _loadManyFromHash($hash)
+    public function _loadManyFromHash($hash)
     {
         $hashAssuntos = array();
         foreach ($hash as $hashAssunto) {

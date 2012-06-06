@@ -50,7 +50,7 @@ class Spu_Service_Bairro extends Spu_Service_Abstract
      * @param array $hash
      * @return Spu_Entity_Classification_Bairro[]
      */
-    protected function _loadManyFromHash($hash)
+    public function _loadManyFromHash($hash)
     {
         $bairros = array();
         foreach ($hash[0] as $hashBairro) {
