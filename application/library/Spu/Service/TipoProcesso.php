@@ -27,9 +27,15 @@ class Spu_Service_TipoProcesso extends Spu_Service_Abstract
         if ($origem) {
                 $url .= "/$origem";
         }
+        
+        $name = $this->getNameForMethod('getTiposProcesso', $origem);
+        if (($result = $this->getCache()->load($name)) === false) {
 
-        $result = $this->_doAuthenticatedGetRequest($url);
+            $result = $this->_doAuthenticatedGetRequest($url);
 
+            $this->getCache()->save($result, $name);
+        }
+        
         return $this->_loadManyFromHash($result['Tipos de Processo'][0]);
     }
 
@@ -42,7 +48,14 @@ class Spu_Service_TipoProcesso extends Spu_Service_Abstract
     public function getTipoProcesso($nodeUuid)
     {
         $url = $this->getBaseUrl() . "/" . $this->_tiposProcessoBaseUrl . "/get/$nodeUuid";
-        $result = $this->_doAuthenticatedGetRequest($url);
+        
+        $name = $this->getNameForMethod('getTipoProcesso', $nodeUuid);
+        if (($result = $this->getCache()->load($name)) === false) {
+
+            $result = $this->_doAuthenticatedGetRequest($url);
+
+            $this->getCache()->save($result, $name);
+        }
 
         return $this->loadFromHash(array_pop($result['Tipo de Processo']));
     }

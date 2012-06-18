@@ -5,7 +5,7 @@
     	<?php if ($this->movimentacoes): foreach ($this->movimentacoes as $movimentacao): ?>
     	<tr>
     		<td class="dataMovimentacao"><?php echo $movimentacao->data ?> às <?php echo $movimentacao->hora ?></td>
-    		<td class="descricaoMovimentacao"><?php echo $movimentacao->descricao ?></td>
+    		<td class="descricaoMovimentacao"><?php echo stripslashes($movimentacao->descricao) ?></td>
     	</tr>
     	<?php endforeach; endif ?>
     	</tbody>

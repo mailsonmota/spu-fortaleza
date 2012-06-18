@@ -20,7 +20,16 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     public function getDadosPassoDois($nodeRef)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/abrir/passodois/" . $nodeRef;
-        $result = $this->_doAuthenticatedGetRequest($url);
+        
+        $name = $this->getNameForMethod('getDadosPassoDois', $nodeRef);
+        if (($result = $this->getCache()->load($name)) === false) {
+
+            $result = $this->_doAuthenticatedGetRequest($url);
+
+            $this->getCache()->save($result, $name);
+        }
+        
+        $dados = array();
 
         $serviceProtocolos = new Spu_Service_Protocolo();
         $dados['Protocolos'] = $serviceProtocolos->_loadManyFromHash($result['protocolos']);
@@ -137,7 +146,14 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/get/$nodeUuid";
         
-        $result = $this->_doAuthenticatedGetRequest($url);
+        $name = $this->getNameForMethod('getProcesso', $nodeUuid);
+        if (($result = $this->getCache()->load($name)) === false) {
+
+            $result = $this->_doAuthenticatedGetRequest($url);
+
+            $this->getCache()->save($result, $name);
+        }
+        
 
         $processoHash = array_pop(array_pop($result['Processo'][0]));
 
@@ -202,6 +218,24 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         
         $result = $this->_doAuthenticatedPostRequest($url, $postData);
         
+        return $this->_loadManyFromHash($result['Processos'][0]);
+    }
+    
+    public function buscar($postData, $offset = 0, $pageSize = 20)
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/buscar";
+        
+        $postData['offset'] = $offset;
+        $postData['pageSize'] = $pageSize;
+        echo '<pre>';
+        var_dump($postData);
+        echo '</pre>';
+        die("---- DIE ----");
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
+        echo '<pre>';
+        var_dump($result);
+        echo '</pre>';
+        die("---- DIE ----");
         return $this->_loadManyFromHash($result['Processos'][0]);
     }
 

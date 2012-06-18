@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Classe para acessar os serviços de Protocolo do SPU
  *
@@ -8,6 +9,7 @@
  */
 class Spu_Service_Protocolo extends Spu_Service_Abstract
 {
+
     /**
      * URL Base dos serviços (a ser acrescentada à url dos serviços do Alfresco)
      * @var string
@@ -35,9 +37,10 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
      */
     public function getProtocolos()
     {
-        $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl .  "/listar";
-        $result = $this->_doAuthenticatedGetRequest($url);
+        $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listar";
 
+        $result = $this->_doAuthenticatedGetRequest($url);
+        
         return $this->_loadManyFromHash($result['Protocolos']);
     }
 
@@ -87,10 +90,10 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
     public function getProtocolosDestino($protocoloOrigemId, $tipoProcessoId, $filter, $offset, $pageSize)
     {
         $url = "{$this->getBaseUrl()}/{$this->_protocoloBaseUrl}/listardestinos?protocoloRaizId={$protocoloOrigemId}"
-             . "&tipoProcessoId={$tipoProcessoId}&filter={$filter}&offset={$offset}&pageSize={$pageSize}";
+                . "&tipoProcessoId={$tipoProcessoId}&filter={$filter}&offset={$offset}&pageSize={$pageSize}";
 
         $result = $this->_doAuthenticatedGetRequest($url);
-
+        
         return $this->_loadManyFromHash($result['Protocolos'][0]);
     }
 
@@ -145,7 +148,7 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
 
         return $protocolos;
     }
-    
+
     /**
      * Retorna todos os protocolos do usuário logado
      *
@@ -155,12 +158,12 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
     {
         $url = "{$this->getBaseUrl()}/{$this->_protocoloBaseUrl}/listar-raizes";
         $url .= $this->_getParametrosAdicionarListagemProtocolos($protocoloOrigemId, $tipoProcessoId);
-        
+
         $result = $this->_doAuthenticatedGetRequest($url);
 
         return $this->_loadManyFromHash($result['Protocolos']);
     }
-    
+
     protected function _getParametrosAdicionarListagemProtocolos($protocoloOrigemId = null, $tipoProcessoId = null)
     {
         $url = '';
@@ -172,15 +175,15 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
                     $url .= "&";
                 }
             }
-            
+
             if ($tipoProcessoId) {
                 $url .= "tipo-processo-id=$tipoProcessoId";
             }
         }
-        
+
         return $url;
     }
-    
+
     /**
      * Retorna todos os protocolos do usuário logado
      *
@@ -190,9 +193,27 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
     {
         $url = "{$this->getBaseUrl()}/{$this->_protocoloBaseUrl}/listar-filhos/$parentId";
         $url .= $this->_getParametrosAdicionarListagemProtocolos($protocoloOrigemId, $tipoProcessoId);
+        
+        $idNome = $parentId . $this->getNameProtocolo($protocoloOrigemId);
+        $name = $this->getNameForMethod('getProtocolosFilhos', $idNome);
+        if (($result = $this->getCache()->load($name)) === false) {
 
-        $result = $this->_doAuthenticatedGetRequest($url);
+            $result = $this->_doAuthenticatedGetRequest($url);
+
+            $this->getCache()->save($result, $name);
+        }
 
         return $this->_loadManyFromHash($result['Protocolos']);
     }
+    
+    public function getNameProtocolo($protocoloOrigemId)
+    {
+        $pathTotal = $this->getProtocolo($protocoloOrigemId)->path;
+        $pathTotal = explode("/", $pathTotal);
+        $nameProtocolo = (null == $pathTotal[0] ? $pathTotal[1] : $pathTotal[0]);
+        
+        return $nameProtocolo;
+        
+    }
+
 }

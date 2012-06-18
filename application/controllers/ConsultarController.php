@@ -93,6 +93,36 @@ class ConsultarController extends BaseController
 
         $this->view->abaAtiva = 'dadosGerais';
     }
+    
+    public function buscarAction()
+    {
+        if (false === $this->getRequest()->isPost()) {
+            $this->setErrorMessage('Busca Inválida.');
+            $this->_redirectToConsulta();
+        }
+        
+        $postData = $this->getRequest()->getPost();
+
+        if (isset($postData['globalSearch'])) {
+            $globalSearch = $postData['globalSearch'];
+            $field = $this->_getFieldFromFilter($globalSearch);
+            $postData[$field] = $globalSearch;
+        }
+        
+        $ticket = $this->isGroupSearch() ? $this->getTicketSearch() : $this->getTicket();
+
+        $processoService = new Spu_Service_Processo($ticket);
+        $resultado = $processoService->buscar($postData, 0, 4999);
+        $this->view->totalDocumentos = count($resultado);
+        $this->view->paginator = $this->_helper->paginator()->paginate($resultado);
+
+        if (count($this->view->processos) == 1) {
+            $processoId = $processos[0]->id;
+            $this->_redirectToProcesso($processoId);
+        }
+
+        $this->view->abaAtiva = 'dadosGerais';
+    }
 
     /**
      * @return Zend_Session_Namespace
