@@ -115,15 +115,14 @@ class ProcessoController extends BaseController
 
             if ($this->getRequest()->isPost()) {
                 $dataPost = $this->getRequest()->getPost();
-                
                 if (isset($dataPost["processedXml"])) {
                     $arquivoService = new Spu_Service_Arquivo($this->getTicket());
                     $idDocument = $arquivoService->getIdRespostasFormulario($dataPost["processoId"]);
 
                     $arquivoService->updateFormulario($idDocument, $dataPost["processedXml"]);
                 }
-                
                 $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
+                $dataPost = $this->filterValuesArray($dataPost);
                 $tramitacaoService->tramitar($dataPost);
 
                 $tipo = new Spu_Service_TipoProcesso($this->getTicket());

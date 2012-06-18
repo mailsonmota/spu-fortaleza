@@ -38,7 +38,15 @@ class Spu_Service_Assunto extends Spu_Service_Abstract
     public function getAssuntosPorTipoProcesso($idTipoProcesso)
     {
         $url = $this->getBaseUrl() . "/" . $this->_assuntosBaseUrl . "/listarportipoprocesso/$idTipoProcesso";
-        $result = $this->_doAuthenticatedGetRequest($url);
+        
+        $name = $this->getNameForMethod('getAssuntosPorTipoProcesso', $idTipoProcesso);
+        if (($result = $this->getCache()->load($name)) === false) {
+
+            $result = $this->_doAuthenticatedGetRequest($url);
+
+            $this->getCache()->save($result, $name);
+        }
+        
 
         return $this->_loadManyFromHash($result['assuntos']);
     }

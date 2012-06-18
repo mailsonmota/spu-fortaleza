@@ -79,5 +79,15 @@ abstract class Spu_Service_Abstract extends Alfresco_Rest_Abstract
         }
         return $dados;
     }
+    
+    public function getCache()
+    {
+        return Zend_Registry::get('cache');
+    }
+    
+    public function getNameForMethod($nome, $param1 = null)
+    {
+        return str_replace("_", "", get_class($this)) . "$nome" . str_replace("-", "", $param1);
+    }
 
 }

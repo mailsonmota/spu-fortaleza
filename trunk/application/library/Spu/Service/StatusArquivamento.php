@@ -22,7 +22,15 @@ class Spu_Service_StatusArquivamento extends Spu_Service_Abstract
     public function fetchAll()
     {
         $url = $this->getBaseUrl() . "/" . $this->_baseUrl . "/statusarquivamento/listar";
-        $result = $this->_doAuthenticatedGetRequest($url);
+        
+        $name = $this->getNameForMethod('fetchAll');
+        if (($result = $this->getCache()->load($name)) === false) {
+
+            $result = $this->_doAuthenticatedGetRequest($url);
+
+            $this->getCache()->save($result, $name);
+        }
+        
         
         return $this->_loadManyFromHash($result['Status'][0]);
     }

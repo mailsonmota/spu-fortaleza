@@ -142,4 +142,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $layout = $this->getResource('layout');
         $view = $layout->getView();
     }
+    
+    public function _initCache()
+    {
+        $cacheManager = $this
+                ->bootstrap('cachemanager')
+                ->getResource('cachemanager');
+        $cache = $cacheManager
+                ->getCache('config');
+
+        Zend_Registry::set('cache', $cache);
+    }
 }

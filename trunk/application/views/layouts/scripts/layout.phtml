@@ -25,10 +25,10 @@
 
         <div id="container">
             <div id="menu">
-            	<form action="<?php echo $this->simpleUrl('resultados', 'consultar') ?>" method="post">
+            	<form action="<?php echo $this->simpleUrl('buscar', 'consultar') ?>" method="post">
 	            	<p id="globalSearch">
-	            		<label for="search">Busca</label>
-	            		<input type="text" name="globalSearch" id="search"/>
+	            		<label for="search">Buscar Processo</label>
+	            		<input type="text" name="globalSearch" placeholder="número do processo" id="search"/>
 	            		<button type="submit" name="doGlobalSearch">Buscar</button>
 	            	</p>
             	</form>

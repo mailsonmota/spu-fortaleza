@@ -39,7 +39,7 @@
         <?php endif;?>
 
 		<dt>Corpo:</dt>
-        <dd style="float: left; width: 60%;"><?php echo nl2br($this->processo->corpo) ?></dd>
+        <dd style="float: left; width: 60%;"><?php echo stripslashes(stripslashes(nl2br(($this->processo->corpo)))) ?></dd>
 	</dl>
 </fieldset>
 

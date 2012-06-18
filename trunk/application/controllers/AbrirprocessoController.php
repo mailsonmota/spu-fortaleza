@@ -132,14 +132,11 @@ class AbrirprocessoController extends BaseController
             $formDadosGeraisProcesso = $session->formDadosGeraisProcesso;
             $postData = $this->getRequest()->getPost();
 
-//            if (!isset($postData['manifestanteSexo']))
-//                $postData['manifestanteSexo'] = "N";
-
             $dataMerged = array_merge($formDadosGeraisProcesso, $postData);
             $processoService = new Spu_Service_Processo($this->getTicket());
-
+            
             try {
-                $processo = $processoService->abrirProcesso($dataMerged);
+                $processo = $processoService->abrirProcesso($this->filterValuesArray($dataMerged));
             } catch (Exception $e) {
                 $this->setErrorMessage('Erro ao abrir o processo. Informação técnica: ' . $e->getMessage());
                 $this->_redirectFormularioEnvolvido();

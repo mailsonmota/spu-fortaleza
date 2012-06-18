@@ -208,5 +208,24 @@ abstract class BaseController extends BaseAuthenticatedController
         
         return in_array($groupSearch, $serv->getGropus());
     }
+    
+    public function filterValuesArray($dados)
+    {
+        $filterChain = new Zend_Filter();
+        $filterChain
+                ->addFilter(new Zend_Filter_StripTags())
+                ->addFilter(new Zend_Filter_StripNewlines())
+                ->addFilter(new Zend_Filter_StringTrim());
+        
+        foreach ($dados as $key => $value) {
+            if (is_array($value))
+                foreach ($value as $k => $v)
+                    $dados[$key][$k] = $v;
+            else
+                $dados[$key] = $filterChain->filter(addslashes($value));
+        }
+        
+        return $dados;
+    }
 
 }

@@ -34,10 +34,10 @@ class DespacharController extends BaseTramitacaoController
             	}
             } else {
                 try {
-                    $postData = $this->getRequest()->getPost();
+                    $postData = $this->filterValuesArray($this->getRequest()->getPost());
                     
                     $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
-                    $tramitacaoService->comentarVarios($this->getRequest()->getPost());
+                    $tramitacaoService->comentarVarios($postData);
                     
                     $arquivoService = new Spu_Service_Arquivo($this->getTicket());
 
