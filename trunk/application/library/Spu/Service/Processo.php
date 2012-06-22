@@ -146,14 +146,15 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/get/$nodeUuid";
         
-        $name = $this->getNameForMethod('getProcesso', $nodeUuid);
-        if (($result = $this->getCache()->load($name)) === false) {
-
-            $result = $this->_doAuthenticatedGetRequest($url);
-
-            $this->getCache()->save($result, $name);
-        }
+//        $name = $this->getNameForMethod('getProcesso', $nodeUuid);
+//        if (($result = $this->getCache()->load($name)) === false) {
+//
+//            $result = $this->_doAuthenticatedGetRequest($url);
+//
+//            $this->getCache()->save($result, $name);
+//        }
         
+        $result = $this->_doAuthenticatedGetRequest($url);
 
         $processoHash = array_pop(array_pop($result['Processo'][0]));
 
@@ -227,15 +228,9 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         
         $postData['offset'] = $offset;
         $postData['pageSize'] = $pageSize;
-        echo '<pre>';
-        var_dump($postData);
-        echo '</pre>';
-        die("---- DIE ----");
+        
         $result = $this->_doAuthenticatedPostRequest($url, $postData);
-        echo '<pre>';
-        var_dump($result);
-        echo '</pre>';
-        die("---- DIE ----");
+        
         return $this->_loadManyFromHash($result['Processos'][0]);
     }
 
