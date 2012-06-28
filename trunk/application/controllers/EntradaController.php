@@ -13,6 +13,13 @@ class EntradaController extends BaseTramitacaoController
         $this->view->tiposProcesso = $this->_getListaTiposProcesso();
 
         $service = new Spu_Service_Tramitacao($this->getTicket());
+        
+//        $service->getCaixaEntradaCmis(
+//            '52dbf370-5453-4fce-b752-fc756660a56a', 
+//            $this->_helper->paginatorCmis()->getOffSet(), 
+//            $this->_helper->paginatorCmis()->getMaxItems()
+//        );
+        
         $busca = $service->getCaixaEntrada(
             $this->_helper->paginator()->getOffset(), 
             $this->_helper->paginator()->getPageSize(), 

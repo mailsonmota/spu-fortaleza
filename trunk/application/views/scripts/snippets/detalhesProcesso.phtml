@@ -1,248 +1,252 @@
 <fieldset>
     <legend>Dados Gerais</legend>
-	<dl>
-		<dt>Número:</dt>
-		<dd><b><?php echo $this->processo->numero ?></b></dd>
+    <dl>
+        <dt>Número:</dt>
+        <dd><b><?php echo $this->processo->numero ?></b></dd>
 
-		<dt>Proprietário:</dt>
-		<dd><b><?php echo $this->processo->proprietario->path ?></b></dd>
+        <dt>Proprietário:</dt>
+        <dd><b><?php echo $this->processo->proprietario->path ?></b></dd>
 
-		<dt>Status:</dt>
-		<dd>
-		  <?php if (!$this->processo->status->nome): ?>
-		  <b>Abrindo</b>
-		  <?php else: ?>
-		  <b><?php echo $this->processo->status->nome ?></b>
-		  <?php endif; ?>
-		</dd>
+        <dt>Status:</dt>
+        <dd>
+            <?php if (!$this->processo->status->nome): ?>
+                <b>Abrindo</b>
+            <?php else: ?>
+                <b><?php echo $this->processo->status->nome ?></b>
+            <?php endif; ?>
+        </dd>
 
-		<dt>Abertura:</dt>
-		<dd><?php echo $this->processo->data ?></dd>
+        <dt>Abertura:</dt>
+        <dd><?php echo $this->processo->data ?></dd>
 
-		<dt>Tipo:</dt>
-		<dd><?php echo $this->processo->tipoProcesso->nome ?></dd>
+        <dt>Tipo:</dt>
+        <dd><?php echo $this->processo->tipoProcesso->nome ?></dd>
 
-		<dt>Assunto:</dt>
-		<dd><?php echo $this->processo->assunto->nome ?></dd>
-                
-                <?php $localAtual = $this->processo($this)->destino(true) ?>
-                <?php if ($localAtual) :?>
-		<dt>Local Atual:</dt>
-                <dd>
-                    <b><?php echo $localAtual ?></b>
-                </dd>
-                <?php endif;?>
+        <dt>Assunto:</dt>
+        <dd><?php echo $this->processo->assunto->nome ?></dd>
 
-        <?php if ($this->processo->numeroOrigem) :?>
-		<dt>Nº Origem:</dt>
-        <dd><?php echo $this->processo->numeroOrigem; ?></dd>
-        <?php endif;?>
+        <?php $localAtual = $this->processo($this)->destino(true) ?>
+        <?php if ($localAtual) : ?>
+            <dt>Local Atual:</dt>
+            <dd>
+                <b><?php echo $localAtual ?></b>
+            </dd>
+        <?php endif; ?>
 
-		<dt>Corpo:</dt>
+        <?php if ($this->processo->numeroOrigem) : ?>
+            <dt>Nº Origem:</dt>
+            <dd><?php echo $this->processo->numeroOrigem; ?></dd>
+        <?php endif; ?>
+
+        <dt>Corpo:</dt>
         <dd style="float: left; width: 60%;"><?php echo stripslashes(stripslashes(nl2br(($this->processo->corpo)))) ?></dd>
-	</dl>
+    </dl>
 </fieldset>
 
 <?php if ($this->processo->isArquivado() AND $this->processo->arquivamento): ?>
-<fieldset>
-	<legend>Arquivamento</legend>
-	<dl>
-		<?php if ($this->processo->arquivamento->status): ?>
-		<dt>Status:</dt>
-		<dd><?php echo $this->processo->arquivamento->status->nome ?></dd>
-		<?php endif ?>
+    <fieldset>
+        <legend>Arquivamento</legend>
+        <dl>
+            <?php if ($this->processo->arquivamento->status): ?>
+                <dt>Status:</dt>
+                <dd><?php echo $this->processo->arquivamento->status->nome ?></dd>
+            <?php endif ?>
 
-		<?php if ($this->processo->arquivamento->motivo): ?>
-		<dt>Motivo:</dt>
-		<dd><?php echo $this->processo->arquivamento->motivo ?></dd>
-		<?php endif ?>
+            <?php if ($this->processo->arquivamento->motivo): ?>
+                <dt>Motivo:</dt>
+                <dd><?php echo $this->processo->arquivamento->motivo ?></dd>
+            <?php endif ?>
 
-		<?php if ($this->processo->arquivamento->local): ?>
-		<dt>Local:</dt>
-		<dd><?php echo $this->processo->arquivamento->local ?></dd>
-		<?php endif ?>
+            <?php if ($this->processo->arquivamento->local): ?>
+                <dt>Local:</dt>
+                <dd><?php echo $this->processo->arquivamento->local ?></dd>
+            <?php endif ?>
 
-		<?php if ($this->processo->arquivamento->pasta): ?>
-		<dt>Pasta:</dt>
-		<dd><?php echo $this->processo->arquivamento->pasta ?></dd>
-		<?php endif ?>
-        
-		<?php if ($this->processo->arquivamento->arquivo): ?>
-		<dt>Arquivo:</dt>
-		<dd><?php echo $this->processo->arquivamento->arquivo ?></dd>
-		<?php endif ?>
-        
-		<?php if ($this->processo->arquivamento->estante): ?>
-		<dt>Estante:</dt>
-		<dd><?php echo $this->processo->arquivamento->estante ?></dd>
-		<?php endif ?>
-        
-		<?php if ($this->processo->arquivamento->prateleira): ?>
-		<dt>Prateleira:</dt>
-		<dd><?php echo $this->processo->arquivamento->prateleira ?></dd>
-		<?php endif ?>
-        
-		<?php if ($this->processo->arquivamento->caixa): ?>
-		<dt>Caixa:</dt>
-		<dd><?php echo $this->processo->arquivamento->caixa ?></dd>
-		<?php endif ?>
-	</dl>
-</fieldset>
+            <?php if ($this->processo->arquivamento->pasta): ?>
+                <dt>Pasta:</dt>
+                <dd><?php echo $this->processo->arquivamento->pasta ?></dd>
+            <?php endif ?>
+
+            <?php if ($this->processo->arquivamento->arquivo): ?>
+                <dt>Arquivo:</dt>
+                <dd><?php echo $this->processo->arquivamento->arquivo ?></dd>
+            <?php endif ?>
+
+            <?php if ($this->processo->arquivamento->estante): ?>
+                <dt>Estante:</dt>
+                <dd><?php echo $this->processo->arquivamento->estante ?></dd>
+            <?php endif ?>
+
+            <?php if ($this->processo->arquivamento->prateleira): ?>
+                <dt>Prateleira:</dt>
+                <dd><?php echo $this->processo->arquivamento->prateleira ?></dd>
+            <?php endif ?>
+
+            <?php if ($this->processo->arquivamento->caixa): ?>
+                <dt>Caixa:</dt>
+                <dd><?php echo $this->processo->arquivamento->caixa ?></dd>
+            <?php endif ?>
+        </dl>
+    </fieldset>
 <?php endif ?>
 
 <fieldset>
     <legend>Manifestante</legend>
     <dl>
-    	<dt>Tipo:</dt>
-		<dd><?php echo $this->processo->tipoManifestante->descricao ?></dd>
+        <dt>Tipo:</dt>
+        <dd><?php echo $this->processo->tipoManifestante->descricao ?></dd>
 
-        <?php if ($this->processo->manifestante->cpf) :?>
-    	<dt>CPF/CNPJ:</dt>
-		<dd><?php echo $this->processo->manifestante->cpf ?></dd>
-        <?php endif;?>
+        <?php if ($this->processo->manifestante->cpf) : ?>
+            <dt>CPF/CNPJ:</dt>
+            <?php $cnpj = (strlen($this->processo->manifestante->cpf) == 18 ? true : false); ?>
+            
+            <dd><?php echo $this->processo->manifestante->cpf ?></dd>
+        <?php endif; ?>
 
-		<dt>Nome:</dt>
-		<dd><?php echo $this->processo->manifestante->nome ?></dd>
+        <dt>Nome:</dt>
+        <dd><?php echo $this->processo->manifestante->nome ?></dd>
 
-		<?php if ($this->processo->manifestante->sexo): ?>
-		<dt>Sexo:</dt>
-		<dd><?php echo ($this->processo->manifestante->sexo == 'M') ? 'Masculino' : 'Feminino' ?></dd>
-		<?php endif ?>
+        <?php if ($this->processo->manifestante->sexo && !$cnpj): ?>
+            <dt>Sexo:</dt>
+            
+            <dd><?php echo ($this->processo->manifestante->sexo == 'M') ? 'Masculino' : 'Feminino' ?></dd>
+        <?php endif ?>
 
-		<?php if ($this->processo->manifestante->endereco): ?>
-		<dt>Endereço:</dt>
-		<dd><?php echo $this->processo->manifestante->endereco ?></dd>
-		<?php endif ?>
+        <?php if ($this->processo->manifestante->endereco): ?>
+            <dt>Endereço:</dt>
+            <dd><?php echo $this->processo->manifestante->endereco ?></dd>
+        <?php endif ?>
 
-		<dt>Bairro:</dt>
-		<dd><?php echo $this->processo->manifestante->nomeBairro ?></dd>
+        <dt>Bairro:</dt>
+        <dd><?php echo $this->processo->manifestante->nomeBairro ?></dd>
 
-		<?php if ($this->processo->manifestante->contato): ?>
-		<dt>Contato:</dt>
-		<dd><?php echo $this->processo->manifestante->contato ?></dd>
-		<?php endif ?>
+        <?php if ($this->processo->manifestante->contato): ?>
+            <dt>Contato:</dt>
+            <dd><?php echo $this->processo->manifestante->contato ?></dd>
+        <?php endif ?>
 
-		<?php if ($this->processo->manifestante->observacao): ?>
-		<dt>Obs:</dt>
-		<dd><?php echo $this->processo->manifestante->observacao ?></dd>
-		<?php endif ?>
+        <?php if ($this->processo->manifestante->observacao): ?>
+            <dt>Obs:</dt>
+            <dd><?php echo $this->processo->manifestante->observacao ?></dd>
+        <?php endif ?>
     </dl>
 </fieldset>
 
 <?php if ($this->processo->folhas): ?>
-<fieldset>
-    <legend>Folhas e Volumes</legend>
-    <dl>
-        <dt>Quantidade de Folhas:</dt>
-        <dd><?php echo $this->processo->folhas->quantidade ? $this->processo->folhas->quantidade : 'sem' ?></dd>
-        <?php if ($this->processo->folhas->volumes): ?>
-        <?php foreach ($this->processo->folhas->volumes as $volume): ?>
-        <dt>Volume:</dt>
-        <dd>
-            <dl>
-                <dt>Nome:</dt>
-                <dd><?php echo $volume->nome ?></dd>
-                <dt>Início:</dt>
-                <dd><?php echo $volume->inicio ?></dd>
-                <dt>Fim:</dt>
-                <dd><?php echo $volume->fim ?></dd>
-                <dt>Observação:</dt>
-                <dd><?php echo $volume->observacao ?></dd>
-            </dl>
-        </dd>
-        <?php endforeach ?>
-        <?php endif ?>
-    </dl>
-</fieldset>
+    <fieldset>
+        <legend>Folhas e Volumes</legend>
+        <dl>
+            <dt>Quantidade de Folhas:</dt>
+            <dd><?php echo $this->processo->folhas->quantidade ? $this->processo->folhas->quantidade : 'sem' ?></dd>
+            <?php if ($this->processo->folhas->volumes): ?>
+                <?php foreach ($this->processo->folhas->volumes as $volume): ?>
+                    <dt>Volume:</dt>
+                    <dd>
+                        <dl>
+                            <dt>Nome:</dt>
+                            <dd><?php echo $volume->nome ?></dd>
+                            <dt>Início:</dt>
+                            <dd><?php echo $volume->inicio ?></dd>
+                            <dt>Fim:</dt>
+                            <dd><?php echo $volume->fim ?></dd>
+                            <dt>Observação:</dt>
+                            <dd><?php echo $volume->observacao ?></dd>
+                        </dl>
+                    </dd>
+                <?php endforeach ?>
+            <?php endif ?>
+        </dl>
+    </fieldset>
 <?php endif ?>
 
 <?php if ($this->processo->hasRespostasFormulario()): ?>
-<fieldset>
-    <legend>Formulário do Assunto</legend>
-    <dl>
-    <?php foreach ($this->processo->respostasFormulario->getData() as $campo => $valor): ?>
-        <dt><?php echo $this->processo->respostasFormulario->getAdjustedKeyName($campo) ?>:</dt>
-        <dd><?php echo $valor ?></dd>
-    <?php endforeach ?>
-    </dl>
-</fieldset>
+    <fieldset>
+        <legend>Formulário do Assunto</legend>
+        <dl>
+            <?php foreach ($this->processo->respostasFormulario->getData() as $campo => $valor): ?>
+                <dt><?php echo $this->processo->respostasFormulario->getAdjustedKeyName($campo) ?>:</dt>
+                <dd><?php echo $valor ?></dd>
+            <?php endforeach ?>
+        </dl>
+    </fieldset>
 <?php endif ?>
 
 <?php if ($this->processo->hasArquivos()): ?>
-<fieldset>
-    <legend>Arquivos Anexados</legend>
-    <?php foreach ($this->processo->arquivos as $arquivo): ?>
-    <dl>
-        <?php if ($arquivo->nome): ?>
-        <dt>Nome:</dt>
-        <dd><?php echo $arquivo->nome; ?></dd>
-        <?php endif ?>
+    <fieldset>
+        <legend>Arquivos Anexados</legend>
+        <?php foreach ($this->processo->arquivos as $arquivo): ?>
+            <dl>
+                <?php if ($arquivo->nome): ?>
+                    <dt>Nome:</dt>
+                    <dd><?php echo $arquivo->nome; ?></dd>
+                <?php endif ?>
 
-        <?php if ($arquivo->id): ?>
-        <dt>Download:</dt>
-        <dd>
-        	<a href="<?php echo $this->simpleUrl('arquivo',
-                                                 'processo',
-                                                 array('id' => $arquivo->id, 'nome' => $arquivo->nome)) ?>">
-				Baixar o arquivo
-			</a>
-		</dd>
-        <?php endif ?>
-    </dl>
-    <?php endforeach; ?>
-</fieldset>
+                <?php if ($arquivo->id): ?>
+                    <dt>Download:</dt>
+                    <dd>
+                        <a href="<?php
+            echo $this->simpleUrl('arquivo', 'processo', array('id' => $arquivo->id, 'nome' => $arquivo->nome))
+                    ?>">
+                            Baixar o arquivo
+                        </a>
+                    </dd>
+                <?php endif ?>
+            </dl>
+        <?php endforeach; ?>
+    </fieldset>
 <?php endif ?>
 
 <?php if ($this->processosIncorporados): ?>
-<fieldset>
-    <legend>Processos Incorporados</legend>
-    <table summary="Processos Paralelos">
-        <thead>
-            <tr>
-                <th>Número</th>
-                <th>Abertura</th>
-                <th>Detalhes</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($this->processosIncorporados as $processoIncorporado): ?>
-            <tr>
-                <td><?php echo str_replace('_', '/', $processoIncorporado->nome) ?></td>
-                <td><?php echo $processoIncorporado->data ?></td>
-                <td>
-                    <a href="<?php echo $this->url(array('action' => 'detalhes', 'controller' => 'processo', 'id' => $processoIncorporado->id)) ?>">
-		        Detalhes
-		    </a>
-                </td>
-            </tr>
-        <?php endforeach ?>
-        </tbody>
-    </table>
-</fieldset>
+    <fieldset>
+        <legend>Processos Incorporados</legend>
+        <table summary="Processos Paralelos">
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>Abertura</th>
+                    <th>Detalhes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->processosIncorporados as $processoIncorporado): ?>
+                    <tr>
+                        <td><?php echo str_replace('_', '/', $processoIncorporado->nome) ?></td>
+                        <td><?php echo $processoIncorporado->data ?></td>
+                        <td>
+                            <a href="<?php echo $this->url(array('action' => 'detalhes', 'controller' => 'processo', 'id' => $processoIncorporado->id)) ?>">
+                                Detalhes
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+    </fieldset>
 <?php endif ?>
 
 <?php if ($this->processo->tipoProcesso->tramitacao->isParalela() AND $this->processosParalelos): ?>
-<fieldset>
-    <legend>Processos Paralelos</legend>
-    <table summary="Processos Paralelos">
-        <thead>
-            <tr>
-                <th>Local</th>
-                <th>Data</th>
-                <th>Status</th>
-                <th>Despacho</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($this->processosParalelos as $processoParalelo): ?>
-            <tr>
-                <td><?php echo $processoParalelo->protocolo->path ?></td>
-                <td><?php echo $processoParalelo->movimentacoes[0]->data ?></td>
-                <td><?php echo $processoParalelo->status->nome ?></td>
-                <td><?php echo $processoParalelo->movimentacoes[0]->despacho ?></td>
-            </tr>
-        <?php endforeach ?>
-        </tbody>
-    </table>
-</fieldset>
-<?php endif ?>
+    <fieldset>
+        <legend>Processos Paralelos</legend>
+        <table summary="Processos Paralelos">
+            <thead>
+                <tr>
+                    <th>Local</th>
+                    <th>Data</th>
+                    <th>Status</th>
+                    <th>Despacho</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->processosParalelos as $processoParalelo): ?>
+                    <tr>
+                        <td><?php echo $processoParalelo->protocolo->path ?></td>
+                        <td><?php echo $processoParalelo->movimentacoes[0]->data ?></td>
+                        <td><?php echo $processoParalelo->status->nome ?></td>
+                        <td><?php echo $processoParalelo->movimentacoes[0]->despacho ?></td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+    </fieldset>
+    <?php
+ endif ?>

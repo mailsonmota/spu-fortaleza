@@ -22,7 +22,14 @@ class Spu_Service_Status extends Spu_Service_Abstract
     public function listar()
     {
         $url = $this->getBaseUrl() . "/" . $this->_baseUrl . "/status/listar";
-        $result = $this->_doAuthenticatedGetRequest($url);
+        
+        $name = $this->getNameForMethod('listar');
+        if (($result = $this->getCache()->load($name)) === false) {
+
+            $result = $this->_doAuthenticatedGetRequest($url);
+
+            $this->getCache()->save($result, $name);
+        }
         
         return $this->_loadManyFromHash($result['Status'][0]);
     }

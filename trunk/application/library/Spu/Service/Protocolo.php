@@ -159,8 +159,14 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
         $url = "{$this->getBaseUrl()}/{$this->_protocoloBaseUrl}/listar-raizes";
         $url .= $this->_getParametrosAdicionarListagemProtocolos($protocoloOrigemId, $tipoProcessoId);
 
-        $result = $this->_doAuthenticatedGetRequest($url);
+        $name = $this->getNameForMethod('getProtocolosRaiz', $protocoloOrigemId . $tipoProcessoId);
+        if (($result = $this->getCache()->load($name)) === false) {
 
+            $result = $this->_doAuthenticatedGetRequest($url);
+
+            $this->getCache()->save($result, $name);
+        }
+        
         return $this->_loadManyFromHash($result['Protocolos']);
     }
 
