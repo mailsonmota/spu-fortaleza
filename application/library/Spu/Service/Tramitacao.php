@@ -27,8 +27,24 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
             $url .= "?assunto-id=$assuntoId";
         }
 
-
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
+    }
+    
+    public function getCaixaEntradaCmis($idCaidxaEntrada, $skipCount, $maxItems)
+    {
+        $url = $this->getBaseUrl() . "/cmis/query?q=";
+        $query = "SELECT F.cmis:name FROM cmis:folder F WHERE IN_FOLDER ('workspace://SpacesStore/$idCaidxaEntrada') ORDER BY F.cmis:creationDate DESC";
+        $url .= urlencode($query);
+        $url .= "&skipCount=$skipCount&maxItems=$maxItems";
+        
+        $result = $this->_doAuthenticatedGetAtomRequest($url);
+        
+        $total = $result->getElementsByTagName("numItems")->item(0)->nodeValue;
+        
+        echo '<pre>';
+        var_dump(array("itens" => $this->_getEntryCmisXml($result),"totalItens" => $total));
+        echo '</pre>';
+        die("---- DIE ----");
     }
 
     /**
