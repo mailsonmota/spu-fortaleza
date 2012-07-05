@@ -1,6 +1,6 @@
-<?php 
+<?php
 $this->breadcrumbs()->addPage('Tramitação', 'processos');
-echo $this->breadcrumbs()->render(); 
+echo $this->breadcrumbs()->render();
 
 echo $this->render('snippets/abasTramitacao.phtml');
 
@@ -13,16 +13,33 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-	<?php echo $this->render('snippets/formularioPesquisaRapidaProcesso.phtml') ?>
+    <?php echo $this->render('snippets/formularioPesquisaRapidaProcesso.phtml') ?>
 
-	<form action="<?php echo $this->simpleUrl('receber') ?>" method="post">
-		<?php
-		echo $this->buttonlist()->open();
-		echo $this->buttonlist()->defaultBlockActionsDescription();
+    <form action="<?php echo $this->simpleUrl('receber') ?>" method="post">
+        <?php
+        echo $this->buttonlist()->open();
+        echo $this->buttonlist()->defaultBlockActionsDescription();
         echo $this->buttonlist()->button('Receber');
         echo $this->buttonlist()->close(true);
         ?>
-        
-        <?php echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator, 'exibirCheckbox' => true, 'indicarPrioritarios' => true)) ?>
-	</form>
+        <div id="grid"></div>
+        <?php
+        if ($this->paginator) :
+            echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator, 'exibirCheckbox' => true, 'indicarPrioritarios' => true));
+        else :
+            $js = '
+                $(function(){
+                    $.ajax({
+                        type: "post",
+                        url: "' . $this->simpleUrl('caixa-entrada', 'processos-ajax') . '",
+                        success: function(retorno){
+                            $("#grid").html(retorno);
+                        }
+                    });
+                });
+                ';
+            $this->headScript()->appendScript($js);
+        endif;
+        ?>
+    </form>
 </div>

@@ -11,24 +11,18 @@ class EntradaController extends BaseTramitacaoController
         $this->view->tipoProcessoId = urldecode($this->_getParam('tipo-processo'));
         $this->view->assuntoId = urldecode($this->_getParam('assunto'));
         $this->view->tiposProcesso = $this->_getListaTiposProcesso();
-
-        $service = new Spu_Service_Tramitacao($this->getTicket());
         
-//        $service->getCaixaEntradaCmis(
-//            '52dbf370-5453-4fce-b752-fc756660a56a', 
-//            $this->_helper->paginatorCmis()->getOffSet(), 
-//            $this->_helper->paginatorCmis()->getMaxItems()
-//        );
-        
-        $busca = $service->getCaixaEntrada(
-            $this->_helper->paginator()->getOffset(), 
-            $this->_helper->paginator()->getPageSize(), 
-            $this->view->q, 
-            $this->view->assuntoId
-        );
-        
-        $this->view->totalDocumentos = count($busca);
-        $this->view->paginator = $this->_helper->paginator()->paginate($busca);
+        if ($this->view->q) {
+            $service = new Spu_Service_Tramitacao($this->getTicket());
+            $busca = $service->getCaixaEntrada(
+                $this->_helper->paginator()->getOffset(), 
+                $this->_helper->paginator()->getPageSize(), 
+                $this->view->q, 
+                $this->view->assuntoId
+            );
+            $this->view->totalDocumentos = count($busca);
+            $this->view->paginator = $this->_helper->paginator()->paginate($busca);
+        }
     }
 
     public function receberAction()

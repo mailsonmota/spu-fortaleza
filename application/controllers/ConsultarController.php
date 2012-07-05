@@ -100,7 +100,7 @@ class ConsultarController extends BaseController
             $this->setErrorMessage('Busca Inválida.');
             $this->_redirectToConsulta();
         }
-        $processo = $this->getRequest()->getPost('globalSearch');
+        $processo = trim($this->getRequest()->getPost('globalSearch'));
         if (!preg_match('/^(\d{0}|[A-Z]{2})(\d{13})(\/\d{4})$/', $processo)) {
             $mensagem = 'Atenção, a busca pelo processo de número "' .$processo. '" não foi correta! Tente novamente em um dos campos abaixo.';
             $this->setErrorMessage($mensagem);

@@ -29,22 +29,62 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
 
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
-    
-    public function getCaixaEntradaCmis($idCaidxaEntrada, $skipCount, $maxItems)
+
+    public function getIdFolderCmis($idParent, $tramitacaoTipo)
     {
         $url = $this->getBaseUrl() . "/cmis/query?q=";
-        $query = "SELECT F.cmis:name FROM cmis:folder F WHERE IN_FOLDER ('workspace://SpacesStore/$idCaidxaEntrada') ORDER BY F.cmis:creationDate DESC";
+        $query = "SELECT F.cmis:objectId FROM cmis:folder F WHERE (IN_FOLDER ('$idParent')) AND F.cmis:objectTypeId = 'F:spu:$tramitacaoTipo'";
+        $url .= urlencode($query);
+
+        $result = $this->_doAuthenticatedGetAtomRequest($url);
+        $result = $this->_getEntryCmisXml($result);
+
+        return $result[0]["cmis:objectId"];
+    }
+
+    public function getProcessosFolderCmis($skipCount, $maxItems, $tramitacaoTipo)
+    {
+        $service = new Spu_Service_Tramitacao($this->getTicket());
+        $protocoloService = new Spu_Service_Protocolo($this->getTicket());
+        $protocolos = $protocoloService->getProtocolos();
+        $folderId = $service->getIdFolderCmis($protocolos[0]->getNodeRef(), $tramitacaoTipo);
+
+        $url = $this->getBaseUrl() . "/cmis/query?q=";
+        $query = "SELECT F.cmis:objectId FROM cmis:folder F WHERE IN_FOLDER ('$folderId') ORDER BY F.cmis:creationDate DESC";
         $url .= urlencode($query);
         $url .= "&skipCount=$skipCount&maxItems=$maxItems";
-        
+
         $result = $this->_doAuthenticatedGetAtomRequest($url);
-        
+
         $total = $result->getElementsByTagName("numItems")->item(0)->nodeValue;
-        
-        echo '<pre>';
-        var_dump(array("itens" => $this->_getEntryCmisXml($result),"totalItens" => $total));
-        echo '</pre>';
-        die("---- DIE ----");
+
+        $processos = array();
+
+        foreach ($this->_getEntryCmisXml($result) as $value) {
+            $processos[] = substr($value["cmis:objectId"], strlen("workspace://SpacesStore/"));
+        }
+
+        return array("processosId" => implode(",", $processos), "totalItens" => $total);
+    }
+
+    public function getLoadProcessosPaginatorCmis($skipCount, $maxItems, $tramitacaoTipo)
+    {
+        $postData = $this->getProcessosFolderCmis($skipCount, $maxItems, $tramitacaoTipo);
+        $processos = array();
+        if ($postData["processosId"]) {
+            $url = $this->getBaseUrl() . "/spu/processo/listagem";
+            $result = $this->_doAuthenticatedPostRequest($url, $postData);
+            $processos = $this->_loadManyFromHash($result['Processos'][0]);
+        }
+
+        $dados = array("processos" => $processos, "totalItens" => $postData["totalItens"]);
+
+        return $dados;
+    }
+
+    public function getProcessosPaginatorCmis($skipCount, $maxItems, $tramitacaoTipo = null)
+    {
+        return $this->getLoadProcessosPaginatorCmis($skipCount, $maxItems, $tramitacaoTipo);
     }
 
     /**
@@ -238,7 +278,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     private function _cancelarRespostasFormularioAtualizados($dataIdFolders)
     {
         $dataIdDocument = $this->_getIdsRespostasFormulario($dataIdFolders);
-        
+
         if ($dataIdDocument)
             $this->_reverterVersaoRespostasFormularioAtualizados($dataIdDocument);
 
@@ -251,22 +291,22 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
 
         foreach ($dataIdDocument as $idDocument) {
             $versions = $arquivoService->getVersions($idDocument);
-            
+
             $quantidadeVersoes = count($versions);
-            
+
             if ($quantidadeVersoes == 0)
                 continue;
-            
+
             $numeroVersao = $quantidadeVersoes == 1 ? 0 : 1;
-            
+
             if ($versions[$numeroVersao]["cmis:isImmutable"] == "false")
                 continue;
-            
+
             $dados["nodeRef"] = $versions[$numeroVersao]["cmis:versionSeriesId"];
             $dados["version"] = $versions[$numeroVersao]["cmis:versionLabel"];
             $dados["majorVersion"] = "";
             $dados["description"] = "";
-            
+
             $arquivoService->revertVersion($dados);
         }
     }

@@ -40,7 +40,11 @@ class Zend_View_Helper_Processo extends Zend_View_Helper_Abstract
 
     public function destino($real = false)
     {
-        $destino = $this->getProcesso()->movimentacoes[0]->para->path;
+        if (count($this->getProcesso()->movimentacoes) == 1)
+            $destino = $this->getProcesso()->movimentacoes[0]->de->path;
+        else
+            $destino = $this->getProcesso()->movimentacoes[0]->para->path;
+        
         if ($real)
             return $destino;
         

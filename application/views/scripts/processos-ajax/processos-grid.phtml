@@ -1,0 +1,27 @@
+<?php $i = 0 ?>
+<?php if (count($this->paginatorCmis) > 0): ?>
+    <?php if ($this->totalDocumentos) : ?><tr style="display: none"id="totalDocumentos"><input type="hidden" value="<?php echo $this->totalDocumentos ?>"></tr><?php endif; ?>
+    
+    <?php foreach ($this->paginatorCmis as $p): ?>
+        <tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?> <?php echo $this->classePrioridade($p); ?>">
+            <td><input type="checkbox" name="processos[]" value="<?php echo $p->id ?>" /></td>
+            <td><?php if ($p->folhas) : ?><div id="virtual-no">&nbsp;</div><?php else : ?><div id="virtual-ok">&nbsp;</div><?php endif; ?></td>
+            <td><?php echo $p->numero ?></td>
+            <td><?php echo $p->data ?></td>
+            <td><?php echo $p->nomeManifestante ?></td>
+            <td><?php echo $p->nomeTipoProcesso ?></td>
+            <td><?php echo $p->nomeAssunto ?></td>
+            <?php if (isset($this->exibirDestino) && $this->exibirDestino == true): ?>
+                <td><?php echo $p->nomeProtocolo ?></td>
+            <?php endif ?>
+            <td><?php echo $p->observacao ? $p->observacao : ' - ' ?></td>
+            <td>
+                <a href="<?php echo $this->url(array('action' => 'detalhes', 'controller' => 'processo', 'id' => $p->id)) ?>">
+                    Detalhes
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+<?php else: ?>
+    <tr style="display: none"id="totalDocumentos"><input type="hidden" value="<?php echo $this->totalDocumentos ?>"></tr>
+<?php endif; ?>

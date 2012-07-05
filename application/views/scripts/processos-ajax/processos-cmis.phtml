@@ -1,0 +1,81 @@
+<table class="grid">
+    <thead>
+        <tr>
+            <th><input type="checkbox" id="checkbox_checkAll" /></th>
+            <th>Virtual</th>
+            <th>Número</th>
+            <th>Data</th>
+            <th>Envolvido</th>
+            <th>Tipo</th>
+            <th>Assunto</th>
+            <?php if (isset($this->exibirDestino) && $this->exibirDestino == true): ?>
+                <th>Destino</th>
+            <?php endif ?>
+            <th>Observação</th>
+            <th>Detalhes</th>
+        </tr>
+    </thead>
+    <tbody id="grid-cmis"></tbody>
+    <tfoot>
+        <tr>
+            <td colspan="8">
+                <ul class="buttons">
+                    <li class="description">
+                        <div id="quantidade-grid"></div>
+                    </li>
+                    <li>
+                        <button id="mais-grid">Mais Processos</button>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+<script type="text/javascript">
+    $(function(){
+        proximaPagina = 0;
+        function paginarCmis() {
+            $.ajax({
+                type: "post",
+                data: {pagina: proximaPagina, tramitacaoTipo: "<?php echo $this->tramitacaoTipo; ?>"},
+                url: "<?php echo $this->simpleUrl('processos-grid', 'processos-ajax') ?>",
+                beforeSend: function(){
+                    $("tfoot").hide();
+                    $("#grid").append("<img id='lendodados' src='<?php echo $this->baseUrl() ?>/img/lendodados.gif'>");
+                },
+                success: function(retorno){
+                    $("#lendodados").remove();
+                    $("#grid-cmis").append(retorno);
+                },
+                complete: function() {
+                    proximaPagina += 1
+                    var quantidadeAtual = $("tbody#grid-cmis tr").length-1;
+                    var total = $("tr#totalDocumentos input").val();
+                    $(".total_documents strong").html(total)
+                    $("#quantidade-grid").html(quantidadeAtual + " de " + total);
+                    $("tfoot").show();
+                    if (quantidadeAtual == total) 
+                        $("#mais-grid").html("fim").attr("disabled","disabled")
+                    if (proximaPagina != 2) {
+                        $('html, body').animate({
+                            scrollTop: $("#mais-grid").offset().top
+                        }, 2000);
+                    }
+                    if(total == 0)
+                        $("tbody#grid-cmis").html('<tr><td colspan="10">Nenhum processo encontrado.</td></tr>')
+                }
+            });
+        }
+        
+        if (proximaPagina == 0) {
+            proximaPagina += 1;
+            paginarCmis();
+        }
+        
+        $("#mais-grid").click(function(e){
+            e.preventDefault();
+            paginarCmis();
+        });
+    });
+</script>
