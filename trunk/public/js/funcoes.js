@@ -138,7 +138,7 @@ function removeListAndSelectItem(listItem, selectId, itemValue) {
 }
 
 function enableTableCheckAll() {
-    $("#checkbox_checkAll").click(function() {
+    $("#checkbox_checkAll").live("click",function() {
         checked = $(this).attr("checked");
         $(this).parent().parent().parent().parent().find('tbody tr td input').each(function() {
             $(this).attr("checked", checked)

@@ -69,12 +69,17 @@ class AnaliseController extends BaseTramitacaoController
         $this->view->assuntoId = urldecode($this->_getParam('assunto'));
         $this->view->tiposProcesso = $this->_getListaTiposProcesso();
 
-        $service = new Spu_Service_Tramitacao($this->getTicket());
-        $busca = $service->getCaixaAnalise(
-                $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize(), $this->view->q, $this->view->assuntoId
-        );
-        $this->view->totalDocumentos = count($busca);
-        $this->view->paginator = $this->_helper->paginator()->paginate($busca);
+        if ($this->view->q) {
+            $service = new Spu_Service_Tramitacao($this->getTicket());
+            $busca = $service->getCaixaAnalise(
+                $this->_helper->paginator()->getOffset(), 
+                $this->_helper->paginator()->getPageSize(),
+                $this->view->q, 
+                $this->view->assuntoId
+            );
+            $this->view->totalDocumentos = count($busca);
+            $this->view->paginator = $this->_helper->paginator()->paginate($busca);
+        }
 
         $session = new Zend_Session_Namespace('ap');
         if ($session->updateaposentadoria) {
