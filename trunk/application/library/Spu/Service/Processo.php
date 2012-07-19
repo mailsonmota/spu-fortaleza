@@ -94,6 +94,15 @@ class Spu_Service_Processo extends Spu_Service_Abstract
         return $this->_doAuthenticatedGetRequest($url);
     }
 
+    public function hasFormulario($assuntoId)
+    {
+        $assuntoService = new Spu_Service_Assunto($this->getTicket());
+        
+        return $assuntoService->getAssunto($assuntoId)->formulario->data != null;
+    }
+
+
+    
     /**
      * Abre um processo no SPU
      * 
@@ -104,7 +113,6 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/abrir";
         $result = $this->_doAuthenticatedPostRequest($url, $postData);
-
         $processo = $this->loadFromHash(array_pop(array_pop($result['Processo'][0])));
 
         return $this->_getProcessoDetalhado($processo);
@@ -443,7 +451,7 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     {
         $assuntoService = new Spu_Service_Assunto($this->getTicket());
         $assunto = $assuntoService->loadFromHash($hash);
-
+        
         return $assunto;
     }
 

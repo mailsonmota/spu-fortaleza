@@ -31,6 +31,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $registry->set("baseUrlAlfresco", $init->alfresco->url);
         $registry->set("groupSearch", $init->alfresco->group->search);
         $registry->set("totem", $init->totem);
+        $registry->set("coordinator", $init->coordinator);
     }
 
     protected function _initControllers(array $options = array())
