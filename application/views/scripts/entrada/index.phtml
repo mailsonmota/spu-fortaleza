@@ -19,7 +19,7 @@ echo $this->pagenav()->closeList();
         <?php
         echo $this->buttonlist()->open();
         echo $this->buttonlist()->defaultBlockActionsDescription();
-        echo $this->buttonlist()->button('Receber');
+        echo $this->buttonlist()->button('Receber', null, array(), array("action" => $this->simpleUrl('receber-entrada', 'processos-ajax')));
         echo $this->buttonlist()->close(true);
         ?>
         <div id="grid"></div>
@@ -43,3 +43,39 @@ echo $this->pagenav()->closeList();
         ?>
     </form>
 </div>
+
+<?php
+$js = '
+    $(function(){
+        $("button").live("click", function(){
+            var action = $(this).attr("action")
+            if (action != undefined) {
+                var selecionados = $("tr.marked")
+                if (selecionados.length > 0 && selecionados.length < 11) {
+                    selecionados.each(function(index){
+                        var linha = $(this)
+                        $.ajax({
+                            type: "post",
+                            data: {"processoId" : linha.find("td:first input").val()},
+                            url: action,
+                            async: false,
+                            beforeSend: function(){
+                                linha.find("td:first input").hide()
+                                linha.find("td:first").append("<img id=\"indicator\" src=\"' . $this->baseUrl() . '/img/indicator.gif\">");
+                                linha.attr("style", "opacity:0.4;")
+                            },
+                            success: function(retorno){
+                                linha.hide();
+                            }
+                        });
+                    });0
+                    
+                    window.location = "' . $this->baseUrl() . '/entrada/receber-ok"
+                    return false;
+                }
+            }
+        });
+    });
+    ';
+$this->headScript()->appendScript($js);
+?>

@@ -33,6 +33,15 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     public function getIdFolderCmis($idParent, $tramitacaoTipo)
     {
         $url = $this->getBaseUrl() . "/cmis/query?q=";
+
+        switch ($tramitacaoTipo) {
+            case 'caixaexterno':
+            case 'caixasaida':
+            case 'caixaenviado':
+                $tramitacaoTipo = 'caixaanalise';
+                break;
+        }
+
         $query = "SELECT F.cmis:objectId FROM cmis:folder F WHERE (IN_FOLDER ('$idParent')) AND F.cmis:objectTypeId = 'F:spu:$tramitacaoTipo'";
         $url .= urlencode($query);
 
@@ -40,6 +49,25 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
         $result = $this->_getEntryCmisXml($result);
 
         return $result[0]["cmis:objectId"];
+    }
+
+    public function getQueryCmis($folderId, $tramitacaoTipo)
+    {
+        $query = "";
+
+        switch ($tramitacaoTipo) {
+            case 'caixaentrada':
+                $query = "SELECT F.cmis:objectId FROM cmis:folder AS F WHERE IN_FOLDER ('$folderId')  ORDER BY F.cmis:creationDate DESC";
+                break;
+            case 'caixaanalise':
+                $query = "SELECT F.cmis:objectId FROM cmis:folder AS F JOIN spu:processo AS P ON F.cmis:objectId = P.cmis:objectId WHERE IN_TREE (F,'$folderId') and CONTAINS(P, 'spu:processo.Externo: \'false\'') ORDER BY F.cmis:creationDate DESC";
+                break;
+            case 'caixaexterno':
+                $query = "SELECT F.cmis:objectId FROM cmis:folder AS F JOIN spu:processo AS P ON F.cmis:objectId = P.cmis:objectId WHERE IN_TREE (F,'$folderId') and CONTAINS(P, 'spu:processo.Externo: \'true\'') ORDER BY F.cmis:creationDate DESC";
+                break;
+        }
+        
+        return $query;
     }
 
     public function getProcessosFolderCmis($skipCount, $maxItems, $tramitacaoTipo)
@@ -50,8 +78,8 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
         $folderId = $service->getIdFolderCmis($protocolos[0]->getNodeRef(), $tramitacaoTipo);
 
         $url = $this->getBaseUrl() . "/cmis/query?q=";
-        $query = "SELECT F.cmis:objectId FROM cmis:folder F WHERE IN_FOLDER ('$folderId') ORDER BY F.cmis:creationDate DESC";
-        $url .= urlencode($query);
+
+        $url .= urlencode($this->getQueryCmis($folderId, $tramitacaoTipo));
         $url .= "&skipCount=$skipCount&maxItems=$maxItems";
 
         $result = $this->_doAuthenticatedGetAtomRequest($url);
@@ -70,6 +98,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     public function getLoadProcessosPaginatorCmis($skipCount, $maxItems, $tramitacaoTipo)
     {
         $postData = $this->getProcessosFolderCmis($skipCount, $maxItems, $tramitacaoTipo);
+        
         $processos = array();
         if ($postData["processosId"]) {
             $url = $this->getBaseUrl() . "/spu/processo/listagem";

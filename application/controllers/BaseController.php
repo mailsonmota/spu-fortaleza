@@ -227,5 +227,15 @@ abstract class BaseController extends BaseAuthenticatedController
         
         return $dados;
     }
+    
+    public function getTicketCoordinator()
+    {
+        $coordinator = Zend_Registry::get('coordinator');
+        $alfresco = new Alfresco_Rest_Login($this->getBaseUrlAlfresco() . "/service");
+        $ticket = $alfresco->login($coordinator->user, $coordinator->senha);
+        $alfresco->logout($ticket['ticket']);
+        
+        return $ticket['ticket'];
+    }
 
 }
