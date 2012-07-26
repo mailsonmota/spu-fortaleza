@@ -17,4 +17,9 @@ class IndexController extends BaseController
         echo '</pre>';
         die("---- DIE ----");
     }
+    
+    public function usuariosLogados()
+    {
+        
+    }
 }

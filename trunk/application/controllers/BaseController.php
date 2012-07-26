@@ -237,5 +237,14 @@ abstract class BaseController extends BaseAuthenticatedController
         
         return $ticket['ticket'];
     }
+    
+    public function setMessageCache()
+    {
+        $frase  = 'Por favor, limpe o cache da sua máquina para poder prosseguir corretamente.<br />';
+        $frase .= 'Aperte as seguintes teclas juntas: CRTL+SHIFT+DELETE<br />';
+        $frase .= 'Aperte ENTER para limpar o cache e depois F5';
+        
+        $this->setErrorMessage($frase);
+    }
 
 }

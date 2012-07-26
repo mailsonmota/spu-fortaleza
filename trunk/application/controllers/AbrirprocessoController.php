@@ -136,7 +136,8 @@ class AbrirprocessoController extends BaseController
             $processoService = new Spu_Service_Processo($this->getTicket());
             
             try {
-                $processo = $processoService->abrirProcesso($this->filterValuesArray($dataMerged));
+//                $processo = $processoService->abrirProcesso($this->filterValuesArray($dataMerged));
+                $processo = $processoService->criarProcesso($this->filterValuesArray($dataMerged));
             } catch (Exception $e) {
                 $this->setErrorMessage('Erro ao abrir o processo. Informação técnica: ' . $e->getMessage());
                 $this->_redirectFormularioEnvolvido();
@@ -331,7 +332,8 @@ class AbrirprocessoController extends BaseController
 
             try {
                 $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
-                $tramitacaoService->tramitar($postData);
+//                $tramitacaoService->tramitar($postData);
+                $tramitacaoService->finalizarAbertura($postData);
             } catch (AlfrescoApiException $e) {
                 throw $e;
             } catch (Exception $e) {

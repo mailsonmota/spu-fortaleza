@@ -123,8 +123,9 @@ class ProcessoController extends BaseController
                 }
                 $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
                 $dataPost = $this->filterValuesArray($dataPost);
-                $dataPost += array("tipoMovimentacao" => "ENCAMINHAR");
-                $tramitacaoService->tramitar($dataPost);
+                $dataPost["processo"] = $dataPost["processoId"];
+                unset($dataPost["processoId"]);
+                $tramitacaoService->encaminharProcesso($dataPost);
 
                 $tipo = new Spu_Service_TipoProcesso($this->getTicket());
                 $destino[] = $tipo->getTipoProcesso($dataPost["destinoId_root"])->nome;

@@ -1,7 +1,7 @@
-<?php 
+<?php
 $this->breadcrumbs()->addPage('Tramitação', 'entrada');
 $this->breadcrumbs()->addPage('Caixa de Externos');
-echo $this->breadcrumbs()->render(); 
+echo $this->breadcrumbs()->render();
 
 echo $this->render('snippets/abasTramitacao.phtml');
 
@@ -15,15 +15,32 @@ echo $this->pagenav()->closeList();
 
 <div id="article">
     <?php echo $this->render('snippets/formularioPesquisaRapidaProcesso.phtml') ?>
-	
+
     <form action="" method="post">
-        <?php 
+        <?php
         echo $this->buttonlist()->open();
         echo $this->buttonlist()->defaultBlockActionsDescription();
         echo $this->buttonlist()->button('Retornar');
         echo $this->buttonlist()->close(true);
         ?>
-        
-        <?php echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator, 'exibirCheckbox' => true, 'indicarPrioritarios' => true)) ?>
+        <div id="grid"></div>
+        <?php
+        if ($this->paginator) :
+            echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator, 'exibirCheckbox' => true, 'indicarPrioritarios' => true));
+        else :
+            $js = '
+                $(function(){
+                    $.ajax({
+                        type: "post",
+                        url: "' . $this->simpleUrl('caixa-externo', 'processos-ajax') . '",
+                        success: function(retorno){
+                            $("#grid").html(retorno);
+                        }
+                    });
+                });
+                ';
+            $this->headScript()->appendScript($js);
+        endif;
+        ?>
     </form>
 </div>

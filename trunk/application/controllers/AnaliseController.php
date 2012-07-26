@@ -87,6 +87,20 @@ class AnaliseController extends BaseTramitacaoController
         }
         Zend_Session::namespaceUnset('ap');
     }
+    
+    public function encaminharOkAction()
+    {
+        $this->setSuccessMessage('Processos encaminhados com sucesso.');
+        $this->_redirectAnalise();
+    }
+    
+    public function encaminharFalhaAction()
+    {
+        $processo_falha = $this->getRequest()->getParam('np');
+        $processo_falha = str_replace("_", "/", $processo_falha);
+        $this->setErrorMessage("Falha ao encaminhar o processo de número $processo_falha");
+        $this->_redirectAnalise();
+    }
 
     protected function _redirectEncaminharProcesso($processoId)
     {
