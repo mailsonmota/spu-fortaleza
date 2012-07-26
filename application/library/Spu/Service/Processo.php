@@ -117,6 +117,15 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
         return $this->_getProcessoDetalhado($processo);
     }
+    
+    public function criarProcesso($postData)
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/abrirprocesso/criar";
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
+        $processo = $this->loadFromHash(array_pop(array_pop($result['Processo'][0])));
+
+        return $this->_getProcessoDetalhado($processo);
+    }
 
     /**
      * Retorna o processo com todas as informações possíveis

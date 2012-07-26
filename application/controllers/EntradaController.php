@@ -38,10 +38,9 @@ class EntradaController extends BaseTramitacaoController
             if (!$this->getRequest()->isPost() OR !$this->getRequest()->getParam('processos')) {
                 throw new Exception("Por favor, selecione pelo menos um processo para receber.");
             }
-            echo '<pre>';
-            var_dump($this->getRequest()->getPost());
-            echo '</pre>';
-            die("---- DIE ----");
+            
+            $this->_limparCache();
+            
             $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
             $tramitacaoService->receberVarios($this->getRequest()->getPost());
             $this->setSuccessMessage('Processos recebidos com sucesso.');
@@ -55,6 +54,22 @@ class EntradaController extends BaseTramitacaoController
     public function receberOkAction()
     {
         $this->setSuccessMessage('Processos recebidos com sucesso.');
+        $this->_redirectEntrada();
+    }
+    
+    private function _limparCache()
+    {
+        $this->setMessageCache();
+        
+        $this->_redirectEntrada();
+    }
+
+
+    public function receberFalhaAction()
+    {
+        $processo_falha = $this->getRequest()->getParam('np');
+        $processo_falha = str_replace("_", "/", $processo_falha);
+        $this->setErrorMessage("Falha ao receber o processo de número $processo_falha");
         $this->_redirectEntrada();
     }
 

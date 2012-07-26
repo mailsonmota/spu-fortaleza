@@ -6,6 +6,8 @@ class EncaminharController extends BaseTramitacaoController
     {
         if ($this->getRequest()->isPost()) {
             try {
+                $this->_limparCache();
+                die("---- DIE ----");
                 $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
                 $tramitacaoService->tramitarVarios($this->getRequest()->getPost());
                 $this->setSuccessMessage('Processos tramitados com sucesso.');
@@ -67,6 +69,13 @@ class EncaminharController extends BaseTramitacaoController
         return $processos;
     }
     
+    private function _limparCache()
+    {
+        $this->setMessageCache();
+        
+        $this->_redirectEncaminhar();
+    }
+
     public function externoAction()
     {
         if ($this->getRequest()->isPost()) {

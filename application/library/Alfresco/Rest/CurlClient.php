@@ -19,10 +19,12 @@ class Alfresco_Rest_CurlClient
     {
         $ch = curl_init();
 
-        $options[CURLOPT_URL] = $url;
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,60); 
+        curl_setopt($ch, CURLOPT_TIMEOUT, 300);
         //curl_setopt($ch, CURLOPT_TRANSFERTEXT, true);
 
+        $options[CURLOPT_URL] = $url;
         curl_setopt_array($ch, $options);
 
         $result = curl_exec($ch);

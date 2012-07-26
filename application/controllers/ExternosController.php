@@ -27,16 +27,18 @@ class ExternosController extends BaseTramitacaoController
         $this->view->assuntoId = urldecode($this->_getParam('assunto'));
         $this->view->tiposProcesso = $this->_getListaTiposProcesso();
 
-        $service = new Spu_Service_Tramitacao($this->getTicket());
-        $busca = $service->getCaixaExternos(
-            $this->_helper->paginator()->getOffset(), 
-            $this->_helper->paginator()->getPageSize(), 
-            $this->view->q, 
-            $this->view->assuntoId
-        );
-        
-        $this->view->paginator = $this->_helper->paginator()->paginate($busca);
-        $this->view->totalDocumentos = count($busca);
+        if ($this->view->q) {
+            $service = new Spu_Service_Tramitacao($this->getTicket());
+            $busca = $service->getCaixaExternos(
+                $this->_helper->paginator()->getOffset(), 
+                $this->_helper->paginator()->getPageSize(), 
+                $this->view->q, 
+                $this->view->assuntoId
+            );
+
+            $this->view->paginator = $this->_helper->paginator()->paginate($busca);
+            $this->view->totalDocumentos = count($busca);
+        }
     }
     
     protected function _redirectExternos()

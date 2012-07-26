@@ -52,25 +52,51 @@ $js = '
             if (action != undefined) {
                 var selecionados = $("tr.marked")
                 if (selecionados.length > 0 && selecionados.length < 11) {
+                
+                    var processos = []
                     selecionados.each(function(index){
-                        var linha = $(this)
-                        $.ajax({
-                            type: "post",
-                            data: {"processoId" : linha.find("td:first input").val()},
-                            url: action,
-                            async: false,
-                            beforeSend: function(){
-                                linha.find("td:first input").hide()
-                                linha.find("td:first").append("<img id=\"indicator\" src=\"' . $this->baseUrl() . '/img/indicator.gif\">");
-                                linha.attr("style", "opacity:0.4;")
-                            },
-                            success: function(retorno){
-                                linha.hide();
-                            }
-                        });
-                    });0
+                        processos.push($(this).find("td:first input").val())
+                    });
                     
-                    window.location = "' . $this->baseUrl() . '/entrada/receber-ok"
+                    processos.reverse()
+                    retorno = true
+                    processo = processos.pop()
+                    quantidade_processos = processos.length
+                    var intervalo = setInterval(function(){
+                        if (processo == undefined) {
+                            clearInterval(intervalo);
+                            window.location = "' . $this->baseUrl() . '/entrada/receber-ok"
+                        } else {
+                            if (processos.length != quantidade_processos) {
+                                quantidade_processos = processos.length
+                                retorno = true
+                            }
+                            if (retorno) {
+                                retorno = false
+                                linha = $("tr.marked:first")
+                                $.ajax({
+                                    type: "post",
+                                    data: {"processoId" : processo},
+                                    url: action,
+                                    beforeSend: function(){
+                                        linha.find("input").hide()
+                                        linha.find("td:first").append("<img id=\"indicator\" src=\"' . $this->baseUrl() . '/img/indicator.gif\">");
+                                        linha.attr("style", "opacity:0.4;")
+                                    },
+                                    success: function(retorno){
+                                        linha.remove()
+                                        processo = processos.pop()
+                                    },
+                                    error: function(retorno) {
+                                        var numero_processo = linha.find("td:eq(2)").html().replace(/\//g, "_")
+                                        window.location = "' . $this->baseUrl() . '/entrada/receber-falha/np/" + numero_processo
+                                    }
+                                });
+                                
+                            }
+                        }
+                    }, 200);
+                    
                     return false;
                 }
             }

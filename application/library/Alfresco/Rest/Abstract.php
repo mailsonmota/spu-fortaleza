@@ -187,10 +187,6 @@ abstract class Alfresco_Rest_Abstract
         $result = $this->_getCurlClient()->doGetRequest($url);
 
         if ($this->isAlfrescoError($result)) {
-            echo '<pre>';
-            var_dump($result);
-            echo '</pre>';
-            die("---- DIE ----");
             throw new Alfresco_Rest_Exception($this->getAlfrescoErrorMessage($result));
         }
 

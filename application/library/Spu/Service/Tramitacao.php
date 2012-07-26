@@ -230,6 +230,14 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
 
         return $result;
     }
+    
+    public function finalizarAbertura($postData)
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/abrirprocesso/finalizarAbertura";
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
+
+        return $result;
+    }
 
     /**
      * Tramita vários processos para um outro protocolo
@@ -240,6 +248,14 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     public function tramitarVarios($postData)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/tramitarProcessos";
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
+
+        return $result;
+    }
+    
+    public function encaminharProcesso($postData)
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/encaminharProcessos";
         $result = $this->_doAuthenticatedPostRequest($url, $postData);
 
         return $result;
@@ -255,7 +271,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/receber";
         $result = $this->_doAuthenticatedPostRequest($url, $postData);
-
+        
         return $result;
     }
 
