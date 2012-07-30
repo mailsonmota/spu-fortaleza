@@ -274,6 +274,14 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
         
         return $result;
     }
+    
+    public function receberProcesso($postData)
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/receber";
+        $result = $this->_doAuthenticatedPostRequest($url, $postData);
+        
+        return $result;
+    }
 
     /**
      * Marca vários processos como "Externos"

@@ -52,10 +52,11 @@ class ProcessosAjaxController extends BaseController
     public function receberEntradaAction()
     {
         $this->ajaxNoRender();
-        $processo = array("processos" => array($this->getRequest()->getPost("processoId")));
+        $postData = array("processos" => array($this->getRequest()->getPost("processoId")));
+
         try {
             $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
-            $tramitacaoService->receberVarios($processo);
+            $tramitacaoService->receberProcesso($postData);
         } catch (Exception $exc) {
             header("HTTP/1.1 500 Internal Server Error");
             echo $exc->getMessage();
@@ -65,22 +66,40 @@ class ProcessosAjaxController extends BaseController
     public function encaminharTramitarAction()
     {
         $this->ajaxNoRender();
-        $this->_setDadosAposentadoria();
-        $dados = $this->getRequest()->getPost();
-        unset($dados["processos"]);
-        $dados["processo"] = $dados["idProcesso"];
-        unset($dados["idProcesso"]);
+        $this->_setDadosAposentadoriaEncaminharAnalise();
+        $postData = $this->getRequest()->getPost();
+        unset($postData["processos"]);
+        $postData["processo"] = $postData["idProcesso"];
+        unset($postData["idProcesso"]);
 
         try {
             $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
-            $tramitacaoService->encaminharProcesso($dados);
+            $tramitacaoService->encaminharProcesso($postData);
         } catch (Exception $exc) {
             header("HTTP/1.1 500 Internal Server Error");
             echo $exc->getMessage();
         }
     }
 
-    private function _setDadosAposentadoria()
+    public function arquivarAnaliseAction()
+    {
+        $this->ajaxNoRender();
+        $this->_setDadosAposentadoriaArquivarAnalise();
+        $postData = $this->getRequest()->getPost();
+        unset($postData["processos"]);
+        $postData["processos"] = array($postData["idProcesso"]);
+        unset($postData["idProcesso"]);
+
+        try {
+            $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
+            $tramitacaoService->arquivarVarios($postData);
+        } catch (Exception $exc) {
+            header("HTTP/1.1 500 Internal Server Error");
+            echo $exc->getMessage();
+        }
+    }
+
+    private function _setDadosAposentadoriaEncaminharAnalise()
     {
         $session = new Zend_Session_Namespace('ap');
 
@@ -91,6 +110,17 @@ class ProcessosAjaxController extends BaseController
 
             $session->updateaposentadoria['ids'] = $this->_getParam('processos');
             $session->updateaposentadoria['colunas'] = array('lotacao_atual' => implode(" - ", $destino), 'status' => 'TRAMITANDO');
+        }
+    }
+
+    private function _setDadosAposentadoriaArquivarAnalise()
+    {
+        $session = new Zend_Session_Namespace('ap');
+
+        if (!isset($session->updateaposentadoria)) {
+            $session = new Zend_Session_Namespace('ap');
+            $session->updateaposentadoria['ids'] = $this->getRequest()->getPost('processos');
+            $session->updateaposentadoria['colunas'] = array('status' => 'ARQUIVANDO');
         }
     }
 

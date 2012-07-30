@@ -29,7 +29,7 @@ echo $this->pagenav()->closeList();
         echo $this->fieldList()->close();
 
         echo $this->buttonlist()->open();
-        echo $this->buttonlist()->button('Salvar', null, array(), array("action" => $this->simpleUrl('encaminhar-tramitar', 'processos-ajax')));
+        echo $this->buttonlist()->button('Encaminhar', null, array(), array("action" => $this->simpleUrl('encaminhar-tramitar', 'processos-ajax')));
         echo $this->buttonlist()->resetbutton();
         echo $this->buttonlist()->close(true);
         ?>
@@ -39,62 +39,66 @@ echo $this->pagenav()->closeList();
 <?php
 $js = '
     $(function(){
+        var BASE_URL = "' . $this->baseUrl() . '"
+            
         $("button").live("click", function(){
-            var action = $(this).attr("action")
-            if (action != undefined) {
-                var selecionados = $("input.marked")
-                var rep_text = $(".required.valid").length == 1;
-                var rep_dest = $("select#destinoId_children").length == 1
-                if (rep_text && rep_dest) {
-                    var processos = []
-                    var items = [];
+            var form_action_ajax = $(this).attr("action")
+            
+            if (form_action_ajax != undefined) {
+                var selecao_destino = $("select#destinoId_children").length == 1
+                var resposta_despacho = $("textarea.required.valid").length == 1
+                
+                if (resposta_despacho && selecao_destino) {
+                    var processos_id = []
                     
-                    items = $("#target").serializeArray();
+                    $("input.marked").each(function(index){
+                        processos_id.push($(this).val())
+                    })
                     
-                    selecionados.each(function(index){
-                        processos.push($(this).val())
-                    });
+                    processos_id.reverse()
                     
-                    processos.reverse()
-                    retorno = true
-                    processo = processos.pop()
-                    items.push({"name": "idProcesso", "value": processo})
+                    var chamar_ajax = true
+                    var processo_id_atual = processos_id.pop()
+                    var respostas_formulario = $("#target").serializeArray()
+                    respostas_formulario.push({"name": "idProcesso", "value": processo_id_atual})
                     
-                    quantidade_processos = processos.length
-                    var intervalo = setInterval(function(){
-                        if (processo == undefined) {
-                            clearInterval(intervalo);
-                            window.location = "' . $this->baseUrl() . '/analise/encaminhar-ok"
-                        } else {
-                            if (processos.length != quantidade_processos) {
-                                quantidade_processos = processos.length
-                                retorno = true
-                            }
-                            if (retorno) {
-                                retorno = false
-                                linha = $("ul.marked li:first")
-                                $.ajax({
-                                    type: "post",
-                                    data: items,
-                                    url: action,
-                                    beforeSend: function(){
-                                        linha.prepend("<img id=\"indicator\" src=\"' . $this->baseUrl() . '/img/indicator.gif\">");
-                                        linha.attr("style", "opacity:0.4;")
-                                    },
-                                    success: function(retorno){
-                                        linha.remove()
-                                        processo = processos.pop()
-                                        items.push({"name": "idProcesso", "value": processo})
-                                    },
-                                    error: function(retorno) {
-                                        var numero_processo = linha.text().match(/\d+/g).join("_");
-                                        window.location = "' . $this->baseUrl() . '/analise/encaminhar-falha/np/" + numero_processo
-                                        console.log(retorno.response)
-                                        return false
-                                    }
-                                });
-                                
-                            }
+                    var loop_ajax = setInterval(function(){
+                        if (processo_id_atual == undefined) {
+                            clearInterval(loop_ajax);
+                            window.location = BASE_URL + "/analise/encaminhar-ok"
+                            
+                            return false
+                        } 
+                        
+                        if (chamar_ajax) {
+                            chamar_ajax = false
+                            var linha_processo = $("ul.marked li:first")
+                            
+                            $.ajax({
+                                type: "POST",
+                                data: respostas_formulario,
+                                url: form_action_ajax,
+                                beforeSend: function()
+                                {
+                                    linha_processo.prepend("<img style=\"float: left; margin-right: 5px;\" id=\"indicator\" src=\"' . $this->baseUrl() . '/img/indicator.gif\">");
+                                    linha_processo.attr("style", "opacity:0.4;")
+                                },
+                                success: function(retorno)
+                                {
+                                    linha_processo.remove()
+                                    processo_id_atual = processos_id.pop()
+                                    respostas_formulario.push({"name": "idProcesso", "value": processo_id_atual})
+                                    chamar_ajax = true
+                                },
+                                error: function(retorno)
+                                {
+                                    var numero_processo = linha_processo.text().match(/\d+/g).join("_");
+                                    window.location = BASE_URL + "/analise/encaminhar-falha/np/" + numero_processo
+
+                                    return false
+                                }
+                            });
+
                         }
                     }, 200);
                     
