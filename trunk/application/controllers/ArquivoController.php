@@ -48,6 +48,11 @@ class ArquivoController extends BaseTramitacaoController
     {
         $this->_helper->redirector('index', 'arquivo');
     }
+    
+    protected function _redirectArquivar()
+    {
+        $this->_helper->redirector('arquivar', 'arquivo');
+    }
 
     protected function _redirectReabrir()
     {
@@ -57,6 +62,9 @@ class ArquivoController extends BaseTramitacaoController
     public function arquivarAction()
     {
         if ($this->getRequest()->isPost()) {
+            
+            $this->_limparCache();
+            
             try {
                 $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
                 $tramitacaoService->arquivarVarios($this->getRequest()->getPost());
@@ -86,6 +94,21 @@ class ArquivoController extends BaseTramitacaoController
 
         $this->view->processos = $processos;
         $this->view->listaStatusArquivamento = $listaStatusArquivamento;
+    }
+    
+    public function arquivarOkAction()
+    {
+        $this->setSuccessMessage('Processos arquivados com sucesso.');
+        $this->_redirectArquivo();
+    }
+    
+    public function arquivarFalhaAction()
+    {
+        $processo_falha = $this->getRequest()->getParam('np');
+        $processo_falha = str_replace("_", "/", $processo_falha);
+        $this->setErrorMessage("Falha ao arquivar o processo de número $processo_falha");
+        
+        $this->_redirectEmAnalise();
     }
 
     protected function _getListaStatusArquivamento()
@@ -137,6 +160,13 @@ class ArquivoController extends BaseTramitacaoController
         }
 
         $this->view->processos = $processos;
+    }
+    
+    private function _limparCache()
+    {
+        $this->setMessageCache();
+
+        $this->_redirectArquivar();
     }
 
 }

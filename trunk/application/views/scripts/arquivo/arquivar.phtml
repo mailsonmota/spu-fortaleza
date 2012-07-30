@@ -1,6 +1,6 @@
 <?php 
-$this->breadcrumbs()->addPage('Tramitação', 'processos');
-$this->breadcrumbs()->addPage('Encaminhar Processos');
+$this->breadcrumbs()->addPage('Tramitação', 'entrada');
+$this->breadcrumbs()->addPage('Arquivar Processos');
 echo $this->breadcrumbs()->render(); 
 
 echo $this->pagenav()->openList(); 
@@ -9,11 +9,11 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-	<form action="" method="post">
+	<form action="" method="post" id="target">
     	<?php 
-        $htmlProcessos = '<ul>';
+        $htmlProcessos = '</br><ul class="marked">';
         foreach ($this->processos as $processo) {
-        	echo '<input type="hidden" name="processos[]" value="' . $processo->id . '"/>';
+        	echo '<input type="hidden" class="marked" name="processos[]" value="' . $processo->id . '"/>';
             $htmlProcessos .= '<li>' . $processo->nomeDescritivo . '</li>';
         }
         $htmlProcessos .= '</ul>';
@@ -32,9 +32,82 @@ echo $this->pagenav()->closeList();
         echo $this->fieldList()->close();
         
         echo $this->buttonlist()->open();
-        echo $this->buttonlist()->button('Salvar');
+        echo $this->buttonlist()->button('Arquivar', null, array(), array("action" => $this->simpleUrl('arquivar-analise', 'processos-ajax')));
         echo $this->buttonlist()->resetbutton();
         echo $this->buttonlist()->close(true); 
         ?>
     </form>
 </div>
+
+<?php
+$js = '
+    $(function(){
+        var BASE_URL = "' . $this->baseUrl() . '"
+            
+        $("button").live("click", function(){
+            var form_action_ajax = $(this).attr("action")
+            if (form_action_ajax != undefined) {
+                var resposta_despacho = $("textarea.required.valid").length == 1
+
+                if (resposta_despacho) {
+                    var processos_id = []
+                    
+                    $("input.marked").each(function(index){
+                        processos_id.push($(this).val())
+                    })
+                    
+                    processos_id.reverse()
+                    
+                    var chamar_ajax = true
+                    var processo_id_atual = processos_id.pop()
+                    var respostas_formulario = $("#target").serializeArray()
+                    respostas_formulario.push({"name": "idProcesso", "value": processo_id_atual})
+                    
+                    var loop_ajax = setInterval(function(){
+                        if (processo_id_atual == undefined) {
+                            clearInterval(loop_ajax);
+                            window.location = BASE_URL + "/arquivo/arquivar-ok"
+                            
+                            return false
+                        } 
+                        
+                        if (chamar_ajax) {
+                            chamar_ajax = false
+                            var linha_processo = $("ul.marked li:first")
+                            
+                            $.ajax({
+                                type: "POST",
+                                data: respostas_formulario,
+                                url: form_action_ajax,
+                                beforeSend: function()
+                                {
+                                    linha_processo.prepend("<img style=\"float: left; margin-right: 5px;\" id=\"indicator\" src=\"' . $this->baseUrl() . '/img/indicator.gif\">");
+                                    linha_processo.attr("style", "opacity:0.4;")
+                                },
+                                success: function(retorno)
+                                {
+                                    linha_processo.remove()
+                                    processo_id_atual = processos_id.pop()
+                                    respostas_formulario.push({"name": "idProcesso", "value": processo_id_atual})
+                                    chamar_ajax = true
+                                },
+                                error: function(retorno)
+                                {
+                                    var numero_processo = linha_processo.text().match(/\d+/g).join("_");
+                                    window.location = BASE_URL + "/arquivo/arquivar-falha/np/" + numero_processo
+
+                                    return false
+                                }
+                            });
+
+                        }
+                    }, 200);
+                    
+                    return false;
+                }
+            }
+        });
+    });
+    ';
+$this->headScript()->appendScript($js);
+?>
