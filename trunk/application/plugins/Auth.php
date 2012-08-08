@@ -17,6 +17,10 @@ class Plugin_Auth extends Zend_Controller_Plugin_Abstract
     const FAIL_ACL_MODULE     = '';
     const FAIL_ACL_CONTROLLER = 'error';
     const FAIL_ACL_ACTION     = 'unauthorized';
+    
+    const MANUTENCAO_CONTROLLER = 'manutencao';
+    const MANUTENCAO_ACTION     = 'index';
+    const NAME_CACHE = 'manutencao';
 
     public function __construct(Zend_Auth $auth)
     {
@@ -32,11 +36,16 @@ class Plugin_Auth extends Zend_Controller_Plugin_Abstract
         $action     = $request->getActionName();
 
         // Usuário Logado
-        if ((!$this->_isIdentityValid() OR !$this->_isValidTicket()) AND $controller != 'auth') {
+        if ((!$this->_isIdentityValid() OR !$this->_isValidTicket()) && $controller != 'auth' && $controller != self::MANUTENCAO_CONTROLLER) {
             Zend_Auth::getInstance()->clearIdentity();
             $module = self::FAIL_AUTH_MODULE;
             $controller = self::FAIL_AUTH_CONTROLLER;
             $action = self::FAIL_AUTH_ACTION;
+        }
+        
+        if ($this->_isManutencao() && $controller != self::MANUTENCAO_CONTROLLER) {
+            $controller = self::MANUTENCAO_CONTROLLER;
+            $action = self::MANUTENCAO_ACTION;
         }
 
         $request->setModuleName($module);
@@ -84,5 +93,15 @@ class Plugin_Auth extends Zend_Controller_Plugin_Abstract
     public static function getIdentity()
     {
         return Zend_Auth::getInstance()->getIdentity();
+    }
+    
+    protected function _isManutencao()
+    {
+        return $this->_getCache()->load(self::NAME_CACHE) === true;
+    }
+    
+    protected function _getCache()
+    {
+        return Zend_Registry::get('cache');
     }
 }

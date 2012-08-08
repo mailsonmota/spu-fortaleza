@@ -220,6 +220,12 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
         return $result;
     }
+    
+    private function _getUser()
+    {
+        $user = Plugin_Auth::getIdentity();
+        return $user['user'];
+    }
 
     /**
      * Retorna todos os processos que atendem os critérios de pesquisa
@@ -229,7 +235,7 @@ class Spu_Service_Processo extends Spu_Service_Abstract
      */
     public function consultar($postData, $offset = 0, $pageSize = 20)
     {
-        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/consultar";
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/consultar?usuario=" . $this->_getUser()->login;
         
         $postData['offset'] = $offset;
         $postData['pageSize'] = $pageSize;
