@@ -277,3 +277,11 @@ ol.historico li {margin-bottom:1em}
     color: #A32929;
     line-height: 30px;
 }
+
+.noticia {
+    background: #FAFAFA;
+}
+
+.noticia img {
+    margin-right: 15px;
+}

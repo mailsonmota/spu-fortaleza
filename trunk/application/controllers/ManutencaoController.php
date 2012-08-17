@@ -32,6 +32,15 @@ class ManutencaoController extends BaseController
         
         $this->_helper->redirector('index', 'index');
     }
+    
+    public function clearCacheAction()
+    {
+        $this->_checkLogin();
+        
+        $this->_getCache()->clean(Zend_Cache::CLEANING_MODE_ALL);
+        
+        $this->_helper->redirector('index', 'index');
+    }
 
     private function _checkLogin()
     {
