@@ -32,6 +32,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $registry->set("groupSearch", $init->alfresco->group->search);
         $registry->set("totem", $init->totem);
         $registry->set("manutencao", $init->manutencao);
+        $registry->set("blog", $init->blog);
     }
 
     protected function _initControllers(array $options = array())

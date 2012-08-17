@@ -10,4 +10,27 @@ echo $this->pagenav()->closeList();
     <p>
     	Bem-vindo, <b><?php echo $this->pessoa->nomeOuSobrenome ?></b>!
     </p>
+    <div class="noticia">
+    </div>
 </div>
+
+<?php
+$js = '
+    $(function(){
+        var BASE_URL = "' . $this->baseUrl() . '"
+            
+        $.ajax({
+            type: "POST",
+            url: BASE_URL + "/blog/ultima-noticia-ajax",
+            success: function(retorno)
+            {
+                if (retorno) {
+                    $("#article p").html($("#article p").html() + "Você possui uma notícia.")
+                    $(".noticia").html(retorno)
+                }
+            }
+        })
+    })
+    ';
+$this->headScript()->appendScript($js);
+?>

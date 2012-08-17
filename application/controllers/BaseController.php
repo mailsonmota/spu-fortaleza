@@ -246,5 +246,9 @@ abstract class BaseController extends BaseAuthenticatedController
         
         $this->setErrorMessage($frase);
     }
-
+    
+    public function getBlogParams()
+    {
+        return Zend_Registry::get('blog');
+    }
 }
