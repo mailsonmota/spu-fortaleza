@@ -60,10 +60,10 @@ class ProtocolosAjaxController extends BaseAuthenticatedController
 
         foreach ($protocolos as $protocolo)
             if (strpbrk($protocolo->path, "/") != false)
-                $protocolosJson[$protocolo->nome] = array('id' => $protocolo->id, 'name' => $protocolo->nome . " - " . $protocolo->descricao, 'description' => $protocolo->path);
+                $protocolosJson[$protocolo->nome . " - " . $protocolo->descricao] = array('id' => $protocolo->id, 'name' => $protocolo->nome . " - " . $protocolo->descricao, 'description' => $protocolo->path);
 
         ksort($protocolosJson);
-
+        
         $this->_helper->json(array_values($protocolosJson), true);
     }
 
