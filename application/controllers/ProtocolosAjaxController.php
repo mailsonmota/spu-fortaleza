@@ -49,31 +49,32 @@ class ProtocolosAjaxController extends BaseAuthenticatedController
     {
         $service = new Spu_Service_Protocolo($this->getTicket());
         $origem = $this->_getParam('origem');
-        
+
         if (!$origem) {
             $origem = $this->_getProtocoloOrigem();
         }
-        
+
         $protocolos = $service->getProtocolosFilhos($this->_getParam('parent-id'), $origem);
 
         $protocolosJson = array();
 
-        foreach ($protocolos as $protocolo) {
+        foreach ($protocolos as $protocolo)
             if (strpbrk($protocolo->path, "/") != false)
-                $protocolosJson[] = array('id' => $protocolo->id, 'name' => $protocolo->nome . " - " . $protocolo->descricao, 'description' => $protocolo->path);
-        }
+                $protocolosJson[$protocolo->nome] = array('id' => $protocolo->id, 'name' => $protocolo->nome . " - " . $protocolo->descricao, 'description' => $protocolo->path);
 
-        $this->_helper->json($protocolosJson, true);
+        ksort($protocolosJson);
+
+        $this->_helper->json(array_values($protocolosJson), true);
     }
-    
+
     public function _getProtocoloOrigem()
     {
         $protocoloService = new Spu_Service_Protocolo($this->getTicket());
         $protocolos = $protocoloService->getProtocolos();
-        
+
         if (count($protocolos) != 1)
             return null;
-        
+
         return $protocolos[0]->id;
     }
 
