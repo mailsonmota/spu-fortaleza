@@ -99,7 +99,7 @@
         <?php if ($this->processo->manifestante->cpf) : ?>
             <dt>CPF/CNPJ:</dt>
             <?php $cnpj = (strlen($this->processo->manifestante->cpf) == 18 ? true : false); ?>
-            
+
             <dd><?php echo $this->processo->manifestante->cpf ?></dd>
         <?php endif; ?>
 
@@ -108,7 +108,7 @@
 
         <?php if ($this->processo->manifestante->sexo && !$cnpj): ?>
             <dt>Sexo:</dt>
-            
+
             <dd><?php echo ($this->processo->manifestante->sexo == 'M') ? 'Masculino' : 'Feminino' ?></dd>
         <?php endif ?>
 
@@ -224,6 +224,45 @@
     </fieldset>
 <?php endif ?>
 
+<?php if ($this->processosApensados): ?>
+    <?php $desapensamento = $this->processosApensados["origem"] == "analise"; unset($this->processosApensados["origem"]); ?>
+    <fieldset>
+        <legend>Processos Apensados</legend>
+        <table summary="Processos Paralelos">
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>Abertura</th>
+                    <th>Detalhes</th>
+                    <?php if ($desapensamento): ?>
+                        <th>Ação</th>
+                    <?php endif; ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->processosApensados as $processoIncorporado): ?>
+                <tr>
+                    <td><?php echo str_replace('_', '/', $processoIncorporado->nome) ?></td>
+                    <td><?php echo $processoIncorporado->data ?></td>
+                    <td>
+                        <a href="<?php echo $this->url(array('action' => 'detalhes', 'controller' => 'processo', 'id' => $processoIncorporado->id)) ?>">
+                            Detalhes
+                        </a>
+                    </td>
+                    <?php if ($desapensamento): ?>
+                        <th>
+                            <a id="desapensamento" numero-id="<?php echo $processoIncorporado->id?>" numero="<?php echo str_replace('_', '/', $processoIncorporado->nome);?>" href="<?php echo $this->url(array('action' => 'detalhes', 'controller' => 'processo', 'id' => $processoIncorporado->id)) ?>">
+                                Desapensar Processo
+                            </a>
+                        </th>
+                    <?php endif; ?>
+                </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
+</fieldset>
+<?php endif ?>
+
 <?php if ($this->processo->tipoProcesso->tramitacao->isParalela() AND $this->processosParalelos): ?>
     <fieldset>
         <legend>Processos Paralelos</legend>
@@ -248,5 +287,41 @@
             </tbody>
         </table>
     </fieldset>
-    <?php
- endif ?>
+<?php endif ?>
+
+<?php
+$js = '
+    $(function(){
+        var BASE_URL = "' . $this->baseUrl() . '";
+        $("th a#desapensamento").live("click", function(e){
+            e.preventDefault();
+            var elemento = $(this)
+            var numero_processo = elemento.attr("numero");
+            var frase = "Você realmente deseja desapensar o processo " + numero_processo + " ?\n";
+            frase += "Caso clique em \"OK\" o processo será removido para sua Caixa de Análise.";
+            var resposta = confirm(frase);
+            
+            if (resposta) {
+                $.ajax({
+                    type: "post",
+                    data: {"processoId" : elemento.attr("numero-id")},
+                    url: "' . $this->simpleUrl('desapensar', 'apensamento') . '",
+                    beforeSend: function(){
+                        elemento.parent().html("<img id=\"aguarde-apensamento\" src=\"" + BASE_URL + "/img/indicator.gif\"> Processando..." );
+                    },
+                    success: function(retorno){
+                        location.reload();
+                    },
+                    error: function(retorno)
+                    {
+                        console.log(retorno)
+                        return false
+                    }
+                });
+            }
+        });
+    });
+    ';
+$this->headScript()->appendScript($js);
+
+?>

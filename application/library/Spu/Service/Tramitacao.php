@@ -69,13 +69,19 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
         
         return $query;
     }
+    
+    public function getIdCaixa($nome)
+    {
+        $protocoloService = new Spu_Service_Protocolo($this->getTicket());
+        $protocolos = $protocoloService->getProtocolos();
+        $service = new Spu_Service_Tramitacao($this->getTicket());
+        
+        return $service->getIdFolderCmis($protocolos[0]->getNodeRef(), $nome);
+    }
 
     public function getProcessosFolderCmis($skipCount, $maxItems, $tramitacaoTipo)
     {
-        $service = new Spu_Service_Tramitacao($this->getTicket());
-        $protocoloService = new Spu_Service_Protocolo($this->getTicket());
-        $protocolos = $protocoloService->getProtocolos();
-        $folderId = $service->getIdFolderCmis($protocolos[0]->getNodeRef(), $tramitacaoTipo);
+        $folderId = $this->getIdCaixa($tramitacaoTipo);
 
         $url = $this->getBaseUrl() . "/cmis/query?q=";
 
@@ -152,7 +158,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
         if ($assuntoId) {
             $url .= "?assunto-id=$assuntoId";
         }
-
+        
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
 

@@ -96,6 +96,8 @@ $js = '
                                 },
                                 error: function(retorno)
                                 {
+                                    console.log(retorno)
+                                    return false;
                                     var numero_processo = linha_processo.find("td:eq(2)").html().replace(/\//g, "_")
                                     window.location = BASE_URL + "/entrada/receber-falha/np/" + numero_processo
                                     

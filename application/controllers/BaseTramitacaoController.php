@@ -40,13 +40,20 @@ class BaseTramitacaoController extends BaseController
     
     public function pesquisarAction()
     {
+        $q = urlencode($_POST['q']);
+        
+        if (substr_count($this->getRequest()->getParam('q'), ',') > 9) {
+             $this->setErrorMessage("Atenção, você não pode buscar mais do que 10 processos por vez");
+             $q = "";
+        }
+             
     	if ($this->getRequest()->isPost()) {
     		$this->_helper->redirector(null, 
     		                           null, 
     		                           null, 
-    		                           array('q' => urlencode($_POST['q']), 
-    		                                 'tipo-processo' => urlencode($_POST['tipoprocesso']), 
-                                             'assunto' => urlencode($_POST['assunto'])));
+    		                           array('q' => $q, 
+                                                'tipo-processo' => urlencode($_POST['tipoprocesso']), 
+                                                'assunto' => urlencode($_POST['assunto'])));
     	}
     }
     

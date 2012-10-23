@@ -124,10 +124,11 @@ class Spu_Entity_Aspect_Movimentacao extends Spu_Entity_Aspect_Abstract
         switch ($tipo) {
             case self::ABERTURA:
                 $descricao = $this->_getDescricaoAbertura();
-                $descricao = $this->_anexarDespachoDescricao($descricao);
+                $descricao = $this->_anexarDespachoDescricaoComEnvolvido($descricao, "Aberto por");
                 break;
             case self::RECEBIMENTO:
                 $descricao = $this->_getDescricaoRecebimento();
+                $descricao = $this->_anexarDespachoDescricaoComEnvolvido($descricao, "Recebido por");
                 break;
             case self::ENCAMINHAMENTO:
                 $descricao = $this->_getDescricaoEncaminhamento();
@@ -135,6 +136,7 @@ class Spu_Entity_Aspect_Movimentacao extends Spu_Entity_Aspect_Abstract
                 break;
             case self::CANCELAMENTOENVIO:
                 $descricao = $this->_getDescricaoCancelamentoEnvio();
+                $descricao = $this->_anexarDespachoDescricaoComEnvolvido($descricao, "Cancelado por");
                 break;
             case self::ARQUIVAMENTO:
                 $descricao = $this->_getDescricaoArquivamento();
@@ -160,6 +162,20 @@ class Spu_Entity_Aspect_Movimentacao extends Spu_Entity_Aspect_Abstract
                             <blockquote>" .
                                 $this->getUsuario()->nomeCompleto . ": <em>" .
                                     $this->getDespacho() .
+                                "</em>
+                            </blockquote>
+                         </div>" :
+            $this->_anexarDespachoDescricaoComEnvolvido($descricao, "Encaminhado por");
+        return $descricao;
+    }
+    
+    protected function _anexarDespachoDescricaoComEnvolvido($descricao, $frase)
+    {
+        $descricao = ($descricao) ?
+            $descricao . "<div class=\"comentario\">
+                            <blockquote>" .
+                                 $frase . ": <em>" .
+                                    $this->getUsuario()->nomeCompleto .
                                 "</em>
                             </blockquote>
                          </div>" :

@@ -126,13 +126,12 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
      */
     public function getIdRespostasFormulario($idFolder)
     {
-        $query  = "SELECT cmis:objectId FROM cmis:document WHERE IN_FOLDER('workspace://SpacesStore/$idFolder') AND CONTAINS('cmis:name:respostasFormulario')";
+        $query  = "SELECT D.cmis:objectId FROM cmis:document D WHERE IN_FOLDER('workspace://SpacesStore/$idFolder') AND CONTAINS(D, 'cmis:name:\'respostasFormulario*\'')";
         
         $url =  "{$this->getBaseUrl()}/{$this->_pathCmis}/query?q=" . urlencode($query);
         $result = $this->_doAuthenticatedGetAtomRequest($url);
         
         $idDocument = $result->getElementsByTagName("value")->item(0)->nodeValue;
-        
         if (!$idDocument) {
             return;
         }

@@ -131,9 +131,10 @@ class AbrirprocessoController extends BaseController
 
             $formDadosGeraisProcesso = $session->formDadosGeraisProcesso;
             $postData = $this->getRequest()->getPost();
-
+            
             $dataMerged = array_merge($formDadosGeraisProcesso, $postData);
             $processoService = new Spu_Service_Processo($this->getTicket());
+            $dataMerged["nrProcesso"] = "";
             
             try {
 //                $processo = $processoService->abrirProcesso($this->filterValuesArray($dataMerged));
@@ -331,8 +332,16 @@ class AbrirprocessoController extends BaseController
             $session_ap->insertaposentadoria['dados'] = array('id' => $processo->id, 'prontuario' => $session->prontuario);
 
             try {
+                $tramitacao = new Spu_Service_Tramitacao($this->getTicketSearch());
+                $idParent = "workspace://SpacesStore/" . $postData['destinoId'];
+                $postData["caixaEntradaId"] = substr($tramitacao->getIdFolderCmis($idParent, "caixaentrada"), 24);
+
                 $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
 //                $tramitacaoService->tramitar($postData);
+                echo '<pre>';
+                var_dump($postData);
+                echo '</pre>';
+                die("---- DIE ----");
                 $tramitacaoService->finalizarAbertura($postData);
             } catch (AlfrescoApiException $e) {
                 throw $e;
@@ -417,7 +426,7 @@ class AbrirprocessoController extends BaseController
             $assuntoService = new Spu_Service_Assunto($this->getTicket());
             $assuntos = $assuntoService->getAssuntosPorTipoProcesso($tipoProcesso->getId());
         }
-        
+
         $listaAssuntos = array();
         foreach ($assuntos as $assunto) {
             $listaAssuntos[$assunto->id] = $assunto->nome;
@@ -425,11 +434,18 @@ class AbrirprocessoController extends BaseController
 
         if (count($listaAssuntos) == 0) {
             throw new Exception(
-                    'O tipo de processo selecionado não possui nenhum assunto. Por favor, escolha outro.'
+                'O tipo de processo selecionado não possui nenhum assunto. Por favor, escolha outro.'
             );
         }
 
-        return $listaAssuntos;
+        return $this->_ordenarListaAssuntos($listaAssuntos);
+    }
+
+    private function _ordenarListaAssuntos(array $lista)
+    {
+        asort($lista);
+
+        return $lista;
     }
 
     protected function _getListaTiposManifestante($tipoProcesso = null, $tiposManifestante = null)
@@ -450,7 +466,7 @@ class AbrirprocessoController extends BaseController
 
         if (count($listaTiposManifestante) == 0) {
             throw new Exception(
-                    'Não existe nenhum tipo de manifestante cadastrado no sistema.
+                'Não existe nenhum tipo de manifestante cadastrado no sistema.
                 Por favor, entre em contato com a administração do sistema.'
             );
         }
@@ -464,7 +480,7 @@ class AbrirprocessoController extends BaseController
             $bairroService = new Spu_Service_Bairro($this->getTicket());
             $bairros = $bairroService->getBairros();
         }
-        
+
         $listaBairros = array();
         foreach ($bairros as $bairro) {
             $listaBairros[$bairro->id] = $bairro->descricao;
@@ -472,11 +488,12 @@ class AbrirprocessoController extends BaseController
 
         if (count($listaBairros) == 0) {
             throw new Exception(
-                    'Não existe nenhum bairro cadastrado no sistema.
+                'Não existe nenhum bairro cadastrado no sistema.
                 Por favor, entre em contato com a administração do sistema.'
             );
         }
-
+        asort($listaBairros);
+        
         return $listaBairros;
     }
 
@@ -486,7 +503,7 @@ class AbrirprocessoController extends BaseController
             $prioridadeService = new Spu_Service_Prioridade($this->getTicket());
             $prioridades = $prioridadeService->fetchAll();
         }
-        
+
         $listaPrioridades = array();
         foreach ($prioridades as $prioridade) {
             $listaPrioridades[$prioridade->id] = $prioridade->descricao;
@@ -494,7 +511,7 @@ class AbrirprocessoController extends BaseController
 
         if (count($listaPrioridades) == 0) {
             throw new Exception(
-                    'Não existe nenhuma prioridade de processo cadastrada no sistema.
+                'Não existe nenhuma prioridade de processo cadastrada no sistema.
                 Por favor, entre em contato com a administração do sistema.'
             );
         }
@@ -513,7 +530,7 @@ class AbrirprocessoController extends BaseController
 
         if (count($listaProtocolos) == 0) {
             throw new Exception(
-                    'Você não pode enviar nenhum processo, pois não possui acesso à nenhum protocolo.'
+                'Você não pode enviar nenhum processo, pois não possui acesso à nenhum protocolo.'
             );
         }
 

@@ -206,6 +206,15 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
         return $this->_loadManyFromHash($result['Processos'][0]);
     }
+    
+    public function getApensados($uuid)
+    {
+        $url = $this->getBaseUrl() . '/' . $this->_processoBaseUrl . '/' . $uuid . '/apensados';
+        $result = $this->_doAuthenticatedGetRequest($url);
+
+        return $this->_loadManyFromHash($result['Processos'][0]);
+    }
+    
 
     /**
      * Incorpora um processo à outro
@@ -216,6 +225,22 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     public function incorporar($data)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/incorporar";
+        $result = $this->_doAuthenticatedPostRequest($url, $data);
+
+        return $result;
+    }
+    
+    public function apensar($data)
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/apensar";
+        $result = $this->_doAuthenticatedPostRequest($url, $data);
+
+        return $result;
+    }
+    
+    public function desapensar($data)
+    {
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/desapensar";
         $result = $this->_doAuthenticatedPostRequest($url, $data);
 
         return $result;
