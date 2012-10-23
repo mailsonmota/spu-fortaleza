@@ -54,6 +54,10 @@ class ProcessosAjaxController extends BaseController
         $this->ajaxNoRender();
         $postData = array("processos" => array($this->getRequest()->getPost("processoId")));
 
+        $tramitacao = new Spu_Service_Tramitacao($this->getTicket());
+        $idParent = $tramitacao->getIdCaixa("caixaanalise");
+        $postData["caixaAnaliseId"] = substr($idParent, 24);
+        
         try {
             $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
             $tramitacaoService->receberProcesso($postData);

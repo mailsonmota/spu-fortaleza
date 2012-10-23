@@ -22,15 +22,18 @@ class IncorporacaoController extends BaseTramitacaoController
         $this->view->assuntoId = urldecode($this->_getParam('assunto'));
         $this->view->tipoProcessoId = urldecode($this->_getParam('tipoprocesso'));
         $this->view->tiposProcesso = $this->_getListaTiposProcesso();
-
-        $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
-
-        $this->view->paginator = $this->_helper->paginator()->paginate(
-            $tramitacaoService->getCaixaAnalise(
-                $this->_helper->paginator()->getOffset(),
+        
+        if ($this->view->q) {
+            $service = new Spu_Service_Tramitacao($this->getTicket());
+            $busca = $service->getCaixaAnalise(
+                $this->_helper->paginator()->getOffset(), 
                 $this->_helper->paginator()->getPageSize(),
-                $this->view->q,
-                $this->view->assuntoId));
+                $this->view->q, 
+                $this->view->assuntoId
+            );
+            $this->view->totalDocumentos = count($busca);
+            $this->view->paginator = $this->_helper->paginator()->paginate($busca);
+        }
     }
 
     public function escolherincorporadoAction()

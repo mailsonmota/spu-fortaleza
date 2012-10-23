@@ -1,0 +1,21 @@
+<?php
+$this->breadcrumbs()->addPage('Apensamento', 'apensamento');
+$this->breadcrumbs()->addPage('Processo Apensador', 'apensamento', 'escolherprocesso');
+$this->breadcrumbs()->addPage('Processo Apensado', 'apensamento', 'confirmacao');
+$this->breadcrumbs()->addPage('Conclusão', 'apensamento', 'conclusao');
+echo $this->breadcrumbs()->render();
+
+echo $this->pagenav()->openList();
+echo $this->pagenav()->defaultHelperLinks();
+echo $this->pagenav()->closeList();
+?>
+
+<div id="article">
+    <h4>4. Apensamento realizado</h4>
+    <?php
+    if ($this->principal->id AND $this->apensados) {
+        echo $this->render('snippets/apensamentoDetalhesProcessos.phtml');
+    }
+
+    ?>
+</div>

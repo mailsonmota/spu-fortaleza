@@ -1,5 +1,5 @@
 <?php
-$this->breadcrumbs()->addPage('Incorporação', 'incorporacao');
+$this->breadcrumbs()->addPage('Apensamento', 'apensamento');
 echo $this->breadcrumbs()->render();
 
 echo $this->pagenav()->openList();
@@ -11,7 +11,7 @@ echo $this->pagenav()->closeList();
 ?>
 
 <div id="article">
-    <h4>1. Escolha o Processo Principal (incorporador)</h4>
+    <h4>1. Escolha o Processo Principal (apensador)</h4>
     <?php
     echo $this->partial('snippets/formularioPesquisaRapidaProcessoIncorporacao.phtml', array('q' => $this->q,
         'tiposProcesso' => $this->tiposProcesso,
@@ -20,7 +20,7 @@ echo $this->pagenav()->closeList();
     <form action="" method="post">
         <?php
         echo $this->buttonlist()->open();
-        echo $this->buttonlist()->button('Escolher Processo Principal', 'incorporacao');
+        echo $this->buttonlist()->button('Escolher Processo Principal', 'apensamento');
         echo $this->buttonlist()->close(true);
         ?>
 

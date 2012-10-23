@@ -42,6 +42,10 @@ echo $this->pagenav()->closeList();
                             $("#grid").html(retorno);
                         }
                     });
+                    $("td a[href*=\"/spuevolucao/processo/detalhes/id/\"]").live("click", function(e){
+                        e.preventDefault();
+                        window.location = $(this).attr("href") + "/origem/analise"
+                    });
                 });
                 ';
             $this->headScript()->appendScript($js);

@@ -23,10 +23,14 @@ class Alfresco_Rest_CurlClient
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,60); 
         curl_setopt($ch, CURLOPT_TIMEOUT, 300);
         //curl_setopt($ch, CURLOPT_TRANSFERTEXT, true);
-
+        
+//        if (Zend_Auth::getInstance()->hasIdentity()) {
+//            $usuario = Zend_Auth::getInstance()->getIdentity();
+//            $url = $url . "&SPUEVOLUCAO_NOME=" . $usuario["user"]->nome . "&SPUEVOLUCAO_EMAIL=" . $usuario["user"]->email;
+//        }
+        
         $options[CURLOPT_URL] = $url;
         curl_setopt_array($ch, $options);
-
         $result = curl_exec($ch);
 
         curl_close($ch);

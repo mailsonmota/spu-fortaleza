@@ -9,17 +9,33 @@ class EnvolvidosController extends BaseController
         }
 
         if ($this->_getParam('q')) {
-            $service = new Spu_Service_Manifestante($this->getTicketSearch());
-            $this->view->paginator = $this->_helper->paginator()->paginate(
-                    $service->getManifestantes(
-                            $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize(), str_replace("%2F", "/", $this->_getParam('q'))
-                    )
-            );
+            $postData["login"] = $this->getUser()->login;
+            $postData += $this->_filterDados();
+            
+            $processoService = new Spu_Service_Processo($this->getTicketSearch());
+            $resultado = $processoService->consultar($postData, 0, 4999);
+            
+            $this->view->totalDocumentos = count($resultado);
+            $this->view->paginator = $this->_helper->paginator()->paginate($resultado);
         } else {
             $this->setMessageForTheView('Por favor, busque pelo Nome, CPF ou CNPJ.');
         }
 
         $this->view->q = str_replace("%2F", "/", $this->_getParam('q'));
+    }
+    
+    private function _filterDados()
+    {
+        $param =  str_replace("%2F", "/", $this->_getParam('q'));
+        $data = array("envolvido" => "", "cpf" => "");
+        
+        if (is_numeric(str_replace(array(".", "-", "/"), "", $param)))
+            $data["cpf"] = $param;
+        else
+            $data["envolvido"] = $param;
+        
+        return $data;
+            
     }
 
     public function detalhesAction()

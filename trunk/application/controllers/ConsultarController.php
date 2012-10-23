@@ -80,7 +80,7 @@ class ConsultarController extends BaseController
         }
 
         $ticket = $this->isGroupSearch() ? $this->getTicketSearch() : $this->getTicket();
-
+        $postData["login"] = $this->getUser()->login;
         $processoService = new Spu_Service_Processo($ticket);
         $resultado = $processoService->consultar($postData, 0, 4999);
         $this->view->totalDocumentos = count($resultado);

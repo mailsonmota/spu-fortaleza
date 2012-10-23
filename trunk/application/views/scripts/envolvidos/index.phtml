@@ -2,7 +2,10 @@
 
 <?php
 echo $this->pagenav()->openList();
-echo $this->pagenav()->defaultHelperLinks();
+
+$html = '<div class="total_documents">Total de itens: <strong>' . $this->totalDocumentos . '</strong></div>';
+echo $this->pagenav()->customHelperLinks($html);
+
 echo $this->pagenav()->closeList();
 ?>
 
@@ -36,7 +39,7 @@ echo $this->pagenav()->closeList();
                     <th>CPF</th>
                     <th>Nome</th>
                     <th>Bairro</th>
-<!--                    <th>Detalhes</th>-->
+                    <th>Processo</th>
                 </tr>
             </thead>
             <tfoot>
@@ -46,15 +49,16 @@ echo $this->pagenav()->closeList();
             </tfoot>
             <tbody>
                 <?php $i = 0 ?>
-                <?php if (count($this->paginator) > 0): foreach ($this->paginator as $p): ?>
+                <?php if (count($this->paginator) > 0): ?>
+                    <?php foreach ($this->paginator as $p): ?>
                         <tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?>">
-                            <td><?php echo $p->cpf ? $p->cpf : "anônimo";  ?></td>
-                            <td><?php echo $p->nome ?></td>
-                            <td><?php echo $p->bairro->nome ? $p->bairro->nome : ' - ' ?></td>
-<!--                            <td><a href="<?php echo $this->url(array('action' => 'detalhes', 'cpf' => str_replace(array("-","/","."), "", $p->cpfDesformatado))) ?>">Detalhes</a></td>-->
+                            <td><?php echo $p->manifestante->cpf ? $p->manifestante->cpf : "anônimo";  ?></td>
+                            <td><?php echo $p->manifestante->nome ?></td>
+                            <td><?php echo $p->manifestante->bairro->nome ? $p->manifestante->bairro->nome : ' - ' ?></td>
+                            <td><?php echo str_replace("_", "/", $p->nome) ?></td>
                         </tr>
-                    <?php endforeach;
-                else: ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
                     <tr>
                         <td colspan="3">Nenhum envolvido encontrado.</td>
                     </tr>

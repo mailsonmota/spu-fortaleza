@@ -44,6 +44,9 @@ class ProcessoController extends BaseController
         $this->view->processo = $processo;
         $this->view->processosParalelos = $processosParalelos;
         $this->view->processosIncorporados = $processoService->getIncorporados($idProcesso);
+        $this->view->processosApensados = $processoService->getApensados($idProcesso);
+        if ($this->getRequest()->getParam('origem') == "analise" && $this->view->processosApensados)
+            $this->view->processosApensados["origem"] = "analise";
 
         $session = new Zend_Session_Namespace('ap');
         if (isset($session->updateaposentadoria)) {
@@ -125,6 +128,14 @@ class ProcessoController extends BaseController
                 $dataPost = $this->filterValuesArray($dataPost);
                 $dataPost["processo"] = $dataPost["processoId"];
                 unset($dataPost["processoId"]);
+
+                $tramitacao = new Spu_Service_Tramitacao($this->getTicketSearch());
+                $idParent = "workspace://SpacesStore/" . $dataPost["destinoId_children"];
+                $dataPost["caixaEntradaId"] = substr($tramitacao->getIdFolderCmis($idParent, "caixaentrada"), 24);
+                echo '<pre>';
+                var_dump($dataPost);
+                echo '</pre>';
+                die("---- DIE ----");
                 $tramitacaoService->encaminharProcesso($dataPost);
 
                 $tipo = new Spu_Service_TipoProcesso($this->getTicket());
@@ -141,7 +152,7 @@ class ProcessoController extends BaseController
         } catch (Exception $e) {
             $this->setMessageForTheView($e->getMessage(), 'error');
         }
-        
+
         $this->view->processo = $processo;
         $this->view->listaPrioridades = $listaPrioridades;
         $this->view->listaProtocolos = $listaProtocolos;
