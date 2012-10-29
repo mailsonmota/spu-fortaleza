@@ -56,6 +56,21 @@ class SaidaController extends BaseTramitacaoController
     {
         $this->_helper->redirector('comprovante-encaminhamento');
     }
+    
+    public function cancelarOkAction()
+    {
+        $this->setSuccessMessage('Envios cancelados com sucesso.');
+        $this->_redirectEmAnalise();
+    }
+
+    public function cancelarFalhaAction()
+    {
+        $processo_falha = $this->getRequest()->getParam('np');
+        $processo_falha = str_replace("_", "/", $processo_falha);
+        $this->setErrorMessage("Falha ao cancelar envio do processo de número $processo_falha");
+        
+        $this->_redirectSaida();
+    }
 
     public function comprovanteEncaminhamentoAction()
     {

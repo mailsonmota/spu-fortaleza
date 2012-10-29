@@ -21,10 +21,83 @@ echo $this->pagenav()->closeList();
         echo $this->buttonlist()->open();
         echo $this->buttonlist()->defaultBlockActionsDescription();
         echo $this->buttonlist()->button('Comp. de Encaminhamento', 'comprovanteEncaminhamento');
-        echo $this->buttonlist()->button('Cancelar Envio');
+        echo $this->buttonlist()->button('Cancelar Envio', null, array(), array("action" => $this->simpleUrl('cancelar-envio', 'processos-ajax')));
         echo $this->buttonlist()->close(true);
         ?>
         
         <?php echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator, 'exibirCheckbox' => true)) ?>
     </form>
 </div>
+
+<?php
+$js = '
+    $(function(){
+        var BASE_URL = "' . $this->baseUrl() . '"
+            
+        $("button").live("click", function(e){
+            var form_action_ajax = $(this).attr("action")
+            
+            if (form_action_ajax != undefined) {
+                var linhas_selecionadas = $("tr.marked")
+                
+                if (linhas_selecionadas.length > 0 && linhas_selecionadas.length < 11) {
+                    var processos_id = []
+                    
+                    linhas_selecionadas.each(function(index){
+                        processos_id.push($(this).find("td:first input").val())
+                    })
+                    
+                    processos_id.reverse()
+                    
+                    var processo_id_atual = processos_id.pop()
+                    var chamar_ajax = true
+                    var loop_ajax = setInterval(function(){
+                        if (processo_id_atual == undefined) {
+                            clearInterval(loop_ajax)
+                            window.location = BASE_URL + "/saida/cancelar-ok"
+                            
+                            return false
+                        }
+                        
+                        if (chamar_ajax) {
+                            chamar_ajax = false
+                            caixa_analise_id = "";
+                            var linha_processo = $("tr.marked:first")
+
+                            $.ajax({
+                                type: "POST",
+                                data: {"processoId" : processo_id_atual, "caixaAnaliseId" : caixa_analise_id},
+                                url: form_action_ajax,
+                                beforeSend: function()
+                                {
+                                    linha_processo.find("input").hide()
+                                    linha_processo.find("td:first").append("<img id=\"indicator\" src=\"" + BASE_URL + "/img/indicator.gif\">")
+                                    linha_processo.attr("style", "opacity:0.4;")
+                                },
+                                success: function(retorno)
+                                {
+                                    caixa_analise_id = retorno;
+                                    linha_processo.remove()
+                                    processo_id_atual = processos_id.pop()
+                                    chamar_ajax = true
+                                },
+                                error: function(retorno)
+                                {
+                                    var numero_processo = linha_processo.find("td:eq(2)").html().replace(/\//g, "_")
+                                    window.location = BASE_URL + "/saida/cancelar-falha/np/" + numero_processo
+                                    
+                                    return false
+                                }
+                            })
+
+                        }
+                    }, 200)
+                    
+                    return false
+                }
+            }
+        })
+    })
+    ';
+$this->headScript()->appendScript($js);
+?>
