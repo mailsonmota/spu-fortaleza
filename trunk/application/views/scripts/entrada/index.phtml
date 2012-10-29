@@ -76,11 +76,12 @@ $js = '
                         
                         if (chamar_ajax) {
                             chamar_ajax = false
+                            caixa_analise_id = ""
                             var linha_processo = $("tr.marked:first")
 
                             $.ajax({
                                 type: "POST",
-                                data: {"processoId" : processo_id_atual},
+                                data: {"processoId" : processo_id_atual, "caixaAnaliseId" : caixa_analise_id},
                                 url: form_action_ajax,
                                 beforeSend: function()
                                 {
@@ -90,14 +91,13 @@ $js = '
                                 },
                                 success: function(retorno)
                                 {
+                                    caixa_analise_id = retorno
                                     linha_processo.remove()
                                     processo_id_atual = processos_id.pop()
                                     chamar_ajax = true
                                 },
                                 error: function(retorno)
                                 {
-                                    console.log(retorno)
-                                    return false;
                                     var numero_processo = linha_processo.find("td:eq(2)").html().replace(/\//g, "_")
                                     window.location = BASE_URL + "/entrada/receber-falha/np/" + numero_processo
                                     

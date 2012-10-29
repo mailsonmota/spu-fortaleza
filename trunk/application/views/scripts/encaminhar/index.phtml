@@ -60,8 +60,7 @@ $js = '
                     var chamar_ajax = true
                     var processo_id_atual = processos_id.pop()
                     var respostas_formulario = $("#target").serializeArray()
-                    respostas_formulario.push({"name": "idProcesso", "value": processo_id_atual})
-                    
+                    respostas_formulario.push({"name": "idProcesso", "value": processo_id_atual, "caixaEntradaId" : ""})
                     var loop_ajax = setInterval(function(){
                         if (processo_id_atual == undefined) {
                             clearInterval(loop_ajax);
@@ -87,7 +86,7 @@ $js = '
                                 {
                                     linha_processo.remove()
                                     processo_id_atual = processos_id.pop()
-                                    respostas_formulario.push({"name": "idProcesso", "value": processo_id_atual})
+                                    respostas_formulario.push({"name": "idProcesso", "value": processo_id_atual, "caixaEntradaId" : retorno})
                                     chamar_ajax = true
                                 },
                                 error: function(retorno)

@@ -337,11 +337,6 @@ class AbrirprocessoController extends BaseController
                 $postData["caixaEntradaId"] = substr($tramitacao->getIdFolderCmis($idParent, "caixaentrada"), 24);
 
                 $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
-//                $tramitacaoService->tramitar($postData);
-                echo '<pre>';
-                var_dump($postData);
-                echo '</pre>';
-                die("---- DIE ----");
                 $tramitacaoService->finalizarAbertura($postData);
             } catch (AlfrescoApiException $e) {
                 throw $e;

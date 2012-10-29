@@ -239,7 +239,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
     
     public function finalizarAbertura($postData)
     {
-        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/abrirprocesso/finalizarAbertura";
+        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/abrirprocesso/finalizarAberturaSPU";
         $result = $this->_doAuthenticatedPostRequest($url, $postData);
 
         return $result;

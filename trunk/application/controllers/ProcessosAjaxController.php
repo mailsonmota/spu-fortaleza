@@ -53,14 +53,44 @@ class ProcessosAjaxController extends BaseController
     {
         $this->ajaxNoRender();
         $postData = array("processos" => array($this->getRequest()->getPost("processoId")));
+        $postData["caixaAnaliseId"] = $this->getRequest()->getPost("caixaAnaliseId");
+        if (!$postData["caixaAnaliseId"]) {
+            $tramitacao = new Spu_Service_Tramitacao($this->getTicket());
+            $idParent = $tramitacao->getIdCaixa("caixaanalise");
+            $postData["caixaAnaliseId"] = substr($idParent, 24);
+        }
 
-        $tramitacao = new Spu_Service_Tramitacao($this->getTicket());
-        $idParent = $tramitacao->getIdCaixa("caixaanalise");
-        $postData["caixaAnaliseId"] = substr($idParent, 24);
-        
         try {
             $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
             $tramitacaoService->receberProcesso($postData);
+            
+            echo $postData["caixaAnaliseId"];
+        } catch (Exception $exc) {
+            header("HTTP/1.1 500 Internal Server Error");
+            echo $exc->getMessage();
+        }
+    }
+    
+    public function cancelarEnvioAction()
+    {
+        $this->ajaxNoRender();
+        echo '<pre>';
+        var_dump("oi");
+        echo '</pre>';
+        die("---- DIE ----");
+        $postData = array("processos" => array($this->getRequest()->getPost("processoId")));
+        $postData["caixaAnaliseId"] = $this->getRequest()->getPost("caixaAnaliseId");
+        if (!$postData["caixaAnaliseId"]) {
+            $tramitacao = new Spu_Service_Tramitacao($this->getTicket());
+            $idParent = $tramitacao->getIdCaixa("caixaanalise");
+            $postData["caixaAnaliseId"] = substr($idParent, 24);
+        }
+
+        try {
+            $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
+            $tramitacaoService->cancelarEnvios($postData);
+            
+            echo $postData["caixaAnaliseId"];
         } catch (Exception $exc) {
             header("HTTP/1.1 500 Internal Server Error");
             echo $exc->getMessage();
@@ -72,13 +102,21 @@ class ProcessosAjaxController extends BaseController
         $this->ajaxNoRender();
         $this->_setDadosAposentadoriaEncaminharAnalise();
         $postData = $this->getRequest()->getPost();
+        
         unset($postData["processos"]);
         $postData["processo"] = $postData["idProcesso"];
         unset($postData["idProcesso"]);
+        if (!$postData["caixaEntradaId"]) {
+            $tramitacao = new Spu_Service_Tramitacao($this->getTicketSearch());
+            $idParent = "workspace://SpacesStore/" . $postData["destinoId_children"];
+            $postData["caixaEntradaId"] = substr($tramitacao->getIdFolderCmis($idParent, "caixaentrada"), 24);
+        }
 
         try {
             $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
             $tramitacaoService->encaminharProcesso($postData);
+            
+            echo $postData["caixaEntradaId"];
         } catch (Exception $exc) {
             header("HTTP/1.1 500 Internal Server Error");
             echo $exc->getMessage();

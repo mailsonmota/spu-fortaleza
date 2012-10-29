@@ -132,10 +132,6 @@ class ProcessoController extends BaseController
                 $tramitacao = new Spu_Service_Tramitacao($this->getTicketSearch());
                 $idParent = "workspace://SpacesStore/" . $dataPost["destinoId_children"];
                 $dataPost["caixaEntradaId"] = substr($tramitacao->getIdFolderCmis($idParent, "caixaentrada"), 24);
-                echo '<pre>';
-                var_dump($dataPost);
-                echo '</pre>';
-                die("---- DIE ----");
                 $tramitacaoService->encaminharProcesso($dataPost);
 
                 $tipo = new Spu_Service_TipoProcesso($this->getTicket());
