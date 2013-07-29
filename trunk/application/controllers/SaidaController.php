@@ -7,6 +7,20 @@ class SaidaController extends BaseTramitacaoController
 
     public function indexAction()
     {
+        if ($this->_getParam('mostrar') == 'true') {
+            $this->view->mostrar = 'true';
+            $service = new Spu_Service_Tramitacao($this->getTicket());
+            $busca = $service->getCaixaSaida(
+                $this->_helper->paginator()->getOffset(),
+                $this->_helper->paginator()->getPageSize(),
+                $this->view->q,
+                $this->view->assuntoId
+            );
+
+            $this->view->paginator = $this->_helper->paginator()->paginate($busca);
+            $this->view->totalDocumentos = count($busca);
+        }
+        
         if ($this->getRequest()->isPost()) {
             try {
                 $processosSelecionados = $this->getRequest()->getParam('processos');
@@ -29,22 +43,26 @@ class SaidaController extends BaseTramitacaoController
                 $this->setMessageForTheView($e->getMessage(), 'error');
             }
         }
-
-        $this->view->q = urldecode($this->_getParam('q'));
-        $this->view->tipoProcessoId = urldecode($this->_getParam('tipo-processo'));
-        $this->view->assuntoId = urldecode($this->_getParam('assunto'));
-        $this->view->tiposProcesso = $this->_getListaTiposProcesso();
-
-        $service = new Spu_Service_Tramitacao($this->getTicket());
-        $busca = $service->getCaixaSaida(
-            $this->_helper->paginator()->getOffset(), 
-            $this->_helper->paginator()->getPageSize(), 
-            $this->view->q, 
-            $this->view->assuntoId
-        );
         
-        $this->view->paginator = $this->_helper->paginator()->paginate($busca);
-        $this->view->totalDocumentos = count($busca);
+         if ($this->_getParam('q')) {
+            $this->view->q = urldecode($this->_getParam('q'));
+            $this->view->tipoProcessoId = urldecode($this->_getParam('tipo-processo'));
+            $this->view->assuntoId = urldecode($this->_getParam('assunto'));
+            $this->view->tiposProcesso = $this->_getListaTiposProcesso();
+
+            $service = new Spu_Service_Tramitacao($this->getTicket());
+            $busca = $service->getCaixaSaida(
+                $this->_helper->paginator()->getOffset(),
+                $this->_helper->paginator()->getPageSize(),
+                $this->view->q,
+                $this->view->assuntoId
+            );
+
+            $this->view->paginator = $this->_helper->paginator()->paginate($busca);
+            $this->view->totalDocumentos = count($busca);
+            $this->view->mostrar = 'true';
+            }
+            $this->view->tiposProcesso = $this->_getListaTiposProcesso();
     }
 
     protected function _isPostComprovanteEncaminhamento()

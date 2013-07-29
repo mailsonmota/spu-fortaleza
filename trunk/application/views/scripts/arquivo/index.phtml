@@ -16,6 +16,15 @@ echo $this->pagenav()->closeList();
 <div id="article">
     <?php echo $this->render('snippets/formularioPesquisaRapidaProcesso.phtml') ?>
 
+    <?php if ($this->mostrar <> 'true'){ ?>
+
+        <a href="<?php echo $this->url(array("action" => 'index','mostrar' => 'true'))  ?>"">Listar Processos</a>
+
+    <?php } ?>
+
+    <?php
+    if ($this->mostrar == 'true') { ?>
+
     <form action="" method="post">
         <?php
         echo $this->buttonlist()->open();
@@ -26,6 +35,7 @@ echo $this->pagenav()->closeList();
 
         <?php echo $this->partial('snippets/gridProcessos.phtml', array('paginator' => $this->paginator, 'exibirCheckbox' => true)) ?>
     </form>
+<?php    } ?>
 </div>
 
 <?php

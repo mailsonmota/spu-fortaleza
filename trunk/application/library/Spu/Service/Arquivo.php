@@ -167,7 +167,7 @@ class Spu_Service_Arquivo extends Spu_Service_Abstract
      */
     public function getArquivoDownloadUrl($arquivoInfos, $addAlfTicket = true, $baseUrl = false)
     {
-        $url = ($baseUrl ? $baseUrl : $this->getBaseUrl()) . "/api/node/workspace/SpacesStore/{$arquivoInfos['id']}/content/{$arquivoInfos['nome']}";
+        $url = ($baseUrl ? $baseUrl : $this->getBaseUrl()) . "/api/node/content/workspace/SpacesStore/{$arquivoInfos['id']}/{$arquivoInfos['nome']}";
 
         if ($addAlfTicket) {
             $url = $this->addAlfTicketUrl($url);

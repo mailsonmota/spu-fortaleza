@@ -29,3 +29,9 @@ echo $this->pagenav()->closeList();
         ?>
     </form>
 </div>
+<?php
+$js = '$(document).ready(function() {
+            jQuery("#assunto").chosen();
+        });';
+$this->headScript()->appendScript($js, 'text/javascript');
+?>

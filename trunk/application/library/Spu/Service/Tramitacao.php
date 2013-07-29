@@ -40,6 +40,9 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
             case 'caixaenviado':
                 $tramitacaoTipo = 'caixaanalise';
                 break;
+            case 'caixaarquivo':
+                $tramitacaoTipo = 'caixaarquivo';
+                break;
         }
 
         $query = "SELECT F.cmis:objectId FROM cmis:folder F WHERE (IN_FOLDER ('$idParent')) AND F.cmis:objectTypeId = 'F:spu:$tramitacaoTipo'";
@@ -76,7 +79,15 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
         $protocolos = $protocoloService->getProtocolos();
         $service = new Spu_Service_Tramitacao($this->getTicket());
         
-        return $service->getIdFolderCmis($protocolos[0]->getNodeRef(), $nome);
+        $lotacaoUsuario = new Zend_Session_Namespace('lotacao_usuario');
+        if ($lotacaoUsuario->id) {
+            $nodeRef = "workspace://SpacesStore/{$lotacaoUsuario->id}";
+        } else {
+            $nodeRef = $protocolos[0]->getNodeRef();
+        }
+        $lotacaoUsuario->unsetAll();
+        
+        return $service->getIdFolderCmis($nodeRef, $nome);
     }
 
     public function getProcessosFolderCmis($skipCount, $maxItems, $tramitacaoTipo)
@@ -158,7 +169,7 @@ class Spu_Service_Tramitacao extends Spu_Service_Processo
         if ($assuntoId) {
             $url .= "?assunto-id=$assuntoId";
         }
-        
+
         return $this->_loadManyFromHash($this->_getProcessosFromUrl($url));
     }
 

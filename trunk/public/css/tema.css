@@ -8,8 +8,8 @@
 */
 
 /* Links */
-a:link, a:visited {color: #A32929;padding: 0 1px;text-decoration: underline;}
-a:hover, a:active {background-color: #A32929;color: #fff;text-decoration: none;}
+a:link, a:visited {color: #502F01;padding: 0 1px;text-decoration: underline;}
+a:hover, a:active {background-color: #B67928;color: #fff;text-decoration: none;}
 
 /* Seleção */
 ::-moz-selection {background: #C74350; color: #fff;}
@@ -17,4 +17,4 @@ a:hover, a:active {background-color: #A32929;color: #fff;text-decoration: none;}
 
 /* Cabecalho */
 /*#header {background: url(../img/degradeBordo.jpg) repeat-x #cb0101;border-bottom: 1px solid #990100;}*/
-#header {background: url(../img/bg_topo_vermelho.png) no-repeat #9B0606 center; border-bottom: 1px solid #990100}
+#header {background: url(../img/bg_topo_ocre.png) no-repeat #502F01 center; border-bottom: 1px solid #502F01;}

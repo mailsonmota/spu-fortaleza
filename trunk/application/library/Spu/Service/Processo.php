@@ -28,7 +28,16 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
             $this->getCache()->save($result, $name);
         }
-        
+//        $logger = new Zend_Log();
+//        $writer = new Zend_Log_Writer_Firebug();
+//        $logger->addWriter($writer);
+//        $logger->log($name, Zend_Log::INFO);
+//        try {
+//            $this->getCache()->remove('SpuServiceProcessogetDadosPassoDoisb6e4fe53cbb14f11844ddd247349a7db');
+//        } catch (Exception $exc) {
+//            echo $exc->getTraceAsString();
+//        }
+
         $dados = array();
 
         $serviceProtocolos = new Spu_Service_Protocolo();
@@ -206,15 +215,6 @@ class Spu_Service_Processo extends Spu_Service_Abstract
 
         return $this->_loadManyFromHash($result['Processos'][0]);
     }
-    
-    public function getApensados($uuid)
-    {
-        $url = $this->getBaseUrl() . '/' . $this->_processoBaseUrl . '/' . $uuid . '/apensados';
-        $result = $this->_doAuthenticatedGetRequest($url);
-
-        return $this->_loadManyFromHash($result['Processos'][0]);
-    }
-    
 
     /**
      * Incorpora um processo à outro
@@ -225,22 +225,6 @@ class Spu_Service_Processo extends Spu_Service_Abstract
     public function incorporar($data)
     {
         $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/incorporar";
-        $result = $this->_doAuthenticatedPostRequest($url, $data);
-
-        return $result;
-    }
-    
-    public function apensar($data)
-    {
-        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/apensar";
-        $result = $this->_doAuthenticatedPostRequest($url, $data);
-
-        return $result;
-    }
-    
-    public function desapensar($data)
-    {
-        $url = $this->getBaseUrl() . "/" . $this->_processoBaseUrl . "/desapensar";
         $result = $this->_doAuthenticatedPostRequest($url, $data);
 
         return $result;

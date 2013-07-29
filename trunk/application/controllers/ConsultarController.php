@@ -101,11 +101,11 @@ class ConsultarController extends BaseController
             $this->_redirectToConsulta();
         }
         $processo = trim($this->getRequest()->getPost('globalSearch'));
-        if (!preg_match('/^(\d{0}|[A-Z]{2})(\d{13})(\/\d{4})$/', $processo)) {
+        /*if (!preg_match('/^(\d{0}|[A-Z]{2})(\d{13})(\/\d{4})$/', $processo)) {
             $mensagem = 'Atenção, a busca pelo processo de número "' .$processo. '" não foi correta! Tente novamente em um dos campos abaixo.';
             $this->setErrorMessage($mensagem);
             $this->_redirectToConsulta();
-        }
+        }*/
         
         $postData["numero"] = $this->_getNumeroProcessoPost();
         

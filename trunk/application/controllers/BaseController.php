@@ -13,7 +13,7 @@ require_once 'BaseAuthenticatedController.php';
  */
 abstract class BaseController extends BaseAuthenticatedController
 {
-    
+
     const LIMITE_MOVIMENTACAO = 10;
 
     /**
@@ -119,7 +119,7 @@ abstract class BaseController extends BaseAuthenticatedController
 
         $logger = new Zend_Log(new Zend_Log_Writer_Stream($stream));
         $logger->addPriority('APOSENTADORIA', 10)
-            ->log(implode(" | ", $array), 10);
+                ->log(implode(" | ", $array), 10);
     }
 
     protected function _isTipoAposentadoria($id = null)
@@ -185,30 +185,30 @@ abstract class BaseController extends BaseAuthenticatedController
     {
         return $this->_request->isPost() && $this->_request->isXmlHttpRequest() ? true : false;
     }
-    
+
     public function getBaseUrlAlfresco()
     {
         return Zend_Registry::get('baseUrlAlfresco');
     }
-    
+
     public function getTicketSearch()
     {
         $totem = Zend_Registry::get('totem');
         $alfresco = new Alfresco_Rest_Login($this->getBaseUrlAlfresco() . "/service");
         $ticket = $alfresco->login($totem->user, $totem->senha);
         $alfresco->logout($ticket['ticket']);
-        
+
         return $ticket['ticket'];
     }
-    
+
     public function isGroupSearch()
     {
         $groupSearch = "GROUP_" . strtoupper(Zend_Registry::get('groupSearch'));
         $serv = new Spu_Service_Usuario($this->getTicket());
-        
+
         return in_array($groupSearch, $serv->getGropus());
     }
-    
+
     public function filterValuesArray($dados)
     {
         $filterChain = new Zend_Filter();
@@ -216,7 +216,7 @@ abstract class BaseController extends BaseAuthenticatedController
                 ->addFilter(new Zend_Filter_StripTags())
                 ->addFilter(new Zend_Filter_StripNewlines())
                 ->addFilter(new Zend_Filter_StringTrim());
-        
+
         foreach ($dados as $key => $value) {
             if (is_array($value))
                 foreach ($value as $k => $v)
@@ -224,31 +224,44 @@ abstract class BaseController extends BaseAuthenticatedController
             else
                 $dados[$key] = $filterChain->filter(addslashes($value));
         }
-        
+
         return $dados;
     }
-    
+
     public function getTicketCoordinator()
     {
         $coordinator = Zend_Registry::get('coordinator');
         $alfresco = new Alfresco_Rest_Login($this->getBaseUrlAlfresco() . "/service");
         $ticket = $alfresco->login($coordinator->user, $coordinator->senha);
         $alfresco->logout($ticket['ticket']);
-        
+
         return $ticket['ticket'];
     }
-    
+
     public function setMessageCache()
     {
-        $frase  = 'Por favor, limpe o cache da sua máquina para poder prosseguir corretamente.<br />';
+        $frase = 'Por favor, limpe o cache da sua máquina para poder prosseguir corretamente.<br />';
         $frase .= 'Aperte as seguintes teclas juntas: CRTL+SHIFT+DELETE<br />';
         $frase .= 'Aperte ENTER para limpar o cache e depois F5';
-        
+
         $this->setErrorMessage($frase);
     }
-    
+
     public function getBlogParams()
     {
         return Zend_Registry::get('blog');
     }
+
+    public function getExcludeNodeRed()
+    {
+        return Zend_Registry::get('excludeNodeRefs');
+    }
+    
+    public function removeProtocolos($dados)
+    {
+        foreach ($dados as $key => $value)
+            if (in_array($value->id, $this->getExcludeNodeRed())) unset ($dados[$key]);
+        return $dados;
+    }
+
 }

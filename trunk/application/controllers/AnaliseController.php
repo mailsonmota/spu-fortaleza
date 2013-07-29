@@ -7,6 +7,14 @@ class AnaliseController extends BaseTramitacaoController
 
     public function indexAction()
     {
+        if ($this->_getParam('mostrar') == 'true') {
+            if ($this->_getParam('lotacao_id')) {
+                $lotacaoUsuario = new Zend_Session_Namespace('lotacao_usuario');
+                $lotacaoUsuario->id = $this->_getParam('lotacao_id');
+            }
+            $this->view->mostrar = $this->_getParam('mostrar');
+        }
+        
         if ($this->getRequest()->isPost()) {
             try {
                 $processosSelecionados = $this->getRequest()->getParam('processos');
@@ -69,7 +77,7 @@ class AnaliseController extends BaseTramitacaoController
         $this->view->assuntoId = urldecode($this->_getParam('assunto'));
         $this->view->tiposProcesso = $this->_getListaTiposProcesso();
 
-        if ($this->view->q) {
+        if ($this->view->q ||  $this->view->tipoProcessoId) {
             $service = new Spu_Service_Tramitacao($this->getTicket());
             $busca = $service->getCaixaAnalise(
                 $this->_helper->paginator()->getOffset(), 
@@ -79,6 +87,7 @@ class AnaliseController extends BaseTramitacaoController
             );
             $this->view->totalDocumentos = count($busca);
             $this->view->paginator = $this->_helper->paginator()->paginate($busca);
+            $this->view->mostrar = 'true';
         }
 
         $session = new Zend_Session_Namespace('ap');
@@ -86,6 +95,7 @@ class AnaliseController extends BaseTramitacaoController
             $this->view->updateaposentadoria = $session->updateaposentadoria;
         }
         Zend_Session::namespaceUnset('ap');
+        $this->view->listaOrigens = $this->_getListaOrigens();
     }
     
     public function encaminharOkAction()
