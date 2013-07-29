@@ -12,7 +12,6 @@ echo $this->pagenav()->closeList();
         echo $this->partial('snippets/detalhesProcesso.phtml',
                             array('processo' => $this->processo,
                                   'processosParalelos' => $this->processosParalelos,
-                                  'processosApensados' => $this->processosApensados,
                                   'processosIncorporados' => $this->processosIncorporados));
         echo $this->partial('snippets/movimentacoes.phtml', array('movimentacoes' => $this->processo->movimentacoes));
     ?>

@@ -34,4 +34,27 @@ abstract class BaseAuthenticatedController extends Zend_Controller_Action
             }
         }
     }
+    
+    public function getExcludeNodeRed()
+    {
+        return Zend_Registry::get('excludeNodeRefs');
+    }
+    
+    protected function _getListaOrigens()
+    {
+        $protocoloService = new Spu_Service_Protocolo($this->getTicket());
+        $protocolos = $protocoloService->getProtocolos();
+        $listaProtocolos = array();
+        foreach ($protocolos as $protocolo) {
+            $listaProtocolos[$protocolo->id] = $protocolo->path;
+        }
+
+        if (count($listaProtocolos) == 0) {
+            throw new Exception(
+                'Você não pode enviar nenhum processo, pois não possui acesso à nenhum protocolo.'
+            );
+        }
+
+        return $listaProtocolos;
+    }
 }

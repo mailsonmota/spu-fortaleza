@@ -2,11 +2,25 @@
 
 require_once('BaseTramitacaoController.php');
 
-class ArquivoController extends BaseTramitacaoController
-{
+class ArquivoController extends BaseTramitacaoController {
 
-    public function indexAction()
-    {
+    public function indexAction() {
+        if ($this->_getParam('mostrar') == 'true') {
+
+            $this->view->mostrar = $this->_getParam('mostrar');
+
+            $this->view->q = urldecode($this->_getParam('q'));
+            $this->view->tipoProcessoId = urldecode($this->_getParam('tipo-processo'));
+            $this->view->assuntoId = urldecode($this->_getParam('assunto'));
+            $this->view->tiposProcesso = $this->_getListaTiposProcesso();
+            $service = new Spu_Service_Tramitacao($this->getTicket());
+            $busca = $service->getCaixaArquivo(
+                            $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize(), $this->view->q, $this->view->assuntoId
+            );
+            $this->view->paginator = $this->_helper->paginator()->paginate($busca);
+            $this->view->totalDocumentos = count($busca);
+        }
+
         if ($this->getRequest()->isPost()) {
             try {
                 $processosSelecionados = $this->getRequest()->getParam('processos');
@@ -24,18 +38,22 @@ class ArquivoController extends BaseTramitacaoController
             }
         }
 
-        $this->view->q = urldecode($this->_getParam('q'));
-        $this->view->tipoProcessoId = urldecode($this->_getParam('tipo-processo'));
-        $this->view->assuntoId = urldecode($this->_getParam('assunto'));
+        if ($this->_getParam('q')) {
+            $this->view->q = urldecode($this->_getParam('q'));
+            $this->view->tipoProcessoId = urldecode($this->_getParam('tipo-processo'));
+            $this->view->assuntoId = urldecode($this->_getParam('assunto'));
+            $this->view->tiposProcesso = $this->_getListaTiposProcesso();
+
+            $service = new Spu_Service_Tramitacao($this->getTicket());
+            $busca = $service->getCaixaArquivo(
+                            $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize(), $this->view->q, $this->view->assuntoId
+            );
+
+            $this->view->paginator = $this->_helper->paginator()->paginate($busca);
+            $this->view->totalDocumentos = count($busca);
+            $this->view->mostrar = 'true';
+        }
         $this->view->tiposProcesso = $this->_getListaTiposProcesso();
-
-        $service = new Spu_Service_Tramitacao($this->getTicket());
-        $busca = $service->getCaixaArquivo(
-                $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize(), $this->view->q, $this->view->assuntoId
-        );
-
-        $this->view->paginator = $this->_helper->paginator()->paginate($busca);
-        $this->view->totalDocumentos = count($busca);
 
         $session = new Zend_Session_Namespace('ap');
         if (isset($session->updateaposentadoria)) {
@@ -44,27 +62,23 @@ class ArquivoController extends BaseTramitacaoController
         Zend_Session::namespaceUnset('ap');
     }
 
-    protected function _redirectArquivo()
-    {
+    protected function _redirectArquivo() {
         $this->_helper->redirector('index', 'arquivo');
     }
-    
-    protected function _redirectArquivar()
-    {
+
+    protected function _redirectArquivar() {
         $this->_helper->redirector('arquivar', 'arquivo');
     }
 
-    protected function _redirectReabrir()
-    {
+    protected function _redirectReabrir() {
         $this->_helper->redirector('reabrir', $this->getController(), 'default');
     }
 
-    public function arquivarAction()
-    {
+    public function arquivarAction() {
         if ($this->getRequest()->isPost()) {
-            
+
             $this->_limparCache();
-            
+
             try {
                 $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
                 $tramitacaoService->arquivarVarios($this->getRequest()->getPost());
@@ -95,24 +109,21 @@ class ArquivoController extends BaseTramitacaoController
         $this->view->processos = $processos;
         $this->view->listaStatusArquivamento = $listaStatusArquivamento;
     }
-    
-    public function arquivarOkAction()
-    {
+
+    public function arquivarOkAction() {
         $this->setSuccessMessage('Processos arquivados com sucesso.');
         $this->_redirectArquivo();
     }
-    
-    public function arquivarFalhaAction()
-    {
+
+    public function arquivarFalhaAction() {
         $processo_falha = $this->getRequest()->getParam('np');
         $processo_falha = str_replace("_", "/", $processo_falha);
         $this->setErrorMessage("Falha ao arquivar o processo de número $processo_falha");
-        
+
         $this->_redirectEmAnalise();
     }
 
-    protected function _getListaStatusArquivamento()
-    {
+    protected function _getListaStatusArquivamento() {
         $statusArquivamentoService = new Spu_Service_StatusArquivamento($this->getTicket());
         $opcoes = $statusArquivamentoService->fetchAll();
         $listaStatusArquivamento = array();
@@ -130,12 +141,14 @@ class ArquivoController extends BaseTramitacaoController
         return $listaStatusArquivamento;
     }
 
-    public function reabrirAction()
-    {
+    public function reabrirAction() {
         if ($this->getRequest()->isPost()) {
             try {
                 $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
-                $tramitacaoService->reabrirVarios($this->getRequest()->getPost());
+                $idParent = $tramitacaoService->getIdCaixa("caixaanalise");
+                $postData = $this->getRequest()->getPost();
+                $postData["caixaAnaliseId"] = substr($idParent, 24);
+                $tramitacaoService->reabrirVarios($postData);
                 $this->setSuccessMessage('Processos reabertos com sucesso.');
 
                 $session = new Zend_Session_Namespace('ap');
@@ -161,9 +174,8 @@ class ArquivoController extends BaseTramitacaoController
 
         $this->view->processos = $processos;
     }
-    
-    private function _limparCache()
-    {
+
+    private function _limparCache() {
         $this->setMessageCache();
 
         $this->_redirectArquivar();

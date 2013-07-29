@@ -44,9 +44,9 @@ class ProcessoController extends BaseController
         $this->view->processo = $processo;
         $this->view->processosParalelos = $processosParalelos;
         $this->view->processosIncorporados = $processoService->getIncorporados($idProcesso);
-        $this->view->processosApensados = $processoService->getApensados($idProcesso);
-        if ($this->getRequest()->getParam('origem') == "analise" && $this->view->processosApensados)
-            $this->view->processosApensados["origem"] = "analise";
+        //$this->view->processosApensados = $processoService->getApensados($idProcesso);
+        //if ($this->getRequest()->getParam('origem') == "analise" && $this->view->processosApensados)
+        //    $this->view->processosApensados["origem"] = "analise";
 
         $session = new Zend_Session_Namespace('ap');
         if (isset($session->updateaposentadoria)) {
@@ -151,7 +151,7 @@ class ProcessoController extends BaseController
 
         $this->view->processo = $processo;
         $this->view->listaPrioridades = $listaPrioridades;
-        $this->view->listaProtocolos = $listaProtocolos;
+        $this->view->listaProtocolos = $this->removeProtocolos($listaProtocolos);
     }
 
     public function arquivoAction()

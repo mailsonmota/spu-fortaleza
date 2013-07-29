@@ -74,10 +74,6 @@ class ProcessosAjaxController extends BaseController
     public function cancelarEnvioAction()
     {
         $this->ajaxNoRender();
-        echo '<pre>';
-        var_dump("oi");
-        echo '</pre>';
-        die("---- DIE ----");
         $postData = array("processos" => array($this->getRequest()->getPost("processoId")));
         $postData["caixaAnaliseId"] = $this->getRequest()->getPost("caixaAnaliseId");
         if (!$postData["caixaAnaliseId"]) {
@@ -134,6 +130,8 @@ class ProcessosAjaxController extends BaseController
 
         try {
             $tramitacaoService = new Spu_Service_Tramitacao($this->getTicket());
+            $idParent = $tramitacaoService->getIdCaixa("caixaarquivo");
+            $postData["caixaArquivoId"] = substr($idParent, 24);
             $tramitacaoService->arquivarVarios($postData);
         } catch (Exception $exc) {
             header("HTTP/1.1 500 Internal Server Error");

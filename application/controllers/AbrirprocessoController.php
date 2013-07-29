@@ -20,7 +20,7 @@ class AbrirprocessoController extends BaseController
         }
 
         $this->view->listaTiposProcesso = $listaTiposProcesso;
-        $this->view->listaOrigens = $listaOrigens;
+        $this->view->listaOrigens = array_diff_key($listaOrigens, array_flip($this->getExcludeNodeRed()));
     }
 
     protected function _getIdOrigemPreferencial($listaOrigens)
@@ -52,7 +52,7 @@ class AbrirprocessoController extends BaseController
             $servico = new Spu_Service_Processo($this->getTicket());
             $tipoProcesso = $this->_getTipoProcesso($this->_getIdTipoProcessoUrl());
             $dados = $servico->getDadosPassoDois($this->_getIdTipoProcessoUrl());
-            $listaProtocolos = $dados['Protocolos'];
+            $listaProtocolos = $this->removeProtocolos($dados['Protocolos']);
             $listaAssuntos = $this->_getListaAssuntos(null, $dados['Assuntos']);
             $listaBairros = $this->_getListaBairros($dados['Bairros']);
             $listaTiposManifestante = $this->_getListaTiposManifestante(null, $dados['Manifestantes']);
@@ -433,6 +433,50 @@ class AbrirprocessoController extends BaseController
             );
         }
 
+	/*$exclude_id = array(
+            "9cbc854a-f13a-4206-8ee9-5ce45ac371fe",
+            "cb97e228-46a2-4a40-a080-7d52479218e3",
+            "d7b52d58-847e-49e2-8201-f74f5bd949ea",
+            "4c69829c-431b-49f2-83e3-4ed61ea7a2e3",
+            "1afc2def-b116-427b-80f2-81d2af6f2e39",
+            "3f564c5f-2faf-4a5e-8d92-a6e3d99ff923",
+            "8139ed82-59cd-4da9-9181-6b0cdb2f62ca",
+            "0f8afb3a-aecb-404a-8f76-664e33d92948",
+            "f8027314-e0fd-4abb-8cec-a2f20d5f0537",
+            "b4d690a7-00fc-4202-ae50-62cf798e3669",
+            "726877fd-2e08-44e6-98da-3887e09efc50",
+            "c807e0f0-b394-45ce-807e-f9637a1c5ee2",
+            "7118d649-33c5-4947-a941-5c44f1c66c0f",
+            "1c3fcf02-62e1-4fef-bcbb-3cb3eb498e62",
+            "20f0f1ae-5fef-4859-a3cc-4c4b9305f21f",
+            "2c16a2ad-da64-44c7-b0aa-197985258f8d",
+            "29bb51f6-42ba-4f65-9fd4-0a6293ae6751",
+            "20ec1030-70cd-41c1-84f5-b67a004af4e7",
+            "7c7f40b7-14df-4999-be1b-5852178815cb",
+            "0924c01e-17c9-4b84-800c-1f9ac8f83c95",
+            "256f9a8f-971b-454a-8538-471584bea175",
+            "81bcde77-c8f6-448e-aeae-aab6cd7fa7fc",
+            "bf3414d8-0b2a-4e6a-a110-2a25e0ef8401",
+            "1e6fe2e6-83a5-4bc0-8a9b-895d2fd232a0",
+            "796b92c1-c750-4f1b-bc52-3e54101ff177",
+            "d5928994-6d0b-4864-bf91-7268ec26d337",
+            "fb5d5159-d554-4728-ac85-0efa36354876",
+            "7a3d9452-f9f0-48eb-80d5-1acf027b1e6c",
+            "be4bae5d-f659-4990-976c-762d24fea51a",
+            "a790a3a3-ca9d-40da-b75f-d94b42d3272f",
+            "845a6e0f-f9bb-404d-bee3-76e53d3cacda",
+            "4ad7d13e-0386-470a-946b-3705b04b8aa1",
+            "1cfb653b-dc75-4a91-a2c0-7b5a9d681d37",
+            "011eb7e9-2be2-4087-8c66-c9ac1cee21b1",
+            "684fac0c-6e3e-43de-b1ff-551edb6cb2b9",
+            "1d0157fd-412d-4f7c-b595-eafb8d9c4080",
+            "a58b86b9-18fd-46cf-b829-83ff5cc4f56c",
+            "9c303165-084e-4279-8f8c-56921aa8ad80",
+            "48566614-f4eb-4040-aa7f-9a358bfe6078",
+            "7842bb5d-b0cb-428d-8336-2585d902c9af"
+        );
+        $listaAssuntos = array_diff_key($listaAssuntos, array_flip($exclude_id));
+*/
         return $this->_ordenarListaAssuntos($listaAssuntos);
     }
 

@@ -12,14 +12,25 @@ class EntradaController extends BaseTramitacaoController
         $this->view->assuntoId = urldecode($this->_getParam('assunto'));
         $this->view->tiposProcesso = $this->_getListaTiposProcesso();
 
-        if ($this->view->q) {
+        if ($this->_getParam('mostrar') == 'true') {
+            if ($this->_getParam('lotacao_id')) {
+                $lotacaoUsuario = new Zend_Session_Namespace('lotacao_usuario');
+                $lotacaoUsuario->id = $this->_getParam('lotacao_id');
+            }
+            $this->view->mostrar = $this->_getParam('mostrar');
+        }
+
+        if ($this->view->q || $this->view->tipoProcessoId) {
             $service = new Spu_Service_Tramitacao($this->getTicket());
             $busca = $service->getCaixaEntrada(
-                $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize(), $this->view->q, $this->view->assuntoId
+                    $this->_helper->paginator()->getOffset(), $this->_helper->paginator()->getPageSize(), $this->view->q, $this->view->assuntoId
             );
             $this->view->totalDocumentos = count($busca);
             $this->view->paginator = $this->_helper->paginator()->paginate($busca);
+            $this->view->mostrar = 'true';
         }
+
+        $this->view->listaOrigens = $this->_getListaOrigens();
     }
 
     public function receberAction()
@@ -59,7 +70,7 @@ class EntradaController extends BaseTramitacaoController
         $processo_falha = $this->getRequest()->getParam('np');
         $processo_falha = str_replace("_", "/", $processo_falha);
         $this->setErrorMessage("Falha ao receber o processo de número $processo_falha");
-        
+
         $this->_redirectEntrada();
     }
 

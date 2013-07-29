@@ -28,6 +28,15 @@ echo $this->pagenav()->closeList();
             ?>
         </fieldset>
     </form>
+
+     <?php if ($this->mostrar <> 'true'){ ?>
+
+        <a href="<?php echo $this->url(array("action" => 'index','mostrar' => 'true'))  ?>"">Listar Processos</a>
+
+    <?php } ?>
+
+    <?php
+    if ($this->mostrar == 'true') { ?>
 	
     <form action="" method="post">
         <?php 
@@ -78,4 +87,5 @@ echo $this->pagenav()->closeList();
         	</tbody>
         </table>
     </form>
+        <?php    } ?>
 </div>

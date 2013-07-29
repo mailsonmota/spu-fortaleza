@@ -1,13 +1,15 @@
 <fieldset>
     <legend>Movimentações</legend>
     <table class="historico">
-    	<tbody>
-    	<?php if ($this->movimentacoes): foreach ($this->movimentacoes as $movimentacao): ?>
-    	<tr>
-    		<td class="dataMovimentacao"><?php echo $movimentacao->data ?> às <?php echo $movimentacao->hora ?></td>
-    		<td class="descricaoMovimentacao"><?php echo stripslashes($movimentacao->descricao) ?></td>
-    	</tr>
-    	<?php endforeach; endif ?>
-    	</tbody>
+        <tbody>
+            <?php if ($this->movimentacoes): ?>
+                <?php foreach ($this->movimentacoes as $movimentacao): ?>
+                    <tr>
+                        <td class="dataMovimentacao"><?php echo $movimentacao->data ?> às <?php echo $movimentacao->hora ?></td>
+                        <td class="descricaoMovimentacao"><?php echo stripslashes($movimentacao->descricao) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </tbody>
     </table>
 </fieldset>

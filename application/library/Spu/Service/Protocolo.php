@@ -40,7 +40,7 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
         $url = $this->getBaseUrl() . "/" . $this->_protocoloBaseUrl . "/listar";
 
         $result = $this->_doAuthenticatedGetRequest($url);
-        
+
         return $this->_loadManyFromHash($result['Protocolos']);
     }
 
@@ -93,7 +93,7 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
                 . "&tipoProcessoId={$tipoProcessoId}&filter={$filter}&offset={$offset}&pageSize={$pageSize}";
 
         $result = $this->_doAuthenticatedGetRequest($url);
-        
+
         return $this->_loadManyFromHash($result['Protocolos'][0]);
     }
 
@@ -138,9 +138,14 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
      */
     public function _loadManyFromHash($hash)
     {
-        $protocolos = array();
         if ($hash) {
-            foreach ($hash as $hashProtocolo) {
+            $listaOrgaoSetor = array();
+
+            foreach ($hash as $value) {
+                $listaOrgaoSetor[substr($value[key($value)]["noderef"], 24)] = $value;
+            }
+
+            foreach ($listaOrgaoSetor as $hashProtocolo) {
                 $hashProtocolo = array_pop($hashProtocolo);
                 $protocolos[] = $this->loadFromHash($hashProtocolo);
             }
@@ -166,7 +171,7 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
 
             $this->getCache()->save($result, $name);
         }
-        
+
         return $this->_loadManyFromHash($result['Protocolos']);
     }
 
@@ -199,7 +204,7 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
     {
         $url = "{$this->getBaseUrl()}/{$this->_protocoloBaseUrl}/listar-filhos/$parentId";
         $url .= $this->_getParametrosAdicionarListagemProtocolos($protocoloOrigemId, $tipoProcessoId);
-        
+
         $idNome = $parentId . $this->getNameProtocolo($protocoloOrigemId);
         $name = $this->getNameForMethod('getProtocolosFilhos', $idNome);
         if (($result = $this->getCache()->load($name)) === false) {
@@ -211,15 +216,14 @@ class Spu_Service_Protocolo extends Spu_Service_Abstract
 
         return $this->_loadManyFromHash($result['Protocolos']);
     }
-    
+
     public function getNameProtocolo($protocoloOrigemId)
     {
         $pathTotal = $this->getProtocolo($protocoloOrigemId)->path;
         $pathTotal = explode("/", $pathTotal);
         $nameProtocolo = (null == $pathTotal[0] ? $pathTotal[1] : $pathTotal[0]);
-        
+
         return $nameProtocolo;
-        
     }
 
 }

@@ -15,6 +15,38 @@ echo $this->pagenav()->closeList();
 <div id="article">
     <?php echo $this->render('snippets/formularioPesquisaRapidaProcesso.phtml') ?>
 
+    <?php if ($this->mostrar <> 'true'){ ?>
+        
+        <?php if (count($this->listaOrigens) > 1) : ?>
+            <strong>Selecione a lotação:</strong>
+            <select id="lotacao-usuario">
+                <?php foreach ($this->listaOrigens as $key => $value) : ?>
+                    <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                <?php endforeach;?>
+            </select>
+        <?php endif;?>
+        <br/>
+        <a id="listar-processos" href="<?php echo $this->url(array("action" => 'index','mostrar' => 'true'))  ?>" >Listar Processos</a>
+        <?php 
+            $this->headScript()->appendScript('
+                $(function (){
+                    var select_lotacao_usuario = $("select#lotacao-usuario");
+                    if (select_lotacao_usuario.length) {
+                        var lotacao_id_escolhida = $("select#lotacao-usuario").find("option").first().val();
+                        var url_listar = $("a#listar-processos").attr("href");
+                        $("a#listar-processos").attr("href", url_listar + "/lotacao_id/" + lotacao_id_escolhida);
+                        select_lotacao_usuario.change(function (event){
+                            lotacao_id_escolhida = $(this).find("option:selected").val();
+                            $("a#listar-processos").attr("href", url_listar + "/lotacao_id/" + lotacao_id_escolhida);
+                        });
+                    }
+                });
+            ');
+        ?>
+    
+    <?php } ?>
+    <?php
+    if ($this->mostrar == 'true') { ?>
     <form action="<?php echo $this->simpleUrl('receber') ?>" method="post">
         <?php
         echo $this->buttonlist()->open();
@@ -42,6 +74,7 @@ echo $this->pagenav()->closeList();
         endif;
         ?>
     </form>
+        <?php    } ?>
 </div>
 
 <?php

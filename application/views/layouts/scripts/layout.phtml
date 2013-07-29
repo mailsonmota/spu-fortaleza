@@ -10,7 +10,7 @@
 
         <div id="header">
             <h1><a href="<?php echo $this->baseUrl(); ?>">
-                    Sistema de Protocolo Único</a>
+                Sistema de Protocolo Único</a>
                 <span>Prefeitura Municipal de Fortaleza</span>
             </h1>
 
@@ -25,46 +25,49 @@
 
         <div id="container">
             <div id="menu">
-                <form action="<?php echo $this->simpleUrl('buscar', 'consultar') ?>" method="post">
-                    <p id="globalSearch">
-                        <label for="search">Buscar Processo</label>
-                        <input type="text" name="globalSearch" placeholder="número do processo" id="search"/>
-                        <button type="submit" name="doGlobalSearch">Buscar</button>
-                    </p>
-                </form>
-                <?php
-                $menu = $this->mainmenu();
-                $menu->setAutoOrder(TRUE);
+            	<form action="<?php echo $this->simpleUrl('buscar', 'consultar') ?>" method="post">
+	            	<p id="globalSearch">
+	            		<label for="search">Buscar Processo</label>
+	            		<input type="text" name="globalSearch" placeholder="número do processo" id="search"/>
+	            		<button type="submit" name="doGlobalSearch">Buscar</button>
+	            	</p>
+            	</form>
+	            <?php
+	            $menu = $this->mainmenu();
+	            $menu->setAutoOrder(TRUE);
 
-                $menu->addItem('Início', $this->simpleUrl('index', 'index'), 'Usuário');
-                $menu->addItem('Cadastro', $this->simpleUrl('cadastro', 'usuario'), 'Usuário');
-                $menu->addItem('Sair', $this->simpleUrl('logout', 'auth'), 'Usuário');
+	            $menu->addItem('Início', $this->simpleUrl('index', 'index'), 'Usuário');
+	            $menu->addItem('Cadastro', $this->simpleUrl('cadastro', 'usuario'), 'Usuário');
+	            $menu->addItem('Sair', $this->simpleUrl('logout', 'auth'), 'Usuário');
 
-                if (!$this->pessoa->isGuest()) {
-                    if ($this->pessoa->isAdministrador()) {
-                        $menu->addItem('Tipos de Processos', $this->simpleUrl('', 'tiposprocesso'), 'Cadastros');
-                    }
+	            if (!$this->pessoa->isGuest()) {
+		            if ($this->pessoa->isAdministrador()) {
+			            $menu->addItem('Tipos de Processos', $this->simpleUrl('', 'tiposprocesso'), 'Cadastros');
+			        }
 
-                    if (!$this->pessoa->isAdministrador()) {
-                        $menu->addItem('Abertura', $this->simpleUrl('', 'abrirprocesso'), 'Processos');
-                        $menu->addItem('Tramitação', $this->simpleUrl('', 'entrada'), 'Processos');
-                        $menu->addItem('Incorporação', $this->simpleUrl('', 'incorporacao'), 'Processos');
-                        $menu->addItem('Apensamento', $this->simpleUrl('', 'apensamento'), 'Processos');
-                        $menu->addItem('Envolvidos', $this->simpleUrl('', 'envolvidos'), 'Processos');
-                    }
-                    $menu->addItem('Lotações', $this->simpleUrl('', 'protocolos'), 'Processos');
-                    $menu->addItem('Consulta', $this->simpleUrl('', 'consultar'), 'Processos');
-                    $menu->addItem('Processos Antigos', 'http://spu.fortaleza.ce.gov.br/spu/estrutura/index.php', 'Processos', null, array('target' => '_blank'));
-                }
+		            if (!$this->pessoa->isAdministrador()) {
+		            	$menu->addItem('Abertura', $this->simpleUrl('', 'abrirprocesso'), 'Processos');
+			            $menu->addItem('Tramitação', $this->simpleUrl('', 'entrada'), 'Processos');
+			            $menu->addItem('Incorporação', $this->simpleUrl('', 'incorporacao'), 'Processos');
+			            $menu->addItem('Envolvidos', $this->simpleUrl('', 'envolvidos'), 'Processos');
+		            }
+		            $menu->addItem('Lotações', $this->simpleUrl('', 'protocolos'), 'Processos');
+		            $menu->addItem('Consulta', $this->simpleUrl('', 'consultar'), 'Processos');
+		            $menu->addItem('Processos Antigos',
+		            			   'http://spu.fortaleza.ce.gov.br/spu/estrutura/index.php',
+		            			   'Processos',
+		            			   null,
+		            			   array('target' => '_blank'));
+	            }
 
-                echo $menu->render();
-                ?>
-            </div>
+	            echo $menu->render();
+	            ?>
+	        </div>
 
-            <div id="section">
-                <?php echo $this->message()->render(); ?>
-<?php echo $this->layout()->content ?>
-            </div>
+	        <div id="section">
+	            <?php echo $this->message()->render(); ?>
+	            <?php echo $this->layout()->content ?>
+	        </div>
         </div>
 
         <div id="footer">
@@ -76,9 +79,9 @@
             <address>Central de Suporte: 3105-1381 ou 3452-3472 / suporte.spu@cti.fortaleza.ce.gov.br</address>
 
             <ul>
-                <li><a href="<?php echo $this->baseUrl(); ?>/docs/manual.pdf" target="_blank"  >Manual do Usuário</a></li>
+                <li><a href="<?php echo $this->baseUrl();?>/docs/manual.pdf" target="_blank"  >Manual do Usuário</a></li>
             </ul>
         </div>
-<?php echo $this->headScript() ?>
+        <?php echo $this->headScript() ?>
     </body>
 </html>
