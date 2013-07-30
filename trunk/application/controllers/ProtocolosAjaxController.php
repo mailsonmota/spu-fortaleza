@@ -49,13 +49,24 @@ class ProtocolosAjaxController extends BaseAuthenticatedController
     {
         $service = new Spu_Service_Protocolo($this->getTicket());
         $origem = $this->_getParam('origem');
-
-        if (!$origem) {
-            $origem = $this->_getProtocoloOrigem();
+        $lotacoes = $this->_getProtocoloOrigem();
+        if (count($lotacoes) == 1) {
+            if (!$origem) $origem = $lotacoes;
+        } else {
+            foreach ($lotacoes as $value) {
+                $prot = $service->getProtocolosFilhos($this->_getParam('parent-id'), $value);
+                if(count($prot) > 1) $protocolos = $prot;
+            }
         }
+        
+        if(count($protocolos) == 0)
+            $protocolos = $service->getProtocolosFilhos($this->_getParam('parent-id'), $origem);
 
-        $protocolos = $service->getProtocolosFilhos($this->_getParam('parent-id'), $origem);
-
+        $this->_helper->json($this->_arrayProtocolos($protocolos), true);
+    }
+    
+    private function _arrayProtocolos($protocolos)
+    {
         $protocolosJson = array();
         $nodeRefsExcludeds = $this->getExcludeNodeRed();
         
@@ -70,7 +81,7 @@ class ProtocolosAjaxController extends BaseAuthenticatedController
 
         ksort($protocolosJson);
         
-        $this->_helper->json(array_values($protocolosJson), true);
+        return array_values($protocolosJson);
     }
 
     public function _getProtocoloOrigem()
@@ -78,8 +89,13 @@ class ProtocolosAjaxController extends BaseAuthenticatedController
         $protocoloService = new Spu_Service_Protocolo($this->getTicket());
         $protocolos = $protocoloService->getProtocolos();
 
-        if (count($protocolos) != 1)
-            return null;
+        if (count($protocolos) != 1) {
+            $protocolos_ids = array();
+            foreach ($protocolos as $value)
+                $protocolos_ids[] = $value->id;
+            
+            return $protocolos_ids;
+        }
 
         return $protocolos[0]->id;
     }
